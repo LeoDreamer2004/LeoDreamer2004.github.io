@@ -2,42 +2,51 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>LeoDreamer</title>
-        <link>http://localhost:1313/</link>
+        <link>https://LeoDreamer2004.github.io/</link>
         <description>Recent content on LeoDreamer</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>LeoDreamer</copyright>
-        <lastBuildDate>Thu, 09 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>存档</title>
-        <link>http://localhost:1313/archives/</link>
+        <lastBuildDate>Thu, 09 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>最优化方法</title>
+        <link>https://LeoDreamer2004.github.io/p/opt-method/</link>
         <pubDate>Thu, 09 Jan 2025 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/archives/</guid>
+        <guid>https://LeoDreamer2004.github.io/p/opt-method/</guid>
+        <description>&lt;h2 id=&#34;简介&#34;&gt;简介
+&lt;/h2&gt;&lt;p&gt;$a+65=b$&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>存档</title>
+        <link>https://LeoDreamer2004.github.io/archives/</link>
+        <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/archives/</guid>
         <description></description>
         </item>
         <item>
         <title>关于</title>
-        <link>http://localhost:1313/%E5%85%B3%E4%BA%8E/</link>
+        <link>https://LeoDreamer2004.github.io/%E5%85%B3%E4%BA%8E/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/%E5%85%B3%E4%BA%8E/</guid>
-        <description>&lt;p&gt;This is a test page for i18n support.&lt;/p&gt;
-</description>
+        <guid>https://LeoDreamer2004.github.io/%E5%85%B3%E4%BA%8E/</guid>
+        <description></description>
         </item>
         <item>
         <title>搜索</title>
-        <link>http://localhost:1313/search/</link>
+        <link>https://LeoDreamer2004.github.io/search/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/search/</guid>
+        <guid>https://LeoDreamer2004.github.io/search/</guid>
         <description></description>
         </item>
         <item>
         <title>相关链接</title>
-        <link>http://localhost:1313/%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5/</link>
+        <link>https://LeoDreamer2004.github.io/%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5/</guid>
+        <guid>https://LeoDreamer2004.github.io/%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5/</guid>
         <description></description>
         </item>
         
