@@ -1,0 +1,31 @@
+.def {
+    background-color: white;
+    padding: 16px;
+    border: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    /* 添加轻微阴影效果 */
+    border-radius: 8px;
+    /* 可选：圆角效果 */
+    position: relative;
+    /* 允许标题绝对定位 */
+    width: 300px;
+    /* 可根据需要调整宽度 */
+}
+
+.def::before {
+    content: "定义";
+    /* 添加标题内容 */
+    position: absolute;
+    top: 20px;
+    left: 10px;
+    /* 调整标题位置 */
+    background-color: white;
+    padding: 0 8px;
+    /* 添加背景填充，让文字更突出 */
+    font-size: 14px;
+    /* 设置字体大小 */
+    font-weight: bold;
+    /* 设置字体加粗 */
+    color: black;
+    /* 设置标题颜色 */
+}
