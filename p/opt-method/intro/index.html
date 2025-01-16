@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 本节课件链接\n概要 最优化问题的一般形式:\n$$ \\begin{aligned} \\min_{x} \\quad & f(x) \\\\ \\text{s.t.} \\quad & g_i(x) \\leq 0, \\quad i = 1, 2, \\ldots, m \\\\ & h_j(x) = 0, \\quad j = 1, 2, \\ldots, p \\end{aligned} $$稀疏优化 考虑线性方程组 $Ax = b$, 优化函数 $\\min_{x \\in R^n} {\\Vert x \\Vert}_0, {\\Vert x \\Vert}_1, {\\Vert x \\Vert}_2$, 分别指代 $x$ 的非零元个数, $l_1, l_2$ 范数。 LASSO(least absolute shrinkage and selection operator) 问题:\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 本节课件链接\n概要 最优化问题的一般形式:\n$$ \\begin{aligned} \\min_{x} \\quad & f(x) \\\\ \\text{s.t.} \\quad & g_i(x) \\leq 0, \\quad i = 1, 2, \\ldots, m \\\\ & h_j(x) = 0, \\quad j = 1, 2, \\ldots, p \\end{aligned} $$稀疏优化 考虑线性方程组 $Ax = b$, 优化函数 $\\min_{x \\in R^n} {\\Vert x \\Vert}_0, {\\Vert x \\Vert}_1, {\\Vert x \\Vert}_2$, 分别指代 $x$ 的非零元个数, $l_1, l_2$ 范数. LASSO(least absolute shrinkage and selection operator) 问题:\n">
 <title>最优化方法(1) —— 简介</title>
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/opt-method/intro/'>
 
 <link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="最优化方法(1) —— 简介">
-<meta property='og:description' content=" 本节课件链接\n概要 最优化问题的一般形式:\n$$ \\begin{aligned} \\min_{x} \\quad & f(x) \\\\ \\text{s.t.} \\quad & g_i(x) \\leq 0, \\quad i = 1, 2, \\ldots, m \\\\ & h_j(x) = 0, \\quad j = 1, 2, \\ldots, p \\end{aligned} $$稀疏优化 考虑线性方程组 $Ax = b$, 优化函数 $\\min_{x \\in R^n} {\\Vert x \\Vert}_0, {\\Vert x \\Vert}_1, {\\Vert x \\Vert}_2$, 分别指代 $x$ 的非零元个数, $l_1, l_2$ 范数。 LASSO(least absolute shrinkage and selection operator) 问题:\n">
+<meta property='og:description' content=" 本节课件链接\n概要 最优化问题的一般形式:\n$$ \\begin{aligned} \\min_{x} \\quad & f(x) \\\\ \\text{s.t.} \\quad & g_i(x) \\leq 0, \\quad i = 1, 2, \\ldots, m \\\\ & h_j(x) = 0, \\quad j = 1, 2, \\ldots, p \\end{aligned} $$稀疏优化 考虑线性方程组 $Ax = b$, 优化函数 $\\min_{x \\in R^n} {\\Vert x \\Vert}_0, {\\Vert x \\Vert}_1, {\\Vert x \\Vert}_2$, 分别指代 $x$ 的非零元个数, $l_1, l_2$ 范数. LASSO(least absolute shrinkage and selection operator) 问题:\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/opt-method/intro/'>
 <meta property='og:site_name' content='LeoDreamer'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-01-12T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-01-12T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="最优化方法(1) —— 简介">
-<meta name="twitter:description" content=" 本节课件链接\n概要 最优化问题的一般形式:\n$$ \\begin{aligned} \\min_{x} \\quad & f(x) \\\\ \\text{s.t.} \\quad & g_i(x) \\leq 0, \\quad i = 1, 2, \\ldots, m \\\\ & h_j(x) = 0, \\quad j = 1, 2, \\ldots, p \\end{aligned} $$稀疏优化 考虑线性方程组 $Ax = b$, 优化函数 $\\min_{x \\in R^n} {\\Vert x \\Vert}_0, {\\Vert x \\Vert}_1, {\\Vert x \\Vert}_2$, 分别指代 $x$ 的非零元个数, $l_1, l_2$ 范数。 LASSO(least absolute shrinkage and selection operator) 问题:\n">
+<meta name="twitter:description" content=" 本节课件链接\n概要 最优化问题的一般形式:\n$$ \\begin{aligned} \\min_{x} \\quad & f(x) \\\\ \\text{s.t.} \\quad & g_i(x) \\leq 0, \\quad i = 1, 2, \\ldots, m \\\\ & h_j(x) = 0, \\quad j = 1, 2, \\ldots, p \\end{aligned} $$稀疏优化 考虑线性方程组 $Ax = b$, 优化函数 $\\min_{x \\in R^n} {\\Vert x \\Vert}_0, {\\Vert x \\Vert}_1, {\\Vert x \\Vert}_2$, 分别指代 $x$ 的非零元个数, $l_1, l_2$ 范数. LASSO(least absolute shrinkage and selection operator) 问题:\n">
     </head>
     <body class="
     article-page
@@ -131,7 +131,7 @@
         
         
         <li >
-            <a href='/%E5%85%B3%E4%BA%8E/' >
+            <a href='/about/' >
                 
                 
                 
@@ -189,7 +189,7 @@
         
         
         <li >
-            <a href='/%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5/' >
+            <a href='/links/' >
                 
                 
                 
@@ -341,7 +341,7 @@ $$
 & h_j(x) = 0, \quad j = 1, 2, \ldots, p
 \end{aligned}
 $$<h2 id="稀疏优化">稀疏优化
-</h2><p>考虑线性方程组 $Ax = b$, 优化函数 $\min_{x \in R^n} {\Vert x \Vert}_0, {\Vert x \Vert}_1, {\Vert x \Vert}_2$, 分别指代 $x$ 的非零元个数, $l_1, l_2$ 范数。
+</h2><p>考虑线性方程组 $Ax = b$, 优化函数 $\min_{x \in R^n} {\Vert x \Vert}_0, {\Vert x \Vert}_1, {\Vert x \Vert}_2$, 分别指代 $x$ 的非零元个数, $l_1, l_2$ 范数.
 LASSO(least absolute shrinkage and selection
 operator) 问题:</p>
 $$
@@ -364,26 +364,42 @@ $$
 $$<hr>
 <h2 id="基本概念">基本概念
 </h2><div class="block">
-<p class="block-title">定义</p>
-<p>设 $f: \mathbb{R}^n \to \mathbb{R}$, $x \in \mathbb{R}^n$ 的可行区域为 $S$. 若存在一个邻域 $N(x)$, 使得 $\forall x \in N(x) \cap S$, 有 $f(x^*) \leq f(x)$, 则称 $x^*$ 为 $f$ 的<strong>局部极小点</strong>. 若 $\forall x \in S$, 有 $f(x^*) \leq f(x)$, 则称 $x^*$ 为 $f$ 的<strong>全局极小点</strong>.</p>
+<p class="block-title def">定义</p>
+<p>设 $f: \mathbb{R}^n \to \mathbb{R}$, $x \in \mathbb{R}^n$ 的可行区域为 $S$. 若存在一个邻域 $N(x)$, 使得 $\forall x \in N(x) \cap S$, 有 $f(x^\ast) \leq f(x)$, 则称 $x^\ast$ 为 $f$ 的<strong>局部极小点</strong>. 若 $\forall x \in S$, 有 $f(x^\ast) \leq f(x)$, 则称 $x^\ast$ 为 $f$ 的<strong>全局极小点</strong>.</p>
 </div>
 <p>大多数的问题是不能显式求解的, 通常要使用迭代算法.</p>
 <div class="block">
-<p class="block-title">定义</p>
+<p class="block-title def">定义</p>
 <p>称算法是 <strong>Q-线性收敛</strong> 的, 若对充分大的 $k$ 有</p>
 $$
-\frac{{\Vert x_{k+1} - x^* \Vert}}{{\Vert x_k - x^* \Vert}} \le a, \quad a \in (0, 1)
+\frac{{\Vert x_{k+1} - x^\ast \Vert}}{{\Vert x_k - x^\ast \Vert}} \le a, \quad a \in (0, 1)
 $$<p>称算法是 <strong>Q-超线性收敛</strong> 的, 若对充分大的 $k$ 有</p>
 $$
-\lim_{k \to \infty} \frac{{\Vert x_{k+1} - x^* \Vert}}{{\Vert x_k - x^* \Vert}} = 0
+\lim_{k \to \infty} \frac{{\Vert x_{k+1} - x^\ast \Vert}}{{\Vert x_k - x^\ast \Vert}} = 0
 $$<p>称算法是 <strong>Q-次线性收敛</strong> 的, 若对充分大的 $k$ 有</p>
 $$
-\lim_{k \to \infty} \frac{{\Vert x_{k+1} - x^* \Vert}}{{\Vert x_k - x^* \Vert}} = 1
+\lim_{k \to \infty} \frac{{\Vert x_{k+1} - x^\ast \Vert}}{{\Vert x_k - x^\ast \Vert}} = 1
 $$<p>称算法是 <strong>Q-二次收敛</strong> 的, 若对充分大的 $k$ 有</p>
 $$
-\frac{{\Vert x_{k+1} - x^* \Vert}}{{\Vert x_k - x^* \Vert^2}} \le a, \quad a > 0
+\frac{{\Vert x_{k+1} - x^\ast \Vert}}{{\Vert x_k - x^\ast \Vert^2}} \le a, \quad a > 0
 $$</div>
-
+<div class="block">
+<p class="block-title def">定义</p>
+<p>设 $x_k$ 是迭代算法产生的序列且收敛到 $x^\ast$, 如果存在 Q-线性收敛于 $0$ 的非负序列 $t_k$, 且</p>
+$$
+\Vert x_k - x^\ast \Vert \le t_k
+$$<p>则称 $x_k$ 是 <strong>R-线性收敛</strong> 的.</p>
+</div>
+<p>一般来说, 收敛准则可以是</p>
+$$
+\frac{f(x_k) - f^\ast}{\max\left\{\left|f^\ast \right|, 1\right\}} \le \varepsilon
+$$<p>也可以是</p>
+$$
+\nabla f(x_k) \le \varepsilon
+$$<p>如果有约束要求, 还要同时考虑到约束违反度. 对于实际的计算机算法, 会设计适当的停机准则, 例如</p>
+$$
+\frac{{\Vert x_{k+1} - x_k \Vert}}{\max\left\{\Vert x_k \Vert, 1\right\}} \le \varepsilon
+$$
 </section>
 
 
@@ -433,7 +449,20 @@ $$</div>
             
                 
 <article class="">
-    <a href="/p/opt-method/content/">
+    <a href="/p/opt-method/convex-set/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">最优化方法(2) —— 凸集</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/opt-method/">
         
         
 
