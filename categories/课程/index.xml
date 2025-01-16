@@ -53,7 +53,26 @@ $$\vert \langle X, Y \rangle \vert \leq \Vert X \Vert \Vert Y \Vert$$&lt;p&gt;�
 &lt;p&gt;如果对于任意 $x, y \in C$ 和 $\theta \in \mathbb{R}$, 都有 $\theta x + (1-\theta) y \in C$, 则称 $C$ 为 &lt;strong&gt;仿射集&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;如果对于任意 $x, y \in C$ 和 $\theta \in [0, 1]$, 都有 $\theta x + (1-\theta) y \in C$, 则称 $C$ 为 &lt;strong&gt;凸集&lt;/strong&gt;.&lt;/p&gt;
 &lt;/div&gt;
-&lt;p&gt;换言之, 仿射集要求过任意两点的直线都在集合内, 而凸集要求过任意两点的线段都在集合内.&lt;/p&gt;
+&lt;p&gt;换言之, 仿射集要求过任意两点的直线都在集合内, 而凸集要求过任意两点的线段都在集合内. 显然, 仿射集都是凸集. 线性方程组的解集是一个仿射集, 而线性规划问题的可行域是一个凸集. 可以证明, 仿射集均可表示为某个线性方程组的解集.&lt;/p&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title thm&#34;&gt;定理&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;若 $S$ 是凸集, 则 $kS = \left\{ ks|k \in \mathbb{R}, s \in S \right\}$ 也是凸集;&lt;/li&gt;
+&lt;li&gt;若 $S, T$ 是凸集, 则 $S + T = \left\{ s + t|s \in S, t \in T \right\}$ 也是凸集;&lt;/li&gt;
+&lt;li&gt;若 $S, T$ 是凸集, 则 $S \cap T$ 也是凸集.&lt;/li&gt;
+&lt;li&gt;凸集的内部和闭包均为凸集.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;p&gt;可以证明, 任意多个凸集的交集仍为凸集.&lt;/p&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;集合 $S$ 的所有点的凸组合构成的集合称为 $S$ 的 &lt;strong&gt;凸包&lt;/strong&gt;, 记为 $\text{conv}(S)$.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title thm&#34;&gt;定理&lt;/p&gt;
+&lt;p&gt;若 $\text{conv} S \subset S$, 则 $S$ 为凸集, 反之亦然.&lt;/p&gt;
+&lt;p class=&#34;block-title prf&#34;&gt;证明&lt;/p&gt;
+&lt;/div&gt;
 </description>
         </item>
         <item>

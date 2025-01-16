@@ -1,7 +1,7 @@
 :root {
-    --def-color: #ff7f50;
+    --def-color: #32cd32;
     --thm-color: #4682b4;
-    --prf-color: #32cd32;
+    --prf-color: #ff7f50;
 }
 
 .block {
@@ -40,5 +40,5 @@
 
 .prf {
     color: var(--prf-color);
-    border-bottom: 2px solid var(--prf-color);
+    border-bottom: 2px dashed var(--prf-color);
 }

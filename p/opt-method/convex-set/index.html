@@ -311,7 +311,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 1 分钟
+                    阅读时长: 2 分钟
                 </time>
             </div>
         
@@ -366,7 +366,26 @@ $$\vert \langle X, Y \rangle \vert \leq \Vert X \Vert \Vert Y \Vert$$<p>等号�
 <p>如果对于任意 $x, y \in C$ 和 $\theta \in \mathbb{R}$, 都有 $\theta x + (1-\theta) y \in C$, 则称 $C$ 为 <strong>仿射集</strong>.</p>
 <p>如果对于任意 $x, y \in C$ 和 $\theta \in [0, 1]$, 都有 $\theta x + (1-\theta) y \in C$, 则称 $C$ 为 <strong>凸集</strong>.</p>
 </div>
-<p>换言之, 仿射集要求过任意两点的直线都在集合内, 而凸集要求过任意两点的线段都在集合内.</p>
+<p>换言之, 仿射集要求过任意两点的直线都在集合内, 而凸集要求过任意两点的线段都在集合内. 显然, 仿射集都是凸集. 线性方程组的解集是一个仿射集, 而线性规划问题的可行域是一个凸集. 可以证明, 仿射集均可表示为某个线性方程组的解集.</p>
+<div class="block">
+<p class="block-title thm">定理</p>
+<ul>
+<li>若 $S$ 是凸集, 则 $kS = \left\{ ks|k \in \mathbb{R}, s \in S \right\}$ 也是凸集;</li>
+<li>若 $S, T$ 是凸集, 则 $S + T = \left\{ s + t|s \in S, t \in T \right\}$ 也是凸集;</li>
+<li>若 $S, T$ 是凸集, 则 $S \cap T$ 也是凸集.</li>
+<li>凸集的内部和闭包均为凸集.</li>
+</ul>
+</div>
+<p>可以证明, 任意多个凸集的交集仍为凸集.</p>
+<div class="block">
+<p class="block-title def">定义</p>
+<p>集合 $S$ 的所有点的凸组合构成的集合称为 $S$ 的 <strong>凸包</strong>, 记为 $\text{conv}(S)$.</p>
+</div>
+<div class="block">
+<p class="block-title thm">定理</p>
+<p>若 $\text{conv} S \subset S$, 则 $S$ 为凸集, 反之亦然.</p>
+<p class="block-title prf">证明</p>
+</div>
 
 </section>
 
