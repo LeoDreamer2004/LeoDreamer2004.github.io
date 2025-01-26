@@ -7,7 +7,114 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>LeoDreamer</copyright>
-        <lastBuildDate>Thu, 16 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/%E6%9C%80%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 25 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/%E6%9C%80%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>最优化方法(3) —— 凸函数</title>
+        <link>https://LeoDreamer2004.github.io/p/opt-method/convex-function/</link>
+        <pubDate>Sat, 25 Jan 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/p/opt-method/convex-function/</guid>
+        <description>&lt;link rel=&#34;stylesheet&#34; href=&#34;https://LeoDreamer2004.github.io/styles/notes.css&#34; &gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://faculty.bicmr.pku.edu.cn/~wenzw/optbook/lect/03_functions_newhyx.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;本节课件链接&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;基本线性代数知识&#34;&gt;基本线性代数知识
+&lt;/h2&gt;&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;给定函数 $f: \mathbb{R}^n \mapsto \mathbb{R}$, 且 $f$ 在 $x$ 一个邻域内有定义, 若存在 $g \in \mathbb{R}^n$, 使得&lt;/p&gt;
+$$
+\lim_{p \to 0} \frac{f(x+p)-f(x)-g^Tp}{\Vert p \Vert} = 0
+$$&lt;p&gt;其中 $\Vert \cdot \Vert$ 是向量范数, 则称 $f$ 在 $x$ 处 &lt;strong&gt;可微&lt;/strong&gt;. 此时, $g$ 称为 $f$ 在 $x$ 处的 &lt;strong&gt;梯度&lt;/strong&gt;, 记为 $\nabla f(x)$.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;显然, 如果梯度存在, 令 $p = \varepsilon e_i$, 易得&lt;/p&gt;
+$$
+\nabla f(x) = \left( \frac{\partial f}{\partial x_1}, \frac{\partial f}{\partial x_2}, \ldots, \frac{\partial f}{\partial x_n} \right)
+$$&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;如果函数 $f(x): \mathbb{R}^n \mapsto \mathbb{R}$ 在点 $x$ 处的二阶偏导数 $\dfrac{\partial^2 f}{\partial x_i \partial x_j}$ 存在, 则称 $f$ 在 $x$ 处 &lt;strong&gt;二次可微&lt;/strong&gt;. 此时, $n \times n$ 矩阵&lt;/p&gt;
+$$
+\nabla^2 f(x) = \begin{pmatrix}
+\dfrac{\partial^2 f}{\partial x_1^2} &amp; \dfrac{\partial^2 f}{\partial x_1 \partial x_2} &amp; \cdots &amp; \dfrac{\partial^2 f}{\partial x_1 \partial x_n} \\
+\dfrac{\partial^2 f}{\partial x_2 \partial x_1} &amp; \dfrac{\partial^2 f}{\partial x_2^2} &amp; \cdots &amp; \dfrac{\partial^2 f}{\partial x_2 \partial x_n} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+\dfrac{\partial^2 f}{\partial x_n \partial x_1} &amp; \dfrac{\partial^2 f}{\partial x_n \partial x_2} &amp; \cdots &amp; \dfrac{\partial^2 f}{\partial x_n^2}
+\end{pmatrix}
+$$&lt;p&gt;称为 $f$ 在 $x$ 处的 &lt;strong&gt;Hessian 矩阵&lt;/strong&gt;. 若 $\nabla^2 f(x)$ 在 $D$ 上连续, 则称 $f$ 在 $D$ 上 &lt;strong&gt;二次连续可微&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;可以证明, 若 $f$ 在 $D$ 上二次连续可微, 则 $\nabla^2 f(x)$ 为对称矩阵.&lt;/p&gt;
+&lt;p&gt;多元函数的梯度可以推广到变量是矩阵的情形.&lt;/p&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;给定函数 $f: \mathbb{R}^{m \times n} \mapsto \mathbb{R}$, 且 $f$ 在 $X$ 一个邻域内有定义, 若存在 $G \in \mathbb{R}^{m \times n}$, 使得&lt;/p&gt;
+$$
+\lim_{V \to 0} \frac{f(X+V)-f(X)-\langle G, V \rangle}{\Vert V \Vert} = 0
+$$&lt;p&gt;其中 $\Vert \cdot \Vert$ 是矩阵范数, 则称 $f$ 在 $X$ 处 &lt;strong&gt;(Fréchet)可微&lt;/strong&gt;. 此时, $G$ 称为 $f$ 在 $X$ 处的 &lt;strong&gt;梯度&lt;/strong&gt;, 记为 $\nabla f(X)$.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;矩阵的可微有另一种较为简单常用的定义.&lt;/p&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;给定函数 $f: \mathbb{R}^{m \times n} \mapsto \mathbb{R}$, 若存在矩阵 $G \in \mathbb{R}^{m \times n}$, 使得&lt;/p&gt;
+$$
+\lim_{t \to 0} \frac{f(X+tV)-f(X)}{t} = \langle G, V \rangle
+$$&lt;p&gt;则称 $f$ 在 $X$ 处 &lt;strong&gt;(Gâteaux)可微&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;例如:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;$f(X) = \text{tr}(AX^TB)$, 此时 $\nabla f(X) = BA$.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;$f(X, Y)=\frac{1}{2} \Vert XY-A \Vert_F^2$. 此时&lt;/p&gt;
+$$
+    \begin{aligned}
+    &amp;f(X,Y+tV)-f(X,Y) \\
+    &amp;= \frac{1}{2} \Vert X(Y+tV)-A \Vert_F^2 - \frac{1}{2} \Vert XY-A \Vert_F^2 \\
+    &amp;= \frac{1}{2} \Vert XY - A + tVX \Vert_F^2 - \frac{1}{2} \Vert XY - A \Vert_F^2 \\
+    &amp;= \frac{1}{2} \Vert tVX \Vert_F^2 + \langle XY-A, tVX \rangle \\
+    &amp;= t \langle X^T(XY-A), V \rangle + o(t)
+    \end{aligned}
+    $$&lt;p&gt;所以 $\frac{\partial f}{\partial Y} = X^T(XY-A)$, 类似地, $\frac{\partial f}{\partial X} = (XY-A)Y^T$.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;$f(X)=\ln\text{det}(X)$, $X$ 为正定矩阵. 此时&lt;/p&gt;
+$$
+    \begin{aligned}
+    &amp;f(X+tV)-f(X) \\
+    &amp;= \ln\text{det}(X+tV) - \ln\text{det}(X) \\
+    &amp;= \ln\text{det}(I+tX^{-1/2}VX^{-1/2})
+    \end{aligned}
+    $$&lt;p&gt;考虑 $X^{-1/2}VX^{-1/2}$ 的特征值 $\lambda_i$, 则由特征值之和为迹, 有&lt;/p&gt;
+$$
+    \begin{aligned}
+    &amp;= \ln\text{det}\prod_{i=1}^n (1+t\lambda_i) \\
+    &amp;= \sum_{i=1}^n \ln(1+t\lambda_i) \\
+    &amp;= \sum_{i=1}^n t\lambda_i + o(t) \\
+    &amp;= t\text{tr}(X^{-1/2}VX^{-1/2}) + o(t) \\
+    &amp;= t\text{tr}(X^{-1}V) + o(t) \\
+    &amp;= t\langle X^{-T}, V \rangle + o(t)
+    \end{aligned}
+    $$&lt;p&gt;所以 $\nabla f(X) = X^{-T}$.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;广义实数&lt;/strong&gt; 是一种扩充实数域的数, 记为 $\bar{\mathbb{R}} = \mathbb{R} \cup \{ \pm \infty \}$. 映射 $f: \mathbb{R}^n \mapsto \bar{\mathbb{R}}$ 称为 &lt;strong&gt;广义实值函数&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;给定广义实值函数 $f$ 和非空集合 $X$. 如果存在 $x \in X$ 使得 $f(x) &amp;lt; +\infty$, 并且对任意的 $x \in X$, 都有 $f(x) &amp;gt; -\infty$, 那么称函数 $f$ 关于集合 $X$ 是 &lt;strong&gt;适当的&lt;/strong&gt;．&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;对于广义实值函数 $f: \mathbb{R}^n \mapsto R$,&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$C_\alpha = \{x \mid f(x) \le \alpha \}$ 称为 $f$ 的 &lt;strong&gt;$\alpha$-下水平集&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;$\text{epi} f = \{ (x, t) \mid f(x) \le t \}$ 称为 $f$ 的 &lt;strong&gt;上方图&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;若 $\text{epi} f$ 为闭集, 则称 $f$ 为&lt;strong&gt;闭函数&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;若对任意的 $x \in \mathbb{R}^n$, 有 $\liminf_{y \to x} f(y) \ge f(x)$, 则称 $f$ 为 &lt;strong&gt;下半连续函数&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+</description>
+        </item>
+        <item>
         <title>最优化方法(2) —— 凸集</title>
         <link>https://LeoDreamer2004.github.io/p/opt-method/convex-set/</link>
         <pubDate>Thu, 16 Jan 2025 00:00:00 +0000</pubDate>
@@ -19,7 +126,7 @@
 &lt;h2 id=&#34;范数&#34;&gt;范数
 &lt;/h2&gt;&lt;div class=&#34;block&#34;&gt;
 &lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
-&lt;p&gt;记号 $\Vert \cdot \Vert: \mathbb{R}^n \to \mathbb{R}$ 称为 &lt;strong&gt;向量范数&lt;/strong&gt;, 若满足:&lt;/p&gt;
+&lt;p&gt;记号 $\Vert \cdot \Vert: \mathbb{R}^n \mapsto \mathbb{R}$ 称为 &lt;strong&gt;向量范数&lt;/strong&gt;, 若满足:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;正定性: $\Vert x \Vert \geq 0$, 且 $\Vert x \Vert = 0 \Leftrightarrow x = 0$;&lt;/li&gt;
 &lt;li&gt;齐次性: $\Vert \alpha x \Vert = \vert \alpha \vert \Vert x \Vert$;&lt;/li&gt;
@@ -57,8 +164,8 @@ $$\vert \langle X, Y \rangle \vert \leq \Vert X \Vert \Vert Y \Vert$$&lt;p&gt;�
 &lt;div class=&#34;block&#34;&gt;
 &lt;p class=&#34;block-title thm&#34;&gt;定理&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;若 $S$ 是凸集, 则 $kS = \left\{ ks|k \in \mathbb{R}, s \in S \right\}$ 也是凸集;&lt;/li&gt;
-&lt;li&gt;若 $S, T$ 是凸集, 则 $S + T = \left\{ s + t|s \in S, t \in T \right\}$ 也是凸集;&lt;/li&gt;
+&lt;li&gt;若 $S$ 是凸集, 则 $kS = \left\{ ks \mid k \in \mathbb{R}, s \in S \right\}$ 也是凸集;&lt;/li&gt;
+&lt;li&gt;若 $S, T$ 是凸集, 则 $S + T = \left\{ s + t \mid s \in S, t \in T \right\}$ 也是凸集;&lt;/li&gt;
 &lt;li&gt;若 $S, T$ 是凸集, 则 $S \cap T$ 也是凸集.&lt;/li&gt;
 &lt;li&gt;凸集的内部和闭包均为凸集.&lt;/li&gt;
 &lt;/ul&gt;
@@ -66,12 +173,175 @@ $$\vert \langle X, Y \rangle \vert \leq \Vert X \Vert \Vert Y \Vert$$&lt;p&gt;�
 &lt;p&gt;可以证明, 任意多个凸集的交集仍为凸集.&lt;/p&gt;
 &lt;div class=&#34;block&#34;&gt;
 &lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
-&lt;p&gt;集合 $S$ 的所有点的凸组合构成的集合称为 $S$ 的 &lt;strong&gt;凸包&lt;/strong&gt;, 记为 $\text{conv}(S)$.&lt;/p&gt;
+&lt;p&gt;形如 $x=\theta_1x_1+\theta_2x_2+\cdots+\theta_kx_k$, 其中 $\theta_i \geq 0$ 且 $\sum_i \theta_i = 1$, 的表达式称为 $x$ 的 &lt;strong&gt;凸组合&lt;/strong&gt;. 集合 $S$ 的所有点的凸组合构成的集合称为 $S$ 的 &lt;strong&gt;凸包&lt;/strong&gt;, 记为 $\text{conv}(S)$.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;block&#34;&gt;
 &lt;p class=&#34;block-title thm&#34;&gt;定理&lt;/p&gt;
-&lt;p&gt;若 $\text{conv} S \subset S$, 则 $S$ 为凸集, 反之亦然.&lt;/p&gt;
+&lt;p&gt;若 $\text{conv} S \subseteq S$, 则 $S$ 为凸集, 反之亦然.&lt;/p&gt;
 &lt;p class=&#34;block-title prf&#34;&gt;证明&lt;/p&gt;
+&lt;p&gt;先证明正方向. 对任意 $x,y \in S, \theta \in [0,1]$, 有 $\theta x + (1-\theta) y \in \text{conv} S \subseteq S$, 故 $S$ 为凸集.&lt;/p&gt;
+&lt;p&gt;再证明反方向, 对凸组合的维数 $k$ 采用数学归纳法证明之.&lt;/p&gt;
+&lt;p&gt;若 $k=1$, 显然成立. 假设对于 $k-1$ 成立, 则对于 $k$, 考虑&lt;/p&gt;
+$$
+\begin{aligned}
+x &amp;= \theta_1 x_1 + \theta_2 x_2 + \cdots + \theta_k x_k \\
+  &amp;= (1-\theta_k)\left(\frac{\theta_1}{1-\theta_k} x_1 + \frac{\theta_2}{1-\theta_k} x_2 + \cdots + \frac{\theta_{k-1}}{1-\theta_k} x_{k-1}\right) + \theta_k x_k
+\end{aligned}
+$$&lt;p&gt;前面大括号内的表达式为 $k-1$ 个凸组合, 故在 $S$ 中. 于是 $x$ 又成为两个点的凸组合, 由于 $S$ 为凸集, 故 $x \in S$. 则 $\text{conv} S \subseteq S$.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title thm&#34;&gt;定理&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$\text{conv}S$ 是包含 $S$ 的最小凸集;&lt;/li&gt;
+&lt;li&gt;$\text{conv}S$ 是所有包含 $S$ 的凸集的交集.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p class=&#34;block-title prf&#34;&gt;证明&lt;/p&gt;
+&lt;p&gt;显然第一个是第二个的推论, 只证明第二个.&lt;/p&gt;
+&lt;p&gt;已知凸集的交是凸集, 从而所有包含 $S$ 的凸集的交集 $X$ 是凸集. 且 $\text{conv} S$ 是包含 $S$ 的凸集, 则 $X \subseteq \text{conv} S$.&lt;/p&gt;
+&lt;p&gt;另一方面, $S \subseteq X$, 则 $\text{conv} S \subseteq \text{conv}X$, 而 $X$ 是凸集, 则 $\text{conv}X = X$, 即 $\text{conv}S \subseteq X$. 综上, $\text{conv}S = X$.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;仿照凸组合和凸包, 也可以定义仿射组合和仿射包 $\text{affine} S$, 不再赘述.&lt;/p&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;形如 $x=\theta_1x_1+\theta_2x_2+\cdots+\theta_kx_k$, 其中 $\theta_i \geq 0$ 的表达式称为 $x$ 的 &lt;strong&gt;锥组合&lt;/strong&gt;. 若集合 $S$ 中任意点的锥组合都在 $S$ 中, 则称 $S$ 为凸锥.&lt;/p&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;常见凸集&#34;&gt;常见凸集
+&lt;/h2&gt;&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;任取非零向量 $a\in \mathbb{R}^n$, 形如&lt;/p&gt;
+$$ \left\{ x \mid a^Tx =b \right\} $$&lt;p&gt;的集合称为 &lt;strong&gt;超平面&lt;/strong&gt;, 形如&lt;/p&gt;
+$$ \left\{ x \mid a^Tx \le b \right\} $$&lt;p&gt;的集合称为 &lt;strong&gt;半空间&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;满足线性等式和不等式组的点的集合称为 &lt;strong&gt;多面体&lt;/strong&gt;, 即&lt;/p&gt;
+$$ \left\{x \mid Ax \le b, Cx = d\right\} $$&lt;p&gt;其中 $A \in \mathbb{R}^{m \times n}, C \in \mathbb{R}^{p \times n}$.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;对中心 $x_c$ 和半径 $r$, 形如&lt;/p&gt;
+$$ B(x_c, r) = \left\{ x \mid \Vert x - x_c \Vert \le r \right\} = \left\{ x_c + ru \mid \Vert u \Vert \le 1 \right\} $$&lt;p&gt;的集合称为 &lt;strong&gt;球&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;对中心 $x_c$ 和对称正定矩阵 $P$, 非奇异矩阵 $A$, 形如&lt;/p&gt;
+$$ \left\{ x \mid (x-x_c)^TP(x-x_c) \le 1 \right\} = \left\{ x_c + Au \mid \Vert u \Vert \le 1 \right\} $$&lt;p&gt;的集合称为 &lt;strong&gt;椭球&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;形如&lt;/p&gt;
+$$ \left\{(x,t) \mid \Vert x \Vert \le t \right\} $$&lt;p&gt;的集合称为 &lt;strong&gt;(范数)锥&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;保凸运算&#34;&gt;保凸运算
+&lt;/h2&gt;&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title thm&#34;&gt;定理&lt;/p&gt;
+&lt;p&gt;仿射运算保凸, 即对 $f(x)=Ax+b$, 则凸集在 $f$ 下的像是凸集, 凸集在 $f$ 下的原像是凸集.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;考虑双曲锥&lt;/p&gt;
+$$
+\left\{ x \mid x^TPx \le \left( c^Tx \right)^2, c^Tx \ge 0, P \in S_+^n \right\}
+$$&lt;p&gt;$S_+^n$ 表示半正定矩阵. 双曲锥可以表示为二阶锥&lt;/p&gt;
+$$
+\left\{ x \mid \Vert Ax \Vert_2 \le c^Tx, c^Tx \ge 0, A^TA = P \right\}
+$$&lt;p&gt;这个可以由二次范数锥得到.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;透视变换 $P: \mathbb{R}^{n+1} \mapsto \mathbb{R}^n$:&lt;/p&gt;
+$$
+  P(x,t) = \frac{x}{t}, \quad \text{dom} P = \left\{ (x,t) \mid t &gt; 0 \right\}
+  $$&lt;p&gt;保凸.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;分式线性变换 $f: \mathbb{R}^n \mapsto \mathbb{R}^m$:&lt;/p&gt;
+$$
+  f(x) = \frac{Ax+b}{c^Tx+d}, \quad \text{dom} f = \left\{ x \mid c^Tx+d &gt; 0 \right\}
+  $$&lt;p&gt;保凸.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;广义不等式和对偶锥&#34;&gt;广义不等式和对偶锥
+&lt;/h2&gt;&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;我们称一个凸锥 $K \subseteq \mathbb{R}^n$ 为 &lt;strong&gt;适当锥&lt;/strong&gt;, 当其还满足&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$K$ 是闭集;&lt;/li&gt;
+&lt;li&gt;$K$ 是实心的, 即 $\text{int} K \neq \emptyset$;&lt;/li&gt;
+&lt;li&gt;$K$ 是尖的, 即内部不包含直线: 若 $x \in \text{int} K, -x \in \text{int} K$. 则一定有 $x = 0$.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;p&gt;例如&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;非负卦限 $K=\mathbb{R}_+^n=\left\{ x \in \mathbb{R}^n \mid x_i \ge 0 \right\}$ 是适当锥.&lt;/li&gt;
+&lt;li&gt;半正定锥 $K=S_+^n$ 是适当锥.&lt;/li&gt;
+&lt;li&gt;$[0,1]$ 上的有限非负多项式 $K=\left\{ x \in \mathbb{R}^n \mid x_1 + x_2t + \cdots + x_nt^{n-1} \ge 0, t \in [0,1] \right\}$ 是适当锥.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;可以在 &lt;strong&gt;适当锥&lt;/strong&gt; 上定义广义不等式.&lt;/p&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;对于适当锥 $K$ , 定义偏序 &lt;strong&gt;广义不等式&lt;/strong&gt; 为&lt;/p&gt;
+$$x \preceq_K y \Leftrightarrow y - x \in K$$&lt;p&gt;严格版本:&lt;/p&gt;
+$$x \prec_K y \Leftrightarrow y - x \in \text{int} K$$&lt;/div&gt;
+&lt;p&gt;广义不等式是一个偏序关系, 具有自反性, 反对称性, 传递性, 可加性, 非负缩放性, 不再赘述.&lt;/p&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;令锥 $K$ 为全空间 $\Omega$ 的子集, 则 $K$ 的对偶锥为&lt;/p&gt;
+$$
+K^\ast = \left\{ y \mid \langle x, y \rangle \ge 0, \forall x \in K \right\}
+$$&lt;/div&gt;
+&lt;p&gt;例如&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;非负卦限是自对偶锥.&lt;/li&gt;
+&lt;li&gt;半正定锥是自对偶锥.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title thm&#34;&gt;定理&lt;/p&gt;
+&lt;p&gt;设 $K$ 是一锥, $K^\ast$ 是其对偶锥, 则满足:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$K^\ast$ 是锥 (即使 $K$ 不是锥);&lt;/li&gt;
+&lt;li&gt;$K^\ast$ 是凸且闭的;&lt;/li&gt;
+&lt;li&gt;若 $\text{int} \neq \emptyset$, 则 $K^\ast$ 是尖的.&lt;/li&gt;
+&lt;li&gt;若 $K$ 是尖的, 则 $\text{int} K^\ast \neq \emptyset$.&lt;/li&gt;
+&lt;li&gt;若 $K$ 是适当锥, 则 $K^\ast$ 是适当锥.&lt;/li&gt;
+&lt;li&gt;$K^{\ast\ast}$ 是 $K$ 的凸包. 特别地, 若 $K$ 是凸且闭的, 则 $K^\ast=K$.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;p&gt;适当锥的对偶锥仍是适当锥, 则适当锥 $K$ 的对偶锥 $K^\ast$ 也可以诱导广义不等式.&lt;/p&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;对于适当锥 $K$, 定义其对偶锥 $K^\ast$ 上的 &lt;strong&gt;对偶广义不等式&lt;/strong&gt; 为:&lt;/p&gt;
+$$x \preceq_{K^\ast} y \Leftrightarrow y - x \in K^\ast$$&lt;p&gt;其满足&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$x \preceq_{K} y \Leftrightarrow \lambda^Tx \le \lambda^Ty, \forall \lambda \succeq_{K^\ast} K^\ast$.&lt;/li&gt;
+&lt;li&gt;$y \succeq_{K^\ast} 0 \Leftrightarrow y^Tx \ge 0, \forall x \succeq_K 0$.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;分离超平面定理&#34;&gt;分离超平面定理
+&lt;/h2&gt;&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title thm&#34;&gt;定理&lt;span class=&#34;subtitle&#34;&gt;分离超平面定理&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;如果 $C$ 和 $D$ 是不相交的凸集, 则存在一个超平面 $H$ 将 $C$ 和 $D$ 分开, 即存在 $a \neq 0, b$ 使得&lt;/p&gt;
+$$
+\begin{aligned}
+a^Tx &amp;\le b, \quad \forall x \in C \\
+a^Tx &amp;\ge b, \quad \forall x \in D
+\end{aligned}
+$$&lt;/div&gt;
+&lt;p&gt;简要想法是找距离最近的一对点, 以这两点的中点为中心, 以两点的连线为法向量构造超平面.&lt;/p&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title thm&#34;&gt;定理&lt;span class=&#34;subtitle&#34;&gt;严格分离定理&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;如果 $C$ 和 $D$ 是不相交的凸集, 且 $C$ 是闭集, $D$ 是紧集, 则存在一个超平面 $H$ 将 $C$ 和 $D$ 严格分开, 即存在 $a \neq 0, b$ 使得&lt;/p&gt;
+$$
+\begin{aligned}
+a^Tx &amp;\lt b, \quad \forall x \in C \\
+a^Tx &amp;\gt b, \quad \forall x \in D
+\end{aligned}
+$$&lt;/div&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;给定集合 $C$ 和边界点 $x_0$, 如果 $a\ne 0$ 满足 $a^Tx \le a^T x_0, \forall x \in C$, 则称&lt;/p&gt;
+$$
+\left\{ x \mid a^Tx = a^T x_0 \right\}
+$$&lt;p&gt;为 $C$ 的 &lt;strong&gt;支撑超平面&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;由分离超平面的特殊情况 ($D$ 为单点集) 可以得到支撑超平面的存在性.&lt;/p&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title thm&#34;&gt;定理&lt;span class=&#34;subtitle&#34;&gt;支撑超平面定理&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;若 $C$ 是凸集, 则 $C$ 的任意边界点处存在支撑超平面.&lt;/p&gt;
 &lt;/div&gt;
 </description>
         </item>
@@ -117,7 +387,7 @@ $$&lt;hr&gt;
 &lt;h2 id=&#34;基本概念&#34;&gt;基本概念
 &lt;/h2&gt;&lt;div class=&#34;block&#34;&gt;
 &lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
-&lt;p&gt;设 $f: \mathbb{R}^n \to \mathbb{R}$, $x \in \mathbb{R}^n$ 的可行区域为 $S$. 若存在一个邻域 $N(x)$, 使得 $\forall x \in N(x) \cap S$, 有 $f(x^\ast) \leq f(x)$, 则称 $x^\ast$ 为 $f$ 的&lt;strong&gt;局部极小点&lt;/strong&gt;. 若 $\forall x \in S$, 有 $f(x^\ast) \leq f(x)$, 则称 $x^\ast$ 为 $f$ 的&lt;strong&gt;全局极小点&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;设 $f: \mathbb{R}^n \mapsto \mathbb{R}$, $x \in \mathbb{R}^n$ 的可行区域为 $S$. 若存在一个邻域 $N(x)$, 使得 $\forall x \in N(x) \cap S$, 有 $f(x^\ast) \leq f(x)$, 则称 $x^\ast$ 为 $f$ 的&lt;strong&gt;局部极小点&lt;/strong&gt;. 若 $\forall x \in S$, 有 $f(x^\ast) \leq f(x)$, 则称 $x^\ast$ 为 $f$ 的&lt;strong&gt;全局极小点&lt;/strong&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;大多数的问题是不能显式求解的, 通常要使用迭代算法.&lt;/p&gt;
 &lt;div class=&#34;block&#34;&gt;
@@ -166,6 +436,7 @@ $$</description>
 &lt;ul&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;intro&#34; &gt;最优化方法(1) —— 简介&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;convex-set&#34; &gt;最优化方法(2) —— 凸集&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;convex-function&#34; &gt;最优化方法(3) —— 凸函数&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 </description>
