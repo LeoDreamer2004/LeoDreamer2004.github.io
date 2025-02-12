@@ -277,7 +277,6 @@ $$f(y) \le f(x) \Rightarrow \nabla f(x)^T(y-x) \le 0$$&lt;/div&gt;
 $$f(x) = \frac{1}{\sqrt{(2\pi)^n \text{det} \Sigma}} \exp\left(-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu)\right)$$&lt;p&gt;是对数凹函数.&lt;/p&gt;
 &lt;p&gt;对数凹函数的乘积, 积分都是对数凹的, 但加和不一定是对数凹的.&lt;/p&gt;
 &lt;p&gt;在广义不等式下, 也可以定义凸凹性.&lt;/p&gt;
-&lt;/div&gt;
 &lt;div class=&#34;block&#34;&gt;
 &lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
 $$f(\theta x+(1-\theta)y \preceq_K \theta f(x)+(1-\theta)f(y))$$&lt;p&gt;
