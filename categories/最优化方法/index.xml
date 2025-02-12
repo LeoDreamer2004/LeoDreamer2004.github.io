@@ -7,7 +7,15 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>LeoDreamer</copyright>
-        <lastBuildDate>Sat, 25 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/%E6%9C%80%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 07 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/%E6%9C%80%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>最优化方法(4) —— 优化问题</title>
+        <link>https://LeoDreamer2004.github.io/p/opt-method/opt-problem/</link>
+        <pubDate>Fri, 07 Feb 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/p/opt-method/opt-problem/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>最优化方法(3) —— 凸函数</title>
         <link>https://LeoDreamer2004.github.io/p/opt-method/convex-function/</link>
         <pubDate>Sat, 25 Jan 2025 00:00:00 +0000</pubDate>
@@ -104,7 +112,7 @@ $$
 &lt;/div&gt;
 &lt;div class=&#34;block&#34;&gt;
 &lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
-&lt;p&gt;对于广义实值函数 $f: \mathbb{R}^n \mapsto R$,&lt;/p&gt;
+&lt;p&gt;对于广义实值函数 $f: \mathbb{R}^n \mapsto \bar{\mathbb{R}}$,&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;$C_\alpha = \{x \mid f(x) \le \alpha \}$ 称为 $f$ 的 &lt;strong&gt;$\alpha$-下水平集&lt;/strong&gt;.&lt;/li&gt;
 &lt;li&gt;$\text{epi} f = \{ (x, t) \mid f(x) \le t \}$ 称为 $f$ 的 &lt;strong&gt;上方图&lt;/strong&gt;.&lt;/li&gt;
@@ -112,6 +120,170 @@ $$
 &lt;li&gt;若对任意的 $x \in \mathbb{R}^n$, 有 $\liminf_{y \to x} f(y) \ge f(x)$, 则称 $f$ 为 &lt;strong&gt;下半连续函数&lt;/strong&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title thm&#34;&gt;定理&lt;/p&gt;
+&lt;p&gt;对于广义实值函数 $f$, 以下命题等价:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;$f(x)$ 的任意 $\alpha$-下水平集都是闭集;&lt;/li&gt;
+&lt;li&gt;$f(x)$ 是下半连续的;&lt;/li&gt;
+&lt;li&gt;$f(x)$ 是闭函数.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p class=&#34;block-title prf&#34;&gt;证明&lt;/p&gt;
+&lt;p&gt;(1) $\Rightarrow$ (2): 反证, 假设 $x_k \to \bar{x}$ 但 $\liminf_{k \to \infty} f(x_k) &amp;lt; f(\bar{x})$. 取 $t$ 介于二者之间.&lt;/p&gt;
+&lt;p&gt;考虑到 $\liminf_{k \to \infty} f(x_k) &amp;lt; t$, 则有无穷多 $x_k$ 使得 $f(x_k) \le t$, 即这些 $x_k$ 在 $C_t$ 中. 由于 $C_t$ 是闭集, 则 $\bar{x} \in C_t$, 即 $f(\bar{x}) \le t$, 矛盾.&lt;/p&gt;
+&lt;p&gt;(2) $\Rightarrow$ (3): 考虑 $(x_k,y_k) \in \text{epi} f \to (\bar{x},\bar{y})$, 由于 $f$ 下半连续, 则&lt;/p&gt;
+$$ f(\bar{x}) \le \liminf_{k \to \infty} f(x_k) = \liminf_{k \to \infty} y_k = \bar{y} $$&lt;p&gt;即 $(\bar{x}, \bar{y}) \in \text{epi} f$.&lt;/p&gt;
+&lt;p&gt;(3) $\Rightarrow$ (1): 考虑 $x_k \in C_\alpha \to \bar{x}$, 则 $(x_k, \alpha) \in \text{epi} f \to (\bar{x}, \alpha)$, 所以 $(\bar{x}, \alpha) \in \text{epi} f$, 即 $f(\bar{x}) \le \alpha$, 所以 $\bar{x} \in C_\alpha$.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;适当闭函数的和, 复合, 逐点上确界仍然是闭函数.&lt;/p&gt;
+&lt;h2 id=&#34;凸函数&#34;&gt;凸函数
+&lt;/h2&gt;&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;适当函数 $f: \mathbb{R}^n \mapsto \mathbb{R}$ 称为 &lt;strong&gt;凸函数&lt;/strong&gt;, 如果 $\text{dom} f$ 是凸集, 且对任意的 $x, y \in \text{dom} f$ 和 $\theta \in [0,1]$, 有&lt;/p&gt;
+$$
+f(\theta x + (1-\theta)y) \le \theta f(x) + (1-\theta)f(y)
+$$&lt;/div&gt;
+&lt;p&gt;易知仿射函数既是凸函数又是凹函数. 所有的范数都是凸函数.&lt;/p&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;若存在常数 $m &amp;gt; 0$, 使得 $g(x) = f(x) - \frac{m}{2} \Vert x \Vert^2$ 是凸函数, 则称 $f$ 是 &lt;strong&gt;强凸函数&lt;/strong&gt;, $m$ 称为 &lt;strong&gt;强凸参数&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title thm&#34;&gt;定理&lt;span class=&#34;subtitle&#34;&gt;凸函数判定定理&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;适当函数 $f: \mathbb{R}^n \mapsto \mathbb{R}$ 是凸函数的充要条件是, 对任意的 $x \in \text{dom} f$, 函数 $g: \mathbb{R} \mapsto \mathbb{R}$ 是凸函数, 其中&lt;/p&gt;
+$$g(t) = f(x+tv), \quad \text{dom}g = \{ t \mid x + tv \in \text{dom} f \}$$&lt;p class=&#34;block-title prf&#34;&gt;证明&lt;/p&gt;
+&lt;p&gt;利用定义是容易的, 略去.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title thm&#34;&gt;定理&lt;span class=&#34;subtitle&#34;&gt;一阶条件&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;对于定义在凸集上的可微函数 $f$, $f$ 是凸函数当且仅当&lt;/p&gt;
+$$
+f(y) \ge f(x) + \nabla f(x)^T(y-x), \quad \forall x, y \in \text{dom} f
+$$&lt;p class=&#34;block-title prf&#34;&gt;证明&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;必要性&lt;/strong&gt;: 设 $f$ 凸, 则 $\forall x, y \in \text{dom} f, t \in [0,1]$, 有&lt;/p&gt;
+$$tf(y)+(1-t)f(x) \ge f(x+t(y-x))$$&lt;p&gt;令 $t \to 0$, 即&lt;/p&gt;
+$$f(y)-f(x) \ge \frac{f(x+t(y-x))-f(x)}{t} \to \nabla f(x)^T(y-x)$$&lt;p&gt;&lt;strong&gt;充分性&lt;/strong&gt;: $\forall x, y \in \text{dom}f, t\in (0,1)$, 取 $z = tx+(1-t)y$, 则&lt;/p&gt;
+$$
+\begin{aligned}
+f(x) &amp;\ge f(z) + \nabla f(z)^T(x-z)  \\
+f(y) &amp;\ge f(z) + \nabla f(z)^T(y-z)
+\end{aligned}
+$$&lt;p&gt;一式乘以 $t$, 二式乘以 $1-t$, 相加即得.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title thm&#34;&gt;定理&lt;span class=&#34;subtitle&#34;&gt;梯度单调性&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;设 $f$ 为可微函数, 则 $f$ 为凸函数当且仅当 $\text{dom} f$ 为凸集且 $\nabla f$ 为单调映射.&lt;/p&gt;
+$$(\nabla f(x) - \nabla f(y))^T(x-y) \ge 0$$&lt;p class=&#34;block-title prf&#34;&gt;证明&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;必要性&lt;/strong&gt;: 根据一阶条件, 有&lt;/p&gt;
+$$
+\begin{aligned}
+f(y) &amp;\ge f(x) + \nabla f(x)^T(y-x) \\
+f(x) &amp;\ge f(y) + \nabla f(y)^T(x-y)
+\end{aligned}
+$$&lt;p&gt;相加即可.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;充分性&lt;/strong&gt;: 考虑 $g(t)=f(x+t(y-x))$, 则 $g^\prime(t)=\nabla f(x+t(y-x))^T (y-x)$, 从而 $g^\prime (t) \ge g^\prime (0)$.&lt;/p&gt;
+$$
+\begin{aligned}
+f(y) &amp;= g(1) = g(0) + \int_{0}^1 g^\prime(t) dt \\
+&amp;\ge g(0) + \int_{0}^1 g^\prime(0) dt = g(0) + g^\prime(0) \\ &amp;= f(x) + \nabla f(x)^T(y-x)
+\end{aligned}
+$$&lt;/div&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title thm&#34;&gt;定理&lt;/p&gt;
+&lt;p&gt;函数 $f(x)$ 是凸函数当且仅当 $\text{epi}f$ 是凸集.&lt;/p&gt;
+&lt;p class=&#34;block-title prf&#34;&gt;证明&lt;/p&gt;
+&lt;p&gt;用定义显然, 略去.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title thm&#34;&gt;定理&lt;span class=&#34;subtitle&#34;&gt;二阶条件&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;设 $f$ 为定义在凸集上的二阶连续可微函数, $f$ 是凸函数当且仅当 $\nabla^2 f(x) \succeq 0, \forall x \in \text{dom} f$. 若不取等, 则为严格凸函数.&lt;/p&gt;
+&lt;p class=&#34;block-title prf&#34;&gt;证明&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;必要性&lt;/strong&gt;: 反设 $f(x)$ 在 $x$ 处 $\nabla^2 f(x) \prec 0$, 则存在 $v \in \mathbb{R}^n$, 使得 $v^T \nabla^2 f(x) v &amp;lt; 0$, 考虑 Peano 余项&lt;/p&gt;
+$$
+f(x+tv)=f(x)+t\nabla f(x)^Tv+\frac{t^2}{2}v^T\nabla^2 f(x+tv)v + o(t^2)
+$$&lt;p&gt;取 $t$ 充分小,&lt;/p&gt;
+$$
+\frac{f(x+tv)-f(x)-t\nabla f(x)^T v}{t^2}=\frac{1}{2}v^T\nabla^2 f(x+tv)v + o(1) &lt; 0
+$$&lt;p&gt;这和一阶条件矛盾.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;充分性&lt;/strong&gt;: 对于任意的 $x, y \in \text{dom} f$, 有&lt;/p&gt;
+$$
+\begin{aligned}
+f(y) &amp;= f(x)+\nabla f(x)^T(y-x)+\frac{1}{2}(y-x)^T\nabla^2 f(z)(y-x) \\
+    &amp;\ge f(x)+\nabla f(x)^T(y-x)
+\end{aligned}
+$$&lt;p&gt;由一阶条件, $f$ 为凸函数.&lt;/p&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;保凸运算&#34;&gt;保凸运算
+&lt;/h2&gt;&lt;p&gt;下面举一些重要的例子.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;逐点取上界: 若对每个 $y \in A$, $f(x,y)$ 都是关于 $x$ 的凸函数, 则&lt;/p&gt;
+$$g(x)=\sup_{y \in A} f(x,y)$$&lt;p&gt;也是凸函数.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$C$ 的支撑函数 $f(x)=\sup_{y \in C} y^Tx$ 是凸函数.&lt;/li&gt;
+&lt;li&gt;$C$ 到 $x$ 的最远距离 $f(x)=\sup_{y \in C} \Vert x-y \Vert$ 是凸函数.&lt;/li&gt;
+&lt;li&gt;对称阵 $X \in \mathbb{S}^n$ 的最大特征值 $\lambda_{\max}(X)=\sup_{\Vert x \Vert=1} x^TXx$ 是凸函数.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;标量函数的复合: 若 $g: \mathbb{R}^n \mapsto \mathbb{R}$ 是凸函数, $h: \mathbb{R} \mapsto \mathbb{R}$ 是单调不减的凸函数, 则&lt;/p&gt;
+$$f(x) = h(g(x))$$&lt;p&gt;也是凸函数. 凹同理.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果 $g$ 凸, 则 $f(x) = \exp(g(x))$ 也是凸函数.&lt;/li&gt;
+&lt;li&gt;如果 $g$ 凹, 则 $f(x) = 1/g(x)$ 也是凸函数.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;取下确界: 若 $f(x, y)$ 关于 $(x, y)$ 整体是凸函数, $C$ 是凸集, 则&lt;/p&gt;
+$$g(x) = \inf_{y \in C} f(x, y)$$&lt;p&gt;也是凸函数.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;凸集 $C$ 到 $x$ 的距离 $f(x)=\inf_{y \in C} \Vert x-y \Vert$ 是凸函数.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;透视函数: 若 $f: \mathbb{R}^{n} \mapsto \mathbb{R}$ 是凸函数, 则&lt;/p&gt;
+$$g(x, t) = tf(x/t), \quad \text{dom} g = \{ (x, t) \mid x / t \in \text{dom} f, t &gt; 0 \}$$&lt;p&gt;也是凸函数.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;相对熵函数 $g(x,t)=t\log t-t\log x$ 是凸函数.&lt;/li&gt;
+&lt;li&gt;若 $f$ 凸, 则 $g(x)=(c^T+d)f((Ax+b)/(c^T+d))$ 也是凸函数.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;共轭函数: 任意适当函数 $f$ 的共轭函数&lt;/p&gt;
+$$f^\ast(y)=\sup_{x \in \text{dom} f} (\langle x, y \rangle - f(x))$$&lt;p&gt;是凸函数.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;凸函数的推广&#34;&gt;凸函数的推广
+&lt;/h2&gt;&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;$f: \mathbb{R}^n \mapsto \mathbb{R}$ 称为 &lt;strong&gt;拟凸的&lt;/strong&gt;, 如果 $\text{dom} f$ 是凸集, 且对任意 $\alpha$, 下水平集 $C_\alpha$ 是凸集.&lt;/p&gt;
+&lt;p&gt;若 $f$ 是拟凸的, 则称 $-f$ 是 &lt;strong&gt;拟凹的&lt;/strong&gt;. 若 $f$ 既是拟凸又是拟凹的, 则称 $f$ 是 &lt;strong&gt;拟线性的&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;注意: 拟凸函数的和不一定是拟凸函数.&lt;/p&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title thm&#34;&gt;定理&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;拟凸函数满足类 Jenson 不等式: 对拟凸函数 $f$ 和 $\forall x, y \in \text{dom} f, \theta \in [0,1]$, 有&lt;/li&gt;
+&lt;/ul&gt;
+$$f(\theta x + (1-\theta)y) \le \max\left\{f(x),f(y)\right\}$$&lt;ul&gt;
+&lt;li&gt;拟凸函数满足一阶条件: 定义在凸集上的可微函数 $f$ 拟凸当且仅当&lt;/li&gt;
+&lt;/ul&gt;
+$$f(y) \le f(x) \Rightarrow \nabla f(x)^T(y-x) \le 0$$&lt;/div&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;如果正值函数 $f$ 满足 $\log f$ 是凸函数, 则 $f$ 称为 &lt;strong&gt;对数凸函数&lt;/strong&gt;; 若为凹函数, 则 $f$ 称为 &lt;strong&gt;对数凹函数&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;例如, 正态分布&lt;/p&gt;
+$$f(x) = \frac{1}{\sqrt{(2\pi)^n \text{det} \Sigma}} \exp\left(-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu)\right)$$&lt;p&gt;是对数凹函数.&lt;/p&gt;
+&lt;p&gt;对数凹函数的乘积, 积分都是对数凹的, 但加和不一定是对数凹的.&lt;/p&gt;
+&lt;p&gt;在广义不等式下, 也可以定义凸凹性.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+$$f(\theta x+(1-\theta)y \preceq_K \theta f(x)+(1-\theta)f(y))$$&lt;p&gt;
+对任意 $x,y \in \text{dom} f, 0 \le \theta \le 1$ 成立.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;例如, $f: \mathbb{S}^m \mapsto \mathbb{S}^m$, $f(X)=X^2$ 是 $\mathbb{S}^m_+$-凸函数. 这点利用 $z^TX^2z=\Vert Xz \Vert^2$ 是关于 $X$ 的凸函数即可得知.&lt;/p&gt;
 </description>
         </item>
         <item>
@@ -236,8 +408,8 @@ $$ \left\{(x,t) \mid \Vert x \Vert \le t \right\} $$&lt;p&gt;的集合称为 &lt
 &lt;/div&gt;
 &lt;p&gt;考虑双曲锥&lt;/p&gt;
 $$
-\left\{ x \mid x^TPx \le \left( c^Tx \right)^2, c^Tx \ge 0, P \in S_+^n \right\}
-$$&lt;p&gt;$S_+^n$ 表示半正定矩阵. 双曲锥可以表示为二阶锥&lt;/p&gt;
+\left\{ x \mid x^TPx \le \left( c^Tx \right)^2, c^Tx \ge 0, P \in \mathbb{S}_+^n \right\}
+$$&lt;p&gt;$\mathbb{S}_+^n$ 表示半正定矩阵. 双曲锥可以表示为二阶锥&lt;/p&gt;
 $$
 \left\{ x \mid \Vert Ax \Vert_2 \le c^Tx, c^Tx \ge 0, A^TA = P \right\}
 $$&lt;p&gt;这个可以由二次范数锥得到.&lt;/p&gt;
@@ -268,7 +440,7 @@ $$
 &lt;p&gt;例如&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;非负卦限 $K=\mathbb{R}_+^n=\left\{ x \in \mathbb{R}^n \mid x_i \ge 0 \right\}$ 是适当锥.&lt;/li&gt;
-&lt;li&gt;半正定锥 $K=S_+^n$ 是适当锥.&lt;/li&gt;
+&lt;li&gt;半正定锥 $K=\mathbb{S}_+^n$ 是适当锥.&lt;/li&gt;
 &lt;li&gt;$[0,1]$ 上的有限非负多项式 $K=\left\{ x \in \mathbb{R}^n \mid x_1 + x_2t + \cdots + x_nt^{n-1} \ge 0, t \in [0,1] \right\}$ 是适当锥.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;可以在 &lt;strong&gt;适当锥&lt;/strong&gt; 上定义广义不等式.&lt;/p&gt;
@@ -437,6 +609,7 @@ $$</description>
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;intro&#34; &gt;最优化方法(1) —— 简介&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;convex-set&#34; &gt;最优化方法(2) —— 凸集&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;convex-function&#34; &gt;最优化方法(3) —— 凸函数&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;opt-problem&#34; &gt;最优化方法(4) —— 优化问题&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 </description>
