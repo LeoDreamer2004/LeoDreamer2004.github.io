@@ -7,13 +7,240 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>LeoDreamer</copyright>
-        <lastBuildDate>Fri, 07 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 18 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>机器学习基础(1) —— 概述</title>
+        <link>https://LeoDreamer2004.github.io/p/machine-learning/intro/</link>
+        <pubDate>Tue, 18 Feb 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/p/machine-learning/intro/</guid>
+        <description>&lt;link rel=&#34;stylesheet&#34; href=&#34;https://LeoDreamer2004.github.io/styles/notes.css&#34; &gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/MachineLearning-1.pdf&#34; &gt;本节课件链接&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;基础数学工具&#34;&gt;基础数学工具
+&lt;/h2&gt;&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;随机变量 $X$ 的 &lt;strong&gt;期望&lt;/strong&gt; $E[X]$ 定义为&lt;/p&gt;
+$$
+E[X] = \sum_{x} x \cdot P(X=x)
+$$&lt;p&gt;随机变量 $X$ 的 &lt;strong&gt;方差&lt;/strong&gt; $\text{Var}(X)$ 定义为&lt;/p&gt;
+$$
+\text{Var}(X) = E[(X - E[X])^2]
+$$&lt;p&gt;&lt;strong&gt;标准差&lt;/strong&gt; $\sigma(X)$ 定义为&lt;/p&gt;
+$$
+\sigma(X) = \sqrt{\text{Var}(X)}
+$$&lt;/div&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title thm&#34;&gt;定理&lt;span class=&#34;subtitle&#34;&gt;Markov 不等式&lt;/p&gt;
+&lt;p&gt;设 $X$ 是一个非负随机变量, 期望存在, 那么对于任意 $t &amp;gt; 0$ 有&lt;/p&gt;
+$$
+P(X \geq t) \leq \frac{E[X]}{t}
+$$&lt;/div&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title thm&#34;&gt;定理&lt;span class=&#34;subtitle&#34;&gt;Chebyshev 不等式&lt;/p&gt;
+&lt;p&gt;设 $X$ 是一个随机变量, 期望和方差都存在, 那么对于任意 $t &amp;gt; 0$ 有&lt;/p&gt;
+$$
+P(|X - E[X]| \geq t) \leq \frac{\text{Var}(X)}{t^2}
+$$&lt;/div&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;随机变量 $X$ 和 $Y$ 的 &lt;strong&gt;协方差&lt;/strong&gt; $\text{Cov}(X, Y)$ 定义为&lt;/p&gt;
+$$
+\text{Cov}(X, Y) = E[(X - E[X])(Y - E[Y])]
+$$&lt;p&gt;如果 $\text{Cov}(X, Y) = 0$, 则称 $X$ 和 $Y$ &lt;strong&gt;不相关&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;协方差具有对称性, 双线性.&lt;/p&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;随机向量 $X=(X_1, X_2, \ldots, X_n)$ 的 &lt;strong&gt;协方差矩阵&lt;/strong&gt; $C(X)$ 定义为&lt;/p&gt;
+$$
+C(X) = E[(X - E[X])(X - E[X])^T] = (\text{Cov}(X_i, X_j))_{ij}
+$$&lt;/div&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Gauss 分布&lt;/strong&gt; (正态分布) 的概率密度函数为&lt;/p&gt;
+$$
+f(x) = \frac{1}{\sqrt{2\pi}\sigma} \exp(-\frac{(x-\mu)^2}{2\sigma^2})
+$$&lt;p&gt;&lt;strong&gt;Laplace 分布&lt;/strong&gt; 的概率密度函数为&lt;/p&gt;
+$$
+f(x) = \frac{1}{2b} \exp(-\frac{|x-\mu|}{b})
+$$&lt;/div&gt;
+&lt;p&gt;最优化问题&lt;/p&gt;
+$$
+\begin{aligned}
+&amp; \min f(x) \\
+\text{s.t. } &amp; c_i(x) \leq 0, i = 1, 2, \dots, k \\
+&amp; h_j(x) = 0, j = 1, 2, \dots, l
+\end{aligned}
+$$&lt;p&gt;构造 Lagrange 函数&lt;/p&gt;
+$$
+L(x, \alpha, \beta) = f(x) + \sum_{i=1}^{k} \alpha_i c_i(x) + \sum_{j=1}^{l} \beta_j h_j(x)
+$$&lt;p&gt;引入 Karush-Kuhn-Tucker (KKT) 条件&lt;/p&gt;
+$$
+\begin{aligned}
+&amp; \nabla_x L(x, \alpha, \beta) = 0 \\
+&amp; c_i(x) \leq 0, i = 1, 2, \dots, k \\
+&amp; h_j(x) = 0, j = 1, 2, \dots, l \\
+&amp; \alpha_i c_i(x) = 0, i = 1, 2, \dots, k \\
+&amp; \alpha_i \geq 0, i = 1, 2, \dots, k
+\end{aligned}
+$$&lt;h2 id=&#34;基本概念和术语&#34;&gt;基本概念和术语
+&lt;/h2&gt;&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;监督学习&lt;/strong&gt;: 基于标记数据 $T=\{ (x_i,y_i) \}_{i=1}^N$, 学习一个从输入空间到输出空间的映射 $f: \mathcal{X} \mapsto \mathcal{Y}$. 利用此对未见数据进行预测. 通常分为 &lt;strong&gt;回归&lt;/strong&gt; 和 &lt;strong&gt;分类&lt;/strong&gt; 两类.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;无监督学习&lt;/strong&gt;: 基于未标记数据 $T=\{ x_i \}_{i=1}^N$, 发现其中隐含的知识模式. &lt;strong&gt;聚类&lt;/strong&gt; 是典型的无监督学习任务.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;半监督学习&lt;/strong&gt;: 既有标记数据又有未标记数据 (通常占比较大).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;强化学习&lt;/strong&gt;: 通过观察环境的反馈, 学习如何选择动作以获得最大的奖励.&lt;/p&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;模型评估与选择&#34;&gt;模型评估与选择
+&lt;/h2&gt;&lt;h3 id=&#34;损失函数&#34;&gt;损失函数
+&lt;/h3&gt;&lt;p&gt;模型基于算法按照一定策略给出假设 $h \in \mathcal{H}$, 通过 &lt;strong&gt;损失函数&lt;/strong&gt; $L(h(x), y)$ 衡量假设的好坏.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;0-1 损失函数:&lt;/li&gt;
+&lt;/ul&gt;
+$$L(h(x), y) = \mathbb{I}(h(x) \neq y) = \begin{cases} 0, &amp; h(x) = y \\ 1, &amp; h(x) \neq y \end{cases}$$&lt;ul&gt;
+&lt;li&gt;平方损失函数:&lt;/li&gt;
+&lt;/ul&gt;
+$$L(h(x), y) = (h(x) - y)^2$$&lt;p&gt;平均损失 $R(h) = E_{x \sim D} [L(h(x), y)]$ 称为 &lt;strong&gt;泛化误差&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;容易验证, 对于 0-1 损失函数, 准确率 $a = 1-R(h)$.&lt;/p&gt;
+&lt;h3 id=&#34;二分类&#34;&gt;二分类
+&lt;/h3&gt;&lt;p&gt;对于二分类问题, 样本预测结果有四种情况:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;真正例&lt;/strong&gt; (True Positive, TP): 预测为正例, 实际为正例.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;假正例&lt;/strong&gt; (False Positive, FP): 预测为正例, 实际为负例.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;真负例&lt;/strong&gt; (True Negative, TN): 预测为负例, 实际为负例.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;假负例&lt;/strong&gt; (False Negative, FN): 预测为负例, 实际为正例.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;由此引入&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;准确率(查准率):&lt;/strong&gt; $P = \frac{TP}{TP+FP}$.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;召回率(查全率):&lt;/strong&gt; $R = \frac{TP}{TP+FN}$.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;$F_1$ 度量:&lt;/strong&gt; 考虑到二者抵触, 引入调和均值 $F_1 = \frac{2PR}{P+R}$.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;过拟合和正则化&#34;&gt;过拟合和正则化
+&lt;/h3&gt;&lt;p&gt;为了防止由于模型过于复杂而导致的过拟合, 可以通过 &lt;strong&gt;正则化&lt;/strong&gt; 方法来限制模型的复杂度.&lt;/p&gt;
+$$
+\min \sum_{i=1}^{N} L(h(x_i), y_i) + \lambda J(h)
+$$&lt;p&gt;其中 $J(h)$ 是随着模型复杂度增加而增加的函数. $\lambda$ 是正则化参数.&lt;/p&gt;
+&lt;p&gt;怎么选取合适的 $\lambda$ ? 一般是先给出若干候选, 在验证集上进行评估, 选取泛化误差最小的.&lt;/p&gt;
+&lt;h3 id=&#34;数据集划分&#34;&gt;数据集划分
+&lt;/h3&gt;&lt;p&gt;一般将数据集划分为 &lt;strong&gt;训练集&lt;/strong&gt; $T$ 和 &lt;strong&gt;测试(验证)集&lt;/strong&gt; $T^\prime$.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;留出法 (hold-out)&lt;/strong&gt;: 分层无放回地随机采样. 也叫简单交叉验证.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;$k$ 折交叉验证 ($k$-fold cross validation)&lt;/strong&gt;: 将数据集分为 $k$ 个大小相等的子集, 每次取其中一个作为验证集, 其余作为训练集, 最后以这 $k$ 次的平均误差作为泛化误差的估计. 当 $k=|D|$ 时称为留一 (leave-one-out) 验证法.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;自助法 (bootstrapping)&lt;/strong&gt;: 从数据集中&lt;em&gt;有放回地&lt;/em&gt;采样 $|D|$ 个数据作为训练集, 没抽中的作为验证集. 因而训练集 $T$ 和原始数据集 $D$ 的分布未必一致, 对数据分布敏感的模型不适用.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;偏差-方差分解&#34;&gt;偏差-方差分解
+&lt;/h2&gt;&lt;p&gt;为什么泛化误差会随着模型复杂度的增加而先减小后增大?&lt;/p&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;偏差&lt;/strong&gt; (bias): 模型预测值的期望与真实值之间的差异. 体现了模型的拟合能力.&lt;/p&gt;
+$$\text{Bias}(x) = E_T[h_T(x)-c(x)] = \bar{h}(x) - c(x)$$&lt;p&gt;&lt;strong&gt;方差&lt;/strong&gt; (variance): 模型预测值的方差. 体现了模型的对数据扰动的稳定性.&lt;/p&gt;
+$$\text{Var}(x) = E[(h(x) - \bar{h}(x))^2]$$&lt;/div&gt;
+&lt;p&gt;现在对泛化误差进行分解:&lt;/p&gt;
+$$
+\begin{aligned}
+R(h) &amp;= E_T[(h_T(x) - c(x))^2] \\
+&amp;= E_T[h_T^2(x) - 2h_T(x)c(x) + c^2(x)] \\
+&amp;= E_T[h_T^2(x)] - 2c(x)E_T[h_T(x)] + c^2(x) \\
+&amp;= E_T[h_T^2(x)] - \bar{h}^2(x) + \bar{h}^2(x) - 2\bar{h}(x)c(x) + c^2(x) \\
+&amp;= E_T[(h_T(x) - \bar{h}(x))^2] + (\bar{h}(x) - c(x))^2 \\
+&amp;= \text{Var}(x) + \text{Bias}^2(x)
+\end{aligned}
+$$&lt;p&gt;当然, 由于噪声存在, $y$ 未必一定等于 $c(x)$, 不妨设 $y=c(x)+\varepsilon$, 其中 $\varepsilon \sim \Epsilon$ 期望为 $0$. 可以证明&lt;/p&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title thm&#34;&gt;定理&lt;span class=&#34;subtitle&#34;&gt;偏差-方差分解&lt;/p&gt;
+$$
+E_{T \sim D^{|T|}, \varepsilon \sim \Epsilon} [(h_T(x)-y)^2] = \text{Bias}^2(x) + \text{Var}(x) + E[\varepsilon^2]
+$$&lt;p&gt;即泛化误差可以分解为偏差、方差和噪声三部分.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+        </item>
+        <item>
+        <title>机器学习基础</title>
+        <link>https://LeoDreamer2004.github.io/p/machine-learning/</link>
+        <pubDate>Mon, 17 Feb 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/p/machine-learning/</guid>
+        <description>&lt;link rel=&#34;stylesheet&#34; href=&#34;https://LeoDreamer2004.github.io/styles/notes.css&#34; &gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title&#34;&gt;导航&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;intro&#34; &gt;机器学习基础(1) —— 概述&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+</description>
+        </item>
+        <item>
         <title>最优化方法(4) —— 优化问题</title>
         <link>https://LeoDreamer2004.github.io/p/opt-method/opt-problem/</link>
-        <pubDate>Fri, 07 Feb 2025 00:00:00 +0000</pubDate>
+        <pubDate>Sat, 15 Feb 2025 00:00:00 +0000</pubDate>
         
         <guid>https://LeoDreamer2004.github.io/p/opt-method/opt-problem/</guid>
-        <description></description>
+        <description>&lt;link rel=&#34;stylesheet&#34; href=&#34;https://LeoDreamer2004.github.io/styles/notes.css&#34; &gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://faculty.bicmr.pku.edu.cn/~wenzw/optbook/lect/06-opt-dzw-pku.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;本节课件链接&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;凸优化&#34;&gt;凸优化
+&lt;/h2&gt;&lt;p&gt;凸问题的可行集都是凸集.&lt;/p&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title thm&#34;&gt;定理&lt;/p&gt;
+&lt;p&gt;凸优化问题的任意局部极小点都是全局最优点.&lt;/p&gt;
+&lt;p class=&#34;block-title prf&#34;&gt;证明&lt;/p&gt;
+&lt;p&gt;假设 $x$ 是局部极小, $y$ 全局最优且 $f(y) &amp;lt; f(x)$.&lt;/p&gt;
+&lt;p&gt;考虑 $z = \theta x + (1-\theta) y$, 则由于 $z$ 是可行点的凸组合, 也是可行点. 由于 $f$ 是凸函数, 有&lt;/p&gt;
+$$
+f(z) \leq \theta f(x) + (1-\theta) f(y) &lt; f(x)
+$$&lt;p&gt;取 $\theta \to 1$, 则 $f(z) \to f(x)$, 与局部最小性矛盾.&lt;/p&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;线性规划&#34;&gt;线性规划
+&lt;/h2&gt;&lt;p&gt;所谓 &lt;strong&gt;线性规划(LP)&lt;/strong&gt; 问题是指目标函数和约束条件都是线性的优化问题. 一般形式如下:&lt;/p&gt;
+$$
+\begin{aligned}
+\min \quad &amp; c^T x \\
+\text{s.t.} \quad &amp; Ax = b \\
+&amp; Gx \le e
+\end{aligned}
+$$&lt;p&gt;$\ell_1$ 和 $\ell_\infty$ 范数实际上也是线性的.&lt;/p&gt;
+&lt;p&gt;凸多边形&lt;/p&gt;
+$$P = \{ x \mid a_i^Tx \le b_i \}$$&lt;p&gt;的切比雪夫中心是最大半径内切球的中心. 代入得&lt;/p&gt;
+$$
+\sup \{a_i^T (x_c + u) \mid \Vert u \Vert_2 \le r \} = a_i^Tx_c + r \Vert a_i \Vert_2 \le b_i
+$$&lt;p&gt;这也变成了一个线性规划问题.&lt;/p&gt;
+&lt;h2 id=&#34;二次规划&#34;&gt;二次规划
+&lt;/h2&gt;&lt;p&gt;二次规划问题是指目标函数是二次的的优化问题.&lt;/p&gt;
+&lt;p&gt;例如, 对于线性约束条件的问题, 一般形式如下:&lt;/p&gt;
+$$
+\begin{aligned}
+\min \quad &amp; \frac{1}{2} x^T P x + q^T x + r \\
+\text{s.t.} \quad &amp; Ax = b \\
+&amp; Gx \le e
+\end{aligned}
+$$&lt;p&gt;也有 &lt;strong&gt;带二次约束的二次规划 (QCQP)&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;我们归结为 &lt;strong&gt;二次锥规划 (SOCP)&lt;/strong&gt;:&lt;/p&gt;
+$$
+\begin{aligned}
+\min \quad &amp; f^T x \\
+\text{s.t.} \quad &amp; \Vert A_i x + b_i \Vert_2 \le c_i^T x + d_i, \quad i = 1, \ldots, m \\
+&amp; Fx = g
+\end{aligned}
+$$&lt;p&gt;&lt;strong&gt;最小范数问题&lt;/strong&gt;: 令 $\bar{v_i} = A_ix+b_i \in \mathbb{R}^{n_i}$, 则&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$\min_x \sum_i \Vert \bar{v_i} \Vert_2$ 等价于&lt;/li&gt;
+&lt;/ul&gt;
+$$
+\begin{aligned}
+\min \quad &amp; \sum_i v_{i0} \\
+\text{s.t.} \quad &amp;\bar{v_i} = A_i x + b_i \\
+&amp;(v_{i0}, \bar{v_i}) \succeq_\mathcal{Q} 0
+\end{aligned}
+$$&lt;p&gt;其中 $\mathcal{Q}$ 是二次锥.&lt;/p&gt;
+&lt;p&gt;最大 $k$ 范数和问题: 设 $\Vert \bar{v_[i]} \Vert$ 是 $\bar{v_i}$ 的非递增方式的排序. 则 $\min_x \sum_{i=1}^m \Vert \bar{v_[i]} \Vert$ 等价于&lt;/p&gt;
+$$
+\begin{aligned}
+\min \quad &amp; \sum_{i=1}^m u_i + kt \\
+\text{s.t.} \quad &amp; \bar{v_i} = A_i x + b_i \\
+&amp; \Vert \bar{v_i} \Vert \le u_i + t \\
+&amp; u_i \ge 0
+\end{aligned}
+$$</description>
         </item>
         <item>
         <title>最优化方法(3) —— 凸函数</title>
@@ -600,7 +827,7 @@ $$</description>
         <pubDate>Thu, 09 Jan 2025 00:00:00 +0000</pubDate>
         
         <guid>https://LeoDreamer2004.github.io/p/opt-method/</guid>
-        <description>&lt;p&gt;本系列是关于北大文再文老师最优化方法课程的随性笔记。&lt;/p&gt;
+        <description>&lt;p&gt;本系列是关于北大文再文老师最优化方法课程的自学笔记。&lt;/p&gt;
 &lt;link rel=&#34;stylesheet&#34; href=&#34;https://LeoDreamer2004.github.io/styles/notes.css&#34; &gt;
 &lt;div class=&#34;block&#34;&gt;
 &lt;p class=&#34;block-title&#34;&gt;导航&lt;/p&gt;

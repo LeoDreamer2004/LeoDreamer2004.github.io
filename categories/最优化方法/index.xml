@@ -7,13 +7,78 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>LeoDreamer</copyright>
-        <lastBuildDate>Fri, 07 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/%E6%9C%80%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 15 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/%E6%9C%80%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>最优化方法(4) —— 优化问题</title>
         <link>https://LeoDreamer2004.github.io/p/opt-method/opt-problem/</link>
-        <pubDate>Fri, 07 Feb 2025 00:00:00 +0000</pubDate>
+        <pubDate>Sat, 15 Feb 2025 00:00:00 +0000</pubDate>
         
         <guid>https://LeoDreamer2004.github.io/p/opt-method/opt-problem/</guid>
-        <description></description>
+        <description>&lt;link rel=&#34;stylesheet&#34; href=&#34;https://LeoDreamer2004.github.io/styles/notes.css&#34; &gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://faculty.bicmr.pku.edu.cn/~wenzw/optbook/lect/06-opt-dzw-pku.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;本节课件链接&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;凸优化&#34;&gt;凸优化
+&lt;/h2&gt;&lt;p&gt;凸问题的可行集都是凸集.&lt;/p&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title thm&#34;&gt;定理&lt;/p&gt;
+&lt;p&gt;凸优化问题的任意局部极小点都是全局最优点.&lt;/p&gt;
+&lt;p class=&#34;block-title prf&#34;&gt;证明&lt;/p&gt;
+&lt;p&gt;假设 $x$ 是局部极小, $y$ 全局最优且 $f(y) &amp;lt; f(x)$.&lt;/p&gt;
+&lt;p&gt;考虑 $z = \theta x + (1-\theta) y$, 则由于 $z$ 是可行点的凸组合, 也是可行点. 由于 $f$ 是凸函数, 有&lt;/p&gt;
+$$
+f(z) \leq \theta f(x) + (1-\theta) f(y) &lt; f(x)
+$$&lt;p&gt;取 $\theta \to 1$, 则 $f(z) \to f(x)$, 与局部最小性矛盾.&lt;/p&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;线性规划&#34;&gt;线性规划
+&lt;/h2&gt;&lt;p&gt;所谓 &lt;strong&gt;线性规划(LP)&lt;/strong&gt; 问题是指目标函数和约束条件都是线性的优化问题. 一般形式如下:&lt;/p&gt;
+$$
+\begin{aligned}
+\min \quad &amp; c^T x \\
+\text{s.t.} \quad &amp; Ax = b \\
+&amp; Gx \le e
+\end{aligned}
+$$&lt;p&gt;$\ell_1$ 和 $\ell_\infty$ 范数实际上也是线性的.&lt;/p&gt;
+&lt;p&gt;凸多边形&lt;/p&gt;
+$$P = \{ x \mid a_i^Tx \le b_i \}$$&lt;p&gt;的切比雪夫中心是最大半径内切球的中心. 代入得&lt;/p&gt;
+$$
+\sup \{a_i^T (x_c + u) \mid \Vert u \Vert_2 \le r \} = a_i^Tx_c + r \Vert a_i \Vert_2 \le b_i
+$$&lt;p&gt;这也变成了一个线性规划问题.&lt;/p&gt;
+&lt;h2 id=&#34;二次规划&#34;&gt;二次规划
+&lt;/h2&gt;&lt;p&gt;二次规划问题是指目标函数是二次的的优化问题.&lt;/p&gt;
+&lt;p&gt;例如, 对于线性约束条件的问题, 一般形式如下:&lt;/p&gt;
+$$
+\begin{aligned}
+\min \quad &amp; \frac{1}{2} x^T P x + q^T x + r \\
+\text{s.t.} \quad &amp; Ax = b \\
+&amp; Gx \le e
+\end{aligned}
+$$&lt;p&gt;也有 &lt;strong&gt;带二次约束的二次规划 (QCQP)&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;我们归结为 &lt;strong&gt;二次锥规划 (SOCP)&lt;/strong&gt;:&lt;/p&gt;
+$$
+\begin{aligned}
+\min \quad &amp; f^T x \\
+\text{s.t.} \quad &amp; \Vert A_i x + b_i \Vert_2 \le c_i^T x + d_i, \quad i = 1, \ldots, m \\
+&amp; Fx = g
+\end{aligned}
+$$&lt;p&gt;&lt;strong&gt;最小范数问题&lt;/strong&gt;: 令 $\bar{v_i} = A_ix+b_i \in \mathbb{R}^{n_i}$, 则&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$\min_x \sum_i \Vert \bar{v_i} \Vert_2$ 等价于&lt;/li&gt;
+&lt;/ul&gt;
+$$
+\begin{aligned}
+\min \quad &amp; \sum_i v_{i0} \\
+\text{s.t.} \quad &amp;\bar{v_i} = A_i x + b_i \\
+&amp;(v_{i0}, \bar{v_i}) \succeq_\mathcal{Q} 0
+\end{aligned}
+$$&lt;p&gt;其中 $\mathcal{Q}$ 是二次锥.&lt;/p&gt;
+&lt;p&gt;最大 $k$ 范数和问题: 设 $\Vert \bar{v_[i]} \Vert$ 是 $\bar{v_i}$ 的非递增方式的排序. 则 $\min_x \sum_{i=1}^m \Vert \bar{v_[i]} \Vert$ 等价于&lt;/p&gt;
+$$
+\begin{aligned}
+\min \quad &amp; \sum_{i=1}^m u_i + kt \\
+\text{s.t.} \quad &amp; \bar{v_i} = A_i x + b_i \\
+&amp; \Vert \bar{v_i} \Vert \le u_i + t \\
+&amp; u_i \ge 0
+\end{aligned}
+$$</description>
         </item>
         <item>
         <title>最优化方法(3) —— 凸函数</title>
@@ -600,7 +665,7 @@ $$</description>
         <pubDate>Thu, 09 Jan 2025 00:00:00 +0000</pubDate>
         
         <guid>https://LeoDreamer2004.github.io/p/opt-method/</guid>
-        <description>&lt;p&gt;本系列是关于北大文再文老师最优化方法课程的随性笔记。&lt;/p&gt;
+        <description>&lt;p&gt;本系列是关于北大文再文老师最优化方法课程的自学笔记。&lt;/p&gt;
 &lt;link rel=&#34;stylesheet&#34; href=&#34;https://LeoDreamer2004.github.io/styles/notes.css&#34; &gt;
 &lt;div class=&#34;block&#34;&gt;
 &lt;p class=&#34;block-title&#34;&gt;导航&lt;/p&gt;
