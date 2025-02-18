@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>导航 on LeoDreamer</title>
+        <link>https://LeoDreamer2004.github.io/categories/%E5%AF%BC%E8%88%AA/</link>
+        <description>Recent content in 导航 on LeoDreamer</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>LeoDreamer</copyright>
+        <lastBuildDate>Mon, 17 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/%E5%AF%BC%E8%88%AA/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>机器学习基础</title>
+        <link>https://LeoDreamer2004.github.io/p/machine-learning/</link>
+        <pubDate>Mon, 17 Feb 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/p/machine-learning/</guid>
+        <description>&lt;link rel=&#34;stylesheet&#34; href=&#34;https://LeoDreamer2004.github.io/styles/notes.css&#34; &gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title&#34;&gt;导航&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;博客页面&lt;/th&gt;
+          &lt;th&gt;课件&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;intro&#34; &gt;机器学习基础(1) —— 概述&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/MachineLearning-1.pdf&#34; &gt;课件链接&lt;/a&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+</description>
+        </item>
+        <item>
+        <title>最优化方法</title>
+        <link>https://LeoDreamer2004.github.io/p/opt-method/</link>
+        <pubDate>Thu, 09 Jan 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/p/opt-method/</guid>
+        <description>&lt;p&gt;本系列是关于北大文再文老师最优化方法课程的自学笔记。&lt;/p&gt;
+&lt;link rel=&#34;stylesheet&#34; href=&#34;https://LeoDreamer2004.github.io/styles/notes.css&#34; &gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title&#34;&gt;导航&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;博客页面&lt;/th&gt;
+          &lt;th&gt;课件&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;intro&#34; &gt;最优化方法(1) —— 简介&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;http://faculty.bicmr.pku.edu.cn/~wenzw/optbook/lect/01-opt-pku.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;课件链接&lt;/a&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;convex-set&#34; &gt;最优化方法(2) —— 凸集&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;http://faculty.bicmr.pku.edu.cn/~wenzw/optbook/lect/02-convex-set.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;课件链接&lt;/a&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;convex-function&#34; &gt;最优化方法(3) —— 凸函数&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;http://faculty.bicmr.pku.edu.cn/~wenzw/optbook/lect/03_functions_newhyx.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;课件链接&lt;/a&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;opt-problem&#34; &gt;最优化方法(4) —— 优化问题&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;http://faculty.bicmr.pku.edu.cn/~wenzw/optbook/lect/06-opt-dzw-pku.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;课件链接&lt;/a&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
