@@ -30,13 +30,13 @@ $$
 $$&lt;/div&gt;
 &lt;div class=&#34;block&#34;&gt;
 &lt;p class=&#34;block-title thm&#34;&gt;定理&lt;span class=&#34;subtitle&#34;&gt;Markov 不等式&lt;/p&gt;
-&lt;p&gt;设 $X$ 是一个非负随机变量, 期望存在, 那么对于任意 $t &amp;gt; 0$ 有&lt;/p&gt;
+&lt;p&gt;设 $X$ 是一个非负随机变量, 期望存在, 那么对于任意 $t &gt; 0$ 有&lt;/p&gt;
 $$
 P(X \geq t) \leq \frac{E[X]}{t}
 $$&lt;/div&gt;
 &lt;div class=&#34;block&#34;&gt;
 &lt;p class=&#34;block-title thm&#34;&gt;定理&lt;span class=&#34;subtitle&#34;&gt;Chebyshev 不等式&lt;/p&gt;
-&lt;p&gt;设 $X$ 是一个随机变量, 期望和方差都存在, 那么对于任意 $t &amp;gt; 0$ 有&lt;/p&gt;
+&lt;p&gt;设 $X$ 是一个随机变量, 期望和方差都存在, 那么对于任意 $t &gt; 0$ 有&lt;/p&gt;
 $$
 P(|X - E[X]| \geq t) \leq \frac{\text{Var}(X)}{t^2}
 $$&lt;/div&gt;

@@ -30,13 +30,13 @@ $$
 $$&lt;/div&gt;
 &lt;div class=&#34;block&#34;&gt;
 &lt;p class=&#34;block-title thm&#34;&gt;定理&lt;span class=&#34;subtitle&#34;&gt;Markov 不等式&lt;/p&gt;
-&lt;p&gt;设 $X$ 是一个非负随机变量, 期望存在, 那么对于任意 $t &amp;gt; 0$ 有&lt;/p&gt;
+&lt;p&gt;设 $X$ 是一个非负随机变量, 期望存在, 那么对于任意 $t &gt; 0$ 有&lt;/p&gt;
 $$
 P(X \geq t) \leq \frac{E[X]}{t}
 $$&lt;/div&gt;
 &lt;div class=&#34;block&#34;&gt;
 &lt;p class=&#34;block-title thm&#34;&gt;定理&lt;span class=&#34;subtitle&#34;&gt;Chebyshev 不等式&lt;/p&gt;
-&lt;p&gt;设 $X$ 是一个随机变量, 期望和方差都存在, 那么对于任意 $t &amp;gt; 0$ 有&lt;/p&gt;
+&lt;p&gt;设 $X$ 是一个随机变量, 期望和方差都存在, 那么对于任意 $t &gt; 0$ 有&lt;/p&gt;
 $$
 P(|X - E[X]| \geq t) \leq \frac{\text{Var}(X)}{t^2}
 $$&lt;/div&gt;
@@ -196,7 +196,7 @@ $$&lt;p&gt;即泛化误差可以分解为偏差、方差和噪声三部分.&lt;/
 &lt;p class=&#34;block-title thm&#34;&gt;定理&lt;/p&gt;
 &lt;p&gt;凸优化问题的任意局部极小点都是全局最优点.&lt;/p&gt;
 &lt;p class=&#34;block-title prf&#34;&gt;证明&lt;/p&gt;
-&lt;p&gt;假设 $x$ 是局部极小, $y$ 全局最优且 $f(y) &amp;lt; f(x)$.&lt;/p&gt;
+&lt;p&gt;假设 $x$ 是局部极小, $y$ 全局最优且 $f(y) &lt; f(x)$.&lt;/p&gt;
 &lt;p&gt;考虑 $z = \theta x + (1-\theta) y$, 则由于 $z$ 是可行点的凸组合, 也是可行点. 由于 $f$ 是凸函数, 有&lt;/p&gt;
 $$
 f(z) \leq \theta f(x) + (1-\theta) f(y) &lt; f(x)
@@ -347,7 +347,7 @@ $$
 &lt;/div&gt;
 &lt;div class=&#34;block&#34;&gt;
 &lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
-&lt;p&gt;给定广义实值函数 $f$ 和非空集合 $X$. 如果存在 $x \in X$ 使得 $f(x) &amp;lt; +\infty$, 并且对任意的 $x \in X$, 都有 $f(x) &amp;gt; -\infty$, 那么称函数 $f$ 关于集合 $X$ 是 &lt;strong&gt;适当的&lt;/strong&gt;．&lt;/p&gt;
+&lt;p&gt;给定广义实值函数 $f$ 和非空集合 $X$. 如果存在 $x \in X$ 使得 $f(x) &lt; +\infty$, 并且对任意的 $x \in X$, 都有 $f(x) &gt; -\infty$, 那么称函数 $f$ 关于集合 $X$ 是 &lt;strong&gt;适当的&lt;/strong&gt;．&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;block&#34;&gt;
 &lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
@@ -368,8 +368,8 @@ $$
 &lt;li&gt;$f(x)$ 是闭函数.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p class=&#34;block-title prf&#34;&gt;证明&lt;/p&gt;
-&lt;p&gt;(1) $\Rightarrow$ (2): 反证, 假设 $x_k \to \bar{x}$ 但 $\liminf_{k \to \infty} f(x_k) &amp;lt; f(\bar{x})$. 取 $t$ 介于二者之间.&lt;/p&gt;
-&lt;p&gt;考虑到 $\liminf_{k \to \infty} f(x_k) &amp;lt; t$, 则有无穷多 $x_k$ 使得 $f(x_k) \le t$, 即这些 $x_k$ 在 $C_t$ 中. 由于 $C_t$ 是闭集, 则 $\bar{x} \in C_t$, 即 $f(\bar{x}) \le t$, 矛盾.&lt;/p&gt;
+&lt;p&gt;(1) $\Rightarrow$ (2): 反证, 假设 $x_k \to \bar{x}$ 但 $\liminf_{k \to \infty} f(x_k) &lt; f(\bar{x})$. 取 $t$ 介于二者之间.&lt;/p&gt;
+&lt;p&gt;考虑到 $\liminf_{k \to \infty} f(x_k) &lt; t$, 则有无穷多 $x_k$ 使得 $f(x_k) \le t$, 即这些 $x_k$ 在 $C_t$ 中. 由于 $C_t$ 是闭集, 则 $\bar{x} \in C_t$, 即 $f(\bar{x}) \le t$, 矛盾.&lt;/p&gt;
 &lt;p&gt;(2) $\Rightarrow$ (3): 考虑 $(x_k,y_k) \in \text{epi} f \to (\bar{x},\bar{y})$, 由于 $f$ 下半连续, 则&lt;/p&gt;
 $$ f(\bar{x}) \le \liminf_{k \to \infty} f(x_k) = \liminf_{k \to \infty} y_k = \bar{y} $$&lt;p&gt;即 $(\bar{x}, \bar{y}) \in \text{epi} f$.&lt;/p&gt;
 &lt;p&gt;(3) $\Rightarrow$ (1): 考虑 $x_k \in C_\alpha \to \bar{x}$, 则 $(x_k, \alpha) \in \text{epi} f \to (\bar{x}, \alpha)$, 所以 $(\bar{x}, \alpha) \in \text{epi} f$, 即 $f(\bar{x}) \le \alpha$, 所以 $\bar{x} \in C_\alpha$.&lt;/p&gt;
@@ -385,7 +385,7 @@ $$&lt;/div&gt;
 &lt;p&gt;易知仿射函数既是凸函数又是凹函数. 所有的范数都是凸函数.&lt;/p&gt;
 &lt;div class=&#34;block&#34;&gt;
 &lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
-&lt;p&gt;若存在常数 $m &amp;gt; 0$, 使得 $g(x) = f(x) - \frac{m}{2} \Vert x \Vert^2$ 是凸函数, 则称 $f$ 是 &lt;strong&gt;强凸函数&lt;/strong&gt;, $m$ 称为 &lt;strong&gt;强凸参数&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;若存在常数 $m &gt; 0$, 使得 $g(x) = f(x) - \frac{m}{2} \Vert x \Vert^2$ 是凸函数, 则称 $f$ 是 &lt;strong&gt;强凸函数&lt;/strong&gt;, $m$ 称为 &lt;strong&gt;强凸参数&lt;/strong&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;block&#34;&gt;
 &lt;p class=&#34;block-title thm&#34;&gt;定理&lt;span class=&#34;subtitle&#34;&gt;凸函数判定定理&lt;/span&gt;&lt;/p&gt;
@@ -437,7 +437,7 @@ $$&lt;/div&gt;
 &lt;p class=&#34;block-title thm&#34;&gt;定理&lt;span class=&#34;subtitle&#34;&gt;二阶条件&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;设 $f$ 为定义在凸集上的二阶连续可微函数, $f$ 是凸函数当且仅当 $\nabla^2 f(x) \succeq 0, \forall x \in \text{dom} f$. 若不取等, 则为严格凸函数.&lt;/p&gt;
 &lt;p class=&#34;block-title prf&#34;&gt;证明&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;必要性&lt;/strong&gt;: 反设 $f(x)$ 在 $x$ 处 $\nabla^2 f(x) \prec 0$, 则存在 $v \in \mathbb{R}^n$, 使得 $v^T \nabla^2 f(x) v &amp;lt; 0$, 考虑 Peano 余项&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;必要性&lt;/strong&gt;: 反设 $f(x)$ 在 $x$ 处 $\nabla^2 f(x) \prec 0$, 则存在 $v \in \mathbb{R}^n$, 使得 $v^T \nabla^2 f(x) v &lt; 0$, 考虑 Peano 余项&lt;/p&gt;
 $$
 f(x+tv)=f(x)+t\nabla f(x)^Tv+\frac{t^2}{2}v^T\nabla^2 f(x+tv)v + o(t^2)
 $$&lt;p&gt;取 $t$ 充分小,&lt;/p&gt;
@@ -461,7 +461,7 @@ $$g(x)=\sup_{y \in A} f(x,y)$$&lt;p&gt;也是凸函数.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;$C$ 的支撑函数 $f(x)=\sup_{y \in C} y^Tx$ 是凸函数.&lt;/li&gt;
 &lt;li&gt;$C$ 到 $x$ 的最远距离 $f(x)=\sup_{y \in C} \Vert x-y \Vert$ 是凸函数.&lt;/li&gt;
-&lt;li&gt;对称阵 $X \in \mathbb{S}^n$ 的最大特征值 $\lambda_{\max}(X)=\sup_{\Vert x \Vert=1} x^TXx$ 是凸函数.&lt;/li&gt;
+&lt;li&gt;对称阵 $X \in \\mathbb{S}^n$ 的最大特征值 $\lambda_{\max}(X)=\sup_{\Vert x \Vert=1} x^TXx$ 是凸函数.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
