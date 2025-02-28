@@ -7,7 +7,68 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>LeoDreamer</copyright>
-        <lastBuildDate>Tue, 18 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/%E6%95%B0%E5%AD%A6/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 28 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/%E6%95%B0%E5%AD%A6/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>机器学习基础(2) —— 支持向量机</title>
+        <link>https://LeoDreamer2004.github.io/p/machine-learning/vector-machine/</link>
+        <pubDate>Fri, 28 Feb 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/p/machine-learning/vector-machine/</guid>
+        <description>&lt;link rel=&#34;stylesheet&#34; href=&#34;https://LeoDreamer2004.github.io/styles/notes.css&#34; &gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/MachineLearning-2.pdf&#34; &gt;本节课件链接&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;对于一个数据集 $D$, 如果能找到一个超平面 $H: w^Tx + b = 0$, 将数据分为两类. 即对任意 $(x_i, y_i) \in D$, 若 $y_i = 1$, 则 $w^Tx_i + b \geq 0$; 若 $y_i = -1$, 则 $w^Tx_i + b &lt; 0$. 则称 $D$ 是 &lt;strong&gt;线性可分的&lt;/strong&gt; , 超平面 $H$ 是 $D$ 的一个 &lt;strong&gt;分离超平面&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;最优超平面不仅要能够将数据分开, 还要使得两类数据点到超平面的距离尽可能远.&lt;/p&gt;
+&lt;p&gt;考虑到 $w,b$ 任意缩放都不影响超平面的位置, 我们可以规定 $w^Tx + b = 1$ 为最近的正类数据点满足的方程. 此时距离为 $1/{\|w\|}$, 要最大化这个量, 即化归成凸二次规划问题:&lt;/p&gt;
+$$
+\begin{aligned}
+&amp; \min_{w, b} \frac{1}{2} \|w\|^2 \\
+&amp; \text{s.t.} \quad y_i(w \cdot x_i + b) \geq 1, \quad i = 1, 2, \cdots, n
+\end{aligned}
+$$&lt;p&gt;只要 $D$ 是线性可分的, 上述问题一定有解且唯一. 对应的分类决策函数&lt;/p&gt;
+$$
+f(x) = \text{sign}(w^Tx + b)
+$$&lt;p&gt;称为 &lt;strong&gt;线性可分支持向量机&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;引入 Lagrange 乘子 $\alpha_i \geq 0$:&lt;/p&gt;
+$$
+L(w, b, \alpha) = \frac{1}{2} \|w\|^2 - \sum_{i=1}^n \alpha_i(y_i(w \cdot x_i + b) - 1)
+$$&lt;p&gt;对 $w, b$ 求偏导为 $0$, 得到&lt;/p&gt;
+$$
+\begin{aligned}
+&amp; w = \sum_{i=1}^n \alpha_i y_i x_i \\
+&amp; 0 = \sum_{i=1}^n \alpha_i y_i
+\end{aligned}
+$$&lt;p&gt;代入 $L(w, b, \alpha)$, 得到对偶问题:&lt;/p&gt;
+$$
+\begin{aligned}
+&amp; \max_{\alpha} \sum_{i=1}^n \alpha_i - \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j x_i \cdot x_j \\
+&amp; \text{s.t.} \quad \alpha_i \geq 0, \quad \sum_{i=1}^n \alpha_i y_i = 0
+\end{aligned}
+$$&lt;p&gt;由 KKT 条件, 最优解一定满足&lt;/p&gt;
+$$
+\begin{aligned}
+\alpha_i(y_i(w \cdot x_i + b) - 1) &amp;= 0 \\
+y_i(w \cdot x_i + b) - 1 &amp;\geq 0 \\
+\alpha_i &amp;\geq 0 \\
+\end{aligned}
+$$&lt;p&gt;由于 $\alpha_i$ 不全为 $0$, 存在 $j$ 使得 $y_j(w \cdot x_j + b) = 1$, 由此&lt;/p&gt;
+$$
+b = y_j - w \cdot x_j = y_j - \sum_{i=1}^n \alpha_i y_i x_i \cdot x_j
+$$&lt;p&gt;乘上 $\alpha_jy_j$ 做累和, 有&lt;/p&gt;
+$$
+0=\sum_{j=1}^n \alpha_jy_jb = \sum_{j=1}^n \alpha_j - \| w \|^2
+$$&lt;p&gt;上式中 $\alpha_i=0$ 的 $i$ 也成立, 因为都是 $0$ 不影响结果. 注意到 $w = \sum_{i=1}^n \alpha_i y_i x_i$ 也只收到 $\alpha_i &gt; 0$ 的影响, 而这些项的点都落在间隔边界&lt;/p&gt;
+$$
+H_1: w \cdot x + b = 1, \quad H_2: w \cdot x + b = -1
+$$&lt;p&gt;上, 称这些点 $x_i$ 为 &lt;strong&gt;支持向量&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;支持向量机的留一误差&lt;/p&gt;
+$$
+\hat{R}_{\text{loo}} = \frac{1}{n} \sum_{i=1}^n I(f_{D-\{x_i\}}(x_i) \neq y_i)
+$$&lt;p&gt;则 $\hat{R}_{\text{loo}} \le N_{SV}/n$, 其中 $N_{SV}$ 为支持向量的个数.&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>机器学习基础(1) —— 概述</title>
         <link>https://LeoDreamer2004.github.io/p/machine-learning/intro/</link>
         <pubDate>Tue, 18 Feb 2025 00:00:00 +0000</pubDate>
