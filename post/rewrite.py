@@ -11,7 +11,7 @@ content = content.replace(
     r"\def",
     """<div class="block">\n\n<p class="block-title def">定义</p>"""
 ).replace(
-    r"\end", "</div>"
+    r"\ok", "</div>"
 ).replace(
     r"\R", r"\mathbb{R}"
 )

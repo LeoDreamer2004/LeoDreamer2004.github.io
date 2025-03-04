@@ -59,23 +59,23 @@ $$
 \text{s.t.} \quad &amp; \Vert A_i x + b_i \Vert_2 \le c_i^T x + d_i, \quad i = 1, \ldots, m \\
 &amp; Fx = g
 \end{aligned}
-$$&lt;p&gt;&lt;strong&gt;最小范数问题&lt;/strong&gt;: 令 $\bar{v_i} = A_ix+b_i \in \mathbb{R}^{n_i}$, 则&lt;/p&gt;
+$$&lt;p&gt;&lt;strong&gt;最小范数问题&lt;/strong&gt;: 令 $\bar{v}_i = A_ix+b_i \in \mathbb{R}^{n_i}$, 则&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;$\min_x \sum_i \Vert \bar{v_i} \Vert_2$ 等价于&lt;/li&gt;
+&lt;li&gt;$\min_x \sum_i \Vert \bar{v}_i \Vert_2$ 等价于&lt;/li&gt;
 &lt;/ul&gt;
 $$
 \begin{aligned}
 \min \quad &amp; \sum_i v_{i0} \\
-\text{s.t.} \quad &amp;\bar{v_i} = A_i x + b_i \\
-&amp;(v_{i0}, \bar{v_i}) \succeq_\mathcal{Q} 0
+\text{s.t.} \quad &amp;\bar{v}_i = A_i x + b_i \\
+&amp;(v_{i0}, \bar{v}_i) \succeq_\mathcal{Q} 0
 \end{aligned}
 $$&lt;p&gt;其中 $\mathcal{Q}$ 是二次锥.&lt;/p&gt;
-&lt;p&gt;最大 $k$ 范数和问题: 设 $\Vert \bar{v_[i]} \Vert$ 是 $\bar{v_i}$ 的非递增方式的排序. 则 $\min_x \sum_{i=1}^m \Vert \bar{v_[i]} \Vert$ 等价于&lt;/p&gt;
+&lt;p&gt;最大 $k$ 范数和问题: 设 $\Vert \bar{v}_{[i]} \Vert$ 是 $\bar{v}_i$ 的非递增方式的排序. 则 $\min_x \sum_{i=1}^m \Vert \bar{v}_{[i]} \Vert$ 等价于&lt;/p&gt;
 $$
 \begin{aligned}
 \min \quad &amp; \sum_{i=1}^m u_i + kt \\
-\text{s.t.} \quad &amp; \bar{v_i} = A_i x + b_i \\
-&amp; \Vert \bar{v_i} \Vert \le u_i + t \\
+\text{s.t.} \quad &amp; \bar{v}_i = A_i x + b_i \\
+&amp; \Vert \bar{v}_i \Vert \le u_i + t \\
 &amp; u_i \ge 0
 \end{aligned}
 $$</description>

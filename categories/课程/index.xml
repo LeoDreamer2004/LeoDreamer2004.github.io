@@ -15,7 +15,8 @@
         <guid>https://LeoDreamer2004.github.io/p/machine-learning/vector-machine/</guid>
         <description>&lt;link rel=&#34;stylesheet&#34; href=&#34;https://LeoDreamer2004.github.io/styles/notes.css&#34; &gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/MachineLearning-2.pdf&#34; &gt;本节课件链接&lt;/a&gt;&lt;/p&gt;
-&lt;div class=&#34;block&#34;&gt;
+&lt;h2 id=&#34;线性可分支持向量机&#34;&gt;线性可分支持向量机
+&lt;/h2&gt;&lt;div class=&#34;block&#34;&gt;
 &lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;对于一个数据集 $D$, 如果能找到一个超平面 $H: w^Tx + b = 0$, 将数据分为两类. 即对任意 $(x_i, y_i) \in D$, 若 $y_i = 1$, 则 $w^Tx_i + b \geq 0$; 若 $y_i = -1$, 则 $w^Tx_i + b &lt; 0$. 则称 $D$ 是 &lt;strong&gt;线性可分的&lt;/strong&gt; , 超平面 $H$ 是 $D$ 的一个 &lt;strong&gt;分离超平面&lt;/strong&gt;.&lt;/p&gt;
 &lt;/div&gt;
@@ -40,12 +41,15 @@ $$
 &amp; 0 = \sum_{i=1}^n \alpha_i y_i
 \end{aligned}
 $$&lt;p&gt;代入 $L(w, b, \alpha)$, 得到对偶问题:&lt;/p&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title&#34;&gt; 线性可分对偶问题 &lt;/p&gt;
 $$
 \begin{aligned}
 &amp; \max_{\alpha} \sum_{i=1}^n \alpha_i - \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j x_i \cdot x_j \\
 &amp; \text{s.t.} \quad \alpha_i \geq 0, \quad \sum_{i=1}^n \alpha_i y_i = 0
 \end{aligned}
-$$&lt;p&gt;由 KKT 条件, 最优解一定满足&lt;/p&gt;
+$$&lt;/div&gt;
+&lt;p&gt;由 KKT 条件, 最优解一定满足&lt;/p&gt;
 $$
 \begin{aligned}
 \alpha_i(y_i(w \cdot x_i + b) - 1) &amp;= 0 \\
@@ -66,6 +70,148 @@ $$&lt;p&gt;上, 称这些点 $x_i$ 为 &lt;strong&gt;支持向量&lt;/strong&gt;
 $$
 \hat{R}_{\text{loo}} = \frac{1}{n} \sum_{i=1}^n I(f_{D-\{x_i\}}(x_i) \neq y_i)
 $$&lt;p&gt;则 $\hat{R}_{\text{loo}} \le N_{SV}/n$, 其中 $N_{SV}$ 为支持向量的个数.&lt;/p&gt;
+&lt;h2 id=&#34;线性支持向量机&#34;&gt;线性支持向量机
+&lt;/h2&gt;&lt;p&gt;要求 $D$ 线性可分有点苛刻. 容忍一些误差, 引入松弛变量 $\xi_i \geq 0$, 使得约束条件变为&lt;/p&gt;
+$$
+y_i(w \cdot x_i + b) \geq 1 - \xi_i
+$$&lt;p&gt;对于被错误分类的点, $\xi_i$ 可以大于 $1$. 把 $\xi_i \ne 0$ 的点视为特异点, 那么希望特异点尽可能少, 于是优化目标变为&lt;/p&gt;
+$$
+\begin{aligned}
+&amp; \min_{w, b, \xi} \frac{1}{2} \|w\|^2 + C \sum_{i=1}^n I(\xi_i \ne 0) \\
+&amp; \text{s.t.} \quad y_i(w \cdot x_i + b) \geq 1 - \xi_i, \quad \xi_i \geq 0
+\end{aligned}
+$$&lt;p&gt;直接用 $\xi_i$ 代替 $I(\xi_i \ne 0)$, 问题变为&lt;/p&gt;
+$$
+\begin{aligned}
+&amp; \min_{w, b, \xi} \frac{1}{2} \|w\|^2 + C \sum_{i=1}^n \xi_i \\
+&amp; \text{s.t.} \quad y_i(w \cdot x_i + b) \geq 1 - \xi_i, \quad \xi_i \geq 0
+\end{aligned}
+$$&lt;p&gt;既然要 $\xi_i$ 尽可能小, 不妨取 $\xi_i = 1 - y_i(w \cdot x_i + b)$,  引入合页损失函数 $h(z) = \max(0, 1-z)$, 即&lt;/p&gt;
+$$\xi_i = h(y_i(w \cdot x_i + b))$$&lt;p&gt;则提出一个 $C$ 后, 优化目标变为&lt;/p&gt;
+$$
+\min_{w, b} \frac{1}{2C} \|w\|^2 + \sum_{i=1}^n h(y_i(w \cdot x_i + b))
+$$&lt;p&gt;做了这么多, 只是相当于把 0-1 损失函数换成了合页损失函数.&lt;/p&gt;
+&lt;p&gt;回到原问题, 引入 Lagrange 乘子 $\alpha_i, \beta_i \geq 0$, 得到&lt;/p&gt;
+$$
+L(w, b, \xi, \alpha, \beta) = \frac{1}{2} \|w\|^2 + C \sum_{i=1}^n \xi_i - \sum_{i=1}^n \alpha_i(y_i(w \cdot x_i + b) - 1 + \xi_i) - \sum_{i=1}^n \beta_i \xi_i
+$$&lt;p&gt;对 $w, b, \xi$ 偏导为 $0$, 得到&lt;/p&gt;
+$$
+\begin{aligned}
+&amp; w = \sum_{i=1}^n \alpha_i y_i x_i \\
+&amp; 0 = \sum_{i=1}^n \alpha_i y_i \\
+&amp; \beta_i = C - \alpha_i
+\end{aligned}
+$$&lt;p&gt;代入 $L(w, b, \xi, \alpha, \beta)$, 得到对偶问题&lt;/p&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title&#34;&gt; 线性支持向量机对偶问题 &lt;/p&gt;
+$$
+\begin{aligned}
+&amp; \max_{\alpha} \sum_{i=1}^n \alpha_i - \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j x_i \cdot x_j \\
+&amp; \text{s.t.} \quad 0 \leq \alpha_i \leq C, \quad \sum_{i=1}^n \alpha_i y_i = 0
+\end{aligned}
+$$&lt;/div&gt;
+&lt;p&gt;与线性可分支持向量机类似, 只是多了一个 $\alpha_i \leq C$ 的约束. 现在考虑 KKT 条件, 有&lt;/p&gt;
+$$
+\begin{aligned}
+\alpha_i(y_i(w \cdot x_i + b) - 1 + \xi_i) &amp;= 0 \\
+y_i(w \cdot x_i + b) - 1 + \xi_i &amp;\geq 0 \\
+\beta_i \xi_i &amp;= 0 \\
+\alpha_i &amp;\geq 0 \\
+\beta_i &amp;\geq 0 \\
+\alpha_i + \beta_i&amp;=C
+\end{aligned}
+$$&lt;p&gt;则 $\alpha_i &gt; 0$ 的点 $x_i$ 为支持向量, 满足 $y_i(w \cdot x_i + b) = 1 - \xi_i$. 这点与线性可分支持向量机的支持向量不同. 但进一步如果 $\alpha_i \lt C$ , 则 $\beta_i \gt 0$, 则 $\xi_i=0$, 从而 $y_i(w \cdot x_i + b) = 1$, 这样就一致了.&lt;/p&gt;
+&lt;p&gt;进一步, 把 $y_i(w \cdot x_i + b) = 1$ 两边乘 $y_i$, 类似有&lt;/p&gt;
+$$
+b = y_j - \sum_{i=1}^n \alpha_i y_i x_i \cdot x_j
+$$&lt;p&gt;因而最优分类超平面为&lt;/p&gt;
+$$
+\sum_{i=1}^n \alpha_i y_i x_i \cdot x + b = 0
+$$&lt;p&gt;和决策函数&lt;/p&gt;
+$$
+f(x) = \text{sign}\left(\sum_{i=1}^n \alpha_i y_i x_i \cdot x + b\right)
+$$&lt;p&gt;超平面法向量可以被唯一确定, 但是偏置不唯一.&lt;/p&gt;
+&lt;h2 id=&#34;smo-算法&#34;&gt;SMO 算法
+&lt;/h2&gt;&lt;p&gt;SMO 算法是一种启发式算法, 用于求解支持向量机的对偶问题. SMO 算法的基本思想是: 每次选择两个变量, 固定其他变量, 优化这两个变量. 这样不断迭代, 直到收敛.&lt;/p&gt;
+&lt;p&gt;设当前迭代的两个变量为 $\alpha_i, \alpha_j$, 则&lt;/p&gt;
+$$
+\alpha_1 y_1 + \alpha_2 y_2 = -\sum_{i=3}^n \alpha_i y_i
+$$&lt;p&gt;同乘 $y_1$, 有&lt;/p&gt;
+$$
+\alpha_1 + \alpha_2 y_1y_2= -\sum_{i=3}^n \alpha_i y_1y_i
+$$&lt;p&gt;记右边为 $\gamma$, $s=y_1y_2 \in \{-1, 1\}$, 则&lt;/p&gt;
+$$
+\alpha_1 + s\alpha_2 = \gamma
+$$&lt;p&gt;记$K_{ij} = x_i \cdot x_j$, $v_i = \sum_{j=3}^{N} \alpha_j y_j K_{ij}$, 则对偶问题转化为&lt;/p&gt;
+$$
+\begin{aligned}
+&amp; \max_{\alpha_1, \alpha_2} \alpha_1 + \alpha_2 - \frac{1}{2} K_{11}\alpha_1^2 - \frac{1}{2} K_{22}\alpha_2^2 - sK_{12}\alpha_1\alpha_2 - y_1v_1\alpha_1 - y_2v_2\alpha_2 \\
+&amp; \text{s.t.} \quad 0 \leq \alpha_i \leq C, \quad \alpha_1 + s\alpha_2 = \gamma
+\end{aligned}
+$$&lt;p&gt;再由 $\alpha_1 = \gamma - s\alpha_2$, 代入目标函数, 并对 $\alpha_2$ 求导为 $0$, 得到&lt;/p&gt;
+$$
+\alpha_2 = \frac{s(K_{11}-K_{12})\gamma + y_2(v_1 - v_2) - s + 1}{K_{11} + K_{22} - 2K_{12}}
+$$&lt;p&gt;代入 $v$ 的定义, 随后化简得&lt;/p&gt;
+$$
+\alpha_2 = \alpha_2^* + y_2 \frac{(y_2 - f(x_2))- (y_1-f(x_1))}{K_{11} + K_{22} - 2K_{12}}
+$$&lt;p&gt;别忘了约束 $0 \le \alpha_1, \alpha_2 \le C$, 以及 $\alpha_1 + s\alpha_2 = \gamma$, 对 $\alpha_2$ 进行裁剪为 $\alpha_2^{\text{clip}}$. 相应地,&lt;/p&gt;
+$$
+\alpha_1 = \alpha_1^* + s(\alpha_2^* - \alpha_2^{\text{clip}})
+$$&lt;p&gt;最后, 更新 $b$. 假设在 $\alpha_1, \alpha_2$ 中, $0 \lt \alpha_i \lt C$, 则&lt;/p&gt;
+$$
+b = y_i - \sum_{j=1}^n \alpha_j y_j K_{ij}
+$$&lt;p&gt;关于选取 $\alpha_1, \alpha_2$, 一般有两个原则:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;选择违反 KKT 条件最严重的两个变量.&lt;/li&gt;
+&lt;li&gt;选择两个变量使得目标函数有最大变化.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;核方法和非线性支持向量机&#34;&gt;核方法和非线性支持向量机
+&lt;/h2&gt;&lt;p&gt;对于非线性问题, 可以通过核方法将数据映射到高维空间, 从而在高维空间中找到一个线性超平面.&lt;/p&gt;
+&lt;p&gt;假设有一个映射 $\phi: \mathcal{X} \mapsto \mathcal{Z}$, 则在 $\mathcal{Z}$ 的线性支持向量机变为:&lt;/p&gt;
+$$
+\begin{aligned}
+&amp; \min_{w, b, \xi} \frac{1}{2} \|w\|^2 + C \sum_{i=1}^n \xi_i \\
+&amp; \text{s.t.} \quad y_i(w \cdot \phi(x_i) + b) \geq 1 - \xi_i, \quad \xi_i \geq 0
+\end{aligned}
+$$&lt;p&gt;对应的对偶问题为&lt;/p&gt;
+$$
+\begin{aligned}
+&amp; \max_{\alpha} \sum_{i=1}^n \alpha_i - \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j \phi(x_i) \cdot \phi(x_j) \\
+&amp; \text{s.t.} \quad 0 \leq \alpha_i \leq C, \quad \sum_{i=1}^n \alpha_i y_i = 0
+\end{aligned}
+$$&lt;p&gt;相应的分类决策函数为&lt;/p&gt;
+$$
+f(x) = \text{sign}\left(\sum_{i=1}^n \alpha_i y_i \phi(x_i) \cdot \phi(x) + b\right)
+$$&lt;p&gt;然而, 直接计算 $\phi(x_i) \cdot \phi(x_j)$ 的复杂度很高. 为此, 引入核函数&lt;/p&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;设 $\mathcal{X}$ 是输入空间, $\mathcal{Z}$ 是特征空间, 如果存在一个从 $\mathcal{X}$ 到 $\mathcal{Z}$ 的映射 $\phi$, 使得对任意 $x, x&#39; \in \mathcal{X}$, 都有&lt;/p&gt;
+$$
+K(x, x&#39;) = \phi(x) \cdot \phi(x&#39;)
+$$&lt;p&gt;则称 $K$ 为 &lt;strong&gt;核函数&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;注意, 这里我们不再需要显式地计算 $\phi(x_i)$, 因为结果只与 $K(x_i, x_j)$ 有关.&lt;/p&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title&#34;&gt; 非线性支持向量机对偶问题 &lt;/p&gt;
+$$
+\begin{aligned}
+&amp; \max_{\alpha} \sum_{i=1}^n \alpha_i - \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j K(x_i, x_j) \\
+&amp; \text{s.t.} \quad 0 \leq \alpha_i \leq C, \quad \sum_{i=1}^n \alpha_i y_i = 0
+\end{aligned}
+$$&lt;/div&gt;
+&lt;p&gt;此时, 分类决策函数为&lt;/p&gt;
+$$
+f(x) = \text{sign}\left(\sum_{i=1}^n \alpha_i y_i K(x_i, x) + b\right)
+$$&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;$\mathcal{X}$ 上的函数 $K: \mathcal{X} \times \mathcal{X} \mapsto \mathbb{R}$ 称为 &lt;strong&gt;正定对称核函数&lt;/strong&gt;, 如果对任意 $x_1, x_2, \cdots, x_n \in \mathcal{X}$, 核矩阵 (Gram 矩阵) $[K_{ij}]_{m \times m}$ 是半正定的.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;常见的核函数有:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;线性核函数: $K(x, x&#39;) = x \cdot x&#39;$, 对应线性支持向量机.&lt;/li&gt;
+&lt;li&gt;多项式核函数: $K(x, x&#39;) = (x \cdot x&#39; + 1)^d, c \gt 0$&lt;/li&gt;
+&lt;li&gt;高斯核函数: $K(x, x&#39;) = \exp\left(-\frac{\|x-x&#39;\|^2}{2\sigma^2}\right), \sigma \gt 0$&lt;/li&gt;
+&lt;/ul&gt;
 </description>
         </item>
         <item>
@@ -1514,23 +1660,23 @@ $$
 \text{s.t.} \quad &amp; \Vert A_i x + b_i \Vert_2 \le c_i^T x + d_i, \quad i = 1, \ldots, m \\
 &amp; Fx = g
 \end{aligned}
-$$&lt;p&gt;&lt;strong&gt;最小范数问题&lt;/strong&gt;: 令 $\bar{v_i} = A_ix+b_i \in \mathbb{R}^{n_i}$, 则&lt;/p&gt;
+$$&lt;p&gt;&lt;strong&gt;最小范数问题&lt;/strong&gt;: 令 $\bar{v}_i = A_ix+b_i \in \mathbb{R}^{n_i}$, 则&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;$\min_x \sum_i \Vert \bar{v_i} \Vert_2$ 等价于&lt;/li&gt;
+&lt;li&gt;$\min_x \sum_i \Vert \bar{v}_i \Vert_2$ 等价于&lt;/li&gt;
 &lt;/ul&gt;
 $$
 \begin{aligned}
 \min \quad &amp; \sum_i v_{i0} \\
-\text{s.t.} \quad &amp;\bar{v_i} = A_i x + b_i \\
-&amp;(v_{i0}, \bar{v_i}) \succeq_\mathcal{Q} 0
+\text{s.t.} \quad &amp;\bar{v}_i = A_i x + b_i \\
+&amp;(v_{i0}, \bar{v}_i) \succeq_\mathcal{Q} 0
 \end{aligned}
 $$&lt;p&gt;其中 $\mathcal{Q}$ 是二次锥.&lt;/p&gt;
-&lt;p&gt;最大 $k$ 范数和问题: 设 $\Vert \bar{v_[i]} \Vert$ 是 $\bar{v_i}$ 的非递增方式的排序. 则 $\min_x \sum_{i=1}^m \Vert \bar{v_[i]} \Vert$ 等价于&lt;/p&gt;
+&lt;p&gt;最大 $k$ 范数和问题: 设 $\Vert \bar{v}_{[i]} \Vert$ 是 $\bar{v}_i$ 的非递增方式的排序. 则 $\min_x \sum_{i=1}^m \Vert \bar{v}_{[i]} \Vert$ 等价于&lt;/p&gt;
 $$
 \begin{aligned}
 \min \quad &amp; \sum_{i=1}^m u_i + kt \\
-\text{s.t.} \quad &amp; \bar{v_i} = A_i x + b_i \\
-&amp; \Vert \bar{v_i} \Vert \le u_i + t \\
+\text{s.t.} \quad &amp; \bar{v}_i = A_i x + b_i \\
+&amp; \Vert \bar{v}_i \Vert \le u_i + t \\
 &amp; u_i \ge 0
 \end{aligned}
 $$</description>
