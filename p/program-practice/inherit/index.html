@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 本节课件链接\n基础数学工具 定义\n随机变量 $X$ 的 期望 $E[X]$ 定义为\n$$ E[X] = \\sum_{x} x \\cdot P(X=x) $$随机变量 $X$ 的 方差 $\\text{Var}(X)$ 定义为\n$$ \\text{Var}(X) = E[(X - E[X])^2] $$标准差 $\\sigma(X)$ 定义为\n$$ \\sigma(X) = \\sqrt{\\text{Var}(X)} $$ 定理Markov 不等式\n">
-<title>机器学习基础(1) —— 概述</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 本节课件链接\n基本概念 在定义一个新的类 B 时, 如果 B 类与拥有已有类 A 的全部特点, 那么就可以把 A 作为一个基类, 而把 B 作为基类的一个 派生类 (也称 子类). 派生类可以对基类:\n">
+<title>程序设计实习(3) —— 继承与派生</title>
 
-<link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning/intro/'>
+<link rel='canonical' href='https://LeoDreamer2004.github.io/p/program-practice/inherit/'>
 
-<link rel="stylesheet" href="/scss/style.min.8c8de3151dac5f9667471116c69b56ad2409c1b76e792ab6fbf017b815c2c4bc.css"><meta property='og:title' content="机器学习基础(1) —— 概述">
-<meta property='og:description' content=" 本节课件链接\n基础数学工具 定义\n随机变量 $X$ 的 期望 $E[X]$ 定义为\n$$ E[X] = \\sum_{x} x \\cdot P(X=x) $$随机变量 $X$ 的 方差 $\\text{Var}(X)$ 定义为\n$$ \\text{Var}(X) = E[(X - E[X])^2] $$标准差 $\\sigma(X)$ 定义为\n$$ \\sigma(X) = \\sqrt{\\text{Var}(X)} $$ 定理Markov 不等式\n">
-<meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning/intro/'>
+<link rel="stylesheet" href="/scss/style.min.8c8de3151dac5f9667471116c69b56ad2409c1b76e792ab6fbf017b815c2c4bc.css"><meta property='og:title' content="程序设计实习(3) —— 继承与派生">
+<meta property='og:description' content=" 本节课件链接\n基本概念 在定义一个新的类 B 时, 如果 B 类与拥有已有类 A 的全部特点, 那么就可以把 A 作为一个基类, 而把 B 作为基类的一个 派生类 (也称 子类). 派生类可以对基类:\n">
+<meta property='og:url' content='https://LeoDreamer2004.github.io/p/program-practice/inherit/'>
 <meta property='og:site_name' content='LeoDreamer'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-02-18T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-02-18T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="机器学习基础(1) —— 概述">
-<meta name="twitter:description" content=" 本节课件链接\n基础数学工具 定义\n随机变量 $X$ 的 期望 $E[X]$ 定义为\n$$ E[X] = \\sum_{x} x \\cdot P(X=x) $$随机变量 $X$ 的 方差 $\\text{Var}(X)$ 定义为\n$$ \\text{Var}(X) = E[(X - E[X])^2] $$标准差 $\\sigma(X)$ 定义为\n$$ \\sigma(X) = \\sqrt{\\text{Var}(X)} $$ 定理Markov 不等式\n">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-03-05T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-05T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="程序设计实习(3) —— 继承与派生">
+<meta name="twitter:description" content=" 本节课件链接\n基本概念 在定义一个新的类 B 时, 如果 B 类与拥有已有类 A 的全部特点, 那么就可以把 A 作为一个基类, 而把 B 作为基类的一个 派生类 (也称 子类). 派生类可以对基类:\n">
     </head>
     <body class="
     article-page
@@ -237,17 +237,9 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#基础数学工具">基础数学工具</a></li>
-    <li><a href="#基本概念和术语">基本概念和术语</a></li>
-    <li><a href="#模型评估与选择">模型评估与选择</a>
-      <ol>
-        <li><a href="#损失函数">损失函数</a></li>
-        <li><a href="#二分类">二分类</a></li>
-        <li><a href="#过拟合和正则化">过拟合和正则化</a></li>
-        <li><a href="#数据集划分">数据集划分</a></li>
-      </ol>
-    </li>
-    <li><a href="#偏差-方差分解">偏差-方差分解</a></li>
+    <li><a href="#基本概念">基本概念</a></li>
+    <li><a href="#覆盖">覆盖</a></li>
+    <li><a href="#派生类的对象生命周期">派生类的对象生命周期</a></li>
   </ol>
 </nav>
         </div>
@@ -270,12 +262,12 @@
                 课程
             </a>
         
-            <a href="/categories/%E6%95%B0%E5%AD%A6/" >
-                数学
+            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" >
+                计算机
             </a>
         
-            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/" >
-                机器学习基础
+            <a href="/categories/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%AE%9E%E4%B9%A0/" >
+                程序设计实习
             </a>
         
     </header>
@@ -283,7 +275,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/machine-learning/intro/">机器学习基础(1) —— 概述</a>
+            <a href="/p/program-practice/inherit/">程序设计实习(3) —— 继承与派生</a>
         </h2>
     
         
@@ -305,7 +297,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2025-02-18</time>
+                <time class="article-time--published">2025-03-05</time>
             </div>
         
 
@@ -320,7 +312,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 4 分钟
+                    阅读时长: 3 分钟
                 </time>
             </div>
         
@@ -336,145 +328,197 @@
     
     
     <link rel="stylesheet" href="/styles/notes.css" >
-<p><a class="link" href="/materials/machine-learning/MachineLearning-1.pdf" >本节课件链接</a></p>
-<h2 id="基础数学工具">基础数学工具
-</h2><div class="block">
-<p class="block-title def">定义</p>
-<p>随机变量 $X$ 的 <strong>期望</strong> $E[X]$ 定义为</p>
-$$
-E[X] = \sum_{x} x \cdot P(X=x)
-$$<p>随机变量 $X$ 的 <strong>方差</strong> $\text{Var}(X)$ 定义为</p>
-$$
-\text{Var}(X) = E[(X - E[X])^2]
-$$<p><strong>标准差</strong> $\sigma(X)$ 定义为</p>
-$$
-\sigma(X) = \sqrt{\text{Var}(X)}
-$$</div>
-<div class="block">
-<p class="block-title thm">定理<span class="subtitle">Markov 不等式</p>
-<p>设 $X$ 是一个非负随机变量, 期望存在, 那么对于任意 $t > 0$ 有</p>
-$$
-P(X \geq t) \leq \frac{E[X]}{t}
-$$</div>
-<div class="block">
-<p class="block-title thm">定理<span class="subtitle">Chebyshev 不等式</p>
-<p>设 $X$ 是一个随机变量, 期望和方差都存在, 那么对于任意 $t > 0$ 有</p>
-$$
-P(|X - E[X]| \geq t) \leq \frac{\text{Var}(X)}{t^2}
-$$</div>
-<div class="block">
-<p class="block-title def">定义</p>
-<p>随机变量 $X$ 和 $Y$ 的 <strong>协方差</strong> $\text{Cov}(X, Y)$ 定义为</p>
-$$
-\text{Cov}(X, Y) = E[(X - E[X])(Y - E[Y])]
-$$<p>如果 $\text{Cov}(X, Y) = 0$, 则称 $X$ 和 $Y$ <strong>不相关</strong>.</p>
+<p><a class="link" href="/materials/program-practice/05-%e7%bb%a7%e6%89%bf%e4%b8%8e%e6%b4%be%e7%94%9f.pdf" >本节课件链接</a></p>
+<h2 id="基本概念">基本概念
+</h2><p>在定义一个新的类 B 时, 如果 B 类与拥有已有类 A 的全部特点, 那么就可以把 A 作为一个基类, 而把 B 作为基类的一个 <strong>派生类</strong> (也称 <strong>子类</strong>). 派生类可以对基类:</p>
+<ul>
+<li>扩充: 在派生类中, 可以添加新的成员变量和成员函数</li>
+<li>修改: 在派生类中, 可以重新编写从基类继承得到的成员</li>
+</ul>
+<p>派生类一经定义后, 可以独立使用, 不依赖于基类.</p>
+<p>派生方式说明符：<code>public</code>, <code>private</code>, <code>protected</code>. 派生类的写法:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Derived</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Base</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// code
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
 </div>
-<p>协方差具有对称性, 双线性.</p>
-<div class="block">
-<p class="block-title def">定义</p>
-<p>随机向量 $X=(X_1, X_2, \ldots, X_n)$ 的 <strong>协方差矩阵</strong> $C(X)$ 定义为</p>
-$$
-C(X) = E[(X - E[X])(X - E[X])^T] = (\text{Cov}(X_i, X_j))_{ij}
-$$</div>
-<div class="block">
-<p class="block-title def">定义</p>
-<p><strong>Gauss 分布</strong> (正态分布) 的概率密度函数为</p>
-$$
-f(x) = \frac{1}{\sqrt{2\pi}\sigma} \exp(-\frac{(x-\mu)^2}{2\sigma^2})
-$$<p><strong>Laplace 分布</strong> 的概率密度函数为</p>
-$$
-f(x) = \frac{1}{2b} \exp(-\frac{|x-\mu|}{b})
-$$</div>
-<p>最优化问题</p>
-$$
-\begin{aligned}
-& \min f(x) \\
-\text{s.t. } & c_i(x) \leq 0, i = 1, 2, \dots, k \\
-& h_j(x) = 0, j = 1, 2, \dots, l
-\end{aligned}
-$$<p>构造 Lagrange 函数</p>
-$$
-L(x, \alpha, \beta) = f(x) + \sum_{i=1}^{k} \alpha_i c_i(x) + \sum_{j=1}^{l} \beta_j h_j(x)
-$$<p>引入 Karush-Kuhn-Tucker (KKT) 条件</p>
-$$
-\begin{aligned}
-& \nabla_x L(x, \alpha, \beta) = 0 \\
-& c_i(x) \leq 0, i = 1, 2, \dots, k \\
-& h_j(x) = 0, j = 1, 2, \dots, l \\
-& \alpha_i c_i(x) = 0, i = 1, 2, \dots, k \\
-& \alpha_i \geq 0, i = 1, 2, \dots, k
-\end{aligned}
-$$<h2 id="基本概念和术语">基本概念和术语
-</h2><div class="block">
-<p class="block-title def">定义</p>
-<p><strong>监督学习</strong>: 基于标记数据 $T=\{ (x_i,y_i) \}_{i=1}^N$, 学习一个从输入空间到输出空间的映射 $f: \mathcal{X} \mapsto \mathcal{Y}$. 利用此对未见数据进行预测. 通常分为 <strong>回归</strong> 和 <strong>分类</strong> 两类.</p>
-<p><strong>无监督学习</strong>: 基于未标记数据 $T=\{ x_i \}_{i=1}^N$, 发现其中隐含的知识模式. <strong>聚类</strong> 是典型的无监督学习任务.</p>
-<p><strong>半监督学习</strong>: 既有标记数据又有未标记数据 (通常占比较大).</p>
-<p><strong>强化学习</strong>: 通过观察环境的反馈, 学习如何选择动作以获得最大的奖励.</p>
+</div><p>关于内存上, 派生类对象的大小等于基类对象的大小加上派生类对象自己的成员变量的大小. 在派生类对象中包含着基类对象, 且基类对象的存储位置位于派生类对象新增的成员变量之前.</p>
+<h2 id="覆盖">覆盖
+</h2><p>派生类可以定义一个和基类成员同名的成员, 这叫覆盖. 在派生类中访问这类成员时, 缺省的情况是访问派生类中定义的成员. 要在派生类中访问由基类定义的同名成员时, 要使用作用域符号<code>::</code>.</p>
+<p>注意, 对于成员变量, 在内存中, 两个变量占用不同的空间. 并不建议覆盖成员变量.</p>
+<p>关于权限及派生方式的访问权限, 可以参考下表:</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>派生方式\成员访问</th>
+          <th>public</th>
+          <th>protected</th>
+          <th>private</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>public</strong></td>
+          <td>public</td>
+          <td>protected</td>
+          <td>不可访问</td>
+      </tr>
+      <tr>
+          <td><strong>protected</strong></td>
+          <td>protected</td>
+          <td>protected</td>
+          <td>不可访问</td>
+      </tr>
+      <tr>
+          <td><strong>private</strong></td>
+          <td>private</td>
+          <td>private</td>
+          <td>不可访问</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>为此, 可以用基类构造函数初始化派生类对象的基类部分. 例如:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Bug</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">nLegs</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">nColor</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">nType</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Bug</span><span class="p">(</span><span class="kt">int</span> <span class="n">legs</span><span class="p">,</span> <span class="kt">int</span> <span class="n">color</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">PrintBug</span><span class="p">()</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">FlyBug</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Bug</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">nWings</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">FlyBug</span><span class="p">(</span><span class="kt">int</span> <span class="n">legs</span><span class="p">,</span> <span class="kt">int</span> <span class="n">color</span><span class="p">,</span> <span class="kt">int</span> <span class="n">wings</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Bug</span><span class="o">::</span><span class="n">Bug</span><span class="p">(</span><span class="kt">int</span> <span class="n">legs</span><span class="p">,</span> <span class="kt">int</span> <span class="n">color</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">nLegs</span> <span class="o">=</span> <span class="n">legs</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">nColor</span> <span class="o">=</span> <span class="n">color</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">FlyBug</span><span class="o">::</span><span class="n">FlyBug</span><span class="p">(</span><span class="kt">int</span> <span class="n">legs</span><span class="p">,</span> <span class="kt">int</span> <span class="n">color</span><span class="p">,</span> <span class="kt">int</span> <span class="n">wings</span><span class="p">)</span> <span class="o">:</span> <span class="n">Bug</span><span class="p">(</span><span class="n">legs</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">nType</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">nWings</span> <span class="o">=</span> <span class="n">wings</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
-<h2 id="模型评估与选择">模型评估与选择
-</h2><h3 id="损失函数">损失函数
-</h3><p>模型基于算法按照一定策略给出假设 $h \in \mathcal{H}$, 通过 <strong>损失函数</strong> $L(h(x), y)$ 衡量假设的好坏.</p>
+</div><h2 id="派生类的对象生命周期">派生类的对象生命周期
+</h2><p>在创建派生类的对象时, 需要调用基类的构造函数：初始化派生类对象中从基类继承的成员. 在执行一个派生类的构造函数之前, 总是先执行基类的构造函数. 派生类的析构函数被执行时, 执行完派生类的析构函数后, 自动调用基类的析构函数.</p>
+<p>在创建派生类的对象时:</p>
 <ul>
-<li>0-1 损失函数:</li>
+<li>先执行基类的构造函数, 用以初始化派生类对象中从基类继承的成员;</li>
+<li>再执行成员对象类的构造函数, 用以初始化派生类对象中成员对象;</li>
+<li>最后执行派生类自己的构造函数.</li>
 </ul>
-$$L(h(x), y) = \mathbb{I}(h(x) \neq y) = \begin{cases} 0, & h(x) = y \\ 1, & h(x) \neq y \end{cases}$$<ul>
-<li>平方损失函数:</li>
-</ul>
-$$L(h(x), y) = (h(x) - y)^2$$<p>平均损失 $R(h) = E_{x \sim D} [L(h(x), y)]$ 称为 <strong>泛化误差</strong>.</p>
-<p>容易验证, 对于 0-1 损失函数, 准确率 $a = 1-R(h)$.</p>
-<h3 id="二分类">二分类
-</h3><p>对于二分类问题, 样本预测结果有四种情况:</p>
+<p>在派生类对象消亡时：</p>
 <ul>
-<li><strong>真正例</strong> (True Positive, TP): 预测为正例, 实际为正例.</li>
-<li><strong>假正例</strong> (False Positive, FP): 预测为正例, 实际为负例.</li>
-<li><strong>真负例</strong> (True Negative, TN): 预测为负例, 实际为负例.</li>
-<li><strong>假负例</strong> (False Negative, FN): 预测为负例, 实际为正例.</li>
+<li>先执行派生类自己的析构函数;</li>
+<li>再依次执行各成员对象类的析构函数;</li>
+<li>最后执行基类的析构函数.</li>
 </ul>
-<p>由此引入</p>
-<ul>
-<li><strong>准确率(查准率):</strong> $P = \frac{TP}{TP+FP}$.</li>
-<li><strong>召回率(查全率):</strong> $R = \frac{TP}{TP+FN}$.</li>
-<li><strong>$F_1$ 度量:</strong> 考虑到二者抵触, 引入调和均值 $F_1 = \frac{2PR}{P+R}$.</li>
-</ul>
-<h3 id="过拟合和正则化">过拟合和正则化
-</h3><p>为了防止由于模型过于复杂而导致的过拟合, 可以通过 <strong>正则化</strong> 方法来限制模型的复杂度.</p>
-$$
-\min \sum_{i=1}^{N} L(h(x_i), y_i) + \lambda J(h)
-$$<p>其中 $J(h)$ 是随着模型复杂度增加而增加的函数. $\lambda$ 是正则化参数.</p>
-<p>怎么选取合适的 $\lambda$ ? 一般是先给出若干候选, 在验证集上进行评估, 选取泛化误差最小的.</p>
-<h3 id="数据集划分">数据集划分
-</h3><p>一般将数据集划分为 <strong>训练集</strong> $T$ 和 <strong>测试(验证)集</strong> $T^\prime$.</p>
-<ul>
-<li><strong>留出法 (hold-out)</strong>: 分层无放回地随机采样. 也叫简单交叉验证.</li>
-<li><strong>$k$ 折交叉验证 ($k$-fold cross validation)</strong>: 将数据集分为 $k$ 个大小相等的子集, 每次取其中一个作为验证集, 其余作为训练集, 最后以这 $k$ 次的平均误差作为泛化误差的估计. 当 $k=|D|$ 时称为留一 (leave-one-out) 验证法.</li>
-<li><strong>自助法 (bootstrapping)</strong>: 从数据集中<em>有放回地</em>采样 $|D|$ 个数据作为训练集, 没抽中的作为验证集. 因而训练集 $T$ 和原始数据集 $D$ 的分布未必一致, 对数据分布敏感的模型不适用.</li>
-</ul>
-<h2 id="偏差-方差分解">偏差-方差分解
-</h2><p>为什么泛化误差会随着模型复杂度的增加而先减小后增大?</p>
-<div class="block">
-<p class="block-title def">定义</p>
-<p><strong>偏差</strong> (bias): 模型预测值的期望与真实值之间的差异. 体现了模型的拟合能力.</p>
-$$\text{Bias}(x) = E_T[h_T(x)-c(x)] = \bar{h}(x) - c(x)$$<p><strong>方差</strong> (variance): 模型预测值的方差. 体现了模型的对数据扰动的稳定性.</p>
-$$\text{Var}(x) = E[(h(x) - \bar{h}(x))^2]$$</div>
-<p>现在对泛化误差进行分解:</p>
-$$
-\begin{aligned}
-R(h) &= E_T[(h_T(x) - c(x))^2] \\
-&= E_T[h_T^2(x) - 2h_T(x)c(x) + c^2(x)] \\
-&= E_T[h_T^2(x)] - 2c(x)E_T[h_T(x)] + c^2(x) \\
-&= E_T[h_T^2(x)] - \bar{h}^2(x) + \bar{h}^2(x) - 2\bar{h}(x)c(x) + c^2(x) \\
-&= E_T[(h_T(x) - \bar{h}(x))^2] + (\bar{h}(x) - c(x))^2 \\
-&= \text{Var}(x) + \text{Bias}^2(x)
-\end{aligned}
-$$<p>当然, 由于噪声存在, $y$ 未必一定等于 $c(x)$, 不妨设 $y=c(x)+\varepsilon$, 其中 $\varepsilon \sim \Epsilon$ 期望为 $0$. 可以证明</p>
-<div class="block">
-<p class="block-title thm">定理<span class="subtitle">偏差-方差分解</p>
-$$
-E_{T \sim D^{|T|}, \varepsilon \sim \Epsilon} [(h_T(x)-y)^2] = \text{Bias}^2(x) + \text{Var}(x) + E[\varepsilon^2]
-$$<p>即泛化误差可以分解为偏差、方差和噪声三部分.</p>
+<p>总之, 析构函数的调用顺序与构造函数的调用顺序相反.</p>
+<p>对于 <code>public</code> 继承具有赋值兼容规则, 即</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Base</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Derived</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Base</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl"><span class="n">Base</span> <span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">Derived</span> <span class="n">d</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
 </div>
-<p>起初, 模型较为简单, 偏差在泛化误差起主导作用. 随着模型复杂度的增加, 拟合能力增强, 偏差减小, 但带来过拟合风险, 算法对数据扰动敏感, 方差增大. 方差占比逐渐增大, 最终导致泛化误差增大.</p>
+</div><ul>
+<li>
+<p>派生类对象可以赋值给基类对象</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">b</span> <span class="o">=</span> <span class="n">d</span><span class="p">;</span> 
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>派生类对象的地址可以赋值给基类指针</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Base</span> <span class="o">*</span><span class="n">pb</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">d</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>派生类对象的引用可以赋值给基类引用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Base</span> <span class="o">&amp;</span><span class="n">rb</span> <span class="o">=</span> <span class="n">d</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<p>注意, 只有 <code>public</code> 继承才具有赋值兼容规则, <code>protected</code> 和 <code>private</code> 不允许这种赋值方式.</p>
+<p>注意, 指针强转成基类后, 就不再能访问派生类的成员了. 如果需要, 可以再利用指针强转回来.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Derived</span> <span class="n">objDerived</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">Base</span> <span class="o">*</span><span class="n">ptrBase</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">objDerived</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">Derived</span> <span class="o">*</span><span class="n">ptrDerived</span> <span class="o">=</span> <span class="p">(</span><span class="n">Derived</span> <span class="o">*</span><span class="p">)</span><span class="n">ptrBase</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在声明派生类时，只需要列出它的直接基类, 派生类沿着类的层次自动向上继承它的间接基类. 构造的顺序即为派生类的继承顺序, 析构的顺序则相反.</p>
 
 </section>
 
@@ -537,6 +581,45 @@ $$<p>即泛化误差可以分解为偏差、方差和噪声三部分.</p>
             
                 
 <article class="">
+    <a href="/p/program-practice/operator-overload/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">程序设计实习(2) —— 运算符重载</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/program-practice/class-and-object/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">程序设计实习(1) —— 类和对象</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/program-practice/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">程序设计实习</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
     <a href="/p/machine-learning/vector-machine/">
         
         
@@ -550,51 +633,12 @@ $$<p>即泛化误差可以分解为偏差、方差和噪声三部分.</p>
             
                 
 <article class="">
-    <a href="/p/machine-learning/">
+    <a href="/p/machine-learning/intro/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">机器学习基础</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/opt-method/opt-problem/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">最优化方法(4) —— 优化问题</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/opt-method/convex-function/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">最优化方法(3) —— 凸函数</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/opt-method/convex-set/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">最优化方法(2) —— 凸集</h2>
+            <h2 class="article-title">机器学习基础(1) —— 概述</h2>
         </div>
     </a>
 </article>

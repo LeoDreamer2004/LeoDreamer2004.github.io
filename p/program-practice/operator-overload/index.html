@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/program-practice/operator-overload/'>
 
-<link rel="stylesheet" href="/scss/style.min.7ef8edf6da6efda5e97f9c49ff3558f0929d9d5a309209d614fddeaa2e1895c7.css"><meta property='og:title' content="程序设计实习(2) —— 运算符重载">
+<link rel="stylesheet" href="/scss/style.min.8c8de3151dac5f9667471116c69b56ad2409c1b76e792ab6fbf017b815c2c4bc.css"><meta property='og:title' content="程序设计实习(2) —— 运算符重载">
 <meta property='og:description' content=" 本节课件链接\n对象间的运算和结构变量一样, 对象之间可以用 = 进行赋值, 但是不能用 ==, !=, &gt;, &lt;, &gt;=, &lt;= 进行比较, 除非这些运算符经过了 &ldquo;重载&rdquo;. 运算符重载的实质是函数重载.\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/program-practice/operator-overload/'>
 <meta property='og:site_name' content='LeoDreamer'>
@@ -241,6 +241,8 @@
     <li><a href="#重载流插入运算符--和流提取运算符-">重载流插入运算符 <code>&lt;&lt;</code> 和流提取运算符 <code>&gt;&gt;</code></a></li>
     <li><a href="#重载类型转换运算符">重载类型转换运算符</a></li>
     <li><a href="#重载自增自减运算符--和---">重载自增自减运算符 <code>++</code> 和 <code>--</code></a></li>
+    <li><a href="#重载--">重载 <code>-&gt;</code></a></li>
+    <li><a href="#注意事项">注意事项</a></li>
   </ol>
 </nav>
         </div>
@@ -313,7 +315,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 3 分钟
+                    阅读时长: 4 分钟
                 </time>
             </div>
         
@@ -618,7 +620,134 @@
 </span></span><span class="line"><span class="cl"><span class="n">T</span> <span class="k">operator</span><span class="o">--</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span>
 </span></span></code></pre></td></tr></table>
 </div>
+</div><h2 id="重载--">重载 <code>-&gt;</code>
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">A</span><span class="p">()</span> <span class="o">:</span> <span class="n">x</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="nf">getX</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">A</span> <span class="o">*</span><span class="k">operator</span><span class="o">-&gt;</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">A</span> <span class="n">a</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">a</span><span class="o">-&gt;</span><span class="n">getX</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">// a.operator-&gt;()-&gt;getX()
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
+</div><p>看起来似乎没有什么用, 但是可以用来实现智能指针.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">client</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">a</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">client</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="o">:</span> <span class="n">a</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">proxy</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">client</span> <span class="o">*</span><span class="n">target</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">proxy</span><span class="p">(</span><span class="n">client</span> <span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">:</span> <span class="n">target</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">client</span> <span class="o">*</span><span class="k">operator</span><span class="o">-&gt;</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">target</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">proxy2</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">proxy</span> <span class="o">*</span><span class="n">target</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">proxy2</span><span class="p">(</span><span class="n">proxy</span> <span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">:</span> <span class="n">target</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">proxy</span> <span class="o">&amp;</span><span class="k">operator</span><span class="o">-&gt;</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="o">*</span><span class="n">target</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">client</span> <span class="n">x</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">proxy</span> <span class="n">y</span><span class="p">(</span><span class="o">&amp;</span><span class="n">x</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">proxy2</span> <span class="n">z</span><span class="p">(</span><span class="o">&amp;</span><span class="n">y</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">x</span><span class="p">.</span><span class="n">a</span> <span class="o">&lt;&lt;</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">a</span> <span class="o">&lt;&lt;</span> <span class="n">z</span><span class="o">-&gt;</span><span class="n">a</span><span class="p">;</span> <span class="c1">// print &#34;333&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="注意事项">注意事项
+</h2><ul>
+<li>
+<p>运算符重载不改变运算符的优先级.</p>
+</li>
+<li>
+<p>以下运算符不能重载: <code>.</code>, <code>.*</code>(成员函数指针), <code>::</code>, <code>?:</code>(三目运算符), <code>sizeof</code>.</p>
+</li>
+<li>
+<p>重载运算符 <code>()</code>, <code>[]</code>, <code>-&gt;</code> 或者赋值运算符 <code>=</code> 时，运算符重载函数必须声明为类的成员函数.</p>
+</li>
+<li>
+<p>重载运算符是为了让它能作用于对象, 因此重载运算符不允许操作数都不是对象 (有一个是枚举类型也可以).</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">b</span><span class="p">);</span> <span class="c1">// 错误
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
 </section>
 
 
@@ -680,6 +809,19 @@
             
                 
 <article class="">
+    <a href="/p/program-practice/inherit/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">程序设计实习(3) —— 继承与派生</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
     <a href="/p/program-practice/class-and-object/">
         
         
@@ -725,19 +867,6 @@
 
         <div class="article-details">
             <h2 class="article-title">机器学习基础(1) —— 概述</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/machine-learning/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">机器学习基础</h2>
         </div>
     </a>
 </article>
