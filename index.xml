@@ -412,6 +412,7 @@ $$&lt;div class=&#34;block&#34;&gt;
 &lt;li&gt;多项式核函数: $K(x, x&#39;) = (x \cdot x&#39; + 1)^d, c \gt 0$&lt;/li&gt;
 &lt;li&gt;高斯核函数: $K(x, x&#39;) = \exp\left(-\frac{\|x-x&#39;\|^2}{2\sigma^2}\right), \sigma \gt 0$&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/homework-2.pdf&#34; &gt;本节作业链接&lt;/a&gt;&lt;/p&gt;
 </description>
         </item>
         <item>
@@ -1911,6 +1912,7 @@ E_{T \sim D^{|T|}, \varepsilon \sim \Epsilon} [(h_T(x)-y)^2] = \text{Bias}^2(x) 
 $$&lt;p&gt;即泛化误差可以分解为偏差、方差和噪声三部分.&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;起初, 模型较为简单, 偏差在泛化误差起主导作用. 随着模型复杂度的增加, 拟合能力增强, 偏差减小, 但带来过拟合风险, 算法对数据扰动敏感, 方差增大. 方差占比逐渐增大, 最终导致泛化误差增大.&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/homework-1.pdf&#34; &gt;本节作业链接&lt;/a&gt;&lt;/p&gt;
 </description>
         </item>
         <item>
