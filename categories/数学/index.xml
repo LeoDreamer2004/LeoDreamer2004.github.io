@@ -7,7 +7,86 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>LeoDreamer</copyright>
-        <lastBuildDate>Fri, 28 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/%E6%95%B0%E5%AD%A6/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 11 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/%E6%95%B0%E5%AD%A6/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>机器学习基础(3) —— 基于后验概率最大化准则的分类模型</title>
+        <link>https://LeoDreamer2004.github.io/p/machine-learning/bayers/</link>
+        <pubDate>Tue, 11 Mar 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/p/machine-learning/bayers/</guid>
+        <description>&lt;link rel=&#34;stylesheet&#34; href=&#34;https://LeoDreamer2004.github.io/styles/notes.css&#34; &gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/MachineLearning-3.pdf&#34; &gt;本节课件链接&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;后验概率最大化准则&#34;&gt;后验概率最大化准则
+&lt;/h2&gt;&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;对训练样本集 $D=\{(x_i,y_i)\}_{i=1}^n$, 其中 $x_i \in \mathcal{X}$, $y_i \in \mathcal{Y} = \{c_1, c_2, \cdots, c_K\}$, 将 $x$ 的类别预测为 $c_i$ 的 &lt;strong&gt;风险&lt;/strong&gt; 为&lt;/p&gt;
+$$
+R(Y=c_i | x) = \sum_{j=1}^K \lambda_{ij} P(Y=c_j | x)
+$$&lt;p&gt;其中 $\lambda_{ij}$ 是将属于 $c_j$ 的样本预测为 $c_i$ 的损失. &lt;strong&gt;最优预测&lt;/strong&gt; $\hat{y}$ 是使得风险最小的类别, 即&lt;/p&gt;
+$$
+\hat{y} = \arg\min_{c_i} R(Y=c_i | x)
+$$&lt;/div&gt;
+&lt;p&gt;假设采用 $0-1$ 损失函数, 易知&lt;/p&gt;
+$$
+R(Y=c_i | x) = 1 - P(Y=c_i | x)
+$$&lt;p&gt;即输入 $x$ 的最优预测 $\hat{y}$ 为使得后验概率 $P(y | x)$ 最大的类别.&lt;/p&gt;
+&lt;h2 id=&#34;逻辑斯蒂回归模型&#34;&gt;逻辑斯蒂回归模型
+&lt;/h2&gt;&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;设 $\mathcal{X}=\mathbb{R}^n, \mathcal{Y}=\{c_1,c_2\}$, 逻辑斯蒂回归模型是如下的后验概率分布:&lt;/p&gt;
+$$
+\begin{aligned}
+P(Y=c_1 | x) &amp;= \frac{\exp(w \cdot x + b)}{1+\exp(w \cdot x + b)} \\
+P(Y=c_2 | x) &amp;= \frac{1}{1+\exp(w \cdot x + b)
+}
+\end{aligned}
+$$&lt;p&gt;其中 $w,b$ 是模型参数.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;按照后验概率最大化准则, 显然当 $w \cdot x + b &gt; 0$ 时, 预测为 $c_1$, 否则预测为 $c_2$.&lt;/p&gt;
+&lt;p&gt;对于多类分类任务, 仍然可以使用逻辑斯蒂回归模型:&lt;/p&gt;
+$$
+\begin{aligned}
+p(y=c_i | x) &amp;= \frac{\exp(w_i \cdot x + b_i)}{\sum_{j=1}^{K-1} \exp(w_j \cdot x + b_j)}, \quad i=1,2,\cdots,K-1 \\
+p(y=c_K | x) &amp;= \frac{1}{\sum_{j=1}^{K-1} \exp(w_j \cdot x + b_j)}
+\end{aligned}
+$$&lt;p&gt;给定 $D=\{(x_i,y_i)\}_{i=1}^n$, 其中 $x_i \in \mathbb{R}^n$, $y_i \in \mathcal{Y} = \{0,1\}$, 用 $\theta=(w,b)$ 表示二项逻辑斯蒂回归模型的参数, 令&lt;/p&gt;
+$$
+p(x;\theta) = p(Y=1 | x;\theta)
+$$&lt;p&gt;则考虑似然函数为&lt;/p&gt;
+$$
+\begin{aligned}
+L(\theta) &amp;= \prod_{i=1}^n p(x_i;\theta)^{y_i} (1-p(x_i;\theta))^{1-y_i} \\
+\log L(\theta) &amp;= \sum_{i=1}^n y_i \log p(x_i;\theta) + (1-y_i) \log (1-p(x_i;\theta)) \\
+&amp;= \sum_{i=1}^N y_i(w \cdot x_i + b) - \log(1+\exp(w \cdot x_i + b))
+\end{aligned}
+$$&lt;p&gt;对 $w,b$ 求偏导为 $0$, 得到&lt;/p&gt;
+$$
+\begin{aligned}
+\frac{\partial \log L(\theta)}{\partial w} &amp;= \sum_{i=1}^n x_i(y_i - p(x_i;\theta)) = 0\\
+\frac{\partial \log L(\theta)}{\partial b} &amp;= \sum_{i=1}^n (y_i - p(x_i;\theta)) = 0
+\end{aligned}
+$$&lt;h2 id=&#34;朴素贝叶斯分类器&#34;&gt;朴素贝叶斯分类器
+&lt;/h2&gt;&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title thm&#34;&gt;定理&lt;span class=&#34;subtitle&#34;&gt;贝叶斯公式&lt;/p&gt;
+$$
+\begin{aligned}
+P(Y=c_i | x) &amp;= \frac{P(x | Y=c_i) P(Y=c_i)}{P(x)} \\
+&amp;= \frac{P(x | Y=c_i) P(Y=c_i)}{\sum_{j=1}^K P(x | Y=c_j) P(Y=c_j)}
+\end{aligned}
+$$&lt;/div&gt;
+&lt;p&gt;朴素贝叶斯假定特征之间相互独立, 即&lt;/p&gt;
+$$
+p(X^1=x^1, X^2=x^2, \cdots, X^n=x^n | Y=c_k) = \prod_{j=1}^n p(X^j=x^j | Y=c_k)
+$$&lt;p&gt;对于输入实例 $x=(x^1,x^2,\cdots,x^n)$, 则后验概率&lt;/p&gt;
+$$
+p(Y=c_k|x)=\frac{\left( \prod_{i=1}^n p(X^i=x^i | Y=c_k) \right) P(Y=c_k)}{\sum_{j=1}^K \left( \prod_{i=1}^n p(X^i=x^i | Y=c_j) \right) P(Y=c_j)}
+$$&lt;p&gt;分母是固定的, 只需比较分子的大小即可. 但是一旦某个特征取值和分类没有同时出现, 后验概率直接为 $0$, 为了避免这种情况, 通常引入一些平滑技术:&lt;/p&gt;
+$$
+p_{\lambda}(Y=c_k) = \frac{\sum_{j=1}^NI(y_j=c_k)+\lambda}{N+K\lambda}
+$$&lt;p&gt;$\lambda=1$ 时称为 Laplace 平滑.&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/homework-3.pdf&#34; &gt;本节作业链接&lt;/a&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>机器学习基础(2) —— 支持向量机</title>
         <link>https://LeoDreamer2004.github.io/p/machine-learning/vector-machine/</link>
         <pubDate>Fri, 28 Feb 2025 00:00:00 +0000</pubDate>
@@ -391,6 +470,11 @@ $$&lt;p&gt;即泛化误差可以分解为偏差、方差和噪声三部分.&lt;/
           &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;vector-machine&#34; &gt;机器学习基础(2) —— 支持向量机&lt;/a&gt;&lt;/td&gt;
           &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/MachineLearning-2.pdf&#34; &gt;课件链接&lt;/a&gt;&lt;/td&gt;
           &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/homework-2.pdf&#34; &gt;作业链接&lt;/a&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;bayers&#34; &gt;机器学习基础(3) —— 基于后验概率最大化准则的分类模型&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/MachineLearning-3.pdf&#34; &gt;课件链接&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/homework-3.pdf&#34; &gt;作业链接&lt;/a&gt;&lt;/td&gt;
       &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;

@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="PKU2025春机器学习基础课程">
-<title>机器学习基础</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 本节课件链接\n后验概率最大化准则 定义\n对训练样本集 $D=\\{(x_i,y_i)\\}_{i=1}^n$, 其中 $x_i \\in \\mathcal{X}$, $y_i \\in \\mathcal{Y} = \\{c_1, c_2, \\cdots, c_K\\}$, 将 $x$ 的类别预测为 $c_i$ 的 风险 为\n$$ R(Y=c_i | x) = \\sum_{j=1}^K \\lambda_{ij} P(Y=c_j | x) $$其中 $\\lambda_{ij}$ 是将属于 $c_j$ 的样本预测为 $c_i$ 的损失. 最优预测 $\\hat{y}$ 是使得风险最小的类别, 即\n">
+<title>机器学习基础(3) —— 基于后验概率最大化准则的分类模型</title>
 
-<link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning/'>
+<link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning/bayers/'>
 
-<link rel="stylesheet" href="/scss/style.min.8c8de3151dac5f9667471116c69b56ad2409c1b76e792ab6fbf017b815c2c4bc.css"><meta property='og:title' content="机器学习基础">
-<meta property='og:description' content="PKU2025春机器学习基础课程">
-<meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning/'>
+<link rel="stylesheet" href="/scss/style.min.8c8de3151dac5f9667471116c69b56ad2409c1b76e792ab6fbf017b815c2c4bc.css"><meta property='og:title' content="机器学习基础(3) —— 基于后验概率最大化准则的分类模型">
+<meta property='og:description' content=" 本节课件链接\n后验概率最大化准则 定义\n对训练样本集 $D=\\{(x_i,y_i)\\}_{i=1}^n$, 其中 $x_i \\in \\mathcal{X}$, $y_i \\in \\mathcal{Y} = \\{c_1, c_2, \\cdots, c_K\\}$, 将 $x$ 的类别预测为 $c_i$ 的 风险 为\n$$ R(Y=c_i | x) = \\sum_{j=1}^K \\lambda_{ij} P(Y=c_j | x) $$其中 $\\lambda_{ij}$ 是将属于 $c_j$ 的样本预测为 $c_i$ 的损失. 最优预测 $\\hat{y}$ 是使得风险最小的类别, 即\n">
+<meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning/bayers/'>
 <meta property='og:site_name' content='LeoDreamer'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-02-17T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-02-17T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="机器学习基础">
-<meta name="twitter:description" content="PKU2025春机器学习基础课程">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-03-11T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-11T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="机器学习基础(3) —— 基于后验概率最大化准则的分类模型">
+<meta name="twitter:description" content=" 本节课件链接\n后验概率最大化准则 定义\n对训练样本集 $D=\\{(x_i,y_i)\\}_{i=1}^n$, 其中 $x_i \\in \\mathcal{X}$, $y_i \\in \\mathcal{Y} = \\{c_1, c_2, \\cdots, c_K\\}$, 将 $x$ 的类别预测为 $c_i$ 的 风险 为\n$$ R(Y=c_i | x) = \\sum_{j=1}^K \\lambda_{ij} P(Y=c_j | x) $$其中 $\\lambda_{ij}$ 是将属于 $c_j$ 的样本预测为 $c_i$ 的损失. 最优预测 $\\hat{y}$ 是使得风险最小的类别, 即\n">
     </head>
     <body class="
     article-page
@@ -215,7 +215,40 @@
     </ol>
 </aside>
 
-    
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#后验概率最大化准则">后验概率最大化准则</a></li>
+    <li><a href="#逻辑斯蒂回归模型">逻辑斯蒂回归模型</a></li>
+    <li><a href="#朴素贝叶斯分类器">朴素贝叶斯分类器</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
 
             <main class="main full-width">
     <article class="main-article">
@@ -237,22 +270,14 @@
                 机器学习基础
             </a>
         
-            <a href="/categories/%E5%AF%BC%E8%88%AA/" >
-                导航
-            </a>
-        
     </header>
     
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/machine-learning/">机器学习基础</a>
+            <a href="/p/machine-learning/bayers/">机器学习基础(3) —— 基于后验概率最大化准则的分类模型</a>
         </h2>
     
-        
-        <h3 class="article-subtitle">
-            PKU2025春机器学习基础课程
-        </h3>
         
     </div>
 
@@ -272,7 +297,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2025-02-17</time>
+                <time class="article-time--published">2025-03-11</time>
             </div>
         
 
@@ -287,7 +312,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 1 分钟
+                    阅读时长: 2 分钟
                 </time>
             </div>
         
@@ -303,35 +328,76 @@
     
     
     <link rel="stylesheet" href="/styles/notes.css" >
-<div class="block">
-<p class="block-title">导航</p>
-<div class="table-wrapper"><table>
-  <thead>
-      <tr>
-          <th>博客页面</th>
-          <th>课件</th>
-          <th>作业</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td><a class="link" href="intro" >机器学习基础(1) —— 概述</a></td>
-          <td><a class="link" href="/materials/machine-learning/MachineLearning-1.pdf" >课件链接</a></td>
-          <td><a class="link" href="/materials/machine-learning/homework-1.pdf" >作业链接</a></td>
-      </tr>
-      <tr>
-          <td><a class="link" href="vector-machine" >机器学习基础(2) —— 支持向量机</a></td>
-          <td><a class="link" href="/materials/machine-learning/MachineLearning-2.pdf" >课件链接</a></td>
-          <td><a class="link" href="/materials/machine-learning/homework-2.pdf" >作业链接</a></td>
-      </tr>
-      <tr>
-          <td><a class="link" href="bayers" >机器学习基础(3) —— 基于后验概率最大化准则的分类模型</a></td>
-          <td><a class="link" href="/materials/machine-learning/MachineLearning-3.pdf" >课件链接</a></td>
-          <td><a class="link" href="/materials/machine-learning/homework-3.pdf" >作业链接</a></td>
-      </tr>
-  </tbody>
-</table></div>
+<p><a class="link" href="/materials/machine-learning/MachineLearning-3.pdf" >本节课件链接</a></p>
+<h2 id="后验概率最大化准则">后验概率最大化准则
+</h2><div class="block">
+<p class="block-title def">定义</p>
+<p>对训练样本集 $D=\{(x_i,y_i)\}_{i=1}^n$, 其中 $x_i \in \mathcal{X}$, $y_i \in \mathcal{Y} = \{c_1, c_2, \cdots, c_K\}$, 将 $x$ 的类别预测为 $c_i$ 的 <strong>风险</strong> 为</p>
+$$
+R(Y=c_i | x) = \sum_{j=1}^K \lambda_{ij} P(Y=c_j | x)
+$$<p>其中 $\lambda_{ij}$ 是将属于 $c_j$ 的样本预测为 $c_i$ 的损失. <strong>最优预测</strong> $\hat{y}$ 是使得风险最小的类别, 即</p>
+$$
+\hat{y} = \arg\min_{c_i} R(Y=c_i | x)
+$$</div>
+<p>假设采用 $0-1$ 损失函数, 易知</p>
+$$
+R(Y=c_i | x) = 1 - P(Y=c_i | x)
+$$<p>即输入 $x$ 的最优预测 $\hat{y}$ 为使得后验概率 $P(y | x)$ 最大的类别.</p>
+<h2 id="逻辑斯蒂回归模型">逻辑斯蒂回归模型
+</h2><div class="block">
+<p class="block-title def">定义</p>
+<p>设 $\mathcal{X}=\mathbb{R}^n, \mathcal{Y}=\{c_1,c_2\}$, 逻辑斯蒂回归模型是如下的后验概率分布:</p>
+$$
+\begin{aligned}
+P(Y=c_1 | x) &= \frac{\exp(w \cdot x + b)}{1+\exp(w \cdot x + b)} \\
+P(Y=c_2 | x) &= \frac{1}{1+\exp(w \cdot x + b)
+}
+\end{aligned}
+$$<p>其中 $w,b$ 是模型参数.</p>
 </div>
+<p>按照后验概率最大化准则, 显然当 $w \cdot x + b > 0$ 时, 预测为 $c_1$, 否则预测为 $c_2$.</p>
+<p>对于多类分类任务, 仍然可以使用逻辑斯蒂回归模型:</p>
+$$
+\begin{aligned}
+p(y=c_i | x) &= \frac{\exp(w_i \cdot x + b_i)}{\sum_{j=1}^{K-1} \exp(w_j \cdot x + b_j)}, \quad i=1,2,\cdots,K-1 \\
+p(y=c_K | x) &= \frac{1}{\sum_{j=1}^{K-1} \exp(w_j \cdot x + b_j)}
+\end{aligned}
+$$<p>给定 $D=\{(x_i,y_i)\}_{i=1}^n$, 其中 $x_i \in \mathbb{R}^n$, $y_i \in \mathcal{Y} = \{0,1\}$, 用 $\theta=(w,b)$ 表示二项逻辑斯蒂回归模型的参数, 令</p>
+$$
+p(x;\theta) = p(Y=1 | x;\theta)
+$$<p>则考虑似然函数为</p>
+$$
+\begin{aligned}
+L(\theta) &= \prod_{i=1}^n p(x_i;\theta)^{y_i} (1-p(x_i;\theta))^{1-y_i} \\
+\log L(\theta) &= \sum_{i=1}^n y_i \log p(x_i;\theta) + (1-y_i) \log (1-p(x_i;\theta)) \\
+&= \sum_{i=1}^N y_i(w \cdot x_i + b) - \log(1+\exp(w \cdot x_i + b))
+\end{aligned}
+$$<p>对 $w,b$ 求偏导为 $0$, 得到</p>
+$$
+\begin{aligned}
+\frac{\partial \log L(\theta)}{\partial w} &= \sum_{i=1}^n x_i(y_i - p(x_i;\theta)) = 0\\
+\frac{\partial \log L(\theta)}{\partial b} &= \sum_{i=1}^n (y_i - p(x_i;\theta)) = 0
+\end{aligned}
+$$<h2 id="朴素贝叶斯分类器">朴素贝叶斯分类器
+</h2><div class="block">
+<p class="block-title thm">定理<span class="subtitle">贝叶斯公式</p>
+$$
+\begin{aligned}
+P(Y=c_i | x) &= \frac{P(x | Y=c_i) P(Y=c_i)}{P(x)} \\
+&= \frac{P(x | Y=c_i) P(Y=c_i)}{\sum_{j=1}^K P(x | Y=c_j) P(Y=c_j)}
+\end{aligned}
+$$</div>
+<p>朴素贝叶斯假定特征之间相互独立, 即</p>
+$$
+p(X^1=x^1, X^2=x^2, \cdots, X^n=x^n | Y=c_k) = \prod_{j=1}^n p(X^j=x^j | Y=c_k)
+$$<p>对于输入实例 $x=(x^1,x^2,\cdots,x^n)$, 则后验概率</p>
+$$
+p(Y=c_k|x)=\frac{\left( \prod_{i=1}^n p(X^i=x^i | Y=c_k) \right) P(Y=c_k)}{\sum_{j=1}^K \left( \prod_{i=1}^n p(X^i=x^i | Y=c_j) \right) P(Y=c_j)}
+$$<p>分母是固定的, 只需比较分子的大小即可. 但是一旦某个特征取值和分类没有同时出现, 后验概率直接为 $0$, 为了避免这种情况, 通常引入一些平滑技术:</p>
+$$
+p_{\lambda}(Y=c_k) = \frac{\sum_{j=1}^NI(y_j=c_k)+\lambda}{N+K\lambda}
+$$<p>$\lambda=1$ 时称为 Laplace 平滑.</p>
+<p><a class="link" href="/materials/machine-learning/homework-3.pdf" >本节作业链接</a></p>
 
 </section>
 
@@ -394,19 +460,6 @@
             
                 
 <article class="">
-    <a href="/p/machine-learning/bayers/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">机器学习基础(3) —— 基于后验概率最大化准则的分类模型</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
     <a href="/p/machine-learning/vector-machine/">
         
         
@@ -433,12 +486,12 @@
             
                 
 <article class="">
-    <a href="/p/opt-method/">
+    <a href="/p/machine-learning/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">最优化方法</h2>
+            <h2 class="article-title">机器学习基础</h2>
         </div>
     </a>
 </article>
@@ -446,12 +499,25 @@
             
                 
 <article class="">
-    <a href="/p/program-practice/">
+    <a href="/p/opt-method/opt-problem/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">程序设计实习</h2>
+            <h2 class="article-title">最优化方法(4) —— 优化问题</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/opt-method/convex-function/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">最优化方法(3) —— 凸函数</h2>
         </div>
     </a>
 </article>
