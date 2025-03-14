@@ -7,7 +7,80 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>LeoDreamer</copyright>
-        <lastBuildDate>Tue, 11 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 14 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>机器学习基础(4) —— 基于近邻的分类方法</title>
+        <link>https://LeoDreamer2004.github.io/p/machine-learning/knn/</link>
+        <pubDate>Fri, 14 Mar 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/p/machine-learning/knn/</guid>
+        <description>&lt;link rel=&#34;stylesheet&#34; href=&#34;https://LeoDreamer2004.github.io/styles/notes.css&#34; &gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/MachineLearning-4.pdf&#34; &gt;本节课件链接&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;k-近邻算法&#34;&gt;k-近邻算法
+&lt;/h2&gt;&lt;p&gt;k-近邻算法的主要思想是, 对于一个给定的样本点 $x$, 找到训练集中与 $x$ 最近的 $k$ 个样本点, 然后根据这 $k$ 个样本点的类别进行多数占优的投票方式来预测 $x$ 的类别.&lt;/p&gt;
+&lt;p&gt;在 $n$ 维实数空间 $\mathbb{R}$ 中, 通常用 Minkowski 距离来度量两个点 $x_i, x_j$ 的相似性:&lt;/p&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;设 $x_i, x_j \in \mathbb{R}^n$, 则 $x_i, x_j$ 之间的 &lt;strong&gt;Minkowski 距离&lt;/strong&gt; $\text{dist}_p(x_i,x_j)$ 定义为&lt;/p&gt;
+$$
+\text{dist}_p(x_i,x_j) = \left( \sum_{l=1}^n |x_i^l - x_j^l|^p \right)^{1/p}
+$$&lt;/div&gt;
+&lt;p&gt;$p=1$ 时, 就是 Manhattan 距离; $p=2$ 时, 就是 Euclidean 距离; $p=\infty$ 时, 就是 Chebyshev 距离. 在必要时, 还可以给每个维度的特征值加权.&lt;/p&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;给定训练样本集 $D = \{(x_i, y_i)\}_{i=1}^n$, 其中 $x_i \in \mathbb{R}^n$, $y_i \in \mathcal{Y} = \{c_1, c_2, \cdots, c_k\}$, 以及距离度量 $\text{dist}$, &lt;strong&gt;k-近邻算法&lt;/strong&gt; 的基本步骤如下:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;基于度量 $\text{dist}$, 对于给定的样本点 $x$, 找到训练集中与 $x$ 最近的 $k$ 个样本点所构成的邻域 $N_k^{\text{dist}}(x)$;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;采用如下的多数投票规则来预测 $x$ 的类别:&lt;/p&gt;
+$$
+    y = \arg\max_{c_i} \sum_{x_j \in N_k^{\text{dist}}(x)} I(y_j = c_i)
+    $$&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;p&gt;如果把 0-1 作为损失函数, 那么 k-近邻算法实际上就是让经验风险最小化.&lt;/p&gt;
+&lt;h2 id=&#34;最近邻算法&#34;&gt;最近邻算法
+&lt;/h2&gt;&lt;p&gt;在 k-近邻算法中, 当 $k=1$ 时, 称为最近邻算法. 因此, 特点是偏差小, 方差大. 这其实是特征空间的一个划分 $\mathcal{X}=\bigcup_{i=1}^n \{R_i\}$. 对每个划分单元 $R_i$, 该单元的数据点到其他样本的距离都不会小于到 $x_i$ 的距离.&lt;/p&gt;
+&lt;h2 id=&#34;最近邻算法的扩展&#34;&gt;最近邻算法的扩展
+&lt;/h2&gt;&lt;p&gt;给定样本集 $D = \{(x_i,y_i)\}_{i=1}^n$, 以 $D_i$ 表示属于类 $c_i$ 的样本集, 希望找一个方式把每个 $D_i$ 分成 $k$ 个簇 $(D_{i1}, D_{i2}, \cdots, D_{ik})$, 使得数据分布的方差最小, 即&lt;/p&gt;
+$$
+(D^\ast_{i1}, D^\ast_{i2}, \cdots, D^\ast_{il}) = \arg\min_{D_{i1}, D_{i2}, \cdots, D_{ik}} \sum_{j=1}^k \sum_{(x_t,y_t) \in D_{ij}} \Vert x_t-c_{ij} \Vert_2^2
+$$&lt;p&gt;然而很难找到最优解, 因此采用迭代的方式来近似求解:&lt;/p&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;K-means 算法&lt;/strong&gt; 的基本步骤如下:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;初始化 $k$ 个簇的中心 $c_{ij}$;&lt;/li&gt;
+&lt;li&gt;对每个 $(x_t),(y_t) \in D_i$ (即 $y_t=c_i$), 令
+$$I_{x_t}= \arg\min_{j} \Vert x_t-c_{ij} \Vert_2^2$$
+即将 $x_t$ 分配到最近的簇;&lt;/li&gt;
+&lt;li&gt;对每个 $D_{ij}$, 更新均值
+$$c_{ij} = \frac{1}{|D_{ij}|} \sum_{(x_t,y_t) \in D_{ij}} x_t$$&lt;/li&gt;
+&lt;li&gt;重复 2, 3 直到收敛.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;p&gt;有可能会使得某些离分类边界很近的点被错误分类. 引入学习向量量化方法 (LVQ 算法). 让同类和异类的点在构建过程中都能起作用.&lt;/p&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;LVQ 算法&lt;/strong&gt; 的基本步骤如下:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;对每个类 $c_m$ 随机选择 $k$ 个点 $I_{mi}$ 作为代表;&lt;/li&gt;
+&lt;li&gt;对每个样本点 $x_t$, 找到最近的原型向量 $I_{m^\ast i^\ast}$, 即
+$$I_{m^\ast i^\ast} = \arg\min_{m,i} \Vert x_t - I_{mi} \Vert_2^2$$&lt;/li&gt;
+&lt;li&gt;如果 $y_t=c_{m^\ast}$, 则
+$$I_{m^\ast i^\ast} \gets I_{m^\ast i^\ast} + \eta(x_t - I_{m^\ast i^\ast})$$
+否则
+$$I_{m^\ast i^\ast} \gets I_{m^\ast i^\ast} - \eta(x_t - I_{m^\ast i^\ast})$$&lt;/li&gt;
+&lt;li&gt;重复 2, 3 直到收敛.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;这里 $\eta$ 是学习率.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;在 $\eta=1$ 时, LVQ 算法相当于逐步地进行 k-means 算法.&lt;/p&gt;
+&lt;p&gt;在最近邻算法和其扩展方法中, 每个簇的代表点也称为相应单元的原型. 这种方法也常被称作原型方法或免模型方法.&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>机器学习基础(3) —— 基于后验概率最大化准则的分类模型</title>
         <link>https://LeoDreamer2004.github.io/p/machine-learning/bayers/</link>
         <pubDate>Tue, 11 Mar 2025 00:00:00 +0000</pubDate>
@@ -83,7 +156,6 @@ $$&lt;p&gt;分母是固定的, 只需比较分子的大小即可. 但是一旦�
 $$
 p_{\lambda}(Y=c_k) = \frac{\sum_{j=1}^NI(y_j=c_k)+\lambda}{N+K\lambda}
 $$&lt;p&gt;$\lambda=1$ 时称为 Laplace 平滑.&lt;/p&gt;
-&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/homework-3.pdf&#34; &gt;本节作业链接&lt;/a&gt;&lt;/p&gt;
 </description>
         </item>
         <item>
@@ -2240,7 +2312,12 @@ $$&lt;p&gt;即泛化误差可以分解为偏差、方差和噪声三部分.&lt;/
       &lt;tr&gt;
           &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;bayers&#34; &gt;机器学习基础(3) —— 基于后验概率最大化准则的分类模型&lt;/a&gt;&lt;/td&gt;
           &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/MachineLearning-3.pdf&#34; &gt;课件链接&lt;/a&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/homework-3.pdf&#34; &gt;作业链接&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;-&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;knn&#34; &gt;机器学习基础(4) —— 基于近邻的分类方法&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/MachineLearning-4.pdf&#34; &gt;课件链接&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/homework-4.pdf&#34; &gt;作业链接&lt;/a&gt;&lt;/td&gt;
       &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
