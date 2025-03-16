@@ -287,7 +287,7 @@ $$g(x)=\sup_{y \in A} f(x,y)$$&lt;p&gt;也是凸函数.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;$C$ 的支撑函数 $f(x)=\sup_{y \in C} y^Tx$ 是凸函数.&lt;/li&gt;
 &lt;li&gt;$C$ 到 $x$ 的最远距离 $f(x)=\sup_{y \in C} \Vert x-y \Vert$ 是凸函数.&lt;/li&gt;
-&lt;li&gt;对称阵 $X \in \\mathbb{S}^n$ 的最大特征值 $\lambda_{\max}(X)=\sup_{\Vert x \Vert=1} x^TXx$ 是凸函数.&lt;/li&gt;
+&lt;li&gt;对称阵 $X \in \mathbb{S}^n$ 的最大特征值 $\lambda_{\max}(X)=\sup_{\Vert x \Vert=1} x^TXx$ 是凸函数.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;

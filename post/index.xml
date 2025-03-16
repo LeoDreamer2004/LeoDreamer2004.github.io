@@ -66,7 +66,7 @@ $$c_{ij} = \frac{1}{|D_{ij}|} \sum_{(x_t,y_t) \in D_{ij}} x_t$$&lt;/li&gt;
 &lt;p&gt;&lt;strong&gt;LVQ 算法&lt;/strong&gt; 的基本步骤如下:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;对每个类 $c_m$ 随机选择 $k$ 个点 $I_{mi}$ 作为代表;&lt;/li&gt;
-&lt;li&gt;对每个样本点 $x_t$, 找到最近的原型向量 $I_{m^\ast i^\ast}$, 即
+&lt;li&gt;对每个样本点 $x_t$, 找到最近的代表元 $I_{m^\ast i^\ast}$, 即
 $$I_{m^\ast i^\ast} = \arg\min_{m,i} \Vert x_t - I_{mi} \Vert_2^2$$&lt;/li&gt;
 &lt;li&gt;如果 $y_t=c_{m^\ast}$, 则
 $$I_{m^\ast i^\ast} \gets I_{m^\ast i^\ast} + \eta(x_t - I_{m^\ast i^\ast})$$
@@ -2604,7 +2604,7 @@ $$g(x)=\sup_{y \in A} f(x,y)$$&lt;p&gt;也是凸函数.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;$C$ 的支撑函数 $f(x)=\sup_{y \in C} y^Tx$ 是凸函数.&lt;/li&gt;
 &lt;li&gt;$C$ 到 $x$ 的最远距离 $f(x)=\sup_{y \in C} \Vert x-y \Vert$ 是凸函数.&lt;/li&gt;
-&lt;li&gt;对称阵 $X \in \\mathbb{S}^n$ 的最大特征值 $\lambda_{\max}(X)=\sup_{\Vert x \Vert=1} x^TXx$ 是凸函数.&lt;/li&gt;
+&lt;li&gt;对称阵 $X \in \mathbb{S}^n$ 的最大特征值 $\lambda_{\max}(X)=\sup_{\Vert x \Vert=1} x^TXx$ 是凸函数.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;

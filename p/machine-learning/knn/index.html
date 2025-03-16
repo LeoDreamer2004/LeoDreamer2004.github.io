@@ -380,7 +380,7 @@ $$c_{ij} = \frac{1}{|D_{ij}|} \sum_{(x_t,y_t) \in D_{ij}} x_t$$</li>
 <p><strong>LVQ 算法</strong> 的基本步骤如下:</p>
 <ol>
 <li>对每个类 $c_m$ 随机选择 $k$ 个点 $I_{mi}$ 作为代表;</li>
-<li>对每个样本点 $x_t$, 找到最近的原型向量 $I_{m^\ast i^\ast}$, 即
+<li>对每个样本点 $x_t$, 找到最近的代表元 $I_{m^\ast i^\ast}$, 即
 $$I_{m^\ast i^\ast} = \arg\min_{m,i} \Vert x_t - I_{mi} \Vert_2^2$$</li>
 <li>如果 $y_t=c_{m^\ast}$, 则
 $$I_{m^\ast i^\ast} \gets I_{m^\ast i^\ast} + \eta(x_t - I_{m^\ast i^\ast})$$
