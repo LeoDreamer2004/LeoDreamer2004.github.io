@@ -7,7 +7,88 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>LeoDreamer</copyright>
-        <lastBuildDate>Fri, 14 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/%E8%AF%BE%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 18 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/%E8%AF%BE%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>机器学习基础(5) —— 决策树模型</title>
+        <link>https://LeoDreamer2004.github.io/p/machine-learning/decision-tree/</link>
+        <pubDate>Tue, 18 Mar 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/p/machine-learning/decision-tree/</guid>
+        <description>&lt;link rel=&#34;stylesheet&#34; href=&#34;https://LeoDreamer2004.github.io/styles/notes.css&#34; &gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/MachineLearning-5.pdf&#34; &gt;本节课件链接&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;特征的分类能力评估&#34;&gt;特征的分类能力评估
+&lt;/h2&gt;&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;给定数据集 $D=\{(x_i,y_i)\}_{i=1}^N$, 其中 $x_i=\left(x_i^{(1)},x_i^{(2)},\cdots,x_i^{(m)}\right) \in \mathcal{X}$ 是第 $i$ 个样本的特征向量, $y_i \in \mathcal{Y}=\{c_1,c_2,\cdots,c_K\}$ 是第 $i$ 个样本的标签. 假设数据集 $D$ 根据特征分成了 $K$ 个子集 $D_1,D_2,\cdots,D_K$, 定义 &lt;strong&gt;经验熵&lt;/strong&gt; 为&lt;/p&gt;
+$$
+H(D) = -\sum_{k=1}^K \frac{|D_k|}{|D|} \log_2 \frac{|D_k|}{|D|}
+$$&lt;p&gt;现在给定某维特征 $A$ 和其取值集合 $\{a_1,a_2,\cdots,a_m\}$, 根据 $A$ 的取值将数据集 $D$ 分成了 $m$ 个子集 $D_1^A,D_2^A,\cdots,D_m^A$, 并进一步考虑 $D_i^A$ 中的标签分布, 定义 &lt;strong&gt;条件经验熵&lt;/strong&gt; 为&lt;/p&gt;
+$$
+H(D|A) = \sum_{i=1}^m \frac{|D_i^A|}{|D|} H(D_i^A)
+$$&lt;/div&gt;
+&lt;p&gt;如果条件经验熵和经验熵之差越大, 则说明特征 $A$ 对数据集 $D$ 的分类能力越强.&lt;/p&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;属性 $A$ 对数据集 $D$ 的 &lt;strong&gt;信息增益&lt;/strong&gt; $g(D,A)$ 定义为&lt;/p&gt;
+$$
+g(D,A) = H(D) - H(D|A)
+$$&lt;/div&gt;
+&lt;p&gt;考虑到信息增益的计算会偏向于选择取值较多的特征, 为了避免这种情况, 引入信息增益率来评估特征的分类能力.&lt;/p&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;特征 $A$ 的 &lt;strong&gt;分裂信息&lt;/strong&gt; $IV(A)$ 定义为&lt;/p&gt;
+$$
+IV(A) = -\sum_{i=1}^m \frac{|D_i^A|}{|D|} \log_2 \frac{|D_i^A|}{|D|}
+$$&lt;p&gt;特征 $A$ 的 &lt;strong&gt;信息增益率&lt;/strong&gt; $g_R(D,A)$ 定义为&lt;/p&gt;
+$$
+g_R(D,A) = \frac{g(D,A)}{IV(A)}
+$$&lt;/div&gt;
+&lt;p&gt;分裂信息其实就是按照 $A$ 取值作划分的经验熵.&lt;/p&gt;
+&lt;p&gt;除了信息增益和信息增益率, 还有 Gini 指数可以用来评估特征的分类能力.&lt;/p&gt;
+&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;数据集 $D$ 的 &lt;strong&gt;Gini 指数&lt;/strong&gt; $\text{Gini}(D)$ 定义为&lt;/p&gt;
+$$
+\text{Gini}(D) = 1 - \sum_{k=1}^K \left(\frac{|D_k|}{|D|}\right)^2
+$$&lt;p&gt;特征 $A$ 的 &lt;strong&gt;Gini 指数&lt;/strong&gt; $\text{Gini}(D,A)$ 定义为&lt;/p&gt;
+$$
+\text{Gini}(D,A) = \sum_{i=1}^m \frac{|D_i^A|}{|D|} \text{Gini}(D_i^A)
+$$&lt;p&gt;如果按照特征 $A$ 是否取值为 $a_i$ 对数据集 $D$ 进行划分 $D=D_i^A \cup (D-D_i^A)$, 则 $A=a_i$ 的 &lt;strong&gt;Gini 指数&lt;/strong&gt; $\text{Gini}_d(D,A=a_i)$ 定义为&lt;/p&gt;
+$$
+\text{Gini}_d(D,A=a_i) = \frac{|D_i^A|}{|D|} \text{Gini}(D_i^A) + \frac{|D-D_i^A|}{|D|} \text{Gini}(D-D_i^A)
+$$&lt;/div&gt;
+&lt;p&gt;Gini 指数可以看作任取两个样本, 它们的标签不一致的概率. 如果 Gini 指数越小, 则说明特征 $A$ 对数据集 $D$ 的分类能力越强.&lt;/p&gt;
+&lt;h2 id=&#34;决策树模型&#34;&gt;决策树模型
+&lt;/h2&gt;&lt;div class=&#34;block&#34;&gt;
+&lt;p class=&#34;block-title&#34;&gt;生成决策树算法&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 训练数据集 $D=\{(x_i,y_i)\}_{i=1}^N$, 特征集 $\mathcal{A}=\{A_1,A_2,\cdots,A_m\}$, 最优特征选择函数 $F$.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 决策树 $T$.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;若数据集 $D$ 中所有样本的标签都是 $c_k$, 则生成一个类标记为 $c_k$ 的叶结点, 返回 $T$;&lt;/li&gt;
+&lt;li&gt;若 $A=\emptyset$, 且 $D$ 非空, 则生成一个单节点树, 并以 $D$ 中样本数最多的类标记作为该节点的类标记, 返回 $T$;&lt;/li&gt;
+&lt;li&gt;计算 $A^\ast=F(D,\mathcal{A})$;&lt;/li&gt;
+&lt;li&gt;对 $A^\ast$ 的每一个取值 $a_i$, 构造一个对应于 $D_i$ 的子节点;&lt;/li&gt;
+&lt;li&gt;若 $D_i=\emptyset$, 则将子节点标记为叶结点, 类标记为 $D$ 中样本数最多的类标记;&lt;/li&gt;
+&lt;li&gt;否则, 将 $D_i$ 中样本数最多的类标记作为该节点的类标记&lt;/li&gt;
+&lt;li&gt;对每个 $D_i$ 对应的非叶子节点, 以 $D_i$ 为训练集, 以 $\mathcal{A}-\{A^\ast\}$ 为特征集, 递归调用 1-6 步, 构建决策树 $T$.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;p&gt;如果以信息增益为特征选择函数, 即 $A^\ast = \arg\max_{A \in \mathcal{A}} g(D,A)$, 则算法对应于 ID3 算法; 如果以信息增益率为特征选择函数, 即 $A^\ast = \arg\max_{A \in \mathcal{A}} g_R(D,A)$, 则算法对应于 C4.5 算法.&lt;/p&gt;
+&lt;p&gt;二路划分会采用以特征的可能取值为切分点的二分法划分当前数据集, 例如与选择 Gini 指数最小的特征和切分点对应的特征值, 即 $(A^\ast,a^\ast) = \arg\min_{A \in \mathcal{A},a \in V(A)} \text{Gini}_d(D,A=a)$, 则算法对应于 CART 算法.&lt;/p&gt;
+&lt;p&gt;为了降低过拟合风险, 可以对决策树进行剪枝. 常用的是后剪枝, 即先生成一棵完全生长的决策树, 然后根据泛化性能决定是否剪枝. 也可以采用正则化方法, 例如, 定义决策树 $T$ 的损失或代价函数:&lt;/p&gt;
+$$
+C_\alpha(T) = C(T) + \alpha |T|
+$$&lt;p&gt;其中 $C(T)$ 用于衡量 $T$ 对 $D$ 的拟合程度, $|T|$ 表示 $T$ 的叶结点个数, $\alpha \geq 0$ 用于权衡拟合程度和模型复杂度.&lt;/p&gt;
+&lt;p&gt;CART 算法有特别的剪枝处理: 从 CART 算法生成得到完整决策树 $T_0$ 开始, 产生一个递增的权衡系数序列 $0=\alpha_0 &lt; \alpha_1 &lt; \cdots &lt; \alpha_n &lt; +\infty$ 和一个嵌套的子树序列 $\{T_0, T_1, \cdots, T_n\}$, $T_i$ 为 $\alpha \in [\alpha_i, \alpha_{i+1})$ 时的最优子树, $T_n$ 是根节点单独构成的树.&lt;/p&gt;
+&lt;p&gt;如果是连续特征, 则可以考虑将其离散化, 例如, 通过二分法将其划分为两个区间, 选择最优划分点.&lt;/p&gt;
+&lt;p&gt;现在继续从经验风险的角度来看决策树模型.采用 $0-1$ 损失函数, 设节点 $t$ 设置的标记是 $c_k$, 则在 $t$ 对应的数据集上的经验风险为&lt;/p&gt;
+$$
+\frac{1}{|D_t|} \sum_{i=1}^{|D_t|} (y_i \neq c_k)
+$$&lt;p&gt;显见, 等级于&lt;/p&gt;
+$$
+\max_{c_k \in \mathcal{Y}} \frac{1}{|D_t|} \sum_{i=1}^{|D_t|} I(y_i = c_k)
+$$</description>
+        </item>
+        <item>
         <title>机器学习基础(4) —— 基于近邻的分类方法</title>
         <link>https://LeoDreamer2004.github.io/p/machine-learning/knn/</link>
         <pubDate>Fri, 14 Mar 2025 00:00:00 +0000</pubDate>
