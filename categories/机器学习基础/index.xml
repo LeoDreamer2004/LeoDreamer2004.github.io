@@ -82,7 +82,7 @@ $$&lt;p&gt;其中 $C(T)$ 用于衡量 $T$ 对 $D$ 的拟合程度, $|T|$ 表示 
 &lt;p&gt;如果是连续特征, 则可以考虑将其离散化, 例如, 通过二分法将其划分为两个区间, 选择最优划分点.&lt;/p&gt;
 &lt;p&gt;现在继续从经验风险的角度来看决策树模型.采用 $0-1$ 损失函数, 设节点 $t$ 设置的标记是 $c_k$, 则在 $t$ 对应的数据集上的经验风险为&lt;/p&gt;
 $$
-\frac{1}{|D_t|} \sum_{i=1}^{|D_t|} (y_i \neq c_k)
+\frac{1}{|D_t|} \sum_{i=1}^{|D_t|} I(y_i \neq c_k)
 $$&lt;p&gt;显见, 等价于&lt;/p&gt;
 $$
 \max_{c_k \in \mathcal{Y}} \frac{1}{|D_t|} \sum_{i=1}^{|D_t|} I(y_i = c_k)
@@ -633,7 +633,12 @@ $$&lt;p&gt;即泛化误差可以分解为偏差、方差和噪声三部分.&lt;/
       &lt;tr&gt;
           &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;knn&#34; &gt;机器学习基础(4) —— 基于近邻的分类方法&lt;/a&gt;&lt;/td&gt;
           &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/MachineLearning-4.pdf&#34; &gt;课件链接&lt;/a&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/homework-4.pdf&#34; &gt;作业链接&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;decision-tree&#34; &gt;机器学习基础(5) —— 决策树模型&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/MachineLearning-5.pdf&#34; &gt;课件链接&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;/td&gt;
       &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;

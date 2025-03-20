@@ -257,7 +257,7 @@
     
     <header class="article-category">
         
-            <a href="/categories/%E8%AF%BE%E7%A8%8B/" >
+            <a href="/categories/%E8%AF%BE%E7%A8%8B/" style="background-color: #2a9d8f; color: #fff;">
                 课程
             </a>
         
@@ -265,7 +265,7 @@
                 数学
             </a>
         
-            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/" >
+            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/" style="background-color: #2a9d8f; color: #fff;">
                 机器学习基础
             </a>
         
@@ -395,7 +395,7 @@ $$<p>其中 $C(T)$ 用于衡量 $T$ 对 $D$ 的拟合程度, $|T|$ 表示 $T$ �
 <p>如果是连续特征, 则可以考虑将其离散化, 例如, 通过二分法将其划分为两个区间, 选择最优划分点.</p>
 <p>现在继续从经验风险的角度来看决策树模型.采用 $0-1$ 损失函数, 设节点 $t$ 设置的标记是 $c_k$, 则在 $t$ 对应的数据集上的经验风险为</p>
 $$
-\frac{1}{|D_t|} \sum_{i=1}^{|D_t|} (y_i \neq c_k)
+\frac{1}{|D_t|} \sum_{i=1}^{|D_t|} I(y_i \neq c_k)
 $$<p>显见, 等价于</p>
 $$
 \max_{c_k \in \mathcal{Y}} \frac{1}{|D_t|} \sum_{i=1}^{|D_t|} I(y_i = c_k)
