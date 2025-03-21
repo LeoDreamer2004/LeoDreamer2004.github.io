@@ -1735,44 +1735,6 @@
 &lt;/div&gt;
 &lt;/div&gt;</description>
         </item>
-        <item>
-        <title>程序设计实习</title>
-        <link>https://LeoDreamer2004.github.io/p/program-practice/</link>
-        <pubDate>Tue, 18 Feb 2025 00:00:00 +0000</pubDate>
-        
-        <guid>https://LeoDreamer2004.github.io/p/program-practice/</guid>
-        <description>&lt;link rel=&#34;stylesheet&#34; href=&#34;https://LeoDreamer2004.github.io/styles/notes.css&#34; &gt;
-&lt;div class=&#34;block&#34;&gt;
-&lt;p class=&#34;block-title&#34;&gt;导航&lt;/p&gt;
-&lt;table&gt;
-  &lt;thead&gt;
-      &lt;tr&gt;
-          &lt;th&gt;博客页面&lt;/th&gt;
-          &lt;th&gt;课件&lt;/th&gt;
-      &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;class-and-object&#34; &gt;程序设计实习(1) —— 类和对象&lt;/a&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/01-%e7%b1%bb%e5%92%8c%e5%af%b9%e8%b1%a101.pdf&#34; &gt;课件链接1&lt;/a&gt; &lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/02-%e7%b1%bb%e4%b8%8e%e5%af%b9%e8%b1%a102.pdf&#34; &gt;课件链接2&lt;/a&gt; &lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/03-%e7%b1%bb%e4%b8%8e%e5%af%b9%e8%b1%a103.pdf&#34; &gt;课件链接3&lt;/a&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;operator-overload&#34; &gt;程序设计实习(2) —— 运算符重载&lt;/a&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/04-%e8%bf%90%e7%ae%97%e7%ac%a6%e9%87%8d%e8%bd%bd.pdf&#34; &gt;课件链接&lt;/a&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;inherit&#34; &gt;程序设计实习(3) —— 继承与派生&lt;/a&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/05-%e7%bb%a7%e6%89%bf%e4%b8%8e%e6%b4%be%e7%94%9f.pdf&#34; &gt;课件链接&lt;/a&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;polymorphism&#34; &gt;程序设计实习(4) —— 多态&lt;/a&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/06-%e5%a4%9a%e6%80%81.pdf&#34; &gt;课件链接&lt;/a&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-</description>
-        </item>
         
     </channel>
 </rss>
