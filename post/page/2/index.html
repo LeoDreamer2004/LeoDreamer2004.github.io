@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/post/'>
 
-<link rel="stylesheet" href="/scss/style.min.55de29c392a0fa5a8df1c8c41fdb3e18ab8e658295c064848b7af15d378d0fb2.css"><meta property='og:title' content="Posts">
+<link rel="stylesheet" href="/scss/style.min.024b08d9fc4bc80520fd2c834f6dcc0eab54502285a7be43faba5647a61606c0.css"><meta property='og:title' content="Posts">
 <meta property='og:description' content="PKU 本科在读/新手++">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/post/'>
 <meta property='og:site_name' content='LeoDreamer'>
@@ -460,6 +460,44 @@
         document.head.appendChild(customFont);
     }());
 </script>
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        z-index: 99;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-image: url(https://LeoDreamer2004.github.io/icons/back-top.svg);
+    }
+</style>
 
+<script>
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.title = "返回顶部";
+        btn.onclick = backToTop
+        rightSideBar.appendChild(btn)
+        window.onscroll = function () {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    function backToTop() {
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
     </body>
 </html>

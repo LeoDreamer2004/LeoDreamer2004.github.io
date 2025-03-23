@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 本节课件链接\n范数 定义\n记号 $\\Vert \\cdot \\Vert: \\mathbb{R}^n \\mapsto \\mathbb{R}$ 称为 向量范数, 若满足:\n正定性: $\\Vert x \\Vert \\geq 0$, 且 $\\Vert x \\Vert = 0 \\Leftrightarrow x = 0$; 齐次性: $\\Vert \\alpha x \\Vert = \\vert \\alpha \\vert \\Vert x \\Vert$; 三角不等式: $\\Vert x + y \\Vert \\leq \\Vert x \\Vert + \\Vert y \\Vert$. $\\ell_p$ 范数是最常见的向量范数\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="本节课件链接\n范数 定义\n记号 $\\Vert \\cdot \\Vert: \\mathbb{R}^n \\mapsto \\mathbb{R}$ 称为 向量范数, 若满足:\n正定性: $\\Vert x \\Vert \\geq 0$, 且 $\\Vert x \\Vert = 0 \\Leftrightarrow x = 0$; 齐次性: $\\Vert \\alpha x \\Vert = \\vert \\alpha \\vert \\Vert x \\Vert$; 三角不等式: $\\Vert x + y \\Vert \\leq \\Vert x \\Vert + \\Vert y \\Vert$. $\\ell_p$ 范数是最常见的向量范数\n">
 <title>最优化方法(2) —— 凸集</title>
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/opt-method/convex-set/'>
 
-<link rel="stylesheet" href="/scss/style.min.55de29c392a0fa5a8df1c8c41fdb3e18ab8e658295c064848b7af15d378d0fb2.css"><meta property='og:title' content="最优化方法(2) —— 凸集">
-<meta property='og:description' content=" 本节课件链接\n范数 定义\n记号 $\\Vert \\cdot \\Vert: \\mathbb{R}^n \\mapsto \\mathbb{R}$ 称为 向量范数, 若满足:\n正定性: $\\Vert x \\Vert \\geq 0$, 且 $\\Vert x \\Vert = 0 \\Leftrightarrow x = 0$; 齐次性: $\\Vert \\alpha x \\Vert = \\vert \\alpha \\vert \\Vert x \\Vert$; 三角不等式: $\\Vert x + y \\Vert \\leq \\Vert x \\Vert + \\Vert y \\Vert$. $\\ell_p$ 范数是最常见的向量范数\n">
+<link rel="stylesheet" href="/scss/style.min.024b08d9fc4bc80520fd2c834f6dcc0eab54502285a7be43faba5647a61606c0.css"><meta property='og:title' content="最优化方法(2) —— 凸集">
+<meta property='og:description' content="本节课件链接\n范数 定义\n记号 $\\Vert \\cdot \\Vert: \\mathbb{R}^n \\mapsto \\mathbb{R}$ 称为 向量范数, 若满足:\n正定性: $\\Vert x \\Vert \\geq 0$, 且 $\\Vert x \\Vert = 0 \\Leftrightarrow x = 0$; 齐次性: $\\Vert \\alpha x \\Vert = \\vert \\alpha \\vert \\Vert x \\Vert$; 三角不等式: $\\Vert x + y \\Vert \\leq \\Vert x \\Vert + \\Vert y \\Vert$. $\\ell_p$ 范数是最常见的向量范数\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/opt-method/convex-set/'>
 <meta property='og:site_name' content='LeoDreamer'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-01-16T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-01-16T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="最优化方法(2) —— 凸集">
-<meta name="twitter:description" content=" 本节课件链接\n范数 定义\n记号 $\\Vert \\cdot \\Vert: \\mathbb{R}^n \\mapsto \\mathbb{R}$ 称为 向量范数, 若满足:\n正定性: $\\Vert x \\Vert \\geq 0$, 且 $\\Vert x \\Vert = 0 \\Leftrightarrow x = 0$; 齐次性: $\\Vert \\alpha x \\Vert = \\vert \\alpha \\vert \\Vert x \\Vert$; 三角不等式: $\\Vert x + y \\Vert \\leq \\Vert x \\Vert + \\Vert y \\Vert$. $\\ell_p$ 范数是最常见的向量范数\n">
+<meta name="twitter:description" content="本节课件链接\n范数 定义\n记号 $\\Vert \\cdot \\Vert: \\mathbb{R}^n \\mapsto \\mathbb{R}$ 称为 向量范数, 若满足:\n正定性: $\\Vert x \\Vert \\geq 0$, 且 $\\Vert x \\Vert = 0 \\Leftrightarrow x = 0$; 齐次性: $\\Vert \\alpha x \\Vert = \\vert \\alpha \\vert \\Vert x \\Vert$; 三角不等式: $\\Vert x + y \\Vert \\leq \\Vert x \\Vert + \\Vert y \\Vert$. $\\ell_p$ 范数是最常见的向量范数\n">
     </head>
     <body class="
     article-page
@@ -330,12 +330,11 @@
     <section class="article-content">
     
     
-    <link rel="stylesheet" href="/styles/notes.css" >
-<p><a class="link" href="http://faculty.bicmr.pku.edu.cn/~wenzw/optbook/lect/02-convex-set.pdf"  target="_blank" rel="noopener"
+    <p><a class="link" href="http://faculty.bicmr.pku.edu.cn/~wenzw/optbook/lect/02-convex-set.pdf"  target="_blank" rel="noopener"
     >本节课件链接</a></p>
 <h2 id="范数">范数
-</h2><div class="block">
-<p class="block-title def">定义</p>
+</h2><div class="math-block">
+    <p class="math-block-title math-def">定义</p>
 <p>记号 $\Vert \cdot \Vert: \mathbb{R}^n \mapsto \mathbb{R}$ 称为 <strong>向量范数</strong>, 若满足:</p>
 <ul>
 <li>正定性: $\Vert x \Vert \geq 0$, 且 $\Vert x \Vert = 0 \Leftrightarrow x = 0$;</li>
@@ -360,19 +359,19 @@ $$<p>特别地, 当 $p = \infty$ 时, $\Vert x \Vert_\infty = \max_i \vert x_i \
 </li>
 <li><strong>核范数</strong>: $\Vert A \Vert_\ast = \sum_i \sigma_i$, 其中 $\sigma_i$ 为 $A$ 的奇异值.</li>
 </ul>
-<div class="block">
-<p class="block-title thm">定理 <span class="subtitle">柯西不等式</span></p>
+<div class="math-block">
+    <p class="math-block-title math-thm">定理<span class="math-subtitle">Cauchy 不等式</span></p>
 $$\vert \langle X, Y \rangle \vert \leq \Vert X \Vert \Vert Y \Vert$$<p>等号成立当且仅当 $X$ 与 $Y$ 线性相关.</p>
 </div>
 <h2 id="凸集">凸集
-</h2><div class="block">
-<p class="block-title def">定义</p>
+</h2><div class="math-block">
+    <p class="math-block-title math-def">定义</p>
 <p>如果对于任意 $x, y \in C$ 和 $\theta \in \mathbb{R}$, 都有 $\theta x + (1-\theta) y \in C$, 则称 $C$ 为 <strong>仿射集</strong>.</p>
 <p>如果对于任意 $x, y \in C$ 和 $\theta \in [0, 1]$, 都有 $\theta x + (1-\theta) y \in C$, 则称 $C$ 为 <strong>凸集</strong>.</p>
 </div>
 <p>换言之, 仿射集要求过任意两点的直线都在集合内, 而凸集要求过任意两点的线段都在集合内. 显然, 仿射集都是凸集. 线性方程组的解集是一个仿射集, 而线性规划问题的可行域是一个凸集. 可以证明, 仿射集均可表示为某个线性方程组的解集.</p>
-<div class="block">
-<p class="block-title thm">定理</p>
+<div class="math-block">
+    <p class="math-block-title math-thm">定理</p>
 <ul>
 <li>若 $S$ 是凸集, 则 $kS = \left\{ ks \mid k \in \mathbb{R}, s \in S \right\}$ 也是凸集;</li>
 <li>若 $S, T$ 是凸集, 则 $S + T = \left\{ s + t \mid s \in S, t \in T \right\}$ 也是凸集;</li>
@@ -381,14 +380,14 @@ $$\vert \langle X, Y \rangle \vert \leq \Vert X \Vert \Vert Y \Vert$$<p>等号�
 </ul>
 </div>
 <p>可以证明, 任意多个凸集的交集仍为凸集.</p>
-<div class="block">
-<p class="block-title def">定义</p>
+<div class="math-block">
+    <p class="math-block-title math-def">定义</p>
 <p>形如 $x=\theta_1x_1+\theta_2x_2+\cdots+\theta_kx_k$, 其中 $\theta_i \geq 0$ 且 $\sum_i \theta_i = 1$, 的表达式称为 $x$ 的 <strong>凸组合</strong>. 集合 $S$ 的所有点的凸组合构成的集合称为 $S$ 的 <strong>凸包</strong>, 记为 $\text{conv}(S)$.</p>
 </div>
-<div class="block">
-<p class="block-title thm">定理</p>
+<div class="math-block">
+    <p class="math-block-title math-thm">定理</p>
 <p>若 $\text{conv} S \subseteq S$, 则 $S$ 为凸集, 反之亦然.</p>
-<p class="block-title prf">证明</p>
+<p class="math-block-title math-prf">证明</p>
 <p>先证明正方向. 对任意 $x,y \in S, \theta \in [0,1]$, 有 $\theta x + (1-\theta) y \in \text{conv} S \subseteq S$, 故 $S$ 为凸集.</p>
 <p>再证明反方向, 对凸组合的维数 $k$ 采用数学归纳法证明之.</p>
 <p>若 $k=1$, 显然成立. 假设对于 $k-1$ 成立, 则对于 $k$, 考虑</p>
@@ -399,49 +398,49 @@ x &= \theta_1 x_1 + \theta_2 x_2 + \cdots + \theta_k x_k \\
 \end{aligned}
 $$<p>前面大括号内的表达式为 $k-1$ 个凸组合, 故在 $S$ 中. 于是 $x$ 又成为两个点的凸组合, 由于 $S$ 为凸集, 故 $x \in S$. 则 $\text{conv} S \subseteq S$.</p>
 </div>
-<div class="block">
-<p class="block-title thm">定理</p>
+<div class="math-block">
+    <p class="math-block-title math-thm">定理</p>
 <ul>
 <li>$\text{conv}S$ 是包含 $S$ 的最小凸集;</li>
 <li>$\text{conv}S$ 是所有包含 $S$ 的凸集的交集.</li>
 </ul>
-<p class="block-title prf">证明</p>
+<p class="math-block-title math-prf">证明</p>
 <p>显然第一个是第二个的推论, 只证明第二个.</p>
 <p>已知凸集的交是凸集, 从而所有包含 $S$ 的凸集的交集 $X$ 是凸集. 且 $\text{conv} S$ 是包含 $S$ 的凸集, 则 $X \subseteq \text{conv} S$.</p>
 <p>另一方面, $S \subseteq X$, 则 $\text{conv} S \subseteq \text{conv}X$, 而 $X$ 是凸集, 则 $\text{conv}X = X$, 即 $\text{conv}S \subseteq X$. 综上, $\text{conv}S = X$.</p>
 </div>
 <p>仿照凸组合和凸包, 也可以定义仿射组合和仿射包 $\text{affine} S$, 不再赘述.</p>
-<div class="block">
-<p class="block-title def">定义</p>
+<div class="math-block">
+    <p class="math-block-title math-def">定义</p>
 <p>形如 $x=\theta_1x_1+\theta_2x_2+\cdots+\theta_kx_k$, 其中 $\theta_i \geq 0$ 的表达式称为 $x$ 的 <strong>锥组合</strong>. 若集合 $S$ 中任意点的锥组合都在 $S$ 中, 则称 $S$ 为凸锥.</p>
 </div>
 <h2 id="常见凸集">常见凸集
-</h2><div class="block">
-<p class="block-title def">定义</p>
+</h2><div class="math-block">
+    <p class="math-block-title math-def">定义</p>
 <p>任取非零向量 $a\in \mathbb{R}^n$, 形如</p>
 $$ \left\{ x \mid a^Tx =b \right\} $$<p>的集合称为 <strong>超平面</strong>, 形如</p>
 $$ \left\{ x \mid a^Tx \le b \right\} $$<p>的集合称为 <strong>半空间</strong>.</p>
 </div>
-<div class="block">
-<p class="block-title def">定义</p>
+<div class="math-block">
+    <p class="math-block-title math-def">定义</p>
 <p>满足线性等式和不等式组的点的集合称为 <strong>多面体</strong>, 即</p>
 $$ \left\{x \mid Ax \le b, Cx = d\right\} $$<p>其中 $A \in \mathbb{R}^{m \times n}, C \in \mathbb{R}^{p \times n}$.</p>
 </div>
-<div class="block">
-<p class="block-title def">定义</p>
+<div class="math-block">
+    <p class="math-block-title math-def">定义</p>
 <p>对中心 $x_c$ 和半径 $r$, 形如</p>
 $$ B(x_c, r) = \left\{ x \mid \Vert x - x_c \Vert \le r \right\} = \left\{ x_c + ru \mid \Vert u \Vert \le 1 \right\} $$<p>的集合称为 <strong>球</strong>.</p>
 <p>对中心 $x_c$ 和对称正定矩阵 $P$, 非奇异矩阵 $A$, 形如</p>
 $$ \left\{ x \mid (x-x_c)^TP(x-x_c) \le 1 \right\} = \left\{ x_c + Au \mid \Vert u \Vert \le 1 \right\} $$<p>的集合称为 <strong>椭球</strong>.</p>
 </div>
-<div class="block">
-<p class="block-title def">定义</p>
+<div class="math-block">
+    <p class="math-block-title math-def">定义</p>
 <p>形如</p>
 $$ \left\{(x,t) \mid \Vert x \Vert \le t \right\} $$<p>的集合称为 <strong>(范数)锥</strong>.</p>
 </div>
 <h2 id="保凸运算">保凸运算
-</h2><div class="block">
-<p class="block-title thm">定理</p>
+</h2><div class="math-block">
+    <p class="math-block-title math-thm">定理</p>
 <p>仿射运算保凸, 即对 $f(x)=Ax+b$, 则凸集在 $f$ 下的像是凸集, 凸集在 $f$ 下的原像是凸集.</p>
 </div>
 <p>考虑双曲锥</p>
@@ -466,8 +465,8 @@ $$
 </li>
 </ul>
 <h2 id="广义不等式和对偶锥">广义不等式和对偶锥
-</h2><div class="block">
-<p class="block-title def">定义</p>
+</h2><div class="math-block">
+    <p class="math-block-title math-def">定义</p>
 <p>我们称一个凸锥 $K \subseteq \mathbb{R}^n$ 为 <strong>适当锥</strong>, 当其还满足</p>
 <ul>
 <li>$K$ 是闭集;</li>
@@ -482,15 +481,15 @@ $$
 <li>$[0,1]$ 上的有限非负多项式 $K=\left\{ x \in \mathbb{R}^n \mid x_1 + x_2t + \cdots + x_nt^{n-1} \ge 0, t \in [0,1] \right\}$ 是适当锥.</li>
 </ul>
 <p>可以在 <strong>适当锥</strong> 上定义广义不等式.</p>
-<div class="block">
-<p class="block-title def">定义</p>
+<div class="math-block">
+    <p class="math-block-title math-def">定义</p>
 <p>对于适当锥 $K$ , 定义偏序 <strong>广义不等式</strong> 为</p>
 $$x \preceq_K y \Leftrightarrow y - x \in K$$<p>严格版本:</p>
 $$x \prec_K y \Leftrightarrow y - x \in \text{int} K$$</div>
 <p>广义不等式是一个偏序关系, 具有自反性, 反对称性, 传递性, 可加性, 非负缩放性, 不再赘述.</p>
-<div class="block">
-<p class="block-title def">定义</p>
-<p>令锥 $K$ 为全空间 $\Omega$ 的子集, 则 $K$ 的对偶锥为</p>
+<div class="math-block">
+    <p class="math-block-title math-def">定义</p>
+<p>令锥 $K$ 为全空间 $\Omega$ 的子集, 则 $K$ 的 <strong>对偶锥</strong> 为</p>
 $$
 K^\ast = \left\{ y \mid \langle x, y \rangle \ge 0, \forall x \in K \right\}
 $$</div>
@@ -499,8 +498,8 @@ $$</div>
 <li>非负卦限是自对偶锥.</li>
 <li>半正定锥是自对偶锥.</li>
 </ul>
-<div class="block">
-<p class="block-title thm">定理</p>
+<div class="math-block">
+    <p class="math-block-title math-thm">定理</p>
 <p>设 $K$ 是一锥, $K^\ast$ 是其对偶锥, 则满足:</p>
 <ul>
 <li>$K^\ast$ 是锥 (即使 $K$ 不是锥);</li>
@@ -512,8 +511,8 @@ $$</div>
 </ul>
 </div>
 <p>适当锥的对偶锥仍是适当锥, 则适当锥 $K$ 的对偶锥 $K^\ast$ 也可以诱导广义不等式.</p>
-<div class="block">
-<p class="block-title def">定义</p>
+<div class="math-block">
+    <p class="math-block-title math-def">定义</p>
 <p>对于适当锥 $K$, 定义其对偶锥 $K^\ast$ 上的 <strong>对偶广义不等式</strong> 为:</p>
 $$x \preceq_{K^\ast} y \Leftrightarrow y - x \in K^\ast$$<p>其满足</p>
 <ul>
@@ -522,8 +521,8 @@ $$x \preceq_{K^\ast} y \Leftrightarrow y - x \in K^\ast$$<p>其满足</p>
 </ul>
 </div>
 <h2 id="分离超平面定理">分离超平面定理
-</h2><div class="block">
-<p class="block-title thm">定理<span class="subtitle">分离超平面定理</span></p>
+</h2><div class="math-block">
+    <p class="math-block-title math-thm">定理<span class="math-subtitle">分离超平面定理</span></p>
 <p>如果 $C$ 和 $D$ 是不相交的凸集, 则存在一个超平面 $H$ 将 $C$ 和 $D$ 分开, 即存在 $a \neq 0, b$ 使得</p>
 $$
 \begin{aligned}
@@ -532,8 +531,8 @@ a^Tx &\ge b, \quad \forall x \in D
 \end{aligned}
 $$</div>
 <p>简要想法是找距离最近的一对点, 以这两点的中点为中心, 以两点的连线为法向量构造超平面.</p>
-<div class="block">
-<p class="block-title thm">定理<span class="subtitle">严格分离定理</span></p>
+<div class="math-block">
+    <p class="math-block-title math-thm">定理<span class="math-subtitle">严格分离定理</span></p>
 <p>如果 $C$ 和 $D$ 是不相交的凸集, 且 $C$ 是闭集, $D$ 是紧集, 则存在一个超平面 $H$ 将 $C$ 和 $D$ 严格分开, 即存在 $a \neq 0, b$ 使得</p>
 $$
 \begin{aligned}
@@ -541,16 +540,16 @@ a^Tx &\lt b, \quad \forall x \in C \\
 a^Tx &\gt b, \quad \forall x \in D
 \end{aligned}
 $$</div>
-<div class="block">
-<p class="block-title def">定义</p>
+<div class="math-block">
+    <p class="math-block-title math-def">定义</p>
 <p>给定集合 $C$ 和边界点 $x_0$, 如果 $a\ne 0$ 满足 $a^Tx \le a^T x_0, \forall x \in C$, 则称</p>
 $$
 \left\{ x \mid a^Tx = a^T x_0 \right\}
 $$<p>为 $C$ 的 <strong>支撑超平面</strong>.</p>
 </div>
 <p>由分离超平面的特殊情况 ($D$ 为单点集) 可以得到支撑超平面的存在性.</p>
-<div class="block">
-<p class="block-title thm">定理<span class="subtitle">支撑超平面定理</span></p>
+<div class="math-block">
+    <p class="math-block-title math-thm">定理<span class="math-subtitle">支撑超平面定理</span></p>
 <p>若 $C$ 是凸集, 则 $C$ 的任意边界点处存在支撑超平面.</p>
 </div>
 
@@ -797,6 +796,44 @@ $$<p>为 $C$ 的 <strong>支撑超平面</strong>.</p>
         document.head.appendChild(customFont);
     }());
 </script>
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        z-index: 99;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-image: url(https://LeoDreamer2004.github.io/icons/back-top.svg);
+    }
+</style>
 
+<script>
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.title = "返回顶部";
+        btn.onclick = backToTop
+        rightSideBar.appendChild(btn)
+        window.onscroll = function () {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    function backToTop() {
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
     </body>
 </html>

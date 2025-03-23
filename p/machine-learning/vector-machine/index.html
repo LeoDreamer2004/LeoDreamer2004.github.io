@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 本节课件链接\n线性可分支持向量机 定义\n对于一个数据集 $D$, 如果能找到一个超平面 $H: w^Tx + b = 0$, 将数据分为两类. 即对任意 $(x_i, y_i) \\in D$, 若 $y_i = 1$, 则 $w^Tx_i + b \\geq 0$; 若 $y_i = -1$, 则 $w^Tx_i + b < 0$. 则称 $D$ 是 线性可分的 , 超平面 $H$ 是 $D$ 的一个 分离超平面.\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="本节课件链接\n线性可分支持向量机 定义\n对于一个数据集 $D$, 如果能找到一个超平面 $H: w^Tx + b = 0$, 将数据分为两类. 即对任意 $(x_i, y_i) \\in D$, 若 $y_i = 1$, 则 $w^Tx_i + b \\geq 0$; 若 $y_i = -1$, 则 $w^Tx_i + b < 0$. 则称 $D$ 是 线性可分的 , 超平面 $H$ 是 $D$ 的一个 分离超平面.\n">
 <title>机器学习基础(2) —— 支持向量机</title>
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning/vector-machine/'>
 
-<link rel="stylesheet" href="/scss/style.min.55de29c392a0fa5a8df1c8c41fdb3e18ab8e658295c064848b7af15d378d0fb2.css"><meta property='og:title' content="机器学习基础(2) —— 支持向量机">
-<meta property='og:description' content=" 本节课件链接\n线性可分支持向量机 定义\n对于一个数据集 $D$, 如果能找到一个超平面 $H: w^Tx + b = 0$, 将数据分为两类. 即对任意 $(x_i, y_i) \\in D$, 若 $y_i = 1$, 则 $w^Tx_i + b \\geq 0$; 若 $y_i = -1$, 则 $w^Tx_i + b < 0$. 则称 $D$ 是 线性可分的 , 超平面 $H$ 是 $D$ 的一个 分离超平面.\n">
+<link rel="stylesheet" href="/scss/style.min.024b08d9fc4bc80520fd2c834f6dcc0eab54502285a7be43faba5647a61606c0.css"><meta property='og:title' content="机器学习基础(2) —— 支持向量机">
+<meta property='og:description' content="本节课件链接\n线性可分支持向量机 定义\n对于一个数据集 $D$, 如果能找到一个超平面 $H: w^Tx + b = 0$, 将数据分为两类. 即对任意 $(x_i, y_i) \\in D$, 若 $y_i = 1$, 则 $w^Tx_i + b \\geq 0$; 若 $y_i = -1$, 则 $w^Tx_i + b < 0$. 则称 $D$ 是 线性可分的 , 超平面 $H$ 是 $D$ 的一个 分离超平面.\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning/vector-machine/'>
 <meta property='og:site_name' content='LeoDreamer'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-02-28T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-02-28T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="机器学习基础(2) —— 支持向量机">
-<meta name="twitter:description" content=" 本节课件链接\n线性可分支持向量机 定义\n对于一个数据集 $D$, 如果能找到一个超平面 $H: w^Tx + b = 0$, 将数据分为两类. 即对任意 $(x_i, y_i) \\in D$, 若 $y_i = 1$, 则 $w^Tx_i + b \\geq 0$; 若 $y_i = -1$, 则 $w^Tx_i + b < 0$. 则称 $D$ 是 线性可分的 , 超平面 $H$ 是 $D$ 的一个 分离超平面.\n">
+<meta name="twitter:description" content="本节课件链接\n线性可分支持向量机 定义\n对于一个数据集 $D$, 如果能找到一个超平面 $H: w^Tx + b = 0$, 将数据分为两类. 即对任意 $(x_i, y_i) \\in D$, 若 $y_i = 1$, 则 $w^Tx_i + b \\geq 0$; 若 $y_i = -1$, 则 $w^Tx_i + b < 0$. 则称 $D$ 是 线性可分的 , 超平面 $H$ 是 $D$ 的一个 分离超平面.\n">
     </head>
     <body class="
     article-page
@@ -328,11 +328,10 @@
     <section class="article-content">
     
     
-    <link rel="stylesheet" href="/styles/notes.css" >
-<p><a class="link" href="/materials/machine-learning/MachineLearning-2.pdf" >本节课件链接</a></p>
+    <p><a class="link" href="/materials/machine-learning/MachineLearning-2.pdf" >本节课件链接</a></p>
 <h2 id="线性可分支持向量机">线性可分支持向量机
-</h2><div class="block">
-<p class="block-title def">定义</p>
+</h2><div class="math-block">
+    <p class="math-block-title math-def">定义</p>
 <p>对于一个数据集 $D$, 如果能找到一个超平面 $H: w^Tx + b = 0$, 将数据分为两类. 即对任意 $(x_i, y_i) \in D$, 若 $y_i = 1$, 则 $w^Tx_i + b \geq 0$; 若 $y_i = -1$, 则 $w^Tx_i + b < 0$. 则称 $D$ 是 <strong>线性可分的</strong> , 超平面 $H$ 是 $D$ 的一个 <strong>分离超平面</strong>.</p>
 </div>
 <p>最优超平面不仅要能够将数据分开, 还要使得两类数据点到超平面的距离尽可能远.</p>
@@ -356,8 +355,7 @@ $$
 & 0 = \sum_{i=1}^n \alpha_i y_i
 \end{aligned}
 $$<p>代入 $L(w, b, \alpha)$, 得到对偶问题:</p>
-<div class="block">
-<p class="block-title"> 线性可分对偶问题 </p>
+<div class="math-block"><p class="math-block-title">线性可分对偶问题</p>
 $$
 \begin{aligned}
 & \max_{\alpha} \sum_{i=1}^n \alpha_i - \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j x_i \cdot x_j \\
@@ -417,8 +415,7 @@ $$
 & \beta_i = C - \alpha_i
 \end{aligned}
 $$<p>代入 $L(w, b, \xi, \alpha, \beta)$, 得到对偶问题</p>
-<div class="block">
-<p class="block-title"> 线性支持向量机对偶问题 </p>
+<div class="math-block"><p class="math-block-title">线性支持向量机对偶问题</p>
 $$
 \begin{aligned}
 & \max_{\alpha} \sum_{i=1}^n \alpha_i - \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j x_i \cdot x_j \\
@@ -498,16 +495,15 @@ $$<p>相应的分类决策函数为</p>
 $$
 f(x) = \text{sign}\left(\sum_{i=1}^n \alpha_i y_i \phi(x_i) \cdot \phi(x) + b\right)
 $$<p>然而, 直接计算 $\phi(x_i) \cdot \phi(x_j)$ 的复杂度很高. 为此, 引入核函数</p>
-<div class="block">
-<p class="block-title def">定义</p>
+<div class="math-block">
+    <p class="math-block-title math-def">定义</p>
 <p>设 $\mathcal{X}$ 是输入空间, $\mathcal{Z}$ 是特征空间, 如果存在一个从 $\mathcal{X}$ 到 $\mathcal{Z}$ 的映射 $\phi$, 使得对任意 $x, x' \in \mathcal{X}$, 都有</p>
 $$
 K(x, x') = \phi(x) \cdot \phi(x')
 $$<p>则称 $K$ 为 <strong>核函数</strong>.</p>
 </div>
 <p>注意, 这里我们不再需要显式地计算 $\phi(x_i)$, 因为结果只与 $K(x_i, x_j)$ 有关.</p>
-<div class="block">
-<p class="block-title"> 非线性支持向量机对偶问题 </p>
+<div class="math-block"><p class="math-block-title">非线性支持向量机对偶问题</p>
 $$
 \begin{aligned}
 & \max_{\alpha} \sum_{i=1}^n \alpha_i - \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j K(x_i, x_j) \\
@@ -517,8 +513,8 @@ $$</div>
 <p>此时, 分类决策函数为</p>
 $$
 f(x) = \text{sign}\left(\sum_{i=1}^n \alpha_i y_i K(x_i, x) + b\right)
-$$<div class="block">
-<p class="block-title def">定义</p>
+$$<div class="math-block">
+    <p class="math-block-title math-def">定义</p>
 <p>$\mathcal{X}$ 上的函数 $K: \mathcal{X} \times \mathcal{X} \mapsto \mathbb{R}$ 称为 <strong>正定对称核函数</strong>, 如果对任意 $x_1, x_2, \cdots, x_n \in \mathcal{X}$, 核矩阵 (Gram 矩阵) $[K_{ij}]_{m \times m}$ 是半正定的.</p>
 </div>
 <p>常见的核函数有:</p>
@@ -772,6 +768,44 @@ $$<div class="block">
         document.head.appendChild(customFont);
     }());
 </script>
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        z-index: 99;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-image: url(https://LeoDreamer2004.github.io/icons/back-top.svg);
+    }
+</style>
 
+<script>
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.title = "返回顶部";
+        btn.onclick = backToTop
+        rightSideBar.appendChild(btn)
+        window.onscroll = function () {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    function backToTop() {
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
     </body>
 </html>

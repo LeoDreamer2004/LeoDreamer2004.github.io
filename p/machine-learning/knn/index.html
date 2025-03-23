@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 本节课件链接\nk-近邻算法 k-近邻算法的主要思想是, 对于一个给定的样本点 $x$, 找到训练集中与 $x$ 最近的 $k$ 个样本点, 然后根据这 $k$ 个样本点的类别进行多数占优的投票方式来预测 $x$ 的类别.\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="本节课件链接\nk-近邻算法 k-近邻算法的主要思想是, 对于一个给定的样本点 $x$, 找到训练集中与 $x$ 最近的 $k$ 个样本点, 然后根据这 $k$ 个样本点的类别进行多数占优的投票方式来预测 $x$ 的类别.\n">
 <title>机器学习基础(4) —— 基于近邻的分类方法</title>
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning/knn/'>
 
-<link rel="stylesheet" href="/scss/style.min.55de29c392a0fa5a8df1c8c41fdb3e18ab8e658295c064848b7af15d378d0fb2.css"><meta property='og:title' content="机器学习基础(4) —— 基于近邻的分类方法">
-<meta property='og:description' content=" 本节课件链接\nk-近邻算法 k-近邻算法的主要思想是, 对于一个给定的样本点 $x$, 找到训练集中与 $x$ 最近的 $k$ 个样本点, 然后根据这 $k$ 个样本点的类别进行多数占优的投票方式来预测 $x$ 的类别.\n">
+<link rel="stylesheet" href="/scss/style.min.024b08d9fc4bc80520fd2c834f6dcc0eab54502285a7be43faba5647a61606c0.css"><meta property='og:title' content="机器学习基础(4) —— 基于近邻的分类方法">
+<meta property='og:description' content="本节课件链接\nk-近邻算法 k-近邻算法的主要思想是, 对于一个给定的样本点 $x$, 找到训练集中与 $x$ 最近的 $k$ 个样本点, 然后根据这 $k$ 个样本点的类别进行多数占优的投票方式来预测 $x$ 的类别.\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning/knn/'>
 <meta property='og:site_name' content='LeoDreamer'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-03-14T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-14T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="机器学习基础(4) —— 基于近邻的分类方法">
-<meta name="twitter:description" content=" 本节课件链接\nk-近邻算法 k-近邻算法的主要思想是, 对于一个给定的样本点 $x$, 找到训练集中与 $x$ 最近的 $k$ 个样本点, 然后根据这 $k$ 个样本点的类别进行多数占优的投票方式来预测 $x$ 的类别.\n">
+<meta name="twitter:description" content="本节课件链接\nk-近邻算法 k-近邻算法的主要思想是, 对于一个给定的样本点 $x$, 找到训练集中与 $x$ 最近的 $k$ 个样本点, 然后根据这 $k$ 个样本点的类别进行多数占优的投票方式来预测 $x$ 的类别.\n">
     </head>
     <body class="
     article-page
@@ -327,20 +327,19 @@
     <section class="article-content">
     
     
-    <link rel="stylesheet" href="/styles/notes.css" >
-<p><a class="link" href="/materials/machine-learning/MachineLearning-4.pdf" >本节课件链接</a></p>
+    <p><a class="link" href="/materials/machine-learning/MachineLearning-4.pdf" >本节课件链接</a></p>
 <h2 id="k-近邻算法">k-近邻算法
 </h2><p>k-近邻算法的主要思想是, 对于一个给定的样本点 $x$, 找到训练集中与 $x$ 最近的 $k$ 个样本点, 然后根据这 $k$ 个样本点的类别进行多数占优的投票方式来预测 $x$ 的类别.</p>
 <p>在 $n$ 维实数空间 $\mathbb{R}$ 中, 通常用 Minkowski 距离来度量两个点 $x_i, x_j$ 的相似性:</p>
-<div class="block">
-<p class="block-title def">定义</p>
+<div class="math-block">
+    <p class="math-block-title math-def">定义</p>
 <p>设 $x_i, x_j \in \mathbb{R}^n$, 则 $x_i, x_j$ 之间的 <strong>Minkowski 距离</strong> $\text{dist}_p(x_i,x_j)$ 定义为</p>
 $$
 \text{dist}_p(x_i,x_j) = \left( \sum_{l=1}^n |x_i^l - x_j^l|^p \right)^{1/p}
 $$</div>
 <p>$p=1$ 时, 就是 Manhattan 距离; $p=2$ 时, 就是 Euclidean 距离; $p=\infty$ 时, 就是 Chebyshev 距离. 在必要时, 还可以给每个维度的特征值加权.</p>
-<div class="block">
-<p class="block-title def">定义</p>
+<div class="math-block">
+    <p class="math-block-title math-def">定义</p>
 <p>给定训练样本集 $D = \{(x_i, y_i)\}_{i=1}^n$, 其中 $x_i \in \mathbb{R}^n$, $y_i \in \mathcal{Y} = \{c_1, c_2, \cdots, c_k\}$, 以及距离度量 $\text{dist}$, <strong>k-近邻算法</strong> 的基本步骤如下:</p>
 <ol>
 <li>
@@ -361,8 +360,8 @@ $$
 $$
 (D^\ast_{i1}, D^\ast_{i2}, \cdots, D^\ast_{il}) = \arg\min_{D_{i1}, D_{i2}, \cdots, D_{ik}} \sum_{j=1}^k \sum_{(x_t,y_t) \in D_{ij}} \Vert x_t-c_{ij} \Vert_2^2
 $$<p>然而很难找到最优解, 因此采用迭代的方式来近似求解:</p>
-<div class="block">
-<p class="block-title def">定义</p>
+<div class="math-block">
+    <p class="math-block-title math-def">定义</p>
 <p><strong>K-means 算法</strong> 的基本步骤如下:</p>
 <ol>
 <li>初始化 $k$ 个簇的中心 $c_{ij}$;</li>
@@ -375,8 +374,8 @@ $$c_{ij} = \frac{1}{|D_{ij}|} \sum_{(x_t,y_t) \in D_{ij}} x_t$$</li>
 </ol>
 </div>
 <p>有可能会使得某些离分类边界很近的点被错误分类. 引入学习向量量化方法 (LVQ 算法). 让同类和异类的点在构建过程中都能起作用.</p>
-<div class="block">
-<p class="block-title def">定义</p>
+<div class="math-block">
+    <p class="math-block-title math-def">定义</p>
 <p><strong>LVQ 算法</strong> 的基本步骤如下:</p>
 <ol>
 <li>对每个类 $c_m$ 随机选择 $k$ 个点 $I_{mi}$ 作为代表;</li>
@@ -636,6 +635,44 @@ $$I_{m^\ast i^\ast} \gets I_{m^\ast i^\ast} - \eta(x_t - I_{m^\ast i^\ast})$$</l
         document.head.appendChild(customFont);
     }());
 </script>
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        z-index: 99;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-image: url(https://LeoDreamer2004.github.io/icons/back-top.svg);
+    }
+</style>
 
+<script>
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.title = "返回顶部";
+        btn.onclick = backToTop
+        rightSideBar.appendChild(btn)
+        window.onscroll = function () {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    function backToTop() {
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
     </body>
 </html>

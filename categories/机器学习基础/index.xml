@@ -13,11 +13,10 @@
         <pubDate>Tue, 18 Mar 2025 00:00:00 +0000</pubDate>
         
         <guid>https://LeoDreamer2004.github.io/p/machine-learning/decision-tree/</guid>
-        <description>&lt;link rel=&#34;stylesheet&#34; href=&#34;https://LeoDreamer2004.github.io/styles/notes.css&#34; &gt;
-&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/MachineLearning-5.pdf&#34; &gt;本节课件链接&lt;/a&gt;&lt;/p&gt;
+        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/MachineLearning-5.pdf&#34; &gt;本节课件链接&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;特征的分类能力评估&#34;&gt;特征的分类能力评估
-&lt;/h2&gt;&lt;div class=&#34;block&#34;&gt;
-&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;给定数据集 $D=\{(x_i,y_i)\}_{i=1}^N$, 其中 $x_i=\left(x_i^{(1)},x_i^{(2)},\cdots,x_i^{(m)}\right) \in \mathcal{X}$ 是第 $i$ 个样本的特征向量, $y_i \in \mathcal{Y}=\{c_1,c_2,\cdots,c_K\}$ 是第 $i$ 个样本的标签. 假设数据集 $D$ 根据特征分成了 $K$ 个子集 $D_1,D_2,\cdots,D_K$, 定义 &lt;strong&gt;经验熵&lt;/strong&gt; 为&lt;/p&gt;
 $$
 H(D) = -\sum_{k=1}^K \frac{|D_k|}{|D|} \log_2 \frac{|D_k|}{|D|}
@@ -26,15 +25,15 @@ $$
 H(D|A) = \sum_{i=1}^m \frac{|D_i^A|}{|D|} H(D_i^A)
 $$&lt;/div&gt;
 &lt;p&gt;如果条件经验熵和经验熵之差越大, 则说明特征 $A$ 对数据集 $D$ 的分类能力越强.&lt;/p&gt;
-&lt;div class=&#34;block&#34;&gt;
-&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;属性 $A$ 对数据集 $D$ 的 &lt;strong&gt;信息增益&lt;/strong&gt; $g(D,A)$ 定义为&lt;/p&gt;
 $$
 g(D,A) = H(D) - H(D|A)
 $$&lt;/div&gt;
 &lt;p&gt;考虑到信息增益的计算会偏向于选择取值较多的特征, 为了避免这种情况, 引入信息增益率来评估特征的分类能力.&lt;/p&gt;
-&lt;div class=&#34;block&#34;&gt;
-&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;特征 $A$ 的 &lt;strong&gt;分裂信息&lt;/strong&gt; $IV(A)$ 定义为&lt;/p&gt;
 $$
 IV(A) = -\sum_{i=1}^m \frac{|D_i^A|}{|D|} \log_2 \frac{|D_i^A|}{|D|}
@@ -44,8 +43,8 @@ g_R(D,A) = \frac{g(D,A)}{IV(A)}
 $$&lt;/div&gt;
 &lt;p&gt;分裂信息其实就是按照 $A$ 取值作划分的经验熵.&lt;/p&gt;
 &lt;p&gt;除了信息增益和信息增益率, 还有 Gini 指数可以用来评估特征的分类能力.&lt;/p&gt;
-&lt;div class=&#34;block&#34;&gt;
-&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;数据集 $D$ 的 &lt;strong&gt;Gini 指数&lt;/strong&gt; $\text{Gini}(D)$ 定义为&lt;/p&gt;
 $$
 \text{Gini}(D) = 1 - \sum_{k=1}^K \left(\frac{|D_k|}{|D|}\right)^2
@@ -58,8 +57,7 @@ $$
 $$&lt;/div&gt;
 &lt;p&gt;Gini 指数可以看作任取两个样本, 它们的标签不一致的概率. 如果 Gini 指数越小, 则说明特征 $A$ 对数据集 $D$ 的分类能力越强.&lt;/p&gt;
 &lt;h2 id=&#34;决策树模型&#34;&gt;决策树模型
-&lt;/h2&gt;&lt;div class=&#34;block&#34;&gt;
-&lt;p class=&#34;block-title&#34;&gt;生成决策树算法&lt;/p&gt;
+&lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;&lt;p class=&#34;math-block-title&#34;&gt;生成决策树算法&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 训练数据集 $D=\{(x_i,y_i)\}_{i=1}^N$, 特征集 $\mathcal{A}=\{A_1,A_2,\cdots,A_m\}$, 最优特征选择函数 $F$.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 决策树 $T$.&lt;/p&gt;
 &lt;ol&gt;
@@ -95,20 +93,19 @@ $$&lt;p&gt;从现在来看, 决策树构造过程中划分的单元都是矩形�
         <pubDate>Fri, 14 Mar 2025 00:00:00 +0000</pubDate>
         
         <guid>https://LeoDreamer2004.github.io/p/machine-learning/knn/</guid>
-        <description>&lt;link rel=&#34;stylesheet&#34; href=&#34;https://LeoDreamer2004.github.io/styles/notes.css&#34; &gt;
-&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/MachineLearning-4.pdf&#34; &gt;本节课件链接&lt;/a&gt;&lt;/p&gt;
+        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/MachineLearning-4.pdf&#34; &gt;本节课件链接&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;k-近邻算法&#34;&gt;k-近邻算法
 &lt;/h2&gt;&lt;p&gt;k-近邻算法的主要思想是, 对于一个给定的样本点 $x$, 找到训练集中与 $x$ 最近的 $k$ 个样本点, 然后根据这 $k$ 个样本点的类别进行多数占优的投票方式来预测 $x$ 的类别.&lt;/p&gt;
 &lt;p&gt;在 $n$ 维实数空间 $\mathbb{R}$ 中, 通常用 Minkowski 距离来度量两个点 $x_i, x_j$ 的相似性:&lt;/p&gt;
-&lt;div class=&#34;block&#34;&gt;
-&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;设 $x_i, x_j \in \mathbb{R}^n$, 则 $x_i, x_j$ 之间的 &lt;strong&gt;Minkowski 距离&lt;/strong&gt; $\text{dist}_p(x_i,x_j)$ 定义为&lt;/p&gt;
 $$
 \text{dist}_p(x_i,x_j) = \left( \sum_{l=1}^n |x_i^l - x_j^l|^p \right)^{1/p}
 $$&lt;/div&gt;
 &lt;p&gt;$p=1$ 时, 就是 Manhattan 距离; $p=2$ 时, 就是 Euclidean 距离; $p=\infty$ 时, 就是 Chebyshev 距离. 在必要时, 还可以给每个维度的特征值加权.&lt;/p&gt;
-&lt;div class=&#34;block&#34;&gt;
-&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;给定训练样本集 $D = \{(x_i, y_i)\}_{i=1}^n$, 其中 $x_i \in \mathbb{R}^n$, $y_i \in \mathcal{Y} = \{c_1, c_2, \cdots, c_k\}$, 以及距离度量 $\text{dist}$, &lt;strong&gt;k-近邻算法&lt;/strong&gt; 的基本步骤如下:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
@@ -129,8 +126,8 @@ $$
 $$
 (D^\ast_{i1}, D^\ast_{i2}, \cdots, D^\ast_{il}) = \arg\min_{D_{i1}, D_{i2}, \cdots, D_{ik}} \sum_{j=1}^k \sum_{(x_t,y_t) \in D_{ij}} \Vert x_t-c_{ij} \Vert_2^2
 $$&lt;p&gt;然而很难找到最优解, 因此采用迭代的方式来近似求解:&lt;/p&gt;
-&lt;div class=&#34;block&#34;&gt;
-&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;K-means 算法&lt;/strong&gt; 的基本步骤如下:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;初始化 $k$ 个簇的中心 $c_{ij}$;&lt;/li&gt;
@@ -143,8 +140,8 @@ $$c_{ij} = \frac{1}{|D_{ij}|} \sum_{(x_t,y_t) \in D_{ij}} x_t$$&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
 &lt;p&gt;有可能会使得某些离分类边界很近的点被错误分类. 引入学习向量量化方法 (LVQ 算法). 让同类和异类的点在构建过程中都能起作用.&lt;/p&gt;
-&lt;div class=&#34;block&#34;&gt;
-&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;LVQ 算法&lt;/strong&gt; 的基本步骤如下:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;对每个类 $c_m$ 随机选择 $k$ 个点 $I_{mi}$ 作为代表;&lt;/li&gt;
@@ -168,11 +165,10 @@ $$I_{m^\ast i^\ast} \gets I_{m^\ast i^\ast} - \eta(x_t - I_{m^\ast i^\ast})$$&lt
         <pubDate>Tue, 11 Mar 2025 00:00:00 +0000</pubDate>
         
         <guid>https://LeoDreamer2004.github.io/p/machine-learning/bayers/</guid>
-        <description>&lt;link rel=&#34;stylesheet&#34; href=&#34;https://LeoDreamer2004.github.io/styles/notes.css&#34; &gt;
-&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/MachineLearning-3.pdf&#34; &gt;本节课件链接&lt;/a&gt;&lt;/p&gt;
+        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/MachineLearning-3.pdf&#34; &gt;本节课件链接&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;后验概率最大化准则&#34;&gt;后验概率最大化准则
-&lt;/h2&gt;&lt;div class=&#34;block&#34;&gt;
-&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;对训练样本集 $D=\{(x_i,y_i)\}_{i=1}^n$, 其中 $x_i \in \mathcal{X}$, $y_i \in \mathcal{Y} = \{c_1, c_2, \cdots, c_K\}$, 将 $x$ 的类别预测为 $c_i$ 的 &lt;strong&gt;风险&lt;/strong&gt; 为&lt;/p&gt;
 $$
 R(Y=c_i | x) = \sum_{j=1}^K \lambda_{ij} P(Y=c_j | x)
@@ -185,8 +181,8 @@ $$
 R(Y=c_i | x) = 1 - P(Y=c_i | x)
 $$&lt;p&gt;即输入 $x$ 的最优预测 $\hat{y}$ 为使得后验概率 $P(y | x)$ 最大的类别.&lt;/p&gt;
 &lt;h2 id=&#34;逻辑斯蒂回归模型&#34;&gt;逻辑斯蒂回归模型
-&lt;/h2&gt;&lt;div class=&#34;block&#34;&gt;
-&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;设 $\mathcal{X}=\mathbb{R}^n, \mathcal{Y}=\{c_1,c_2\}$, 逻辑斯蒂回归模型是如下的后验概率分布:&lt;/p&gt;
 $$
 \begin{aligned}
@@ -219,16 +215,16 @@ $$
 \frac{\partial \log L(\theta)}{\partial w} &amp;= \sum_{i=1}^n x_i(y_i - p(x_i;\theta)) = 0\\
 \frac{\partial \log L(\theta)}{\partial b} &amp;= \sum_{i=1}^n (y_i - p(x_i;\theta)) = 0
 \end{aligned}
-$$&lt;h2 id=&#34;朴素贝叶斯分类器&#34;&gt;朴素贝叶斯分类器
-&lt;/h2&gt;&lt;div class=&#34;block&#34;&gt;
-&lt;p class=&#34;block-title thm&#34;&gt;定理&lt;span class=&#34;subtitle&#34;&gt;贝叶斯公式&lt;/p&gt;
+$$&lt;h2 id=&#34;朴素-bayers-分类器&#34;&gt;朴素 Bayers 分类器
+&lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;Bayers 公式&lt;/span&gt;&lt;/p&gt;
 $$
 \begin{aligned}
 P(Y=c_i | x) &amp;= \frac{P(x | Y=c_i) P(Y=c_i)}{P(x)} \\
 &amp;= \frac{P(x | Y=c_i) P(Y=c_i)}{\sum_{j=1}^K P(x | Y=c_j) P(Y=c_j)}
 \end{aligned}
 $$&lt;/div&gt;
-&lt;p&gt;朴素贝叶斯假定特征之间相互独立, 即&lt;/p&gt;
+&lt;p&gt;朴素 Bayers 假定特征之间相互独立, 即&lt;/p&gt;
 $$
 p(X^1=x^1, X^2=x^2, \cdots, X^n=x^n | Y=c_k) = \prod_{j=1}^n p(X^j=x^j | Y=c_k)
 $$&lt;p&gt;对于输入实例 $x=(x^1,x^2,\cdots,x^n)$, 则后验概率&lt;/p&gt;
@@ -246,11 +242,10 @@ $$&lt;p&gt;$\lambda=1$ 时称为 Laplace 平滑.&lt;/p&gt;
         <pubDate>Fri, 28 Feb 2025 00:00:00 +0000</pubDate>
         
         <guid>https://LeoDreamer2004.github.io/p/machine-learning/vector-machine/</guid>
-        <description>&lt;link rel=&#34;stylesheet&#34; href=&#34;https://LeoDreamer2004.github.io/styles/notes.css&#34; &gt;
-&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/MachineLearning-2.pdf&#34; &gt;本节课件链接&lt;/a&gt;&lt;/p&gt;
+        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/MachineLearning-2.pdf&#34; &gt;本节课件链接&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;线性可分支持向量机&#34;&gt;线性可分支持向量机
-&lt;/h2&gt;&lt;div class=&#34;block&#34;&gt;
-&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;对于一个数据集 $D$, 如果能找到一个超平面 $H: w^Tx + b = 0$, 将数据分为两类. 即对任意 $(x_i, y_i) \in D$, 若 $y_i = 1$, 则 $w^Tx_i + b \geq 0$; 若 $y_i = -1$, 则 $w^Tx_i + b &lt; 0$. 则称 $D$ 是 &lt;strong&gt;线性可分的&lt;/strong&gt; , 超平面 $H$ 是 $D$ 的一个 &lt;strong&gt;分离超平面&lt;/strong&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;最优超平面不仅要能够将数据分开, 还要使得两类数据点到超平面的距离尽可能远.&lt;/p&gt;
@@ -274,8 +269,7 @@ $$
 &amp; 0 = \sum_{i=1}^n \alpha_i y_i
 \end{aligned}
 $$&lt;p&gt;代入 $L(w, b, \alpha)$, 得到对偶问题:&lt;/p&gt;
-&lt;div class=&#34;block&#34;&gt;
-&lt;p class=&#34;block-title&#34;&gt; 线性可分对偶问题 &lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;&lt;p class=&#34;math-block-title&#34;&gt;线性可分对偶问题&lt;/p&gt;
 $$
 \begin{aligned}
 &amp; \max_{\alpha} \sum_{i=1}^n \alpha_i - \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j x_i \cdot x_j \\
@@ -335,8 +329,7 @@ $$
 &amp; \beta_i = C - \alpha_i
 \end{aligned}
 $$&lt;p&gt;代入 $L(w, b, \xi, \alpha, \beta)$, 得到对偶问题&lt;/p&gt;
-&lt;div class=&#34;block&#34;&gt;
-&lt;p class=&#34;block-title&#34;&gt; 线性支持向量机对偶问题 &lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;&lt;p class=&#34;math-block-title&#34;&gt;线性支持向量机对偶问题&lt;/p&gt;
 $$
 \begin{aligned}
 &amp; \max_{\alpha} \sum_{i=1}^n \alpha_i - \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j x_i \cdot x_j \\
@@ -416,16 +409,15 @@ $$&lt;p&gt;相应的分类决策函数为&lt;/p&gt;
 $$
 f(x) = \text{sign}\left(\sum_{i=1}^n \alpha_i y_i \phi(x_i) \cdot \phi(x) + b\right)
 $$&lt;p&gt;然而, 直接计算 $\phi(x_i) \cdot \phi(x_j)$ 的复杂度很高. 为此, 引入核函数&lt;/p&gt;
-&lt;div class=&#34;block&#34;&gt;
-&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;设 $\mathcal{X}$ 是输入空间, $\mathcal{Z}$ 是特征空间, 如果存在一个从 $\mathcal{X}$ 到 $\mathcal{Z}$ 的映射 $\phi$, 使得对任意 $x, x&#39; \in \mathcal{X}$, 都有&lt;/p&gt;
 $$
 K(x, x&#39;) = \phi(x) \cdot \phi(x&#39;)
 $$&lt;p&gt;则称 $K$ 为 &lt;strong&gt;核函数&lt;/strong&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;注意, 这里我们不再需要显式地计算 $\phi(x_i)$, 因为结果只与 $K(x_i, x_j)$ 有关.&lt;/p&gt;
-&lt;div class=&#34;block&#34;&gt;
-&lt;p class=&#34;block-title&#34;&gt; 非线性支持向量机对偶问题 &lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;&lt;p class=&#34;math-block-title&#34;&gt;非线性支持向量机对偶问题&lt;/p&gt;
 $$
 \begin{aligned}
 &amp; \max_{\alpha} \sum_{i=1}^n \alpha_i - \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j K(x_i, x_j) \\
@@ -435,8 +427,8 @@ $$&lt;/div&gt;
 &lt;p&gt;此时, 分类决策函数为&lt;/p&gt;
 $$
 f(x) = \text{sign}\left(\sum_{i=1}^n \alpha_i y_i K(x_i, x) + b\right)
-$$&lt;div class=&#34;block&#34;&gt;
-&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+$$&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;$\mathcal{X}$ 上的函数 $K: \mathcal{X} \times \mathcal{X} \mapsto \mathbb{R}$ 称为 &lt;strong&gt;正定对称核函数&lt;/strong&gt;, 如果对任意 $x_1, x_2, \cdots, x_n \in \mathcal{X}$, 核矩阵 (Gram 矩阵) $[K_{ij}]_{m \times m}$ 是半正定的.&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;常见的核函数有:&lt;/p&gt;
@@ -454,11 +446,10 @@ $$&lt;div class=&#34;block&#34;&gt;
         <pubDate>Tue, 18 Feb 2025 00:00:00 +0000</pubDate>
         
         <guid>https://LeoDreamer2004.github.io/p/machine-learning/intro/</guid>
-        <description>&lt;link rel=&#34;stylesheet&#34; href=&#34;https://LeoDreamer2004.github.io/styles/notes.css&#34; &gt;
-&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/MachineLearning-1.pdf&#34; &gt;本节课件链接&lt;/a&gt;&lt;/p&gt;
+        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/MachineLearning-1.pdf&#34; &gt;本节课件链接&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;基础数学工具&#34;&gt;基础数学工具
-&lt;/h2&gt;&lt;div class=&#34;block&#34;&gt;
-&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;随机变量 $X$ 的 &lt;strong&gt;期望&lt;/strong&gt; $E[X]$ 定义为&lt;/p&gt;
 $$
 E[X] = \sum_{x} x \cdot P(X=x)
@@ -469,34 +460,34 @@ $$&lt;p&gt;&lt;strong&gt;标准差&lt;/strong&gt; $\sigma(X)$ 定义为&lt;/p&gt
 $$
 \sigma(X) = \sqrt{\text{Var}(X)}
 $$&lt;/div&gt;
-&lt;div class=&#34;block&#34;&gt;
-&lt;p class=&#34;block-title thm&#34;&gt;定理&lt;span class=&#34;subtitle&#34;&gt;Markov 不等式&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;Markov 不等式&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;设 $X$ 是一个非负随机变量, 期望存在, 那么对于任意 $t &gt; 0$ 有&lt;/p&gt;
 $$
 P(X \geq t) \leq \frac{E[X]}{t}
 $$&lt;/div&gt;
-&lt;div class=&#34;block&#34;&gt;
-&lt;p class=&#34;block-title thm&#34;&gt;定理&lt;span class=&#34;subtitle&#34;&gt;Chebyshev 不等式&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;Chebyshev 不等式&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;设 $X$ 是一个随机变量, 期望和方差都存在, 那么对于任意 $t &gt; 0$ 有&lt;/p&gt;
 $$
 P(|X - E[X]| \geq t) \leq \frac{\text{Var}(X)}{t^2}
 $$&lt;/div&gt;
-&lt;div class=&#34;block&#34;&gt;
-&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;随机变量 $X$ 和 $Y$ 的 &lt;strong&gt;协方差&lt;/strong&gt; $\text{Cov}(X, Y)$ 定义为&lt;/p&gt;
 $$
 \text{Cov}(X, Y) = E[(X - E[X])(Y - E[Y])]
 $$&lt;p&gt;如果 $\text{Cov}(X, Y) = 0$, 则称 $X$ 和 $Y$ &lt;strong&gt;不相关&lt;/strong&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;协方差具有对称性, 双线性.&lt;/p&gt;
-&lt;div class=&#34;block&#34;&gt;
-&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;随机向量 $X=(X_1, X_2, \ldots, X_n)$ 的 &lt;strong&gt;协方差矩阵&lt;/strong&gt; $C(X)$ 定义为&lt;/p&gt;
 $$
 C(X) = E[(X - E[X])(X - E[X])^T] = (\text{Cov}(X_i, X_j))_{ij}
 $$&lt;/div&gt;
-&lt;div class=&#34;block&#34;&gt;
-&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Gauss 分布&lt;/strong&gt; (正态分布) 的概率密度函数为&lt;/p&gt;
 $$
 f(x) = \frac{1}{\sqrt{2\pi}\sigma} \exp(-\frac{(x-\mu)^2}{2\sigma^2})
@@ -524,8 +515,8 @@ $$
 &amp; \alpha_i \geq 0, i = 1, 2, \dots, k
 \end{aligned}
 $$&lt;h2 id=&#34;基本概念和术语&#34;&gt;基本概念和术语
-&lt;/h2&gt;&lt;div class=&#34;block&#34;&gt;
-&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;监督学习&lt;/strong&gt;: 基于标记数据 $T=\{ (x_i,y_i) \}_{i=1}^N$, 学习一个从输入空间到输出空间的映射 $f: \mathcal{X} \mapsto \mathcal{Y}$. 利用此对未见数据进行预测. 通常分为 &lt;strong&gt;回归&lt;/strong&gt; 和 &lt;strong&gt;分类&lt;/strong&gt; 两类.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;无监督学习&lt;/strong&gt;: 基于未标记数据 $T=\{ x_i \}_{i=1}^N$, 发现其中隐含的知识模式. &lt;strong&gt;聚类&lt;/strong&gt; 是典型的无监督学习任务.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;半监督学习&lt;/strong&gt;: 既有标记数据又有未标记数据 (通常占比较大).&lt;/p&gt;
@@ -571,8 +562,8 @@ $$&lt;p&gt;其中 $J(h)$ 是随着模型复杂度增加而增加的函数. $\lam
 &lt;/ul&gt;
 &lt;h2 id=&#34;偏差-方差分解&#34;&gt;偏差-方差分解
 &lt;/h2&gt;&lt;p&gt;为什么泛化误差会随着模型复杂度的增加而先减小后增大?&lt;/p&gt;
-&lt;div class=&#34;block&#34;&gt;
-&lt;p class=&#34;block-title def&#34;&gt;定义&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;偏差&lt;/strong&gt; (bias): 模型预测值的期望与真实值之间的差异. 体现了模型的拟合能力.&lt;/p&gt;
 $$\text{Bias}(x) = E_T[h_T(x)-c(x)] = \bar{h}(x) - c(x)$$&lt;p&gt;&lt;strong&gt;方差&lt;/strong&gt; (variance): 模型预测值的方差. 体现了模型的对数据扰动的稳定性.&lt;/p&gt;
 $$\text{Var}(x) = E[(h(x) - \bar{h}(x))^2]$$&lt;/div&gt;

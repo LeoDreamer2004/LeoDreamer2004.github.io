@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 本节课件链接\n概要 最优化问题的一般形式:\n$$ \\begin{aligned} \\min_{x} \\quad & f(x) \\\\ \\text{s.t.} \\quad & g_i(x) \\leq 0, \\quad i = 1, 2, \\ldots, m \\\\ & h_j(x) = 0, \\quad j = 1, 2, \\ldots, p \\end{aligned} $$稀疏优化 考虑线性方程组 $Ax = b$, 优化函数 $\\min_{x \\in R^n} {\\Vert x \\Vert}_0, {\\Vert x \\Vert}_1, {\\Vert x \\Vert}_2$, 分别指代 $x$ 的非零元个数, $l_1, l_2$ 范数. LASSO(least absolute shrinkage and selection operator) 问题:\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="本节课件链接\n概要 最优化问题的一般形式:\n$$ \\begin{aligned} \\min_{x} \\quad & f(x) \\\\ \\text{s.t.} \\quad & g_i(x) \\leq 0, \\quad i = 1, 2, \\ldots, m \\\\ & h_j(x) = 0, \\quad j = 1, 2, \\ldots, p \\end{aligned} $$稀疏优化 考虑线性方程组 $Ax = b$, 优化函数 $\\min_{x \\in R^n} {\\Vert x \\Vert}_0, {\\Vert x \\Vert}_1, {\\Vert x \\Vert}_2$, 分别指代 $x$ 的非零元个数, $l_1, l_2$ 范数. LASSO(least absolute shrinkage and selection operator) 问题:\n">
 <title>最优化方法(1) —— 简介</title>
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/opt-method/intro/'>
 
-<link rel="stylesheet" href="/scss/style.min.55de29c392a0fa5a8df1c8c41fdb3e18ab8e658295c064848b7af15d378d0fb2.css"><meta property='og:title' content="最优化方法(1) —— 简介">
-<meta property='og:description' content=" 本节课件链接\n概要 最优化问题的一般形式:\n$$ \\begin{aligned} \\min_{x} \\quad & f(x) \\\\ \\text{s.t.} \\quad & g_i(x) \\leq 0, \\quad i = 1, 2, \\ldots, m \\\\ & h_j(x) = 0, \\quad j = 1, 2, \\ldots, p \\end{aligned} $$稀疏优化 考虑线性方程组 $Ax = b$, 优化函数 $\\min_{x \\in R^n} {\\Vert x \\Vert}_0, {\\Vert x \\Vert}_1, {\\Vert x \\Vert}_2$, 分别指代 $x$ 的非零元个数, $l_1, l_2$ 范数. LASSO(least absolute shrinkage and selection operator) 问题:\n">
+<link rel="stylesheet" href="/scss/style.min.024b08d9fc4bc80520fd2c834f6dcc0eab54502285a7be43faba5647a61606c0.css"><meta property='og:title' content="最优化方法(1) —— 简介">
+<meta property='og:description' content="本节课件链接\n概要 最优化问题的一般形式:\n$$ \\begin{aligned} \\min_{x} \\quad & f(x) \\\\ \\text{s.t.} \\quad & g_i(x) \\leq 0, \\quad i = 1, 2, \\ldots, m \\\\ & h_j(x) = 0, \\quad j = 1, 2, \\ldots, p \\end{aligned} $$稀疏优化 考虑线性方程组 $Ax = b$, 优化函数 $\\min_{x \\in R^n} {\\Vert x \\Vert}_0, {\\Vert x \\Vert}_1, {\\Vert x \\Vert}_2$, 分别指代 $x$ 的非零元个数, $l_1, l_2$ 范数. LASSO(least absolute shrinkage and selection operator) 问题:\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/opt-method/intro/'>
 <meta property='og:site_name' content='LeoDreamer'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-01-12T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-01-12T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="最优化方法(1) —— 简介">
-<meta name="twitter:description" content=" 本节课件链接\n概要 最优化问题的一般形式:\n$$ \\begin{aligned} \\min_{x} \\quad & f(x) \\\\ \\text{s.t.} \\quad & g_i(x) \\leq 0, \\quad i = 1, 2, \\ldots, m \\\\ & h_j(x) = 0, \\quad j = 1, 2, \\ldots, p \\end{aligned} $$稀疏优化 考虑线性方程组 $Ax = b$, 优化函数 $\\min_{x \\in R^n} {\\Vert x \\Vert}_0, {\\Vert x \\Vert}_1, {\\Vert x \\Vert}_2$, 分别指代 $x$ 的非零元个数, $l_1, l_2$ 范数. LASSO(least absolute shrinkage and selection operator) 问题:\n">
+<meta name="twitter:description" content="本节课件链接\n概要 最优化问题的一般形式:\n$$ \\begin{aligned} \\min_{x} \\quad & f(x) \\\\ \\text{s.t.} \\quad & g_i(x) \\leq 0, \\quad i = 1, 2, \\ldots, m \\\\ & h_j(x) = 0, \\quad j = 1, 2, \\ldots, p \\end{aligned} $$稀疏优化 考虑线性方程组 $Ax = b$, 优化函数 $\\min_{x \\in R^n} {\\Vert x \\Vert}_0, {\\Vert x \\Vert}_1, {\\Vert x \\Vert}_2$, 分别指代 $x$ 的非零元个数, $l_1, l_2$ 范数. LASSO(least absolute shrinkage and selection operator) 问题:\n">
     </head>
     <body class="
     article-page
@@ -329,8 +329,7 @@
     <section class="article-content">
     
     
-    <link rel="stylesheet" href="/styles/notes.css" >
-<p><a class="link" href="http://faculty.bicmr.pku.edu.cn/~wenzw/optbook/lect/01-opt-pku.pdf"  target="_blank" rel="noopener"
+    <p><a class="link" href="http://faculty.bicmr.pku.edu.cn/~wenzw/optbook/lect/01-opt-pku.pdf"  target="_blank" rel="noopener"
     >本节课件链接</a></p>
 <h2 id="概要">概要
 </h2><p>最优化问题的一般形式:</p>
@@ -353,7 +352,7 @@ $$
 $$<p>核范数 ${\Vert X \Vert}_*$ 为所有奇异值的和. 也有二次罚函数的形式:</p>
 $$
 \min_{X \in \mathbb{R}^{m \times n}} \mu {\Vert X \Vert}_* + \frac{1}{2} \sum_{(i,j)\in \Omega} (X_{ij} - M_{ij})^2
-$$<p>对于低秩情形, $X=LR^T$, 其中 +$L \in \mathbb{R}^{m \times r}, R \in \mathbb{R}^{n \times r}$, $r \ll m,n$ 为秩. 优化问题可写为:</p>
+$$<p>对于低秩情形, $X=LR^T$, 其中 $L \in \mathbb{R}^{m \times r}, R \in \mathbb{R}^{n \times r}$, $r \ll m,n$ 为秩. 优化问题可写为:</p>
 $$
 \min_{L,R} \alpha {\Vert L \Vert}^2_F + \beta {\Vert R \Vert}^2_F + \frac{1}{2} \sum_{(i,j)\in \Omega} ([LR^T]_{ij} - M_{ij})^2
 $$<p>引入正则化系数 $\alpha, \beta$ 来消除 $L,R$ 在常数缩放下的不确定性.</p>
@@ -363,13 +362,13 @@ $$
 \min_{x \in W} \frac{1}{N} \sum_{i=1}^N \ell(f(a_i, x), b_i) + \lambda R(x)
 $$<hr>
 <h2 id="基本概念">基本概念
-</h2><div class="block">
-<p class="block-title def">定义</p>
+</h2><div class="math-block">
+    <p class="math-block-title math-def">定义</p>
 <p>设 $f: \mathbb{R}^n \mapsto \mathbb{R}$, $x \in \mathbb{R}^n$ 的可行区域为 $S$. 若存在一个邻域 $N(x)$, 使得 $\forall x \in N(x) \cap S$, 有 $f(x^\ast) \leq f(x)$, 则称 $x^\ast$ 为 $f$ 的<strong>局部极小点</strong>. 若 $\forall x \in S$, 有 $f(x^\ast) \leq f(x)$, 则称 $x^\ast$ 为 $f$ 的<strong>全局极小点</strong>.</p>
 </div>
 <p>大多数的问题是不能显式求解的, 通常要使用迭代算法.</p>
-<div class="block">
-<p class="block-title def">定义</p>
+<div class="math-block">
+    <p class="math-block-title math-def">定义</p>
 <p>称算法是 <strong>Q-线性收敛</strong> 的, 若对充分大的 $k$ 有</p>
 $$
 \frac{{\Vert x_{k+1} - x^\ast \Vert}}{{\Vert x_k - x^\ast \Vert}} \le a, \quad a \in (0, 1)
@@ -383,8 +382,8 @@ $$<p>称算法是 <strong>Q-二次收敛</strong> 的, 若对充分大的 $k$ �
 $$
 \frac{{\Vert x_{k+1} - x^\ast \Vert}}{{\Vert x_k - x^\ast \Vert^2}} \le a, \quad a > 0
 $$</div>
-<div class="block">
-<p class="block-title def">定义</p>
+<div class="math-block">
+    <p class="math-block-title math-def">定义</p>
 <p>设 $x_k$ 是迭代算法产生的序列且收敛到 $x^\ast$, 如果存在 Q-线性收敛于 $0$ 的非负序列 $t_k$, 且</p>
 $$
 \Vert x_k - x^\ast \Vert \le t_k
@@ -643,6 +642,44 @@ $$
         document.head.appendChild(customFont);
     }());
 </script>
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        z-index: 99;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-image: url(https://LeoDreamer2004.github.io/icons/back-top.svg);
+    }
+</style>
 
+<script>
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.title = "返回顶部";
+        btn.onclick = backToTop
+        rightSideBar.appendChild(btn)
+        window.onscroll = function () {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    function backToTop() {
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
     </body>
 </html>

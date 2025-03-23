@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 本节课件链接\n基本概念 在定义一个新的类 B 时, 如果 B 类与拥有已有类 A 的全部特点, 那么就可以把 A 作为一个基类, 而把 B 作为基类的一个 派生类 (也称 子类). 派生类可以对基类:\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="本节课件链接\n基本概念 在定义一个新的类 B 时, 如果 B 类与拥有已有类 A 的全部特点, 那么就可以把 A 作为一个基类, 而把 B 作为基类的一个 派生类 (也称 子类). 派生类可以对基类:\n">
 <title>程序设计实习(3) —— 继承与派生</title>
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/program-practice/inherit/'>
 
-<link rel="stylesheet" href="/scss/style.min.55de29c392a0fa5a8df1c8c41fdb3e18ab8e658295c064848b7af15d378d0fb2.css"><meta property='og:title' content="程序设计实习(3) —— 继承与派生">
-<meta property='og:description' content=" 本节课件链接\n基本概念 在定义一个新的类 B 时, 如果 B 类与拥有已有类 A 的全部特点, 那么就可以把 A 作为一个基类, 而把 B 作为基类的一个 派生类 (也称 子类). 派生类可以对基类:\n">
+<link rel="stylesheet" href="/scss/style.min.024b08d9fc4bc80520fd2c834f6dcc0eab54502285a7be43faba5647a61606c0.css"><meta property='og:title' content="程序设计实习(3) —— 继承与派生">
+<meta property='og:description' content="本节课件链接\n基本概念 在定义一个新的类 B 时, 如果 B 类与拥有已有类 A 的全部特点, 那么就可以把 A 作为一个基类, 而把 B 作为基类的一个 派生类 (也称 子类). 派生类可以对基类:\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/program-practice/inherit/'>
 <meta property='og:site_name' content='LeoDreamer'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-03-05T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-05T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="程序设计实习(3) —— 继承与派生">
-<meta name="twitter:description" content=" 本节课件链接\n基本概念 在定义一个新的类 B 时, 如果 B 类与拥有已有类 A 的全部特点, 那么就可以把 A 作为一个基类, 而把 B 作为基类的一个 派生类 (也称 子类). 派生类可以对基类:\n">
+<meta name="twitter:description" content="本节课件链接\n基本概念 在定义一个新的类 B 时, 如果 B 类与拥有已有类 A 的全部特点, 那么就可以把 A 作为一个基类, 而把 B 作为基类的一个 派生类 (也称 子类). 派生类可以对基类:\n">
     </head>
     <body class="
     article-page
@@ -327,8 +327,7 @@
     <section class="article-content">
     
     
-    <link rel="stylesheet" href="/styles/notes.css" >
-<p><a class="link" href="/materials/program-practice/05-%e7%bb%a7%e6%89%bf%e4%b8%8e%e6%b4%be%e7%94%9f.pdf" >本节课件链接</a></p>
+    <p><a class="link" href="/materials/program-practice/05-%e7%bb%a7%e6%89%bf%e4%b8%8e%e6%b4%be%e7%94%9f.pdf" >本节课件链接</a></p>
 <h2 id="基本概念">基本概念
 </h2><p>在定义一个新的类 B 时, 如果 B 类与拥有已有类 A 的全部特点, 那么就可以把 A 作为一个基类, 而把 B 作为基类的一个 <strong>派生类</strong> (也称 <strong>子类</strong>). 派生类可以对基类:</p>
 <ul>
@@ -763,6 +762,44 @@
         document.head.appendChild(customFont);
     }());
 </script>
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        z-index: 99;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-image: url(https://LeoDreamer2004.github.io/icons/back-top.svg);
+    }
+</style>
 
+<script>
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.title = "返回顶部";
+        btn.onclick = backToTop
+        rightSideBar.appendChild(btn)
+        window.onscroll = function () {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    function backToTop() {
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
     </body>
 </html>

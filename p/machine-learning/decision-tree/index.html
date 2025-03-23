@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 本节课件链接\n特征的分类能力评估 定义\n给定数据集 $D=\\{(x_i,y_i)\\}_{i=1}^N$, 其中 $x_i=\\left(x_i^{(1)},x_i^{(2)},\\cdots,x_i^{(m)}\\right) \\in \\mathcal{X}$ 是第 $i$ 个样本的特征向量, $y_i \\in \\mathcal{Y}=\\{c_1,c_2,\\cdots,c_K\\}$ 是第 $i$ 个样本的标签. 假设数据集 $D$ 根据特征分成了 $K$ 个子集 $D_1,D_2,\\cdots,D_K$, 定义 经验熵 为\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="本节课件链接\n特征的分类能力评估 定义\n给定数据集 $D=\\{(x_i,y_i)\\}_{i=1}^N$, 其中 $x_i=\\left(x_i^{(1)},x_i^{(2)},\\cdots,x_i^{(m)}\\right) \\in \\mathcal{X}$ 是第 $i$ 个样本的特征向量, $y_i \\in \\mathcal{Y}=\\{c_1,c_2,\\cdots,c_K\\}$ 是第 $i$ 个样本的标签. 假设数据集 $D$ 根据特征分成了 $K$ 个子集 $D_1,D_2,\\cdots,D_K$, 定义 经验熵 为\n">
 <title>机器学习基础(5) —— 决策树模型</title>
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning/decision-tree/'>
 
-<link rel="stylesheet" href="/scss/style.min.55de29c392a0fa5a8df1c8c41fdb3e18ab8e658295c064848b7af15d378d0fb2.css"><meta property='og:title' content="机器学习基础(5) —— 决策树模型">
-<meta property='og:description' content=" 本节课件链接\n特征的分类能力评估 定义\n给定数据集 $D=\\{(x_i,y_i)\\}_{i=1}^N$, 其中 $x_i=\\left(x_i^{(1)},x_i^{(2)},\\cdots,x_i^{(m)}\\right) \\in \\mathcal{X}$ 是第 $i$ 个样本的特征向量, $y_i \\in \\mathcal{Y}=\\{c_1,c_2,\\cdots,c_K\\}$ 是第 $i$ 个样本的标签. 假设数据集 $D$ 根据特征分成了 $K$ 个子集 $D_1,D_2,\\cdots,D_K$, 定义 经验熵 为\n">
+<link rel="stylesheet" href="/scss/style.min.024b08d9fc4bc80520fd2c834f6dcc0eab54502285a7be43faba5647a61606c0.css"><meta property='og:title' content="机器学习基础(5) —— 决策树模型">
+<meta property='og:description' content="本节课件链接\n特征的分类能力评估 定义\n给定数据集 $D=\\{(x_i,y_i)\\}_{i=1}^N$, 其中 $x_i=\\left(x_i^{(1)},x_i^{(2)},\\cdots,x_i^{(m)}\\right) \\in \\mathcal{X}$ 是第 $i$ 个样本的特征向量, $y_i \\in \\mathcal{Y}=\\{c_1,c_2,\\cdots,c_K\\}$ 是第 $i$ 个样本的标签. 假设数据集 $D$ 根据特征分成了 $K$ 个子集 $D_1,D_2,\\cdots,D_K$, 定义 经验熵 为\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning/decision-tree/'>
 <meta property='og:site_name' content='LeoDreamer'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-03-18T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-18T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="机器学习基础(5) —— 决策树模型">
-<meta name="twitter:description" content=" 本节课件链接\n特征的分类能力评估 定义\n给定数据集 $D=\\{(x_i,y_i)\\}_{i=1}^N$, 其中 $x_i=\\left(x_i^{(1)},x_i^{(2)},\\cdots,x_i^{(m)}\\right) \\in \\mathcal{X}$ 是第 $i$ 个样本的特征向量, $y_i \\in \\mathcal{Y}=\\{c_1,c_2,\\cdots,c_K\\}$ 是第 $i$ 个样本的标签. 假设数据集 $D$ 根据特征分成了 $K$ 个子集 $D_1,D_2,\\cdots,D_K$, 定义 经验熵 为\n">
+<meta name="twitter:description" content="本节课件链接\n特征的分类能力评估 定义\n给定数据集 $D=\\{(x_i,y_i)\\}_{i=1}^N$, 其中 $x_i=\\left(x_i^{(1)},x_i^{(2)},\\cdots,x_i^{(m)}\\right) \\in \\mathcal{X}$ 是第 $i$ 个样本的特征向量, $y_i \\in \\mathcal{Y}=\\{c_1,c_2,\\cdots,c_K\\}$ 是第 $i$ 个样本的标签. 假设数据集 $D$ 根据特征分成了 $K$ 个子集 $D_1,D_2,\\cdots,D_K$, 定义 经验熵 为\n">
     </head>
     <body class="
     article-page
@@ -326,11 +326,10 @@
     <section class="article-content">
     
     
-    <link rel="stylesheet" href="/styles/notes.css" >
-<p><a class="link" href="/materials/machine-learning/MachineLearning-5.pdf" >本节课件链接</a></p>
+    <p><a class="link" href="/materials/machine-learning/MachineLearning-5.pdf" >本节课件链接</a></p>
 <h2 id="特征的分类能力评估">特征的分类能力评估
-</h2><div class="block">
-<p class="block-title def">定义</p>
+</h2><div class="math-block">
+    <p class="math-block-title math-def">定义</p>
 <p>给定数据集 $D=\{(x_i,y_i)\}_{i=1}^N$, 其中 $x_i=\left(x_i^{(1)},x_i^{(2)},\cdots,x_i^{(m)}\right) \in \mathcal{X}$ 是第 $i$ 个样本的特征向量, $y_i \in \mathcal{Y}=\{c_1,c_2,\cdots,c_K\}$ 是第 $i$ 个样本的标签. 假设数据集 $D$ 根据特征分成了 $K$ 个子集 $D_1,D_2,\cdots,D_K$, 定义 <strong>经验熵</strong> 为</p>
 $$
 H(D) = -\sum_{k=1}^K \frac{|D_k|}{|D|} \log_2 \frac{|D_k|}{|D|}
@@ -339,15 +338,15 @@ $$
 H(D|A) = \sum_{i=1}^m \frac{|D_i^A|}{|D|} H(D_i^A)
 $$</div>
 <p>如果条件经验熵和经验熵之差越大, 则说明特征 $A$ 对数据集 $D$ 的分类能力越强.</p>
-<div class="block">
-<p class="block-title def">定义</p>
+<div class="math-block">
+    <p class="math-block-title math-def">定义</p>
 <p>属性 $A$ 对数据集 $D$ 的 <strong>信息增益</strong> $g(D,A)$ 定义为</p>
 $$
 g(D,A) = H(D) - H(D|A)
 $$</div>
 <p>考虑到信息增益的计算会偏向于选择取值较多的特征, 为了避免这种情况, 引入信息增益率来评估特征的分类能力.</p>
-<div class="block">
-<p class="block-title def">定义</p>
+<div class="math-block">
+    <p class="math-block-title math-def">定义</p>
 <p>特征 $A$ 的 <strong>分裂信息</strong> $IV(A)$ 定义为</p>
 $$
 IV(A) = -\sum_{i=1}^m \frac{|D_i^A|}{|D|} \log_2 \frac{|D_i^A|}{|D|}
@@ -357,8 +356,8 @@ g_R(D,A) = \frac{g(D,A)}{IV(A)}
 $$</div>
 <p>分裂信息其实就是按照 $A$ 取值作划分的经验熵.</p>
 <p>除了信息增益和信息增益率, 还有 Gini 指数可以用来评估特征的分类能力.</p>
-<div class="block">
-<p class="block-title def">定义</p>
+<div class="math-block">
+    <p class="math-block-title math-def">定义</p>
 <p>数据集 $D$ 的 <strong>Gini 指数</strong> $\text{Gini}(D)$ 定义为</p>
 $$
 \text{Gini}(D) = 1 - \sum_{k=1}^K \left(\frac{|D_k|}{|D|}\right)^2
@@ -371,8 +370,7 @@ $$
 $$</div>
 <p>Gini 指数可以看作任取两个样本, 它们的标签不一致的概率. 如果 Gini 指数越小, 则说明特征 $A$ 对数据集 $D$ 的分类能力越强.</p>
 <h2 id="决策树模型">决策树模型
-</h2><div class="block">
-<p class="block-title">生成决策树算法</p>
+</h2><div class="math-block"><p class="math-block-title">生成决策树算法</p>
 <p><strong>输入</strong>: 训练数据集 $D=\{(x_i,y_i)\}_{i=1}^N$, 特征集 $\mathcal{A}=\{A_1,A_2,\cdots,A_m\}$, 最优特征选择函数 $F$.</p>
 <p><strong>输出</strong>: 决策树 $T$.</p>
 <ol>
@@ -644,6 +642,44 @@ $$<p>从现在来看, 决策树构造过程中划分的单元都是矩形的, �
         document.head.appendChild(customFont);
     }());
 </script>
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        z-index: 99;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-image: url(https://LeoDreamer2004.github.io/icons/back-top.svg);
+    }
+</style>
 
+<script>
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.title = "返回顶部";
+        btn.onclick = backToTop
+        rightSideBar.appendChild(btn)
+        window.onscroll = function () {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    function backToTop() {
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
     </body>
 </html>

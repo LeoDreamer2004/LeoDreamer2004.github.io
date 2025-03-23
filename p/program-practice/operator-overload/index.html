@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 本节课件链接\n对象间的运算和结构变量一样, 对象之间可以用 = 进行赋值, 但是不能用 ==, !=, &gt;, &lt;, &gt;=, &lt;= 进行比较, 除非这些运算符经过了 &ldquo;重载&rdquo;. 运算符重载的实质是函数重载.\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="本节课件链接\n对象间的运算和结构变量一样, 对象之间可以用 = 进行赋值, 但是不能用 ==, !=, &gt;, &lt;, &gt;=, &lt;= 进行比较, 除非这些运算符经过了 &ldquo;重载&rdquo;. 运算符重载的实质是函数重载.\n">
 <title>程序设计实习(2) —— 运算符重载</title>
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/program-practice/operator-overload/'>
 
-<link rel="stylesheet" href="/scss/style.min.55de29c392a0fa5a8df1c8c41fdb3e18ab8e658295c064848b7af15d378d0fb2.css"><meta property='og:title' content="程序设计实习(2) —— 运算符重载">
-<meta property='og:description' content=" 本节课件链接\n对象间的运算和结构变量一样, 对象之间可以用 = 进行赋值, 但是不能用 ==, !=, &gt;, &lt;, &gt;=, &lt;= 进行比较, 除非这些运算符经过了 &ldquo;重载&rdquo;. 运算符重载的实质是函数重载.\n">
+<link rel="stylesheet" href="/scss/style.min.024b08d9fc4bc80520fd2c834f6dcc0eab54502285a7be43faba5647a61606c0.css"><meta property='og:title' content="程序设计实习(2) —— 运算符重载">
+<meta property='og:description' content="本节课件链接\n对象间的运算和结构变量一样, 对象之间可以用 = 进行赋值, 但是不能用 ==, !=, &gt;, &lt;, &gt;=, &lt;= 进行比较, 除非这些运算符经过了 &ldquo;重载&rdquo;. 运算符重载的实质是函数重载.\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/program-practice/operator-overload/'>
 <meta property='og:site_name' content='LeoDreamer'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-02-26T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-02-26T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="程序设计实习(2) —— 运算符重载">
-<meta name="twitter:description" content=" 本节课件链接\n对象间的运算和结构变量一样, 对象之间可以用 = 进行赋值, 但是不能用 ==, !=, &gt;, &lt;, &gt;=, &lt;= 进行比较, 除非这些运算符经过了 &ldquo;重载&rdquo;. 运算符重载的实质是函数重载.\n">
+<meta name="twitter:description" content="本节课件链接\n对象间的运算和结构变量一样, 对象之间可以用 = 进行赋值, 但是不能用 ==, !=, &gt;, &lt;, &gt;=, &lt;= 进行比较, 除非这些运算符经过了 &ldquo;重载&rdquo;. 运算符重载的实质是函数重载.\n">
     </head>
     <body class="
     article-page
@@ -330,8 +330,7 @@
     <section class="article-content">
     
     
-    <link rel="stylesheet" href="/styles/notes.css" >
-<p><a class="link" href="/materials/program-practice/04-%e8%bf%90%e7%ae%97%e7%ac%a6%e9%87%8d%e8%bd%bd.pdf" >本节课件链接</a></p>
+    <p><a class="link" href="/materials/program-practice/04-%e8%bf%90%e7%ae%97%e7%ac%a6%e9%87%8d%e8%bd%bd.pdf" >本节课件链接</a></p>
 <p>对象间的运算和结构变量一样, 对象之间可以用 <code>=</code> 进行赋值, 但是不能用 <code>==</code>, <code>!=</code>, <code>&gt;</code>,
 <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code> 进行比较, 除非这些运算符经过了 &ldquo;重载&rdquo;. 运算符重载的实质是函数重载.</p>
 <p>重载为普通函数和成员函数均可. 重载为成员函数时, 重载函数的参数个数比运算符的操作数少一个.</p>
@@ -991,6 +990,44 @@
         document.head.appendChild(customFont);
     }());
 </script>
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        z-index: 99;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-image: url(https://LeoDreamer2004.github.io/icons/back-top.svg);
+    }
+</style>
 
+<script>
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.title = "返回顶部";
+        btn.onclick = backToTop
+        rightSideBar.appendChild(btn)
+        window.onscroll = function () {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    function backToTop() {
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
     </body>
 </html>

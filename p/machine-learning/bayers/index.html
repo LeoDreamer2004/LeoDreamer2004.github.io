@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 本节课件链接\n后验概率最大化准则 定义\n对训练样本集 $D=\\{(x_i,y_i)\\}_{i=1}^n$, 其中 $x_i \\in \\mathcal{X}$, $y_i \\in \\mathcal{Y} = \\{c_1, c_2, \\cdots, c_K\\}$, 将 $x$ 的类别预测为 $c_i$ 的 风险 为\n$$ R(Y=c_i | x) = \\sum_{j=1}^K \\lambda_{ij} P(Y=c_j | x) $$其中 $\\lambda_{ij}$ 是将属于 $c_j$ 的样本预测为 $c_i$ 的损失. 最优预测 $\\hat{y}$ 是使得风险最小的类别, 即\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="本节课件链接\n后验概率最大化准则 定义\n对训练样本集 $D=\\{(x_i,y_i)\\}_{i=1}^n$, 其中 $x_i \\in \\mathcal{X}$, $y_i \\in \\mathcal{Y} = \\{c_1, c_2, \\cdots, c_K\\}$, 将 $x$ 的类别预测为 $c_i$ 的 风险 为\n$$ R(Y=c_i | x) = \\sum_{j=1}^K \\lambda_{ij} P(Y=c_j | x) $$其中 $\\lambda_{ij}$ 是将属于 $c_j$ 的样本预测为 $c_i$ 的损失. 最优预测 $\\hat{y}$ 是使得风险最小的类别, 即\n">
 <title>机器学习基础(3) —— 基于后验概率最大化准则的分类模型</title>
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning/bayers/'>
 
-<link rel="stylesheet" href="/scss/style.min.55de29c392a0fa5a8df1c8c41fdb3e18ab8e658295c064848b7af15d378d0fb2.css"><meta property='og:title' content="机器学习基础(3) —— 基于后验概率最大化准则的分类模型">
-<meta property='og:description' content=" 本节课件链接\n后验概率最大化准则 定义\n对训练样本集 $D=\\{(x_i,y_i)\\}_{i=1}^n$, 其中 $x_i \\in \\mathcal{X}$, $y_i \\in \\mathcal{Y} = \\{c_1, c_2, \\cdots, c_K\\}$, 将 $x$ 的类别预测为 $c_i$ 的 风险 为\n$$ R(Y=c_i | x) = \\sum_{j=1}^K \\lambda_{ij} P(Y=c_j | x) $$其中 $\\lambda_{ij}$ 是将属于 $c_j$ 的样本预测为 $c_i$ 的损失. 最优预测 $\\hat{y}$ 是使得风险最小的类别, 即\n">
+<link rel="stylesheet" href="/scss/style.min.024b08d9fc4bc80520fd2c834f6dcc0eab54502285a7be43faba5647a61606c0.css"><meta property='og:title' content="机器学习基础(3) —— 基于后验概率最大化准则的分类模型">
+<meta property='og:description' content="本节课件链接\n后验概率最大化准则 定义\n对训练样本集 $D=\\{(x_i,y_i)\\}_{i=1}^n$, 其中 $x_i \\in \\mathcal{X}$, $y_i \\in \\mathcal{Y} = \\{c_1, c_2, \\cdots, c_K\\}$, 将 $x$ 的类别预测为 $c_i$ 的 风险 为\n$$ R(Y=c_i | x) = \\sum_{j=1}^K \\lambda_{ij} P(Y=c_j | x) $$其中 $\\lambda_{ij}$ 是将属于 $c_j$ 的样本预测为 $c_i$ 的损失. 最优预测 $\\hat{y}$ 是使得风险最小的类别, 即\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning/bayers/'>
 <meta property='og:site_name' content='LeoDreamer'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-03-11T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-11T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="机器学习基础(3) —— 基于后验概率最大化准则的分类模型">
-<meta name="twitter:description" content=" 本节课件链接\n后验概率最大化准则 定义\n对训练样本集 $D=\\{(x_i,y_i)\\}_{i=1}^n$, 其中 $x_i \\in \\mathcal{X}$, $y_i \\in \\mathcal{Y} = \\{c_1, c_2, \\cdots, c_K\\}$, 将 $x$ 的类别预测为 $c_i$ 的 风险 为\n$$ R(Y=c_i | x) = \\sum_{j=1}^K \\lambda_{ij} P(Y=c_j | x) $$其中 $\\lambda_{ij}$ 是将属于 $c_j$ 的样本预测为 $c_i$ 的损失. 最优预测 $\\hat{y}$ 是使得风险最小的类别, 即\n">
+<meta name="twitter:description" content="本节课件链接\n后验概率最大化准则 定义\n对训练样本集 $D=\\{(x_i,y_i)\\}_{i=1}^n$, 其中 $x_i \\in \\mathcal{X}$, $y_i \\in \\mathcal{Y} = \\{c_1, c_2, \\cdots, c_K\\}$, 将 $x$ 的类别预测为 $c_i$ 的 风险 为\n$$ R(Y=c_i | x) = \\sum_{j=1}^K \\lambda_{ij} P(Y=c_j | x) $$其中 $\\lambda_{ij}$ 是将属于 $c_j$ 的样本预测为 $c_i$ 的损失. 最优预测 $\\hat{y}$ 是使得风险最小的类别, 即\n">
     </head>
     <body class="
     article-page
@@ -239,7 +239,7 @@
   <ol>
     <li><a href="#后验概率最大化准则">后验概率最大化准则</a></li>
     <li><a href="#逻辑斯蒂回归模型">逻辑斯蒂回归模型</a></li>
-    <li><a href="#朴素贝叶斯分类器">朴素贝叶斯分类器</a></li>
+    <li><a href="#朴素-bayers-分类器">朴素 Bayers 分类器</a></li>
   </ol>
 </nav>
         </div>
@@ -327,11 +327,10 @@
     <section class="article-content">
     
     
-    <link rel="stylesheet" href="/styles/notes.css" >
-<p><a class="link" href="/materials/machine-learning/MachineLearning-3.pdf" >本节课件链接</a></p>
+    <p><a class="link" href="/materials/machine-learning/MachineLearning-3.pdf" >本节课件链接</a></p>
 <h2 id="后验概率最大化准则">后验概率最大化准则
-</h2><div class="block">
-<p class="block-title def">定义</p>
+</h2><div class="math-block">
+    <p class="math-block-title math-def">定义</p>
 <p>对训练样本集 $D=\{(x_i,y_i)\}_{i=1}^n$, 其中 $x_i \in \mathcal{X}$, $y_i \in \mathcal{Y} = \{c_1, c_2, \cdots, c_K\}$, 将 $x$ 的类别预测为 $c_i$ 的 <strong>风险</strong> 为</p>
 $$
 R(Y=c_i | x) = \sum_{j=1}^K \lambda_{ij} P(Y=c_j | x)
@@ -344,8 +343,8 @@ $$
 R(Y=c_i | x) = 1 - P(Y=c_i | x)
 $$<p>即输入 $x$ 的最优预测 $\hat{y}$ 为使得后验概率 $P(y | x)$ 最大的类别.</p>
 <h2 id="逻辑斯蒂回归模型">逻辑斯蒂回归模型
-</h2><div class="block">
-<p class="block-title def">定义</p>
+</h2><div class="math-block">
+    <p class="math-block-title math-def">定义</p>
 <p>设 $\mathcal{X}=\mathbb{R}^n, \mathcal{Y}=\{c_1,c_2\}$, 逻辑斯蒂回归模型是如下的后验概率分布:</p>
 $$
 \begin{aligned}
@@ -378,16 +377,16 @@ $$
 \frac{\partial \log L(\theta)}{\partial w} &= \sum_{i=1}^n x_i(y_i - p(x_i;\theta)) = 0\\
 \frac{\partial \log L(\theta)}{\partial b} &= \sum_{i=1}^n (y_i - p(x_i;\theta)) = 0
 \end{aligned}
-$$<h2 id="朴素贝叶斯分类器">朴素贝叶斯分类器
-</h2><div class="block">
-<p class="block-title thm">定理<span class="subtitle">贝叶斯公式</p>
+$$<h2 id="朴素-bayers-分类器">朴素 Bayers 分类器
+</h2><div class="math-block">
+    <p class="math-block-title math-thm">定理<span class="math-subtitle">Bayers 公式</span></p>
 $$
 \begin{aligned}
 P(Y=c_i | x) &= \frac{P(x | Y=c_i) P(Y=c_i)}{P(x)} \\
 &= \frac{P(x | Y=c_i) P(Y=c_i)}{\sum_{j=1}^K P(x | Y=c_j) P(Y=c_j)}
 \end{aligned}
 $$</div>
-<p>朴素贝叶斯假定特征之间相互独立, 即</p>
+<p>朴素 Bayers 假定特征之间相互独立, 即</p>
 $$
 p(X^1=x^1, X^2=x^2, \cdots, X^n=x^n | Y=c_k) = \prod_{j=1}^n p(X^j=x^j | Y=c_k)
 $$<p>对于输入实例 $x=(x^1,x^2,\cdots,x^n)$, 则后验概率</p>
@@ -641,6 +640,44 @@ $$<p>$\lambda=1$ 时称为 Laplace 平滑.</p>
         document.head.appendChild(customFont);
     }());
 </script>
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        z-index: 99;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-image: url(https://LeoDreamer2004.github.io/icons/back-top.svg);
+    }
+</style>
 
+<script>
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.title = "返回顶部";
+        btn.onclick = backToTop
+        rightSideBar.appendChild(btn)
+        window.onscroll = function () {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    function backToTop() {
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
     </body>
 </html>
