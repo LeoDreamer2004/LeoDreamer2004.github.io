@@ -36,8 +36,9 @@ $$
 &amp; Gx \le e
 \end{aligned}
 $$&lt;p&gt;$\ell_1$ 和 $\ell_\infty$ 范数实际上也是线性的.&lt;/p&gt;
-&lt;p&gt;凸多边形&lt;/p&gt;
-$$P = \{ x \mid a_i^Tx \le b_i \}$$&lt;p&gt;的切比雪夫中心是最大半径内切球的中心. 代入得&lt;/p&gt;
+&lt;h3 id=&#34;示例-最大球问题&#34;&gt;示例: 最大球问题
+&lt;/h3&gt;&lt;p&gt;凸多边形&lt;/p&gt;
+$$P = \{ x \mid a_i^Tx \le b_i \}$$&lt;p&gt;的 Chebyshev 中心是最大半径内切球的中心. 代入得&lt;/p&gt;
 $$
 \sup \{a_i^T (x_c + u) \mid \Vert u \Vert_2 \le r \} = a_i^Tx_c + r \Vert a_i \Vert_2 \le b_i
 $$&lt;p&gt;这也变成了一个线性规划问题.&lt;/p&gt;
@@ -58,10 +59,8 @@ $$
 \text{s.t.} \quad &amp; \Vert A_i x + b_i \Vert_2 \le c_i^T x + d_i, \quad i = 1, \ldots, m \\
 &amp; Fx = g
 \end{aligned}
-$$&lt;p&gt;&lt;strong&gt;最小范数问题&lt;/strong&gt;: 令 $\bar{v}_i = A_ix+b_i \in \mathbb{R}^{n_i}$, 则&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;$\min_x \sum_i \Vert \bar{v}_i \Vert_2$ 等价于&lt;/li&gt;
-&lt;/ul&gt;
+$$&lt;h3 id=&#34;示例-最小范数问题&#34;&gt;示例: 最小范数问题
+&lt;/h3&gt;&lt;p&gt;令 $\bar{v}_i = A_ix+b_i \in \mathbb{R}^{n_i}$, 则 $\min_x \sum_i \Vert \bar{v}_i \Vert_2$ 等价于&lt;/p&gt;
 $$
 \begin{aligned}
 \min \quad &amp; \sum_i v_{i0} \\
@@ -69,13 +68,129 @@ $$
 &amp;(v_{i0}, \bar{v}_i) \succeq_\mathcal{Q} 0
 \end{aligned}
 $$&lt;p&gt;其中 $\mathcal{Q}$ 是二次锥.&lt;/p&gt;
-&lt;p&gt;最大 $k$ 范数和问题: 设 $\Vert \bar{v}_{[i]} \Vert$ 是 $\bar{v}_i$ 的非递增方式的排序. 则 $\min_x \sum_{i=1}^m \Vert \bar{v}_{[i]} \Vert$ 等价于&lt;/p&gt;
+&lt;h3 id=&#34;示例-最小化最大函数和问题&#34;&gt;示例: 最小化最大函数和问题
+&lt;/h3&gt;&lt;p&gt;设 $\theta(x)=(\theta_1(x), \theta_2(x), \cdots, \theta_m(x))^T$. $\theta_{[i]}$ 是 $\theta_i$ 的非递增方式的排序. 则 $\min_{x\in Q} \sum_{i=1}^m \theta_{[i]}(x)$ 等价于&lt;/p&gt;
 $$
 \begin{aligned}
 \min \quad &amp; \sum_{i=1}^m u_i + kt \\
-\text{s.t.} \quad &amp; \bar{v}_i = A_i x + b_i \\
-&amp; \Vert \bar{v}_i \Vert \le u_i + t \\
+\text{s.t.} \quad &amp; x \in Q \\
+&amp; \theta_i(x)\le u_i + t \\
 &amp; u_i \ge 0
+\end{aligned}
+$$&lt;h2 id=&#34;半定优化&#34;&gt;半定优化
+&lt;/h2&gt;&lt;p&gt;半定优化 (SDP) 一般形式如下:&lt;/p&gt;
+$$
+\begin{aligned}
+\min \quad &amp; c^Tx \\
+\text{s.t.} \quad &amp; x_1A_1 + \cdots + x_nA_n + B \succeq 0 \\
+&amp; Gx=h
+\end{aligned}
+$$&lt;p&gt;其实是线性规划在矩阵空间的推广. 仍然考虑标准形式:&lt;/p&gt;
+$$
+\begin{aligned}
+\min \quad &amp; \left&lt; C, X \right&gt; \\
+\text{s.t.} \quad &amp; \left&lt; A_i, X \right&gt; = b_i, \quad i = 1, \ldots, m \\
+&amp; X \succeq 0
+\end{aligned}
+$$&lt;p&gt;和对偶形式:&lt;/p&gt;
+$$
+\begin{aligned}
+\max \quad &amp; \sum_{i=1}^m b_i y_i \\
+\text{s.t.} \quad &amp; C - \sum_{i=1}^m y_i A_i \succeq 0
+\end{aligned}
+$$&lt;h3 id=&#34;示例-二次约束二次规划问题&#34;&gt;示例: 二次约束二次规划问题
+&lt;/h3&gt;$$
+\begin{aligned}
+\min \quad &amp; x^T A_0 x + 2b_0^T x + c_0 \\
+\text{s.t.} \quad &amp; x^T A_i x + 2b_i^T x + c_i \le 0, \quad i = 1, \ldots, m
+\end{aligned}
+$$&lt;p&gt;其中 $A_i$ 是 $n \times n$ 的对称矩阵, 这个问题在 $A_i$ 不定时实际上是 NP-hard 的. 考虑它的半定松弛, 记 $X=x^Tx$ 注意到有&lt;/p&gt;
+$$
+x^T A_i x + 2b_i^T x + c_i = \left&lt; A_i, X \right&gt; + 2\left&lt; b_i, x \right&gt; + c_i = \left&lt;
+\begin{bmatrix}
+A_i &amp; b_i \\
+b_i^T &amp; c_i
+\end{bmatrix},
+\begin{bmatrix}
+X &amp; x \\
+x^T &amp; 1
+\end{bmatrix}
+\right&gt;
+$$&lt;p&gt;我们记作 $\left&lt; \bar{A}_i, \bar{X} \right&gt;$. 注意到, 现在唯一的非线性部分是约束 $X=xx^T$, 我们将其松弛成半正定约束 $X \succeq xx^T$. 可以证明, $\bar{X} \succeq 0$ 等价于 $X \succeq xx^T$. 这样我们就得到了一个半定优化问题:&lt;/p&gt;
+$$
+\begin{aligned}
+\min \quad &amp; \left&lt; A_0, X \right&gt; \\
+\text{s.t.} \quad &amp; \left&lt; \bar{A}_i, \bar{X} \right&gt; \le 0, \quad i = 1, \ldots, m \\
+&amp; \bar{X} \succeq 0 \\
+&amp; \bar{X}_{n+1,n+1} = 1
+\end{aligned}
+$$&lt;h3 id=&#34;示例-最大割问题&#34;&gt;示例: 最大割问题
+&lt;/h3&gt;&lt;p&gt;令 $G$ 为一个无向图, 节点集为 $V = \{1, 2, \cdots, n\}$, 边集为 $E$. 设 $w_{ij} = w_{ji} \ge 0$ 为边 $(i, j) \in E$ 上的权重, 要找 $S \subseteq V$ 使得 $S$ 与 $\bar{S}$ 之间相连边的权重之和最大化.&lt;/p&gt;
+&lt;p&gt;我们定义 $x_j = 1, j \in S$ 和 $x_j = -1, j \in \bar{S}$, 则&lt;/p&gt;
+$$
+\begin{aligned}
+\max \quad &amp; \sum_{(i, j) \in E} \frac{1}{2} (1-x_i x_j) w_{ij} \\
+\text{s.t.} \quad &amp; x_i = \pm 1, \quad i = 1, \ldots, n
+\end{aligned}
+$$&lt;p&gt;然而这是一个离散优化问题, 考虑对它做松弛. 令 $W=(w_{ij}) \in \mathbb{S}^n$ 为权重矩阵, $C=-\frac{1}{4}(\text{Diag}(W\mathbf{1})-W)$ 是 Laplacian 矩阵的 $-1/4$ 倍. 则&lt;/p&gt;
+$$
+\begin{aligned}
+\min \quad &amp; x^T C x \\
+\text{s.t.} \quad &amp; x_i^2 = 1, \quad i = 1, \ldots, n
+\end{aligned}
+$$&lt;p&gt;仍令 $X=x^Tx$, 则容易看出与下问题等价:&lt;/p&gt;
+$$
+\begin{aligned}
+\min \quad &amp; \left&lt; C, X \right&gt; \\
+\text{s.t.} \quad &amp; X_{ii} = 1, \quad i = 1, \ldots, n \\
+&amp; X \succeq 0 \\
+&amp; \text{rank}(X) = 1
+\end{aligned}
+$$&lt;h3 id=&#34;示例-极小化最大特征值问题&#34;&gt;示例: 极小化最大特征值问题
+&lt;/h3&gt;$$
+\min \quad \lambda_{\max}(A_0 + \sum_{i=1}^m x_i A_i)
+$$&lt;p&gt;注意到:&lt;/p&gt;
+$$\lambda_{\max}(A) \le t \Leftrightarrow A \preceq tI$$&lt;p&gt;于是我们有 SDP 形式:&lt;/p&gt;
+$$
+\begin{aligned}
+\min \quad &amp; z \\
+\text{s.t.} \quad &amp; A_0 + \sum_{i=1}^m x_i A_i \preceq zI
+\end{aligned}
+$$&lt;h3 id=&#34;示例-极小化二范数问题&#34;&gt;示例: 极小化二范数问题
+&lt;/h3&gt;$$
+\min \quad \Vert A_0 + \sum_{i=1}^m x_i A_i \Vert_2
+$$&lt;p&gt;记 $A = A_0 + \sum_{i=1}^m x_i A_i$. 注意到:&lt;/p&gt;
+$$
+\Vert A \Vert_2 \le t \Leftrightarrow A^TA \preceq t^2I \Leftrightarrow
+\begin{bmatrix}
+tI &amp; A \\
+A^T &amp; tI
+\end{bmatrix} \succeq 0
+$$&lt;p&gt;于是我们有 SDP 形式:&lt;/p&gt;
+$$
+\begin{aligned}
+\min \quad &amp; t \\
+\text{s.t.} \quad &amp; \begin{bmatrix}
+tI &amp; A \\
+A &amp; tI
+\end{bmatrix} \succeq 0
+\end{aligned}
+$$&lt;h3 id=&#34;示例-特征值优化问题&#34;&gt;示例: 特征值优化问题
+&lt;/h3&gt;$$
+\min \quad \sum_{i=1}^n \lambda_{[i]}(A_0 + \sum_{j=1}^m x_j A_j)
+$$&lt;p&gt;其中 $\lambda_{[i]}(A)$ 表示 $A$ 的第 $i$ 大特征值. 前面的极小最大函数和提到它等价于&lt;/p&gt;
+$$
+\begin{aligned}
+\min \quad &amp; \sum_{i=1}^n u_i + kt \\
+\text{s.t.} \quad &amp; u_i+t \ge \lambda_i(A_0 + \sum_{j=1}^m x_j A_j), \quad i = 1, \ldots, n \\
+&amp; u_i \ge 0
+\end{aligned}
+$$&lt;p&gt;设 $u_i = \lambda_i(X)$, 则写成 SDP 形式:&lt;/p&gt;
+$$
+\begin{aligned}
+\min \quad &amp; kt + \text{Tr}(X) \\
+\text{s.t.} \quad &amp; tI + X \succeq A_0 + \sum_{j=1}^m z_j A_j \\
+&amp; X \succeq 0
 \end{aligned}
 $$</description>
         </item>
@@ -116,7 +231,7 @@ $$&lt;p&gt;称为 $f$ 在 $x$ 处的 &lt;strong&gt;Hessian 矩阵&lt;/strong&gt;
     &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;给定函数 $f: \mathbb{R}^{m \times n} \mapsto \mathbb{R}$, 且 $f$ 在 $X$ 一个邻域内有定义, 若存在 $G \in \mathbb{R}^{m \times n}$, 使得&lt;/p&gt;
 $$
-\lim_{V \to 0} \frac{f(X+V)-f(X)-\langle G, V \rangle}{\Vert V \Vert} = 0
+\lim_{V \to 0} \frac{f(X+V)-f(X)-\left&lt; G, V \right&gt;}{\Vert V \Vert} = 0
 $$&lt;p&gt;其中 $\Vert \cdot \Vert$ 是矩阵范数, 则称 $f$ 在 $X$ 处 &lt;strong&gt;(Fréchet)可微&lt;/strong&gt;. 此时, $G$ 称为 $f$ 在 $X$ 处的 &lt;strong&gt;梯度&lt;/strong&gt;, 记为 $\nabla f(X)$.&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;矩阵的可微有另一种较为简单常用的定义.&lt;/p&gt;
@@ -124,7 +239,7 @@ $$&lt;p&gt;其中 $\Vert \cdot \Vert$ 是矩阵范数, 则称 $f$ 在 $X$ 处 &l
     &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;给定函数 $f: \mathbb{R}^{m \times n} \mapsto \mathbb{R}$, 若存在矩阵 $G \in \mathbb{R}^{m \times n}$, 使得&lt;/p&gt;
 $$
-\lim_{t \to 0} \frac{f(X+tV)-f(X)}{t} = \langle G, V \rangle
+\lim_{t \to 0} \frac{f(X+tV)-f(X)}{t} = \left&lt; G, V \right&gt;
 $$&lt;p&gt;则称 $f$ 在 $X$ 处 &lt;strong&gt;(Gâteaux)可微&lt;/strong&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;例如:&lt;/p&gt;
@@ -139,8 +254,8 @@ $$
     &amp;f(X,Y+tV)-f(X,Y) \\
     &amp;= \frac{1}{2} \Vert X(Y+tV)-A \Vert_F^2 - \frac{1}{2} \Vert XY-A \Vert_F^2 \\
     &amp;= \frac{1}{2} \Vert XY - A + tVX \Vert_F^2 - \frac{1}{2} \Vert XY - A \Vert_F^2 \\
-    &amp;= \frac{1}{2} \Vert tVX \Vert_F^2 + \langle XY-A, tVX \rangle \\
-    &amp;= t \langle X^T(XY-A), V \rangle + o(t)
+    &amp;= \frac{1}{2} \Vert tVX \Vert_F^2 + \left&lt; XY-A, tVX \right&gt; \\
+    &amp;= t \left&lt; X^T(XY-A), V \right&gt; + o(t)
     \end{aligned}
     $$&lt;p&gt;所以 $\frac{\partial f}{\partial Y} = X^T(XY-A)$, 类似地, $\frac{\partial f}{\partial X} = (XY-A)Y^T$.&lt;/p&gt;
 &lt;/li&gt;
@@ -160,7 +275,7 @@ $$
     &amp;= \sum_{i=1}^n t\lambda_i + o(t) \\
     &amp;= t\text{tr}(X^{-1/2}VX^{-1/2}) + o(t) \\
     &amp;= t\text{tr}(X^{-1}V) + o(t) \\
-    &amp;= t\langle X^{-T}, V \rangle + o(t)
+    &amp;= t\left&lt; X^{-T}, V \right&gt; + o(t)
     \end{aligned}
     $$&lt;p&gt;所以 $\nabla f(X) = X^{-T}$.&lt;/p&gt;
 &lt;/li&gt;
@@ -309,7 +424,7 @@ $$g(x, t) = tf(x/t), \quad \text{dom} g = \{ (x, t) \mid x / t \in \text{dom} f,
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;共轭函数: 任意适当函数 $f$ 的共轭函数&lt;/p&gt;
-$$f^\ast(y)=\sup_{x \in \text{dom} f} (\langle x, y \rangle - f(x))$$&lt;p&gt;是凸函数.&lt;/p&gt;
+$$f^\ast(y)=\sup_{x \in \text{dom} f} (\left&lt; x, y \right&gt; - f(x))$$&lt;p&gt;是凸函数.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;h2 id=&#34;凸函数的推广&#34;&gt;凸函数的推广
@@ -381,7 +496,7 @@ $$&lt;p&gt;特别地, 当 $p = \infty$ 时, $\Vert x \Vert_\infty = \max_i \vert
 &lt;/ul&gt;
 &lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;Cauchy 不等式&lt;/span&gt;&lt;/p&gt;
-$$\vert \langle X, Y \rangle \vert \leq \Vert X \Vert \Vert Y \Vert$$&lt;p&gt;等号成立当且仅当 $X$ 与 $Y$ 线性相关.&lt;/p&gt;
+$$\vert \left&lt; X, Y \right&gt; \vert \leq \Vert X \Vert \Vert Y \Vert$$&lt;p&gt;等号成立当且仅当 $X$ 与 $Y$ 线性相关.&lt;/p&gt;
 &lt;/div&gt;
 &lt;h2 id=&#34;凸集&#34;&gt;凸集
 &lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
@@ -511,7 +626,7 @@ $$x \prec_K y \Leftrightarrow y - x \in \text{int} K$$&lt;/div&gt;
     &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;令锥 $K$ 为全空间 $\Omega$ 的子集, 则 $K$ 的 &lt;strong&gt;对偶锥&lt;/strong&gt; 为&lt;/p&gt;
 $$
-K^\ast = \left\{ y \mid \langle x, y \rangle \ge 0, \forall x \in K \right\}
+K^\ast = \left\{ y \mid \left&lt; x, y \right&gt; \ge 0, \forall x \in K \right\}
 $$&lt;/div&gt;
 &lt;p&gt;例如&lt;/p&gt;
 &lt;ul&gt;

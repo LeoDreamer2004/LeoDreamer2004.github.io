@@ -359,7 +359,7 @@ $$<p>称为 $f$ 在 $x$ 处的 <strong>Hessian 矩阵</strong>. 若 $\nabla^2 f(
     <p class="math-block-title math-def">定义</p>
 <p>给定函数 $f: \mathbb{R}^{m \times n} \mapsto \mathbb{R}$, 且 $f$ 在 $X$ 一个邻域内有定义, 若存在 $G \in \mathbb{R}^{m \times n}$, 使得</p>
 $$
-\lim_{V \to 0} \frac{f(X+V)-f(X)-\langle G, V \rangle}{\Vert V \Vert} = 0
+\lim_{V \to 0} \frac{f(X+V)-f(X)-\left< G, V \right>}{\Vert V \Vert} = 0
 $$<p>其中 $\Vert \cdot \Vert$ 是矩阵范数, 则称 $f$ 在 $X$ 处 <strong>(Fréchet)可微</strong>. 此时, $G$ 称为 $f$ 在 $X$ 处的 <strong>梯度</strong>, 记为 $\nabla f(X)$.</p>
 </div>
 <p>矩阵的可微有另一种较为简单常用的定义.</p>
@@ -367,7 +367,7 @@ $$<p>其中 $\Vert \cdot \Vert$ 是矩阵范数, 则称 $f$ 在 $X$ 处 <strong>
     <p class="math-block-title math-def">定义</p>
 <p>给定函数 $f: \mathbb{R}^{m \times n} \mapsto \mathbb{R}$, 若存在矩阵 $G \in \mathbb{R}^{m \times n}$, 使得</p>
 $$
-\lim_{t \to 0} \frac{f(X+tV)-f(X)}{t} = \langle G, V \rangle
+\lim_{t \to 0} \frac{f(X+tV)-f(X)}{t} = \left< G, V \right>
 $$<p>则称 $f$ 在 $X$ 处 <strong>(Gâteaux)可微</strong>.</p>
 </div>
 <p>例如:</p>
@@ -382,8 +382,8 @@ $$
     &f(X,Y+tV)-f(X,Y) \\
     &= \frac{1}{2} \Vert X(Y+tV)-A \Vert_F^2 - \frac{1}{2} \Vert XY-A \Vert_F^2 \\
     &= \frac{1}{2} \Vert XY - A + tVX \Vert_F^2 - \frac{1}{2} \Vert XY - A \Vert_F^2 \\
-    &= \frac{1}{2} \Vert tVX \Vert_F^2 + \langle XY-A, tVX \rangle \\
-    &= t \langle X^T(XY-A), V \rangle + o(t)
+    &= \frac{1}{2} \Vert tVX \Vert_F^2 + \left< XY-A, tVX \right> \\
+    &= t \left< X^T(XY-A), V \right> + o(t)
     \end{aligned}
     $$<p>所以 $\frac{\partial f}{\partial Y} = X^T(XY-A)$, 类似地, $\frac{\partial f}{\partial X} = (XY-A)Y^T$.</p>
 </li>
@@ -403,7 +403,7 @@ $$
     &= \sum_{i=1}^n t\lambda_i + o(t) \\
     &= t\text{tr}(X^{-1/2}VX^{-1/2}) + o(t) \\
     &= t\text{tr}(X^{-1}V) + o(t) \\
-    &= t\langle X^{-T}, V \rangle + o(t)
+    &= t\left< X^{-T}, V \right> + o(t)
     \end{aligned}
     $$<p>所以 $\nabla f(X) = X^{-T}$.</p>
 </li>
@@ -552,7 +552,7 @@ $$g(x, t) = tf(x/t), \quad \text{dom} g = \{ (x, t) \mid x / t \in \text{dom} f,
 </li>
 <li>
 <p>共轭函数: 任意适当函数 $f$ 的共轭函数</p>
-$$f^\ast(y)=\sup_{x \in \text{dom} f} (\langle x, y \rangle - f(x))$$<p>是凸函数.</p>
+$$f^\ast(y)=\sup_{x \in \text{dom} f} (\left< x, y \right> - f(x))$$<p>是凸函数.</p>
 </li>
 </ol>
 <h2 id="凸函数的推广">凸函数的推广
