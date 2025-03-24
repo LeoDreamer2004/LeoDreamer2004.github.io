@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="本节课件链接\nk-近邻算法 k-近邻算法的主要思想是, 对于一个给定的样本点 $x$, 找到训练集中与 $x$ 最近的 $k$ 个样本点, 然后根据这 $k$ 个样本点的类别进行多数占优的投票方式来预测 $x$ 的类别.\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="k-近邻算法 k-近邻算法的主要思想是, 对于一个给定的样本点 $x$, 找到训练集中与 $x$ 最近的 $k$ 个样本点, 然后根据这 $k$ 个样本点的类别进行多数占优的投票方式来预测 $x$ 的类别.\n">
 <title>机器学习基础(4) —— 基于近邻的分类方法</title>
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning/knn/'>
 
-<link rel="stylesheet" href="/scss/style.min.024b08d9fc4bc80520fd2c834f6dcc0eab54502285a7be43faba5647a61606c0.css"><meta property='og:title' content="机器学习基础(4) —— 基于近邻的分类方法">
-<meta property='og:description' content="本节课件链接\nk-近邻算法 k-近邻算法的主要思想是, 对于一个给定的样本点 $x$, 找到训练集中与 $x$ 最近的 $k$ 个样本点, 然后根据这 $k$ 个样本点的类别进行多数占优的投票方式来预测 $x$ 的类别.\n">
+<link rel="stylesheet" href="/scss/style.min.cc07bbb48134d09ba244262cc9d4c100e03558fa2c686f9266b0a04e5ea3bb89.css"><meta property='og:title' content="机器学习基础(4) —— 基于近邻的分类方法">
+<meta property='og:description' content="k-近邻算法 k-近邻算法的主要思想是, 对于一个给定的样本点 $x$, 找到训练集中与 $x$ 最近的 $k$ 个样本点, 然后根据这 $k$ 个样本点的类别进行多数占优的投票方式来预测 $x$ 的类别.\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning/knn/'>
 <meta property='og:site_name' content='LeoDreamer'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-03-14T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-14T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="机器学习基础(4) —— 基于近邻的分类方法">
-<meta name="twitter:description" content="本节课件链接\nk-近邻算法 k-近邻算法的主要思想是, 对于一个给定的样本点 $x$, 找到训练集中与 $x$ 最近的 $k$ 个样本点, 然后根据这 $k$ 个样本点的类别进行多数占优的投票方式来预测 $x$ 的类别.\n">
+<meta name="twitter:description" content="k-近邻算法 k-近邻算法的主要思想是, 对于一个给定的样本点 $x$, 找到训练集中与 $x$ 最近的 $k$ 个样本点, 然后根据这 $k$ 个样本点的类别进行多数占优的投票方式来预测 $x$ 的类别.\n">
     </head>
     <body class="
     article-page
@@ -219,6 +219,38 @@
         
             
                 
+
+    <section class="widget related-links">
+
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">相关材料</h2>
+
+        <div class="widget--related-links">
+             <ul>
+    
+        <li>
+            <a href="/materials/machine-learning/MachineLearning-4.pdf" target="_blank" rel="noopener noreferrer">
+                本节课件
+            </a>
+        </li>
+    
+</ul>
+        </div>
+    </section>
+
+            
+        
+            
+                
     <section class="widget archives">
         <div class="widget-icon">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -244,6 +276,7 @@
 </nav>
         </div>
     </section>
+
 
             
         
@@ -327,8 +360,7 @@
     <section class="article-content">
     
     
-    <p><a class="link" href="/materials/machine-learning/MachineLearning-4.pdf" >本节课件链接</a></p>
-<h2 id="k-近邻算法">k-近邻算法
+    <h2 id="k-近邻算法">k-近邻算法
 </h2><p>k-近邻算法的主要思想是, 对于一个给定的样本点 $x$, 找到训练集中与 $x$ 最近的 $k$ 个样本点, 然后根据这 $k$ 个样本点的类别进行多数占优的投票方式来预测 $x$ 的类别.</p>
 <p>在 $n$ 维实数空间 $\mathbb{R}$ 中, 通常用 Minkowski 距离来度量两个点 $x_i, x_j$ 的相似性:</p>
 <div class="math-block">
@@ -505,12 +537,12 @@ $$I_{m^\ast i^\ast} \gets I_{m^\ast i^\ast} - \eta(x_t - I_{m^\ast i^\ast})$$</l
             
                 
 <article class="">
-    <a href="/p/opt-method/opt-problem/">
+    <a href="/p/opt-method/opt-theory/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">最优化方法(4) —— 优化问题</h2>
+            <h2 class="article-title">最优化方法(5) —— 最优性理论</h2>
         </div>
     </a>
 </article>
@@ -623,7 +655,7 @@ $$I_{m^\ast i^\ast} \gets I_{m^\ast i^\ast} - \eta(x_t - I_{m^\ast i^\ast})$$</l
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.d6f304cd2b2aa3010daa4b1278b11d68cbea5ea438f1d1288e214fac59f6b9bd.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.95e0c918db7be1cae7f7778435911a6882f2716929055a64c4aa979f73d2dbfc.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

@@ -7,14 +7,23 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>LeoDreamer</copyright>
-        <lastBuildDate>Tue, 18 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/%E8%AF%BE%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 23 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/%E8%AF%BE%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>最优化方法(5) —— 最优性理论</title>
+        <link>https://LeoDreamer2004.github.io/p/opt-method/opt-theory/</link>
+        <pubDate>Sun, 23 Mar 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/p/opt-method/opt-theory/</guid>
+        <description>&lt;h2 id=&#34;最优性理论&#34;&gt;最优性理论
+&lt;/h2&gt;&lt;h2 id=&#34;dsadd&#34;&gt;dsadd
+&lt;/h2&gt;</description>
+        </item>
+        <item>
         <title>机器学习基础(5) —— 决策树模型</title>
         <link>https://LeoDreamer2004.github.io/p/machine-learning/decision-tree/</link>
         <pubDate>Tue, 18 Mar 2025 00:00:00 +0000</pubDate>
         
         <guid>https://LeoDreamer2004.github.io/p/machine-learning/decision-tree/</guid>
-        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/MachineLearning-5.pdf&#34; &gt;本节课件链接&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&#34;特征的分类能力评估&#34;&gt;特征的分类能力评估
+        <description>&lt;h2 id=&#34;特征的分类能力评估&#34;&gt;特征的分类能力评估
 &lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;给定数据集 $D=\{(x_i,y_i)\}_{i=1}^N$, 其中 $x_i=\left(x_i^{(1)},x_i^{(2)},\cdots,x_i^{(m)}\right) \in \mathcal{X}$ 是第 $i$ 个样本的特征向量, $y_i \in \mathcal{Y}=\{c_1,c_2,\cdots,c_K\}$ 是第 $i$ 个样本的标签. 假设数据集 $D$ 根据特征分成了 $K$ 个子集 $D_1,D_2,\cdots,D_K$, 定义 &lt;strong&gt;经验熵&lt;/strong&gt; 为&lt;/p&gt;
@@ -93,8 +102,7 @@ $$&lt;p&gt;从现在来看, 决策树构造过程中划分的单元都是矩形�
         <pubDate>Fri, 14 Mar 2025 00:00:00 +0000</pubDate>
         
         <guid>https://LeoDreamer2004.github.io/p/machine-learning/knn/</guid>
-        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/MachineLearning-4.pdf&#34; &gt;本节课件链接&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&#34;k-近邻算法&#34;&gt;k-近邻算法
+        <description>&lt;h2 id=&#34;k-近邻算法&#34;&gt;k-近邻算法
 &lt;/h2&gt;&lt;p&gt;k-近邻算法的主要思想是, 对于一个给定的样本点 $x$, 找到训练集中与 $x$ 最近的 $k$ 个样本点, 然后根据这 $k$ 个样本点的类别进行多数占优的投票方式来预测 $x$ 的类别.&lt;/p&gt;
 &lt;p&gt;在 $n$ 维实数空间 $\mathbb{R}$ 中, 通常用 Minkowski 距离来度量两个点 $x_i, x_j$ 的相似性:&lt;/p&gt;
 &lt;div class=&#34;math-block&#34;&gt;
@@ -165,8 +173,7 @@ $$I_{m^\ast i^\ast} \gets I_{m^\ast i^\ast} - \eta(x_t - I_{m^\ast i^\ast})$$&lt
         <pubDate>Tue, 11 Mar 2025 00:00:00 +0000</pubDate>
         
         <guid>https://LeoDreamer2004.github.io/p/machine-learning/bayers/</guid>
-        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/MachineLearning-3.pdf&#34; &gt;本节课件链接&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&#34;后验概率最大化准则&#34;&gt;后验概率最大化准则
+        <description>&lt;h2 id=&#34;后验概率最大化准则&#34;&gt;后验概率最大化准则
 &lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;对训练样本集 $D=\{(x_i,y_i)\}_{i=1}^n$, 其中 $x_i \in \mathcal{X}$, $y_i \in \mathcal{Y} = \{c_1, c_2, \cdots, c_K\}$, 将 $x$ 的类别预测为 $c_i$ 的 &lt;strong&gt;风险&lt;/strong&gt; 为&lt;/p&gt;
@@ -242,8 +249,7 @@ $$&lt;p&gt;$\lambda=1$ 时称为 Laplace 平滑.&lt;/p&gt;
         <pubDate>Fri, 07 Mar 2025 00:00:00 +0000</pubDate>
         
         <guid>https://LeoDreamer2004.github.io/p/program-practice/polymorphism/</guid>
-        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/06-%e5%a4%9a%e6%80%81.pdf&#34; &gt;本节课件链接&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&#34;虚函数&#34;&gt;虚函数
+        <description>&lt;h2 id=&#34;虚函数&#34;&gt;虚函数
 &lt;/h2&gt;&lt;p&gt;在类的定义中, 前面有 &lt;code&gt;virtual&lt;/code&gt; 关键字的成员函数就是 &lt;strong&gt;虚函数&lt;/strong&gt;.  &lt;code&gt;virtual&lt;/code&gt; 只用在类定义里的函数声明中, 写函数体时不用.&lt;/p&gt;
 &lt;p&gt;派生类的指针可以赋给基类指针. 通过基类指针调用基类和派生类中的同名同参 &lt;strong&gt;虚&lt;/strong&gt; 函数时:&lt;/p&gt;
 &lt;ul&gt;
@@ -452,8 +458,7 @@ $$&lt;p&gt;$\lambda=1$ 时称为 Laplace 平滑.&lt;/p&gt;
         <pubDate>Wed, 05 Mar 2025 00:00:00 +0000</pubDate>
         
         <guid>https://LeoDreamer2004.github.io/p/program-practice/inherit/</guid>
-        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/05-%e7%bb%a7%e6%89%bf%e4%b8%8e%e6%b4%be%e7%94%9f.pdf&#34; &gt;本节课件链接&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&#34;基本概念&#34;&gt;基本概念
+        <description>&lt;h2 id=&#34;基本概念&#34;&gt;基本概念
 &lt;/h2&gt;&lt;p&gt;在定义一个新的类 B 时, 如果 B 类与拥有已有类 A 的全部特点, 那么就可以把 A 作为一个基类, 而把 B 作为基类的一个 &lt;strong&gt;派生类&lt;/strong&gt; (也称 &lt;strong&gt;子类&lt;/strong&gt;). 派生类可以对基类:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;扩充: 在派生类中, 可以添加新的成员变量和成员函数&lt;/li&gt;
@@ -651,8 +656,7 @@ $$&lt;p&gt;$\lambda=1$ 时称为 Laplace 平滑.&lt;/p&gt;
         <pubDate>Fri, 28 Feb 2025 00:00:00 +0000</pubDate>
         
         <guid>https://LeoDreamer2004.github.io/p/machine-learning/vector-machine/</guid>
-        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/MachineLearning-2.pdf&#34; &gt;本节课件链接&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&#34;线性可分支持向量机&#34;&gt;线性可分支持向量机
+        <description>&lt;h2 id=&#34;线性可分支持向量机&#34;&gt;线性可分支持向量机
 &lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;对于一个数据集 $D$, 如果能找到一个超平面 $H: w^Tx + b = 0$, 将数据分为两类. 即对任意 $(x_i, y_i) \in D$, 若 $y_i = 1$, 则 $w^Tx_i + b \geq 0$; 若 $y_i = -1$, 则 $w^Tx_i + b &lt; 0$. 则称 $D$ 是 &lt;strong&gt;线性可分的&lt;/strong&gt; , 超平面 $H$ 是 $D$ 的一个 &lt;strong&gt;分离超平面&lt;/strong&gt;.&lt;/p&gt;
@@ -846,7 +850,6 @@ $$&lt;div class=&#34;math-block&#34;&gt;
 &lt;li&gt;多项式核函数: $K(x, x&#39;) = (x \cdot x&#39; + 1)^d, c \gt 0$&lt;/li&gt;
 &lt;li&gt;高斯核函数: $K(x, x&#39;) = \exp\left(-\frac{\|x-x&#39;\|^2}{2\sigma^2}\right), \sigma \gt 0$&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/homework-2.pdf&#34; &gt;本节作业链接&lt;/a&gt;&lt;/p&gt;
 </description>
         </item>
         <item>
@@ -855,8 +858,7 @@ $$&lt;div class=&#34;math-block&#34;&gt;
         <pubDate>Wed, 26 Feb 2025 00:00:00 +0000</pubDate>
         
         <guid>https://LeoDreamer2004.github.io/p/program-practice/operator-overload/</guid>
-        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/04-%e8%bf%90%e7%ae%97%e7%ac%a6%e9%87%8d%e8%bd%bd.pdf&#34; &gt;本节课件链接&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;对象间的运算和结构变量一样, 对象之间可以用 &lt;code&gt;=&lt;/code&gt; 进行赋值, 但是不能用 &lt;code&gt;==&lt;/code&gt;, &lt;code&gt;!=&lt;/code&gt;, &lt;code&gt;&amp;gt;&lt;/code&gt;,
+        <description>&lt;p&gt;对象间的运算和结构变量一样, 对象之间可以用 &lt;code&gt;=&lt;/code&gt; 进行赋值, 但是不能用 &lt;code&gt;==&lt;/code&gt;, &lt;code&gt;!=&lt;/code&gt;, &lt;code&gt;&amp;gt;&lt;/code&gt;,
 &lt;code&gt;&amp;lt;&lt;/code&gt;, &lt;code&gt;&amp;gt;=&lt;/code&gt;, &lt;code&gt;&amp;lt;=&lt;/code&gt; 进行比较, 除非这些运算符经过了 &amp;ldquo;重载&amp;rdquo;. 运算符重载的实质是函数重载.&lt;/p&gt;
 &lt;p&gt;重载为普通函数和成员函数均可. 重载为成员函数时, 重载函数的参数个数比运算符的操作数少一个.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -1279,10 +1281,7 @@ $$&lt;div class=&#34;math-block&#34;&gt;
         <pubDate>Wed, 19 Feb 2025 00:00:00 +0000</pubDate>
         
         <guid>https://LeoDreamer2004.github.io/p/program-practice/class-and-object/</guid>
-        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/01-%e7%b1%bb%e5%92%8c%e5%af%b9%e8%b1%a101.pdf&#34; &gt;本节课件链接1&lt;/a&gt;
-&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/02-%e7%b1%bb%e4%b8%8e%e5%af%b9%e8%b1%a102.pdf&#34; &gt;本节课件链接2&lt;/a&gt;
-&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/03-%e7%b1%bb%e4%b8%8e%e5%af%b9%e8%b1%a103.pdf&#34; &gt;本节课件链接3&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&#34;面向对象的程序设计&#34;&gt;面向对象的程序设计
+        <description>&lt;h2 id=&#34;面向对象的程序设计&#34;&gt;面向对象的程序设计
 &lt;/h2&gt;&lt;p&gt;面向对象的程序设计方法:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;将某类客观事物共同特点 (属性) 归纳出来, 形成一个数据结构 (可以用多个变量描述事物的属性);&lt;/li&gt;
@@ -2170,8 +2169,7 @@ $$&lt;div class=&#34;math-block&#34;&gt;
         <pubDate>Tue, 18 Feb 2025 00:00:00 +0000</pubDate>
         
         <guid>https://LeoDreamer2004.github.io/p/machine-learning/intro/</guid>
-        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/MachineLearning-1.pdf&#34; &gt;本节课件链接&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&#34;基础数学工具&#34;&gt;基础数学工具
+        <description>&lt;h2 id=&#34;基础数学工具&#34;&gt;基础数学工具
 &lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;随机变量 $X$ 的 &lt;strong&gt;期望&lt;/strong&gt; $E[X]$ 定义为&lt;/p&gt;
@@ -2309,7 +2307,6 @@ E_{T \sim D^{|T|}, \varepsilon \sim \Epsilon} [(h_T(x)-y)^2] = \text{Bias}^2(x) 
 $$&lt;p&gt;即泛化误差可以分解为偏差、方差和噪声三部分.&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;起初, 模型较为简单, 偏差在泛化误差起主导作用. 随着模型复杂度的增加, 拟合能力增强, 偏差减小, 但带来过拟合风险, 算法对数据扰动敏感, 方差增大. 方差占比逐渐增大, 最终导致泛化误差增大.&lt;/p&gt;
-&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/homework-1.pdf&#34; &gt;本节作业链接&lt;/a&gt;&lt;/p&gt;
 </description>
         </item>
         <item>
@@ -2318,9 +2315,7 @@ $$&lt;p&gt;即泛化误差可以分解为偏差、方差和噪声三部分.&lt;/
         <pubDate>Sat, 15 Feb 2025 00:00:00 +0000</pubDate>
         
         <guid>https://LeoDreamer2004.github.io/p/opt-method/opt-problem/</guid>
-        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://faculty.bicmr.pku.edu.cn/~wenzw/optbook/lect/06-opt-dzw-pku.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;本节课件链接&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&#34;凸优化&#34;&gt;凸优化
+        <description>&lt;h2 id=&#34;凸优化&#34;&gt;凸优化
 &lt;/h2&gt;&lt;p&gt;凸问题的可行集都是凸集.&lt;/p&gt;
 &lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
@@ -2505,9 +2500,7 @@ $$</description>
         <pubDate>Sat, 25 Jan 2025 00:00:00 +0000</pubDate>
         
         <guid>https://LeoDreamer2004.github.io/p/opt-method/convex-function/</guid>
-        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://faculty.bicmr.pku.edu.cn/~wenzw/optbook/lect/03_functions_newhyx.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;本节课件链接&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&#34;基本线性代数知识&#34;&gt;基本线性代数知识
+        <description>&lt;h2 id=&#34;基本线性代数知识&#34;&gt;基本线性代数知识
 &lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;给定函数 $f: \mathbb{R}^n \mapsto \mathbb{R}$, 且 $f$ 在 $x$ 一个邻域内有定义, 若存在 $g \in \mathbb{R}^n$, 使得&lt;/p&gt;
@@ -2770,9 +2763,7 @@ $$f(\theta x+(1-\theta)y \preceq_K \theta f(x)+(1-\theta)f(y))$$&lt;p&gt;
         <pubDate>Thu, 16 Jan 2025 00:00:00 +0000</pubDate>
         
         <guid>https://LeoDreamer2004.github.io/p/opt-method/convex-set/</guid>
-        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://faculty.bicmr.pku.edu.cn/~wenzw/optbook/lect/02-convex-set.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;本节课件链接&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&#34;范数&#34;&gt;范数
+        <description>&lt;h2 id=&#34;范数&#34;&gt;范数
 &lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;记号 $\Vert \cdot \Vert: \mathbb{R}^n \mapsto \mathbb{R}$ 称为 &lt;strong&gt;向量范数&lt;/strong&gt;, 若满足:&lt;/p&gt;
@@ -3000,9 +2991,7 @@ $$&lt;p&gt;为 $C$ 的 &lt;strong&gt;支撑超平面&lt;/strong&gt;.&lt;/p&gt;
         <pubDate>Sun, 12 Jan 2025 00:00:00 +0000</pubDate>
         
         <guid>https://LeoDreamer2004.github.io/p/opt-method/intro/</guid>
-        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://faculty.bicmr.pku.edu.cn/~wenzw/optbook/lect/01-opt-pku.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;本节课件链接&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&#34;概要&#34;&gt;概要
+        <description>&lt;h2 id=&#34;概要&#34;&gt;概要
 &lt;/h2&gt;&lt;p&gt;最优化问题的一般形式:&lt;/p&gt;
 $$
 \begin{aligned}

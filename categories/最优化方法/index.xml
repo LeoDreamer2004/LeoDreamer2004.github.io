@@ -7,15 +7,23 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>LeoDreamer</copyright>
-        <lastBuildDate>Sat, 15 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/%E6%9C%80%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 23 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/%E6%9C%80%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>最优化方法(5) —— 最优性理论</title>
+        <link>https://LeoDreamer2004.github.io/p/opt-method/opt-theory/</link>
+        <pubDate>Sun, 23 Mar 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/p/opt-method/opt-theory/</guid>
+        <description>&lt;h2 id=&#34;最优性理论&#34;&gt;最优性理论
+&lt;/h2&gt;&lt;h2 id=&#34;dsadd&#34;&gt;dsadd
+&lt;/h2&gt;</description>
+        </item>
+        <item>
         <title>最优化方法(4) —— 优化问题</title>
         <link>https://LeoDreamer2004.github.io/p/opt-method/opt-problem/</link>
         <pubDate>Sat, 15 Feb 2025 00:00:00 +0000</pubDate>
         
         <guid>https://LeoDreamer2004.github.io/p/opt-method/opt-problem/</guid>
-        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://faculty.bicmr.pku.edu.cn/~wenzw/optbook/lect/06-opt-dzw-pku.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;本节课件链接&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&#34;凸优化&#34;&gt;凸优化
+        <description>&lt;h2 id=&#34;凸优化&#34;&gt;凸优化
 &lt;/h2&gt;&lt;p&gt;凸问题的可行集都是凸集.&lt;/p&gt;
 &lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
@@ -200,9 +208,7 @@ $$</description>
         <pubDate>Sat, 25 Jan 2025 00:00:00 +0000</pubDate>
         
         <guid>https://LeoDreamer2004.github.io/p/opt-method/convex-function/</guid>
-        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://faculty.bicmr.pku.edu.cn/~wenzw/optbook/lect/03_functions_newhyx.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;本节课件链接&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&#34;基本线性代数知识&#34;&gt;基本线性代数知识
+        <description>&lt;h2 id=&#34;基本线性代数知识&#34;&gt;基本线性代数知识
 &lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;给定函数 $f: \mathbb{R}^n \mapsto \mathbb{R}$, 且 $f$ 在 $x$ 一个邻域内有定义, 若存在 $g \in \mathbb{R}^n$, 使得&lt;/p&gt;
@@ -465,9 +471,7 @@ $$f(\theta x+(1-\theta)y \preceq_K \theta f(x)+(1-\theta)f(y))$$&lt;p&gt;
         <pubDate>Thu, 16 Jan 2025 00:00:00 +0000</pubDate>
         
         <guid>https://LeoDreamer2004.github.io/p/opt-method/convex-set/</guid>
-        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://faculty.bicmr.pku.edu.cn/~wenzw/optbook/lect/02-convex-set.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;本节课件链接&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&#34;范数&#34;&gt;范数
+        <description>&lt;h2 id=&#34;范数&#34;&gt;范数
 &lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;记号 $\Vert \cdot \Vert: \mathbb{R}^n \mapsto \mathbb{R}$ 称为 &lt;strong&gt;向量范数&lt;/strong&gt;, 若满足:&lt;/p&gt;
@@ -695,9 +699,7 @@ $$&lt;p&gt;为 $C$ 的 &lt;strong&gt;支撑超平面&lt;/strong&gt;.&lt;/p&gt;
         <pubDate>Sun, 12 Jan 2025 00:00:00 +0000</pubDate>
         
         <guid>https://LeoDreamer2004.github.io/p/opt-method/intro/</guid>
-        <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://faculty.bicmr.pku.edu.cn/~wenzw/optbook/lect/01-opt-pku.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;本节课件链接&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&#34;概要&#34;&gt;概要
+        <description>&lt;h2 id=&#34;概要&#34;&gt;概要
 &lt;/h2&gt;&lt;p&gt;最优化问题的一般形式:&lt;/p&gt;
 $$
 \begin{aligned}

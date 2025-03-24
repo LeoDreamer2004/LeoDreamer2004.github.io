@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="本节课件链接\n特征的分类能力评估 定义\n给定数据集 $D=\\{(x_i,y_i)\\}_{i=1}^N$, 其中 $x_i=\\left(x_i^{(1)},x_i^{(2)},\\cdots,x_i^{(m)}\\right) \\in \\mathcal{X}$ 是第 $i$ 个样本的特征向量, $y_i \\in \\mathcal{Y}=\\{c_1,c_2,\\cdots,c_K\\}$ 是第 $i$ 个样本的标签. 假设数据集 $D$ 根据特征分成了 $K$ 个子集 $D_1,D_2,\\cdots,D_K$, 定义 经验熵 为\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="特征的分类能力评估 定义\n给定数据集 $D=\\{(x_i,y_i)\\}_{i=1}^N$, 其中 $x_i=\\left(x_i^{(1)},x_i^{(2)},\\cdots,x_i^{(m)}\\right) \\in \\mathcal{X}$ 是第 $i$ 个样本的特征向量, $y_i \\in \\mathcal{Y}=\\{c_1,c_2,\\cdots,c_K\\}$ 是第 $i$ 个样本的标签. 假设数据集 $D$ 根据特征分成了 $K$ 个子集 $D_1,D_2,\\cdots,D_K$, 定义 经验熵 为\n">
 <title>机器学习基础(5) —— 决策树模型</title>
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning/decision-tree/'>
 
-<link rel="stylesheet" href="/scss/style.min.024b08d9fc4bc80520fd2c834f6dcc0eab54502285a7be43faba5647a61606c0.css"><meta property='og:title' content="机器学习基础(5) —— 决策树模型">
-<meta property='og:description' content="本节课件链接\n特征的分类能力评估 定义\n给定数据集 $D=\\{(x_i,y_i)\\}_{i=1}^N$, 其中 $x_i=\\left(x_i^{(1)},x_i^{(2)},\\cdots,x_i^{(m)}\\right) \\in \\mathcal{X}$ 是第 $i$ 个样本的特征向量, $y_i \\in \\mathcal{Y}=\\{c_1,c_2,\\cdots,c_K\\}$ 是第 $i$ 个样本的标签. 假设数据集 $D$ 根据特征分成了 $K$ 个子集 $D_1,D_2,\\cdots,D_K$, 定义 经验熵 为\n">
+<link rel="stylesheet" href="/scss/style.min.cc07bbb48134d09ba244262cc9d4c100e03558fa2c686f9266b0a04e5ea3bb89.css"><meta property='og:title' content="机器学习基础(5) —— 决策树模型">
+<meta property='og:description' content="特征的分类能力评估 定义\n给定数据集 $D=\\{(x_i,y_i)\\}_{i=1}^N$, 其中 $x_i=\\left(x_i^{(1)},x_i^{(2)},\\cdots,x_i^{(m)}\\right) \\in \\mathcal{X}$ 是第 $i$ 个样本的特征向量, $y_i \\in \\mathcal{Y}=\\{c_1,c_2,\\cdots,c_K\\}$ 是第 $i$ 个样本的标签. 假设数据集 $D$ 根据特征分成了 $K$ 个子集 $D_1,D_2,\\cdots,D_K$, 定义 经验熵 为\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning/decision-tree/'>
 <meta property='og:site_name' content='LeoDreamer'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-03-18T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-18T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="机器学习基础(5) —— 决策树模型">
-<meta name="twitter:description" content="本节课件链接\n特征的分类能力评估 定义\n给定数据集 $D=\\{(x_i,y_i)\\}_{i=1}^N$, 其中 $x_i=\\left(x_i^{(1)},x_i^{(2)},\\cdots,x_i^{(m)}\\right) \\in \\mathcal{X}$ 是第 $i$ 个样本的特征向量, $y_i \\in \\mathcal{Y}=\\{c_1,c_2,\\cdots,c_K\\}$ 是第 $i$ 个样本的标签. 假设数据集 $D$ 根据特征分成了 $K$ 个子集 $D_1,D_2,\\cdots,D_K$, 定义 经验熵 为\n">
+<meta name="twitter:description" content="特征的分类能力评估 定义\n给定数据集 $D=\\{(x_i,y_i)\\}_{i=1}^N$, 其中 $x_i=\\left(x_i^{(1)},x_i^{(2)},\\cdots,x_i^{(m)}\\right) \\in \\mathcal{X}$ 是第 $i$ 个样本的特征向量, $y_i \\in \\mathcal{Y}=\\{c_1,c_2,\\cdots,c_K\\}$ 是第 $i$ 个样本的标签. 假设数据集 $D$ 根据特征分成了 $K$ 个子集 $D_1,D_2,\\cdots,D_K$, 定义 经验熵 为\n">
     </head>
     <body class="
     article-page
@@ -219,6 +219,38 @@
         
             
                 
+
+    <section class="widget related-links">
+
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">相关材料</h2>
+
+        <div class="widget--related-links">
+             <ul>
+    
+        <li>
+            <a href="/materials/machine-learning/MachineLearning-5.pdf" target="_blank" rel="noopener noreferrer">
+                本节课件
+            </a>
+        </li>
+    
+</ul>
+        </div>
+    </section>
+
+            
+        
+            
+                
     <section class="widget archives">
         <div class="widget-icon">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -243,6 +275,7 @@
 </nav>
         </div>
     </section>
+
 
             
         
@@ -326,8 +359,7 @@
     <section class="article-content">
     
     
-    <p><a class="link" href="/materials/machine-learning/MachineLearning-5.pdf" >本节课件链接</a></p>
-<h2 id="特征的分类能力评估">特征的分类能力评估
+    <h2 id="特征的分类能力评估">特征的分类能力评估
 </h2><div class="math-block">
     <p class="math-block-title math-def">定义</p>
 <p>给定数据集 $D=\{(x_i,y_i)\}_{i=1}^N$, 其中 $x_i=\left(x_i^{(1)},x_i^{(2)},\cdots,x_i^{(m)}\right) \in \mathcal{X}$ 是第 $i$ 个样本的特征向量, $y_i \in \mathcal{Y}=\{c_1,c_2,\cdots,c_K\}$ 是第 $i$ 个样本的标签. 假设数据集 $D$ 根据特征分成了 $K$ 个子集 $D_1,D_2,\cdots,D_K$, 定义 <strong>经验熵</strong> 为</p>
@@ -512,12 +544,12 @@ $$<p>从现在来看, 决策树构造过程中划分的单元都是矩形的, �
             
                 
 <article class="">
-    <a href="/p/opt-method/opt-problem/">
+    <a href="/p/opt-method/opt-theory/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">最优化方法(4) —— 优化问题</h2>
+            <h2 class="article-title">最优化方法(5) —— 最优性理论</h2>
         </div>
     </a>
 </article>
@@ -630,7 +662,7 @@ $$<p>从现在来看, 决策树构造过程中划分的单元都是矩形的, �
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.d6f304cd2b2aa3010daa4b1278b11d68cbea5ea438f1d1288e214fac59f6b9bd.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.95e0c918db7be1cae7f7778435911a6882f2716929055a64c4aa979f73d2dbfc.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');
