@@ -13,9 +13,214 @@
         <pubDate>Sun, 23 Mar 2025 00:00:00 +0000</pubDate>
         
         <guid>https://LeoDreamer2004.github.io/p/opt-method/opt-theory/</guid>
-        <description>&lt;h2 id=&#34;最优性理论&#34;&gt;最优性理论
-&lt;/h2&gt;&lt;h2 id=&#34;dsadd&#34;&gt;dsadd
-&lt;/h2&gt;</description>
+        <description>&lt;h2 id=&#34;对偶理论&#34;&gt;对偶理论
+&lt;/h2&gt;&lt;p&gt;对于一般的约束优化问题:&lt;/p&gt;
+$$
+\begin{aligned}
+\min \quad &amp; f(x) \\
+\text{s.t.} \quad &amp; c_i(x) \leq 0, \quad i \in \mathcal{I} \\
+&amp; c_i(x) = 0, \quad i \in \mathcal{E}
+\end{aligned}
+$$&lt;p&gt;Lagrange 函数为:&lt;/p&gt;
+$$
+L(x, \lambda, \nu) = f(x) + \sum_{i \in \mathcal{I}} \lambda_i c_i(x) + \sum_{i \in \mathcal{E}} \nu_i c_i(x)
+$$&lt;p&gt;其中 $\lambda_i \ge 0$.&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Lagrange 对偶函数&lt;/strong&gt; $g: \mathbb{R}_+^m \times \mathbb{R}^p \to [-\infty, +\infty)$ 定义为:&lt;/p&gt;
+$$
+g(\lambda, \nu) = \inf_{x \in \mathbb{R}^n} L(x, \lambda, \nu)
+$$&lt;/div&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;弱对偶原理&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;若 $\lambda \ge 0$, 则 $g(\lambda, \nu) \le p^*$.&lt;/p&gt;
+&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
+&lt;p&gt;对 $x_0 \in \mathcal{X}$, 有:&lt;/p&gt;
+$$
+g(\lambda, \nu) = \inf_{x \in \mathbb{R}^n} L(x, \lambda, \nu) \le L(x_0, \lambda, \nu) \le f(x_0)
+$$&lt;p&gt;对 $x_0$ 取 $\inf$ 得到&lt;/p&gt;
+$$
+g(\lambda, \nu) \le \inf_{x \in \mathcal{X}} f(x) = p^*
+$$&lt;/div&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Lagrange 对偶问题&lt;/strong&gt; 形式如下:&lt;/p&gt;
+$$
+\max_{\lambda \ge 0, \nu} g(\lambda, \nu)= \max_{\lambda \ge 0, \nu} \inf_{x \in \mathbb{R}^n} L(x, \lambda, \nu)
+$$&lt;p&gt;称 $\lambda, \nu$ 为对偶变量, 设最优值为 $q^*$. $q^*$ 是 $p^*$ 的最优下界, 称 $p^*-q^*$ 为对偶间隙.&lt;/p&gt;
+&lt;/div&gt;
+&lt;h3 id=&#34;示例-线性规划问题&#34;&gt;示例: 线性规划问题
+&lt;/h3&gt;$$
+\begin{aligned}
+\min \quad &amp; c^T x \\
+\text{s.t.} \quad &amp; Ax = b \\
+&amp; x \ge 0
+\end{aligned}
+$$&lt;p&gt;Lagrange 函数为:&lt;/p&gt;
+$$
+\begin{aligned}
+L(x, \lambda, \nu) &amp;= c^T x + \lambda^T (Ax - b) - \nu^T x \\
+&amp;= -b^T \lambda + (c + A^T \lambda - \nu)^T x
+\end{aligned}
+$$&lt;p&gt;对偶函数:&lt;/p&gt;
+$$
+g(\lambda, \nu) = \inf_{x \ge 0} L(x, \lambda, \nu) =
+\begin{cases}
+-b^T \lambda, &amp; c + A^T \lambda - \nu = 0 \\
+-\infty, &amp; \text{otherwise}
+\end{cases}
+$$&lt;p&gt;对偶问题为:&lt;/p&gt;
+$$
+\begin{aligned}
+\max \quad &amp; -b^T \lambda \\
+\text{s.t.} \quad &amp; c + A^T \lambda - \nu = 0 \\
+&amp; \nu \ge 0
+\end{aligned}
+$$&lt;p&gt;可以计算证明, 线性规划问题和对偶问题互为对偶.&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;强对偶性&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;若一个线性规划问题有最优解, 则其对偶问题有最优解, 且最优值相等.&lt;/p&gt;
+&lt;/div&gt;
+&lt;h3 id=&#34;示例-范数最小化问题&#34;&gt;示例: 范数最小化问题
+&lt;/h3&gt;$$
+\begin{aligned}
+\min \quad &amp; \|x\| \\
+\text{s.t.} \quad &amp; Ax = b
+\end{aligned}
+$$&lt;p&gt;对偶函数:&lt;/p&gt;
+$$
+g(\nu) = \inf_x(\|X\| - \nu^T (Ax - b)) =
+\begin{cases}
+b^T\nu, &amp; \|A^T \nu\|_* \le 1 \\
+-\infty, &amp; \text{otherwise}
+\end{cases}
+$$&lt;p&gt;其中 $\|v\|_*=\sup_{\|x\|\le 1} x^T v$ 为 $v$ 的对偶范数 (关于为什么自证). 因此对偶问题为:&lt;/p&gt;
+$$
+\begin{aligned}
+\max \quad &amp; b^T \nu \\
+\text{s.t.} \quad &amp; \|A^T \nu\|_* \le 1
+\end{aligned}
+$$&lt;h3 id=&#34;示例-最大割问题&#34;&gt;示例: 最大割问题
+&lt;/h3&gt;&lt;p&gt;上回说到, 最大割问题可以写成:&lt;/p&gt;
+$$
+\begin{aligned}
+\max \quad &amp; x^T W x \\
+\text{s.t.} \quad &amp; x_i^2 = 1
+\end{aligned}
+$$&lt;p&gt;首先加负号变成 $\min$, Lagrange 函数为:&lt;/p&gt;
+$$
+\begin{aligned}
+L(x, y) &amp;= -x^T W x + \sum_{i=1}^n y_i (x_i^2 - 1) \\
+&amp;= x^T(\text{diag}(y) - W) x - \mathbf{1}^T y
+\end{aligned}
+$$&lt;p&gt;对偶函数:&lt;/p&gt;
+$$
+g(y) = \inf_x L(x, y) =
+\begin{cases}
+-\mathbf{1}^T y, &amp; \text{diag}(y) - W \succeq 0 \\
+-\infty, &amp; \text{otherwise}
+\end{cases}
+$$&lt;p&gt;对偶问题为:&lt;/p&gt;
+$$
+\begin{aligned}
+\max \quad &amp; -\mathbf{1}^T y \\
+\text{s.t.} \quad &amp; \text{diag}(y) - W \succeq 0
+\end{aligned}
+$$&lt;h3 id=&#34;示例-共轭函数&#34;&gt;示例: 共轭函数
+&lt;/h3&gt;$$
+\begin{aligned}
+\min \quad &amp; f(x) \\
+\text{s.t.} \quad &amp; Ax \le b \\
+&amp; Cx = d
+\end{aligned}
+$$&lt;p&gt;对偶函数:&lt;/p&gt;
+$$
+\begin{aligned}
+g(\lambda, \nu) &amp;= \inf_x(f(x) + \lambda^T (Ax - b) + \nu^T (Cx - d)) \\
+&amp;=\inf_x(f(x) + (A^T \lambda + C^T \nu)^T x - b^T \lambda - d^T \nu) \\
+&amp;=-f^*(-A^T \lambda - C^T \nu) - b^T \lambda - d^T \nu
+\end{aligned}
+$$&lt;p&gt;其中 $f^*(v) = \sup_x(x^T v - f(x))$ 为 $f$ 的共轭函数.&lt;/p&gt;
+&lt;h2 id=&#34;对偶性&#34;&gt;对偶性
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;弱对偶性&lt;/strong&gt;: $d^* \le p^*$. 对一般约束优化问题成立.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;强对偶性&lt;/strong&gt;: $d^* = p^*$, 一般不成立, 但通常对凸优化问题成立.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;称保证凸问题强对偶性成立的条件为 &lt;strong&gt;约束品性&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;改写问题形式&#34;&gt;改写问题形式
+&lt;/h2&gt;&lt;p&gt;当对偶问题难以推导或没有价值时, 可以尝试改写原问题的形式.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;引入新变量与等式约束;&lt;/li&gt;
+&lt;li&gt;将显式约束隐式化或将隐式约束显式化;&lt;/li&gt;
+&lt;li&gt;改变目标函数或者约束函数的形式. 例如, 用 $\phi(f(x))$ 取代 $f(x)$, 其中 $\phi$ 是凸的增函数.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;示例-函数值最小化问题&#34;&gt;示例: 函数值最小化问题
+&lt;/h3&gt;$$
+\min f(Ax+b)
+$$&lt;p&gt;直接做对偶是常数, 没有意义. 可以改写为:&lt;/p&gt;
+$$
+\begin{aligned}
+\min \quad &amp; f(y) \\
+\text{s.t.} \quad &amp; y = Ax + b
+\end{aligned}
+$$&lt;p&gt;对偶问题为:&lt;/p&gt;
+$$
+\begin{aligned}
+\max \quad &amp; b^T \nu-f^*(\nu)  \\
+\text{s.t.} \quad &amp; A^T \nu = 0
+\end{aligned}
+$$&lt;h3 id=&#34;示例-范数逼近问题&#34;&gt;示例: 范数逼近问题
+&lt;/h3&gt;$$
+\min \|Ax-b\|_2
+$$&lt;p&gt;改写成:&lt;/p&gt;
+$$
+\begin{aligned}
+\min \quad &amp; \|y\| \\
+\text{s.t.} \quad &amp; y = Ax - b
+\end{aligned}
+$$&lt;p&gt;对偶函数:&lt;/p&gt;
+$$
+\begin{aligned}
+g(\nu) &amp;= \inf_{x,y}(\|y\| + \nu^Ty - \nu^TAx + \nu^Tb) \\
+&amp;= \begin{cases}
+\nu^T b + \inf_y(\|y\| + \nu^Ty), &amp; A^T \nu = 0 \\
+-\infty, &amp; \text{otherwise}
+\end{cases} \\
+&amp;= \begin{cases}
+\nu^T b, &amp; A^T \nu = 0, \|\nu\|_* \le 1 \\
+-\infty, &amp; \text{otherwise}
+\end{cases}
+\end{aligned}
+$$&lt;p&gt;对偶问题为:&lt;/p&gt;
+$$
+\begin{aligned}
+\max \quad &amp; \nu^T b \\
+\text{s.t.} \quad &amp; A^T \nu = 0 \\
+&amp; \|\nu\|_* \le 1
+\end{aligned}
+$$&lt;h3 id=&#34;示例-l1-正则化问题&#34;&gt;示例: L1 正则化问题
+&lt;/h3&gt;$$
+\min_{x\in \mathbb{R}^n} \frac{1}{2}\|Ax-b\|^2 + \mu \|x\|_1
+$$&lt;p&gt;改写成:&lt;/p&gt;
+$$
+\begin{aligned}
+\min \quad &amp; \frac{1}{2}\|r\|^2 + \mu \|x\|_1 \\
+\text{s.t.} \quad &amp; r = Ax - b
+\end{aligned}
+$$&lt;p&gt;对偶函数:&lt;/p&gt;
+$$
+\begin{aligned}
+g(\nu) &amp;= \inf_{x,r}\left(\frac{1}{2}\|r\|_2^2 + \mu \|x\|_1 + \lambda^T(r-Ax+b)\right) \\
+&amp;= \inf_{x,r}\left(\frac{1}{2}\|r\|^2 + \lambda^Tr + \mu \|x\|_1 - (A^T\lambda)^Tx + b^T\lambda\right) \\
+&amp;= \begin{cases}
+b^T \lambda - \frac{1}{2} \| \lambda \|^2, &amp; \| A^T \lambda \|_{\infty} = \mu \\
+-\infty, &amp; \text{otherwise}
+\end{cases}
+\end{aligned}
+$$</description>
         </item>
         <item>
         <title>最优化方法(4) —— 优化问题</title>
