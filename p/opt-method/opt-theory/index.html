@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/opt-method/opt-theory/'>
 
-<link rel="stylesheet" href="/scss/style.min.cc07bbb48134d09ba244262cc9d4c100e03558fa2c686f9266b0a04e5ea3bb89.css"><meta property='og:title' content="最优化方法(5) —— 最优性理论">
+<link rel="stylesheet" href="/scss/style.min.88a9b05662e5df1c942bb6477cd68790de88a6075a7b430d619b1370d5cf45b0.css"><meta property='og:title' content="最优化方法(5) —— 最优性理论">
 <meta property='og:description' content="对偶理论 对于一般的约束优化问题:\n$$ \\begin{aligned} \\min \\quad & f(x) \\\\ \\text{s.t.} \\quad & c_i(x) \\leq 0, \\quad i \\in \\mathcal{I} \\\\ & c_i(x) = 0, \\quad i \\in \\mathcal{E} \\end{aligned} $$Lagrange 函数为:\n$$ L(x, \\lambda, \\nu) = f(x) + \\sum_{i \\in \\mathcal{I}} \\lambda_i c_i(x) + \\sum_{i \\in \\mathcal{E}} \\nu_i c_i(x) $$其中 $\\lambda_i \\ge 0$.\n定义\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/opt-method/opt-theory/'>
 <meta property='og:site_name' content='LeoDreamer'>
@@ -283,8 +283,12 @@
         <li><a href="#示例-函数值最小化问题">示例: 函数值最小化问题</a></li>
         <li><a href="#示例-范数逼近问题">示例: 范数逼近问题</a></li>
         <li><a href="#示例-l1-正则化问题">示例: L1 正则化问题</a></li>
+        <li><a href="#示例-带边界约束的线性规划问题">示例: 带边界约束的线性规划问题</a></li>
+        <li><a href="#示例-广义不等式约束优化问题">示例: 广义不等式约束优化问题</a></li>
+        <li><a href="#示例-半定规划问题">示例: 半定规划问题</a></li>
       </ol>
     </li>
+    <li><a href="#带约束凸优化问题的最优性理论">带约束凸优化问题的最优性理论</a></li>
   </ol>
 </nav>
         </div>
@@ -358,7 +362,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 3 分钟
+                    阅读时长: 5 分钟
                 </time>
             </div>
         
@@ -407,7 +411,7 @@ $$</div>
 <p><strong>Lagrange 对偶问题</strong> 形式如下:</p>
 $$
 \max_{\lambda \ge 0, \nu} g(\lambda, \nu)= \max_{\lambda \ge 0, \nu} \inf_{x \in \mathbb{R}^n} L(x, \lambda, \nu)
-$$<p>称 $\lambda, \nu$ 为对偶变量, 设最优值为 $q^*$. $q^*$ 是 $p^*$ 的最优下界, 称 $p^*-q^*$ 为对偶间隙.</p>
+$$<p>称 $\lambda, \nu$ 为对偶变量, 设最优值为 $q^*$. $q^*$ 是 $p^*$ 的最优下界, 称 $p^*-q^*$ 为 <strong>对偶间隙</strong>.</p>
 </div>
 <h3 id="示例-线性规划问题">示例: 线性规划问题
 </h3>$$
@@ -429,7 +433,7 @@ g(\lambda, \nu) = \inf_{x \ge 0} L(x, \lambda, \nu) =
 -b^T \lambda, & c + A^T \lambda - \nu = 0 \\
 -\infty, & \text{otherwise}
 \end{cases}
-$$<p>对偶问题为:</p>
+$$<p>对偶问题:</p>
 $$
 \begin{aligned}
 \max \quad & -b^T \lambda \\
@@ -437,10 +441,6 @@ $$
 & \nu \ge 0
 \end{aligned}
 $$<p>可以计算证明, 线性规划问题和对偶问题互为对偶.</p>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理<span class="math-subtitle">强对偶性</span></p>
-<p>若一个线性规划问题有最优解, 则其对偶问题有最优解, 且最优值相等.</p>
-</div>
 <h3 id="示例-范数最小化问题">示例: 范数最小化问题
 </h3>$$
 \begin{aligned}
@@ -454,7 +454,7 @@ g(\nu) = \inf_x(\|X\| - \nu^T (Ax - b)) =
 b^T\nu, & \|A^T \nu\|_* \le 1 \\
 -\infty, & \text{otherwise}
 \end{cases}
-$$<p>其中 $\|v\|_*=\sup_{\|x\|\le 1} x^T v$ 为 $v$ 的对偶范数 (关于为什么自证). 因此对偶问题为:</p>
+$$<p>其中 $\|v\|_*=\sup_{\|x\|\le 1} x^T v$ 为 $v$ 的对偶范数 (关于为什么自证). 因此对偶问题:</p>
 $$
 \begin{aligned}
 \max \quad & b^T \nu \\
@@ -480,11 +480,29 @@ g(y) = \inf_x L(x, y) =
 -\mathbf{1}^T y, & \text{diag}(y) - W \succeq 0 \\
 -\infty, & \text{otherwise}
 \end{cases}
-$$<p>对偶问题为:</p>
+$$<p>对偶问题:</p>
 $$
 \begin{aligned}
 \max \quad & -\mathbf{1}^T y \\
 \text{s.t.} \quad & \text{diag}(y) - W \succeq 0
+\end{aligned}
+$$<p>再来考虑这个对偶问题的对偶问题.</p>
+<p>对偶函数:</p>
+$$
+\begin{aligned}
+g(X)&=\inf_y(\mathbf{1}^Ty) - \left<\text{diag}(y) - W, X\right> \\
+&= \inf \left(\sum_{i=1}^n (1-X_{ii})y_i + \left< W, X \right> \right) \\
+&= \begin{cases}
+\left< W, X \right>, & X_{ii} = 1, i = 1, \ldots, n \\
+-\infty, & \text{otherwise}
+\end{cases}
+\end{aligned}
+$$<p>对偶问题:</p>
+$$
+\begin{aligned}
+\max \quad & \left< W, X \right> \\
+\text{s.t.} \quad & X_{ii} = 1, i = 1, \ldots, n \\
+& X \succeq 0
 \end{aligned}
 $$<h3 id="示例-共轭函数">示例: 共轭函数
 </h3>$$
@@ -502,14 +520,29 @@ g(\lambda, \nu) &= \inf_x(f(x) + \lambda^T (Ax - b) + \nu^T (Cx - d)) \\
 \end{aligned}
 $$<p>其中 $f^*(v) = \sup_x(x^T v - f(x))$ 为 $f$ 的共轭函数.</p>
 <h2 id="对偶性">对偶性
-</h2><ul>
-<li><strong>弱对偶性</strong>: $d^* \le p^*$. 对一般约束优化问题成立.</li>
-<li><strong>强对偶性</strong>: $d^* = p^*$, 一般不成立, 但通常对凸优化问题成立.</li>
-</ul>
-<div class="math-block">
+</h2><div class="math-block">
     <p class="math-block-title math-def">定义</p>
+<ul>
+<li><strong>弱对偶性</strong>: $d^* \le p^*$. 对一般约束优化问题成立.</li>
+<li><strong>强对偶性</strong>: $d^* = p^*$, 且若一个线性规划问题有最优解, 则其对偶问题有最优解, 且最优值相等. 一般不成立, 但通常对凸优化问题成立.</li>
+</ul>
 <p>称保证凸问题强对偶性成立的条件为 <strong>约束品性</strong>.</p>
 </div>
+<p>考虑下面这个不满足强对偶性的例子.</p>
+$$
+\begin{aligned}  
+\min \quad & x_0-x_1 \\
+\text{s.t.} \quad & x_0 \ge \sqrt{x_1^2+1}
+\end{aligned}
+$$<p>显然, $x_0-x_1 > 0$, 但当 $x_0 \to \infty$ 时, $x_0-x_1 \to 0$, 因此 $p^* = 0$, 但是不可达. 而对偶问题是:</p>
+$$
+\begin{aligned}
+\max \quad & \lambda \\
+\text{s.t.} \quad & 1 \ge \sqrt{1 + \lambda^2}
+\end{aligned}
+$$<p>
+因此 $\lambda \le 0$, $d^* = 0$. 虽然 $d^* = p^*$, 但原问题是没有最优解的.</p>
+<p>当然, 也有使得 $p^* \ne d^*$ 的例子.</p>
 <h2 id="改写问题形式">改写问题形式
 </h2><p>当对偶问题难以推导或没有价值时, 可以尝试改写原问题的形式.</p>
 <ul>
@@ -517,6 +550,7 @@ $$<p>其中 $f^*(v) = \sup_x(x^T v - f(x))$ 为 $f$ 的共轭函数.</p>
 <li>将显式约束隐式化或将隐式约束显式化;</li>
 <li>改变目标函数或者约束函数的形式. 例如, 用 $\phi(f(x))$ 取代 $f(x)$, 其中 $\phi$ 是凸的增函数.</li>
 </ul>
+<p>先来看几个引入等式约束的例子.</p>
 <h3 id="示例-函数值最小化问题">示例: 函数值最小化问题
 </h3>$$
 \min f(Ax+b)
@@ -526,7 +560,7 @@ $$
 \min \quad & f(y) \\
 \text{s.t.} \quad & y = Ax + b
 \end{aligned}
-$$<p>对偶问题为:</p>
+$$<p>对偶问题:</p>
 $$
 \begin{aligned}
 \max \quad & b^T \nu-f^*(\nu)  \\
@@ -554,7 +588,7 @@ g(\nu) &= \inf_{x,y}(\|y\| + \nu^Ty - \nu^TAx + \nu^Tb) \\
 -\infty, & \text{otherwise}
 \end{cases}
 \end{aligned}
-$$<p>对偶问题为:</p>
+$$<p>对偶问题:</p>
 $$
 \begin{aligned}
 \max \quad & \nu^T b \\
@@ -576,11 +610,111 @@ $$
 g(\nu) &= \inf_{x,r}\left(\frac{1}{2}\|r\|_2^2 + \mu \|x\|_1 + \lambda^T(r-Ax+b)\right) \\
 &= \inf_{x,r}\left(\frac{1}{2}\|r\|^2 + \lambda^Tr + \mu \|x\|_1 - (A^T\lambda)^Tx + b^T\lambda\right) \\
 &= \begin{cases}
-b^T \lambda - \frac{1}{2} \| \lambda \|^2, & \| A^T \lambda \|_{\infty} = \mu \\
+b^T \lambda - \frac{1}{2} \| \lambda \|^2, & \| A^T \lambda \|_{\infty} \le \mu \\
 -\infty, & \text{otherwise}
 \end{cases}
 \end{aligned}
+$$<p>对偶问题:</p>
 $$
+\begin{aligned}
+\max \quad & b^T \lambda - \frac{1}{2} \| \lambda \|^2 \\
+\text{s.t.} \quad & \| A^T \lambda \|_{\infty} \le \mu
+\end{aligned}
+$$<p>现在考虑显式和隐式约束转化的例子.</p>
+<h3 id="示例-带边界约束的线性规划问题">示例: 带边界约束的线性规划问题
+</h3>$$
+\begin{aligned}
+\min \quad & c^T x \\
+\text{s.t.} \quad & Ax = b \\
+& -\mathbf{1} \le x \le \mathbf{1}
+\end{aligned}
+$$<p>我们把边界要求隐藏在目标函数中:</p>
+$$
+\begin{aligned}
+\min \quad & f(x) =\begin{cases}
+c^T x, & -\mathbf{1} \le x \le \mathbf{1} \\
++\infty, & \text{otherwise}
+\end{cases} \\
+\text{s.t.} \quad & Ax = b
+\end{aligned}
+$$<p>对偶函数:</p>
+$$
+\begin{aligned}
+g(\nu) &= \inf_{-\mathbf{1} \le x \le \mathbf{1}}(c^Tx+\nu^T(Ax-b)) \\
+&= -b^T \nu - \|A^T \nu + c\|_1
+\end{aligned}
+$$<p>对偶问题:</p>
+$$
+\begin{aligned}
+\max \quad & -b^T \nu - \|A^T \nu + c\|_1 \\
+\text{s.t.} \quad & \nu \ge 0
+\end{aligned}
+$$<h3 id="示例-广义不等式约束优化问题">示例: 广义不等式约束优化问题
+</h3>$$
+\begin{aligned}
+\min \quad & f(x) \\
+\text{s.t.} \quad & c_i(x) \preceq_{K_i} 0, \quad i \in \mathcal{I} \\
+& c_i(x) = 0, \quad i \in \mathcal{E}
+\end{aligned}
+$$<p>其中对于 $i \in \mathcal{I}$, $c_i: \mathbb{R}^n \to \mathbb{R}^{k_i}$ 是向量值函数, $K_i$ 是适当锥. 对于 $i \in \mathcal{E}$, $c_i: \mathbb{R}^n \to \mathbb{R}$ 是标量函数. 实际上这种情况下, 其 Lagrange 函数为:</p>
+$$
+L(x, \lambda, \nu) = f(x) + \sum_{i \in \mathcal{I}} \left<\lambda_i, c_i(x)\right> + \sum_{i \in \mathcal{E}} \nu_i c_i(x), \quad \lambda_i \in K_i^*
+$$<p>这里 $K_i^*$ 是 $K_i$ 的对偶锥. 此时也依然满足 $L(x, \lambda, \nu) \le f(x)$. 对偶问题依然是 $\max_{\lambda \in K_i^*, \nu} g(\lambda, \nu)$.</p>
+<h3 id="示例-半定规划问题">示例: 半定规划问题
+</h3>$$
+\begin{aligned}
+\min \quad & \left< C, X \right> \\
+\text{s.t.} \quad & \left< A_i, X \right> = b_i, \quad i = 1, \ldots, m \\
+& X \succeq 0
+\end{aligned}
+$$<p>对偶函数:</p>
+$$
+\begin{aligned}
+g(\lambda, \nu) &= \inf_X \left( \left< C, X \right> + \sum_{i=1}^m \lambda_i (\left< A_i, X \right> - b_i) - \left<\nu,X\right> \right) \\
+&= \begin{cases}
+b^T\lambda, & \sum_{i=1}^m \lambda_i A_i - C +\nu \succeq 0 \\
+-\infty, & \text{otherwise}
+\end{cases}
+\end{aligned}
+$$<p>对偶问题:</p>
+$$
+\max \quad b^T\lambda \\
+\text{s.t.} \quad \sum_{i=1}^m \lambda_i A_i - C +\nu \succeq 0
+$$<p>可以证明, 半定规划问题和对偶问题互为对偶.</p>
+<h2 id="带约束凸优化问题的最优性理论">带约束凸优化问题的最优性理论
+</h2><p>综合来看, 前面的问题其实都可以写成如下的形式:</p>
+$$
+\begin{aligned}
+\min \quad & f(x) \\
+\text{s.t.} \quad & Ax = b \\
+& c_i(x) \le 0, i=1, \ldots, m
+\end{aligned}
+$$<p>其中 $f(x)$ 为适当的凸函数, $c_i(x)$ 也是凸函数且 $\text{dom} c_i = \mathbb{R}^n$.</p>
+<div class="math-block">
+    <p class="math-block-title math-def">定义</p>
+<p>给定集合 $\mathcal{D}$, 设其仿射包为 $\text{affine} \mathcal{D}$, 则其 <strong>相对内点集</strong> 定义为:</p>
+$$
+\text{relint} \mathcal{D} = \{x \in \mathcal{D} \mid \exists r > 0, B(x,r) \cap \text{affine} \mathcal{D} \subset \mathcal{D}\}
+$$</div>
+<div class="math-block">
+    <p class="math-block-title math-def">定义</p>
+<p>若对于凸优化问题</p>
+$$
+\begin{aligned}
+\min \quad & f(x) \\
+\text{s.t.} \quad & Ax = b \\
+& c_i(x) \le 0, i=1, \ldots, m
+\end{aligned}
+$$<p>存在 $x \in \text{relint} \mathcal{D}$, 使得</p>
+$$c_i(x) < 0, i=1, \ldots, m$$<p>则称对于该问题 <strong>Slater 约束品性</strong> 成立. 该品性也称为 <strong>Slater 条件</strong>.</p>
+</div>
+<p>注意: 如果某个不等式约束是仿射函数时, Slater 可以对这个不等式约束放宽到 $c_i(x) \le 0$.</p>
+<div class="math-block">
+    <p class="math-block-title math-thm">定理</p>
+<p>若 Slater 约束品性成立, 则强对偶性成立.</p>
+<p class="math-block-title math-prf">证明</p>
+<p>这里假设 $\mathcal{D}$ 内部非空, $A$ 是行满秩的 (否则可以去掉冗余约束), $p^*$ 是有限的. 要证明当 $d^* > -\infty$ 时, 存在对偶可行解 $(\lambda^*, \nu^*)$ 使得 $g(\lambda^*, \nu^*) = =d^*=p^*$.</p>
+</div>
 </section>
 
 
@@ -812,7 +946,7 @@ $$
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.95e0c918db7be1cae7f7778435911a6882f2716929055a64c4aa979f73d2dbfc.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.d6f304cd2b2aa3010daa4b1278b11d68cbea5ea438f1d1288e214fac59f6b9bd.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');
@@ -838,6 +972,34 @@ $$
 </style>
 
 <script>
+    function initTocHide() {
+        let toc = document.querySelector(".widget--toc");
+        if (!toc) {
+            return;
+        }
+        window.addEventListener('scroll', function () {
+            let openUl = document.querySelectorAll(".open");
+            openUl.forEach((ul) => {
+                ul.classList.remove("open")
+            })
+
+            let currentLi = document.querySelector(".active-class");
+            if (!currentLi) {
+                return
+            }
+
+            
+            if (currentLi.children.length > 1) {
+                currentLi.children[1].classList.add("open")
+            }
+            let ul = currentLi.parentElement;
+            do {
+                ul.classList.add("open");
+                ul = ul.parentElement.parentElement
+            } while (ul !== undefined && (ul.localName === 'ul' || ul.localName === 'ol'))
+        });
+    }
+
     function initScrollTop() {
         let rightSideBar = document.querySelector(".right-sidebar");
         if (!rightSideBar) {
@@ -861,6 +1023,7 @@ $$
         window.scrollTo({ top: 0, behavior: "smooth" })
     }
 
+    initTocHide()
     initScrollTop();
 </script>
     </body>

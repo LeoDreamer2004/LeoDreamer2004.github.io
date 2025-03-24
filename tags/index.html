@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/tags/'>
 
-<link rel="stylesheet" href="/scss/style.min.cc07bbb48134d09ba244262cc9d4c100e03558fa2c686f9266b0a04e5ea3bb89.css"><meta property='og:title' content="Tags">
+<link rel="stylesheet" href="/scss/style.min.88a9b05662e5df1c942bb6477cd68790de88a6075a7b430d619b1370d5cf45b0.css"><meta property='og:title' content="Tags">
 <meta property='og:description' content="PKU 本科在读/新手++">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/tags/'>
 <meta property='og:site_name' content='LeoDreamer'>
@@ -375,7 +375,7 @@
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.95e0c918db7be1cae7f7778435911a6882f2716929055a64c4aa979f73d2dbfc.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.d6f304cd2b2aa3010daa4b1278b11d68cbea5ea438f1d1288e214fac59f6b9bd.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');
@@ -401,6 +401,34 @@
 </style>
 
 <script>
+    function initTocHide() {
+        let toc = document.querySelector(".widget--toc");
+        if (!toc) {
+            return;
+        }
+        window.addEventListener('scroll', function () {
+            let openUl = document.querySelectorAll(".open");
+            openUl.forEach((ul) => {
+                ul.classList.remove("open")
+            })
+
+            let currentLi = document.querySelector(".active-class");
+            if (!currentLi) {
+                return
+            }
+
+            
+            if (currentLi.children.length > 1) {
+                currentLi.children[1].classList.add("open")
+            }
+            let ul = currentLi.parentElement;
+            do {
+                ul.classList.add("open");
+                ul = ul.parentElement.parentElement
+            } while (ul !== undefined && (ul.localName === 'ul' || ul.localName === 'ol'))
+        });
+    }
+
     function initScrollTop() {
         let rightSideBar = document.querySelector(".right-sidebar");
         if (!rightSideBar) {
@@ -424,6 +452,7 @@
         window.scrollTo({ top: 0, behavior: "smooth" })
     }
 
+    initTocHide()
     initScrollTop();
 </script>
     </body>

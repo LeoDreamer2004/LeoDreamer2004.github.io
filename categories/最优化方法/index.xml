@@ -47,7 +47,7 @@ $$&lt;/div&gt;
 &lt;p&gt;&lt;strong&gt;Lagrange 对偶问题&lt;/strong&gt; 形式如下:&lt;/p&gt;
 $$
 \max_{\lambda \ge 0, \nu} g(\lambda, \nu)= \max_{\lambda \ge 0, \nu} \inf_{x \in \mathbb{R}^n} L(x, \lambda, \nu)
-$$&lt;p&gt;称 $\lambda, \nu$ 为对偶变量, 设最优值为 $q^*$. $q^*$ 是 $p^*$ 的最优下界, 称 $p^*-q^*$ 为对偶间隙.&lt;/p&gt;
+$$&lt;p&gt;称 $\lambda, \nu$ 为对偶变量, 设最优值为 $q^*$. $q^*$ 是 $p^*$ 的最优下界, 称 $p^*-q^*$ 为 &lt;strong&gt;对偶间隙&lt;/strong&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;h3 id=&#34;示例-线性规划问题&#34;&gt;示例: 线性规划问题
 &lt;/h3&gt;$$
@@ -69,7 +69,7 @@ g(\lambda, \nu) = \inf_{x \ge 0} L(x, \lambda, \nu) =
 -b^T \lambda, &amp; c + A^T \lambda - \nu = 0 \\
 -\infty, &amp; \text{otherwise}
 \end{cases}
-$$&lt;p&gt;对偶问题为:&lt;/p&gt;
+$$&lt;p&gt;对偶问题:&lt;/p&gt;
 $$
 \begin{aligned}
 \max \quad &amp; -b^T \lambda \\
@@ -77,10 +77,6 @@ $$
 &amp; \nu \ge 0
 \end{aligned}
 $$&lt;p&gt;可以计算证明, 线性规划问题和对偶问题互为对偶.&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;强对偶性&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;若一个线性规划问题有最优解, 则其对偶问题有最优解, 且最优值相等.&lt;/p&gt;
-&lt;/div&gt;
 &lt;h3 id=&#34;示例-范数最小化问题&#34;&gt;示例: 范数最小化问题
 &lt;/h3&gt;$$
 \begin{aligned}
@@ -94,7 +90,7 @@ g(\nu) = \inf_x(\|X\| - \nu^T (Ax - b)) =
 b^T\nu, &amp; \|A^T \nu\|_* \le 1 \\
 -\infty, &amp; \text{otherwise}
 \end{cases}
-$$&lt;p&gt;其中 $\|v\|_*=\sup_{\|x\|\le 1} x^T v$ 为 $v$ 的对偶范数 (关于为什么自证). 因此对偶问题为:&lt;/p&gt;
+$$&lt;p&gt;其中 $\|v\|_*=\sup_{\|x\|\le 1} x^T v$ 为 $v$ 的对偶范数 (关于为什么自证). 因此对偶问题:&lt;/p&gt;
 $$
 \begin{aligned}
 \max \quad &amp; b^T \nu \\
@@ -120,11 +116,29 @@ g(y) = \inf_x L(x, y) =
 -\mathbf{1}^T y, &amp; \text{diag}(y) - W \succeq 0 \\
 -\infty, &amp; \text{otherwise}
 \end{cases}
-$$&lt;p&gt;对偶问题为:&lt;/p&gt;
+$$&lt;p&gt;对偶问题:&lt;/p&gt;
 $$
 \begin{aligned}
 \max \quad &amp; -\mathbf{1}^T y \\
 \text{s.t.} \quad &amp; \text{diag}(y) - W \succeq 0
+\end{aligned}
+$$&lt;p&gt;再来考虑这个对偶问题的对偶问题.&lt;/p&gt;
+&lt;p&gt;对偶函数:&lt;/p&gt;
+$$
+\begin{aligned}
+g(X)&amp;=\inf_y(\mathbf{1}^Ty) - \left&lt;\text{diag}(y) - W, X\right&gt; \\
+&amp;= \inf \left(\sum_{i=1}^n (1-X_{ii})y_i + \left&lt; W, X \right&gt; \right) \\
+&amp;= \begin{cases}
+\left&lt; W, X \right&gt;, &amp; X_{ii} = 1, i = 1, \ldots, n \\
+-\infty, &amp; \text{otherwise}
+\end{cases}
+\end{aligned}
+$$&lt;p&gt;对偶问题:&lt;/p&gt;
+$$
+\begin{aligned}
+\max \quad &amp; \left&lt; W, X \right&gt; \\
+\text{s.t.} \quad &amp; X_{ii} = 1, i = 1, \ldots, n \\
+&amp; X \succeq 0
 \end{aligned}
 $$&lt;h3 id=&#34;示例-共轭函数&#34;&gt;示例: 共轭函数
 &lt;/h3&gt;$$
@@ -142,14 +156,29 @@ g(\lambda, \nu) &amp;= \inf_x(f(x) + \lambda^T (Ax - b) + \nu^T (Cx - d)) \\
 \end{aligned}
 $$&lt;p&gt;其中 $f^*(v) = \sup_x(x^T v - f(x))$ 为 $f$ 的共轭函数.&lt;/p&gt;
 &lt;h2 id=&#34;对偶性&#34;&gt;对偶性
-&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;弱对偶性&lt;/strong&gt;: $d^* \le p^*$. 对一般约束优化问题成立.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;强对偶性&lt;/strong&gt;: $d^* = p^*$, 一般不成立, 但通常对凸优化问题成立.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;math-block&#34;&gt;
+&lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;弱对偶性&lt;/strong&gt;: $d^* \le p^*$. 对一般约束优化问题成立.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;强对偶性&lt;/strong&gt;: $d^* = p^*$, 且若一个线性规划问题有最优解, 则其对偶问题有最优解, 且最优值相等. 一般不成立, 但通常对凸优化问题成立.&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;称保证凸问题强对偶性成立的条件为 &lt;strong&gt;约束品性&lt;/strong&gt;.&lt;/p&gt;
 &lt;/div&gt;
+&lt;p&gt;考虑下面这个不满足强对偶性的例子.&lt;/p&gt;
+$$
+\begin{aligned}  
+\min \quad &amp; x_0-x_1 \\
+\text{s.t.} \quad &amp; x_0 \ge \sqrt{x_1^2+1}
+\end{aligned}
+$$&lt;p&gt;显然, $x_0-x_1 &gt; 0$, 但当 $x_0 \to \infty$ 时, $x_0-x_1 \to 0$, 因此 $p^* = 0$, 但是不可达. 而对偶问题是:&lt;/p&gt;
+$$
+\begin{aligned}
+\max \quad &amp; \lambda \\
+\text{s.t.} \quad &amp; 1 \ge \sqrt{1 + \lambda^2}
+\end{aligned}
+$$&lt;p&gt;
+因此 $\lambda \le 0$, $d^* = 0$. 虽然 $d^* = p^*$, 但原问题是没有最优解的.&lt;/p&gt;
+&lt;p&gt;当然, 也有使得 $p^* \ne d^*$ 的例子.&lt;/p&gt;
 &lt;h2 id=&#34;改写问题形式&#34;&gt;改写问题形式
 &lt;/h2&gt;&lt;p&gt;当对偶问题难以推导或没有价值时, 可以尝试改写原问题的形式.&lt;/p&gt;
 &lt;ul&gt;
@@ -157,6 +186,7 @@ $$&lt;p&gt;其中 $f^*(v) = \sup_x(x^T v - f(x))$ 为 $f$ 的共轭函数.&lt;/p
 &lt;li&gt;将显式约束隐式化或将隐式约束显式化;&lt;/li&gt;
 &lt;li&gt;改变目标函数或者约束函数的形式. 例如, 用 $\phi(f(x))$ 取代 $f(x)$, 其中 $\phi$ 是凸的增函数.&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;先来看几个引入等式约束的例子.&lt;/p&gt;
 &lt;h3 id=&#34;示例-函数值最小化问题&#34;&gt;示例: 函数值最小化问题
 &lt;/h3&gt;$$
 \min f(Ax+b)
@@ -166,7 +196,7 @@ $$
 \min \quad &amp; f(y) \\
 \text{s.t.} \quad &amp; y = Ax + b
 \end{aligned}
-$$&lt;p&gt;对偶问题为:&lt;/p&gt;
+$$&lt;p&gt;对偶问题:&lt;/p&gt;
 $$
 \begin{aligned}
 \max \quad &amp; b^T \nu-f^*(\nu)  \\
@@ -194,7 +224,7 @@ g(\nu) &amp;= \inf_{x,y}(\|y\| + \nu^Ty - \nu^TAx + \nu^Tb) \\
 -\infty, &amp; \text{otherwise}
 \end{cases}
 \end{aligned}
-$$&lt;p&gt;对偶问题为:&lt;/p&gt;
+$$&lt;p&gt;对偶问题:&lt;/p&gt;
 $$
 \begin{aligned}
 \max \quad &amp; \nu^T b \\
@@ -216,11 +246,111 @@ $$
 g(\nu) &amp;= \inf_{x,r}\left(\frac{1}{2}\|r\|_2^2 + \mu \|x\|_1 + \lambda^T(r-Ax+b)\right) \\
 &amp;= \inf_{x,r}\left(\frac{1}{2}\|r\|^2 + \lambda^Tr + \mu \|x\|_1 - (A^T\lambda)^Tx + b^T\lambda\right) \\
 &amp;= \begin{cases}
-b^T \lambda - \frac{1}{2} \| \lambda \|^2, &amp; \| A^T \lambda \|_{\infty} = \mu \\
+b^T \lambda - \frac{1}{2} \| \lambda \|^2, &amp; \| A^T \lambda \|_{\infty} \le \mu \\
 -\infty, &amp; \text{otherwise}
 \end{cases}
 \end{aligned}
-$$</description>
+$$&lt;p&gt;对偶问题:&lt;/p&gt;
+$$
+\begin{aligned}
+\max \quad &amp; b^T \lambda - \frac{1}{2} \| \lambda \|^2 \\
+\text{s.t.} \quad &amp; \| A^T \lambda \|_{\infty} \le \mu
+\end{aligned}
+$$&lt;p&gt;现在考虑显式和隐式约束转化的例子.&lt;/p&gt;
+&lt;h3 id=&#34;示例-带边界约束的线性规划问题&#34;&gt;示例: 带边界约束的线性规划问题
+&lt;/h3&gt;$$
+\begin{aligned}
+\min \quad &amp; c^T x \\
+\text{s.t.} \quad &amp; Ax = b \\
+&amp; -\mathbf{1} \le x \le \mathbf{1}
+\end{aligned}
+$$&lt;p&gt;我们把边界要求隐藏在目标函数中:&lt;/p&gt;
+$$
+\begin{aligned}
+\min \quad &amp; f(x) =\begin{cases}
+c^T x, &amp; -\mathbf{1} \le x \le \mathbf{1} \\
++\infty, &amp; \text{otherwise}
+\end{cases} \\
+\text{s.t.} \quad &amp; Ax = b
+\end{aligned}
+$$&lt;p&gt;对偶函数:&lt;/p&gt;
+$$
+\begin{aligned}
+g(\nu) &amp;= \inf_{-\mathbf{1} \le x \le \mathbf{1}}(c^Tx+\nu^T(Ax-b)) \\
+&amp;= -b^T \nu - \|A^T \nu + c\|_1
+\end{aligned}
+$$&lt;p&gt;对偶问题:&lt;/p&gt;
+$$
+\begin{aligned}
+\max \quad &amp; -b^T \nu - \|A^T \nu + c\|_1 \\
+\text{s.t.} \quad &amp; \nu \ge 0
+\end{aligned}
+$$&lt;h3 id=&#34;示例-广义不等式约束优化问题&#34;&gt;示例: 广义不等式约束优化问题
+&lt;/h3&gt;$$
+\begin{aligned}
+\min \quad &amp; f(x) \\
+\text{s.t.} \quad &amp; c_i(x) \preceq_{K_i} 0, \quad i \in \mathcal{I} \\
+&amp; c_i(x) = 0, \quad i \in \mathcal{E}
+\end{aligned}
+$$&lt;p&gt;其中对于 $i \in \mathcal{I}$, $c_i: \mathbb{R}^n \to \mathbb{R}^{k_i}$ 是向量值函数, $K_i$ 是适当锥. 对于 $i \in \mathcal{E}$, $c_i: \mathbb{R}^n \to \mathbb{R}$ 是标量函数. 实际上这种情况下, 其 Lagrange 函数为:&lt;/p&gt;
+$$
+L(x, \lambda, \nu) = f(x) + \sum_{i \in \mathcal{I}} \left&lt;\lambda_i, c_i(x)\right&gt; + \sum_{i \in \mathcal{E}} \nu_i c_i(x), \quad \lambda_i \in K_i^*
+$$&lt;p&gt;这里 $K_i^*$ 是 $K_i$ 的对偶锥. 此时也依然满足 $L(x, \lambda, \nu) \le f(x)$. 对偶问题依然是 $\max_{\lambda \in K_i^*, \nu} g(\lambda, \nu)$.&lt;/p&gt;
+&lt;h3 id=&#34;示例-半定规划问题&#34;&gt;示例: 半定规划问题
+&lt;/h3&gt;$$
+\begin{aligned}
+\min \quad &amp; \left&lt; C, X \right&gt; \\
+\text{s.t.} \quad &amp; \left&lt; A_i, X \right&gt; = b_i, \quad i = 1, \ldots, m \\
+&amp; X \succeq 0
+\end{aligned}
+$$&lt;p&gt;对偶函数:&lt;/p&gt;
+$$
+\begin{aligned}
+g(\lambda, \nu) &amp;= \inf_X \left( \left&lt; C, X \right&gt; + \sum_{i=1}^m \lambda_i (\left&lt; A_i, X \right&gt; - b_i) - \left&lt;\nu,X\right&gt; \right) \\
+&amp;= \begin{cases}
+b^T\lambda, &amp; \sum_{i=1}^m \lambda_i A_i - C +\nu \succeq 0 \\
+-\infty, &amp; \text{otherwise}
+\end{cases}
+\end{aligned}
+$$&lt;p&gt;对偶问题:&lt;/p&gt;
+$$
+\max \quad b^T\lambda \\
+\text{s.t.} \quad \sum_{i=1}^m \lambda_i A_i - C +\nu \succeq 0
+$$&lt;p&gt;可以证明, 半定规划问题和对偶问题互为对偶.&lt;/p&gt;
+&lt;h2 id=&#34;带约束凸优化问题的最优性理论&#34;&gt;带约束凸优化问题的最优性理论
+&lt;/h2&gt;&lt;p&gt;综合来看, 前面的问题其实都可以写成如下的形式:&lt;/p&gt;
+$$
+\begin{aligned}
+\min \quad &amp; f(x) \\
+\text{s.t.} \quad &amp; Ax = b \\
+&amp; c_i(x) \le 0, i=1, \ldots, m
+\end{aligned}
+$$&lt;p&gt;其中 $f(x)$ 为适当的凸函数, $c_i(x)$ 也是凸函数且 $\text{dom} c_i = \mathbb{R}^n$.&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;给定集合 $\mathcal{D}$, 设其仿射包为 $\text{affine} \mathcal{D}$, 则其 &lt;strong&gt;相对内点集&lt;/strong&gt; 定义为:&lt;/p&gt;
+$$
+\text{relint} \mathcal{D} = \{x \in \mathcal{D} \mid \exists r &gt; 0, B(x,r) \cap \text{affine} \mathcal{D} \subset \mathcal{D}\}
+$$&lt;/div&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;若对于凸优化问题&lt;/p&gt;
+$$
+\begin{aligned}
+\min \quad &amp; f(x) \\
+\text{s.t.} \quad &amp; Ax = b \\
+&amp; c_i(x) \le 0, i=1, \ldots, m
+\end{aligned}
+$$&lt;p&gt;存在 $x \in \text{relint} \mathcal{D}$, 使得&lt;/p&gt;
+$$c_i(x) &lt; 0, i=1, \ldots, m$$&lt;p&gt;则称对于该问题 &lt;strong&gt;Slater 约束品性&lt;/strong&gt; 成立. 该品性也称为 &lt;strong&gt;Slater 条件&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;注意: 如果某个不等式约束是仿射函数时, Slater 可以对这个不等式约束放宽到 $c_i(x) \le 0$.&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
+&lt;p&gt;若 Slater 约束品性成立, 则强对偶性成立.&lt;/p&gt;
+&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
+&lt;p&gt;这里假设 $\mathcal{D}$ 内部非空, $A$ 是行满秩的 (否则可以去掉冗余约束), $p^*$ 是有限的. 要证明当 $d^* &gt; -\infty$ 时, 存在对偶可行解 $(\lambda^*, \nu^*)$ 使得 $g(\lambda^*, \nu^*) = =d^*=p^*$.&lt;/p&gt;
+&lt;/div&gt;</description>
         </item>
         <item>
         <title>最优化方法(4) —— 优化问题</title>
