@@ -7,7 +7,71 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>LeoDreamer</copyright>
-        <lastBuildDate>Sun, 23 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/%E6%95%B0%E5%AD%A6/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 25 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/%E6%95%B0%E5%AD%A6/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>机器学习基础(6) —— 神经网络学习初步</title>
+        <link>https://LeoDreamer2004.github.io/p/machine-learning/nn-beginner/</link>
+        <pubDate>Tue, 25 Mar 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/p/machine-learning/nn-beginner/</guid>
+        <description>&lt;h2 id=&#34;特征的线性组合&#34;&gt;特征的线性组合
+&lt;/h2&gt;&lt;p&gt;之前的二分类问题中, 如果把 $z=w^Tx+b$ 看做是衍生的新特征, 实际上感知机的模型就是 $y=\text{sign}(z)$. 二项逻辑斯蒂回归模型中, $P(y=1 \mid x) = \sigma(z)=\frac{1}{1+e^{-z}}$. 相当于引入了一个 sigmoid 函数进行非线性变换.&lt;/p&gt;
+&lt;p&gt;因此, 神经网络应运而生, 主要想法:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;通过各维特征线性组合得到新特征&lt;/li&gt;
+&lt;li&gt;基于衍生特征通过非线性变换得到新特征&lt;/li&gt;
+&lt;li&gt;再对新特征进行线性组合和非线性变换, 逐层叠加&lt;/li&gt;
+&lt;li&gt;通过嵌套逼近复杂函数&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;多层前馈神经网络&#34;&gt;多层前馈神经网络
+&lt;/h2&gt;&lt;p&gt;设当前的 (衍生) 特征向量是&lt;/p&gt;
+$$
+z = \left(z^{(1)},z^{(2)},\cdots,z^{(m)}\right)^T
+$$&lt;p&gt;进行线性组合&lt;/p&gt;
+$$
+v \cdot z - \theta = \sum_{i=1}^m v_i z^{(i)} - \theta
+$$&lt;p&gt;再通过非线性变换 (考虑到数学性质, 通常是 sigmoid 函数):&lt;/p&gt;
+$$
+t = g(v \cdot z - \theta)
+$$&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;多层前馈神经网络&lt;/strong&gt; 是常见的神经网络模型:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;逐层排列神经元, 仅限于相邻层之间的完全连接;&lt;/li&gt;
+&lt;li&gt;接受外部输入信号的神经元在同一层, 称为 &lt;strong&gt;输入层&lt;/strong&gt;;&lt;/li&gt;
+&lt;li&gt;最后一层神经元输出网络的结果, 称为 &lt;strong&gt;输出层&lt;/strong&gt;;&lt;/li&gt;
+&lt;li&gt;输入层和输出层之间的神经元称为 &lt;strong&gt;隐藏层&lt;/strong&gt;;&lt;/li&gt;
+&lt;li&gt;输入层直接接受激活函数, 输出层和隐藏层都对接受到的信号做激活函数变换.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;所谓 &lt;strong&gt;感知机&lt;/strong&gt;, 就是没有隐藏层的前馈神经网络.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;前面学到的感知机学习能力有限, 例如它无法解决异或问题. 但是, 只要再加一层隐藏层, 就可以解决.&lt;/p&gt;
+&lt;p&gt;考虑一个单隐层的神经网络:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;输入层有 $n$ 个神经元来接受输入信号;&lt;/li&gt;
+&lt;li&gt;输出层有 $k$ 个神经元来输出结果, 且第 $l$ 个神经元的阈值是 $\theta_l$;&lt;/li&gt;
+&lt;li&gt;隐藏层有 $m$ 个神经元, 第 $t$ 个神经元的阈值是 $\gamma_t$.&lt;/li&gt;
+&lt;li&gt;输入层到隐藏层的权重是 $w_{jt}$, 隐藏层到输出层的权重是 $v_{tl}$.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;因而, 隐藏层的输出是&lt;/p&gt;
+$$
+z^{(t)}(x)=\sigma \left(\sum_{j=1}^n w_{jt} x^{(j)} - \gamma_t \right)
+$$&lt;p&gt;输出层的输出是&lt;/p&gt;
+$$
+y^{(l)}(x) = \sigma \left( \sum_{t=1}^m v_{tl} z^{(t)} - \theta_l \right)
+$$&lt;p&gt;参数集为 $\Theta = \{w_{jt},v_{tl},\gamma_t,\theta_l\}$&lt;/p&gt;
+&lt;h2 id=&#34;误差反向传播算法&#34;&gt;误差反向传播算法
+&lt;/h2&gt;&lt;p&gt;我们采用平方误差作为预测损失函数, 则&lt;/p&gt;
+$$
+R(\Theta) = \sum_{i=1}^N R_i(\Theta) = \sum_{i=1}^N \| y_i - \hat{y}_i \| ^2 = \sum_{i=1}^N \sum_{l=1}^k (y_i^{(l)} - \hat{y}_i^{(l)})^2
+$$&lt;p&gt;依然采用经验风险最小化策略, 通过梯度下降法来求解参数集 $\Theta$. 求偏导可得:&lt;/p&gt;
+$$
+$$&lt;p&gt;给定学习率 $\eta$, 可以求解得权值更新公式:&lt;/p&gt;
+&lt;!-- $$
+\begin{aligned}
+w_{jt} &amp;= w_{jt} - \eta \
+$$ --&gt;</description>
+        </item>
+        <item>
         <title>最优化方法(5) —— 最优性理论</title>
         <link>https://LeoDreamer2004.github.io/p/opt-method/opt-theory/</link>
         <pubDate>Sun, 23 Mar 2025 00:00:00 +0000</pubDate>
@@ -353,8 +417,7 @@ $$c_i(x) &lt; 0, i=1, \ldots, m$$&lt;p&gt;则称对于该问题 &lt;strong&gt;Sl
 &lt;p&gt;定义集合&lt;/p&gt;
 $$
 \begin{aligned}
-\mathbb{A}&amp;= \{(u,v,t) \mid \exists x \in \mathcal{D}, c_i(x) \le u_i (i=1, \ldots, m), Ax-b=v, f(x) \le t\} 、、
-\mathbb{B}&amp;= \{(0,0,s) \mid s \le p^*\}
+\mathbb{A}&amp;= \{(u,v,t) \mid \exists x \in \mathcal{D}, c_i(x) \le u_i (i=1, \ldots, m), Ax-b=v, f(x) \le t\} \\ \mathbb{B}&amp;= \{(0,0,s) \mid s \le p^*\}
 \end{aligned}
 $$&lt;p&gt;若 $(0,0,t) \in \mathbb{A} \cap \mathbb{B}$, 则 $f(x) \le t&lt; p^*$ 矛盾. 因而两集合不交. 由于两者都是凸集, 由超平面分离定理, 存在 $(\lambda, \nu, \mu) \ne 0$ 和 $\alpha$ 使得&lt;/p&gt;
 $$
@@ -461,6 +524,41 @@ $$&lt;p&gt;显见, 等价于&lt;/p&gt;
 $$
 \max_{c_k \in \mathcal{Y}} \frac{1}{|D_t|} \sum_{i=1}^{|D_t|} I(y_i = c_k)
 $$&lt;p&gt;从现在来看, 决策树构造过程中划分的单元都是矩形的, 即分类边界是若干与特征坐标轴平行的边界组成. 多变量决策树模型允许用若干特征的线性组合来划分数据集, 对每个非叶结点学习一个线性分类器.&lt;/p&gt;
+&lt;h2 id=&#34;最小二乘回归树模型&#34;&gt;最小二乘回归树模型
+&lt;/h2&gt;&lt;p&gt;CART 算法用于回归问题时, 采用平方误差损失函数选择属性和切分点.&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;&lt;p class=&#34;math-block-title&#34;&gt;最小二乘回归树模型&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 训练数据集 $D=\{(x_i,y_i)\}_{i=1}^N$, 特征集 $\mathcal{A}=\{A_1,A_2,\cdots,A_m\}$.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 回归树 $T$.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;设回归树将输入空间划分为 $M$ 个单元 $R_1,R_2,\cdots,R_M$, 并在每个单元上有一个固定的输出值 $c_m$, 则回归树模型可以表示为&lt;/p&gt;
+$$
+    f(x)=\sum_{m=1}^M c_m I(x \in R_m)
+    $$&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;如果采用平方误差, 则 $R_m$ 的输出值 $c_m$ 应该是 $R_m$ 中所有样本输出值的均值, 即&lt;/p&gt;
+$$
+    \hat{c}_m = \frac{1}{|R_m|} \sum_{x_i \in R_m} y_i
+    $$&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;对于一个输入空间, 若选用第 $j$ 维特征变量作为切分变量, $s$ 作为切分点, 则可以将输入空间划分为两个区域&lt;/p&gt;
+$$
+    R_1(j,s) = \{x|x^{(j)} \leq s\}, \quad R_2(j,s) = \{x|x^{(j)} &gt; s\}
+    $$&lt;p&gt;则可以通过求解优化问题&lt;/p&gt;
+$$
+    \min_{j,s} \left[\min_{c_1} \sum_{x_i \in R_1(j,s)} (y_i-c_1)^2 + \min_{c_2} \sum_{x_i \in R_2(j,s)} (y_i-c_2)^2\right]
+    $$&lt;p&gt;来确定最优切分变量 $j$ 和切分点 $s$. 实际上这里的 $c_i$ 就应该取 2 步中的 $\hat{c}_m$.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;从初始输入空间开始, 按照误差最小原则递归划分, 重复如上过程, 直到满足停止条件.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;p&gt;对于剪枝, 和分类任务处理框架一致, 采用&lt;/p&gt;
+$$
+C_\alpha(T) = C(T) + \alpha |T|
+$$&lt;p&gt;计算损失, 其中&lt;/p&gt;
+$$C(T) = \sum_{t=1}^{|T|} N_tQ_t(T) = \sum_{t=1}^{|T|} \sum_{x_i \in R_t} (y_i-\hat{c}_t)^2$$&lt;p&gt;$N_t$ 表示叶结点 $t$ 中的样本数, $Q_t(T)$ 表示叶结点 $t$ 的均方损失, $\hat{c}_t$ 表示叶结点 $t$ 的输出值均值.&lt;/p&gt;
 </description>
         </item>
         <item>

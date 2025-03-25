@@ -271,6 +271,7 @@
   <ol>
     <li><a href="#特征的分类能力评估">特征的分类能力评估</a></li>
     <li><a href="#决策树模型">决策树模型</a></li>
+    <li><a href="#最小二乘回归树模型">最小二乘回归树模型</a></li>
   </ol>
 </nav>
         </div>
@@ -344,7 +345,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 3 分钟
+                    阅读时长: 4 分钟
                 </time>
             </div>
         
@@ -430,6 +431,41 @@ $$<p>显见, 等价于</p>
 $$
 \max_{c_k \in \mathcal{Y}} \frac{1}{|D_t|} \sum_{i=1}^{|D_t|} I(y_i = c_k)
 $$<p>从现在来看, 决策树构造过程中划分的单元都是矩形的, 即分类边界是若干与特征坐标轴平行的边界组成. 多变量决策树模型允许用若干特征的线性组合来划分数据集, 对每个非叶结点学习一个线性分类器.</p>
+<h2 id="最小二乘回归树模型">最小二乘回归树模型
+</h2><p>CART 算法用于回归问题时, 采用平方误差损失函数选择属性和切分点.</p>
+<div class="math-block"><p class="math-block-title">最小二乘回归树模型</p>
+<p><strong>输入</strong>: 训练数据集 $D=\{(x_i,y_i)\}_{i=1}^N$, 特征集 $\mathcal{A}=\{A_1,A_2,\cdots,A_m\}$.</p>
+<p><strong>输出</strong>: 回归树 $T$.</p>
+<ol>
+<li>
+<p>设回归树将输入空间划分为 $M$ 个单元 $R_1,R_2,\cdots,R_M$, 并在每个单元上有一个固定的输出值 $c_m$, 则回归树模型可以表示为</p>
+$$
+    f(x)=\sum_{m=1}^M c_m I(x \in R_m)
+    $$</li>
+<li>
+<p>如果采用平方误差, 则 $R_m$ 的输出值 $c_m$ 应该是 $R_m$ 中所有样本输出值的均值, 即</p>
+$$
+    \hat{c}_m = \frac{1}{|R_m|} \sum_{x_i \in R_m} y_i
+    $$</li>
+<li>
+<p>对于一个输入空间, 若选用第 $j$ 维特征变量作为切分变量, $s$ 作为切分点, 则可以将输入空间划分为两个区域</p>
+$$
+    R_1(j,s) = \{x|x^{(j)} \leq s\}, \quad R_2(j,s) = \{x|x^{(j)} > s\}
+    $$<p>则可以通过求解优化问题</p>
+$$
+    \min_{j,s} \left[\min_{c_1} \sum_{x_i \in R_1(j,s)} (y_i-c_1)^2 + \min_{c_2} \sum_{x_i \in R_2(j,s)} (y_i-c_2)^2\right]
+    $$<p>来确定最优切分变量 $j$ 和切分点 $s$. 实际上这里的 $c_i$ 就应该取 2 步中的 $\hat{c}_m$.</p>
+</li>
+<li>
+<p>从初始输入空间开始, 按照误差最小原则递归划分, 重复如上过程, 直到满足停止条件.</p>
+</li>
+</ol>
+</div>
+<p>对于剪枝, 和分类任务处理框架一致, 采用</p>
+$$
+C_\alpha(T) = C(T) + \alpha |T|
+$$<p>计算损失, 其中</p>
+$$C(T) = \sum_{t=1}^{|T|} N_tQ_t(T) = \sum_{t=1}^{|T|} \sum_{x_i \in R_t} (y_i-\hat{c}_t)^2$$<p>$N_t$ 表示叶结点 $t$ 中的样本数, $Q_t(T)$ 表示叶结点 $t$ 的均方损失, $\hat{c}_t$ 表示叶结点 $t$ 的输出值均值.</p>
 
 </section>
 
@@ -492,6 +528,19 @@ $$<p>从现在来看, 决策树构造过程中划分的单元都是矩形的, �
             
                 
 <article class="">
+    <a href="/p/machine-learning/nn-beginner/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">机器学习基础(6) —— 神经网络学习初步</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
     <a href="/p/machine-learning/knn/">
         
         
@@ -537,19 +586,6 @@ $$<p>从现在来看, 决策树构造过程中划分的单元都是矩形的, �
 
         <div class="article-details">
             <h2 class="article-title">机器学习基础(1) —— 概述</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/opt-method/opt-theory/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">最优化方法(5) —— 最优性理论</h2>
         </div>
     </a>
 </article>

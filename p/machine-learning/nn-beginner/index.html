@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="范数 定义\n记号 $\\Vert \\cdot \\Vert: \\mathbb{R}^n \\mapsto \\mathbb{R}$ 称为 向量范数, 若满足:\n正定性: $\\Vert x \\Vert \\geq 0$, 且 $\\Vert x \\Vert = 0 \\Leftrightarrow x = 0$; 齐次性: $\\Vert \\alpha x \\Vert = \\vert \\alpha \\vert \\Vert x \\Vert$; 三角不等式: $\\Vert x + y \\Vert \\leq \\Vert x \\Vert + \\Vert y \\Vert$. $\\ell_p$ 范数是最常见的向量范数\n">
-<title>最优化方法(2) —— 凸集</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="特征的线性组合 之前的二分类问题中, 如果把 $z=w^Tx+b$ 看做是衍生的新特征, 实际上感知机的模型就是 $y=\\text{sign}(z)$. 二项逻辑斯蒂回归模型中, $P(y=1 \\mid x) = \\sigma(z)=\\frac{1}{1+e^{-z}}$. 相当于引入了一个 sigmoid 函数进行非线性变换.\n">
+<title>机器学习基础(6) —— 神经网络学习初步</title>
 
-<link rel='canonical' href='https://LeoDreamer2004.github.io/p/opt-method/convex-set/'>
+<link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning/nn-beginner/'>
 
-<link rel="stylesheet" href="/scss/style.min.88a9b05662e5df1c942bb6477cd68790de88a6075a7b430d619b1370d5cf45b0.css"><meta property='og:title' content="最优化方法(2) —— 凸集">
-<meta property='og:description' content="范数 定义\n记号 $\\Vert \\cdot \\Vert: \\mathbb{R}^n \\mapsto \\mathbb{R}$ 称为 向量范数, 若满足:\n正定性: $\\Vert x \\Vert \\geq 0$, 且 $\\Vert x \\Vert = 0 \\Leftrightarrow x = 0$; 齐次性: $\\Vert \\alpha x \\Vert = \\vert \\alpha \\vert \\Vert x \\Vert$; 三角不等式: $\\Vert x + y \\Vert \\leq \\Vert x \\Vert + \\Vert y \\Vert$. $\\ell_p$ 范数是最常见的向量范数\n">
-<meta property='og:url' content='https://LeoDreamer2004.github.io/p/opt-method/convex-set/'>
+<link rel="stylesheet" href="/scss/style.min.88a9b05662e5df1c942bb6477cd68790de88a6075a7b430d619b1370d5cf45b0.css"><meta property='og:title' content="机器学习基础(6) —— 神经网络学习初步">
+<meta property='og:description' content="特征的线性组合 之前的二分类问题中, 如果把 $z=w^Tx+b$ 看做是衍生的新特征, 实际上感知机的模型就是 $y=\\text{sign}(z)$. 二项逻辑斯蒂回归模型中, $P(y=1 \\mid x) = \\sigma(z)=\\frac{1}{1+e^{-z}}$. 相当于引入了一个 sigmoid 函数进行非线性变换.\n">
+<meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning/nn-beginner/'>
 <meta property='og:site_name' content='LeoDreamer'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-01-16T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-01-16T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="最优化方法(2) —— 凸集">
-<meta name="twitter:description" content="范数 定义\n记号 $\\Vert \\cdot \\Vert: \\mathbb{R}^n \\mapsto \\mathbb{R}$ 称为 向量范数, 若满足:\n正定性: $\\Vert x \\Vert \\geq 0$, 且 $\\Vert x \\Vert = 0 \\Leftrightarrow x = 0$; 齐次性: $\\Vert \\alpha x \\Vert = \\vert \\alpha \\vert \\Vert x \\Vert$; 三角不等式: $\\Vert x + y \\Vert \\leq \\Vert x \\Vert + \\Vert y \\Vert$. $\\ell_p$ 范数是最常见的向量范数\n">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-03-25T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-25T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="机器学习基础(6) —— 神经网络学习初步">
+<meta name="twitter:description" content="特征的线性组合 之前的二分类问题中, 如果把 $z=w^Tx+b$ 看做是衍生的新特征, 实际上感知机的模型就是 $y=\\text{sign}(z)$. 二项逻辑斯蒂回归模型中, $P(y=1 \\mid x) = \\sigma(z)=\\frac{1}{1+e^{-z}}$. 相当于引入了一个 sigmoid 函数进行非线性变换.\n">
     </head>
     <body class="
     article-page
@@ -238,8 +238,14 @@
              <ul>
     
         <li>
-            <a href="http://faculty.bicmr.pku.edu.cn/~wenzw/optbook/lect/02-convex-set.pdf" target="_blank" rel="noopener noreferrer">
+            <a href="/materials/machine-learning/MachineLearning-6.pdf" target="_blank" rel="noopener noreferrer">
                 本节课件
+            </a>
+        </li>
+    
+        <li>
+            <a href="/materials/machine-learning/homework-3.pdf" target="_blank" rel="noopener noreferrer">
+                作业3
             </a>
         </li>
     
@@ -269,12 +275,9 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#范数">范数</a></li>
-    <li><a href="#凸集">凸集</a></li>
-    <li><a href="#常见凸集">常见凸集</a></li>
-    <li><a href="#保凸运算">保凸运算</a></li>
-    <li><a href="#广义不等式和对偶锥">广义不等式和对偶锥</a></li>
-    <li><a href="#分离超平面定理">分离超平面定理</a></li>
+    <li><a href="#特征的线性组合">特征的线性组合</a></li>
+    <li><a href="#多层前馈神经网络">多层前馈神经网络</a></li>
+    <li><a href="#误差反向传播算法">误差反向传播算法</a></li>
   </ol>
 </nav>
         </div>
@@ -302,8 +305,8 @@
                 数学
             </a>
         
-            <a href="/categories/%E6%9C%80%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/" style="background-color: #1a935c; color: #fff;">
-                最优化方法
+            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/" style="background-color: #b9a00f; color: #fff;">
+                机器学习基础
             </a>
         
     </header>
@@ -311,7 +314,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/opt-method/convex-set/">最优化方法(2) —— 凸集</a>
+            <a href="/p/machine-learning/nn-beginner/">机器学习基础(6) —— 神经网络学习初步</a>
         </h2>
     
         
@@ -333,7 +336,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2025-01-16</time>
+                <time class="article-time--published">2025-03-25</time>
             </div>
         
 
@@ -348,7 +351,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 5 分钟
+                    阅读时长: 2 分钟
                 </time>
             </div>
         
@@ -363,227 +366,63 @@
     <section class="article-content">
     
     
-    <h2 id="范数">范数
-</h2><div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>记号 $\Vert \cdot \Vert: \mathbb{R}^n \mapsto \mathbb{R}$ 称为 <strong>向量范数</strong>, 若满足:</p>
-<ul>
-<li>正定性: $\Vert x \Vert \geq 0$, 且 $\Vert x \Vert = 0 \Leftrightarrow x = 0$;</li>
-<li>齐次性: $\Vert \alpha x \Vert = \vert \alpha \vert \Vert x \Vert$;</li>
-<li>三角不等式: $\Vert x + y \Vert \leq \Vert x \Vert + \Vert y \Vert$.</li>
-</ul>
-</div>
-<p>$\ell_p$ 范数是最常见的向量范数</p>
+    <h2 id="特征的线性组合">特征的线性组合
+</h2><p>之前的二分类问题中, 如果把 $z=w^Tx+b$ 看做是衍生的新特征, 实际上感知机的模型就是 $y=\text{sign}(z)$. 二项逻辑斯蒂回归模型中, $P(y=1 \mid x) = \sigma(z)=\frac{1}{1+e^{-z}}$. 相当于引入了一个 sigmoid 函数进行非线性变换.</p>
+<p>因此, 神经网络应运而生, 主要想法:</p>
+<ol>
+<li>通过各维特征线性组合得到新特征</li>
+<li>基于衍生特征通过非线性变换得到新特征</li>
+<li>再对新特征进行线性组合和非线性变换, 逐层叠加</li>
+<li>通过嵌套逼近复杂函数</li>
+</ol>
+<h2 id="多层前馈神经网络">多层前馈神经网络
+</h2><p>设当前的 (衍生) 特征向量是</p>
 $$
-\Vert x \Vert_p = \left( \sum_{i=1}^n \vert x_i \vert^p \right) ^{\frac{1}{p}}
-$$<p>特别地, 当 $p = \infty$ 时, $\Vert x \Vert_\infty = \max_i \vert x_i \vert$.</p>
-<p>向量范数可以自然地推广到矩阵范数. 常见的矩阵范数有:</p>
-<ul>
-<li><strong>和范数</strong>: $\Vert A \Vert_1 = \sum_{i,j} \vert A_{ij} \vert$;</li>
-<li><strong>Frobenius 范数</strong>: $\Vert A \Vert_F = \sqrt{\sum_{i,j} A_{ij} ^2} = \sqrt{\text{tr}(A^T A)}$;</li>
-<li><strong>算子范数</strong>: $\Vert A \Vert_{(m,n)}=\max_{\Vert x \Vert_n = 1} \Vert Ax \Vert_m$. 特别地, 当 $m = n = p$ 时:
-<ul>
-<li>$p=1$ 时, $\Vert A \Vert_{p=1} = \max_j \sum_i \vert A_{ij} \vert$;</li>
-<li>$p=2$ 时, $\Vert A \Vert_{p=2} = \sqrt{\lambda_{\max}(A^T A)}$, 亦称为 <strong>谱范数</strong>.</li>
-<li>$p=\infty$ 时, $\Vert A \Vert_{p=\infty} = \max_i \sum_j \vert A_{ij} \vert$.</li>
-</ul>
-</li>
-<li><strong>核范数</strong>: $\Vert A \Vert_\ast = \sum_i \sigma_i$, 其中 $\sigma_i$ 为 $A$ 的奇异值.</li>
-</ul>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理<span class="math-subtitle">Cauchy 不等式</span></p>
-$$\vert \left< X, Y \right> \vert \leq \Vert X \Vert \Vert Y \Vert$$<p>等号成立当且仅当 $X$ 与 $Y$ 线性相关.</p>
-</div>
-<h2 id="凸集">凸集
-</h2><div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>如果对于任意 $x, y \in C$ 和 $\theta \in \mathbb{R}$, 都有 $\theta x + (1-\theta) y \in C$, 则称 $C$ 为 <strong>仿射集</strong>.</p>
-<p>如果对于任意 $x, y \in C$ 和 $\theta \in [0, 1]$, 都有 $\theta x + (1-\theta) y \in C$, 则称 $C$ 为 <strong>凸集</strong>.</p>
-</div>
-<p>换言之, 仿射集要求过任意两点的直线都在集合内, 而凸集要求过任意两点的线段都在集合内. 显然, 仿射集都是凸集. 线性方程组的解集是一个仿射集, 而线性规划问题的可行域是一个凸集. 可以证明, 仿射集均可表示为某个线性方程组的解集.</p>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
-<ul>
-<li>若 $S$ 是凸集, 则 $kS = \left\{ ks \mid k \in \mathbb{R}, s \in S \right\}$ 也是凸集;</li>
-<li>若 $S, T$ 是凸集, 则 $S + T = \left\{ s + t \mid s \in S, t \in T \right\}$ 也是凸集;</li>
-<li>若 $S, T$ 是凸集, 则 $S \cap T$ 也是凸集.</li>
-<li>凸集的内部和闭包均为凸集.</li>
-</ul>
-</div>
-<p>可以证明, 任意多个凸集的交集仍为凸集.</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>形如 $x=\theta_1x_1+\theta_2x_2+\cdots+\theta_kx_k$, 其中 $\theta_i \geq 0$ 且 $\sum_i \theta_i = 1$, 的表达式称为 $x$ 的 <strong>凸组合</strong>. 集合 $S$ 的所有点的凸组合构成的集合称为 $S$ 的 <strong>凸包</strong>, 记为 $\text{conv}(S)$.</p>
-</div>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
-<p>若 $\text{conv} S \subseteq S$, 则 $S$ 为凸集, 反之亦然.</p>
-<p class="math-block-title math-prf">证明</p>
-<p>先证明正方向. 对任意 $x,y \in S, \theta \in [0,1]$, 有 $\theta x + (1-\theta) y \in \text{conv} S \subseteq S$, 故 $S$ 为凸集.</p>
-<p>再证明反方向, 对凸组合的维数 $k$ 采用数学归纳法证明之.</p>
-<p>若 $k=1$, 显然成立. 假设对于 $k-1$ 成立, 则对于 $k$, 考虑</p>
+z = \left(z^{(1)},z^{(2)},\cdots,z^{(m)}\right)^T
+$$<p>进行线性组合</p>
 $$
+v \cdot z - \theta = \sum_{i=1}^m v_i z^{(i)} - \theta
+$$<p>再通过非线性变换 (考虑到数学性质, 通常是 sigmoid 函数):</p>
+$$
+t = g(v \cdot z - \theta)
+$$<div class="math-block">
+    <p class="math-block-title math-def">定义</p>
+<p><strong>多层前馈神经网络</strong> 是常见的神经网络模型:</p>
+<ul>
+<li>逐层排列神经元, 仅限于相邻层之间的完全连接;</li>
+<li>接受外部输入信号的神经元在同一层, 称为 <strong>输入层</strong>;</li>
+<li>最后一层神经元输出网络的结果, 称为 <strong>输出层</strong>;</li>
+<li>输入层和输出层之间的神经元称为 <strong>隐藏层</strong>;</li>
+<li>输入层直接接受激活函数, 输出层和隐藏层都对接受到的信号做激活函数变换.</li>
+</ul>
+<p>所谓 <strong>感知机</strong>, 就是没有隐藏层的前馈神经网络.</p>
+</div>
+<p>前面学到的感知机学习能力有限, 例如它无法解决异或问题. 但是, 只要再加一层隐藏层, 就可以解决.</p>
+<p>考虑一个单隐层的神经网络:</p>
+<ul>
+<li>输入层有 $n$ 个神经元来接受输入信号;</li>
+<li>输出层有 $k$ 个神经元来输出结果, 且第 $l$ 个神经元的阈值是 $\theta_l$;</li>
+<li>隐藏层有 $m$ 个神经元, 第 $t$ 个神经元的阈值是 $\gamma_t$.</li>
+<li>输入层到隐藏层的权重是 $w_{jt}$, 隐藏层到输出层的权重是 $v_{tl}$.</li>
+</ul>
+<p>因而, 隐藏层的输出是</p>
+$$
+z^{(t)}(x)=\sigma \left(\sum_{j=1}^n w_{jt} x^{(j)} - \gamma_t \right)
+$$<p>输出层的输出是</p>
+$$
+y^{(l)}(x) = \sigma \left( \sum_{t=1}^m v_{tl} z^{(t)} - \theta_l \right)
+$$<p>参数集为 $\Theta = \{w_{jt},v_{tl},\gamma_t,\theta_l\}$</p>
+<h2 id="误差反向传播算法">误差反向传播算法
+</h2><p>我们采用平方误差作为预测损失函数, 则</p>
+$$
+R(\Theta) = \sum_{i=1}^N R_i(\Theta) = \sum_{i=1}^N \| y_i - \hat{y}_i \| ^2 = \sum_{i=1}^N \sum_{l=1}^k (y_i^{(l)} - \hat{y}_i^{(l)})^2
+$$<p>依然采用经验风险最小化策略, 通过梯度下降法来求解参数集 $\Theta$. 求偏导可得:</p>
+$$
+$$<p>给定学习率 $\eta$, 可以求解得权值更新公式:</p>
+<!-- $$
 \begin{aligned}
-x &= \theta_1 x_1 + \theta_2 x_2 + \cdots + \theta_k x_k \\
-  &= (1-\theta_k)\left(\frac{\theta_1}{1-\theta_k} x_1 + \frac{\theta_2}{1-\theta_k} x_2 + \cdots + \frac{\theta_{k-1}}{1-\theta_k} x_{k-1}\right) + \theta_k x_k
-\end{aligned}
-$$<p>前面大括号内的表达式为 $k-1$ 个凸组合, 故在 $S$ 中. 于是 $x$ 又成为两个点的凸组合, 由于 $S$ 为凸集, 故 $x \in S$. 则 $\text{conv} S \subseteq S$.</p>
-</div>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
-<ul>
-<li>$\text{conv}S$ 是包含 $S$ 的最小凸集;</li>
-<li>$\text{conv}S$ 是所有包含 $S$ 的凸集的交集.</li>
-</ul>
-<p class="math-block-title math-prf">证明</p>
-<p>显然第一个是第二个的推论, 只证明第二个.</p>
-<p>已知凸集的交是凸集, 从而所有包含 $S$ 的凸集的交集 $X$ 是凸集. 且 $\text{conv} S$ 是包含 $S$ 的凸集, 则 $X \subseteq \text{conv} S$.</p>
-<p>另一方面, $S \subseteq X$, 则 $\text{conv} S \subseteq \text{conv}X$, 而 $X$ 是凸集, 则 $\text{conv}X = X$, 即 $\text{conv}S \subseteq X$. 综上, $\text{conv}S = X$.</p>
-</div>
-<p>仿照凸组合和凸包, 也可以定义仿射组合和仿射包 $\text{affine} S$, 不再赘述.</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>形如 $x=\theta_1x_1+\theta_2x_2+\cdots+\theta_kx_k$, 其中 $\theta_i \geq 0$ 的表达式称为 $x$ 的 <strong>锥组合</strong>. 若集合 $S$ 中任意点的锥组合都在 $S$ 中, 则称 $S$ 为凸锥.</p>
-</div>
-<h2 id="常见凸集">常见凸集
-</h2><div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>任取非零向量 $a\in \mathbb{R}^n$, 形如</p>
-$$ \left\{ x \mid a^Tx =b \right\} $$<p>的集合称为 <strong>超平面</strong>, 形如</p>
-$$ \left\{ x \mid a^Tx \le b \right\} $$<p>的集合称为 <strong>半空间</strong>.</p>
-</div>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>满足线性等式和不等式组的点的集合称为 <strong>多面体</strong>, 即</p>
-$$ \left\{x \mid Ax \le b, Cx = d\right\} $$<p>其中 $A \in \mathbb{R}^{m \times n}, C \in \mathbb{R}^{p \times n}$.</p>
-</div>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>对中心 $x_c$ 和半径 $r$, 形如</p>
-$$ B(x_c, r) = \left\{ x \mid \Vert x - x_c \Vert \le r \right\} = \left\{ x_c + ru \mid \Vert u \Vert \le 1 \right\} $$<p>的集合称为 <strong>球</strong>.</p>
-<p>对中心 $x_c$ 和对称正定矩阵 $P$, 非奇异矩阵 $A$, 形如</p>
-$$ \left\{ x \mid (x-x_c)^TP(x-x_c) \le 1 \right\} = \left\{ x_c + Au \mid \Vert u \Vert \le 1 \right\} $$<p>的集合称为 <strong>椭球</strong>.</p>
-</div>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>形如</p>
-$$ \left\{(x,t) \mid \Vert x \Vert \le t \right\} $$<p>的集合称为 <strong>(范数)锥</strong>.</p>
-</div>
-<h2 id="保凸运算">保凸运算
-</h2><div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
-<p>仿射运算保凸, 即对 $f(x)=Ax+b$, 则凸集在 $f$ 下的像是凸集, 凸集在 $f$ 下的原像是凸集.</p>
-</div>
-<p>考虑双曲锥</p>
-$$
-\left\{ x \mid x^TPx \le \left( c^Tx \right)^2, c^Tx \ge 0, P \in \mathbb{S}_+^n \right\}
-$$<p>$\mathbb{S}_+^n$ 表示半正定矩阵. 双曲锥可以表示为二阶锥</p>
-$$
-\left\{ x \mid \Vert Ax \Vert_2 \le c^Tx, c^Tx \ge 0, A^TA = P \right\}
-$$<p>这个可以由二次范数锥得到.</p>
-<ul>
-<li>
-<p>透视变换 $P: \mathbb{R}^{n+1} \mapsto \mathbb{R}^n$:</p>
-$$
-  P(x,t) = \frac{x}{t}, \quad \text{dom} P = \left\{ (x,t) \mid t > 0 \right\}
-  $$<p>保凸.</p>
-</li>
-<li>
-<p>分式线性变换 $f: \mathbb{R}^n \mapsto \mathbb{R}^m$:</p>
-$$
-  f(x) = \frac{Ax+b}{c^Tx+d}, \quad \text{dom} f = \left\{ x \mid c^Tx+d > 0 \right\}
-  $$<p>保凸.</p>
-</li>
-</ul>
-<h2 id="广义不等式和对偶锥">广义不等式和对偶锥
-</h2><div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>我们称一个凸锥 $K \subseteq \mathbb{R}^n$ 为 <strong>适当锥</strong>, 当其还满足</p>
-<ul>
-<li>$K$ 是闭集;</li>
-<li>$K$ 是实心的, 即 $\text{int} K \neq \emptyset$;</li>
-<li>$K$ 是尖的, 即内部不包含直线: 若 $x \in \text{int} K, -x \in \text{int} K$. 则一定有 $x = 0$.</li>
-</ul>
-</div>
-<p>例如</p>
-<ul>
-<li>非负卦限 $K=\mathbb{R}_+^n=\left\{ x \in \mathbb{R}^n \mid x_i \ge 0 \right\}$ 是适当锥.</li>
-<li>半正定锥 $K=\mathbb{S}_+^n$ 是适当锥.</li>
-<li>$[0,1]$ 上的有限非负多项式 $K=\left\{ x \in \mathbb{R}^n \mid x_1 + x_2t + \cdots + x_nt^{n-1} \ge 0, t \in [0,1] \right\}$ 是适当锥.</li>
-</ul>
-<p>可以在 <strong>适当锥</strong> 上定义广义不等式.</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>对于适当锥 $K$ , 定义偏序 <strong>广义不等式</strong> 为</p>
-$$x \preceq_K y \Leftrightarrow y - x \in K$$<p>严格版本:</p>
-$$x \prec_K y \Leftrightarrow y - x \in \text{int} K$$</div>
-<p>广义不等式是一个偏序关系, 具有自反性, 反对称性, 传递性, 可加性, 非负缩放性, 不再赘述.</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>令锥 $K$ 为全空间 $\Omega$ 的子集, 则 $K$ 的 <strong>对偶锥</strong> 为</p>
-$$
-K^\ast = \left\{ y \mid \left< x, y \right> \ge 0, \forall x \in K \right\}
-$$</div>
-<p>例如</p>
-<ul>
-<li>非负卦限是自对偶锥.</li>
-<li>半正定锥是自对偶锥.</li>
-</ul>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
-<p>设 $K$ 是一锥, $K^\ast$ 是其对偶锥, 则满足:</p>
-<ul>
-<li>$K^\ast$ 是锥 (即使 $K$ 不是锥);</li>
-<li>$K^\ast$ 是凸且闭的;</li>
-<li>若 $\text{int} \neq \emptyset$, 则 $K^\ast$ 是尖的.</li>
-<li>若 $K$ 是尖的, 则 $\text{int} K^\ast \neq \emptyset$.</li>
-<li>若 $K$ 是适当锥, 则 $K^\ast$ 是适当锥.</li>
-<li>$K^{\ast\ast}$ 是 $K$ 的凸包. 特别地, 若 $K$ 是凸且闭的, 则 $K^\ast=K$.</li>
-</ul>
-</div>
-<p>适当锥的对偶锥仍是适当锥, 则适当锥 $K$ 的对偶锥 $K^\ast$ 也可以诱导广义不等式.</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>对于适当锥 $K$, 定义其对偶锥 $K^\ast$ 上的 <strong>对偶广义不等式</strong> 为:</p>
-$$x \preceq_{K^\ast} y \Leftrightarrow y - x \in K^\ast$$<p>其满足</p>
-<ul>
-<li>$x \preceq_{K} y \Leftrightarrow \lambda^Tx \le \lambda^Ty, \forall \lambda \succeq_{K^\ast} K^\ast$.</li>
-<li>$y \succeq_{K^\ast} 0 \Leftrightarrow y^Tx \ge 0, \forall x \succeq_K 0$.</li>
-</ul>
-</div>
-<h2 id="分离超平面定理">分离超平面定理
-</h2><div class="math-block">
-    <p class="math-block-title math-thm">定理<span class="math-subtitle">分离超平面定理</span></p>
-<p>如果 $C$ 和 $D$ 是不相交的凸集, 则存在一个超平面 $H$ 将 $C$ 和 $D$ 分开, 即存在 $a \neq 0, b$ 使得</p>
-$$
-\begin{aligned}
-a^Tx &\le b, \quad \forall x \in C \\
-a^Tx &\ge b, \quad \forall x \in D
-\end{aligned}
-$$</div>
-<p>简要想法是找距离最近的一对点, 以这两点的中点为中心, 以两点的连线为法向量构造超平面.</p>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理<span class="math-subtitle">严格分离定理</span></p>
-<p>如果 $C$ 和 $D$ 是不相交的凸集, 且 $C$ 是闭集, $D$ 是紧集, 则存在一个超平面 $H$ 将 $C$ 和 $D$ 严格分开, 即存在 $a \neq 0, b$ 使得</p>
-$$
-\begin{aligned}
-a^Tx &\lt b, \quad \forall x \in C \\
-a^Tx &\gt b, \quad \forall x \in D
-\end{aligned}
-$$</div>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>给定集合 $C$ 和边界点 $x_0$, 如果 $a\ne 0$ 满足 $a^Tx \le a^T x_0, \forall x \in C$, 则称</p>
-$$
-\left\{ x \mid a^Tx = a^T x_0 \right\}
-$$<p>为 $C$ 的 <strong>支撑超平面</strong>.</p>
-</div>
-<p>由分离超平面的特殊情况 ($D$ 为单点集) 可以得到支撑超平面的存在性.</p>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理<span class="math-subtitle">支撑超平面定理</span></p>
-<p>若 $C$ 是凸集, 则 $C$ 的任意边界点处存在支撑超平面.</p>
-</div>
-
+w_{jt} &= w_{jt} - \eta \
+$$ -->
 </section>
 
 
@@ -645,12 +484,12 @@ $$<p>为 $C$ 的 <strong>支撑超平面</strong>.</p>
             
                 
 <article class="">
-    <a href="/p/opt-method/opt-theory/">
+    <a href="/p/machine-learning/decision-tree/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">最优化方法(5) —— 最优性理论</h2>
+            <h2 class="article-title">机器学习基础(5) —— 决策树模型</h2>
         </div>
     </a>
 </article>
@@ -658,12 +497,12 @@ $$<p>为 $C$ 的 <strong>支撑超平面</strong>.</p>
             
                 
 <article class="">
-    <a href="/p/opt-method/opt-problem/">
+    <a href="/p/machine-learning/knn/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">最优化方法(4) —— 优化问题</h2>
+            <h2 class="article-title">机器学习基础(4) —— 基于近邻的分类方法</h2>
         </div>
     </a>
 </article>
@@ -671,12 +510,12 @@ $$<p>为 $C$ 的 <strong>支撑超平面</strong>.</p>
             
                 
 <article class="">
-    <a href="/p/opt-method/convex-function/">
+    <a href="/p/machine-learning/bayers/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">最优化方法(3) —— 凸函数</h2>
+            <h2 class="article-title">机器学习基础(3) —— 基于后验概率最大化准则的分类模型</h2>
         </div>
     </a>
 </article>
@@ -684,12 +523,12 @@ $$<p>为 $C$ 的 <strong>支撑超平面</strong>.</p>
             
                 
 <article class="">
-    <a href="/p/opt-method/intro/">
+    <a href="/p/machine-learning/vector-machine/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">最优化方法(1) —— 简介</h2>
+            <h2 class="article-title">机器学习基础(2) —— 支持向量机</h2>
         </div>
     </a>
 </article>
@@ -697,12 +536,12 @@ $$<p>为 $C$ 的 <strong>支撑超平面</strong>.</p>
             
                 
 <article class="">
-    <a href="/p/machine-learning/nn-beginner/">
+    <a href="/p/machine-learning/intro/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">机器学习基础(6) —— 神经网络学习初步</h2>
+            <h2 class="article-title">机器学习基础(1) —— 概述</h2>
         </div>
     </a>
 </article>

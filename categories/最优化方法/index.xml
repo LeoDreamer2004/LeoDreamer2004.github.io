@@ -353,8 +353,7 @@ $$c_i(x) &lt; 0, i=1, \ldots, m$$&lt;p&gt;则称对于该问题 &lt;strong&gt;Sl
 &lt;p&gt;定义集合&lt;/p&gt;
 $$
 \begin{aligned}
-\mathbb{A}&amp;= \{(u,v,t) \mid \exists x \in \mathcal{D}, c_i(x) \le u_i (i=1, \ldots, m), Ax-b=v, f(x) \le t\} 、、
-\mathbb{B}&amp;= \{(0,0,s) \mid s \le p^*\}
+\mathbb{A}&amp;= \{(u,v,t) \mid \exists x \in \mathcal{D}, c_i(x) \le u_i (i=1, \ldots, m), Ax-b=v, f(x) \le t\} \\ \mathbb{B}&amp;= \{(0,0,s) \mid s \le p^*\}
 \end{aligned}
 $$&lt;p&gt;若 $(0,0,t) \in \mathbb{A} \cap \mathbb{B}$, 则 $f(x) \le t&lt; p^*$ 矛盾. 因而两集合不交. 由于两者都是凸集, 由超平面分离定理, 存在 $(\lambda, \nu, \mu) \ne 0$ 和 $\alpha$ 使得&lt;/p&gt;
 $$
