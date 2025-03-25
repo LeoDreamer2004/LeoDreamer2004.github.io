@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/opt-method/opt-theory/'>
 
-<link rel="stylesheet" href="/scss/style.min.88a9b05662e5df1c942bb6477cd68790de88a6075a7b430d619b1370d5cf45b0.css"><meta property='og:title' content="最优化方法(5) —— 最优性理论">
+<link rel="stylesheet" href="/scss/style.min.e1b846f9bbfe6b5b7b0ce11646853c42e535b9deb91f5bc98a40e38dbd1eba8b.css"><meta property='og:title' content="最优化方法(5) —— 最优性理论">
 <meta property='og:description' content="对偶理论 对于一般的约束优化问题:\n$$ \\begin{aligned} \\min \\quad & f(x) \\\\ \\text{s.t.} \\quad & c_i(x) \\leq 0, \\quad i \\in \\mathcal{I} \\\\ & c_i(x) = 0, \\quad i \\in \\mathcal{E} \\end{aligned} $$Lagrange 函数为:\n$$ L(x, \\lambda, \\nu) = f(x) + \\sum_{i \\in \\mathcal{I}} \\lambda_i c_i(x) + \\sum_{i \\in \\mathcal{E}} \\nu_i c_i(x) $$其中 $\\lambda_i \\ge 0$.\n定义\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/opt-method/opt-theory/'>
 <meta property='og:site_name' content='LeoDreamer'>
@@ -20,7 +20,9 @@
     <script>
         (function() {
             const colorSchemeKey = 'StackColorScheme';
-            localStorage.setItem(colorSchemeKey, "light");
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "light");
+            }
         })();
     </script><script>
     (function() {
@@ -209,6 +211,26 @@
         <li class="menu-bottom-section">
             <ol class="menu">
 
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
                 
             </ol>
         </li>

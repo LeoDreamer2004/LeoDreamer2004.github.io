@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning/nn-beginner/'>
 
-<link rel="stylesheet" href="/scss/style.min.88a9b05662e5df1c942bb6477cd68790de88a6075a7b430d619b1370d5cf45b0.css"><meta property='og:title' content="机器学习基础(6) —— 神经网络学习初步">
+<link rel="stylesheet" href="/scss/style.min.e1b846f9bbfe6b5b7b0ce11646853c42e535b9deb91f5bc98a40e38dbd1eba8b.css"><meta property='og:title' content="机器学习基础(6) —— 神经网络学习初步">
 <meta property='og:description' content="特征的线性组合 之前的二分类问题中, 如果把 $z=w^Tx+b$ 看做是衍生的新特征, 实际上感知机的模型就是 $y=\\text{sign}(z)$. 二项逻辑斯蒂回归模型中, $P(y=1 \\mid x) = \\sigma(z)=\\frac{1}{1+e^{-z}}$. 相当于引入了一个 sigmoid 函数进行非线性变换.\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning/nn-beginner/'>
 <meta property='og:site_name' content='LeoDreamer'>
@@ -20,7 +20,9 @@
     <script>
         (function() {
             const colorSchemeKey = 'StackColorScheme';
-            localStorage.setItem(colorSchemeKey, "light");
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "light");
+            }
         })();
     </script><script>
     (function() {
@@ -209,6 +211,26 @@
         <li class="menu-bottom-section">
             <ol class="menu">
 
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
                 
             </ol>
         </li>

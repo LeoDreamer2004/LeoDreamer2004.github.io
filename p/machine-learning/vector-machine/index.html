@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning/vector-machine/'>
 
-<link rel="stylesheet" href="/scss/style.min.88a9b05662e5df1c942bb6477cd68790de88a6075a7b430d619b1370d5cf45b0.css"><meta property='og:title' content="机器学习基础(2) —— 支持向量机">
+<link rel="stylesheet" href="/scss/style.min.e1b846f9bbfe6b5b7b0ce11646853c42e535b9deb91f5bc98a40e38dbd1eba8b.css"><meta property='og:title' content="机器学习基础(2) —— 支持向量机">
 <meta property='og:description' content="线性可分支持向量机 定义\n对于一个数据集 $D$, 如果能找到一个超平面 $H: w^Tx + b = 0$, 将数据分为两类. 即对任意 $(x_i, y_i) \\in D$, 若 $y_i = 1$, 则 $w^Tx_i + b \\geq 0$; 若 $y_i = -1$, 则 $w^Tx_i + b < 0$. 则称 $D$ 是 线性可分的 , 超平面 $H$ 是 $D$ 的一个 分离超平面.\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning/vector-machine/'>
 <meta property='og:site_name' content='LeoDreamer'>
@@ -20,7 +20,9 @@
     <script>
         (function() {
             const colorSchemeKey = 'StackColorScheme';
-            localStorage.setItem(colorSchemeKey, "light");
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "light");
+            }
         })();
     </script><script>
     (function() {
@@ -209,6 +211,26 @@
         <li class="menu-bottom-section">
             <ol class="menu">
 
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
                 
             </ol>
         </li>
