@@ -362,7 +362,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 5 分钟
+                    阅读时长: 6 分钟
                 </time>
             </div>
         
@@ -713,8 +713,40 @@ $$c_i(x) < 0, i=1, \ldots, m$$<p>则称对于该问题 <strong>Slater 约束品�
     <p class="math-block-title math-thm">定理</p>
 <p>若 Slater 约束品性成立, 则强对偶性成立.</p>
 <p class="math-block-title math-prf">证明</p>
-<p>这里假设 $\mathcal{D}$ 内部非空, $A$ 是行满秩的 (否则可以去掉冗余约束), $p^*$ 是有限的. 要证明当 $d^* > -\infty$ 时, 存在对偶可行解 $(\lambda^*, \nu^*)$ 使得 $g(\lambda^*, \nu^*) = =d^*=p^*$.</p>
+<p>这里假设 $\mathcal{D}$ 内部非空, $A$ 是行满秩的 (否则可以去掉冗余约束), $p^*$ 是有限的. 要证明当 $d^* > -\infty$ 时, 存在对偶可行解 $(\lambda^*, \nu^*)$ 使得 $g(\lambda^*, \nu^*) = d^*=p^*$.</p>
+<p>定义集合</p>
+$$
+\begin{aligned}
+\mathbb{A}&= \{(u,v,t) \mid \exists x \in \mathcal{D}, c_i(x) \le u_i (i=1, \ldots, m), Ax-b=v, f(x) \le t\} 、、
+\mathbb{B}&= \{(0,0,s) \mid s \le p^*\}
+\end{aligned}
+$$<p>若 $(0,0,t) \in \mathbb{A} \cap \mathbb{B}$, 则 $f(x) \le t< p^*$ 矛盾. 因而两集合不交. 由于两者都是凸集, 由超平面分离定理, 存在 $(\lambda, \nu, \mu) \ne 0$ 和 $\alpha$ 使得</p>
+$$
+\begin{aligned}
+\lambda^Tu + \nu^Tv + \mu t &\ge \alpha, \quad \forall (u,v,t) \in \mathbb{A} \\
+\lambda^Tu + \nu^Tv + \mu t &\le \alpha, \quad \forall (u,v,t) \in \mathbb{B}
+\end{aligned}
+$$<p>显见, $\lambda \ge 0, \mu \ge 0$, 否则可以让 $\mu_i, t \to +\infty$ 使得集合 $\mathbb{A}$ 上不等式左侧无下界. 由 $\mathbb{B}$ 的不等式, 立得 $\mu p^* \le \alpha$.</p>
+<p>对于 $(u,v,t)=(c_i(x), Ax-b, f(x))$, 代入有</p>
+$$
+\sum_{i=1}^m \lambda_i c_i(x) + \nu^T(Ax-b) + \mu f(x) \ge \alpha \ge \mu p^*
+$$<p>若 $\mu > 0$, 则上式恰好对应 Lagrange 函数:</p>
+$$
+L(x, \frac{\lambda}{\mu}, \frac{\nu}{\mu}) \ge p^*
+$$<p>故 $g(\frac{\lambda}{\mu}, \frac{\nu}{\mu}) \ge p^*$, 再结合弱对偶性, $g(\frac{\lambda}{\mu}, \frac{\nu}{\mu}) = p^*$. 则此情况下强对偶性成立, 且最优解可达.</p>
+<p>若 $\mu=0$, 可以得到对于所有 $x \in \mathcal{D}$, 有</p>
+$$
+\sum_{i=1}^m \lambda_i c_i(x) + \nu^T(Ax-b) \ge 0
+$$<p>令 $x_S$ 为满足 Slater 条件的点, $Ax_S=b, c_i(x_S) < 0$, 但 $\lambda \ge 0$ 则必须 $\lambda = 0$. 因此</p>
+$$
+\nu^T(Ax-b) \ge 0, \quad \forall x \in \mathcal{D}
+$$<p>$x_S$ 恰好是谷底的 $0$, 四周全部都 $\ge 0$ 不太可能. 更具体地, 由于 $(\lambda, \nu, \mu) \ne 0$, 则 $\nu \ne 0$. $A$ 是行满秩的, 则 $A^T \nu \ne 0$, 因为 $x_S \in \text{int}\mathcal{D}$, 则存在微扰 $e$ 使得</p>
+$$\widetilde{x} = x_S + e \in \mathcal{D}, \quad v^TAe < 0$$<p>但是</p>
+$$
+v^TAe = v^TA(\widetilde{x}-x_S) = v^T(A\widetilde{x} - b) \ge 0$$<p>矛盾. 因此 $\mu > 0$, 强对偶性成立.</p>
 </div>
+<p>现在假设</p>
+
 </section>
 
 

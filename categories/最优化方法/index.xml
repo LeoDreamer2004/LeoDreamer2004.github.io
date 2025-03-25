@@ -349,8 +349,40 @@ $$c_i(x) &lt; 0, i=1, \ldots, m$$&lt;p&gt;则称对于该问题 &lt;strong&gt;Sl
     &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
 &lt;p&gt;若 Slater 约束品性成立, 则强对偶性成立.&lt;/p&gt;
 &lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
-&lt;p&gt;这里假设 $\mathcal{D}$ 内部非空, $A$ 是行满秩的 (否则可以去掉冗余约束), $p^*$ 是有限的. 要证明当 $d^* &gt; -\infty$ 时, 存在对偶可行解 $(\lambda^*, \nu^*)$ 使得 $g(\lambda^*, \nu^*) = =d^*=p^*$.&lt;/p&gt;
-&lt;/div&gt;</description>
+&lt;p&gt;这里假设 $\mathcal{D}$ 内部非空, $A$ 是行满秩的 (否则可以去掉冗余约束), $p^*$ 是有限的. 要证明当 $d^* &gt; -\infty$ 时, 存在对偶可行解 $(\lambda^*, \nu^*)$ 使得 $g(\lambda^*, \nu^*) = d^*=p^*$.&lt;/p&gt;
+&lt;p&gt;定义集合&lt;/p&gt;
+$$
+\begin{aligned}
+\mathbb{A}&amp;= \{(u,v,t) \mid \exists x \in \mathcal{D}, c_i(x) \le u_i (i=1, \ldots, m), Ax-b=v, f(x) \le t\} 、、
+\mathbb{B}&amp;= \{(0,0,s) \mid s \le p^*\}
+\end{aligned}
+$$&lt;p&gt;若 $(0,0,t) \in \mathbb{A} \cap \mathbb{B}$, 则 $f(x) \le t&lt; p^*$ 矛盾. 因而两集合不交. 由于两者都是凸集, 由超平面分离定理, 存在 $(\lambda, \nu, \mu) \ne 0$ 和 $\alpha$ 使得&lt;/p&gt;
+$$
+\begin{aligned}
+\lambda^Tu + \nu^Tv + \mu t &amp;\ge \alpha, \quad \forall (u,v,t) \in \mathbb{A} \\
+\lambda^Tu + \nu^Tv + \mu t &amp;\le \alpha, \quad \forall (u,v,t) \in \mathbb{B}
+\end{aligned}
+$$&lt;p&gt;显见, $\lambda \ge 0, \mu \ge 0$, 否则可以让 $\mu_i, t \to +\infty$ 使得集合 $\mathbb{A}$ 上不等式左侧无下界. 由 $\mathbb{B}$ 的不等式, 立得 $\mu p^* \le \alpha$.&lt;/p&gt;
+&lt;p&gt;对于 $(u,v,t)=(c_i(x), Ax-b, f(x))$, 代入有&lt;/p&gt;
+$$
+\sum_{i=1}^m \lambda_i c_i(x) + \nu^T(Ax-b) + \mu f(x) \ge \alpha \ge \mu p^*
+$$&lt;p&gt;若 $\mu &gt; 0$, 则上式恰好对应 Lagrange 函数:&lt;/p&gt;
+$$
+L(x, \frac{\lambda}{\mu}, \frac{\nu}{\mu}) \ge p^*
+$$&lt;p&gt;故 $g(\frac{\lambda}{\mu}, \frac{\nu}{\mu}) \ge p^*$, 再结合弱对偶性, $g(\frac{\lambda}{\mu}, \frac{\nu}{\mu}) = p^*$. 则此情况下强对偶性成立, 且最优解可达.&lt;/p&gt;
+&lt;p&gt;若 $\mu=0$, 可以得到对于所有 $x \in \mathcal{D}$, 有&lt;/p&gt;
+$$
+\sum_{i=1}^m \lambda_i c_i(x) + \nu^T(Ax-b) \ge 0
+$$&lt;p&gt;令 $x_S$ 为满足 Slater 条件的点, $Ax_S=b, c_i(x_S) &lt; 0$, 但 $\lambda \ge 0$ 则必须 $\lambda = 0$. 因此&lt;/p&gt;
+$$
+\nu^T(Ax-b) \ge 0, \quad \forall x \in \mathcal{D}
+$$&lt;p&gt;$x_S$ 恰好是谷底的 $0$, 四周全部都 $\ge 0$ 不太可能. 更具体地, 由于 $(\lambda, \nu, \mu) \ne 0$, 则 $\nu \ne 0$. $A$ 是行满秩的, 则 $A^T \nu \ne 0$, 因为 $x_S \in \text{int}\mathcal{D}$, 则存在微扰 $e$ 使得&lt;/p&gt;
+$$\widetilde{x} = x_S + e \in \mathcal{D}, \quad v^TAe &lt; 0$$&lt;p&gt;但是&lt;/p&gt;
+$$
+v^TAe = v^TA(\widetilde{x}-x_S) = v^T(A\widetilde{x} - b) \ge 0$$&lt;p&gt;矛盾. 因此 $\mu &gt; 0$, 强对偶性成立.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;现在假设&lt;/p&gt;
+</description>
         </item>
         <item>
         <title>最优化方法(4) —— 优化问题</title>
