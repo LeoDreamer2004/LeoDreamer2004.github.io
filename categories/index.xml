@@ -14,7 +14,7 @@
         
         <guid>https://LeoDreamer2004.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/</guid>
         <description>&lt;img src="https://LeoDreamer2004.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/Chino_ML.jpg" alt="Featured image of post 机器学习基础" /&gt;&lt;p&gt;北京大学牟克典老师的机器学习基础课程。&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;&lt;p class=&#34;math-block-title&#34;&gt;导航&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;&lt;p class=&#34;math-block-title&#34;&gt;&lt;?xml version=&#34;1.0&#34; standalone=&#34;no&#34;?&gt;&lt;!DOCTYPE svg PUBLIC &#34;-//W3C//DTD SVG 1.1//EN&#34; &#34;http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd&#34;&gt;&lt;svg t=&#34;1742970494288&#34; class=&#34;icon&#34; viewBox=&#34;0 0 1024 1024&#34; version=&#34;1.1&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; p-id=&#34;7053&#34; data-darkreader-inline-fill=&#34;&#34; xmlns:xlink=&#34;http://www.w3.org/1999/xlink&#34; width=&#34;200&#34; height=&#34;200&#34;&gt;&lt;path d=&#34;M622.24 959.41A51.58 51.58 0 0 1 574 926.65L437.44 584a52 52 0 0 1 11-55.48l211.9-218.11A36 36 0 1 1 712 360.56L509.12 569.37 621.3 850.91l250.25-697.73-696.76 246.31 176.83 68.84a36 36 0 1 1-26.13 67.09L98.47 447a52 52 0 0 1 1.53-97.44L903.15 65.65A44 44 0 0 1 959.23 122l-288 803a51.62 51.62 0 0 1-48.05 34.44z&#34; p-id=&#34;7054&#34;&gt;&lt;/path&gt;&lt;/svg&gt; 导航&lt;/p&gt;
 &lt;table&gt;
   &lt;thead&gt;
       &lt;tr&gt;
@@ -37,7 +37,7 @@
       &lt;tr&gt;
           &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/p/machine-learning/bayers&#34; &gt;机器学习基础(3) —— 基于后验概率最大化准则的分类模型&lt;/a&gt;&lt;/td&gt;
           &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/MachineLearning-3.pdf&#34; &gt;课件链接&lt;/a&gt;&lt;/td&gt;
-          &lt;td&gt;-&lt;/td&gt;
+          &lt;td&gt;&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
           &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/p/machine-learning/knn&#34; &gt;机器学习基础(4) —— 基于近邻的分类方法&lt;/a&gt;&lt;/td&gt;
@@ -47,12 +47,12 @@
       &lt;tr&gt;
           &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/p/machine-learning/decision-tree&#34; &gt;机器学习基础(5) —— 决策树模型&lt;/a&gt;&lt;/td&gt;
           &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/MachineLearning-5.pdf&#34; &gt;课件链接&lt;/a&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/homework-3.pdf&#34; &gt;作业链接&lt;/a&gt; &lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/homework-3-decision_tree.py&#34; &gt;代码链接&lt;/a&gt;&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
           &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/p/machine-learning/nn-beginner&#34; &gt;机器学习基础(6) —— 神经网络学习初步&lt;/a&gt;&lt;/td&gt;
           &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/MachineLearning-6.pdf&#34; &gt;课件链接&lt;/a&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/homework-3.pdf&#34; &gt;作业链接&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;/td&gt;
       &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
@@ -82,7 +82,7 @@
         
         <guid>https://LeoDreamer2004.github.io/categories/%E6%9C%80%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/</guid>
         <description>&lt;img src="https://LeoDreamer2004.github.io/categories/%E6%9C%80%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/optimize.jpg" alt="Featured image of post 最优化方法" /&gt;&lt;p&gt;本系列是关于北大文再文老师最优化方法课程的自学笔记。&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;&lt;p class=&#34;math-block-title&#34;&gt;导航&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;&lt;p class=&#34;math-block-title&#34;&gt;&lt;?xml version=&#34;1.0&#34; standalone=&#34;no&#34;?&gt;&lt;!DOCTYPE svg PUBLIC &#34;-//W3C//DTD SVG 1.1//EN&#34; &#34;http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd&#34;&gt;&lt;svg t=&#34;1742970494288&#34; class=&#34;icon&#34; viewBox=&#34;0 0 1024 1024&#34; version=&#34;1.1&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; p-id=&#34;7053&#34; data-darkreader-inline-fill=&#34;&#34; xmlns:xlink=&#34;http://www.w3.org/1999/xlink&#34; width=&#34;200&#34; height=&#34;200&#34;&gt;&lt;path d=&#34;M622.24 959.41A51.58 51.58 0 0 1 574 926.65L437.44 584a52 52 0 0 1 11-55.48l211.9-218.11A36 36 0 1 1 712 360.56L509.12 569.37 621.3 850.91l250.25-697.73-696.76 246.31 176.83 68.84a36 36 0 1 1-26.13 67.09L98.47 447a52 52 0 0 1 1.53-97.44L903.15 65.65A44 44 0 0 1 959.23 122l-288 803a51.62 51.62 0 0 1-48.05 34.44z&#34; p-id=&#34;7054&#34;&gt;&lt;/path&gt;&lt;/svg&gt; 导航&lt;/p&gt;
 &lt;table&gt;
   &lt;thead&gt;
       &lt;tr&gt;
@@ -128,7 +128,7 @@
         
         <guid>https://LeoDreamer2004.github.io/categories/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%AE%9E%E4%B9%A0/</guid>
         <description>&lt;img src="https://LeoDreamer2004.github.io/categories/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%AE%9E%E4%B9%A0/Q_Py_Cpp.png" alt="Featured image of post 程序设计实习" /&gt;&lt;p&gt;北京大学张勤健老师的程序设计实习课程。&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;&lt;p class=&#34;math-block-title&#34;&gt;导航&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;&lt;p class=&#34;math-block-title&#34;&gt;&lt;?xml version=&#34;1.0&#34; standalone=&#34;no&#34;?&gt;&lt;!DOCTYPE svg PUBLIC &#34;-//W3C//DTD SVG 1.1//EN&#34; &#34;http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd&#34;&gt;&lt;svg t=&#34;1742970494288&#34; class=&#34;icon&#34; viewBox=&#34;0 0 1024 1024&#34; version=&#34;1.1&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; p-id=&#34;7053&#34; data-darkreader-inline-fill=&#34;&#34; xmlns:xlink=&#34;http://www.w3.org/1999/xlink&#34; width=&#34;200&#34; height=&#34;200&#34;&gt;&lt;path d=&#34;M622.24 959.41A51.58 51.58 0 0 1 574 926.65L437.44 584a52 52 0 0 1 11-55.48l211.9-218.11A36 36 0 1 1 712 360.56L509.12 569.37 621.3 850.91l250.25-697.73-696.76 246.31 176.83 68.84a36 36 0 1 1-26.13 67.09L98.47 447a52 52 0 0 1 1.53-97.44L903.15 65.65A44 44 0 0 1 959.23 122l-288 803a51.62 51.62 0 0 1-48.05 34.44z&#34; p-id=&#34;7054&#34;&gt;&lt;/path&gt;&lt;/svg&gt; 导航&lt;/p&gt;
 &lt;table&gt;
   &lt;thead&gt;
       &lt;tr&gt;
