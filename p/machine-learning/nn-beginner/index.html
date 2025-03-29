@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning/nn-beginner/'>
 
-<link rel="stylesheet" href="/scss/style.min.b053057b952b9ea684ffc2b00444e5d5d7f473978f527a0b9d7ee0f643674e46.css"><meta property='og:title' content="机器学习基础(6) —— 神经网络学习初步">
+<link rel="stylesheet" href="/scss/style.min.b333a14803fb3401b86b47b24b6e1001a620c376df80a3cb9249b4f6b71922d2.css"><meta property='og:title' content="机器学习基础(6) —— 神经网络学习初步">
 <meta property='og:description' content="特征的线性组合 之前的二分类问题中, 如果把 $z=w^Tx+b$ 看做是衍生的新特征, 实际上感知机的模型就是 $y=\\text{sign}(z)$. 二项逻辑斯蒂回归模型中, $P(y=1 \\mid x) = \\sigma(z)=\\frac{1}{1+e^{-z}}$. 相当于引入了一个 sigmoid 函数进行非线性变换.\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning/nn-beginner/'>
 <meta property='og:site_name' content='LeoDreamer'>
@@ -265,6 +265,12 @@
             </a>
         </li>
     
+        <li>
+            <a href="/materials/machine-learning/homework-4.pdf" target="_blank" rel="noopener noreferrer">
+                作业4
+            </a>
+        </li>
+    
 </ul>
         </div>
     </section>
@@ -434,11 +440,31 @@ $$
 R(\Theta) = \sum_{i=1}^N R_i(\Theta) = \sum_{i=1}^N \| y_i - \hat{y}_i \| ^2 = \sum_{i=1}^N \sum_{l=1}^k (y_i^{(l)} - \hat{y}_i^{(l)})^2
 $$<p>依然采用经验风险最小化策略, 通过梯度下降法来求解参数集 $\Theta$. 求偏导可得:</p>
 $$
-$$<p>给定学习率 $\eta$, 可以求解得权值更新公式:</p>
-<!-- $$
 \begin{aligned}
-w_{jt} &= w_{jt} - \eta \
-$$ -->
+\frac{\partial R_i(\Theta)}{\partial v_{tl}} &= \delta_i^{(l)}z^{(t)}(x_i) \\
+\frac{\partial R_i(\Theta)}{\partial \theta_l} &= -\delta_i^{(l)} \\
+\frac{\partial R_i(\Theta)}{\partial w_{jt}} &= s_i^{(t)} x_i^{(j)} \\
+\frac{\partial R_i(\Theta)}{\partial \gamma_t} &= -s_i^{(t)}
+\end{aligned}
+$$<p>其中</p>
+$$
+\begin{aligned}
+\delta_i^{(l)}&=-2(y_i^{(l)}-\hat{y}_i^{(l)})\hat{y}_i^{(l)}(1-\hat{y}_i^{(l)}) \\
+s_i^{(t)} &= z^{(t)}(x_i)(1-z^{(t)}(x_i))\sum_{l=1}^k v_{tl}\delta_i^{(l)}
+\end{aligned}
+$$<p>给定学习率 $\eta$, 按照 $\alpha = \alpha - \eta \frac{\partial R_i(\Theta)}{\partial \alpha}$ 进行迭代更新.</p>
+<p>采用正则化策略来缓解过拟合问题:</p>
+$$
+\hat{\Theta} = \arg\min_{\Theta} (R(\Theta) + \lambda J(\Theta))
+$$<p>其中 $J(\Theta)$ 是正则化项, 通常是参数的 $L_2$ 范数, 所有参数的平方和.</p>
+<p>关于激活函数, 除了 sigmoid 函数, 还有 tanh 函数, ReLU 函数等. 前两者函数性质连续, 但是在部分情况可能导数接近 $0$, 从而导致梯度消失问题. 相对之下, ReLU 函数梯度计算简单. 还有带泄漏的 ReLU 函数:</p>
+$$
+f(x) = \begin{cases}
+x & x>0 \\
+\lambda x & x \leq 0
+\end{cases}
+$$<p>等等.</p>
+
 </section>
 
 
@@ -500,6 +526,19 @@ $$ -->
             
                 
 <article class="">
+    <a href="/p/machine-learning/integrated-learning/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">机器学习基础(7) —— 集成学习</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
     <a href="/p/machine-learning/decision-tree/">
         
         
@@ -545,19 +584,6 @@ $$ -->
 
         <div class="article-details">
             <h2 class="article-title">机器学习基础(2) —— 支持向量机</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/machine-learning/intro/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">机器学习基础(1) —— 概述</h2>
         </div>
     </a>
 </article>

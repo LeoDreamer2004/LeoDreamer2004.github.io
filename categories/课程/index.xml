@@ -7,7 +7,65 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>LeoDreamer</copyright>
-        <lastBuildDate>Tue, 25 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/%E8%AF%BE%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 28 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/%E8%AF%BE%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>机器学习基础(7) —— 集成学习</title>
+        <link>https://LeoDreamer2004.github.io/p/machine-learning/integrated-learning/</link>
+        <pubDate>Fri, 28 Mar 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/p/machine-learning/integrated-learning/</guid>
+        <description>&lt;h2 id=&#34;集成学习概述&#34;&gt;集成学习概述
+&lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;集成学习&lt;/strong&gt; 是指通过将相对比较容易构建但泛化性能一般的多个学习器进行结合, 以获得比单一学习器更好的泛化性能的一种机器学习方法.&lt;/p&gt;
+&lt;p&gt;根据个体分类器是否由同一学习算法, 集成学习可以分为 &lt;strong&gt;同质集成&lt;/strong&gt; 和 &lt;strong&gt;异质集成&lt;/strong&gt; 两大类; 根据个体分类器的依赖关系, 可以将学习方法分为 &lt;strong&gt;序列化方法(串行集成)&lt;/strong&gt; 和 &lt;strong&gt;并行化方法(并行集成)&lt;/strong&gt; 两种.&lt;/p&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;提升方法&#34;&gt;提升方法
+&lt;/h2&gt;&lt;p&gt;PAC 框架下, 概念类强可学习和其弱可学习等价, 但弱可学习实现更容易, 提升方法就是指将弱学习算法提升为强学习算法的方法.&lt;/p&gt;
+&lt;h3 id=&#34;adaboost-算法&#34;&gt;AdaBoost 算法
+&lt;/h3&gt;&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;AdaBoost&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 给定训练数据集 $D=\{(x_i,y_i)\}_{i=1}^N$, 其中 $x_i \in \mathcal{X}, y_i \in \mathcal{Y}=\{-1,+1\}, i=1,2,\cdots,N$; 弱学习算法 $\mathcal{L}$ 以及基本分类器个数 $T$;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 最终分类器 $f(x)$&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;准备一个权重向量 $W_t=(w_{i,t})_{i=1}^N$, 表示第 $t$ 轮训练数据的权重分布, 初始时 $w_{i,1}=\frac{1}{N}$;&lt;/li&gt;
+&lt;li&gt;在第 $t$ 轮学习中, 应用算法 $\mathcal{L}$ 基于训练数据集 $D$ 和权重向量 $W_t$ 学得具有最小训练误差的基本分类器 $f_t(x)$, 即
+$$f_t = \arg\min_{f} \sum_{i=1}^N w_{i,t} \mathbb{I}(f(x_i) \neq y_i)$$&lt;/li&gt;
+&lt;li&gt;计算 $f_t(x)$ 的误差率
+$$e_t = \sum_{i=1}^N w_{i,t} \mathbb{I}(f_t(x_i) \neq y_i)$$&lt;/li&gt;
+&lt;li&gt;计算 $f_t(x)$ 的权值
+$$\alpha_t = \frac{1}{2} \ln \frac{1-e_t}{e_t}$$&lt;/li&gt;
+&lt;li&gt;按照投票权值更新训练数据集的权重分布
+$$w_{i,t+1} = \frac{w_{i,t}}{Z_t} \exp(-\alpha_t y_i f_t(x_i))$$
+其中 $Z_t$ 是规范化因子, 使得 $w_{i,t+1}$ 成为一个概率分布.&lt;/li&gt;
+&lt;li&gt;经过 $T$ 轮迭代后, 得到最终分类器
+$$
+    \begin{aligned}
+    f(x) &amp;= \text{sign}(G(x)) \\
+    G(x) &amp;= \sum_{t=1}^T \alpha_t f_t(x)
+    \end{aligned}
+    $$
+$G(x)$ 的符号决定了 $x$ 的类别, $|G(x)|$ 表示分类的确信度.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;p&gt;注意:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$e_t$ 越小, $\alpha_t$ 越大, 表示 $f_t(x)$ 的权重越大;&lt;/li&gt;
+&lt;li&gt;$\alpha_t$ 不仅仅平衡了 $f_t(x)$ 的权重, 还调节了样本分布的权重:
+$$w_{i,t+1}=\begin{cases}
+    \frac{w_{i,t}}{Z_t} \exp(\alpha_t), &amp; y_i=f_t(x_i) \\
+    \frac{w_{i,t}}{Z_t} \exp(-\alpha_t), &amp; y_i \neq f_t(x_i)
+    \end{cases}
+    $$
+对于那些错误样本, 下次迭代时的权重会增大, 以便让弱分类器更关注这些样本.&lt;/li&gt;
+&lt;li&gt;关于为什么要这样赋值 $\alpha_t$, 由表达式可以得到
+$$\exp(\alpha_t)e_t = \exp(-\alpha_t)(1-e_t)$$
+这表明分配给错误样本的权重之和与正确样本的权重之和相等.&lt;/li&gt;
+&lt;li&gt;计算可知
+$$Z_t = \sum_{i=1}^N w_{i,t} \exp(-\alpha_t y_i f_t(x_i)) = 2 \sqrt{e_t(1-e_t)}$$&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
         <title>机器学习基础(6) —— 神经网络学习初步</title>
         <link>https://LeoDreamer2004.github.io/p/machine-learning/nn-beginner/</link>
         <pubDate>Tue, 25 Mar 2025 00:00:00 +0000</pubDate>
@@ -65,11 +123,31 @@ $$
 R(\Theta) = \sum_{i=1}^N R_i(\Theta) = \sum_{i=1}^N \| y_i - \hat{y}_i \| ^2 = \sum_{i=1}^N \sum_{l=1}^k (y_i^{(l)} - \hat{y}_i^{(l)})^2
 $$&lt;p&gt;依然采用经验风险最小化策略, 通过梯度下降法来求解参数集 $\Theta$. 求偏导可得:&lt;/p&gt;
 $$
-$$&lt;p&gt;给定学习率 $\eta$, 可以求解得权值更新公式:&lt;/p&gt;
-&lt;!-- $$
 \begin{aligned}
-w_{jt} &amp;= w_{jt} - \eta \
-$$ --&gt;</description>
+\frac{\partial R_i(\Theta)}{\partial v_{tl}} &amp;= \delta_i^{(l)}z^{(t)}(x_i) \\
+\frac{\partial R_i(\Theta)}{\partial \theta_l} &amp;= -\delta_i^{(l)} \\
+\frac{\partial R_i(\Theta)}{\partial w_{jt}} &amp;= s_i^{(t)} x_i^{(j)} \\
+\frac{\partial R_i(\Theta)}{\partial \gamma_t} &amp;= -s_i^{(t)}
+\end{aligned}
+$$&lt;p&gt;其中&lt;/p&gt;
+$$
+\begin{aligned}
+\delta_i^{(l)}&amp;=-2(y_i^{(l)}-\hat{y}_i^{(l)})\hat{y}_i^{(l)}(1-\hat{y}_i^{(l)}) \\
+s_i^{(t)} &amp;= z^{(t)}(x_i)(1-z^{(t)}(x_i))\sum_{l=1}^k v_{tl}\delta_i^{(l)}
+\end{aligned}
+$$&lt;p&gt;给定学习率 $\eta$, 按照 $\alpha = \alpha - \eta \frac{\partial R_i(\Theta)}{\partial \alpha}$ 进行迭代更新.&lt;/p&gt;
+&lt;p&gt;采用正则化策略来缓解过拟合问题:&lt;/p&gt;
+$$
+\hat{\Theta} = \arg\min_{\Theta} (R(\Theta) + \lambda J(\Theta))
+$$&lt;p&gt;其中 $J(\Theta)$ 是正则化项, 通常是参数的 $L_2$ 范数, 所有参数的平方和.&lt;/p&gt;
+&lt;p&gt;关于激活函数, 除了 sigmoid 函数, 还有 tanh 函数, ReLU 函数等. 前两者函数性质连续, 但是在部分情况可能导数接近 $0$, 从而导致梯度消失问题. 相对之下, ReLU 函数梯度计算简单. 还有带泄漏的 ReLU 函数:&lt;/p&gt;
+$$
+f(x) = \begin{cases}
+x &amp; x&gt;0 \\
+\lambda x &amp; x \leq 0
+\end{cases}
+$$&lt;p&gt;等等.&lt;/p&gt;
+</description>
         </item>
         <item>
         <title>最优化方法(5) —— 最优性理论</title>
@@ -496,7 +574,8 @@ $$
 $$&lt;/div&gt;
 &lt;p&gt;Gini 指数可以看作任取两个样本, 它们的标签不一致的概率. 如果 Gini 指数越小, 则说明特征 $A$ 对数据集 $D$ 的分类能力越强.&lt;/p&gt;
 &lt;h2 id=&#34;决策树模型&#34;&gt;决策树模型
-&lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;&lt;p class=&#34;math-block-title&#34;&gt;生成决策树算法&lt;/p&gt;
+&lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;生成决策树&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 训练数据集 $D=\{(x_i,y_i)\}_{i=1}^N$, 特征集 $\mathcal{A}=\{A_1,A_2,\cdots,A_m\}$, 最优特征选择函数 $F$.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 决策树 $T$.&lt;/p&gt;
 &lt;ol&gt;
@@ -526,7 +605,8 @@ $$
 $$&lt;p&gt;从现在来看, 决策树构造过程中划分的单元都是矩形的, 即分类边界是若干与特征坐标轴平行的边界组成. 多变量决策树模型允许用若干特征的线性组合来划分数据集, 对每个非叶结点学习一个线性分类器.&lt;/p&gt;
 &lt;h2 id=&#34;最小二乘回归树模型&#34;&gt;最小二乘回归树模型
 &lt;/h2&gt;&lt;p&gt;CART 算法用于回归问题时, 采用平方误差损失函数选择属性和切分点.&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;&lt;p class=&#34;math-block-title&#34;&gt;最小二乘回归树模型&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;最小二乘回归树模型&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 训练数据集 $D=\{(x_i,y_i)\}_{i=1}^N$, 特征集 $\mathcal{A}=\{A_1,A_2,\cdots,A_m\}$.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 回归树 $T$.&lt;/p&gt;
 &lt;ol&gt;

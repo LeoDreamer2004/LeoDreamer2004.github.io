@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="基础数学工具 定义\n随机变量 $X$ 的 期望 $E[X]$ 定义为\n$$ E[X] = \\sum_{x} x \\cdot P(X=x) $$随机变量 $X$ 的 方差 $\\text{Var}(X)$ 定义为\n$$ \\text{Var}(X) = E[(X - E[X])^2] $$标准差 $\\sigma(X)$ 定义为\n$$ \\sigma(X) = \\sqrt{\\text{Var}(X)} $$ 定理Markov 不等式\n">
-<title>机器学习基础(1) —— 概述</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="集成学习概述 定义\n集成学习 是指通过将相对比较容易构建但泛化性能一般的多个学习器进行结合, 以获得比单一学习器更好的泛化性能的一种机器学习方法.\n">
+<title>机器学习基础(7) —— 集成学习</title>
 
-<link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning/intro/'>
+<link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning/integrated-learning/'>
 
-<link rel="stylesheet" href="/scss/style.min.b333a14803fb3401b86b47b24b6e1001a620c376df80a3cb9249b4f6b71922d2.css"><meta property='og:title' content="机器学习基础(1) —— 概述">
-<meta property='og:description' content="基础数学工具 定义\n随机变量 $X$ 的 期望 $E[X]$ 定义为\n$$ E[X] = \\sum_{x} x \\cdot P(X=x) $$随机变量 $X$ 的 方差 $\\text{Var}(X)$ 定义为\n$$ \\text{Var}(X) = E[(X - E[X])^2] $$标准差 $\\sigma(X)$ 定义为\n$$ \\sigma(X) = \\sqrt{\\text{Var}(X)} $$ 定理Markov 不等式\n">
-<meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning/intro/'>
+<link rel="stylesheet" href="/scss/style.min.b333a14803fb3401b86b47b24b6e1001a620c376df80a3cb9249b4f6b71922d2.css"><meta property='og:title' content="机器学习基础(7) —— 集成学习">
+<meta property='og:description' content="集成学习概述 定义\n集成学习 是指通过将相对比较容易构建但泛化性能一般的多个学习器进行结合, 以获得比单一学习器更好的泛化性能的一种机器学习方法.\n">
+<meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning/integrated-learning/'>
 <meta property='og:site_name' content='LeoDreamer'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-02-18T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-02-18T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="机器学习基础(1) —— 概述">
-<meta name="twitter:description" content="基础数学工具 定义\n随机变量 $X$ 的 期望 $E[X]$ 定义为\n$$ E[X] = \\sum_{x} x \\cdot P(X=x) $$随机变量 $X$ 的 方差 $\\text{Var}(X)$ 定义为\n$$ \\text{Var}(X) = E[(X - E[X])^2] $$标准差 $\\sigma(X)$ 定义为\n$$ \\sigma(X) = \\sqrt{\\text{Var}(X)} $$ 定理Markov 不等式\n">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-03-28T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-28T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="机器学习基础(7) —— 集成学习">
+<meta name="twitter:description" content="集成学习概述 定义\n集成学习 是指通过将相对比较容易构建但泛化性能一般的多个学习器进行结合, 以获得比单一学习器更好的泛化性能的一种机器学习方法.\n">
     </head>
     <body class="
     article-page
@@ -260,14 +260,8 @@
              <ul>
     
         <li>
-            <a href="/materials/machine-learning/MachineLearning-1.pdf" target="_blank" rel="noopener noreferrer">
+            <a href="/materials/machine-learning/MachineLearning-7.pdf" target="_blank" rel="noopener noreferrer">
                 本节课件
-            </a>
-        </li>
-    
-        <li>
-            <a href="/materials/machine-learning/homework-1.pdf" target="_blank" rel="noopener noreferrer">
-                作业1
             </a>
         </li>
     
@@ -297,17 +291,12 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#基础数学工具">基础数学工具</a></li>
-    <li><a href="#基本概念和术语">基本概念和术语</a></li>
-    <li><a href="#模型评估与选择">模型评估与选择</a>
+    <li><a href="#集成学习概述">集成学习概述</a></li>
+    <li><a href="#提升方法">提升方法</a>
       <ol>
-        <li><a href="#损失函数">损失函数</a></li>
-        <li><a href="#二分类">二分类</a></li>
-        <li><a href="#过拟合和正则化">过拟合和正则化</a></li>
-        <li><a href="#数据集划分">数据集划分</a></li>
+        <li><a href="#adaboost-算法">AdaBoost 算法</a></li>
       </ol>
     </li>
-    <li><a href="#偏差-方差分解">偏差-方差分解</a></li>
   </ol>
 </nav>
         </div>
@@ -344,7 +333,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/machine-learning/intro/">机器学习基础(1) —— 概述</a>
+            <a href="/p/machine-learning/integrated-learning/">机器学习基础(7) —— 集成学习</a>
         </h2>
     
         
@@ -366,7 +355,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2025-02-18</time>
+                <time class="article-time--published">2025-03-28</time>
             </div>
         
 
@@ -381,7 +370,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 4 分钟
+                    阅读时长: 2 分钟
                 </time>
             </div>
         
@@ -396,144 +385,56 @@
     <section class="article-content">
     
     
-    <h2 id="基础数学工具">基础数学工具
+    <h2 id="集成学习概述">集成学习概述
 </h2><div class="math-block">
     <p class="math-block-title math-def">定义</p>
-<p>随机变量 $X$ 的 <strong>期望</strong> $E[X]$ 定义为</p>
-$$
-E[X] = \sum_{x} x \cdot P(X=x)
-$$<p>随机变量 $X$ 的 <strong>方差</strong> $\text{Var}(X)$ 定义为</p>
-$$
-\text{Var}(X) = E[(X - E[X])^2]
-$$<p><strong>标准差</strong> $\sigma(X)$ 定义为</p>
-$$
-\sigma(X) = \sqrt{\text{Var}(X)}
-$$</div>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理<span class="math-subtitle">Markov 不等式</span></p>
-<p>设 $X$ 是一个非负随机变量, 期望存在, 那么对于任意 $t > 0$ 有</p>
-$$
-P(X \geq t) \leq \frac{E[X]}{t}
-$$</div>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理<span class="math-subtitle">Chebyshev 不等式</span></p>
-<p>设 $X$ 是一个随机变量, 期望和方差都存在, 那么对于任意 $t > 0$ 有</p>
-$$
-P(|X - E[X]| \geq t) \leq \frac{\text{Var}(X)}{t^2}
-$$</div>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>随机变量 $X$ 和 $Y$ 的 <strong>协方差</strong> $\text{Cov}(X, Y)$ 定义为</p>
-$$
-\text{Cov}(X, Y) = E[(X - E[X])(Y - E[Y])]
-$$<p>如果 $\text{Cov}(X, Y) = 0$, 则称 $X$ 和 $Y$ <strong>不相关</strong>.</p>
+<p><strong>集成学习</strong> 是指通过将相对比较容易构建但泛化性能一般的多个学习器进行结合, 以获得比单一学习器更好的泛化性能的一种机器学习方法.</p>
+<p>根据个体分类器是否由同一学习算法, 集成学习可以分为 <strong>同质集成</strong> 和 <strong>异质集成</strong> 两大类; 根据个体分类器的依赖关系, 可以将学习方法分为 <strong>序列化方法(串行集成)</strong> 和 <strong>并行化方法(并行集成)</strong> 两种.</p>
 </div>
-<p>协方差具有对称性, 双线性.</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>随机向量 $X=(X_1, X_2, \ldots, X_n)$ 的 <strong>协方差矩阵</strong> $C(X)$ 定义为</p>
+<h2 id="提升方法">提升方法
+</h2><p>PAC 框架下, 概念类强可学习和其弱可学习等价, 但弱可学习实现更容易, 提升方法就是指将弱学习算法提升为强学习算法的方法.</p>
+<h3 id="adaboost-算法">AdaBoost 算法
+</h3><div class="math-block">
+    <p class="math-block-title math-algo">算法<span class="math-subtitle">AdaBoost</span></p>
+<p><strong>输入</strong>: 给定训练数据集 $D=\{(x_i,y_i)\}_{i=1}^N$, 其中 $x_i \in \mathcal{X}, y_i \in \mathcal{Y}=\{-1,+1\}, i=1,2,\cdots,N$; 弱学习算法 $\mathcal{L}$ 以及基本分类器个数 $T$;</p>
+<p><strong>输出</strong>: 最终分类器 $f(x)$</p>
+<ol>
+<li>准备一个权重向量 $W_t=(w_{i,t})_{i=1}^N$, 表示第 $t$ 轮训练数据的权重分布, 初始时 $w_{i,1}=\frac{1}{N}$;</li>
+<li>在第 $t$ 轮学习中, 应用算法 $\mathcal{L}$ 基于训练数据集 $D$ 和权重向量 $W_t$ 学得具有最小训练误差的基本分类器 $f_t(x)$, 即
+$$f_t = \arg\min_{f} \sum_{i=1}^N w_{i,t} \mathbb{I}(f(x_i) \neq y_i)$$</li>
+<li>计算 $f_t(x)$ 的误差率
+$$e_t = \sum_{i=1}^N w_{i,t} \mathbb{I}(f_t(x_i) \neq y_i)$$</li>
+<li>计算 $f_t(x)$ 的权值
+$$\alpha_t = \frac{1}{2} \ln \frac{1-e_t}{e_t}$$</li>
+<li>按照投票权值更新训练数据集的权重分布
+$$w_{i,t+1} = \frac{w_{i,t}}{Z_t} \exp(-\alpha_t y_i f_t(x_i))$$
+其中 $Z_t$ 是规范化因子, 使得 $w_{i,t+1}$ 成为一个概率分布.</li>
+<li>经过 $T$ 轮迭代后, 得到最终分类器
 $$
-C(X) = E[(X - E[X])(X - E[X])^T] = (\text{Cov}(X_i, X_j))_{ij}
-$$</div>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p><strong>Gauss 分布</strong> (正态分布) 的概率密度函数为</p>
-$$
-f(x) = \frac{1}{\sqrt{2\pi}\sigma} \exp(-\frac{(x-\mu)^2}{2\sigma^2})
-$$<p><strong>Laplace 分布</strong> 的概率密度函数为</p>
-$$
-f(x) = \frac{1}{2b} \exp(-\frac{|x-\mu|}{b})
-$$</div>
-<p>最优化问题</p>
-$$
-\begin{aligned}
-& \min f(x) \\
-\text{s.t. } & c_i(x) \leq 0, i = 1, 2, \dots, k \\
-& h_j(x) = 0, j = 1, 2, \dots, l
-\end{aligned}
-$$<p>构造 Lagrange 函数</p>
-$$
-L(x, \alpha, \beta) = f(x) + \sum_{i=1}^{k} \alpha_i c_i(x) + \sum_{j=1}^{l} \beta_j h_j(x)
-$$<p>引入 Karush-Kuhn-Tucker (KKT) 条件</p>
-$$
-\begin{aligned}
-& \nabla_x L(x, \alpha, \beta) = 0 \\
-& c_i(x) \leq 0, i = 1, 2, \dots, k \\
-& h_j(x) = 0, j = 1, 2, \dots, l \\
-& \alpha_i c_i(x) = 0, i = 1, 2, \dots, k \\
-& \alpha_i \geq 0, i = 1, 2, \dots, k
-\end{aligned}
-$$<h2 id="基本概念和术语">基本概念和术语
-</h2><div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p><strong>监督学习</strong>: 基于标记数据 $T=\{ (x_i,y_i) \}_{i=1}^N$, 学习一个从输入空间到输出空间的映射 $f: \mathcal{X} \mapsto \mathcal{Y}$. 利用此对未见数据进行预测. 通常分为 <strong>回归</strong> 和 <strong>分类</strong> 两类.</p>
-<p><strong>无监督学习</strong>: 基于未标记数据 $T=\{ x_i \}_{i=1}^N$, 发现其中隐含的知识模式. <strong>聚类</strong> 是典型的无监督学习任务.</p>
-<p><strong>半监督学习</strong>: 既有标记数据又有未标记数据 (通常占比较大).</p>
-<p><strong>强化学习</strong>: 通过观察环境的反馈, 学习如何选择动作以获得最大的奖励.</p>
+    \begin{aligned}
+    f(x) &= \text{sign}(G(x)) \\
+    G(x) &= \sum_{t=1}^T \alpha_t f_t(x)
+    \end{aligned}
+    $$
+$G(x)$ 的符号决定了 $x$ 的类别, $|G(x)|$ 表示分类的确信度.</li>
+</ol>
 </div>
-<h2 id="模型评估与选择">模型评估与选择
-</h2><h3 id="损失函数">损失函数
-</h3><p>模型基于算法按照一定策略给出假设 $h \in \mathcal{H}$, 通过 <strong>损失函数</strong> $L(h(x), y)$ 衡量假设的好坏.</p>
+<p>注意:</p>
 <ul>
-<li>0-1 损失函数:</li>
+<li>$e_t$ 越小, $\alpha_t$ 越大, 表示 $f_t(x)$ 的权重越大;</li>
+<li>$\alpha_t$ 不仅仅平衡了 $f_t(x)$ 的权重, 还调节了样本分布的权重:
+$$w_{i,t+1}=\begin{cases}
+    \frac{w_{i,t}}{Z_t} \exp(\alpha_t), & y_i=f_t(x_i) \\
+    \frac{w_{i,t}}{Z_t} \exp(-\alpha_t), & y_i \neq f_t(x_i)
+    \end{cases}
+    $$
+对于那些错误样本, 下次迭代时的权重会增大, 以便让弱分类器更关注这些样本.</li>
+<li>关于为什么要这样赋值 $\alpha_t$, 由表达式可以得到
+$$\exp(\alpha_t)e_t = \exp(-\alpha_t)(1-e_t)$$
+这表明分配给错误样本的权重之和与正确样本的权重之和相等.</li>
+<li>计算可知
+$$Z_t = \sum_{i=1}^N w_{i,t} \exp(-\alpha_t y_i f_t(x_i)) = 2 \sqrt{e_t(1-e_t)}$$</li>
 </ul>
-$$L(h(x), y) = \mathbb{I}(h(x) \neq y) = \begin{cases} 0, & h(x) = y \\ 1, & h(x) \neq y \end{cases}$$<ul>
-<li>平方损失函数:</li>
-</ul>
-$$L(h(x), y) = (h(x) - y)^2$$<p>平均损失 $R(h) = E_{x \sim D} [L(h(x), y)]$ 称为 <strong>泛化误差</strong>.</p>
-<p>容易验证, 对于 0-1 损失函数, 准确率 $a = 1-R(h)$.</p>
-<h3 id="二分类">二分类
-</h3><p>对于二分类问题, 样本预测结果有四种情况:</p>
-<ul>
-<li><strong>真正例</strong> (True Positive, TP): 预测为正例, 实际为正例.</li>
-<li><strong>假正例</strong> (False Positive, FP): 预测为正例, 实际为负例.</li>
-<li><strong>真负例</strong> (True Negative, TN): 预测为负例, 实际为负例.</li>
-<li><strong>假负例</strong> (False Negative, FN): 预测为负例, 实际为正例.</li>
-</ul>
-<p>由此引入</p>
-<ul>
-<li><strong>准确率(查准率):</strong> $P = \frac{TP}{TP+FP}$.</li>
-<li><strong>召回率(查全率):</strong> $R = \frac{TP}{TP+FN}$.</li>
-<li><strong>$F_1$ 度量:</strong> 考虑到二者抵触, 引入调和均值 $F_1 = \frac{2PR}{P+R}$.</li>
-</ul>
-<h3 id="过拟合和正则化">过拟合和正则化
-</h3><p>为了防止由于模型过于复杂而导致的过拟合, 可以通过 <strong>正则化</strong> 方法来限制模型的复杂度.</p>
-$$
-\min \sum_{i=1}^{N} L(h(x_i), y_i) + \lambda J(h)
-$$<p>其中 $J(h)$ 是随着模型复杂度增加而增加的函数. $\lambda$ 是正则化参数.</p>
-<p>怎么选取合适的 $\lambda$ ? 一般是先给出若干候选, 在验证集上进行评估, 选取泛化误差最小的.</p>
-<h3 id="数据集划分">数据集划分
-</h3><p>一般将数据集划分为 <strong>训练集</strong> $T$ 和 <strong>测试(验证)集</strong> $T^\prime$.</p>
-<ul>
-<li><strong>留出法 (hold-out)</strong>: 分层无放回地随机采样. 也叫简单交叉验证.</li>
-<li><strong>$k$ 折交叉验证 ($k$-fold cross validation)</strong>: 将数据集分为 $k$ 个大小相等的子集, 每次取其中一个作为验证集, 其余作为训练集, 最后以这 $k$ 次的平均误差作为泛化误差的估计. 当 $k=|D|$ 时称为留一 (leave-one-out) 验证法.</li>
-<li><strong>自助法 (bootstrapping)</strong>: 从数据集中<em>有放回地</em>采样 $|D|$ 个数据作为训练集, 没抽中的作为验证集. 因而训练集 $T$ 和原始数据集 $D$ 的分布未必一致, 对数据分布敏感的模型不适用.</li>
-</ul>
-<h2 id="偏差-方差分解">偏差-方差分解
-</h2><p>为什么泛化误差会随着模型复杂度的增加而先减小后增大?</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p><strong>偏差</strong> (bias): 模型预测值的期望与真实值之间的差异. 体现了模型的拟合能力.</p>
-$$\text{Bias}(x) = E_T[h_T(x)-c(x)] = \bar{h}(x) - c(x)$$<p><strong>方差</strong> (variance): 模型预测值的方差. 体现了模型的对数据扰动的稳定性.</p>
-$$\text{Var}(x) = E[(h(x) - \bar{h}(x))^2]$$</div>
-<p>现在对泛化误差进行分解:</p>
-$$
-\begin{aligned}
-R(h) &= E_T[(h_T(x) - c(x))^2] \\
-&= E_T[h_T^2(x) - 2h_T(x)c(x) + c^2(x)] \\
-&= E_T[h_T^2(x)] - 2c(x)E_T[h_T(x)] + c^2(x) \\
-&= E_T[h_T^2(x)] - \bar{h}^2(x) + \bar{h}^2(x) - 2\bar{h}(x)c(x) + c^2(x) \\
-&= E_T[(h_T(x) - \bar{h}(x))^2] + (\bar{h}(x) - c(x))^2 \\
-&= \text{Var}(x) + \text{Bias}^2(x)
-\end{aligned}
-$$<p>当然, 由于噪声存在, $y$ 未必一定等于 $c(x)$, 不妨设 $y=c(x)+\varepsilon$, 其中 $\varepsilon \sim \Epsilon$ 期望为 $0$. 可以证明</p>
-<div class="block">
-<p class="block-title thm">定理<span class="subtitle">偏差-方差分解</p>
-$$
-E_{T \sim D^{|T|}, \varepsilon \sim \Epsilon} [(h_T(x)-y)^2] = \text{Bias}^2(x) + \text{Var}(x) + E[\varepsilon^2]
-$$<p>即泛化误差可以分解为偏差、方差和噪声三部分.</p>
-</div>
-<p>起初, 模型较为简单, 偏差在泛化误差起主导作用. 随着模型复杂度的增加, 拟合能力增强, 偏差减小, 但带来过拟合风险, 算法对数据扰动敏感, 方差增大. 方差占比逐渐增大, 最终导致泛化误差增大.</p>
 
 </section>
 
@@ -596,19 +497,6 @@ $$<p>即泛化误差可以分解为偏差、方差和噪声三部分.</p>
             
                 
 <article class="">
-    <a href="/p/machine-learning/integrated-learning/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">机器学习基础(7) —— 集成学习</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
     <a href="/p/machine-learning/nn-beginner/">
         
         
@@ -654,6 +542,19 @@ $$<p>即泛化误差可以分解为偏差、方差和噪声三部分.</p>
 
         <div class="article-details">
             <h2 class="article-title">机器学习基础(3) —— 基于后验概率最大化准则的分类模型</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/machine-learning/vector-machine/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">机器学习基础(2) —— 支持向量机</h2>
         </div>
     </a>
 </article>

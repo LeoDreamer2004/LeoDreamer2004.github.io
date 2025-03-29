@@ -7,10 +7,10 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>LeoDreamer</copyright>
-        <lastBuildDate>Tue, 25 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 28 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>机器学习基础</title>
         <link>https://LeoDreamer2004.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/</link>
-        <pubDate>Tue, 25 Mar 2025 00:00:00 +0000</pubDate>
+        <pubDate>Fri, 28 Mar 2025 00:00:00 +0000</pubDate>
         
         <guid>https://LeoDreamer2004.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/</guid>
         <description>&lt;img src="https://LeoDreamer2004.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/Chino_ML.jpg" alt="Featured image of post 机器学习基础" /&gt;&lt;p&gt;北京大学牟克典老师的机器学习基础课程。&lt;/p&gt;
@@ -52,6 +52,11 @@
       &lt;tr&gt;
           &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/p/machine-learning/nn-beginner&#34; &gt;机器学习基础(6) —— 神经网络学习初步&lt;/a&gt;&lt;/td&gt;
           &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/MachineLearning-6.pdf&#34; &gt;课件链接&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/homework-4.pdf&#34; &gt;作业链接&lt;/a&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/p/machine-learning/integrated-learning&#34; &gt;机器学习基础(7) —— 集成学习&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/MachineLearning-7.pdf&#34; &gt;课件链接&lt;/a&gt;&lt;/td&gt;
           &lt;td&gt;&lt;/td&gt;
       &lt;/tr&gt;
   &lt;/tbody&gt;
@@ -62,7 +67,7 @@
         <item>
         <title>课程</title>
         <link>https://LeoDreamer2004.github.io/categories/%E8%AF%BE%E7%A8%8B/</link>
-        <pubDate>Tue, 25 Mar 2025 00:00:00 +0000</pubDate>
+        <pubDate>Fri, 28 Mar 2025 00:00:00 +0000</pubDate>
         
         <guid>https://LeoDreamer2004.github.io/categories/%E8%AF%BE%E7%A8%8B/</guid>
         <description>&lt;img src="https://LeoDreamer2004.github.io/categories/%E8%AF%BE%E7%A8%8B/PKU.jpeg" alt="Featured image of post 课程" /&gt;</description>
@@ -70,7 +75,7 @@
         <item>
         <title>数学</title>
         <link>https://LeoDreamer2004.github.io/categories/%E6%95%B0%E5%AD%A6/</link>
-        <pubDate>Tue, 25 Mar 2025 00:00:00 +0000</pubDate>
+        <pubDate>Fri, 28 Mar 2025 00:00:00 +0000</pubDate>
         
         <guid>https://LeoDreamer2004.github.io/categories/%E6%95%B0%E5%AD%A6/</guid>
         <description></description>
