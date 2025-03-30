@@ -7,7 +7,23 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>LeoDreamer</copyright>
-        <lastBuildDate>Fri, 28 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 30 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>计算机</title>
+        <link>https://LeoDreamer2004.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/</link>
+        <pubDate>Sun, 30 Mar 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/</guid>
+        <description>&lt;img src="https://LeoDreamer2004.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/Chino_CS.jpg" alt="Featured image of post 计算机" /&gt;</description>
+        </item>
+        <item>
+        <title>论文</title>
+        <link>https://LeoDreamer2004.github.io/categories/%E8%AE%BA%E6%96%87/</link>
+        <pubDate>Sun, 30 Mar 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/categories/%E8%AE%BA%E6%96%87/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>机器学习基础</title>
         <link>https://LeoDreamer2004.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/</link>
         <pubDate>Fri, 28 Mar 2025 00:00:00 +0000</pubDate>
@@ -164,14 +180,6 @@
 &lt;blockquote&gt;
 &lt;p&gt;注：Python 部分未记录。&lt;/p&gt;&lt;/blockquote&gt;
 </description>
-        </item>
-        <item>
-        <title>计算机</title>
-        <link>https://LeoDreamer2004.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/</link>
-        <pubDate>Fri, 07 Mar 2025 00:00:00 +0000</pubDate>
-        
-        <guid>https://LeoDreamer2004.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/</guid>
-        <description>&lt;img src="https://LeoDreamer2004.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/Chino_CS.jpg" alt="Featured image of post 计算机" /&gt;</description>
         </item>
         
     </channel>

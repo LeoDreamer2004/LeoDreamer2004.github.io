@@ -7,7 +7,15 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>LeoDreamer</copyright>
-        <lastBuildDate>Fri, 28 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 30 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>论文阅读 - Adam 的收敛性分析</title>
+        <link>https://LeoDreamer2004.github.io/p/paper-reading/adam-convergence/</link>
+        <pubDate>Sun, 30 Mar 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/p/paper-reading/adam-convergence/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>机器学习基础(7) —— 集成学习</title>
         <link>https://LeoDreamer2004.github.io/p/machine-learning/integrated-learning/</link>
         <pubDate>Fri, 28 Mar 2025 00:00:00 +0000</pubDate>
@@ -175,21 +183,21 @@ g(\lambda, \nu) = \inf_{x \in \mathbb{R}^n} L(x, \lambda, \nu)
 $$&lt;/div&gt;
 &lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;弱对偶原理&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;若 $\lambda \ge 0$, 则 $g(\lambda, \nu) \le p^*$.&lt;/p&gt;
+&lt;p&gt;若 $\lambda \ge 0$, 则 $g(\lambda, \nu) \le p^\ast$.&lt;/p&gt;
 &lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
 &lt;p&gt;对 $x_0 \in \mathcal{X}$, 有:&lt;/p&gt;
 $$
 g(\lambda, \nu) = \inf_{x \in \mathbb{R}^n} L(x, \lambda, \nu) \le L(x_0, \lambda, \nu) \le f(x_0)
 $$&lt;p&gt;对 $x_0$ 取 $\inf$ 得到&lt;/p&gt;
 $$
-g(\lambda, \nu) \le \inf_{x \in \mathcal{X}} f(x) = p^*
+g(\lambda, \nu) \le \inf_{x \in \mathcal{X}} f(x) = p^\ast
 $$&lt;/div&gt;
 &lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Lagrange 对偶问题&lt;/strong&gt; 形式如下:&lt;/p&gt;
 $$
 \max_{\lambda \ge 0, \nu} g(\lambda, \nu)= \max_{\lambda \ge 0, \nu} \inf_{x \in \mathbb{R}^n} L(x, \lambda, \nu)
-$$&lt;p&gt;称 $\lambda, \nu$ 为对偶变量, 设最优值为 $q^*$. $q^*$ 是 $p^*$ 的最优下界, 称 $p^*-q^*$ 为 &lt;strong&gt;对偶间隙&lt;/strong&gt;.&lt;/p&gt;
+$$&lt;p&gt;称 $\lambda, \nu$ 为对偶变量, 设最优值为 $q^\ast$. $q^\ast$ 是 $p^\ast$ 的最优下界, 称 $p^\ast-q^\ast$ 为 &lt;strong&gt;对偶间隙&lt;/strong&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;h3 id=&#34;示例-线性规划问题&#34;&gt;示例: 线性规划问题
 &lt;/h3&gt;$$
@@ -294,15 +302,15 @@ $$
 \begin{aligned}
 g(\lambda, \nu) &amp;= \inf_x(f(x) + \lambda^T (Ax - b) + \nu^T (Cx - d)) \\
 &amp;=\inf_x(f(x) + (A^T \lambda + C^T \nu)^T x - b^T \lambda - d^T \nu) \\
-&amp;=-f^*(-A^T \lambda - C^T \nu) - b^T \lambda - d^T \nu
+&amp;=-f^\ast(-A^T \lambda - C^T \nu) - b^T \lambda - d^T \nu
 \end{aligned}
-$$&lt;p&gt;其中 $f^*(v) = \sup_x(x^T v - f(x))$ 为 $f$ 的共轭函数.&lt;/p&gt;
+$$&lt;p&gt;其中 $f^\ast(v) = \sup_x(x^T v - f(x))$ 为 $f$ 的共轭函数.&lt;/p&gt;
 &lt;h2 id=&#34;对偶性&#34;&gt;对偶性
 &lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;弱对偶性&lt;/strong&gt;: $d^* \le p^*$. 对一般约束优化问题成立.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;强对偶性&lt;/strong&gt;: $d^* = p^*$, 且若一个线性规划问题有最优解, 则其对偶问题有最优解, 且最优值相等. 一般不成立, 但通常对凸优化问题成立.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;弱对偶性&lt;/strong&gt;: $d^\ast \le p^\ast$. 对一般约束优化问题成立.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;强对偶性&lt;/strong&gt;: $d^\ast = p^\ast$, 且若一个线性规划问题有最优解, 则其对偶问题有最优解, 且最优值相等. 一般不成立, 但通常对凸优化问题成立.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;称保证凸问题强对偶性成立的条件为 &lt;strong&gt;约束品性&lt;/strong&gt;.&lt;/p&gt;
 &lt;/div&gt;
@@ -312,15 +320,15 @@ $$
 \min \quad &amp; x_0-x_1 \\
 \text{s.t.} \quad &amp; x_0 \ge \sqrt{x_1^2+1}
 \end{aligned}
-$$&lt;p&gt;显然, $x_0-x_1 &gt; 0$, 但当 $x_0 \to \infty$ 时, $x_0-x_1 \to 0$, 因此 $p^* = 0$, 但是不可达. 而对偶问题是:&lt;/p&gt;
+$$&lt;p&gt;显然, $x_0-x_1 &gt; 0$, 但当 $x_0 \to \infty$ 时, $x_0-x_1 \to 0$, 因此 $p^\ast = 0$, 但是不可达. 而对偶问题是:&lt;/p&gt;
 $$
 \begin{aligned}
 \max \quad &amp; \lambda \\
 \text{s.t.} \quad &amp; 1 \ge \sqrt{1 + \lambda^2}
 \end{aligned}
 $$&lt;p&gt;
-因此 $\lambda \le 0$, $d^* = 0$. 虽然 $d^* = p^*$, 但原问题是没有最优解的.&lt;/p&gt;
-&lt;p&gt;当然, 也有使得 $p^* \ne d^*$ 的例子.&lt;/p&gt;
+因此 $\lambda \le 0$, $d^\ast = 0$. 虽然 $d^\ast = p^\ast$, 但原问题是没有最优解的.&lt;/p&gt;
+&lt;p&gt;当然, 也有使得 $p^\ast \ne d^\ast$ 的例子.&lt;/p&gt;
 &lt;h2 id=&#34;改写问题形式&#34;&gt;改写问题形式
 &lt;/h2&gt;&lt;p&gt;当对偶问题难以推导或没有价值时, 可以尝试改写原问题的形式.&lt;/p&gt;
 &lt;ul&gt;
@@ -341,7 +349,7 @@ $$
 $$&lt;p&gt;对偶问题:&lt;/p&gt;
 $$
 \begin{aligned}
-\max \quad &amp; b^T \nu-f^*(\nu)  \\
+\max \quad &amp; b^T \nu-f^\ast(\nu)  \\
 \text{s.t.} \quad &amp; A^T \nu = 0
 \end{aligned}
 $$&lt;h3 id=&#34;示例-范数逼近问题&#34;&gt;示例: 范数逼近问题
@@ -436,8 +444,8 @@ $$&lt;h3 id=&#34;示例-广义不等式约束优化问题&#34;&gt;示例: 广义
 \end{aligned}
 $$&lt;p&gt;其中对于 $i \in \mathcal{I}$, $c_i: \mathbb{R}^n \to \mathbb{R}^{k_i}$ 是向量值函数, $K_i$ 是适当锥. 对于 $i \in \mathcal{E}$, $c_i: \mathbb{R}^n \to \mathbb{R}$ 是标量函数. 实际上这种情况下, 其 Lagrange 函数为:&lt;/p&gt;
 $$
-L(x, \lambda, \nu) = f(x) + \sum_{i \in \mathcal{I}} \left&lt;\lambda_i, c_i(x)\right&gt; + \sum_{i \in \mathcal{E}} \nu_i c_i(x), \quad \lambda_i \in K_i^*
-$$&lt;p&gt;这里 $K_i^*$ 是 $K_i$ 的对偶锥. 此时也依然满足 $L(x, \lambda, \nu) \le f(x)$. 对偶问题依然是 $\max_{\lambda \in K_i^*, \nu} g(\lambda, \nu)$.&lt;/p&gt;
+L(x, \lambda, \nu) = f(x) + \sum_{i \in \mathcal{I}} \left&lt;\lambda_i, c_i(x)\right&gt; + \sum_{i \in \mathcal{E}} \nu_i c_i(x), \quad \lambda_i \in K_i^\ast
+$$&lt;p&gt;这里 $K_i^\ast$ 是 $K_i$ 的对偶锥. 此时也依然满足 $L(x, \lambda, \nu) \le f(x)$. 对偶问题依然是 $\max_{\lambda \in K_i^\ast, \nu} g(\lambda, \nu)$.&lt;/p&gt;
 &lt;h3 id=&#34;示例-半定规划问题&#34;&gt;示例: 半定规划问题
 &lt;/h3&gt;$$
 \begin{aligned}
@@ -491,26 +499,26 @@ $$c_i(x) &lt; 0, i=1, \ldots, m$$&lt;p&gt;则称对于该问题 &lt;strong&gt;Sl
     &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
 &lt;p&gt;若 Slater 约束品性成立, 则强对偶性成立.&lt;/p&gt;
 &lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
-&lt;p&gt;这里假设 $\mathcal{D}$ 内部非空, $A$ 是行满秩的 (否则可以去掉冗余约束), $p^*$ 是有限的. 要证明当 $d^* &gt; -\infty$ 时, 存在对偶可行解 $(\lambda^*, \nu^*)$ 使得 $g(\lambda^*, \nu^*) = d^*=p^*$.&lt;/p&gt;
+&lt;p&gt;这里假设 $\mathcal{D}$ 内部非空, $A$ 是行满秩的 (否则可以去掉冗余约束), $p^\ast$ 是有限的. 要证明当 $d^\ast &gt; -\infty$ 时, 存在对偶可行解 $(\lambda^\ast, \nu^\ast)$ 使得 $g(\lambda^\ast, \nu^\ast) = d^\ast=p^\ast$.&lt;/p&gt;
 &lt;p&gt;定义集合&lt;/p&gt;
 $$
 \begin{aligned}
-\mathbb{A}&amp;= \{(u,v,t) \mid \exists x \in \mathcal{D}, c_i(x) \le u_i (i=1, \ldots, m), Ax-b=v, f(x) \le t\} \\ \mathbb{B}&amp;= \{(0,0,s) \mid s \le p^*\}
+\mathbb{A}&amp;= \{(u,v,t) \mid \exists x \in \mathcal{D}, c_i(x) \le u_i (i=1, \ldots, m), Ax-b=v, f(x) \le t\} \\ \mathbb{B}&amp;= \{(0,0,s) \mid s \le p^\ast\}
 \end{aligned}
-$$&lt;p&gt;若 $(0,0,t) \in \mathbb{A} \cap \mathbb{B}$, 则 $f(x) \le t&lt; p^*$ 矛盾. 因而两集合不交. 由于两者都是凸集, 由超平面分离定理, 存在 $(\lambda, \nu, \mu) \ne 0$ 和 $\alpha$ 使得&lt;/p&gt;
+$$&lt;p&gt;若 $(0,0,t) \in \mathbb{A} \cap \mathbb{B}$, 则 $f(x) \le t&lt; p^\ast$ 矛盾. 因而两集合不交. 由于两者都是凸集, 由超平面分离定理, 存在 $(\lambda, \nu, \mu) \ne 0$ 和 $\alpha$ 使得&lt;/p&gt;
 $$
 \begin{aligned}
 \lambda^Tu + \nu^Tv + \mu t &amp;\ge \alpha, \quad \forall (u,v,t) \in \mathbb{A} \\
 \lambda^Tu + \nu^Tv + \mu t &amp;\le \alpha, \quad \forall (u,v,t) \in \mathbb{B}
 \end{aligned}
-$$&lt;p&gt;显见, $\lambda \ge 0, \mu \ge 0$, 否则可以让 $\mu_i, t \to +\infty$ 使得集合 $\mathbb{A}$ 上不等式左侧无下界. 由 $\mathbb{B}$ 的不等式, 立得 $\mu p^* \le \alpha$.&lt;/p&gt;
+$$&lt;p&gt;显见, $\lambda \ge 0, \mu \ge 0$, 否则可以让 $\mu_i, t \to +\infty$ 使得集合 $\mathbb{A}$ 上不等式左侧无下界. 由 $\mathbb{B}$ 的不等式, 立得 $\mu p^\ast \le \alpha$.&lt;/p&gt;
 &lt;p&gt;对于 $(u,v,t)=(c_i(x), Ax-b, f(x))$, 代入有&lt;/p&gt;
 $$
-\sum_{i=1}^m \lambda_i c_i(x) + \nu^T(Ax-b) + \mu f(x) \ge \alpha \ge \mu p^*
+\sum_{i=1}^m \lambda_i c_i(x) + \nu^T(Ax-b) + \mu f(x) \ge \alpha \ge \mu p^\ast
 $$&lt;p&gt;若 $\mu &gt; 0$, 则上式恰好对应 Lagrange 函数:&lt;/p&gt;
 $$
-L(x, \frac{\lambda}{\mu}, \frac{\nu}{\mu}) \ge p^*
-$$&lt;p&gt;故 $g(\frac{\lambda}{\mu}, \frac{\nu}{\mu}) \ge p^*$, 再结合弱对偶性, $g(\frac{\lambda}{\mu}, \frac{\nu}{\mu}) = p^*$. 则此情况下强对偶性成立, 且最优解可达.&lt;/p&gt;
+L(x, \frac{\lambda}{\mu}, \frac{\nu}{\mu}) \ge p^\ast
+$$&lt;p&gt;故 $g(\frac{\lambda}{\mu}, \frac{\nu}{\mu}) \ge p^\ast$, 再结合弱对偶性, $g(\frac{\lambda}{\mu}, \frac{\nu}{\mu}) = p^\ast$. 则此情况下强对偶性成立, 且最优解可达.&lt;/p&gt;
 &lt;p&gt;若 $\mu=0$, 可以得到对于所有 $x \in \mathcal{D}$, 有&lt;/p&gt;
 $$
 \sum_{i=1}^m \lambda_i c_i(x) + \nu^T(Ax-b) \ge 0
@@ -522,8 +530,56 @@ $$\widetilde{x} = x_S + e \in \mathcal{D}, \quad v^TAe &lt; 0$$&lt;p&gt;但是&l
 $$
 v^TAe = v^TA(\widetilde{x}-x_S) = v^T(A\widetilde{x} - b) \ge 0$$&lt;p&gt;矛盾. 因此 $\mu &gt; 0$, 强对偶性成立.&lt;/p&gt;
 &lt;/div&gt;
-&lt;p&gt;现在假设&lt;/p&gt;
-</description>
+&lt;p&gt;现在假设 Slater 成立, $x^\ast, \lambda^\ast$ 是原问题和对偶问题的最优解. 由强对偶性,&lt;/p&gt;
+$$
+\begin{aligned}
+f(x^\ast) = g(\lambda^\ast) &amp;= \inf_{x} f(x) + \sum_{i \in \mathcal{I}} \lambda_i c_i(x) + \sum_{i \in \mathcal{E}} \lambda_i c_i(x) \\
+&amp;\le f(x^\ast) + \sum_{i \in \mathcal{I}} \lambda_i c_i(x^\ast) + \sum_{i \in \mathcal{E}} \lambda_i c_i(x^\ast) \\
+&amp;\le f(x^\ast)
+\end{aligned}
+$$&lt;p&gt;因此等号要成立, 即 $\lambda_i c_i(x^\ast) = 0, i \in \mathcal{I}$, 这称为互补条件 (complementary slackness).&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;凸优化问题的一阶充要条件&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;对于凸优化问题, 用 $a_i$ 表示矩阵 $A^T$ 的第 $i$ 列, 如
+果 Slater 条件成立, 那么$x^\ast, \lambda^\ast$ 分别是原始, 对偶全局最优解当且仅当&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;稳定性条件: $ 0 = \nabla f(x^\ast) + \sum_{i \in \mathcal{I}} \lambda_i^\ast \nabla c_i(x^\ast) + \sum_{i \in \mathcal{E}} \lambda_i^\ast a_i$&lt;/li&gt;
+&lt;li&gt;原始可行性条件: $Ax^\ast = b, i \in \mathcal{E}; c_i(x^\ast) \le 0, i \in \mathcal{I}$&lt;/li&gt;
+&lt;li&gt;对偶可行性条件: $\lambda_i^\ast \ge 0, i \in \mathcal{I}$&lt;/li&gt;
+&lt;li&gt;互补松弛条件: $\lambda_i^\ast c_i(x^\ast) = 0, i \in \mathcal{I}$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
+&lt;p&gt;必要性已知, 只证明充分性.&lt;/p&gt;
+&lt;p&gt;考虑 Lagrange 函数&lt;/p&gt;
+$$
+L(x, \lambda) = f(x) + \sum_{i \in \mathcal{I}} \lambda_i c_i(x) + \sum_{i \in \mathcal{E}} \lambda_i (a_i^T x - b_i)
+$$&lt;p&gt;固定 $\lambda = \bar{\lambda}$, 易见 $L$ 是关于 $x$ 的凸函数. 由凸函数全局最优点的一阶充要性可知, 此时 $\bar{x}$ 就是全局的极小点. 由 Lagrange 对偶函数的定义, 有&lt;/p&gt;
+$$
+L(\bar{x}, \bar{\lambda}) = \inf_x L(x, \bar{\lambda}) = g(\bar{\lambda})
+$$&lt;p&gt;又由原始可行性条件和互补松弛条件, 有&lt;/p&gt;
+$$
+L(\bar{x}, \bar{\lambda}) = f(\bar{x})
+$$&lt;p&gt;由弱对偶性&lt;/p&gt;
+$$
+L(\bar{x}, \bar{\lambda}) = f(\bar{x}) \ge p^\ast\ge d^\ast \ge g(\bar{\lambda}) = L(\bar{x}, \bar{\lambda})
+$$&lt;p&gt;因此等号成立, $p^\ast = d^\ast$, 强对偶性成立, $\bar{x}, \bar{\lambda}$ 是全局最优解.&lt;/p&gt;
+&lt;/div&gt;
+&lt;h3 id=&#34;例子-仿射空间的投影问题&#34;&gt;例子: 仿射空间的投影问题
+&lt;/h3&gt;$$
+\begin{aligned}
+\min \quad &amp; \|x - y\|^2 \\
+\text{s.t.} \quad &amp; Ax = b
+\end{aligned}
+$$&lt;p&gt;Lagrange 函数为&lt;/p&gt;
+$$
+L(x, \lambda) = \|x - y\|^2 + \lambda^T(Ax - b)
+$$&lt;p&gt;Slater 条件成立, 由一阶充要条件, 有&lt;/p&gt;
+$$
+\begin{aligned}
+x^\ast - y + A^T \lambda^\ast &amp;= 0 \\
+Ax^\ast &amp;= b
+\end{aligned}
+$$</description>
         </item>
         <item>
         <title>机器学习基础(5) —— 决策树模型</title>

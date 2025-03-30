@@ -7,7 +7,15 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>LeoDreamer</copyright>
-        <lastBuildDate>Fri, 07 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 30 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>论文阅读 - Adam 的收敛性分析</title>
+        <link>https://LeoDreamer2004.github.io/p/paper-reading/adam-convergence/</link>
+        <pubDate>Sun, 30 Mar 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/p/paper-reading/adam-convergence/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>程序设计实习(4) —— 多态</title>
         <link>https://LeoDreamer2004.github.io/p/program-practice/polymorphism/</link>
         <pubDate>Fri, 07 Mar 2025 00:00:00 +0000</pubDate>

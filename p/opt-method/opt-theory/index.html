@@ -310,7 +310,11 @@
         <li><a href="#示例-半定规划问题">示例: 半定规划问题</a></li>
       </ol>
     </li>
-    <li><a href="#带约束凸优化问题的最优性理论">带约束凸优化问题的最优性理论</a></li>
+    <li><a href="#带约束凸优化问题的最优性理论">带约束凸优化问题的最优性理论</a>
+      <ol>
+        <li><a href="#例子-仿射空间的投影问题">例子: 仿射空间的投影问题</a></li>
+      </ol>
+    </li>
   </ol>
 </nav>
         </div>
@@ -384,7 +388,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 6 分钟
+                    阅读时长: 7 分钟
                 </time>
             </div>
         
@@ -419,21 +423,21 @@ g(\lambda, \nu) = \inf_{x \in \mathbb{R}^n} L(x, \lambda, \nu)
 $$</div>
 <div class="math-block">
     <p class="math-block-title math-thm">定理<span class="math-subtitle">弱对偶原理</span></p>
-<p>若 $\lambda \ge 0$, 则 $g(\lambda, \nu) \le p^*$.</p>
+<p>若 $\lambda \ge 0$, 则 $g(\lambda, \nu) \le p^\ast$.</p>
 <p class="math-block-title math-prf">证明</p>
 <p>对 $x_0 \in \mathcal{X}$, 有:</p>
 $$
 g(\lambda, \nu) = \inf_{x \in \mathbb{R}^n} L(x, \lambda, \nu) \le L(x_0, \lambda, \nu) \le f(x_0)
 $$<p>对 $x_0$ 取 $\inf$ 得到</p>
 $$
-g(\lambda, \nu) \le \inf_{x \in \mathcal{X}} f(x) = p^*
+g(\lambda, \nu) \le \inf_{x \in \mathcal{X}} f(x) = p^\ast
 $$</div>
 <div class="math-block">
     <p class="math-block-title math-def">定义</p>
 <p><strong>Lagrange 对偶问题</strong> 形式如下:</p>
 $$
 \max_{\lambda \ge 0, \nu} g(\lambda, \nu)= \max_{\lambda \ge 0, \nu} \inf_{x \in \mathbb{R}^n} L(x, \lambda, \nu)
-$$<p>称 $\lambda, \nu$ 为对偶变量, 设最优值为 $q^*$. $q^*$ 是 $p^*$ 的最优下界, 称 $p^*-q^*$ 为 <strong>对偶间隙</strong>.</p>
+$$<p>称 $\lambda, \nu$ 为对偶变量, 设最优值为 $q^\ast$. $q^\ast$ 是 $p^\ast$ 的最优下界, 称 $p^\ast-q^\ast$ 为 <strong>对偶间隙</strong>.</p>
 </div>
 <h3 id="示例-线性规划问题">示例: 线性规划问题
 </h3>$$
@@ -538,15 +542,15 @@ $$
 \begin{aligned}
 g(\lambda, \nu) &= \inf_x(f(x) + \lambda^T (Ax - b) + \nu^T (Cx - d)) \\
 &=\inf_x(f(x) + (A^T \lambda + C^T \nu)^T x - b^T \lambda - d^T \nu) \\
-&=-f^*(-A^T \lambda - C^T \nu) - b^T \lambda - d^T \nu
+&=-f^\ast(-A^T \lambda - C^T \nu) - b^T \lambda - d^T \nu
 \end{aligned}
-$$<p>其中 $f^*(v) = \sup_x(x^T v - f(x))$ 为 $f$ 的共轭函数.</p>
+$$<p>其中 $f^\ast(v) = \sup_x(x^T v - f(x))$ 为 $f$ 的共轭函数.</p>
 <h2 id="对偶性">对偶性
 </h2><div class="math-block">
     <p class="math-block-title math-def">定义</p>
 <ul>
-<li><strong>弱对偶性</strong>: $d^* \le p^*$. 对一般约束优化问题成立.</li>
-<li><strong>强对偶性</strong>: $d^* = p^*$, 且若一个线性规划问题有最优解, 则其对偶问题有最优解, 且最优值相等. 一般不成立, 但通常对凸优化问题成立.</li>
+<li><strong>弱对偶性</strong>: $d^\ast \le p^\ast$. 对一般约束优化问题成立.</li>
+<li><strong>强对偶性</strong>: $d^\ast = p^\ast$, 且若一个线性规划问题有最优解, 则其对偶问题有最优解, 且最优值相等. 一般不成立, 但通常对凸优化问题成立.</li>
 </ul>
 <p>称保证凸问题强对偶性成立的条件为 <strong>约束品性</strong>.</p>
 </div>
@@ -556,15 +560,15 @@ $$
 \min \quad & x_0-x_1 \\
 \text{s.t.} \quad & x_0 \ge \sqrt{x_1^2+1}
 \end{aligned}
-$$<p>显然, $x_0-x_1 > 0$, 但当 $x_0 \to \infty$ 时, $x_0-x_1 \to 0$, 因此 $p^* = 0$, 但是不可达. 而对偶问题是:</p>
+$$<p>显然, $x_0-x_1 > 0$, 但当 $x_0 \to \infty$ 时, $x_0-x_1 \to 0$, 因此 $p^\ast = 0$, 但是不可达. 而对偶问题是:</p>
 $$
 \begin{aligned}
 \max \quad & \lambda \\
 \text{s.t.} \quad & 1 \ge \sqrt{1 + \lambda^2}
 \end{aligned}
 $$<p>
-因此 $\lambda \le 0$, $d^* = 0$. 虽然 $d^* = p^*$, 但原问题是没有最优解的.</p>
-<p>当然, 也有使得 $p^* \ne d^*$ 的例子.</p>
+因此 $\lambda \le 0$, $d^\ast = 0$. 虽然 $d^\ast = p^\ast$, 但原问题是没有最优解的.</p>
+<p>当然, 也有使得 $p^\ast \ne d^\ast$ 的例子.</p>
 <h2 id="改写问题形式">改写问题形式
 </h2><p>当对偶问题难以推导或没有价值时, 可以尝试改写原问题的形式.</p>
 <ul>
@@ -585,7 +589,7 @@ $$
 $$<p>对偶问题:</p>
 $$
 \begin{aligned}
-\max \quad & b^T \nu-f^*(\nu)  \\
+\max \quad & b^T \nu-f^\ast(\nu)  \\
 \text{s.t.} \quad & A^T \nu = 0
 \end{aligned}
 $$<h3 id="示例-范数逼近问题">示例: 范数逼近问题
@@ -680,8 +684,8 @@ $$<h3 id="示例-广义不等式约束优化问题">示例: 广义不等式约�
 \end{aligned}
 $$<p>其中对于 $i \in \mathcal{I}$, $c_i: \mathbb{R}^n \to \mathbb{R}^{k_i}$ 是向量值函数, $K_i$ 是适当锥. 对于 $i \in \mathcal{E}$, $c_i: \mathbb{R}^n \to \mathbb{R}$ 是标量函数. 实际上这种情况下, 其 Lagrange 函数为:</p>
 $$
-L(x, \lambda, \nu) = f(x) + \sum_{i \in \mathcal{I}} \left<\lambda_i, c_i(x)\right> + \sum_{i \in \mathcal{E}} \nu_i c_i(x), \quad \lambda_i \in K_i^*
-$$<p>这里 $K_i^*$ 是 $K_i$ 的对偶锥. 此时也依然满足 $L(x, \lambda, \nu) \le f(x)$. 对偶问题依然是 $\max_{\lambda \in K_i^*, \nu} g(\lambda, \nu)$.</p>
+L(x, \lambda, \nu) = f(x) + \sum_{i \in \mathcal{I}} \left<\lambda_i, c_i(x)\right> + \sum_{i \in \mathcal{E}} \nu_i c_i(x), \quad \lambda_i \in K_i^\ast
+$$<p>这里 $K_i^\ast$ 是 $K_i$ 的对偶锥. 此时也依然满足 $L(x, \lambda, \nu) \le f(x)$. 对偶问题依然是 $\max_{\lambda \in K_i^\ast, \nu} g(\lambda, \nu)$.</p>
 <h3 id="示例-半定规划问题">示例: 半定规划问题
 </h3>$$
 \begin{aligned}
@@ -735,26 +739,26 @@ $$c_i(x) < 0, i=1, \ldots, m$$<p>则称对于该问题 <strong>Slater 约束品�
     <p class="math-block-title math-thm">定理</p>
 <p>若 Slater 约束品性成立, 则强对偶性成立.</p>
 <p class="math-block-title math-prf">证明</p>
-<p>这里假设 $\mathcal{D}$ 内部非空, $A$ 是行满秩的 (否则可以去掉冗余约束), $p^*$ 是有限的. 要证明当 $d^* > -\infty$ 时, 存在对偶可行解 $(\lambda^*, \nu^*)$ 使得 $g(\lambda^*, \nu^*) = d^*=p^*$.</p>
+<p>这里假设 $\mathcal{D}$ 内部非空, $A$ 是行满秩的 (否则可以去掉冗余约束), $p^\ast$ 是有限的. 要证明当 $d^\ast > -\infty$ 时, 存在对偶可行解 $(\lambda^\ast, \nu^\ast)$ 使得 $g(\lambda^\ast, \nu^\ast) = d^\ast=p^\ast$.</p>
 <p>定义集合</p>
 $$
 \begin{aligned}
-\mathbb{A}&= \{(u,v,t) \mid \exists x \in \mathcal{D}, c_i(x) \le u_i (i=1, \ldots, m), Ax-b=v, f(x) \le t\} \\ \mathbb{B}&= \{(0,0,s) \mid s \le p^*\}
+\mathbb{A}&= \{(u,v,t) \mid \exists x \in \mathcal{D}, c_i(x) \le u_i (i=1, \ldots, m), Ax-b=v, f(x) \le t\} \\ \mathbb{B}&= \{(0,0,s) \mid s \le p^\ast\}
 \end{aligned}
-$$<p>若 $(0,0,t) \in \mathbb{A} \cap \mathbb{B}$, 则 $f(x) \le t< p^*$ 矛盾. 因而两集合不交. 由于两者都是凸集, 由超平面分离定理, 存在 $(\lambda, \nu, \mu) \ne 0$ 和 $\alpha$ 使得</p>
+$$<p>若 $(0,0,t) \in \mathbb{A} \cap \mathbb{B}$, 则 $f(x) \le t< p^\ast$ 矛盾. 因而两集合不交. 由于两者都是凸集, 由超平面分离定理, 存在 $(\lambda, \nu, \mu) \ne 0$ 和 $\alpha$ 使得</p>
 $$
 \begin{aligned}
 \lambda^Tu + \nu^Tv + \mu t &\ge \alpha, \quad \forall (u,v,t) \in \mathbb{A} \\
 \lambda^Tu + \nu^Tv + \mu t &\le \alpha, \quad \forall (u,v,t) \in \mathbb{B}
 \end{aligned}
-$$<p>显见, $\lambda \ge 0, \mu \ge 0$, 否则可以让 $\mu_i, t \to +\infty$ 使得集合 $\mathbb{A}$ 上不等式左侧无下界. 由 $\mathbb{B}$ 的不等式, 立得 $\mu p^* \le \alpha$.</p>
+$$<p>显见, $\lambda \ge 0, \mu \ge 0$, 否则可以让 $\mu_i, t \to +\infty$ 使得集合 $\mathbb{A}$ 上不等式左侧无下界. 由 $\mathbb{B}$ 的不等式, 立得 $\mu p^\ast \le \alpha$.</p>
 <p>对于 $(u,v,t)=(c_i(x), Ax-b, f(x))$, 代入有</p>
 $$
-\sum_{i=1}^m \lambda_i c_i(x) + \nu^T(Ax-b) + \mu f(x) \ge \alpha \ge \mu p^*
+\sum_{i=1}^m \lambda_i c_i(x) + \nu^T(Ax-b) + \mu f(x) \ge \alpha \ge \mu p^\ast
 $$<p>若 $\mu > 0$, 则上式恰好对应 Lagrange 函数:</p>
 $$
-L(x, \frac{\lambda}{\mu}, \frac{\nu}{\mu}) \ge p^*
-$$<p>故 $g(\frac{\lambda}{\mu}, \frac{\nu}{\mu}) \ge p^*$, 再结合弱对偶性, $g(\frac{\lambda}{\mu}, \frac{\nu}{\mu}) = p^*$. 则此情况下强对偶性成立, 且最优解可达.</p>
+L(x, \frac{\lambda}{\mu}, \frac{\nu}{\mu}) \ge p^\ast
+$$<p>故 $g(\frac{\lambda}{\mu}, \frac{\nu}{\mu}) \ge p^\ast$, 再结合弱对偶性, $g(\frac{\lambda}{\mu}, \frac{\nu}{\mu}) = p^\ast$. 则此情况下强对偶性成立, 且最优解可达.</p>
 <p>若 $\mu=0$, 可以得到对于所有 $x \in \mathcal{D}$, 有</p>
 $$
 \sum_{i=1}^m \lambda_i c_i(x) + \nu^T(Ax-b) \ge 0
@@ -766,8 +770,56 @@ $$\widetilde{x} = x_S + e \in \mathcal{D}, \quad v^TAe < 0$$<p>但是</p>
 $$
 v^TAe = v^TA(\widetilde{x}-x_S) = v^T(A\widetilde{x} - b) \ge 0$$<p>矛盾. 因此 $\mu > 0$, 强对偶性成立.</p>
 </div>
-<p>现在假设</p>
-
+<p>现在假设 Slater 成立, $x^\ast, \lambda^\ast$ 是原问题和对偶问题的最优解. 由强对偶性,</p>
+$$
+\begin{aligned}
+f(x^\ast) = g(\lambda^\ast) &= \inf_{x} f(x) + \sum_{i \in \mathcal{I}} \lambda_i c_i(x) + \sum_{i \in \mathcal{E}} \lambda_i c_i(x) \\
+&\le f(x^\ast) + \sum_{i \in \mathcal{I}} \lambda_i c_i(x^\ast) + \sum_{i \in \mathcal{E}} \lambda_i c_i(x^\ast) \\
+&\le f(x^\ast)
+\end{aligned}
+$$<p>因此等号要成立, 即 $\lambda_i c_i(x^\ast) = 0, i \in \mathcal{I}$, 这称为互补条件 (complementary slackness).</p>
+<div class="math-block">
+    <p class="math-block-title math-thm">定理<span class="math-subtitle">凸优化问题的一阶充要条件</span></p>
+<p>对于凸优化问题, 用 $a_i$ 表示矩阵 $A^T$ 的第 $i$ 列, 如
+果 Slater 条件成立, 那么$x^\ast, \lambda^\ast$ 分别是原始, 对偶全局最优解当且仅当</p>
+<ul>
+<li>稳定性条件: $ 0 = \nabla f(x^\ast) + \sum_{i \in \mathcal{I}} \lambda_i^\ast \nabla c_i(x^\ast) + \sum_{i \in \mathcal{E}} \lambda_i^\ast a_i$</li>
+<li>原始可行性条件: $Ax^\ast = b, i \in \mathcal{E}; c_i(x^\ast) \le 0, i \in \mathcal{I}$</li>
+<li>对偶可行性条件: $\lambda_i^\ast \ge 0, i \in \mathcal{I}$</li>
+<li>互补松弛条件: $\lambda_i^\ast c_i(x^\ast) = 0, i \in \mathcal{I}$</li>
+</ul>
+<p class="math-block-title math-prf">证明</p>
+<p>必要性已知, 只证明充分性.</p>
+<p>考虑 Lagrange 函数</p>
+$$
+L(x, \lambda) = f(x) + \sum_{i \in \mathcal{I}} \lambda_i c_i(x) + \sum_{i \in \mathcal{E}} \lambda_i (a_i^T x - b_i)
+$$<p>固定 $\lambda = \bar{\lambda}$, 易见 $L$ 是关于 $x$ 的凸函数. 由凸函数全局最优点的一阶充要性可知, 此时 $\bar{x}$ 就是全局的极小点. 由 Lagrange 对偶函数的定义, 有</p>
+$$
+L(\bar{x}, \bar{\lambda}) = \inf_x L(x, \bar{\lambda}) = g(\bar{\lambda})
+$$<p>又由原始可行性条件和互补松弛条件, 有</p>
+$$
+L(\bar{x}, \bar{\lambda}) = f(\bar{x})
+$$<p>由弱对偶性</p>
+$$
+L(\bar{x}, \bar{\lambda}) = f(\bar{x}) \ge p^\ast\ge d^\ast \ge g(\bar{\lambda}) = L(\bar{x}, \bar{\lambda})
+$$<p>因此等号成立, $p^\ast = d^\ast$, 强对偶性成立, $\bar{x}, \bar{\lambda}$ 是全局最优解.</p>
+</div>
+<h3 id="例子-仿射空间的投影问题">例子: 仿射空间的投影问题
+</h3>$$
+\begin{aligned}
+\min \quad & \|x - y\|^2 \\
+\text{s.t.} \quad & Ax = b
+\end{aligned}
+$$<p>Lagrange 函数为</p>
+$$
+L(x, \lambda) = \|x - y\|^2 + \lambda^T(Ax - b)
+$$<p>Slater 条件成立, 由一阶充要条件, 有</p>
+$$
+\begin{aligned}
+x^\ast - y + A^T \lambda^\ast &= 0 \\
+Ax^\ast &= b
+\end{aligned}
+$$
 </section>
 
 
