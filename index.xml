@@ -13,7 +13,30 @@
         <pubDate>Sun, 30 Mar 2025 00:00:00 +0000</pubDate>
         
         <guid>https://LeoDreamer2004.github.io/p/paper-reading/adam-convergence/</guid>
-        <description></description>
+        <description>&lt;h2 id=&#34;介绍&#34;&gt;介绍
+&lt;/h2&gt;&lt;p&gt;在论文 &lt;a class=&#34;link cite-1&#34;&gt;[1]
+    &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
+&lt;/a&gt; 中, 作者首次介绍了 Adam 优化器. 此算法一经出现立刻爆火, 现在在深度学习当中已经成为一种最常用的优化算法, 其更新规则如下:&lt;/p&gt;
+$$
+\begin{aligned}
+m_t &amp; = \beta_1 m_{t-1} + (1 - \beta_1) g_t \\
+v_t &amp; = \beta_2 v_{t-1} + (1 - \beta_2) g_t^2 \\
+\hat{m}_t &amp; = \frac{m_t}{1 - \beta_1^t} \\
+\hat{v}_t &amp; = \frac{v_t}{1 - \beta_2^t} \\
+\theta_t &amp; = \theta_{t-1} - \frac{\alpha}{\sqrt{\hat{v}_t} + \epsilon} \hat{m}_t
+\end{aligned}
+$$&lt;p&gt;可以认为 Adam 本身直接由 SGD 而来. 在此基础上 Adam 引入了几个重要技术:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;移动平均 (Moving Average)&lt;/strong&gt;: $m_t$ 不是通过对梯度直接求和, 而是按照 $\beta_1$ 和 $\beta_2$ 的比例进行移动平均, 保证了梯度的稳定性.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;自适应学习率 (Adaptive Learning Rate)&lt;/strong&gt;: $v_t$ 通过对梯度的二阶矩进行估计, 使得学习率可以自适应地调整.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;偏差修正 (Bias Correction)&lt;/strong&gt;: 由于在训练开始移动平均几乎为 0, 对其引入偏差修正可以加快初始化时刻的收敛速度.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;当然还有加上衰减的 AdamW, 以及其他的变种, 以适应 Transformer 等模型的训练. 鉴于偏差修正只在初期有较大影响, 之后对于收敛性的讨论, 我们对其不予考虑.&lt;/p&gt;
+&lt;h2 id=&#34;收敛--吗&#34;&gt;收敛 &amp;hellip; 吗?
+&lt;/h2&gt;&lt;p&gt;论文 &lt;a class=&#34;link cite-1&#34;&gt;[1]
+    
+&lt;/a&gt; 中, 作者对 Adam 的收敛性给了证明.&lt;/p&gt;
+</description>
         </item>
         <item>
         <title>机器学习基础(7) —— 集成学习</title>

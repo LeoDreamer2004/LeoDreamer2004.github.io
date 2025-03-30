@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/paper-reading/adam-convergence/'>
 
-<link rel="stylesheet" href="/scss/style.min.b333a14803fb3401b86b47b24b6e1001a620c376df80a3cb9249b4f6b71922d2.css"><meta property='og:title' content="论文阅读 - Adam 的收敛性分析">
+<link rel="stylesheet" href="/scss/style.min.8bca52d1ea3104ee603bda6b0f1edcbad425a83089ecb1da27aa0a40c16015af.css"><meta property='og:title' content="论文阅读 - Adam 的收敛性分析">
 <meta property='og:description' content="到底收不收敛? 实际上要看微调水准.">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/paper-reading/adam-convergence/'>
 <meta property='og:site_name' content='LeoDreamer'>
@@ -242,10 +242,74 @@
             
                 
 
+    <section class="widget related-materials">
+
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">相关材料</h2>
+
+        <div class="widget--related-materials">
+             <ol>
+    
+    <li>
+        <a href="https://arxiv.org/abs/1412.6980" id="related-material-1" target="_blank" rel="noopener noreferrer">
+            Adam: A Method for Stochastic Optimization
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://arxiv.org/abs/1904.09237" id="related-material-2" target="_blank" rel="noopener noreferrer">
+            On the Convergence of Adam and Beyond
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://arxiv.org/abs/2208.09632" id="related-material-3" target="_blank" rel="noopener noreferrer">
+            Adam Can Converge Without Any Modification On Update Rules
+        </a>
+    </li>
+    
+</ol>
+        </div>
+    </section>
+
             
         
             
                 
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#介绍">介绍</a></li>
+    <li><a href="#收敛--吗">收敛 &hellip; 吗?</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
 
             
         
@@ -314,7 +378,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 0 分钟
+                    阅读时长: 1 分钟
                 </time>
             </div>
         
@@ -329,7 +393,30 @@
     <section class="article-content">
     
     
+    <h2 id="介绍">介绍
+</h2><p>在论文 <a class="link cite-1">[1]
+    <span class="material-name">Unknown-material</span> 
+</a> 中, 作者首次介绍了 Adam 优化器. 此算法一经出现立刻爆火, 现在在深度学习当中已经成为一种最常用的优化算法, 其更新规则如下:</p>
+$$
+\begin{aligned}
+m_t & = \beta_1 m_{t-1} + (1 - \beta_1) g_t \\
+v_t & = \beta_2 v_{t-1} + (1 - \beta_2) g_t^2 \\
+\hat{m}_t & = \frac{m_t}{1 - \beta_1^t} \\
+\hat{v}_t & = \frac{v_t}{1 - \beta_2^t} \\
+\theta_t & = \theta_{t-1} - \frac{\alpha}{\sqrt{\hat{v}_t} + \epsilon} \hat{m}_t
+\end{aligned}
+$$<p>可以认为 Adam 本身直接由 SGD 而来. 在此基础上 Adam 引入了几个重要技术:</p>
+<ul>
+<li><strong>移动平均 (Moving Average)</strong>: $m_t$ 不是通过对梯度直接求和, 而是按照 $\beta_1$ 和 $\beta_2$ 的比例进行移动平均, 保证了梯度的稳定性.</li>
+<li><strong>自适应学习率 (Adaptive Learning Rate)</strong>: $v_t$ 通过对梯度的二阶矩进行估计, 使得学习率可以自适应地调整.</li>
+<li><strong>偏差修正 (Bias Correction)</strong>: 由于在训练开始移动平均几乎为 0, 对其引入偏差修正可以加快初始化时刻的收敛速度.</li>
+</ul>
+<p>当然还有加上衰减的 AdamW, 以及其他的变种, 以适应 Transformer 等模型的训练. 鉴于偏差修正只在初期有较大影响, 之后对于收敛性的讨论, 我们对其不予考虑.</p>
+<h2 id="收敛--吗">收敛 &hellip; 吗?
+</h2><p>论文 <a class="link cite-1">[1]
     
+</a> 中, 作者对 Adam 的收敛性给了证明.</p>
+
 </section>
 
 
@@ -548,7 +635,7 @@
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.d6f304cd2b2aa3010daa4b1278b11d68cbea5ea438f1d1288e214fac59f6b9bd.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.b48cb422dc6b96500532b30ae9ee76742f170be4c0b8c75572a6d184cc051969.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');
