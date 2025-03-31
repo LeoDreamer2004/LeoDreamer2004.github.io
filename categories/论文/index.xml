@@ -31,11 +31,65 @@ $$&lt;p&gt;可以认为 Adam 本身直接由 SGD 而来. 在此基础上 Adam �
 &lt;li&gt;&lt;strong&gt;自适应学习率 (Adaptive Learning Rate)&lt;/strong&gt;: $v_t$ 通过对梯度的二阶矩进行估计, 使得学习率可以自适应地调整.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;偏差修正 (Bias Correction)&lt;/strong&gt;: 由于在训练开始移动平均几乎为 0, 对其引入偏差修正可以加快初始化时刻的收敛速度.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;当然还有加上衰减的 AdamW, 以及其他的变种, 以适应 Transformer 等模型的训练. 鉴于偏差修正只在初期有较大影响, 之后对于收敛性的讨论, 我们对其不予考虑.&lt;/p&gt;
+&lt;p&gt;当然还有加上衰减的 AdamW, 以及其他的变种, 以适应 Transformer 等模型的训练.&lt;/p&gt;
 &lt;h2 id=&#34;收敛--吗&#34;&gt;收敛 &amp;hellip; 吗?
 &lt;/h2&gt;&lt;p&gt;论文 &lt;a class=&#34;link cite-1&#34;&gt;[1]
     
-&lt;/a&gt; 中, 作者对 Adam 的收敛性给了证明.&lt;/p&gt;
+&lt;/a&gt; 中提到我们可以引入误差量来衡量收敛性:&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;定义 &lt;strong&gt;累积误差&lt;/strong&gt;&lt;/p&gt;
+$$R(T) = \sum_{t=1}^T (f_t(\theta_t) - f_t(\theta^*))$$&lt;p&gt;其中 $\theta^*$ 是最优解, 即 $\theta^* = \arg\min_{\theta} \sum_{t=1}^T f_t(\theta)$.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;可以认为, 当 $R(T)/T \to 0$ 时算法收敛. 作者在文献中对 Adam 的收敛性给了自己证明, 里面的细节太多, 这里只给粗略过程.&lt;/p&gt;
+&lt;p&gt;鉴于偏差修正只在初期有较大影响, 之后对于收敛性的讨论, 以下证明对其不予考虑 (原论文有), 此外忽略微小项 $\epsilon$.&lt;/p&gt;
+&lt;p&gt;在原始的 Adam 中 $\beta_1, \alpha$ 都是常数, 实际上此时难以证明. 因此原文中, 对参数做了随时间动态调整:&lt;/p&gt;
+$$\alpha_t = \frac{\alpha}{\sqrt{t}}, \beta_{1,t}=\beta_1 \lambda^{t-1}, \lambda \in (0,1)$$&lt;p&gt;&lt;strong&gt;注意: 以下定理的证明有争议!&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
+&lt;p&gt;假设 $f_t$ 梯度有界, $\theta_t$ 之间的距离有界, 即 $\| g_t \|_{\infty} \le G, \|\theta_i-\theta_j\|_{\infty} \le D$, 且 $\beta_1^4 &lt; \beta_2$, Adam 中超参数 $\alpha, \beta_1$ 遵从如上动态调整, 则 $R(T) \le \mathcal{O}(\sqrt{T})$, 因而 Adam 收敛.&lt;/p&gt;
+&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
+&lt;p&gt;首先, 可以证明:&lt;/p&gt;
+$$
+f_t(\theta_t) - f_t(\theta^*) \le g_t^T(\theta_t - \theta^*) = \sum_{i=1}^d g_{t,i}(\theta_{t,i} - \theta^*_i)
+$$&lt;p&gt;$d$ 个分量求和并不会影响量级, 从而我们只需要关心第 $i$ 个分量, 因而下面我们不妨设 $\theta_t, g_t, m_t, v_t$ 等都是一维的. (或者可以用 $\theta_t = \theta_{t,i}$ 来表示), 那么我们只要证明:&lt;/p&gt;
+$$
+\sum_{t=1}^{T} g_t(\theta_t - \theta^*) \le \mathcal{O}(\sqrt{T})
+$$&lt;p&gt;既然要估计 $\theta_t - \theta^*$, 由学习率公式, 我们可以得到:&lt;/p&gt;
+$$(\theta_{t+1} - \theta^*) = (\theta_t - \theta^*) - \alpha_t \frac{m_t}{\sqrt{v_t}}$$&lt;p&gt;取平方, 有:&lt;/p&gt;
+$$(\theta_{t+1} - \theta^*)^2 = (\theta_t - \theta^*)^2 - 2\alpha_t \frac{m_t}{\sqrt{v_t}}(\theta_t - \theta^*) + \alpha_t^2 \frac{m_t^2}{v_t}$$&lt;p&gt;要把 $m_t$ 换成 $g_t$, 由 $m_t = \beta_1 m_{t-1} + (1 - \beta_1) g_t$ 代入得到:&lt;/p&gt;
+$$(\theta_{t+1} - \theta^*)^2 = (\theta_t - \theta^*)^2 - 2\alpha_t \frac{\beta_{1,t} m_{t-1} + (1 - \beta_{1,t}) g_t}{\sqrt{v_t}}(\theta_t - \theta^*) + \alpha_t^2 \frac{m_t^2}{v_t}
+$$&lt;p&gt;把需要处理的量放在左边:&lt;/p&gt;
+$$
+g_t(\theta_t - \theta^*) = \frac{\sqrt{v_t}\left((\theta_t - \theta^*)^2-(\theta_{t+1} - \theta^*)^2\right)}{2\alpha_t(1-\beta_{1,t})} - \frac{\beta_{1,t} m_{t-1}}{1-\beta_{1,t}}(\theta_t - \theta^*) + \frac{\alpha_t m_t^2}{2\sqrt{v_t}(1-\beta_{1,t})}
+$$&lt;p&gt;现在已经分成三个部分了, 只需要累和来看每个部分的量级.&lt;/p&gt;
+&lt;p&gt;一个显然的结论是, 在移动平均下, 易见 $m_t \le G (m_0 \le G), v_t \le G^2 (v_0 \le G^2)$.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;第一项&lt;/strong&gt;: 忽略常数 $2$, 且 $1-\beta_{1,t} \ge 1-\beta_{1,1}$ 也忽略, 暂记 $\lambda_t = \frac{\sqrt{v_t}}{\alpha_t} = \mathcal{O}(\sqrt{T})$, 只要考虑:&lt;/p&gt;
+$$
+    M_1=\sum_{t=1}^{T} \lambda_t \left((\theta_t - \theta^*)^2-(\theta_{t+1} - \theta^*)^2\right)
+    $$&lt;p&gt;利用 Abel 求和法则, 可以得到:&lt;/p&gt;
+$$
+    M_1 =\lambda_1(\theta_1 - \theta^*)^2 - \lambda_{T+1}(\theta_{T+1} - \theta^*)^2 + \sum_{t=1}^{T} (\lambda_{t+1} - \lambda_t)(\theta_t - \theta^*)^2
+    $$&lt;p&gt;一般来说 $\lambda_t = \mathcal{O}(\sqrt{T}g)$ 应该是单调不减的, 在 $\lambda_t \le \lambda_{t+1}$ 的情况下, 可以得到:&lt;/p&gt;
+$$
+    \begin{aligned}
+    M_1 &amp;\le \lambda_1(\theta_1 - \theta^*)^2 +  \sum_{t=1}^{T} (\lambda_{t+1} - \lambda_t)D^2 \\
+    &amp;= C + (\lambda_{T+1} - \lambda_1)D^2 = \mathcal{O}(\sqrt{T})
+    \end{aligned}
+    $$&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;问题就出在这个 &amp;ldquo;一般来说&amp;rdquo; 上&lt;/strong&gt;, 因为尽管引入参数衰减, 实际上 Adam 并不能保证 $\lambda_t$ 是单调不减的. 后面会提到这里的争议.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;第二项&lt;/strong&gt;: $\frac{\beta_{1,t}}{1-\beta_{1,t}} \ge \frac{\beta_{1,1}}{1-\beta_{1,1}}$ 忽略. 只用考虑:&lt;/p&gt;
+$$
+    \begin{aligned}
+    M_2 &amp;=\sum_{t=1}^{T} m_{t-1}(\theta_t - \theta^*) \\
+    \end{aligned}
+    $$&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
 </description>
         </item>
         
