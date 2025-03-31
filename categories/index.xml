@@ -135,7 +135,8 @@
       &lt;tr&gt;
           &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/p/opt-method/opt-theory&#34; &gt;最优化方法(5) —— 最优性理论&lt;/a&gt;&lt;/td&gt;
           &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;http://faculty.bicmr.pku.edu.cn/~wenzw/optbook/lect/07-lect-theory1.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;课件链接&lt;/a&gt;&lt;/td&gt;
+    &gt;课件链接 1&lt;/a&gt;  &lt;a class=&#34;link&#34; href=&#34;http://faculty.bicmr.pku.edu.cn/~wenzw/optbook/lect/07-lect-theory2.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;课件链接 2&lt;/a&gt;&lt;/td&gt;
       &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
@@ -160,7 +161,7 @@
   &lt;tbody&gt;
       &lt;tr&gt;
           &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/p/program-practice/class-and-object&#34; &gt;程序设计实习(1) —— 类和对象&lt;/a&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/01-%e7%b1%bb%e5%92%8c%e5%af%b9%e8%b1%a101.pdf&#34; &gt;课件链接1&lt;/a&gt; &lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/02-%e7%b1%bb%e4%b8%8e%e5%af%b9%e8%b1%a102.pdf&#34; &gt;课件链接2&lt;/a&gt; &lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/03-%e7%b1%bb%e4%b8%8e%e5%af%b9%e8%b1%a103.pdf&#34; &gt;课件链接3&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/01-%e7%b1%bb%e5%92%8c%e5%af%b9%e8%b1%a101.pdf&#34; &gt;课件链接 1&lt;/a&gt; &lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/02-%e7%b1%bb%e4%b8%8e%e5%af%b9%e8%b1%a102.pdf&#34; &gt;课件链接 2&lt;/a&gt; &lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/03-%e7%b1%bb%e4%b8%8e%e5%af%b9%e8%b1%a103.pdf&#34; &gt;课件链接 3&lt;/a&gt;&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
           &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/p/program-practice/operator-overload&#34; &gt;程序设计实习(2) —— 运算符重载&lt;/a&gt;&lt;/td&gt;
