@@ -16,16 +16,21 @@
         <description>&lt;h2 id=&#34;介绍&#34;&gt;介绍
 &lt;/h2&gt;&lt;p&gt;在论文 &lt;a class=&#34;link cite-1&#34;&gt;[1]
     &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
-&lt;/a&gt; 中, 作者首次介绍了 Adam 优化器. 此算法一经出现立刻爆火, 现在在深度学习当中已经成为一种最常用的优化算法, 其更新规则如下:&lt;/p&gt;
+&lt;/a&gt; 中, 作者首次介绍了 Adam 优化器. 此算法一经出现立刻爆火, 现在在深度学习当中已经成为一种最常用的优化算法.&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;Adam&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Adam 的更新公式如下:&lt;/p&gt;
 $$
 \begin{aligned}
 m_t &amp; = \beta_1 m_{t-1} + (1 - \beta_1) g_t \\
 v_t &amp; = \beta_2 v_{t-1} + (1 - \beta_2) g_t^2 \\
 \hat{m}_t &amp; = \frac{m_t}{1 - \beta_1^t} \\
 \hat{v}_t &amp; = \frac{v_t}{1 - \beta_2^t} \\
-\theta_t &amp; = \theta_{t-1} - \frac{\alpha}{\sqrt{\hat{v}_t} + \epsilon} \hat{m}_t
+\theta_t &amp; = \theta_{t-1} - \frac{\alpha}{\sqrt{\hat{v}_t} + \epsilon} \odot \hat{m}_t
 \end{aligned}
-$$&lt;p&gt;可以认为 Adam 本身直接由 SGD 而来. 在此基础上 Adam 引入了几个重要技术:&lt;/p&gt;
+$$&lt;p&gt;其中 $\odot$ 表示逐元素相乘. 超参数通常取 $\beta_1=0.9, \beta_2=0.999, \epsilon=10^{-8}$.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;可以认为 Adam 本身直接由 SGD 而来. 在此基础上 Adam 引入了几个重要技术:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;移动平均 (Moving Average)&lt;/strong&gt;: $m_t$ 不是通过对梯度直接求和, 而是按照 $\beta_1$ 和 $\beta_2$ 的比例进行移动平均, 保证了梯度的稳定性.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;自适应学习率 (Adaptive Learning Rate)&lt;/strong&gt;: $v_t$ 通过对梯度的二阶矩进行估计, 使得学习率可以自适应地调整.&lt;/li&gt;
@@ -38,7 +43,7 @@ $$&lt;p&gt;可以认为 Adam 本身直接由 SGD 而来. 在此基础上 Adam �
 &lt;/a&gt; 中提到我们可以引入误差量来衡量收敛性:&lt;/p&gt;
 &lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
-&lt;p&gt;定义 &lt;strong&gt;累积误差&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;称 &lt;strong&gt;累积误差&lt;/strong&gt; 为&lt;/p&gt;
 $$R(T) = \sum_{t=1}^T (f_t(\theta_t) - f_t(\theta^*))$$&lt;p&gt;其中 $\theta^*$ 是最优解, 即 $\theta^* = \arg\min_{\theta} \sum_{t=1}^T f_t(\theta)$.&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;可以认为, 当 $R(T)/T \to 0$ 时算法收敛. 作者在文献中对 Adam 的收敛性给了自己证明, 里面的细节太多, 这里只给粗略过程.&lt;/p&gt;
@@ -61,36 +66,87 @@ $$(\theta_{t+1} - \theta^*)^2 = (\theta_t - \theta^*)^2 - 2\alpha_t \frac{m_t}{\
 $$(\theta_{t+1} - \theta^*)^2 = (\theta_t - \theta^*)^2 - 2\alpha_t \frac{\beta_{1,t} m_{t-1} + (1 - \beta_{1,t}) g_t}{\sqrt{v_t}}(\theta_t - \theta^*) + \alpha_t^2 \frac{m_t^2}{v_t}
 $$&lt;p&gt;把需要处理的量放在左边:&lt;/p&gt;
 $$
-g_t(\theta_t - \theta^*) = \frac{\sqrt{v_t}\left((\theta_t - \theta^*)^2-(\theta_{t+1} - \theta^*)^2\right)}{2\alpha_t(1-\beta_{1,t})} - \frac{\beta_{1,t} m_{t-1}}{1-\beta_{1,t}}(\theta_t - \theta^*) + \frac{\alpha_t m_t^2}{2\sqrt{v_t}(1-\beta_{1,t})}
-$$&lt;p&gt;现在已经分成三个部分了, 只需要累和来看每个部分的量级.&lt;/p&gt;
+(1-\beta_{1,t})g_t(\theta_t - \theta^*) = \frac{\sqrt{v_t}\left((\theta_t - \theta^*)^2-(\theta_{t+1} - \theta^*)^2\right)}{2\alpha_t} - \beta_{1,t} m_{t-1}(\theta_t - \theta^*) + \frac{\alpha_t m_t^2}{2\sqrt{v_t}}
+$$&lt;p&gt;这左边可以由 $1 \ge 1-\beta_{1,t} \ge 1-\beta_{1,1}$ 直接看作 $g_t(\theta_t - \theta^*)$ 量级, 右边现在已经分成三个部分了, 只需要累和来看每个部分的量级.&lt;/p&gt;
 &lt;p&gt;一个显然的结论是, 在移动平均下, 易见 $m_t \le G (m_0 \le G), v_t \le G^2 (v_0 \le G^2)$.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;第一项&lt;/strong&gt;: 忽略常数 $2$, 且 $1-\beta_{1,t} \ge 1-\beta_{1,1}$ 也忽略, 暂记 $\lambda_t = \frac{\sqrt{v_t}}{\alpha_t} = \mathcal{O}(\sqrt{T})$, 只要考虑:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;第一项&lt;/strong&gt;: 忽略常数 $2$, 暂记 $\gamma_t = \frac{\sqrt{v_t}}{\alpha_t} = \mathcal{O}(\sqrt{T})$, 只要考虑:&lt;/p&gt;
 $$
-    M_1=\sum_{t=1}^{T} \lambda_t \left((\theta_t - \theta^*)^2-(\theta_{t+1} - \theta^*)^2\right)
+    M_1=\sum_{t=1}^{T} \gamma_t \left((\theta_t - \theta^*)^2-(\theta_{t+1} - \theta^*)^2\right)
     $$&lt;p&gt;利用 Abel 求和法则, 可以得到:&lt;/p&gt;
 $$
-    M_1 =\lambda_1(\theta_1 - \theta^*)^2 - \lambda_{T+1}(\theta_{T+1} - \theta^*)^2 + \sum_{t=1}^{T} (\lambda_{t+1} - \lambda_t)(\theta_t - \theta^*)^2
-    $$&lt;p&gt;一般来说 $\lambda_t = \mathcal{O}(\sqrt{T}g)$ 应该是单调不减的, 在 $\lambda_t \le \lambda_{t+1}$ 的情况下, 可以得到:&lt;/p&gt;
+    M_1 =\gamma_1(\theta_1 - \theta^*)^2 - \gamma_{t+1}(\theta_{T+1} - \theta^*)^2 + \sum_{t=1}^{T} (\gamma_{t+1} - \gamma_t)(\theta_t - \theta^*)^2
+    $$&lt;p&gt;一般来说 $\gamma_t = \mathcal{O}(\sqrt{T})$ 应该是单调不减的, 在 $\gamma_t \le \gamma_{t+1}$ 的情况下, 可以得到:&lt;/p&gt;
 $$
     \begin{aligned}
-    M_1 &amp;\le \lambda_1(\theta_1 - \theta^*)^2 +  \sum_{t=1}^{T} (\lambda_{t+1} - \lambda_t)D^2 \\
-    &amp;= C + (\lambda_{T+1} - \lambda_1)D^2 = \mathcal{O}(\sqrt{T})
+    M_1 &amp;\le \gamma_1(\theta_1 - \theta^*)^2 +  \sum_{t=1}^{T} (\gamma_{t+1} - \gamma_t)D^2 \\
+    &amp;= C + (\gamma_{t+1} - \gamma_1)D^2 = \mathcal{O}(\sqrt{T})
     \end{aligned}
     $$&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;问题就出在这个 &amp;ldquo;一般来说&amp;rdquo; 上&lt;/strong&gt;, 因为尽管引入参数衰减, 实际上 Adam 并不能保证 $\lambda_t$ 是单调不减的. 后面会提到这里的争议.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;问题就出在这个 &amp;ldquo;一般来说&amp;rdquo; 上&lt;/strong&gt;, 因为尽管引入参数衰减, 实际上 Adam 并不能保证 $\gamma_t$ 是单调不减的. 后面会提到这里的争议.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;第二项&lt;/strong&gt;: $\frac{\beta_{1,t}}{1-\beta_{1,t}} \ge \frac{\beta_{1,1}}{1-\beta_{1,1}}$ 忽略. 只用考虑:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;第二项&lt;/strong&gt;: 直接放缩即可:&lt;/p&gt;
 $$
     \begin{aligned}
-    M_2 &amp;=\sum_{t=1}^{T} m_{t-1}(\theta_t - \theta^*) \\
+    M_2 &amp;=\sum_{t=1}^{T} \beta_{1,t}m_{t-1}(\theta_t - \theta^*) \le \sum_{t=1}^{T} \beta_{1,t} |m_{t-1}| D \\
+    &amp;\le GD \sum_{t=1}^{T} \beta_{1,t} = G D \beta_1 \frac{1-\lambda^T}{1-\lambda} = \mathcal{O}(1)
     \end{aligned}
     $$&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;第三项&lt;/strong&gt;: $v_t$ 未必有下界, 有点麻烦! 直接写通式:&lt;/p&gt;
+$$
+    \begin{aligned}
+    m_t &amp;= \sum_{s=1}^t (1-\beta_{1,s})\left(\prod_{r=s+1}^{t}\beta_{1,r}\right)g_s \le \sum_{s=1}^t \beta_1^{t-s}g_s\\
+    v_t &amp;= (1-\beta_2)\sum_{s=1}^t \beta_2^{t-s}g_s^2
+    \end{aligned}
+    $$&lt;p&gt;既然要控制 $\frac{m_t^2}{\sqrt{v_t}}$, 结合 $\beta_1^4 &lt; \beta_2$, 那么考虑 Young 不等式:&lt;/p&gt;
+$$
+    \begin{aligned}
+    m_t^4 &amp;\le \left(\sum_{s=1}^t \beta_2^{t-s}g_s^2 \right) \left(\sum_{s=1}^t \frac{\beta_1^{\frac{4}{3}(t-s)}}{\beta_2^{\frac{1}{3}(t-s)}}g_s^{\frac{2}{3}} \right)^{3} \\
+    &amp;\le v_t^2 G^2 \left(\frac{1-\mu^t}{1-\mu}\right)^3 = v_t^2 \mathcal{O}(1)
+    \end{aligned}
+    $$&lt;p&gt;这里 $\mu = \beta_1^{\frac{4}{3}} / \beta_2^{\frac{1}{3}} &lt; 1$. 因此:&lt;/p&gt;
+$$
+    M_3 =\sum_{t=1}^{T} \alpha_t^2 \frac{m_t^2}{\sqrt{v_t}} \le C \sum_{t=1}^{T} \alpha_t^2 = C \sum_{t=1}^{T} \mathcal{O}\left(\frac{1}{t}\right) = \mathcal{O}(\ln T)
+    $$&lt;/li&gt;
 &lt;/ol&gt;
+&lt;p&gt;自此, 三项综合可以得到:&lt;/p&gt;
+$$
+R(T) \le \mathcal{O}(\sqrt{T}) + \mathcal{O}(1) + \mathcal{O}(\ln T) = \mathcal{O}(\sqrt{T})
+$$&lt;/div&gt;
+&lt;h2 id=&#34;objection&#34;&gt;Objection!
+&lt;/h2&gt;&lt;p&gt;论文 &lt;a class=&#34;link cite-1&#34;&gt;[1]
+    
+&lt;/a&gt; 的这个漏洞显然为人诟病. 于是论文 &lt;a class=&#34;link cite-2&#34;&gt;[2]
+    &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
+&lt;/a&gt; 中, 作者指出 Adam 并不总是收敛的. 论文中给出了一个反例:&lt;/p&gt;
+&lt;p&gt;我们取 $\beta_1=0, \beta_2=\frac{1}{1+C^2}$. 设考虑在时间 $t$ 观测到的函数 $f_t$ 为:&lt;/p&gt;
+$$
+f_t(x) = \begin{cases}
+Cx &amp; t \equiv 1 \pmod {3} \\
+-x &amp; \text{Otherwise} \\
+\end{cases}, \quad x \in [-1,1]
+$$&lt;p&gt;其中 $C&gt;2$ 是一个常数. 从宏观尺度上, $f=\frac{1}{3}(C-2)x$, 最低点在 $x=-1$ 处. 显然 $f$ 和其他超参数满足定理条件, 然而经过 (冗长枯燥的) 计算可以得知, 由于每三次迭代中 $f$ 就会有两次向错误的方向更新, 加上移动平均导致的历史遗忘, 会导致无法正确收敛. 具体过程可以参考原文附录.&lt;/p&gt;
+&lt;p&gt;为了解决这个问题, 作者提出为了确保 $\gamma$ 是单调不减的, 可以在更新时让 $v_{t+1}$ 与 $v_t$ 取一个最大值作为更新值. 由此, 引出 Amsgrad 算法:&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;Amsgrad&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Amsgrad 的更新公式如下:&lt;/p&gt;
+$$
+\begin{aligned}
+m_t &amp; = \beta_1 m_{t-1} + (1 - \beta_1) g_t \\
+v_t &amp; = \beta_2 v_{t-1} + (1 - \beta_2) g_t^2 \\
+\hat{v}_t &amp;= \max(v_t, \hat{v}_{t-1}) \\
+\theta_t &amp; = \theta_{t-1} - \frac{\alpha}{\sqrt{\hat{v}_t} + \epsilon} \odot m_t
+\end{aligned}
+$$&lt;p&gt;此处省略了偏差修正.&lt;/p&gt;
 &lt;/div&gt;
-</description>
+&lt;p&gt;论文 &lt;a class=&#34;link cite-2&#34;&gt;[2]
+    
+&lt;/a&gt; 采取实验证明, Amsgrad 具有更好的收敛性.&lt;/p&gt;
+&lt;h2 id=&#34;辩护与和解&#34;&gt;辩护与和解
+&lt;/h2&gt;</description>
         </item>
         <item>
         <title>程序设计实习(4) —— 多态</title>
