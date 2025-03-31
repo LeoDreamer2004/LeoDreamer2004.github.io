@@ -571,7 +571,37 @@ $$
 x^\ast - y + A^T \lambda^\ast &amp;= 0 \\
 Ax^\ast &amp;= b
 \end{aligned}
-$$</description>
+$$&lt;p&gt;解之&lt;/p&gt;
+$$
+\begin{aligned}
+\lambda^\ast &amp;= (AA^T)^{-1}(Ay-b) \\
+x^\ast &amp;= y - A^T(AA^T)^{-1}(Ay-b)
+\end{aligned}
+$$&lt;p&gt;显然, $x^\ast$ 是 $y$ 在 $Ax=b$ 上的投影.&lt;/p&gt;
+&lt;h2 id=&#34;例子-基追踪问题&#34;&gt;例子: 基追踪问题
+&lt;/h2&gt;$$
+\begin{aligned}
+\min \quad &amp; \|x\|_1 \\
+\text{s.t.} \quad &amp; Ax = b
+\end{aligned}
+$$&lt;p&gt;这个函数实际是不光滑的. 把 $x$ 写作 $x^+-x^-$, 再令 $y=[x^+, x^-]$, 等价于&lt;/p&gt;
+$$
+\begin{aligned}
+\min \quad &amp; \mathbf{1}^T y \\
+\text{s.t.} \quad &amp; [A, -A] y = b \\
+&amp; y \ge 0
+\end{aligned}
+$$&lt;p&gt;按照 KKT 条件, 有&lt;/p&gt;
+$$
+\begin{aligned}
+\mathbf{1} + [A, -A]^T \lambda^\ast - \nu^\ast &amp;= 0 \\
+[A, -A] y^\ast &amp;= b \\
+y^\ast &amp;\ge 0 \\
+\nu^\ast &amp;\ge 0 \\
+\nu^\ast \odot y^\ast &amp;= 0
+\end{aligned}
+$$&lt;p&gt;直接推导也得到相应结果, 二者实际上是等价的. (利用 $x^\ast=y_i^\ast-y_{i+n}^\ast$, 代入验证最优点处方向导数为 $0$ 即可)&lt;/p&gt;
+</description>
         </item>
         <item>
         <title>机器学习基础(5) —— 决策树模型</title>
