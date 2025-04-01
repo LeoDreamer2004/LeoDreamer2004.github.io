@@ -26,7 +26,7 @@ m_t &amp; = \beta_1 m_{t-1} + (1 - \beta_1) g_t \\
 v_t &amp; = \beta_2 v_{t-1} + (1 - \beta_2) g_t^2 \\
 \hat{m}_t &amp; = \frac{m_t}{1 - \beta_1^t} \\
 \hat{v}_t &amp; = \frac{v_t}{1 - \beta_2^t} \\
-\theta_t &amp; = \theta_{t-1} - \frac{\alpha}{\sqrt{\hat{v}_t} + \epsilon} \odot \hat{m}_t
+\theta_t &amp; = \theta_{t-1} - \frac{\eta}{\sqrt{\hat{v}_t} + \epsilon} \odot \hat{m}_t
 \end{aligned}
 $$&lt;p&gt;其中 $\odot$ 表示逐元素相乘. 超参数通常取 $\beta_1=0.9, \beta_2=0.999, \epsilon=10^{-8}$.&lt;/p&gt;
 &lt;/div&gt;
@@ -48,11 +48,11 @@ $$R(T) = \sum_{t=1}^T (f_t(\theta_t) - f_t(\theta^*))$$&lt;p&gt;其中 $\theta^*
 &lt;/div&gt;
 &lt;p&gt;可以认为, 当 $R(T)/T \to 0$ 时算法收敛. 作者在文献中对 Adam 的收敛性给了自己证明, 里面的细节太多, 这里只给粗略过程.&lt;/p&gt;
 &lt;p&gt;鉴于偏差修正只在初期有较大影响, 之后对于收敛性的讨论, 以下证明对其不予考虑 (原论文有), 此外忽略微小项 $\epsilon$.&lt;/p&gt;
-&lt;p&gt;在原始的 Adam 中 $\beta_1, \alpha$ 都是常数, 实际上此时难以证明. 因此原文中, 对参数做了随时间动态调整:&lt;/p&gt;
-$$\alpha_t = \frac{\alpha}{\sqrt{t}}, \beta_{1,t}=\beta_1 \lambda^{t-1}, \lambda \in (0,1)$$&lt;p&gt;&lt;strong&gt;注意: 以下定理的证明有争议!&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;在原始的 Adam 中 $\beta_1, \eta$ 都是常数, 实际上此时难以证明. 因此原文中, 对参数做了随时间动态调整:&lt;/p&gt;
+$$\eta_t = \frac{\eta}{\sqrt{t}}, \beta_{1,t}=\beta_1 \lambda^{t-1}, \lambda \in (0,1)$$&lt;p&gt;&lt;strong&gt;注意: 以下定理的证明有争议!&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
-&lt;p&gt;假设 $f_t$ 梯度有界, $\theta_t$ 之间的距离有界, 即 $\| g_t \|_{\infty} \le G, \|\theta_i-\theta_j\|_{\infty} \le D$, 且 $\beta_1^4 &lt; \beta_2$, Adam 中超参数 $\alpha, \beta_1$ 遵从如上动态调整, 则 $R(T) \le \mathcal{O}(\sqrt{T})$, 因而 Adam 收敛.&lt;/p&gt;
+&lt;p&gt;假设 $f_t$ 梯度有界, $\theta_t$ 之间的距离有界, 即 $\| g_t \|_{\infty} \le G, \|\theta_i-\theta_j\|_{\infty} \le D$, 且 $\beta_1^4 &lt; \beta_2$, Adam 中超参数 $\eta, \beta_1$ 遵从如上动态调整, 则 $R(T) \le \mathcal{O}(\sqrt{T})$, 因而 Adam 收敛.&lt;/p&gt;
 &lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
 &lt;p&gt;首先, 可以证明:&lt;/p&gt;
 $$
@@ -61,17 +61,17 @@ $$&lt;p&gt;$d$ 个分量求和并不会影响量级, 从而我们只需要关心
 $$
 \sum_{t=1}^{T} g_t(\theta_t - \theta^*) \le \mathcal{O}(\sqrt{T})
 $$&lt;p&gt;既然要估计 $\theta_t - \theta^*$, 由学习率公式, 我们可以得到:&lt;/p&gt;
-$$(\theta_{t+1} - \theta^*) = (\theta_t - \theta^*) - \alpha_t \frac{m_t}{\sqrt{v_t}}$$&lt;p&gt;取平方, 有:&lt;/p&gt;
-$$(\theta_{t+1} - \theta^*)^2 = (\theta_t - \theta^*)^2 - 2\alpha_t \frac{m_t}{\sqrt{v_t}}(\theta_t - \theta^*) + \alpha_t^2 \frac{m_t^2}{v_t}$$&lt;p&gt;要把 $m_t$ 换成 $g_t$, 由 $m_t = \beta_1 m_{t-1} + (1 - \beta_1) g_t$ 代入得到:&lt;/p&gt;
-$$(\theta_{t+1} - \theta^*)^2 = (\theta_t - \theta^*)^2 - 2\alpha_t \frac{\beta_{1,t} m_{t-1} + (1 - \beta_{1,t}) g_t}{\sqrt{v_t}}(\theta_t - \theta^*) + \alpha_t^2 \frac{m_t^2}{v_t}
+$$(\theta_{t+1} - \theta^*) = (\theta_t - \theta^*) - \eta_t \frac{m_t}{\sqrt{v_t}}$$&lt;p&gt;取平方, 有:&lt;/p&gt;
+$$(\theta_{t+1} - \theta^*)^2 = (\theta_t - \theta^*)^2 - 2\eta_t \frac{m_t}{\sqrt{v_t}}(\theta_t - \theta^*) + \eta_t^2 \frac{m_t^2}{v_t}$$&lt;p&gt;要把 $m_t$ 换成 $g_t$, 由 $m_t = \beta_1 m_{t-1} + (1 - \beta_1) g_t$ 代入得到:&lt;/p&gt;
+$$(\theta_{t+1} - \theta^*)^2 = (\theta_t - \theta^*)^2 - 2\eta_t \frac{\beta_{1,t} m_{t-1} + (1 - \beta_{1,t}) g_t}{\sqrt{v_t}}(\theta_t - \theta^*) + \eta_t^2 \frac{m_t^2}{v_t}
 $$&lt;p&gt;把需要处理的量放在左边:&lt;/p&gt;
 $$
-(1-\beta_{1,t})g_t(\theta_t - \theta^*) = \frac{\sqrt{v_t}\left((\theta_t - \theta^*)^2-(\theta_{t+1} - \theta^*)^2\right)}{2\alpha_t} - \beta_{1,t} m_{t-1}(\theta_t - \theta^*) + \frac{\alpha_t m_t^2}{2\sqrt{v_t}}
+(1-\beta_{1,t})g_t(\theta_t - \theta^*) = \frac{\sqrt{v_t}\left((\theta_t - \theta^*)^2-(\theta_{t+1} - \theta^*)^2\right)}{2\eta_t} - \beta_{1,t} m_{t-1}(\theta_t - \theta^*) + \frac{\eta_t m_t^2}{2\sqrt{v_t}}
 $$&lt;p&gt;这左边可以由 $1 \ge 1-\beta_{1,t} \ge 1-\beta_{1,1}$ 直接看作 $g_t(\theta_t - \theta^*)$ 量级, 右边现在已经分成三个部分了, 只需要累和来看每个部分的量级.&lt;/p&gt;
 &lt;p&gt;一个显然的结论是, 在移动平均下, 易见 $m_t \le G (m_0 \le G), v_t \le G^2 (v_0 \le G^2)$.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;第一项&lt;/strong&gt;: 忽略常数 $2$, 暂记 $\gamma_t = \frac{\sqrt{v_t}}{\alpha_t} = \mathcal{O}(\sqrt{T})$, 只要考虑:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;第一项&lt;/strong&gt;: 忽略常数 $2$, 暂记 $\gamma_t = \frac{\sqrt{v_t}}{\eta_t} = \mathcal{O}(\sqrt{T})$, 只要考虑:&lt;/p&gt;
 $$
     M_1=\sum_{t=1}^{T} \gamma_t \left((\theta_t - \theta^*)^2-(\theta_{t+1} - \theta^*)^2\right)
     $$&lt;p&gt;利用 Abel 求和法则, 可以得到:&lt;/p&gt;
@@ -109,7 +109,7 @@ $$
     \end{aligned}
     $$&lt;p&gt;这里 $\mu = \beta_1^{\frac{4}{3}} / \beta_2^{\frac{1}{3}} &lt; 1$. 因此:&lt;/p&gt;
 $$
-    M_3 =\sum_{t=1}^{T} \alpha_t^2 \frac{m_t^2}{\sqrt{v_t}} \le C \sum_{t=1}^{T} \alpha_t^2 = C \sum_{t=1}^{T} \mathcal{O}\left(\frac{1}{t}\right) = \mathcal{O}(\ln T)
+    M_3 =\sum_{t=1}^{T} \eta_t^2 \frac{m_t^2}{\sqrt{v_t}} \le C \sum_{t=1}^{T} \eta_t^2 = C \sum_{t=1}^{T} \mathcal{O}\left(\frac{1}{t}\right) = \mathcal{O}(\ln T)
     $$&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;自此, 三项综合可以得到:&lt;/p&gt;
@@ -138,7 +138,7 @@ $$
 m_t &amp; = \beta_1 m_{t-1} + (1 - \beta_1) g_t \\
 v_t &amp; = \beta_2 v_{t-1} + (1 - \beta_2) g_t^2 \\
 \hat{v}_t &amp;= \max(v_t, \hat{v}_{t-1}) \\
-\theta_t &amp; = \theta_{t-1} - \frac{\alpha}{\sqrt{\hat{v}_t} + \epsilon} \odot m_t
+\theta_t &amp; = \theta_{t-1} - \frac{\eta}{\sqrt{\hat{v}_t} + \epsilon} \odot m_t
 \end{aligned}
 $$&lt;p&gt;此处省略了偏差修正.&lt;/p&gt;
 &lt;/div&gt;
@@ -146,7 +146,56 @@ $$&lt;p&gt;此处省略了偏差修正.&lt;/p&gt;
     
 &lt;/a&gt; 采取实验证明, Amsgrad 具有更好的收敛性.&lt;/p&gt;
 &lt;h2 id=&#34;辩护与和解&#34;&gt;辩护与和解
-&lt;/h2&gt;</description>
+&lt;/h2&gt;&lt;p&gt;既然 Adam 可能不收敛, 那为什么在实际中表现良好呢? 一个直观的批驳是, 论文 &lt;a class=&#34;link cite-2&#34;&gt;[2]
+    
+&lt;/a&gt; 中的反例取的参数相当极端: $\beta_1, \beta_2$ 都很小. 在实际中, 我们通常取 $\beta_1=0.9, \beta_2=0.999$, 这便是论文 &lt;a class=&#34;link cite-3&#34;&gt;[3]
+    &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
+&lt;/a&gt; 的切入点. 作者认为, 只要 $\beta_1^2 &lt; \beta_2$, 且 $\beta_2$ 充分大, 就可以保证收敛.&lt;/p&gt;
+&lt;p&gt;和 &lt;a class=&#34;link cite-2&#34;&gt;[2]
+    
+&lt;/a&gt;不同, 论文 &lt;a class=&#34;link cite-3&#34;&gt;[3]
+    
+&lt;/a&gt; 更注重实际. 从训练角度上, 一般是分成若干个 Epoch, 每个 Epoch 内处理的都是相同的 $n$ 个函数. 作者对 $f$ 以及其内的 $n$ 个分函数提出了如下要求:&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;定义集合 $\mathcal{F}$ 为满足如下条件的函数 $f: \mathbb{R}^d \mapsto \mathbb{R}$ 集合:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$f$ 有界, 即 $$f \le f^\ast$$&lt;/li&gt;
+&lt;li&gt;$f$ 是 Lipschitz 连续的, 即 $$\|f(x) - f(y)\| \le L \|x - y\|$$&lt;/li&gt;
+&lt;li&gt;所有 $n$ 个时间刻的 $f_t$ 满足 $$\sum_{i=0}^{n-1} \| \nabla f_i(x) \|^2 \le D_1 \| \nabla f(x) \|^2 + D_0 $$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;p&gt;作者称第三个要求实际上是非常容易的, 事实上确实如此.&lt;/p&gt;
+&lt;p&gt;我们记第 $k$ 个 Epoch 开始时的变量为 $x_k$, 运行到第 $0 \le i &lt; n$ 个函数时为 $x_{k,i}$, 即 $x_k=x_{k,0}=x_{k-1,n}$. 现在, 作者称梯度的上界有保证. 证明过程非常冗长, 我们尽量精炼.&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
+&lt;p&gt;设 $f(x) \in \mathcal{F}$, 遵守 $\mathcal{F}$ 内定义中的记号. 设 $\beta_1^2 &lt; \beta_2 &lt; 1$, 且 $\beta_2 \ge \gamma(n)$, 学习率衰减 $\eta_k= \frac{\eta}{\sqrt{nk}}$, 则存在某个充分大的 $K$, 对于 $T&gt;K$ 均有:&lt;/p&gt;
+$$
+\min_{k \in [K,T]} \mathbb{E} \left\{ \min \left[ \sqrt{\frac{2D_1d}{D_0}} \| \nabla f(x_k) \|^2, \| \nabla f(x_k) \| \right] \right\} = \mathcal{O} \left( \frac{\log T}{\sqrt{T}} + \sqrt{D_0}\right)
+$$&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
+&lt;p&gt;我们依然只考虑一维情形, 从下降引理出发:&lt;/p&gt;
+$$
+\mathbb{E}f(x_{k+1}) - \mathbb{E}f(x_k) \le \mathbb{E} \left&lt; \nabla f(x_k), x_{k+1} - x_k \right&gt; + \frac{L}{2} \mathbb{E} \|x_{k+1} - x_k\|^2
+$$&lt;p&gt;做累加, 有:&lt;/p&gt;
+$$
+\mathbb{E} \sum_{k=t_0}^T \left&lt; \nabla f(x_k), x_{k+1} - x_k \right&gt; \le \frac{L}{2} \mathbb{E} \sum_{k=t_0}^T \|x_{k+1} - x_k\|^2 + \mathbb{E}f(x_{t_0}) - \mathbb{E}f(x_{T+1})
+$$&lt;p&gt;首先考虑右侧的上界, 这个相对容易, 注意到由于 $m_k$, $v_k$ 都是常量级:&lt;/p&gt;
+$$
+\begin{aligned}
+\mathbb{E} \|x_{k+1} - x_k\|^2 &amp;\le \mathbb{E} \sum_{i=0}^{n-1} \|x_{k,i+1} - x_{k,i}\|^2 \le n \max_{0 \le i &lt; n} \mathbb{E} \|x_{k,i+1} - x_{k,i}\|^2 \\
+&amp;= n\mathcal{O}\left(\frac{\eta_k^2m^2_{k,i}}{v_{k,i}}\right) = \mathcal{O}\left(\frac{1}{k}\right)
+\end{aligned}
+$$&lt;p&gt;因此:&lt;/p&gt;
+$$
+\frac{L}{2} \mathbb{E} \sum_{k=t_0}^T \|x_{k+1} - x_k\|^2 = \sum_{k=t_0}^T \mathcal{O}\left(\frac{1}{k}\right) = \mathcal{O}(\log T)
+$$&lt;p&gt;重点是左侧, 由于只有一维, 我们归结于考虑:&lt;/p&gt;
+$$
+\mathbb{E} \left&lt; \nabla f(x_k), x_{k+1} - x_k \right&gt; = \mathbb{E} \sum_{i=0}^{n-1} \nabla f(x_k) \frac{m_{k,i}}{\sqrt{v_{k,i}}}
+$$&lt;p&gt;实际上在 $d$ 维时, 这里要再套一层 $d$ 项求和, 其中 $\nabla f(x_k)$ 应该是 $\partial_i f(x_k)$.&lt;/p&gt;
+&lt;/div&gt;
+&lt;blockquote&gt;
+&lt;p&gt;强调一点, 所谓 $\beta_2$ 充分大, 是指 $\beta_2$ 需要大于一个与 $n$ 有关的常数 $\gamma(n)$, 如果 $n$ 不固定, 定理并不能证明什么, 这点之后会提到.&lt;/p&gt;&lt;/blockquote&gt;
+</description>
         </item>
         
     </channel>

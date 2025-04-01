@@ -62,8 +62,29 @@ $$\exp(\alpha_t)e_t = \exp(-\alpha_t)(1-e_t)$$
 这表明分配给错误样本的权重之和与正确样本的权重之和相等.&lt;/li&gt;
 &lt;li&gt;计算可知
 $$Z_t = \sum_{i=1}^N w_{i,t} \exp(-\alpha_t y_i f_t(x_i)) = 2 \sqrt{e_t(1-e_t)}$$&lt;/li&gt;
+&lt;li&gt;权值调整累计过程
+$$
+    \begin{aligned}
+    w_{i,t+1}&amp;=w_{i,t} \frac{\exp(-\alpha_t y_i f_t(x_i))}{Z_t} \\
+    &amp;=w_{i,1} \frac{\exp \left(-y_i \sum_{s=1}^t \alpha_s f_s(x_i)\right)}{\prod_{s=1}^t Z_s} \\
+    \end{aligned}
+    $$
+取 $t=T$, 由 $w_{i,1}=\frac{1}{N}$ 可得
+$$
+    w_{i,T} = \frac{1}{N} \frac{\exp (-y_i G(x_i))}{\prod_{s=1}^T Z_s}
+    $$&lt;/li&gt;
 &lt;/ul&gt;
-</description>
+&lt;h3 id=&#34;adaboost-误差分析&#34;&gt;AdaBoost 误差分析
+&lt;/h3&gt;&lt;p&gt;集成分类器的训练误差为&lt;/p&gt;
+$$
+\begin{aligned}
+\hat{R}(f) &amp;= \frac{1}{N} \sum_{i=1}^N \mathbb{I}(f(x_i) \neq y_i) =\frac{1}{N} \sum_{i=1}^N \mathbb{I}(y_iG(x_i) \le 0) \\
+&amp;\le \frac{1}{N} \sum_{i=1}^N \exp(-y_iG(x_i)) = \frac{1}{N} \sum_{i=1}^N \left( N \prod_{t=1}^T Z_tw_{i,T+1} \right) \\
+&amp;=\prod_{t=1}^T Z_t = \prod_{t=1}^T \left(2\sqrt{e_t(1-e_t)}\right) \le \exp\left(-2 \sum_{t=1}^T \left(\frac{1}{2}-e_t\right)^2\right)\\
+\end{aligned}
+$$&lt;p&gt;这说明 AdaBoost 的训练误差是负指数量级的. 而且不需要提前知道 $e_t$ 的值, 只需要知道 $e_t$ 的上界即可, 这也是 AdaBoost 的 Adaptive 性质所在.&lt;/p&gt;
+&lt;h3 id=&#34;加法模型&#34;&gt;加法模型
+&lt;/h3&gt;</description>
         </item>
         <item>
         <title>机器学习基础(6) —— 神经网络学习初步</title>

@@ -295,6 +295,8 @@
     <li><a href="#提升方法">提升方法</a>
       <ol>
         <li><a href="#adaboost-算法">AdaBoost 算法</a></li>
+        <li><a href="#adaboost-误差分析">AdaBoost 误差分析</a></li>
+        <li><a href="#加法模型">加法模型</a></li>
       </ol>
     </li>
   </ol>
@@ -434,8 +436,29 @@ $$\exp(\alpha_t)e_t = \exp(-\alpha_t)(1-e_t)$$
 这表明分配给错误样本的权重之和与正确样本的权重之和相等.</li>
 <li>计算可知
 $$Z_t = \sum_{i=1}^N w_{i,t} \exp(-\alpha_t y_i f_t(x_i)) = 2 \sqrt{e_t(1-e_t)}$$</li>
+<li>权值调整累计过程
+$$
+    \begin{aligned}
+    w_{i,t+1}&=w_{i,t} \frac{\exp(-\alpha_t y_i f_t(x_i))}{Z_t} \\
+    &=w_{i,1} \frac{\exp \left(-y_i \sum_{s=1}^t \alpha_s f_s(x_i)\right)}{\prod_{s=1}^t Z_s} \\
+    \end{aligned}
+    $$
+取 $t=T$, 由 $w_{i,1}=\frac{1}{N}$ 可得
+$$
+    w_{i,T} = \frac{1}{N} \frac{\exp (-y_i G(x_i))}{\prod_{s=1}^T Z_s}
+    $$</li>
 </ul>
-
+<h3 id="adaboost-误差分析">AdaBoost 误差分析
+</h3><p>集成分类器的训练误差为</p>
+$$
+\begin{aligned}
+\hat{R}(f) &= \frac{1}{N} \sum_{i=1}^N \mathbb{I}(f(x_i) \neq y_i) =\frac{1}{N} \sum_{i=1}^N \mathbb{I}(y_iG(x_i) \le 0) \\
+&\le \frac{1}{N} \sum_{i=1}^N \exp(-y_iG(x_i)) = \frac{1}{N} \sum_{i=1}^N \left( N \prod_{t=1}^T Z_tw_{i,T+1} \right) \\
+&=\prod_{t=1}^T Z_t = \prod_{t=1}^T \left(2\sqrt{e_t(1-e_t)}\right) \le \exp\left(-2 \sum_{t=1}^T \left(\frac{1}{2}-e_t\right)^2\right)\\
+\end{aligned}
+$$<p>这说明 AdaBoost 的训练误差是负指数量级的. 而且不需要提前知道 $e_t$ 的值, 只需要知道 $e_t$ 的上界即可, 这也是 AdaBoost 的 Adaptive 性质所在.</p>
+<h3 id="加法模型">加法模型
+</h3>
 </section>
 
 
