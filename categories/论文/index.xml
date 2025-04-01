@@ -69,50 +69,42 @@ $$
 (1-\beta_{1,t})g_t(\theta_t - \theta^*) = \frac{\sqrt{v_t}\left((\theta_t - \theta^*)^2-(\theta_{t+1} - \theta^*)^2\right)}{2\eta_t} - \beta_{1,t} m_{t-1}(\theta_t - \theta^*) + \frac{\eta_t m_t^2}{2\sqrt{v_t}}
 $$&lt;p&gt;这左边可以由 $1 \ge 1-\beta_{1,t} \ge 1-\beta_{1,1}$ 直接看作 $g_t(\theta_t - \theta^*)$ 量级, 右边现在已经分成三个部分了, 只需要累和来看每个部分的量级.&lt;/p&gt;
 &lt;p&gt;一个显然的结论是, 在移动平均下, 易见 $m_t \le G (m_0 \le G), v_t \le G^2 (v_0 \le G^2)$.&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;
 &lt;p&gt;&lt;strong&gt;第一项&lt;/strong&gt;: 忽略常数 $2$, 暂记 $\gamma_t = \frac{\sqrt{v_t}}{\eta_t} = \mathcal{O}(\sqrt{T})$, 只要考虑:&lt;/p&gt;
 $$
-    M_1=\sum_{t=1}^{T} \gamma_t \left((\theta_t - \theta^*)^2-(\theta_{t+1} - \theta^*)^2\right)
-    $$&lt;p&gt;利用 Abel 求和法则, 可以得到:&lt;/p&gt;
+M_1=\sum_{t=1}^{T} \gamma_t \left((\theta_t - \theta^*)^2-(\theta_{t+1} - \theta^*)^2\right)
+$$&lt;p&gt;利用 Abel 求和法则, 可以得到:&lt;/p&gt;
 $$
-    M_1 =\gamma_1(\theta_1 - \theta^*)^2 - \gamma_{t+1}(\theta_{T+1} - \theta^*)^2 + \sum_{t=1}^{T} (\gamma_{t+1} - \gamma_t)(\theta_t - \theta^*)^2
-    $$&lt;p&gt;一般来说 $\gamma_t = \mathcal{O}(\sqrt{T})$ 应该是单调不减的, 在 $\gamma_t \le \gamma_{t+1}$ 的情况下, 可以得到:&lt;/p&gt;
+M_1 =\gamma_1(\theta_1 - \theta^*)^2 - \gamma_{t+1}(\theta_{T+1} - \theta^*)^2 + \sum_{t=1}^{T} (\gamma_{t+1} - \gamma_t)(\theta_t - \theta^*)^2
+$$&lt;p&gt;一般来说 $\gamma_t = \mathcal{O}(\sqrt{T})$ 应该是单调不减的, 在 $\gamma_t \le \gamma_{t+1}$ 的情况下, 可以得到:&lt;/p&gt;
 $$
-    \begin{aligned}
-    M_1 &amp;\le \gamma_1(\theta_1 - \theta^*)^2 +  \sum_{t=1}^{T} (\gamma_{t+1} - \gamma_t)D^2 \\
-    &amp;= C + (\gamma_{t+1} - \gamma_1)D^2 = \mathcal{O}(\sqrt{T})
-    \end{aligned}
-    $$&lt;blockquote&gt;
+\begin{aligned}
+M_1 &amp;\le \gamma_1(\theta_1 - \theta^*)^2 +  \sum_{t=1}^{T} (\gamma_{t+1} - \gamma_t)D^2 \\
+&amp;= C + (\gamma_{t+1} - \gamma_1)D^2 = \mathcal{O}(\sqrt{T})
+\end{aligned}
+$$&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;问题就出在这个 &amp;ldquo;一般来说&amp;rdquo; 上&lt;/strong&gt;, 因为尽管引入参数衰减, 实际上 Adam 并不能保证 $\gamma_t$ 是单调不减的. 后面会提到这里的争议.&lt;/p&gt;&lt;/blockquote&gt;
-&lt;/li&gt;
-&lt;li&gt;
 &lt;p&gt;&lt;strong&gt;第二项&lt;/strong&gt;: 直接放缩即可:&lt;/p&gt;
 $$
-    \begin{aligned}
-    M_2 &amp;=\sum_{t=1}^{T} \beta_{1,t}m_{t-1}(\theta_t - \theta^*) \le \sum_{t=1}^{T} \beta_{1,t} |m_{t-1}| D \\
-    &amp;\le GD \sum_{t=1}^{T} \beta_{1,t} = G D \beta_1 \frac{1-\lambda^T}{1-\lambda} = \mathcal{O}(1)
-    \end{aligned}
-    $$&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;第三项&lt;/strong&gt;: $v_t$ 未必有下界, 有点麻烦! 直接写通式:&lt;/p&gt;
+\begin{aligned}
+M_2 &amp;=\sum_{t=1}^{T} \beta_{1,t}m_{t-1}(\theta_t - \theta^*) \le \sum_{t=1}^{T} \beta_{1,t} |m_{t-1}| D \\
+&amp;\le GD \sum_{t=1}^{T} \beta_{1,t} = G D \beta_1 \frac{1-\lambda^T}{1-\lambda} = \mathcal{O}(1)
+\end{aligned}
+$$&lt;p&gt;&lt;strong&gt;第三项&lt;/strong&gt;: $v_t$ 未必有下界, 有点麻烦! 直接写通式:&lt;/p&gt;
 $$
-    \begin{aligned}
-    m_t &amp;= \sum_{s=1}^t (1-\beta_{1,s})\left(\prod_{r=s+1}^{t}\beta_{1,r}\right)g_s \le \sum_{s=1}^t \beta_1^{t-s}g_s\\
-    v_t &amp;= (1-\beta_2)\sum_{s=1}^t \beta_2^{t-s}g_s^2
-    \end{aligned}
-    $$&lt;p&gt;既然要控制 $\frac{m_t^2}{\sqrt{v_t}}$, 结合 $\beta_1^4 &lt; \beta_2$, 那么考虑 Young 不等式:&lt;/p&gt;
+\begin{aligned}
+m_t &amp;= \sum_{s=1}^t (1-\beta_{1,s})\left(\prod_{r=s+1}^{t}\beta_{1,r}\right)g_s \le \sum_{s=1}^t \beta_1^{t-s}g_s\\
+v_t &amp;= (1-\beta_2)\sum_{s=1}^t \beta_2^{t-s}g_s^2
+\end{aligned}
+$$&lt;p&gt;既然要控制 $\frac{m_t^2}{\sqrt{v_t}}$, 结合 $\beta_1^4 &lt; \beta_2$, 那么考虑 Young 不等式:&lt;/p&gt;
 $$
-    \begin{aligned}
-    m_t^4 &amp;\le \left(\sum_{s=1}^t \beta_2^{t-s}g_s^2 \right) \left(\sum_{s=1}^t \frac{\beta_1^{\frac{4}{3}(t-s)}}{\beta_2^{\frac{1}{3}(t-s)}}g_s^{\frac{2}{3}} \right)^{3} \\
-    &amp;\le v_t^2 G^2 \left(\frac{1-\mu^t}{1-\mu}\right)^3 = v_t^2 \mathcal{O}(1)
-    \end{aligned}
-    $$&lt;p&gt;这里 $\mu = \beta_1^{\frac{4}{3}} / \beta_2^{\frac{1}{3}} &lt; 1$. 因此:&lt;/p&gt;
+\begin{aligned}
+m_t^4 &amp;\le \left(\sum_{s=1}^t \beta_2^{t-s}g_s^2 \right) \left(\sum_{s=1}^t \frac{\beta_1^{\frac{4}{3}(t-s)}}{\beta_2^{\frac{1}{3}(t-s)}}g_s^{\frac{2}{3}} \right)^{3} \\
+&amp;\le v_t^2 G^2 \left(\frac{1-\mu^t}{1-\mu}\right)^3 = v_t^2 \mathcal{O}(1)
+\end{aligned}
+$$&lt;p&gt;这里 $\mu = \beta_1^{\frac{4}{3}} / \beta_2^{\frac{1}{3}} &lt; 1$. 因此:&lt;/p&gt;
 $$
-    M_3 =\sum_{t=1}^{T} \eta_t^2 \frac{m_t^2}{\sqrt{v_t}} \le C \sum_{t=1}^{T} \eta_t^2 = C \sum_{t=1}^{T} \mathcal{O}\left(\frac{1}{t}\right) = \mathcal{O}(\ln T)
-    $$&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;自此, 三项综合可以得到:&lt;/p&gt;
+M_3 =\sum_{t=1}^{T} \eta_t^2 \frac{m_t^2}{\sqrt{v_t}} \le C \sum_{t=1}^{T} \eta_t^2 = C \sum_{t=1}^{T} \mathcal{O}\left(\frac{1}{t}\right) = \mathcal{O}(\ln T)
+$$&lt;p&gt;自此, 三项综合可以得到:&lt;/p&gt;
 $$
 R(T) \le \mathcal{O}(\sqrt{T}) + \mathcal{O}(1) + \mathcal{O}(\ln T) = \mathcal{O}(\sqrt{T})
 $$&lt;/div&gt;
@@ -161,19 +153,20 @@ $$&lt;p&gt;此处省略了偏差修正.&lt;/p&gt;
 &lt;p&gt;定义集合 $\mathcal{F}$ 为满足如下条件的函数 $f: \mathbb{R}^d \mapsto \mathbb{R}$ 集合:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;$f$ 有界, 即 $$f \le f^\ast$$&lt;/li&gt;
-&lt;li&gt;$f$ 是 Lipschitz 连续的, 即 $$\|f(x) - f(y)\| \le L \|x - y\|$$&lt;/li&gt;
+&lt;li&gt;所有 $n$ 个时间刻的 $f_t$ 是 Lipschitz 连续的, 即 $$\|f_i(x) - f_t(y)\| \le L \|x - y\|$$&lt;/li&gt;
 &lt;li&gt;所有 $n$ 个时间刻的 $f_t$ 满足 $$\sum_{i=0}^{n-1} \| \nabla f_i(x) \|^2 \le D_1 \| \nabla f(x) \|^2 + D_0 $$&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;p&gt;作者称第三个要求实际上是非常容易的, 事实上确实如此.&lt;/p&gt;
-&lt;p&gt;我们记第 $k$ 个 Epoch 开始时的变量为 $x_k$, 运行到第 $0 \le i &lt; n$ 个函数时为 $x_{k,i}$, 即 $x_k=x_{k,0}=x_{k-1,n}$. 现在, 作者称梯度的上界有保证. 证明过程非常冗长, 我们尽量精炼.&lt;/p&gt;
+&lt;p&gt;我们记第 $k$ 个 Epoch 开始时的变量为 $x_k$, 运行到第 $0 \le i &lt; n$ 个函数时为 $x_{k,i}$, 即 $x_k=x_{k,0}=x_{k-1,n}$. 现在, 作者称梯度的上界有保证:&lt;/p&gt;
 &lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
 &lt;p&gt;设 $f(x) \in \mathcal{F}$, 遵守 $\mathcal{F}$ 内定义中的记号. 设 $\beta_1^2 &lt; \beta_2 &lt; 1$, 且 $\beta_2 \ge \gamma(n)$, 学习率衰减 $\eta_k= \frac{\eta}{\sqrt{nk}}$, 则存在某个充分大的 $K$, 对于 $T&gt;K$ 均有:&lt;/p&gt;
 $$
 \min_{k \in [K,T]} \mathbb{E} \left\{ \min \left[ \sqrt{\frac{2D_1d}{D_0}} \| \nabla f(x_k) \|^2, \| \nabla f(x_k) \| \right] \right\} = \mathcal{O} \left( \frac{\log T}{\sqrt{T}} + \sqrt{D_0}\right)
 $$&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
-&lt;p&gt;我们依然只考虑一维情形, 从下降引理出发:&lt;/p&gt;
+&lt;p&gt;我们先澄清, 由 $R(T)$ 中的证明, $m_t$ 和 $v_t$ 有上界, 且 $\frac{m_t}{\sqrt{v_t}}$ 也有上界 (证明依然类似, 把 Young 特化成 Cauchy 即可, 此时条件变为 $\beta_1^2 \le \beta_2$).&lt;/p&gt;
+&lt;p&gt;从下降引理出发:&lt;/p&gt;
 $$
 \mathbb{E}f(x_{k+1}) - \mathbb{E}f(x_k) \le \mathbb{E} \left&lt; \nabla f(x_k), x_{k+1} - x_k \right&gt; + \frac{L}{2} \mathbb{E} \|x_{k+1} - x_k\|^2
 $$&lt;p&gt;做累加, 有:&lt;/p&gt;
@@ -188,13 +181,73 @@ $$
 $$&lt;p&gt;因此:&lt;/p&gt;
 $$
 \frac{L}{2} \mathbb{E} \sum_{k=t_0}^T \|x_{k+1} - x_k\|^2 = \sum_{k=t_0}^T \mathcal{O}\left(\frac{1}{k}\right) = \mathcal{O}(\log T)
-$$&lt;p&gt;重点是左侧, 由于只有一维, 我们归结于考虑:&lt;/p&gt;
+$$&lt;p&gt;关于左侧的下界, 按每一维展开:&lt;/p&gt;
 $$
-\mathbb{E} \left&lt; \nabla f(x_k), x_{k+1} - x_k \right&gt; = \mathbb{E} \sum_{i=0}^{n-1} \nabla f(x_k) \frac{m_{k,i}}{\sqrt{v_{k,i}}}
-$$&lt;p&gt;实际上在 $d$ 维时, 这里要再套一层 $d$ 项求和, 其中 $\nabla f(x_k)$ 应该是 $\partial_i f(x_k)$.&lt;/p&gt;
+\begin{aligned}
+\mathbb{E} \left&lt; \nabla f(x_k), x_{k+1} - x_k \right&gt; &amp;= \eta_k \mathbb{E} \left&lt; \nabla f(x_k), \sum_{i=0}^{n-1} \frac{m_{k,i}^{(l)}}{\sqrt{v_{k,i}^{(l)}}} \right&gt; \\
+&amp;= \eta_k \mathbb{E} \sum_{l=1}^d \sum_{i=0}^{n-1} \partial_l f(x_k^{(l)}) \frac{m_{k,i}^{(l)}}{\sqrt{v_{k,i}^{(l)}}}
+\end{aligned}
+$$&lt;hr&gt;
+&lt;p&gt;以下推导长达数十页, 这里简要概括一下思路. 先考虑其中一维:&lt;/p&gt;
+$$
+\begin{aligned}
+\mathbb{E} \sum_{i=0}^{n-1} \nabla f(x_k) \frac{m_{k,i}}{\sqrt{v_{k,i}}}
+\end{aligned}
+$$&lt;p&gt;其中 $x_k$ 实际上应该是 $x_k^{(l)}$, $\nabla f(x_k)$ 实际上应该是 $\partial_l f(x_k)$.&lt;/p&gt;
+&lt;p&gt;显然一方面, 我们提过 $\frac{m_{k,i}}{\sqrt{v_{k,i}}}$ 是有界的, 由于 Lipschitz 连续, $\nabla f(x_k)$ 也是有界的, 则这一项自然也是有界的, 此界与 $k$ 无关. 因此整个左侧为 $\mathcal{O}(\eta_k) = \mathcal{O}(1/\sqrt{k})$, 这个放缩是平凡的.&lt;/p&gt;
+&lt;!-- &gt; 令人费解的是, 作者在这里大费周章地讨论了 $\nabla f$ 无界的情形, 并把它作为证明讨论的核心. 然而由于 $f_i$ 是 Lipschitz 连续的, 它们的和函数 $f$ 也是 Lipschitz 连续的, 因此 $\nabla f$ 有界. 可能是我的理解有误, 但我认为作者在这里的讨论是多余的. --&gt;
+&lt;p&gt;另一方面, 感性上讲, $v_{k,i} \approx C, m_{k,i} \approx \nabla f_i(x_k)$, 如果这个 $\approx$ 成立, 显然就有左边 $\ge 0$ 了, 这是我们的目标. 是时候做拆分了:&lt;/p&gt;
+$$
+\begin{aligned}
+\sum_{i=0}^{n-1} \nabla f(x_k) \frac{m_{k,i}}{\sqrt{v_{k,i}}} &amp;= \sum_{i=0}^{n-1} \left( \nabla f(x_k) \frac{m_{k,i}}{\sqrt{v_{k,i}}}-\nabla f(x_k) \frac{\nabla f_i(x_k)}{\sqrt{v_{k,i}}}  \right) \\
+&amp;+ \sum_{i=0}^{n-1} \nabla f(x_k) \frac{\nabla f_i(x_k)}{\sqrt{v_{k,i}}}
+\end{aligned}
+$$&lt;p&gt;现在作者称: 两项的 $v_{k,i}$ 均可以换成 $v_{k,0}$, 且不影响量级, 证明太过繁杂这里省略. 我们转而考虑:&lt;/p&gt;
+$$
+\begin{aligned}
+\sum_{i=0}^{n-1} \nabla f(x_k) \frac{m_{k,i}}{\sqrt{v_{k,i}}} &amp;\approx \sum_{i=0}^{n-1} \left( \nabla f(x_k) \frac{m_{k,i}}{\sqrt{v_{k,0}}}-\nabla f(x_k) \frac{\nabla f_i(x_k)}{\sqrt{v_{k,0}}}  \right) \\
+&amp;+ \sum_{i=0}^{n-1} \nabla f(x_k) \frac{\nabla f_i(x_k)}{\sqrt{v_{k,0}}} \\
+\end{aligned}
+$$&lt;p&gt;第二项正是我们的目标:&lt;/p&gt;
+$$M_2 = \frac{\nabla f(x_k)}{\sqrt{v_{k,0}}}\sum_{i=0}^{n-1} \nabla f_i(x_k) = \frac{\| \nabla f(x_k)^2 \|}{\sqrt{v_{k,0}}} \ge 0$$&lt;p&gt;现在全力以赴地考虑第一项, 这是证明的核心, 证明也很繁杂, 涉及大量计算以及对梯度范围的讨论, 这里省略. 最后合并处理得到结论.&lt;/p&gt;
 &lt;/div&gt;
-&lt;blockquote&gt;
-&lt;p&gt;强调一点, 所谓 $\beta_2$ 充分大, 是指 $\beta_2$ 需要大于一个与 $n$ 有关的常数 $\gamma(n)$, 如果 $n$ 不固定, 定理并不能证明什么, 这点之后会提到.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;强调一点, 所谓 $\beta_2$ 充分大, 是指 $\beta_2$ 需要大于一个与 $n$ 有关的常数 $\gamma(n)$, 如果 $n$ 不固定, 定理并不能证明什么. 因此, 作者与 &lt;a class=&#34;link cite-2&#34;&gt;[2]
+    
+&lt;/a&gt; 的结论达成了和解, 它们并不矛盾. 在 &lt;a class=&#34;link cite-3&#34;&gt;[3]
+    
+&lt;/a&gt; 中, 作者给出了关于收敛的结论:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;首先, 对于每个函数, 只要满足 $\beta_1^2&lt;\beta_2$, 且 $\beta_2$ 充分大, 则当 $T \to \infty$ 时, 右侧趋于 $\sqrt{D_0}$, 这意味着收敛到一个范围内的点. 特别地, 如果 $D_0=0$, 右侧趋于 $0$, 这意味着收敛到最优点. 这与我们在实际中观察到的现象一致. 作者还给出了一块 &amp;ldquo;危险区域&amp;rdquo;, 只要 $(\beta_1, \beta_2)$ 落在这个区域内, 就会导致 Adam 不收敛. 除此之外的区域, 仍是未知的.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;如果超参数先于函数取值, 注意此时 $n$ 可变. 无论 $(\beta_1, \beta_2)$ 取什么值, 都存在一个函数, 使得 Adam 不收敛. 作者给出的反例是:&lt;/p&gt;
+$$
+    \begin{aligned}
+    f_0(x) &amp;= \begin{cases}
+    nx, &amp; x \ge -1 \\
+    \frac{n}{2}(x+2)^2 - \frac{3n}{2}, &amp; x &lt; -1
+    \end{cases} \\
+    f_i(x) &amp;= \begin{cases}
+    x, &amp; x \ge -1 \\
+    \frac{1}{2}(x+2)^2 - \frac{3}{2}, &amp; x &lt; -1
+    \end{cases} \\
+    \end{aligned}
+    $$&lt;p&gt;在 $n \to \infty$ 时, 不收敛的 &amp;ldquo;危险区域&amp;rdquo; 会变得越来越大, 直到盖住 $(\beta_1, \beta_2)$ 这个点. 这个反例显然要比论文 &lt;a class=&#34;link cite-2&#34;&gt;[2]
+    
+&lt;/a&gt; 中的更加深刻.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;如果超参数在函数之后取值. 前面提到只要条件保证成立, 就可以保证收敛到最优局部或最优点.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;显然, 日常训练中的情形更符合第二种, 我们都是先定义好损失函数, 然后再选择超参数, 因此这也就解释了为什么 Adam 在绝大多数训练中表现良好, 重点在于我们选取的超参数符合定理的要求.&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结
+&lt;/h2&gt;&lt;p&gt;Adam 优化器的收敛性问题, 经过多篇论文的讨论, 目前已经有了比较清晰的结论. 论文 &lt;a class=&#34;link cite-1&#34;&gt;[1]
+    
+&lt;/a&gt; 中的定理是有漏洞的, 但在实际中, Adam 的表现依然良好. 尽管存在着不收敛的情况, 论文 &lt;a class=&#34;link cite-3&#34;&gt;[3]
+    
+&lt;/a&gt; 已经充分表明, 在日常使用中, 只要按照正常习惯选取合理的超参数, 就可以保证收敛, Adam 的实用性至此得到了验证.&lt;/p&gt;
 </description>
         </item>
         
