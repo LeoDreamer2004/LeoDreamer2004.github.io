@@ -299,6 +299,8 @@
         <li><a href="#加法模型">加法模型</a></li>
       </ol>
     </li>
+    <li><a href="#bagging-方法">Bagging 方法</a></li>
+    <li><a href="#随机森林">随机森林</a></li>
   </ol>
 </nav>
         </div>
@@ -372,7 +374,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 2 分钟
+                    阅读时长: 3 分钟
                 </time>
             </div>
         
@@ -403,7 +405,7 @@
 <ol>
 <li>准备一个权重向量 $W_t=(w_{i,t})_{i=1}^N$, 表示第 $t$ 轮训练数据的权重分布, 初始时 $w_{i,1}=\frac{1}{N}$;</li>
 <li>在第 $t$ 轮学习中, 应用算法 $\mathcal{L}$ 基于训练数据集 $D$ 和权重向量 $W_t$ 学得具有最小训练误差的基本分类器 $f_t(x)$, 即
-$$f_t = \arg\min_{f} \sum_{i=1}^N w_{i,t} \mathbb{I}(f(x_i) \neq y_i)$$</li>
+$$f_t = \argmin_{f} \sum_{i=1}^N w_{i,t} \mathbb{I}(f(x_i) \neq y_i)$$</li>
 <li>计算 $f_t(x)$ 的误差率
 $$e_t = \sum_{i=1}^N w_{i,t} \mathbb{I}(f_t(x_i) \neq y_i)$$</li>
 <li>计算 $f_t(x)$ 的权值
@@ -458,7 +460,38 @@ $$
 \end{aligned}
 $$<p>这说明 AdaBoost 的训练误差是负指数量级的. 而且不需要提前知道 $e_t$ 的值, 只需要知道 $e_t$ 的上界即可, 这也是 AdaBoost 的 Adaptive 性质所在.</p>
 <h3 id="加法模型">加法模型
-</h3>
+</h3><p>AdaBoost 可以看作是 $\{\alpha_t, f_t(x)\}$ 的加法模型, 如果我们采用指数损失函数 $\exp(-y_if(x))$, 令</p>
+$$
+G_t(\alpha, f) = \frac{1}{N} \sum_{i=1}^N \exp(-y_iG(x_i) + \alpha f(x_i))
+$$<p>则可以证明第 $t$ 轮迭代得到的 $(\alpha_t,f_t)$ 是最小化 $G_t(\alpha, f)$ 的解, 过程略.</p>
+<div class="math-block">
+    <p class="math-block-title math-algo">算法<span class="math-subtitle">提升树模型</span></p>
+<p><strong>输入</strong>: 给定训练数据集 $D=\{(x_i,y_i)\}_{i=1}^N$, 其中 $x_i \in \mathcal{X}, y_i \in \mathcal{Y}=\{-1,+1\}, i=1,2,\cdots,N$; 弱学习算法(一般是分类或回归树) $\mathcal{T}$, 损失函数 $L(y,f(x))$;</p>
+<p><strong>输出</strong>: 最终分类器 $f(x)$</p>
+<p>第 $m$ 个基学习器 $T(x; \Theta_m)$ 由经验风险最小化得到, 即</p>
+$$\Theta_m = \argmin_{\Theta} \sum_{i=1}^N L(y_i, f_{m-1}(x_i)+T(x_i; \Theta))$$</div>
+<p>如果是平方损失, 提升树算法实际上就是在拟合当前模型的残差.</p>
+<h2 id="bagging-方法">Bagging 方法
+</h2><p>对训练样本进行重采样, 利用不同的样本数据来学习不同的基学习器, 通过降低方差来提高集成学习器的泛化性能. Bagging (Bootstrap Aggregating) 就是一种典型的并行集成学习方法.</p>
+<div class="math-block">
+    <p class="math-block-title math-algo">算法<span class="math-subtitle">Bagging</span></p>
+<p><strong>输入</strong>: 给定训练数据集 $D=\{(x_i,y_i)\}_{i=1}^N$, 其中 $x_i \in \mathcal{X}, y_i \in \mathcal{Y}, i=1,2,\cdots,N$; 弱学习算法 $\mathcal{L}$ 以及基分类器个数 $T$;</p>
+<p><strong>输出</strong>: 最终分类器 $f(x)$</p>
+<ol>
+<li>
+<p>对 $t=1,2,\ldots,T$, 从$D$利用自助采样法随机抽取 $N$ 个样本得到 $D_t$. 从 $D_t$ 依学习算法 $\mathcal{L}$ 学得基分类器 $f_t(x)$.</p>
+</li>
+<li>
+<p>返回集成分类器</p>
+$$f(x)=\argmax_{y\in\mathcal{Y}} \sum_{t=1}^T I(f_t(x)=y)$$</li>
+</ol>
+</div>
+<p>对样本 $x_i$ 来说，我们采用 $x_i$ 未参与训练的基学习器在 $x_i$ 上的预测的简单投票结果作为 $x_i$ 的包外预测</p>
+$$f_{\text{oob}}(x_i) = \argmax_{y \in Y} \sum_{t=1}^{T} \mathbb{I} (f_t(x_i) = y) \mathbb{I} (x_i \notin D_t)$$<p>相应的 Bagging 算法泛化误差的包外估计 (out-of-bag estimate) 为</p>
+$$\epsilon^{\text{oob}} = \frac{1}{N} \sum_{i=1}^N \mathbb{I}(f_{\text{oob}}(x_i) \neq y_i)$$<h2 id="随机森林">随机森林
+</h2><p>所谓随机森林, 就是在 Bagging 方法中以决策树算法作为基学习器, 并引入随机属性选择, 即在选择划分特征时, 先从当前节点的所有 $d$ 个特征中随机选择 $k$ 个特征, 再从这 $k$ 个特征中选择最优划分特征. 随机选取的目的是为了增加基学习器之间的差异性, 使得集成学习器的泛化性能更好.</p>
+<p>当 $k=d$ 时, 随机森林退化为 Bagging 方法, 一般取 $k=\log_2 d$.</p>
+
 </section>
 
 
@@ -520,6 +553,19 @@ $$<p>这说明 AdaBoost 的训练误差是负指数量级的. 而且不需要提
             
                 
 <article class="">
+    <a href="/p/machine-learning/clustering-intro/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">机器学习基础(8) —— 聚类简介</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
     <a href="/p/machine-learning/nn-beginner/">
         
         
@@ -565,19 +611,6 @@ $$<p>这说明 AdaBoost 的训练误差是负指数量级的. 而且不需要提
 
         <div class="article-details">
             <h2 class="article-title">机器学习基础(3) —— 基于后验概率最大化准则的分类模型</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/machine-learning/vector-machine/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">机器学习基础(2) —— 支持向量机</h2>
         </div>
     </a>
 </article>

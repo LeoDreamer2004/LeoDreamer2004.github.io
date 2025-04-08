@@ -427,7 +427,7 @@ $$<p>其中 $\odot$ 表示逐元素相乘. 超参数通常取 $\beta_1=0.9, \bet
 <div class="math-block">
     <p class="math-block-title math-def">定义</p>
 <p>称 <strong>累积误差</strong> 为</p>
-$$R(T) = \sum_{t=1}^T (f_t(\theta_t) - f_t(\theta^*))$$<p>其中 $\theta^*$ 是最优解, 即 $\theta^* = \arg\min_{\theta} \sum_{t=1}^T f_t(\theta)$.</p>
+$$R(T) = \sum_{t=1}^T (f_t(\theta_t) - f_t(\theta^*))$$<p>其中 $\theta^*$ 是最优解, 即 $\theta^* = \argmin_{\theta} \sum_{t=1}^T f_t(\theta)$.</p>
 </div>
 <p>可以认为, 当 $R(T)/T \to 0$ 时算法收敛. 作者在文献中对 Adam 的收敛性给了自己证明, 里面的细节太多, 这里只给粗略过程.</p>
 <p>鉴于偏差修正只在初期有较大影响, 之后对于收敛性的讨论, 以下证明对其不予考虑 (原论文有), 此外忽略微小项 $\epsilon$.</p>
@@ -567,8 +567,8 @@ $$
 $$<p>关于左侧的下界, 按每一维展开:</p>
 $$
 \begin{aligned}
-\mathbb{E} \left< \nabla f(x_k), x_{k+1} - x_k \right> &= \eta_k \mathbb{E} \left< \nabla f(x_k), \sum_{i=0}^{n-1} \frac{m_{k,i}^{(l)}}{\sqrt{v_{k,i}^{(l)}}} \right> \\
-&= \eta_k \mathbb{E} \sum_{l=1}^d \sum_{i=0}^{n-1} \partial_l f(x_k^{(l)}) \frac{m_{k,i}^{(l)}}{\sqrt{v_{k,i}^{(l)}}}
+\mathbb{E} \left< \nabla f(x_k), x_{k+1} - x_k \right> &= \eta_k \mathbb{E} \left< \nabla f(x_k), \sum_{i=0}^{n-1} \frac{m_{k,i}}{\sqrt{v_{k,i}}} \right> \\
+&= \eta_k \mathbb{E} \sum_{l=1}^d \sum_{i=0}^{n-1} \partial_l f(x_k) \frac{m_{k,i}^{(l)}}{\sqrt{v_{k,i}^{(l)}}}
 \end{aligned}
 $$<hr>
 <p>以下推导长达数十页, 这里简要概括一下思路. 先考虑其中一维:</p>

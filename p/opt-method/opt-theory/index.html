@@ -322,6 +322,7 @@
         <li><a href="#例子-基追踪问题">例子: 基追踪问题</a></li>
       </ol>
     </li>
+    <li><a href="#最优化问题解的存在性">最优化问题解的存在性</a></li>
   </ol>
 </nav>
         </div>
@@ -856,6 +857,20 @@ y^\ast &\ge 0 \\
 \nu^\ast \odot y^\ast &= 0
 \end{aligned}
 $$<p>直接推导也得到相应结果, 二者实际上是等价的. (利用 $x^\ast=y_i^\ast-y_{i+n}^\ast$, 代入验证最优点处方向导数为 $0$ 即可)</p>
+<hr>
+<h2 id="最优化问题解的存在性">最优化问题解的存在性
+</h2><div class="math-block">
+    <p class="math-block-title math-thm">定理<span class="math-subtitle">推广的 Weierstrass 定理</span></p>
+<p>如果函数 $f: \mathcal{X} \to (-\infty, +\infty]$ 适当且闭, 且以下条件中至少一个成立:</p>
+<ul>
+<li>$\text{dom} f = \{ x\in \mathcal{X}: f(x) < +\infty \} $ 是有界的;</li>
+<li>存在一个常数 $\bar{\g `2amma}$ 使得下水平集 $C_{\bar{\gamma}} = \{ x \in \mathcal{X}: f(x) \le \bar{\gamma} \}$ 是非空且有界的;</li>
+<li>$f$ 是强制的, 即对于任一满足 $\| x^k \| \to +\infty$ 的点列 $\{ x^k \} \subset \mathcal{X}$, 都有 $\lim_{k \to \infty} f(x^k) = +\infty$</li>
+</ul>
+<p>则函数 $f$ 的最小值点集 $\{x \in \mathcal{X} \mid f(x) \le f(y), \forall y \in \mathcal{X}\}$ 非空且紧.</p>
+<p class="math-block-title math-prf">证明</p>
+<p><strong>第二个</strong>: 又有</p>
+</div>
 
 </section>
 
@@ -970,12 +985,12 @@ $$<p>直接推导也得到相应结果, 二者实际上是等价的. (利用 $x^
             
                 
 <article class="">
-    <a href="/p/machine-learning/integrated-learning/">
+    <a href="/p/machine-learning/clustering-intro/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">机器学习基础(7) —— 集成学习</h2>
+            <h2 class="article-title">机器学习基础(8) —— 聚类简介</h2>
         </div>
     </a>
 </article>

@@ -459,6 +459,20 @@ y^\ast &amp;\ge 0 \\
 \nu^\ast \odot y^\ast &amp;= 0
 \end{aligned}
 $$&lt;p&gt;直接推导也得到相应结果, 二者实际上是等价的. (利用 $x^\ast=y_i^\ast-y_{i+n}^\ast$, 代入验证最优点处方向导数为 $0$ 即可)&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;最优化问题解的存在性&#34;&gt;最优化问题解的存在性
+&lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;推广的 Weierstrass 定理&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;如果函数 $f: \mathcal{X} \to (-\infty, +\infty]$ 适当且闭, 且以下条件中至少一个成立:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$\text{dom} f = \{ x\in \mathcal{X}: f(x) &lt; +\infty \} $ 是有界的;&lt;/li&gt;
+&lt;li&gt;存在一个常数 $\bar{\g `2amma}$ 使得下水平集 $C_{\bar{\gamma}} = \{ x \in \mathcal{X}: f(x) \le \bar{\gamma} \}$ 是非空且有界的;&lt;/li&gt;
+&lt;li&gt;$f$ 是强制的, 即对于任一满足 $\| x^k \| \to +\infty$ 的点列 $\{ x^k \} \subset \mathcal{X}$, 都有 $\lim_{k \to \infty} f(x^k) = +\infty$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;则函数 $f$ 的最小值点集 $\{x \in \mathcal{X} \mid f(x) \le f(y), \forall y \in \mathcal{X}\}$ 非空且紧.&lt;/p&gt;
+&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;第二个&lt;/strong&gt;: 又有&lt;/p&gt;
+&lt;/div&gt;
 </description>
         </item>
         <item>

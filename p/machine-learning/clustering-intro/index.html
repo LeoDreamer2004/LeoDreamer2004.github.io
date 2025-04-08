@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="特征的线性组合 之前的二分类问题中, 如果把 $z=w^Tx+b$ 看做是衍生的新特征, 实际上感知机的模型就是 $y=\\text{sign}(z)$. 二项逻辑斯蒂回归模型中, $P(y=1 \\mid x) = \\sigma(z)=\\frac{1}{1+e^{-z}}$. 相当于引入了一个 sigmoid 函数进行非线性变换.\n">
-<title>机器学习基础(6) —— 神经网络学习初步</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="基于原型的聚类方法 与监督学习不同, 无监督学习基于数据集 $D=\\{x_i\\}_{i=1}^N$, 没有标签 $y_i$. 基于原型的方法通常假设数据内在的分布结构可以通过一组原型刻画, 先对原型初始化, 然后按照相应策略和准则进行迭代更新.\n">
+<title>机器学习基础(8) —— 聚类简介</title>
 
-<link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning/nn-beginner/'>
+<link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning/clustering-intro/'>
 
-<link rel="stylesheet" href="/scss/style.min.d76a7139ac5790e09a4589a93130e0053ff56aa27f67f8596e6bb8b70bb4de7f.css"><meta property='og:title' content="机器学习基础(6) —— 神经网络学习初步">
-<meta property='og:description' content="特征的线性组合 之前的二分类问题中, 如果把 $z=w^Tx+b$ 看做是衍生的新特征, 实际上感知机的模型就是 $y=\\text{sign}(z)$. 二项逻辑斯蒂回归模型中, $P(y=1 \\mid x) = \\sigma(z)=\\frac{1}{1+e^{-z}}$. 相当于引入了一个 sigmoid 函数进行非线性变换.\n">
-<meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning/nn-beginner/'>
+<link rel="stylesheet" href="/scss/style.min.d76a7139ac5790e09a4589a93130e0053ff56aa27f67f8596e6bb8b70bb4de7f.css"><meta property='og:title' content="机器学习基础(8) —— 聚类简介">
+<meta property='og:description' content="基于原型的聚类方法 与监督学习不同, 无监督学习基于数据集 $D=\\{x_i\\}_{i=1}^N$, 没有标签 $y_i$. 基于原型的方法通常假设数据内在的分布结构可以通过一组原型刻画, 先对原型初始化, 然后按照相应策略和准则进行迭代更新.\n">
+<meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning/clustering-intro/'>
 <meta property='og:site_name' content='LeoDreamer'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-03-25T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-25T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="机器学习基础(6) —— 神经网络学习初步">
-<meta name="twitter:description" content="特征的线性组合 之前的二分类问题中, 如果把 $z=w^Tx+b$ 看做是衍生的新特征, 实际上感知机的模型就是 $y=\\text{sign}(z)$. 二项逻辑斯蒂回归模型中, $P(y=1 \\mid x) = \\sigma(z)=\\frac{1}{1+e^{-z}}$. 相当于引入了一个 sigmoid 函数进行非线性变换.\n">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-04-08T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-04-08T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="机器学习基础(8) —— 聚类简介">
+<meta name="twitter:description" content="基于原型的聚类方法 与监督学习不同, 无监督学习基于数据集 $D=\\{x_i\\}_{i=1}^N$, 没有标签 $y_i$. 基于原型的方法通常假设数据内在的分布结构可以通过一组原型刻画, 先对原型初始化, 然后按照相应策略和准则进行迭代更新.\n">
     </head>
     <body class="
     article-page
@@ -260,14 +260,8 @@
              <ol>
     
     <li>
-        <a href="/materials/machine-learning/MachineLearning-6.pdf" id="related-material-1" target="_blank" rel="noopener noreferrer">
+        <a href="/materials/machine-learning/MachineLearning-8.pdf" id="related-material-1" target="_blank" rel="noopener noreferrer">
             本节课件
-        </a>
-    </li>
-    
-    <li>
-        <a href="/materials/machine-learning/homework-4.pdf" id="related-material-2" target="_blank" rel="noopener noreferrer">
-            作业4
         </a>
     </li>
     
@@ -297,9 +291,7 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#特征的线性组合">特征的线性组合</a></li>
-    <li><a href="#多层前馈神经网络">多层前馈神经网络</a></li>
-    <li><a href="#误差反向传播算法">误差反向传播算法</a></li>
+    <li><a href="#基于原型的聚类方法">基于原型的聚类方法</a></li>
   </ol>
 </nav>
         </div>
@@ -336,7 +328,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/machine-learning/nn-beginner/">机器学习基础(6) —— 神经网络学习初步</a>
+            <a href="/p/machine-learning/clustering-intro/">机器学习基础(8) —— 聚类简介</a>
         </h2>
     
         
@@ -358,7 +350,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2025-03-25</time>
+                <time class="article-time--published">2025-04-08</time>
             </div>
         
 
@@ -373,7 +365,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 2 分钟
+                    阅读时长: 1 分钟
                 </time>
             </div>
         
@@ -388,82 +380,21 @@
     <section class="article-content">
     
     
-    <h2 id="特征的线性组合">特征的线性组合
-</h2><p>之前的二分类问题中, 如果把 $z=w^Tx+b$ 看做是衍生的新特征, 实际上感知机的模型就是 $y=\text{sign}(z)$. 二项逻辑斯蒂回归模型中, $P(y=1 \mid x) = \sigma(z)=\frac{1}{1+e^{-z}}$. 相当于引入了一个 sigmoid 函数进行非线性变换.</p>
-<p>因此, 神经网络应运而生, 主要想法:</p>
+    <h2 id="基于原型的聚类方法">基于原型的聚类方法
+</h2><p>与监督学习不同, 无监督学习基于数据集 $D=\{x_i\}_{i=1}^N$, 没有标签 $y_i$. 基于原型的方法通常假设数据内在的分布结构可以通过一组原型刻画, 先对原型初始化, 然后按照相应策略和准则进行迭代更新.</p>
+<div class="math-block">
+    <p class="math-block-title math-algo">算法<span class="math-subtitle">K-Means 聚类</span></p>
+<p><strong>输入</strong>: 数据集 $D=\{x_i\}_{i=1}^N$, 聚类簇个数 $K$.</p>
+<p><strong>输出</strong>: 簇划分 $\mathcal{C}=\{C_l\}_{l=1}^K$.</p>
 <ol>
-<li>通过各维特征线性组合得到新特征</li>
-<li>基于衍生特征通过非线性变换得到新特征</li>
-<li>再对新特征进行线性组合和非线性变换, 逐层叠加</li>
-<li>通过嵌套逼近复杂函数</li>
+<li>选择 $K$ 个样本点作为初始簇心 $\mu_l$. 初始化 $C_l = \emptyset$.</li>
+<li>对每个 $x_i$, 求 $x_i$ 的簇标记 $\lambda_i = \argmin_j \|x_i - \mu_j\|^2$, 即找到距离最近的簇心, 并将 $x_i$ 加入到 $C_{\lambda_i}$.</li>
+<li>对每个簇 $C_l$, 更新簇心 $\mu_l = \frac{1}{|C_l|} \sum_{x_i \in C_l} x_i$.</li>
+<li>如果簇心不再变化, 则停止迭代, 否则返回第 2 步.</li>
+<li>返回 $\mathcal{C} = \{C_l\}_{l=1}^K$.</li>
 </ol>
-<h2 id="多层前馈神经网络">多层前馈神经网络
-</h2><p>设当前的 (衍生) 特征向量是</p>
-$$
-z = \left(z^{(1)},z^{(2)},\cdots,z^{(m)}\right)^T
-$$<p>进行线性组合</p>
-$$
-v \cdot z - \theta = \sum_{i=1}^m v_i z^{(i)} - \theta
-$$<p>再通过非线性变换 (考虑到数学性质, 通常是 sigmoid 函数):</p>
-$$
-t = g(v \cdot z - \theta)
-$$<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p><strong>多层前馈神经网络</strong> 是常见的神经网络模型:</p>
-<ul>
-<li>逐层排列神经元, 仅限于相邻层之间的完全连接;</li>
-<li>接受外部输入信号的神经元在同一层, 称为 <strong>输入层</strong>;</li>
-<li>最后一层神经元输出网络的结果, 称为 <strong>输出层</strong>;</li>
-<li>输入层和输出层之间的神经元称为 <strong>隐藏层</strong>;</li>
-<li>输入层直接接受激活函数, 输出层和隐藏层都对接受到的信号做激活函数变换.</li>
-</ul>
-<p>所谓 <strong>感知机</strong>, 就是没有隐藏层的前馈神经网络.</p>
 </div>
-<p>前面学到的感知机学习能力有限, 例如它无法解决异或问题. 但是, 只要再加一层隐藏层, 就可以解决.</p>
-<p>考虑一个单隐层的神经网络:</p>
-<ul>
-<li>输入层有 $n$ 个神经元来接受输入信号;</li>
-<li>输出层有 $k$ 个神经元来输出结果, 且第 $l$ 个神经元的阈值是 $\theta_l$;</li>
-<li>隐藏层有 $m$ 个神经元, 第 $t$ 个神经元的阈值是 $\gamma_t$.</li>
-<li>输入层到隐藏层的权重是 $w_{jt}$, 隐藏层到输出层的权重是 $v_{tl}$.</li>
-</ul>
-<p>因而, 隐藏层的输出是</p>
-$$
-z^{(t)}(x)=\sigma \left(\sum_{j=1}^n w_{jt} x^{(j)} - \gamma_t \right)
-$$<p>输出层的输出是</p>
-$$
-y^{(l)}(x) = \sigma \left( \sum_{t=1}^m v_{tl} z^{(t)} - \theta_l \right)
-$$<p>参数集为 $\Theta = \{w_{jt},v_{tl},\gamma_t,\theta_l\}$</p>
-<h2 id="误差反向传播算法">误差反向传播算法
-</h2><p>我们采用平方误差作为预测损失函数, 则</p>
-$$
-R(\Theta) = \sum_{i=1}^N R_i(\Theta) = \sum_{i=1}^N \| y_i - \hat{y}_i \| ^2 = \sum_{i=1}^N \sum_{l=1}^k (y_i^{(l)} - \hat{y}_i^{(l)})^2
-$$<p>依然采用经验风险最小化策略, 通过梯度下降法来求解参数集 $\Theta$. 求偏导可得:</p>
-$$
-\begin{aligned}
-\frac{\partial R_i(\Theta)}{\partial v_{tl}} &= \delta_i^{(l)}z^{(t)}(x_i) \\
-\frac{\partial R_i(\Theta)}{\partial \theta_l} &= -\delta_i^{(l)} \\
-\frac{\partial R_i(\Theta)}{\partial w_{jt}} &= s_i^{(t)} x_i^{(j)} \\
-\frac{\partial R_i(\Theta)}{\partial \gamma_t} &= -s_i^{(t)}
-\end{aligned}
-$$<p>其中</p>
-$$
-\begin{aligned}
-\delta_i^{(l)}&=-2(y_i^{(l)}-\hat{y}_i^{(l)})\hat{y}_i^{(l)}(1-\hat{y}_i^{(l)}) \\
-s_i^{(t)} &= z^{(t)}(x_i)(1-z^{(t)}(x_i))\sum_{l=1}^k v_{tl}\delta_i^{(l)}
-\end{aligned}
-$$<p>给定学习率 $\eta$, 按照 $\alpha = \alpha - \eta \frac{\partial R_i(\Theta)}{\partial \alpha}$ 进行迭代更新.</p>
-<p>采用正则化策略来缓解过拟合问题:</p>
-$$
-\hat{\Theta} = \argmin_{\Theta} (R(\Theta) + \lambda J(\Theta))
-$$<p>其中 $J(\Theta)$ 是正则化项, 通常是参数的 $L_2$ 范数, 所有参数的平方和.</p>
-<p>关于激活函数, 除了 sigmoid 函数, 还有 tanh 函数, ReLU 函数等. 前两者函数性质连续, 但是在部分情况可能导数接近 $0$, 从而导致梯度消失问题. 相对之下, ReLU 函数梯度计算简单. 还有带泄漏的 ReLU 函数:</p>
-$$
-f(x) = \begin{cases}
-x & x>0 \\
-\lambda x & x \leq 0
-\end{cases}
-$$<p>等等.</p>
+<p>一般会基于不同的核心多次运行 K-Means. 均值运算对于噪声和离群点非常敏感.</p>
 
 </section>
 
@@ -526,12 +457,12 @@ $$<p>等等.</p>
             
                 
 <article class="">
-    <a href="/p/machine-learning/clustering-intro/">
+    <a href="/p/machine-learning/integrated-learning/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">机器学习基础(8) —— 聚类简介</h2>
+            <h2 class="article-title">机器学习基础(7) —— 集成学习</h2>
         </div>
     </a>
 </article>
@@ -539,12 +470,12 @@ $$<p>等等.</p>
             
                 
 <article class="">
-    <a href="/p/machine-learning/integrated-learning/">
+    <a href="/p/machine-learning/nn-beginner/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">机器学习基础(7) —— 集成学习</h2>
+            <h2 class="article-title">机器学习基础(6) —— 神经网络学习初步</h2>
         </div>
     </a>
 </article>

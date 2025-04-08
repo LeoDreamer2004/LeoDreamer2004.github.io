@@ -7,7 +7,30 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>LeoDreamer</copyright>
-        <lastBuildDate>Fri, 28 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/%E6%95%B0%E5%AD%A6/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 08 Apr 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/%E6%95%B0%E5%AD%A6/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>机器学习基础(8) —— 聚类简介</title>
+        <link>https://LeoDreamer2004.github.io/p/machine-learning/clustering-intro/</link>
+        <pubDate>Tue, 08 Apr 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/p/machine-learning/clustering-intro/</guid>
+        <description>&lt;h2 id=&#34;基于原型的聚类方法&#34;&gt;基于原型的聚类方法
+&lt;/h2&gt;&lt;p&gt;与监督学习不同, 无监督学习基于数据集 $D=\{x_i\}_{i=1}^N$, 没有标签 $y_i$. 基于原型的方法通常假设数据内在的分布结构可以通过一组原型刻画, 先对原型初始化, 然后按照相应策略和准则进行迭代更新.&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;K-Means 聚类&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 数据集 $D=\{x_i\}_{i=1}^N$, 聚类簇个数 $K$.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 簇划分 $\mathcal{C}=\{C_l\}_{l=1}^K$.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;选择 $K$ 个样本点作为初始簇心 $\mu_l$. 初始化 $C_l = \emptyset$.&lt;/li&gt;
+&lt;li&gt;对每个 $x_i$, 求 $x_i$ 的簇标记 $\lambda_i = \argmin_j \|x_i - \mu_j\|^2$, 即找到距离最近的簇心, 并将 $x_i$ 加入到 $C_{\lambda_i}$.&lt;/li&gt;
+&lt;li&gt;对每个簇 $C_l$, 更新簇心 $\mu_l = \frac{1}{|C_l|} \sum_{x_i \in C_l} x_i$.&lt;/li&gt;
+&lt;li&gt;如果簇心不再变化, 则停止迭代, 否则返回第 2 步.&lt;/li&gt;
+&lt;li&gt;返回 $\mathcal{C} = \{C_l\}_{l=1}^K$.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;p&gt;一般会基于不同的核心多次运行 K-Means. 均值运算对于噪声和离群点非常敏感.&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>机器学习基础(7) —— 集成学习</title>
         <link>https://LeoDreamer2004.github.io/p/machine-learning/integrated-learning/</link>
         <pubDate>Fri, 28 Mar 2025 00:00:00 +0000</pubDate>
@@ -29,7 +52,7 @@
 &lt;ol&gt;
 &lt;li&gt;准备一个权重向量 $W_t=(w_{i,t})_{i=1}^N$, 表示第 $t$ 轮训练数据的权重分布, 初始时 $w_{i,1}=\frac{1}{N}$;&lt;/li&gt;
 &lt;li&gt;在第 $t$ 轮学习中, 应用算法 $\mathcal{L}$ 基于训练数据集 $D$ 和权重向量 $W_t$ 学得具有最小训练误差的基本分类器 $f_t(x)$, 即
-$$f_t = \arg\min_{f} \sum_{i=1}^N w_{i,t} \mathbb{I}(f(x_i) \neq y_i)$$&lt;/li&gt;
+$$f_t = \argmin_{f} \sum_{i=1}^N w_{i,t} \mathbb{I}(f(x_i) \neq y_i)$$&lt;/li&gt;
 &lt;li&gt;计算 $f_t(x)$ 的误差率
 $$e_t = \sum_{i=1}^N w_{i,t} \mathbb{I}(f_t(x_i) \neq y_i)$$&lt;/li&gt;
 &lt;li&gt;计算 $f_t(x)$ 的权值
@@ -84,7 +107,38 @@ $$
 \end{aligned}
 $$&lt;p&gt;这说明 AdaBoost 的训练误差是负指数量级的. 而且不需要提前知道 $e_t$ 的值, 只需要知道 $e_t$ 的上界即可, 这也是 AdaBoost 的 Adaptive 性质所在.&lt;/p&gt;
 &lt;h3 id=&#34;加法模型&#34;&gt;加法模型
-&lt;/h3&gt;</description>
+&lt;/h3&gt;&lt;p&gt;AdaBoost 可以看作是 $\{\alpha_t, f_t(x)\}$ 的加法模型, 如果我们采用指数损失函数 $\exp(-y_if(x))$, 令&lt;/p&gt;
+$$
+G_t(\alpha, f) = \frac{1}{N} \sum_{i=1}^N \exp(-y_iG(x_i) + \alpha f(x_i))
+$$&lt;p&gt;则可以证明第 $t$ 轮迭代得到的 $(\alpha_t,f_t)$ 是最小化 $G_t(\alpha, f)$ 的解, 过程略.&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;提升树模型&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 给定训练数据集 $D=\{(x_i,y_i)\}_{i=1}^N$, 其中 $x_i \in \mathcal{X}, y_i \in \mathcal{Y}=\{-1,+1\}, i=1,2,\cdots,N$; 弱学习算法(一般是分类或回归树) $\mathcal{T}$, 损失函数 $L(y,f(x))$;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 最终分类器 $f(x)$&lt;/p&gt;
+&lt;p&gt;第 $m$ 个基学习器 $T(x; \Theta_m)$ 由经验风险最小化得到, 即&lt;/p&gt;
+$$\Theta_m = \argmin_{\Theta} \sum_{i=1}^N L(y_i, f_{m-1}(x_i)+T(x_i; \Theta))$$&lt;/div&gt;
+&lt;p&gt;如果是平方损失, 提升树算法实际上就是在拟合当前模型的残差.&lt;/p&gt;
+&lt;h2 id=&#34;bagging-方法&#34;&gt;Bagging 方法
+&lt;/h2&gt;&lt;p&gt;对训练样本进行重采样, 利用不同的样本数据来学习不同的基学习器, 通过降低方差来提高集成学习器的泛化性能. Bagging (Bootstrap Aggregating) 就是一种典型的并行集成学习方法.&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;Bagging&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 给定训练数据集 $D=\{(x_i,y_i)\}_{i=1}^N$, 其中 $x_i \in \mathcal{X}, y_i \in \mathcal{Y}, i=1,2,\cdots,N$; 弱学习算法 $\mathcal{L}$ 以及基分类器个数 $T$;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 最终分类器 $f(x)$&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;对 $t=1,2,\ldots,T$, 从$D$利用自助采样法随机抽取 $N$ 个样本得到 $D_t$. 从 $D_t$ 依学习算法 $\mathcal{L}$ 学得基分类器 $f_t(x)$.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;返回集成分类器&lt;/p&gt;
+$$f(x)=\argmax_{y\in\mathcal{Y}} \sum_{t=1}^T I(f_t(x)=y)$$&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;p&gt;对样本 $x_i$ 来说，我们采用 $x_i$ 未参与训练的基学习器在 $x_i$ 上的预测的简单投票结果作为 $x_i$ 的包外预测&lt;/p&gt;
+$$f_{\text{oob}}(x_i) = \argmax_{y \in Y} \sum_{t=1}^{T} \mathbb{I} (f_t(x_i) = y) \mathbb{I} (x_i \notin D_t)$$&lt;p&gt;相应的 Bagging 算法泛化误差的包外估计 (out-of-bag estimate) 为&lt;/p&gt;
+$$\epsilon^{\text{oob}} = \frac{1}{N} \sum_{i=1}^N \mathbb{I}(f_{\text{oob}}(x_i) \neq y_i)$$&lt;h2 id=&#34;随机森林&#34;&gt;随机森林
+&lt;/h2&gt;&lt;p&gt;所谓随机森林, 就是在 Bagging 方法中以决策树算法作为基学习器, 并引入随机属性选择, 即在选择划分特征时, 先从当前节点的所有 $d$ 个特征中随机选择 $k$ 个特征, 再从这 $k$ 个特征中选择最优划分特征. 随机选取的目的是为了增加基学习器之间的差异性, 使得集成学习器的泛化性能更好.&lt;/p&gt;
+&lt;p&gt;当 $k=d$ 时, 随机森林退化为 Bagging 方法, 一般取 $k=\log_2 d$.&lt;/p&gt;
+</description>
         </item>
         <item>
         <title>机器学习基础(6) —— 神经网络学习初步</title>
@@ -159,7 +213,7 @@ s_i^{(t)} &amp;= z^{(t)}(x_i)(1-z^{(t)}(x_i))\sum_{l=1}^k v_{tl}\delta_i^{(l)}
 $$&lt;p&gt;给定学习率 $\eta$, 按照 $\alpha = \alpha - \eta \frac{\partial R_i(\Theta)}{\partial \alpha}$ 进行迭代更新.&lt;/p&gt;
 &lt;p&gt;采用正则化策略来缓解过拟合问题:&lt;/p&gt;
 $$
-\hat{\Theta} = \arg\min_{\Theta} (R(\Theta) + \lambda J(\Theta))
+\hat{\Theta} = \argmin_{\Theta} (R(\Theta) + \lambda J(\Theta))
 $$&lt;p&gt;其中 $J(\Theta)$ 是正则化项, 通常是参数的 $L_2$ 范数, 所有参数的平方和.&lt;/p&gt;
 &lt;p&gt;关于激活函数, 除了 sigmoid 函数, 还有 tanh 函数, ReLU 函数等. 前两者函数性质连续, 但是在部分情况可能导数接近 $0$, 从而导致梯度消失问题. 相对之下, ReLU 函数梯度计算简单. 还有带泄漏的 ReLU 函数:&lt;/p&gt;
 $$
@@ -622,6 +676,20 @@ y^\ast &amp;\ge 0 \\
 \nu^\ast \odot y^\ast &amp;= 0
 \end{aligned}
 $$&lt;p&gt;直接推导也得到相应结果, 二者实际上是等价的. (利用 $x^\ast=y_i^\ast-y_{i+n}^\ast$, 代入验证最优点处方向导数为 $0$ 即可)&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;最优化问题解的存在性&#34;&gt;最优化问题解的存在性
+&lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;推广的 Weierstrass 定理&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;如果函数 $f: \mathcal{X} \to (-\infty, +\infty]$ 适当且闭, 且以下条件中至少一个成立:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$\text{dom} f = \{ x\in \mathcal{X}: f(x) &lt; +\infty \} $ 是有界的;&lt;/li&gt;
+&lt;li&gt;存在一个常数 $\bar{\g `2amma}$ 使得下水平集 $C_{\bar{\gamma}} = \{ x \in \mathcal{X}: f(x) \le \bar{\gamma} \}$ 是非空且有界的;&lt;/li&gt;
+&lt;li&gt;$f$ 是强制的, 即对于任一满足 $\| x^k \| \to +\infty$ 的点列 $\{ x^k \} \subset \mathcal{X}$, 都有 $\lim_{k \to \infty} f(x^k) = +\infty$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;则函数 $f$ 的最小值点集 $\{x \in \mathcal{X} \mid f(x) \le f(y), \forall y \in \mathcal{X}\}$ 非空且紧.&lt;/p&gt;
+&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;第二个&lt;/strong&gt;: 又有&lt;/p&gt;
+&lt;/div&gt;
 </description>
         </item>
         <item>
@@ -766,7 +834,7 @@ $$&lt;/div&gt;
 &lt;li&gt;
 &lt;p&gt;采用如下的多数投票规则来预测 $x$ 的类别:&lt;/p&gt;
 $$
-    y = \arg\max_{c_i} \sum_{x_j \in N_k^{\text{dist}}(x)} I(y_j = c_i)
+    y = \argmax_{c_i} \sum_{x_j \in N_k^{\text{dist}}(x)} I(y_j = c_i)
     $$&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
@@ -776,7 +844,7 @@ $$
 &lt;h2 id=&#34;最近邻算法的扩展&#34;&gt;最近邻算法的扩展
 &lt;/h2&gt;&lt;p&gt;给定样本集 $D = \{(x_i,y_i)\}_{i=1}^n$, 以 $D_i$ 表示属于类 $c_i$ 的样本集, 希望找一个方式把每个 $D_i$ 分成 $k$ 个簇 $(D_{i1}, D_{i2}, \cdots, D_{ik})$, 使得数据分布的方差最小, 即&lt;/p&gt;
 $$
-(D^\ast_{i1}, D^\ast_{i2}, \cdots, D^\ast_{il}) = \arg\min_{D_{i1}, D_{i2}, \cdots, D_{ik}} \sum_{j=1}^k \sum_{(x_t,y_t) \in D_{ij}} \Vert x_t-c_{ij} \Vert_2^2
+(D^\ast_{i1}, D^\ast_{i2}, \cdots, D^\ast_{il}) = \argmin_{D_{i1}, D_{i2}, \cdots, D_{ik}} \sum_{j=1}^k \sum_{(x_t,y_t) \in D_{ij}} \Vert x_t-c_{ij} \Vert_2^2
 $$&lt;p&gt;然而很难找到最优解, 因此采用迭代的方式来近似求解:&lt;/p&gt;
 &lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
@@ -784,7 +852,7 @@ $$&lt;p&gt;然而很难找到最优解, 因此采用迭代的方式来近似求�
 &lt;ol&gt;
 &lt;li&gt;初始化 $k$ 个簇的中心 $c_{ij}$;&lt;/li&gt;
 &lt;li&gt;对每个 $(x_t),(y_t) \in D_i$ (即 $y_t=c_i$), 令
-$$I_{x_t}= \arg\min_{j} \Vert x_t-c_{ij} \Vert_2^2$$
+$$I_{x_t}= \argmin_{j} \Vert x_t-c_{ij} \Vert_2^2$$
 即将 $x_t$ 分配到最近的簇;&lt;/li&gt;
 &lt;li&gt;对每个 $D_{ij}$, 更新均值
 $$c_{ij} = \frac{1}{|D_{ij}|} \sum_{(x_t,y_t) \in D_{ij}} x_t$$&lt;/li&gt;
@@ -798,7 +866,7 @@ $$c_{ij} = \frac{1}{|D_{ij}|} \sum_{(x_t,y_t) \in D_{ij}} x_t$$&lt;/li&gt;
 &lt;ol&gt;
 &lt;li&gt;对每个类 $c_m$ 随机选择 $k$ 个点 $I_{mi}$ 作为代表;&lt;/li&gt;
 &lt;li&gt;对每个样本点 $x_t$, 找到最近的代表元 $I_{m^\ast i^\ast}$, 即
-$$I_{m^\ast i^\ast} = \arg\min_{m,i} \Vert x_t - I_{mi} \Vert_2^2$$&lt;/li&gt;
+$$I_{m^\ast i^\ast} = \argmin_{m,i} \Vert x_t - I_{mi} \Vert_2^2$$&lt;/li&gt;
 &lt;li&gt;如果 $y_t=c_{m^\ast}$, 则
 $$I_{m^\ast i^\ast} \gets I_{m^\ast i^\ast} + \eta(x_t - I_{m^\ast i^\ast})$$
 否则
@@ -825,7 +893,7 @@ $$
 R(Y=c_i | x) = \sum_{j=1}^K \lambda_{ij} P(Y=c_j | x)
 $$&lt;p&gt;其中 $\lambda_{ij}$ 是将属于 $c_j$ 的样本预测为 $c_i$ 的损失. &lt;strong&gt;最优预测&lt;/strong&gt; $\hat{y}$ 是使得风险最小的类别, 即&lt;/p&gt;
 $$
-\hat{y} = \arg\min_{c_i} R(Y=c_i | x)
+\hat{y} = \argmin_{c_i} R(Y=c_i | x)
 $$&lt;/div&gt;
 &lt;p&gt;假设采用 $0-1$ 损失函数, 易知&lt;/p&gt;
 $$

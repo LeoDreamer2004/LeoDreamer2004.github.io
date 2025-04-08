@@ -402,7 +402,7 @@ $$</div>
 <li>
 <p>采用如下的多数投票规则来预测 $x$ 的类别:</p>
 $$
-    y = \arg\max_{c_i} \sum_{x_j \in N_k^{\text{dist}}(x)} I(y_j = c_i)
+    y = \argmax_{c_i} \sum_{x_j \in N_k^{\text{dist}}(x)} I(y_j = c_i)
     $$</li>
 </ol>
 </div>
@@ -412,7 +412,7 @@ $$
 <h2 id="最近邻算法的扩展">最近邻算法的扩展
 </h2><p>给定样本集 $D = \{(x_i,y_i)\}_{i=1}^n$, 以 $D_i$ 表示属于类 $c_i$ 的样本集, 希望找一个方式把每个 $D_i$ 分成 $k$ 个簇 $(D_{i1}, D_{i2}, \cdots, D_{ik})$, 使得数据分布的方差最小, 即</p>
 $$
-(D^\ast_{i1}, D^\ast_{i2}, \cdots, D^\ast_{il}) = \arg\min_{D_{i1}, D_{i2}, \cdots, D_{ik}} \sum_{j=1}^k \sum_{(x_t,y_t) \in D_{ij}} \Vert x_t-c_{ij} \Vert_2^2
+(D^\ast_{i1}, D^\ast_{i2}, \cdots, D^\ast_{il}) = \argmin_{D_{i1}, D_{i2}, \cdots, D_{ik}} \sum_{j=1}^k \sum_{(x_t,y_t) \in D_{ij}} \Vert x_t-c_{ij} \Vert_2^2
 $$<p>然而很难找到最优解, 因此采用迭代的方式来近似求解:</p>
 <div class="math-block">
     <p class="math-block-title math-def">定义</p>
@@ -420,7 +420,7 @@ $$<p>然而很难找到最优解, 因此采用迭代的方式来近似求解:</p
 <ol>
 <li>初始化 $k$ 个簇的中心 $c_{ij}$;</li>
 <li>对每个 $(x_t),(y_t) \in D_i$ (即 $y_t=c_i$), 令
-$$I_{x_t}= \arg\min_{j} \Vert x_t-c_{ij} \Vert_2^2$$
+$$I_{x_t}= \argmin_{j} \Vert x_t-c_{ij} \Vert_2^2$$
 即将 $x_t$ 分配到最近的簇;</li>
 <li>对每个 $D_{ij}$, 更新均值
 $$c_{ij} = \frac{1}{|D_{ij}|} \sum_{(x_t,y_t) \in D_{ij}} x_t$$</li>
@@ -434,7 +434,7 @@ $$c_{ij} = \frac{1}{|D_{ij}|} \sum_{(x_t,y_t) \in D_{ij}} x_t$$</li>
 <ol>
 <li>对每个类 $c_m$ 随机选择 $k$ 个点 $I_{mi}$ 作为代表;</li>
 <li>对每个样本点 $x_t$, 找到最近的代表元 $I_{m^\ast i^\ast}$, 即
-$$I_{m^\ast i^\ast} = \arg\min_{m,i} \Vert x_t - I_{mi} \Vert_2^2$$</li>
+$$I_{m^\ast i^\ast} = \argmin_{m,i} \Vert x_t - I_{mi} \Vert_2^2$$</li>
 <li>如果 $y_t=c_{m^\ast}$, 则
 $$I_{m^\ast i^\ast} \gets I_{m^\ast i^\ast} + \eta(x_t - I_{m^\ast i^\ast})$$
 否则
@@ -507,6 +507,19 @@ $$I_{m^\ast i^\ast} \gets I_{m^\ast i^\ast} - \eta(x_t - I_{m^\ast i^\ast})$$</l
             
                 
 <article class="">
+    <a href="/p/machine-learning/clustering-intro/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">机器学习基础(8) —— 聚类简介</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
     <a href="/p/machine-learning/integrated-learning/">
         
         
@@ -552,19 +565,6 @@ $$I_{m^\ast i^\ast} \gets I_{m^\ast i^\ast} - \eta(x_t - I_{m^\ast i^\ast})$$</l
 
         <div class="article-details">
             <h2 class="article-title">机器学习基础(3) —— 基于后验概率最大化准则的分类模型</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/machine-learning/vector-machine/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">机器学习基础(2) —— 支持向量机</h2>
         </div>
     </a>
 </article>
