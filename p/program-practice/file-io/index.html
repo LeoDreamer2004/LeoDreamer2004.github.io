@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="后验概率最大化准则 定义\n对训练样本集 $D=\\{(x_i,y_i)\\}_{i=1}^n$, 其中 $x_i \\in \\mathcal{X}$, $y_i \\in \\mathcal{Y} = \\{c_1, c_2, \\cdots, c_K\\}$, 将 $x$ 的类别预测为 $c_i$ 的 风险 为\n$$ R(Y=c_i | x) = \\sum_{j=1}^K \\lambda_{ij} P(Y=c_j | x) $$其中 $\\lambda_{ij}$ 是将属于 $c_j$ 的样本预测为 $c_i$ 的损失. 最优预测 $\\hat{y}$ 是使得风险最小的类别, 即\n">
-<title>机器学习基础(3) —— 基于后验概率最大化准则的分类模型</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="输入输出流 istream 是用于输入的流类, ostream 是用于输出的流类. ifstream 继承 自 istream, 用于从文件中读取数据; ofstream 继承自 ostream, 用于向文件中写入数据. fstream 继承自 iostream, 既可以用于输入也可以用于输出.\n">
+<title>程序设计实习(5) —— 输入输出和文件操作</title>
 
-<link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning/bayers/'>
+<link rel='canonical' href='https://LeoDreamer2004.github.io/p/program-practice/file-io/'>
 
-<link rel="stylesheet" href="/scss/style.min.d76a7139ac5790e09a4589a93130e0053ff56aa27f67f8596e6bb8b70bb4de7f.css"><meta property='og:title' content="机器学习基础(3) —— 基于后验概率最大化准则的分类模型">
-<meta property='og:description' content="后验概率最大化准则 定义\n对训练样本集 $D=\\{(x_i,y_i)\\}_{i=1}^n$, 其中 $x_i \\in \\mathcal{X}$, $y_i \\in \\mathcal{Y} = \\{c_1, c_2, \\cdots, c_K\\}$, 将 $x$ 的类别预测为 $c_i$ 的 风险 为\n$$ R(Y=c_i | x) = \\sum_{j=1}^K \\lambda_{ij} P(Y=c_j | x) $$其中 $\\lambda_{ij}$ 是将属于 $c_j$ 的样本预测为 $c_i$ 的损失. 最优预测 $\\hat{y}$ 是使得风险最小的类别, 即\n">
-<meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning/bayers/'>
+<link rel="stylesheet" href="/scss/style.min.d76a7139ac5790e09a4589a93130e0053ff56aa27f67f8596e6bb8b70bb4de7f.css"><meta property='og:title' content="程序设计实习(5) —— 输入输出和文件操作">
+<meta property='og:description' content="输入输出流 istream 是用于输入的流类, ostream 是用于输出的流类. ifstream 继承 自 istream, 用于从文件中读取数据; ofstream 继承自 ostream, 用于向文件中写入数据. fstream 继承自 iostream, 既可以用于输入也可以用于输出.\n">
+<meta property='og:url' content='https://LeoDreamer2004.github.io/p/program-practice/file-io/'>
 <meta property='og:site_name' content='LeoDreamer'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-03-11T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-11T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="机器学习基础(3) —— 基于后验概率最大化准则的分类模型">
-<meta name="twitter:description" content="后验概率最大化准则 定义\n对训练样本集 $D=\\{(x_i,y_i)\\}_{i=1}^n$, 其中 $x_i \\in \\mathcal{X}$, $y_i \\in \\mathcal{Y} = \\{c_1, c_2, \\cdots, c_K\\}$, 将 $x$ 的类别预测为 $c_i$ 的 风险 为\n$$ R(Y=c_i | x) = \\sum_{j=1}^K \\lambda_{ij} P(Y=c_j | x) $$其中 $\\lambda_{ij}$ 是将属于 $c_j$ 的样本预测为 $c_i$ 的损失. 最优预测 $\\hat{y}$ 是使得风险最小的类别, 即\n">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-04-08T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-04-08T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="程序设计实习(5) —— 输入输出和文件操作">
+<meta name="twitter:description" content="输入输出流 istream 是用于输入的流类, ostream 是用于输出的流类. ifstream 继承 自 istream, 用于从文件中读取数据; ofstream 继承自 ostream, 用于向文件中写入数据. fstream 继承自 iostream, 既可以用于输入也可以用于输出.\n">
     </head>
     <body class="
     article-page
@@ -260,7 +260,7 @@
              <ol>
     
     <li>
-        <a href="/materials/machine-learning/MachineLearning-3.pdf" id="related-material-1" target="_blank" rel="noopener noreferrer">
+        <a href="/materials/program-practice/07-%e8%be%93%e5%85%a5%e8%be%93%e5%87%ba%e5%92%8c%e6%96%87%e4%bb%b6%e6%93%8d%e4%bd%9c.pdf" id="related-material-1" target="_blank" rel="noopener noreferrer">
             本节课件
         </a>
     </li>
@@ -291,9 +291,9 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#后验概率最大化准则">后验概率最大化准则</a></li>
-    <li><a href="#逻辑斯蒂回归模型">逻辑斯蒂回归模型</a></li>
-    <li><a href="#朴素-bayers-分类器">朴素 Bayers 分类器</a></li>
+    <li><a href="#输入输出流">输入输出流</a></li>
+    <li><a href="#流操纵算子">流操纵算子</a></li>
+    <li><a href="#文件操作">文件操作</a></li>
   </ol>
 </nav>
         </div>
@@ -317,12 +317,12 @@
                 课程
             </a>
         
-            <a href="/categories/%E6%95%B0%E5%AD%A6/" style="background-color: #dd5e1b; color: #fff;">
-                数学
+            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" style="background-color: #2a9d8f; color: #fff;">
+                计算机
             </a>
         
-            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/" style="background-color: #b9a00f; color: #fff;">
-                机器学习基础
+            <a href="/categories/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%AE%9E%E4%B9%A0/" style="background-color: #9b5de5; color: #fff;">
+                程序设计实习
             </a>
         
     </header>
@@ -330,7 +330,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/machine-learning/bayers/">机器学习基础(3) —— 基于后验概率最大化准则的分类模型</a>
+            <a href="/p/program-practice/file-io/">程序设计实习(5) —— 输入输出和文件操作</a>
         </h2>
     
         
@@ -352,7 +352,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2025-03-11</time>
+                <time class="article-time--published">2025-04-08</time>
             </div>
         
 
@@ -367,7 +367,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 2 分钟
+                    阅读时长: 3 分钟
                 </time>
             </div>
         
@@ -382,75 +382,191 @@
     <section class="article-content">
     
     
-    <h2 id="后验概率最大化准则">后验概率最大化准则
-</h2><div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>对训练样本集 $D=\{(x_i,y_i)\}_{i=1}^n$, 其中 $x_i \in \mathcal{X}$, $y_i \in \mathcal{Y} = \{c_1, c_2, \cdots, c_K\}$, 将 $x$ 的类别预测为 $c_i$ 的 <strong>风险</strong> 为</p>
-$$
-R(Y=c_i | x) = \sum_{j=1}^K \lambda_{ij} P(Y=c_j | x)
-$$<p>其中 $\lambda_{ij}$ 是将属于 $c_j$ 的样本预测为 $c_i$ 的损失. <strong>最优预测</strong> $\hat{y}$ 是使得风险最小的类别, 即</p>
-$$
-\hat{y} = \argmin_{c_i} R(Y=c_i | x)
-$$</div>
-<p>假设采用 $0-1$ 损失函数, 易知</p>
-$$
-R(Y=c_i | x) = 1 - P(Y=c_i | x)
-$$<p>即输入 $x$ 的最优预测 $\hat{y}$ 为使得后验概率 $P(y | x)$ 最大的类别.</p>
-<h2 id="逻辑斯蒂回归模型">逻辑斯蒂回归模型
-</h2><div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>设 $\mathcal{X}=\mathbb{R}^n, \mathcal{Y}=\{c_1,c_2\}$, <strong>逻辑斯蒂回归模型</strong> 是如下的后验概率分布:</p>
-$$
-\begin{aligned}
-P(Y=c_1 | x) &= \frac{\exp(w \cdot x + b)}{1+\exp(w \cdot x + b)} \\
-P(Y=c_2 | x) &= \frac{1}{1+\exp(w \cdot x + b)
-}
-\end{aligned}
-$$<p>其中 $w,b$ 是模型参数.</p>
+    <h2 id="输入输出流">输入输出流
+</h2><p><code>istream</code> 是用于输入的流类, <code>ostream</code> 是用于输出的流类. <code>ifstream</code> 继承 自 <code>istream</code>, 用于从文件中读取数据; <code>ofstream</code> 继承自 <code>ostream</code>, 用于向文件中写入数据. <code>fstream</code> 继承自 <code>iostream</code>, 既可以用于输入也可以用于输出.</p>
+<ul>
+<li>输入流对象:
+<ul>
+<li><code>cin</code> 与标准输入设备相连, 对应于标准输入流, 用于从键盘读取数据, 也可以被重定向为从文件中读取数据.</li>
+</ul>
+</li>
+<li>输出流对象:
+<ul>
+<li><code>cout</code> 与标准输出设备相连, 对应于标准输出流, 用于向屏幕输出数据, 也可以被重定向为向文件写入数据.</li>
+<li><code>cerr</code> 与标准错误输出设备相连.</li>
+<li><code>clog</code> 与标准错误输出设备相连, 但是缓冲的, 用于输出调试信息.</li>
+</ul>
+</li>
+</ul>
+<p>持续读入直到结束:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="p">(</span><span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
-<p>按照后验概率最大化准则, 显然当 $w \cdot x + b > 0$ 时, 预测为 $c_1$, 否则预测为 $c_2$.</p>
-<p>对于多类分类任务, 仍然可以使用逻辑斯蒂回归模型:</p>
-$$
-\begin{aligned}
-p(y=c_i | x) &= \frac{\exp(w_i \cdot x + b_i)}{\sum_{j=1}^{K-1} \exp(w_j \cdot x + b_j)}, \quad i=1,2,\cdots,K-1 \\
-p(y=c_K | x) &= \frac{1}{\sum_{j=1}^{K-1} \exp(w_j \cdot x + b_j)}
-\end{aligned}
-$$<p>给定 $D=\{(x_i,y_i)\}_{i=1}^n$, 其中 $x_i \in \mathbb{R}^n$, $y_i \in \mathcal{Y} = \{0,1\}$, 用 $\theta=(w,b)$ 表示二项逻辑斯蒂回归模型的参数, 令</p>
-$$
-p(x;\theta) = p(Y=1 | x;\theta)
-$$<p>则考虑似然函数为</p>
-$$
-\begin{aligned}
-L(\theta) &= \prod_{i=1}^n p(x_i;\theta)^{y_i} (1-p(x_i;\theta))^{1-y_i} \\
-\log L(\theta) &= \sum_{i=1}^n y_i \log p(x_i;\theta) + (1-y_i) \log (1-p(x_i;\theta)) \\
-&= \sum_{i=1}^N y_i(w \cdot x_i + b) - \log(1+\exp(w \cdot x_i + b))
-\end{aligned}
-$$<p>对 $w,b$ 求偏导为 $0$, 得到</p>
-$$
-\begin{aligned}
-\frac{\partial \log L(\theta)}{\partial w} &= \sum_{i=1}^n x_i(y_i - p(x_i;\theta)) = 0\\
-\frac{\partial \log L(\theta)}{\partial b} &= \sum_{i=1}^n (y_i - p(x_i;\theta)) = 0
-\end{aligned}
-$$<h2 id="朴素-bayers-分类器">朴素 Bayers 分类器
-</h2><div class="math-block">
-    <p class="math-block-title math-thm">定理<span class="math-subtitle">Bayers 公式</span></p>
-$$
-\begin{aligned}
-P(Y=c_i | x) &= \frac{P(x | Y=c_i) P(Y=c_i)}{P(x)} \\
-&= \frac{P(x | Y=c_i) P(Y=c_i)}{\sum_{j=1}^K P(x | Y=c_j) P(Y=c_j)}
-\end{aligned}
-$$</div>
-<p>朴素 Bayers 假定特征之间相互独立, 即</p>
-$$
-p(X^1=x^1, X^2=x^2, \cdots, X^n=x^n | Y=c_k) = \prod_{j=1}^n p(X^j=x^j | Y=c_k)
-$$<p>对于输入实例 $x=(x^1,x^2,\cdots,x^n)$, 则后验概率</p>
-$$
-p(Y=c_k|x)=\frac{\left( \prod_{i=1}^n p(X^i=x^i | Y=c_k) \right) P(Y=c_k)}{\sum_{j=1}^K \left( \prod_{i=1}^n p(X^i=x^i | Y=c_j) \right) P(Y=c_j)}
-$$<p>分母是固定的, 只需比较分子的大小即可. 但是一旦某个特征取值和分类没有同时出现, 后验概率直接为 $0$, 为了避免这种情况, 通常引入一些平滑技术:</p>
-$$
-p_{\lambda}(Y=c_k) = \frac{\sum_{j=1}^NI(y_j=c_k)+\lambda}{N+K\lambda}
-$$<p>$\lambda=1$ 时称为 Laplace 平滑.</p>
-
+</div><p>背后的原理是 <code>istream</code> 有一个 <code>operator bool()</code> 来判断.</p>
+<p>读取输入流:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">istream</span> <span class="o">&amp;</span><span class="n">getline</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span> <span class="kt">int</span> <span class="n">bufSize</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">istream</span> <span class="o">&amp;</span><span class="n">getline</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span> <span class="kt">int</span> <span class="n">bufSize</span><span class="p">,</span> <span class="kt">char</span> <span class="n">delim</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>从输入流中读取 <code>bufSize - 1</code> 个字符 (要给 <code>'\0'</code> 留一个) 到缓冲区buf, 或读到碰到 <code>\n</code> 或 <code>delim</code> 字符为止 (哪个先到算哪个).</p>
+<p>默认分隔符是换行符 <code>\n</code>, 也可以指定其他分隔符. 会自动在 <code>buf</code> 中读入数据的结尾添加<code>'\0'</code>, <code>'\n'</code> 或 <code>delim</code> 都不会被读入<code>buf</code>, 但会被从输入流中取走.</p>
+<blockquote>
+<p>需要注意, 如果 <code>buf</code> 不足以容纳读入的字符, 就导致读入出错, 其结果就是虽然本次读入已经完成, 但是之后的读入就都会失败了.</p></blockquote>
+<p>重定向:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">freopen</span><span class="p">(</span><span class="s">&#34;test.txt&#34;</span><span class="p">,</span> <span class="s">&#34;w&#34;</span><span class="p">,</span> <span class="n">stdout</span><span class="p">);</span> <span class="c1">// 重定向标准输出到文件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">freopen</span><span class="p">(</span><span class="s">&#34;test.txt&#34;</span><span class="p">,</span> <span class="s">&#34;r&#34;</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span> <span class="c1">// 重定向标准输入到文件
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="流操纵算子">流操纵算子
+</h2><p>流操纵算子是一些函数, 需要 <code>#include &lt;iomanip&gt;</code>, 用于控制输入输出流的格式. 例如:</p>
+<ul>
+<li>
+<p>整数流基数: <code>dec</code> (十进制), <code>hex</code> (十六进制), <code>oct</code> (八进制), <code>setbase</code> (设置基数);</p>
+</li>
+<li>
+<p>浮点数的精度: <code>setprecision</code> (设置精度) (<code>precision</code> 是成员函数);</p>
+<ul>
+<li>非定点模式下, <code>setprecision</code> 设置有效数字的位数;</li>
+<li>定点模式下 (<code>setiosflags(ios::fixed)</code>), <code>setprecision</code> 设置小数点后面的有效位数;</li>
+</ul>
+</li>
+<li>
+<p>域宽: <code>setw</code> (设置域宽) (<code>width</code> 是成员函数); 不够宽会用空格填充, 且宽度设置是一次性的.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">string</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">  <span class="n">cin</span><span class="p">.</span><span class="n">width</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span><span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">string</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cout</span><span class="p">.</span><span class="n">width</span><span class="p">(</span><span class="n">w</span><span class="o">++</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">string</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cin</span><span class="p">.</span><span class="n">width</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>输入:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="cl">1234567890
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>输出：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="cl">1234
+</span></span><span class="line"><span class="cl"> 5678
+</span></span><span class="line"><span class="cl">    90
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<p>用户也可以自定义流操纵算子, 例如:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">ostream</span> <span class="o">&amp;</span><span class="n">tab</span><span class="p">(</span><span class="n">ostream</span> <span class="o">&amp;</span><span class="n">output</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">output</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\t&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;aa&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">tab</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;bb&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>原理是 <code>iostream</code> 类中有一个 <code>operator&lt;&lt;</code> 函数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">ostream</span> <span class="o">&amp;</span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">ostream</span> <span class="o">&amp;</span><span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">)(</span><span class="n">ostream</span> <span class="o">&amp;</span><span class="p">));</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以接收一个函数指针作为参数, 且函数内部把 <code>this</code> 对象传入这个函数, 这个函数返回一个 <code>ostream</code> 对象的引用.</p>
+<h2 id="文件操作">文件操作
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;fstream&gt;</span><span class="cp"> </span><span class="c1">// 包含头文件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">ofstream</span> <span class="nf">outFile</span><span class="p">(</span><span class="s">&#34;clients.dat&#34;</span><span class="p">,</span> <span class="n">ios</span><span class="o">::</span><span class="n">out</span> <span class="o">|</span> <span class="n">ios</span><span class="o">::</span><span class="n">binary</span><span class="p">);</span> <span class="c1">// 创建
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>给出打开方式: <code>ios::out</code> 输出到文件，删除原有内容; <code>ios::app</code> 输出到文件，保留原有内容，总是在尾部添加.</p>
+<ul>
+<li>对于输入文件, 有一个读指针;</li>
+<li>对于输出文件, 有一个写指针;</li>
+<li>对于输入输出文件, 有一个读写指针;</li>
+</ul>
+<p>标识文件操作的当前位置, 该指针在哪里, 读写操作就在哪里进行:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">ofstream</span> <span class="nf">fout</span><span class="p">(</span><span class="s">&#34;a1.out&#34;</span><span class="p">,</span> <span class="n">ios</span><span class="o">::</span><span class="n">app</span><span class="p">);</span> <span class="c1">// 以添加方式打开
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">long</span> <span class="n">location</span> <span class="o">=</span> <span class="n">fout</span><span class="p">.</span><span class="n">tellp</span><span class="p">();</span> <span class="c1">// 取得写指针的位置
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">location</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">fout</span><span class="p">.</span><span class="n">seekp</span><span class="p">(</span><span class="n">location</span><span class="p">);</span> <span class="c1">// 将写指针移动到第 10 个字节处
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">fout</span><span class="p">.</span><span class="n">seekp</span><span class="p">(</span><span class="n">location</span><span class="p">,</span> <span class="n">ios</span><span class="o">::</span><span class="n">beg</span><span class="p">);</span> <span class="c1">// 从头数 location
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">fout</span><span class="p">.</span><span class="n">seekp</span><span class="p">(</span><span class="n">location</span><span class="p">,</span> <span class="n">ios</span><span class="o">::</span><span class="n">cur</span><span class="p">);</span> <span class="c1">// 从当前位置数 location
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">fout</span><span class="p">.</span><span class="n">seekp</span><span class="p">(</span><span class="n">location</span><span class="p">,</span> <span class="n">ios</span><span class="o">::</span><span class="n">end</span><span class="p">);</span> <span class="c1">// 从尾部数 location
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
 </section>
 
 
@@ -512,12 +628,12 @@ $$<p>$\lambda=1$ 时称为 Laplace 平滑.</p>
             
                 
 <article class="">
-    <a href="/p/machine-learning/clustering-intro/">
+    <a href="/p/program-practice/template/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">机器学习基础(8) —— 聚类简介</h2>
+            <h2 class="article-title">程序设计实习(6) —— 模板</h2>
         </div>
     </a>
 </article>
@@ -525,12 +641,12 @@ $$<p>$\lambda=1$ 时称为 Laplace 平滑.</p>
             
                 
 <article class="">
-    <a href="/p/machine-learning/integrated-learning/">
+    <a href="/p/program-practice/polymorphism/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">机器学习基础(7) —— 集成学习</h2>
+            <h2 class="article-title">程序设计实习(4) —— 多态</h2>
         </div>
     </a>
 </article>
@@ -538,12 +654,12 @@ $$<p>$\lambda=1$ 时称为 Laplace 平滑.</p>
             
                 
 <article class="">
-    <a href="/p/machine-learning/nn-beginner/">
+    <a href="/p/program-practice/inherit/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">机器学习基础(6) —— 神经网络学习初步</h2>
+            <h2 class="article-title">程序设计实习(3) —— 继承与派生</h2>
         </div>
     </a>
 </article>
@@ -551,12 +667,12 @@ $$<p>$\lambda=1$ 时称为 Laplace 平滑.</p>
             
                 
 <article class="">
-    <a href="/p/machine-learning/decision-tree/">
+    <a href="/p/program-practice/operator-overload/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">机器学习基础(5) —— 决策树模型</h2>
+            <h2 class="article-title">程序设计实习(2) —— 运算符重载</h2>
         </div>
     </a>
 </article>
@@ -564,12 +680,12 @@ $$<p>$\lambda=1$ 时称为 Laplace 平滑.</p>
             
                 
 <article class="">
-    <a href="/p/machine-learning/knn/">
+    <a href="/p/program-practice/class-and-object/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">机器学习基础(4) —— 基于近邻的分类方法</h2>
+            <h2 class="article-title">程序设计实习(1) —— 类和对象</h2>
         </div>
     </a>
 </article>

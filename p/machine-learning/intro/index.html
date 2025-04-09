@@ -527,8 +527,8 @@ R(h) &= E_T[(h_T(x) - c(x))^2] \\
 &= \text{Var}(x) + \text{Bias}^2(x)
 \end{aligned}
 $$<p>当然, 由于噪声存在, $y$ 未必一定等于 $c(x)$, 不妨设 $y=c(x)+\varepsilon$, 其中 $\varepsilon \sim \Epsilon$ 期望为 $0$. 可以证明</p>
-<div class="block">
-<p class="block-title thm">定理<span class="subtitle">偏差-方差分解</p>
+<div class="math-block">
+    <p class="math-block-title math-thm">定理<span class="math-subtitle">偏差-方差分解</span></p>
 $$
 E_{T \sim D^{|T|}, \varepsilon \sim \Epsilon} [(h_T(x)-y)^2] = \text{Bias}^2(x) + \text{Var}(x) + E[\varepsilon^2]
 $$<p>即泛化误差可以分解为偏差、方差和噪声三部分.</p>

@@ -825,8 +825,9 @@ $$
 $$&lt;/div&gt;
 &lt;p&gt;$p=1$ 时, 就是 Manhattan 距离; $p=2$ 时, 就是 Euclidean 距离; $p=\infty$ 时, 就是 Chebyshev 距离. 在必要时, 还可以给每个维度的特征值加权.&lt;/p&gt;
 &lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
-&lt;p&gt;给定训练样本集 $D = \{(x_i, y_i)\}_{i=1}^n$, 其中 $x_i \in \mathbb{R}^n$, $y_i \in \mathcal{Y} = \{c_1, c_2, \cdots, c_k\}$, 以及距离度量 $\text{dist}$, &lt;strong&gt;k-近邻算法&lt;/strong&gt; 的基本步骤如下:&lt;/p&gt;
+    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;k-近邻&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 给定训练样本集 $D = \{(x_i, y_i)\}_{i=1}^n$, 其中 $x_i \in \mathbb{R}^n$, $y_i \in \mathcal{Y} = \{c_1, c_2, \cdots, c_k\}$, 以及距离度量 $\text{dist}$.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 对于每个样本点 $x \in \mathbb{R}^n$, 预测其类别 $y$.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;基于度量 $\text{dist}$, 对于给定的样本点 $x$, 找到训练集中与 $x$ 最近的 $k$ 个样本点所构成的邻域 $N_k^{\text{dist}}(x)$;&lt;/p&gt;
@@ -847,11 +848,12 @@ $$
 (D^\ast_{i1}, D^\ast_{i2}, \cdots, D^\ast_{il}) = \argmin_{D_{i1}, D_{i2}, \cdots, D_{ik}} \sum_{j=1}^k \sum_{(x_t,y_t) \in D_{ij}} \Vert x_t-c_{ij} \Vert_2^2
 $$&lt;p&gt;然而很难找到最优解, 因此采用迭代的方式来近似求解:&lt;/p&gt;
 &lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;K-means 算法&lt;/strong&gt; 的基本步骤如下:&lt;/p&gt;
+    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;K-means&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 给定训练样本集 $D = \{(x_i,y_i)\}_{i=1}^n$, 其中 $x_i \in \mathbb{R}^n$, $y_i \in \mathcal{Y} = \{c_1, c_2, \cdots, c_k\}$, 以及距离度量 $\text{dist}(x,y)=\Vert x-y \Vert_2$.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 对于每个样本点 $x \in \mathbb{R}^n$, 预测其类别 $y$.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;初始化 $k$ 个簇的中心 $c_{ij}$;&lt;/li&gt;
-&lt;li&gt;对每个 $(x_t),(y_t) \in D_i$ (即 $y_t=c_i$), 令
+&lt;li&gt;对每个 $(x_t, y_t) \in D_i$ (即 $y_t=c_i$), 令
 $$I_{x_t}= \argmin_{j} \Vert x_t-c_{ij} \Vert_2^2$$
 即将 $x_t$ 分配到最近的簇;&lt;/li&gt;
 &lt;li&gt;对每个 $D_{ij}$, 更新均值
@@ -861,8 +863,9 @@ $$c_{ij} = \frac{1}{|D_{ij}|} \sum_{(x_t,y_t) \in D_{ij}} x_t$$&lt;/li&gt;
 &lt;/div&gt;
 &lt;p&gt;有可能会使得某些离分类边界很近的点被错误分类. 引入学习向量量化方法 (LVQ 算法). 让同类和异类的点在构建过程中都能起作用.&lt;/p&gt;
 &lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;LVQ 算法&lt;/strong&gt; 的基本步骤如下:&lt;/p&gt;
+    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;LVQ&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 给定训练样本集 $D = \{(x_i,y_i)\}_{i=1}^n$, 其中 $x_i \in \mathbb{R}^n$, $y_i \in \mathcal{Y} = \{c_1, c_2, \cdots, c_k\}$, 以及距离度量 $\text{dist}(x,y)=\Vert x-y \Vert_2$.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 对于每个样本点 $x \in \mathbb{R}^n$, 预测其类别 $y$.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;对每个类 $c_m$ 随机选择 $k$ 个点 $I_{mi}$ 作为代表;&lt;/li&gt;
 &lt;li&gt;对每个样本点 $x_t$, 找到最近的代表元 $I_{m^\ast i^\ast}$, 即
@@ -902,7 +905,7 @@ $$&lt;p&gt;即输入 $x$ 的最优预测 $\hat{y}$ 为使得后验概率 $P(y | 
 &lt;h2 id=&#34;逻辑斯蒂回归模型&#34;&gt;逻辑斯蒂回归模型
 &lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
-&lt;p&gt;设 $\mathcal{X}=\mathbb{R}^n, \mathcal{Y}=\{c_1,c_2\}$, 逻辑斯蒂回归模型是如下的后验概率分布:&lt;/p&gt;
+&lt;p&gt;设 $\mathcal{X}=\mathbb{R}^n, \mathcal{Y}=\{c_1,c_2\}$, &lt;strong&gt;逻辑斯蒂回归模型&lt;/strong&gt; 是如下的后验概率分布:&lt;/p&gt;
 $$
 \begin{aligned}
 P(Y=c_1 | x) &amp;= \frac{\exp(w \cdot x + b)}{1+\exp(w \cdot x + b)} \\
@@ -1294,8 +1297,8 @@ R(h) &amp;= E_T[(h_T(x) - c(x))^2] \\
 &amp;= \text{Var}(x) + \text{Bias}^2(x)
 \end{aligned}
 $$&lt;p&gt;当然, 由于噪声存在, $y$ 未必一定等于 $c(x)$, 不妨设 $y=c(x)+\varepsilon$, 其中 $\varepsilon \sim \Epsilon$ 期望为 $0$. 可以证明&lt;/p&gt;
-&lt;div class=&#34;block&#34;&gt;
-&lt;p class=&#34;block-title thm&#34;&gt;定理&lt;span class=&#34;subtitle&#34;&gt;偏差-方差分解&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;偏差-方差分解&lt;/span&gt;&lt;/p&gt;
 $$
 E_{T \sim D^{|T|}, \varepsilon \sim \Epsilon} [(h_T(x)-y)^2] = \text{Bias}^2(x) + \text{Var}(x) + E[\varepsilon^2]
 $$&lt;p&gt;即泛化误差可以分解为偏差、方差和噪声三部分.&lt;/p&gt;

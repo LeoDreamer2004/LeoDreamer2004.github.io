@@ -393,8 +393,9 @@ $$
 $$</div>
 <p>$p=1$ 时, 就是 Manhattan 距离; $p=2$ 时, 就是 Euclidean 距离; $p=\infty$ 时, 就是 Chebyshev 距离. 在必要时, 还可以给每个维度的特征值加权.</p>
 <div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>给定训练样本集 $D = \{(x_i, y_i)\}_{i=1}^n$, 其中 $x_i \in \mathbb{R}^n$, $y_i \in \mathcal{Y} = \{c_1, c_2, \cdots, c_k\}$, 以及距离度量 $\text{dist}$, <strong>k-近邻算法</strong> 的基本步骤如下:</p>
+    <p class="math-block-title math-algo">算法<span class="math-subtitle">k-近邻</span></p>
+<p><strong>输入</strong>: 给定训练样本集 $D = \{(x_i, y_i)\}_{i=1}^n$, 其中 $x_i \in \mathbb{R}^n$, $y_i \in \mathcal{Y} = \{c_1, c_2, \cdots, c_k\}$, 以及距离度量 $\text{dist}$.</p>
+<p><strong>输出</strong>: 对于每个样本点 $x \in \mathbb{R}^n$, 预测其类别 $y$.</p>
 <ol>
 <li>
 <p>基于度量 $\text{dist}$, 对于给定的样本点 $x$, 找到训练集中与 $x$ 最近的 $k$ 个样本点所构成的邻域 $N_k^{\text{dist}}(x)$;</p>
@@ -415,11 +416,12 @@ $$
 (D^\ast_{i1}, D^\ast_{i2}, \cdots, D^\ast_{il}) = \argmin_{D_{i1}, D_{i2}, \cdots, D_{ik}} \sum_{j=1}^k \sum_{(x_t,y_t) \in D_{ij}} \Vert x_t-c_{ij} \Vert_2^2
 $$<p>然而很难找到最优解, 因此采用迭代的方式来近似求解:</p>
 <div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p><strong>K-means 算法</strong> 的基本步骤如下:</p>
+    <p class="math-block-title math-algo">算法<span class="math-subtitle">K-means</span></p>
+<p><strong>输入</strong>: 给定训练样本集 $D = \{(x_i,y_i)\}_{i=1}^n$, 其中 $x_i \in \mathbb{R}^n$, $y_i \in \mathcal{Y} = \{c_1, c_2, \cdots, c_k\}$, 以及距离度量 $\text{dist}(x,y)=\Vert x-y \Vert_2$.</p>
+<p><strong>输出</strong>: 对于每个样本点 $x \in \mathbb{R}^n$, 预测其类别 $y$.</p>
 <ol>
 <li>初始化 $k$ 个簇的中心 $c_{ij}$;</li>
-<li>对每个 $(x_t),(y_t) \in D_i$ (即 $y_t=c_i$), 令
+<li>对每个 $(x_t, y_t) \in D_i$ (即 $y_t=c_i$), 令
 $$I_{x_t}= \argmin_{j} \Vert x_t-c_{ij} \Vert_2^2$$
 即将 $x_t$ 分配到最近的簇;</li>
 <li>对每个 $D_{ij}$, 更新均值
@@ -429,8 +431,9 @@ $$c_{ij} = \frac{1}{|D_{ij}|} \sum_{(x_t,y_t) \in D_{ij}} x_t$$</li>
 </div>
 <p>有可能会使得某些离分类边界很近的点被错误分类. 引入学习向量量化方法 (LVQ 算法). 让同类和异类的点在构建过程中都能起作用.</p>
 <div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p><strong>LVQ 算法</strong> 的基本步骤如下:</p>
+    <p class="math-block-title math-algo">算法<span class="math-subtitle">LVQ</span></p>
+<p><strong>输入</strong>: 给定训练样本集 $D = \{(x_i,y_i)\}_{i=1}^n$, 其中 $x_i \in \mathbb{R}^n$, $y_i \in \mathcal{Y} = \{c_1, c_2, \cdots, c_k\}$, 以及距离度量 $\text{dist}(x,y)=\Vert x-y \Vert_2$.</p>
+<p><strong>输出</strong>: 对于每个样本点 $x \in \mathbb{R}^n$, 预测其类别 $y$.</p>
 <ol>
 <li>对每个类 $c_m$ 随机选择 $k$ 个点 $I_{mi}$ 作为代表;</li>
 <li>对每个样本点 $x_t$, 找到最近的代表元 $I_{m^\ast i^\ast}$, 即
