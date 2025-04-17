@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/opt-method/convex-function/'>
 
-<link rel="stylesheet" href="/scss/style.min.d76a7139ac5790e09a4589a93130e0053ff56aa27f67f8596e6bb8b70bb4de7f.css"><meta property='og:title' content="最优化方法(3) —— 凸函数">
+<link rel="stylesheet" href="/scss/style.min.add5fabff713692742ade9f0dbb759c4af9ada5f3ef1b7c41f04c0771337dcdb.css"><meta property='og:title' content="最优化方法(3) —— 凸函数">
 <meta property='og:description' content="基本线性代数知识 定义\n给定函数 $f: \\mathbb{R}^n \\mapsto \\mathbb{R}$, 且 $f$ 在 $x$ 一个邻域内有定义, 若存在 $g \\in \\mathbb{R}^n$, 使得\n$$ \\lim_{p \\to 0} \\frac{f(x+p)-f(x)-g^Tp}{\\Vert p \\Vert} = 0 $$其中 $\\Vert \\cdot \\Vert$ 是向量范数, 则称 $f$ 在 $x$ 处 可微. 此时, $g$ 称为 $f$ 在 $x$ 处的 梯度, 记为 $\\nabla f(x)$.\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/opt-method/convex-function/'>
 <meta property='og:site_name' content='LeoDreamer'>
@@ -634,6 +634,8 @@ $$f(x) = \frac{1}{\sqrt{(2\pi)^n \text{det} \Sigma}} \exp\left(-\frac{1}{2}(x-\m
 <p>在广义不等式下, 也可以定义凸凹性.</p>
 <div class="math-block">
     <p class="math-block-title math-def">定义</p>
+<p>$f: \mathbb{R}^n \mapsto \mathbb{R}^m$ 称为 <strong>$K$-凸函数</strong>, 如果 $\text{dom} f$ 是凸集, 且
+</p>
 $$f(\theta x+(1-\theta)y \preceq_K \theta f(x)+(1-\theta)f(y))$$<p>
 对任意 $x,y \in \text{dom} f, 0 \le \theta \le 1$ 成立.</p>
 </div>

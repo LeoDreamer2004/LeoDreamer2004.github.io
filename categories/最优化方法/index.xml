@@ -917,6 +917,8 @@ $$f(x) = \frac{1}{\sqrt{(2\pi)^n \text{det} \Sigma}} \exp\left(-\frac{1}{2}(x-\m
 &lt;p&gt;在广义不等式下, 也可以定义凸凹性.&lt;/p&gt;
 &lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;$f: \mathbb{R}^n \mapsto \mathbb{R}^m$ 称为 &lt;strong&gt;$K$-凸函数&lt;/strong&gt;, 如果 $\text{dom} f$ 是凸集, 且
+&lt;/p&gt;
 $$f(\theta x+(1-\theta)y \preceq_K \theta f(x)+(1-\theta)f(y))$$&lt;p&gt;
 对任意 $x,y \in \text{dom} f, 0 \le \theta \le 1$ 成立.&lt;/p&gt;
 &lt;/div&gt;

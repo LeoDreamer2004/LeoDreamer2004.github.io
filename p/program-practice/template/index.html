@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="函数模板 1 2 3 4 template &lt;class 模板参数&gt; 返回值 模板函数名(形参) { // 函数体 } 函数模板也可以有不止一个类型参数.\n1 2 3 4 5 template &lt;class T1, class T2&gt; T2 print(T1 arg1, T2 arg2) { cout &lt;&lt; arg1 &lt;&lt; &#34; &#34;&lt;&lt; arg2&lt;&lt;endl; return arg2; } 也可以不通过参数实例化函数模板:\n1 2 3 4 5 6 7 8 template &lt;class T&gt; T Inc(T n) { return 1 + n; } int main() { cout &lt;&lt; Inc&lt;double&gt;(4) / 2; // 输出 2.5 return 0; } 函数模板可以重载，只要它们的形参表或类型参数表不同即可.\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="函数模板 1 2 3 4 template &lt;class T&gt; int foo(T a) { // 函数体 } 函数模板也可以有不止一个类型参数.\n1 2 3 4 5 template &lt;class T1, class T2&gt; T2 print(T1 arg1, T2 arg2) { cout &lt;&lt; arg1 &lt;&lt; &#34; &#34;&lt;&lt; arg2&lt;&lt;endl; return arg2; } 也可以不通过参数实例化函数模板:\n1 2 3 4 5 6 7 8 template &lt;class T&gt; T Inc(T n) { return 1 + n; } int main() { cout &lt;&lt; Inc&lt;double&gt;(4) / 2; // 输出 2.5 return 0; } 函数模板可以重载，只要它们的形参表或类型参数表不同即可.\n">
 <title>程序设计实习(6) —— 模板</title>
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/program-practice/template/'>
 
-<link rel="stylesheet" href="/scss/style.min.d76a7139ac5790e09a4589a93130e0053ff56aa27f67f8596e6bb8b70bb4de7f.css"><meta property='og:title' content="程序设计实习(6) —— 模板">
-<meta property='og:description' content="函数模板 1 2 3 4 template &lt;class 模板参数&gt; 返回值 模板函数名(形参) { // 函数体 } 函数模板也可以有不止一个类型参数.\n1 2 3 4 5 template &lt;class T1, class T2&gt; T2 print(T1 arg1, T2 arg2) { cout &lt;&lt; arg1 &lt;&lt; &#34; &#34;&lt;&lt; arg2&lt;&lt;endl; return arg2; } 也可以不通过参数实例化函数模板:\n1 2 3 4 5 6 7 8 template &lt;class T&gt; T Inc(T n) { return 1 + n; } int main() { cout &lt;&lt; Inc&lt;double&gt;(4) / 2; // 输出 2.5 return 0; } 函数模板可以重载，只要它们的形参表或类型参数表不同即可.\n">
+<link rel="stylesheet" href="/scss/style.min.add5fabff713692742ade9f0dbb759c4af9ada5f3ef1b7c41f04c0771337dcdb.css"><meta property='og:title' content="程序设计实习(6) —— 模板">
+<meta property='og:description' content="函数模板 1 2 3 4 template &lt;class T&gt; int foo(T a) { // 函数体 } 函数模板也可以有不止一个类型参数.\n1 2 3 4 5 template &lt;class T1, class T2&gt; T2 print(T1 arg1, T2 arg2) { cout &lt;&lt; arg1 &lt;&lt; &#34; &#34;&lt;&lt; arg2&lt;&lt;endl; return arg2; } 也可以不通过参数实例化函数模板:\n1 2 3 4 5 6 7 8 template &lt;class T&gt; T Inc(T n) { return 1 + n; } int main() { cout &lt;&lt; Inc&lt;double&gt;(4) / 2; // 输出 2.5 return 0; } 函数模板可以重载，只要它们的形参表或类型参数表不同即可.\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/program-practice/template/'>
 <meta property='og:site_name' content='LeoDreamer'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-04-09T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-04-09T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="程序设计实习(6) —— 模板">
-<meta name="twitter:description" content="函数模板 1 2 3 4 template &lt;class 模板参数&gt; 返回值 模板函数名(形参) { // 函数体 } 函数模板也可以有不止一个类型参数.\n1 2 3 4 5 template &lt;class T1, class T2&gt; T2 print(T1 arg1, T2 arg2) { cout &lt;&lt; arg1 &lt;&lt; &#34; &#34;&lt;&lt; arg2&lt;&lt;endl; return arg2; } 也可以不通过参数实例化函数模板:\n1 2 3 4 5 6 7 8 template &lt;class T&gt; T Inc(T n) { return 1 + n; } int main() { cout &lt;&lt; Inc&lt;double&gt;(4) / 2; // 输出 2.5 return 0; } 函数模板可以重载，只要它们的形参表或类型参数表不同即可.\n">
+<meta name="twitter:description" content="函数模板 1 2 3 4 template &lt;class T&gt; int foo(T a) { // 函数体 } 函数模板也可以有不止一个类型参数.\n1 2 3 4 5 template &lt;class T1, class T2&gt; T2 print(T1 arg1, T2 arg2) { cout &lt;&lt; arg1 &lt;&lt; &#34; &#34;&lt;&lt; arg2&lt;&lt;endl; return arg2; } 也可以不通过参数实例化函数模板:\n1 2 3 4 5 6 7 8 template &lt;class T&gt; T Inc(T n) { return 1 + n; } int main() { cout &lt;&lt; Inc&lt;double&gt;(4) / 2; // 输出 2.5 return 0; } 函数模板可以重载，只要它们的形参表或类型参数表不同即可.\n">
     </head>
     <body class="
     article-page
@@ -292,7 +292,13 @@
             <nav id="TableOfContents">
   <ol>
     <li><a href="#函数模板">函数模板</a></li>
-    <li><a href="#类模板">类模板</a></li>
+    <li><a href="#类模板">类模板</a>
+      <ol>
+        <li><a href="#类模板与派生">类模板与派生</a></li>
+        <li><a href="#类模板与友元">类模板与友元</a></li>
+        <li><a href="#类模板与静态成员">类模板与静态成员</a></li>
+      </ol>
+    </li>
   </ol>
 </nav>
         </div>
@@ -366,7 +372,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 1 分钟
+                    阅读时长: 2 分钟
                 </time>
             </div>
         
@@ -390,8 +396,8 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="err">模板参数</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="err">返回值</span> <span class="err">模板函数名</span><span class="p">(</span><span class="err">形参</span><span class="p">)</span> <span class="p">{</span>
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">foo</span><span class="p">(</span><span class="n">T</span> <span class="n">a</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 函数体
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -479,7 +485,80 @@
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="类模板">类模板
-</h2>
+</h2><p>在定义类的时候，加上一个/多个类型参数. 在使用类模板时, 指定类型参数应该
+如何替换成具体类型，编译器据此生成相应的模板类.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MyClass</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">T</span> <span class="n">data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>编译器由类模板生成类的过程叫类模板的实例化. 由类模板实例化得到的类叫模板类. 同一个类模板的两个模板类是不兼容的.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">pair</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">pair</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">;</span> <span class="c1">// wrong
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>类型参数表可以出现非类型参数.</p>
+<h3 id="类模板与派生">类模板与派生
+</h3><ul>
+<li>类模板从类模板派生</li>
+<li>类模板从模板类派生</li>
+<li>类模板从普通类派生</li>
+<li>普通类从模板类派生</li>
+</ul>
+<h3 id="类模板与友元">类模板与友元
+</h3><ul>
+<li>函数、类、类的成员函数作为类模板的友元</li>
+<li>函数模板作为类模板的友元</li>
+<li>函数模板作为类的友元</li>
+<li>类模板作为类模板的友元
+普通类从模板类派</li>
+</ul>
+<p>需要注意, 如果手动实现函数的特化, 则不会成为友元.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">v</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">A</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span><span class="o">:</span><span class="n">v</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="k">friend</span> <span class="kt">void</span> <span class="n">Print</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span> <span class="n">p</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="n">Print</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span> <span class="n">p</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Print</span><span class="p">(</span><span class="kt">int</span> <span class="n">p</span><span class="p">);</span> <span class="c1">// 不是友元
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="类模板与静态成员">类模板与静态成员
+</h3><p>类模板中可以定义静态成员，那么从该类模板实例化得到的每个模板类，都有自己的类模
+板静态数据成员，该模板类的所有对象，共享一个静态数据成员</p>
+
 </section>
 
 
@@ -541,6 +620,32 @@
             
                 
 <article class="">
+    <a href="/p/program-practice/stl/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">程序设计实习(8) —— 标准模板库</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/program-practice/string/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">程序设计实习(7) —— string 类</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
     <a href="/p/program-practice/file-io/">
         
         
@@ -573,32 +678,6 @@
 
         <div class="article-details">
             <h2 class="article-title">程序设计实习(3) —— 继承与派生</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/program-practice/operator-overload/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">程序设计实习(2) —— 运算符重载</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/program-practice/class-and-object/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">程序设计实习(1) —— 类和对象</h2>
         </div>
     </a>
 </article>

@@ -15,8 +15,9 @@
         <guid>https://LeoDreamer2004.github.io/p/machine-learning/clustering-intro/</guid>
         <description>&lt;h2 id=&#34;基于原型的聚类方法&#34;&gt;基于原型的聚类方法
 &lt;/h2&gt;&lt;p&gt;与监督学习不同, 无监督学习基于数据集 $D=\{x_i\}_{i=1}^N$, 没有标签 $y_i$. 基于原型的方法通常假设数据内在的分布结构可以通过一组原型刻画, 先对原型初始化, 然后按照相应策略和准则进行迭代更新.&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;K-Means 聚类&lt;/span&gt;&lt;/p&gt;
+&lt;h3 id=&#34;k-means-聚类&#34;&gt;K-means 聚类
+&lt;/h3&gt;&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;K-means 聚类&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 数据集 $D=\{x_i\}_{i=1}^N$, 聚类簇个数 $K$.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 簇划分 $\mathcal{C}=\{C_l\}_{l=1}^K$.&lt;/p&gt;
 &lt;ol&gt;
@@ -27,8 +28,84 @@
 &lt;li&gt;返回 $\mathcal{C} = \{C_l\}_{l=1}^K$.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
-&lt;p&gt;一般会基于不同的核心多次运行 K-Means. 均值运算对于噪声和离群点非常敏感.&lt;/p&gt;
-</description>
+&lt;p&gt;一般会基于不同的核心多次运行 K-means. 均值运算对于噪声和离群点非常敏感.&lt;/p&gt;
+&lt;p&gt;还有一些变体, K-中心点方法通过挑选簇内相对处于最中心位置的一个实际样本点而非样本均值向量来作为簇心.&lt;/p&gt;
+&lt;p&gt;用 $O_l$ 表示簇 $C_l$ 的簇心样本点, 用 $\text{dist}(x_i, O_l)$ 表示样本点 $x_i$ 和 $O_l$ 的相异程度度量, 则 K-中心点方法相当于通过最小化绝对误差&lt;/p&gt;
+$$E = \sum_{l=1}^{K} \sum_{x \in C_l} \text{dist}(x, O_l)$$&lt;p&gt;围绕中心点的化分算法 (PAM) 是一种典型的 K-中心点方法.&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;PAM&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 数据集 $D=\{x_i\}_{i=1}^N$, 聚类簇个数 $K$.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 簇划分 $\mathcal{C}=\{C_l\}_{l=1}^K$.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;首先对每个簇的中心点进行随机初始化，并将非中心点的样本划分到簇心与其最相似的簇中，形成样本集的初始划分.&lt;/li&gt;
+&lt;li&gt;然后采用贪心策略，迭代更新划分，直到没有变化为止.&lt;/li&gt;
+&lt;li&gt;对当前的一个中心点 $o_l$, 随机选择一个非中心点样本 $x_i$, 评估以 $x_i$ 替代 $o_l$ 作为簇心能否得到更好的划分.&lt;/li&gt;
+&lt;li&gt;如果这种替代能得到更好的划分，则以 $x_i$ 作为簇 $C_l$ 的新中心点, 然后对当前的非中心点样本进行重新划分;&lt;/li&gt;
+&lt;li&gt;尝试这样所有可能的替换, 直到簇划分不再发生变化为止.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;p&gt;PAM 算法使用中心点作为簇的原型表示，可以避免均值向量作为原型时易受离群点影响的问题.&lt;/p&gt;
+&lt;h3 id=&#34;gauss-混合模型&#34;&gt;Gauss 混合模型
+&lt;/h3&gt;&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Gauss 混合模型&lt;/strong&gt; 是指具有如下概率分布密度函数的模型:&lt;/p&gt;
+$$p(x|\theta) = \sum_{k=1}^K \alpha_i p(x | \mu_i, \Sigma_i)$$&lt;p&gt;其中:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;$\alpha_i$ 是混合系数, 满足 $\sum_{i=1}^K \alpha_i = 1$;&lt;/li&gt;
+&lt;li&gt;$p(x | \mu_i, \Sigma_i)$ 是 Gauss 分布, 其均值为 $\mu_i$, 协方差矩阵为 $\Sigma_i$, 即
+$$p(x|\mu_i, \Sigma_i) = \frac{1}{\sqrt{(2\pi)^n |\Sigma_i|}} \exp\left(-\frac{1}{2}(x - \mu_i)^T \Sigma_i^{-1} (x - \mu_i)\right)$$&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;p&gt;给定样本集 $D=\{x_i\}_{i=1}^N$, 基于 Gauss 混合模型的聚类算法假定样本 $x_j$ 依据 Gauss 混合分布生成, 即先以概率 $\alpha_i$ 选择一个高斯分布 $p(x | \mu_i, \Sigma_i)$, 然后从该高斯分布中生成样本 $x_j$.&lt;/p&gt;
+&lt;p&gt;对 $x_j$, 设 $z_j$ 表示生成 $x_j$ 的分模型, 即 $P(z_j = i) = \alpha_i$. 后验概率最大化&lt;/p&gt;
+$$
+\lambda_j = \argmax_i P(z_j = i | x_j)
+$$&lt;p&gt;由 Bayes 公式, 忽略相同的分母, 则&lt;/p&gt;
+$$
+\begin{aligned}
+\lambda_j &amp;= \argmax_i P(x_j | z_j = i) P(z_j = i) \\
+&amp;= \argmax_i p(x_j | \mu_i, \Sigma_i) \alpha_i
+\end{aligned}
+$$&lt;p&gt;考虑对数似然函数&lt;/p&gt;
+$$
+LL(\theta | D) = \sum_{j=1}^N \log p(x_j | \theta) = \sum_{j=1}^N \log \left( \sum_{i=1}^K \alpha_i p(x_j | \mu_i, \Sigma_i) \right)
+$$&lt;p&gt;并不是很好求解. 我们引入隐变量 $z_{ji}$ 表示 $x_j$ 由第 $i$ 个高斯分布生成, 即&lt;/p&gt;
+$$
+z_{ji} = \begin{cases}
+1, &amp; \text{if } z_j = i \\
+0, &amp; \text{otherwise}
+\end{cases}
+$$&lt;p&gt;则这样的对数似然函数可以写成&lt;/p&gt;
+$$
+\begin{aligned}
+LL(\theta D|Z)&amp;=\sum_{j=1}^N \sum_{i=1}^K z_{ji} \log \left( \alpha_i p(x_j | \mu_i, \Sigma_i) \right) \\
+&amp;=\sum_{i=1}^K \left( \sum_{j=1}^N z_{ji} \right) \log \alpha_i + \sum_{i=1}^K \sum_{j=1}^N z_{ji} \log p(x_j | \mu_i, \Sigma_i)
+\end{aligned}
+$$&lt;p&gt;常采用 EM 算法迭代求解.&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;EM&lt;/span&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;E步&lt;/strong&gt;, 求期望: 基于当前参数 $\theta^{(t)}$, 计算对数似然函数关于 $Z$ 的期望:
+$$
+    Q(\theta | \theta^{(t)}) = \mathbb{E}_{Z} \left[ LL(\theta | D, Z) | D, \theta^{(t)} \right] = \sum_Z LL(\theta | D, Z) P(Z | D, \theta^{(t)})
+    $$&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;M步&lt;/strong&gt;, 最大化: 通过最大化 $Q(\theta | \theta^{(t)})$ 来更新参数 $\theta$:
+$$
+    \theta^{(t+1)} = \argmax_{\theta} Q(\theta | \theta^{(t)})
+    $$&lt;/li&gt;
+&lt;li&gt;迭代直到收敛.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;p&gt;用 EM 算法估计参数:&lt;/p&gt;
+$$
+LL(\theta|D,Z)=\sum_{i=1}^k\left\{(\sum_{j=1}^Nz_{ji})\log\alpha_i+\sum_{j=1}^Nz_{ji}\log p(x_j|\mu_i,\sigma_i^2)\right\}k
+$$&lt;p&gt;令 $n_i=\sum_{j=1}^Nz_{ji}$, 则&lt;/p&gt;
+$$
+\begin{aligned}
+&amp; LL(\theta|D,Z)=\sum_{i=1}^k\left\{n_i\log\alpha_i+\sum_{j=1}^Nz_{ji}\log p(x_j|\mu_i,\sigma_i^2)\right\} \\
+&amp; =\sum_{i=1}^{k}\left\{n_{i}\log\alpha_{i}+\sum_{j=1}^{N}z_{ji}\left[\log\left(\frac{1}{\sqrt{2\pi}}\right)-\log\sigma_{i}-\frac{1}{2\sigma_{i}^{2}}(x_{j}-\mu_{i})^{2}\right]\right\}
+\end{aligned}
+$$</description>
         </item>
         <item>
         <title>机器学习基础(7) —— 集成学习</title>
@@ -773,7 +850,7 @@ $$&lt;p&gt;从现在来看, 决策树构造过程中划分的单元都是矩形�
 &lt;h2 id=&#34;最小二乘回归树模型&#34;&gt;最小二乘回归树模型
 &lt;/h2&gt;&lt;p&gt;CART 算法用于回归问题时, 采用平方误差损失函数选择属性和切分点.&lt;/p&gt;
 &lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;最小二乘回归树模型&lt;/span&gt;&lt;/p&gt;
+    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;CART&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 训练数据集 $D=\{(x_i,y_i)\}_{i=1}^N$, 特征集 $\mathcal{A}=\{A_1,A_2,\cdots,A_m\}$.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 回归树 $T$.&lt;/p&gt;
 &lt;ol&gt;
@@ -884,10 +961,10 @@ $$I_{m^\ast i^\ast} \gets I_{m^\ast i^\ast} - \eta(x_t - I_{m^\ast i^\ast})$$&lt
         </item>
         <item>
         <title>机器学习基础(3) —— 基于后验概率最大化准则的分类模型</title>
-        <link>https://LeoDreamer2004.github.io/p/machine-learning/bayers/</link>
+        <link>https://LeoDreamer2004.github.io/p/machine-learning/bayes/</link>
         <pubDate>Tue, 11 Mar 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://LeoDreamer2004.github.io/p/machine-learning/bayers/</guid>
+        <guid>https://LeoDreamer2004.github.io/p/machine-learning/bayes/</guid>
         <description>&lt;h2 id=&#34;后验概率最大化准则&#34;&gt;后验概率最大化准则
 &lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
@@ -937,16 +1014,16 @@ $$
 \frac{\partial \log L(\theta)}{\partial w} &amp;= \sum_{i=1}^n x_i(y_i - p(x_i;\theta)) = 0\\
 \frac{\partial \log L(\theta)}{\partial b} &amp;= \sum_{i=1}^n (y_i - p(x_i;\theta)) = 0
 \end{aligned}
-$$&lt;h2 id=&#34;朴素-bayers-分类器&#34;&gt;朴素 Bayers 分类器
+$$&lt;h2 id=&#34;朴素-bayes-分类器&#34;&gt;朴素 Bayes 分类器
 &lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;Bayers 公式&lt;/span&gt;&lt;/p&gt;
+    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;Bayes 公式&lt;/span&gt;&lt;/p&gt;
 $$
 \begin{aligned}
 P(Y=c_i | x) &amp;= \frac{P(x | Y=c_i) P(Y=c_i)}{P(x)} \\
 &amp;= \frac{P(x | Y=c_i) P(Y=c_i)}{\sum_{j=1}^K P(x | Y=c_j) P(Y=c_j)}
 \end{aligned}
 $$&lt;/div&gt;
-&lt;p&gt;朴素 Bayers 假定特征之间相互独立, 即&lt;/p&gt;
+&lt;p&gt;朴素 Bayes 假定特征之间相互独立, 即&lt;/p&gt;
 $$
 p(X^1=x^1, X^2=x^2, \cdots, X^n=x^n | Y=c_k) = \prod_{j=1}^n p(X^j=x^j | Y=c_k)
 $$&lt;p&gt;对于输入实例 $x=(x^1,x^2,\cdots,x^n)$, 则后验概率&lt;/p&gt;
@@ -1748,6 +1825,8 @@ $$f(x) = \frac{1}{\sqrt{(2\pi)^n \text{det} \Sigma}} \exp\left(-\frac{1}{2}(x-\m
 &lt;p&gt;在广义不等式下, 也可以定义凸凹性.&lt;/p&gt;
 &lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;$f: \mathbb{R}^n \mapsto \mathbb{R}^m$ 称为 &lt;strong&gt;$K$-凸函数&lt;/strong&gt;, 如果 $\text{dom} f$ 是凸集, 且
+&lt;/p&gt;
 $$f(\theta x+(1-\theta)y \preceq_K \theta f(x)+(1-\theta)f(y))$$&lt;p&gt;
 对任意 $x,y \in \text{dom} f, 0 \le \theta \le 1$ 成立.&lt;/p&gt;
 &lt;/div&gt;

@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning/decision-tree/'>
 
-<link rel="stylesheet" href="/scss/style.min.d76a7139ac5790e09a4589a93130e0053ff56aa27f67f8596e6bb8b70bb4de7f.css"><meta property='og:title' content="机器学习基础(5) —— 决策树模型">
+<link rel="stylesheet" href="/scss/style.min.add5fabff713692742ade9f0dbb759c4af9ada5f3ef1b7c41f04c0771337dcdb.css"><meta property='og:title' content="机器学习基础(5) —— 决策树模型">
 <meta property='og:description' content="特征的分类能力评估 定义\n给定数据集 $D=\\{(x_i,y_i)\\}_{i=1}^N$, 其中 $x_i=\\left(x_i^{(1)},x_i^{(2)},\\cdots,x_i^{(m)}\\right) \\in \\mathcal{X}$ 是第 $i$ 个样本的特征向量, $y_i \\in \\mathcal{Y}=\\{c_1,c_2,\\cdots,c_K\\}$ 是第 $i$ 个样本的标签. 假设数据集 $D$ 根据特征分成了 $K$ 个子集 $D_1,D_2,\\cdots,D_K$, 定义 经验熵 为\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning/decision-tree/'>
 <meta property='og:site_name' content='LeoDreamer'>
@@ -469,7 +469,7 @@ $$<p>从现在来看, 决策树构造过程中划分的单元都是矩形的, �
 <h2 id="最小二乘回归树模型">最小二乘回归树模型
 </h2><p>CART 算法用于回归问题时, 采用平方误差损失函数选择属性和切分点.</p>
 <div class="math-block">
-    <p class="math-block-title math-algo">算法<span class="math-subtitle">最小二乘回归树模型</span></p>
+    <p class="math-block-title math-algo">算法<span class="math-subtitle">CART</span></p>
 <p><strong>输入</strong>: 训练数据集 $D=\{(x_i,y_i)\}_{i=1}^N$, 特征集 $\mathcal{A}=\{A_1,A_2,\cdots,A_m\}$.</p>
 <p><strong>输出</strong>: 回归树 $T$.</p>
 <ol>
@@ -616,7 +616,7 @@ $$C(T) = \sum_{t=1}^{|T|} N_tQ_t(T) = \sum_{t=1}^{|T|} \sum_{x_i \in R_t} (y_i-\
             
                 
 <article class="">
-    <a href="/p/machine-learning/bayers/">
+    <a href="/p/machine-learning/bayes/">
         
         
 

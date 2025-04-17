@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning/clustering-intro/'>
 
-<link rel="stylesheet" href="/scss/style.min.d76a7139ac5790e09a4589a93130e0053ff56aa27f67f8596e6bb8b70bb4de7f.css"><meta property='og:title' content="机器学习基础(8) —— 聚类简介">
+<link rel="stylesheet" href="/scss/style.min.add5fabff713692742ade9f0dbb759c4af9ada5f3ef1b7c41f04c0771337dcdb.css"><meta property='og:title' content="机器学习基础(8) —— 聚类简介">
 <meta property='og:description' content="基于原型的聚类方法 与监督学习不同, 无监督学习基于数据集 $D=\\{x_i\\}_{i=1}^N$, 没有标签 $y_i$. 基于原型的方法通常假设数据内在的分布结构可以通过一组原型刻画, 先对原型初始化, 然后按照相应策略和准则进行迭代更新.\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning/clustering-intro/'>
 <meta property='og:site_name' content='LeoDreamer'>
@@ -291,7 +291,12 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#基于原型的聚类方法">基于原型的聚类方法</a></li>
+    <li><a href="#基于原型的聚类方法">基于原型的聚类方法</a>
+      <ol>
+        <li><a href="#k-means-聚类">K-means 聚类</a></li>
+        <li><a href="#gauss-混合模型">Gauss 混合模型</a></li>
+      </ol>
+    </li>
   </ol>
 </nav>
         </div>
@@ -365,7 +370,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 1 分钟
+                    阅读时长: 3 分钟
                 </time>
             </div>
         
@@ -382,8 +387,9 @@
     
     <h2 id="基于原型的聚类方法">基于原型的聚类方法
 </h2><p>与监督学习不同, 无监督学习基于数据集 $D=\{x_i\}_{i=1}^N$, 没有标签 $y_i$. 基于原型的方法通常假设数据内在的分布结构可以通过一组原型刻画, 先对原型初始化, 然后按照相应策略和准则进行迭代更新.</p>
-<div class="math-block">
-    <p class="math-block-title math-algo">算法<span class="math-subtitle">K-Means 聚类</span></p>
+<h3 id="k-means-聚类">K-means 聚类
+</h3><div class="math-block">
+    <p class="math-block-title math-algo">算法<span class="math-subtitle">K-means 聚类</span></p>
 <p><strong>输入</strong>: 数据集 $D=\{x_i\}_{i=1}^N$, 聚类簇个数 $K$.</p>
 <p><strong>输出</strong>: 簇划分 $\mathcal{C}=\{C_l\}_{l=1}^K$.</p>
 <ol>
@@ -394,8 +400,84 @@
 <li>返回 $\mathcal{C} = \{C_l\}_{l=1}^K$.</li>
 </ol>
 </div>
-<p>一般会基于不同的核心多次运行 K-Means. 均值运算对于噪声和离群点非常敏感.</p>
-
+<p>一般会基于不同的核心多次运行 K-means. 均值运算对于噪声和离群点非常敏感.</p>
+<p>还有一些变体, K-中心点方法通过挑选簇内相对处于最中心位置的一个实际样本点而非样本均值向量来作为簇心.</p>
+<p>用 $O_l$ 表示簇 $C_l$ 的簇心样本点, 用 $\text{dist}(x_i, O_l)$ 表示样本点 $x_i$ 和 $O_l$ 的相异程度度量, 则 K-中心点方法相当于通过最小化绝对误差</p>
+$$E = \sum_{l=1}^{K} \sum_{x \in C_l} \text{dist}(x, O_l)$$<p>围绕中心点的化分算法 (PAM) 是一种典型的 K-中心点方法.</p>
+<div class="math-block">
+    <p class="math-block-title math-algo">算法<span class="math-subtitle">PAM</span></p>
+<p><strong>输入</strong>: 数据集 $D=\{x_i\}_{i=1}^N$, 聚类簇个数 $K$.</p>
+<p><strong>输出</strong>: 簇划分 $\mathcal{C}=\{C_l\}_{l=1}^K$.</p>
+<ol>
+<li>首先对每个簇的中心点进行随机初始化，并将非中心点的样本划分到簇心与其最相似的簇中，形成样本集的初始划分.</li>
+<li>然后采用贪心策略，迭代更新划分，直到没有变化为止.</li>
+<li>对当前的一个中心点 $o_l$, 随机选择一个非中心点样本 $x_i$, 评估以 $x_i$ 替代 $o_l$ 作为簇心能否得到更好的划分.</li>
+<li>如果这种替代能得到更好的划分，则以 $x_i$ 作为簇 $C_l$ 的新中心点, 然后对当前的非中心点样本进行重新划分;</li>
+<li>尝试这样所有可能的替换, 直到簇划分不再发生变化为止.</li>
+</ol>
+</div>
+<p>PAM 算法使用中心点作为簇的原型表示，可以避免均值向量作为原型时易受离群点影响的问题.</p>
+<h3 id="gauss-混合模型">Gauss 混合模型
+</h3><div class="math-block">
+    <p class="math-block-title math-def">定义</p>
+<p><strong>Gauss 混合模型</strong> 是指具有如下概率分布密度函数的模型:</p>
+$$p(x|\theta) = \sum_{k=1}^K \alpha_i p(x | \mu_i, \Sigma_i)$$<p>其中:</p>
+<ol>
+<li>$\alpha_i$ 是混合系数, 满足 $\sum_{i=1}^K \alpha_i = 1$;</li>
+<li>$p(x | \mu_i, \Sigma_i)$ 是 Gauss 分布, 其均值为 $\mu_i$, 协方差矩阵为 $\Sigma_i$, 即
+$$p(x|\mu_i, \Sigma_i) = \frac{1}{\sqrt{(2\pi)^n |\Sigma_i|}} \exp\left(-\frac{1}{2}(x - \mu_i)^T \Sigma_i^{-1} (x - \mu_i)\right)$$</li>
+</ol>
+</div>
+<p>给定样本集 $D=\{x_i\}_{i=1}^N$, 基于 Gauss 混合模型的聚类算法假定样本 $x_j$ 依据 Gauss 混合分布生成, 即先以概率 $\alpha_i$ 选择一个高斯分布 $p(x | \mu_i, \Sigma_i)$, 然后从该高斯分布中生成样本 $x_j$.</p>
+<p>对 $x_j$, 设 $z_j$ 表示生成 $x_j$ 的分模型, 即 $P(z_j = i) = \alpha_i$. 后验概率最大化</p>
+$$
+\lambda_j = \argmax_i P(z_j = i | x_j)
+$$<p>由 Bayes 公式, 忽略相同的分母, 则</p>
+$$
+\begin{aligned}
+\lambda_j &= \argmax_i P(x_j | z_j = i) P(z_j = i) \\
+&= \argmax_i p(x_j | \mu_i, \Sigma_i) \alpha_i
+\end{aligned}
+$$<p>考虑对数似然函数</p>
+$$
+LL(\theta | D) = \sum_{j=1}^N \log p(x_j | \theta) = \sum_{j=1}^N \log \left( \sum_{i=1}^K \alpha_i p(x_j | \mu_i, \Sigma_i) \right)
+$$<p>并不是很好求解. 我们引入隐变量 $z_{ji}$ 表示 $x_j$ 由第 $i$ 个高斯分布生成, 即</p>
+$$
+z_{ji} = \begin{cases}
+1, & \text{if } z_j = i \\
+0, & \text{otherwise}
+\end{cases}
+$$<p>则这样的对数似然函数可以写成</p>
+$$
+\begin{aligned}
+LL(\theta D|Z)&=\sum_{j=1}^N \sum_{i=1}^K z_{ji} \log \left( \alpha_i p(x_j | \mu_i, \Sigma_i) \right) \\
+&=\sum_{i=1}^K \left( \sum_{j=1}^N z_{ji} \right) \log \alpha_i + \sum_{i=1}^K \sum_{j=1}^N z_{ji} \log p(x_j | \mu_i, \Sigma_i)
+\end{aligned}
+$$<p>常采用 EM 算法迭代求解.</p>
+<div class="math-block">
+    <p class="math-block-title math-algo">算法<span class="math-subtitle">EM</span></p>
+<ol>
+<li><strong>E步</strong>, 求期望: 基于当前参数 $\theta^{(t)}$, 计算对数似然函数关于 $Z$ 的期望:
+$$
+    Q(\theta | \theta^{(t)}) = \mathbb{E}_{Z} \left[ LL(\theta | D, Z) | D, \theta^{(t)} \right] = \sum_Z LL(\theta | D, Z) P(Z | D, \theta^{(t)})
+    $$</li>
+<li><strong>M步</strong>, 最大化: 通过最大化 $Q(\theta | \theta^{(t)})$ 来更新参数 $\theta$:
+$$
+    \theta^{(t+1)} = \argmax_{\theta} Q(\theta | \theta^{(t)})
+    $$</li>
+<li>迭代直到收敛.</li>
+</ol>
+</div>
+<p>用 EM 算法估计参数:</p>
+$$
+LL(\theta|D,Z)=\sum_{i=1}^k\left\{(\sum_{j=1}^Nz_{ji})\log\alpha_i+\sum_{j=1}^Nz_{ji}\log p(x_j|\mu_i,\sigma_i^2)\right\}k
+$$<p>令 $n_i=\sum_{j=1}^Nz_{ji}$, 则</p>
+$$
+\begin{aligned}
+& LL(\theta|D,Z)=\sum_{i=1}^k\left\{n_i\log\alpha_i+\sum_{j=1}^Nz_{ji}\log p(x_j|\mu_i,\sigma_i^2)\right\} \\
+& =\sum_{i=1}^{k}\left\{n_{i}\log\alpha_{i}+\sum_{j=1}^{N}z_{ji}\left[\log\left(\frac{1}{\sqrt{2\pi}}\right)-\log\sigma_{i}-\frac{1}{2\sigma_{i}^{2}}(x_{j}-\mu_{i})^{2}\right]\right\}
+\end{aligned}
+$$
 </section>
 
 
@@ -509,7 +591,7 @@
             
                 
 <article class="">
-    <a href="/p/machine-learning/bayers/">
+    <a href="/p/machine-learning/bayes/">
         
         
 
