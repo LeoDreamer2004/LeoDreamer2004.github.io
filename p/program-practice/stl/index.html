@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="标准模板库 容器: 可以容纳各种数据类型的通用结构, 是类模板. 迭代器: 用于遍历容器的对象 算法: 用于操作容器的函数模板 容器 顺序容器: 元素是无序的, 插入和删除元素的复杂度都是线性级别.\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 容器: 可以容纳各种数据类型的通用结构, 是类模板. 迭代器: 用于遍历容器的对象 算法: 用于操作容器的函数模板 容器 顺序容器: 元素不是排序的, 插入和删除元素的复杂度都是线性级别.\n">
 <title>程序设计实习(8) —— 标准模板库</title>
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/program-practice/stl/'>
 
-<link rel="stylesheet" href="/scss/style.min.add5fabff713692742ade9f0dbb759c4af9ada5f3ef1b7c41f04c0771337dcdb.css"><meta property='og:title' content="程序设计实习(8) —— 标准模板库">
-<meta property='og:description' content="标准模板库 容器: 可以容纳各种数据类型的通用结构, 是类模板. 迭代器: 用于遍历容器的对象 算法: 用于操作容器的函数模板 容器 顺序容器: 元素是无序的, 插入和删除元素的复杂度都是线性级别.\n">
+<link rel="stylesheet" href="/scss/style.min.12d819feb41150701e7a7fe3d3806145fccdb05afb708f3d239a8a5416bcdcb1.css"><meta property='og:title' content="程序设计实习(8) —— 标准模板库">
+<meta property='og:description' content=" 容器: 可以容纳各种数据类型的通用结构, 是类模板. 迭代器: 用于遍历容器的对象 算法: 用于操作容器的函数模板 容器 顺序容器: 元素不是排序的, 插入和删除元素的复杂度都是线性级别.\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/program-practice/stl/'>
 <meta property='og:site_name' content='LeoDreamer'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-04-16T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-04-16T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="程序设计实习(8) —— 标准模板库">
-<meta name="twitter:description" content="标准模板库 容器: 可以容纳各种数据类型的通用结构, 是类模板. 迭代器: 用于遍历容器的对象 算法: 用于操作容器的函数模板 容器 顺序容器: 元素是无序的, 插入和删除元素的复杂度都是线性级别.\n">
+<meta name="twitter:description" content=" 容器: 可以容纳各种数据类型的通用结构, 是类模板. 迭代器: 用于遍历容器的对象 算法: 用于操作容器的函数模板 容器 顺序容器: 元素不是排序的, 插入和删除元素的复杂度都是线性级别.\n">
     </head>
     <body class="
     article-page
@@ -291,11 +291,10 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#标准模板库">标准模板库</a>
-      <ol>
-        <li><a href="#容器">容器</a></li>
-      </ol>
-    </li>
+    <li><a href="#容器">容器</a></li>
+    <li><a href="#迭代器">迭代器</a></li>
+    <li><a href="#算法">算法</a></li>
+    <li><a href="#函数对象">函数对象</a></li>
   </ol>
 </nav>
         </div>
@@ -369,7 +368,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 2 分钟
+                    阅读时长: 4 分钟
                 </time>
             </div>
         
@@ -384,14 +383,13 @@
     <section class="article-content">
     
     
-    <h2 id="标准模板库">标准模板库
-</h2><ul>
+    <ul>
 <li>容器: 可以容纳各种数据类型的通用结构, 是类模板.</li>
 <li>迭代器: 用于遍历容器的对象</li>
 <li>算法: 用于操作容器的函数模板</li>
 </ul>
-<h3 id="容器">容器
-</h3><p><strong>顺序容器</strong>: 元素是无序的, 插入和删除元素的复杂度都是线性级别.</p>
+<h2 id="容器">容器
+</h2><p><strong>顺序容器</strong>: 元素不是排序的, 插入和删除元素的复杂度都是线性级别.</p>
 <ul>
 <li><code>vector</code>: 动态数组, 元素在内存中是连续的, 随机存取任何元素都能在常数时间内完成, 在尾部插入和删除元素也能在常数时间内完成.</li>
 <li><code>deque</code>: 双端队列, 元素在内存中是连续的, 在头尾都能高效地插入和删除元素, 但是随机存取元素的效率比 <code>vector</code> 差.</li>
@@ -414,6 +412,193 @@
 <li><code>rbegin rend</code>: 返回指向容器最后一个元素的迭代器和指向容器第一个元素的迭代器.</li>
 <li><code>erase</code>: 删除指定位置的元素.</li>
 <li><code>clear</code>: 删除所有元素.</li>
+</ul>
+<h2 id="迭代器">迭代器
+</h2><p>用于指向顺序容器和关联容器中的元素, 迭代器用法和指针类似, 有 <code>const</code> 和非 <code>const</code> 两种.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&lt;</span><span class="n">v</span><span class="o">&gt;&gt;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">const_iterator</span> <span class="n">it</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="n">it</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">it</span> <span class="o">!=</span> <span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="o">++</span><span class="n">it</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">it</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; &#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果 <code>p, p1</code> 是双向迭代器, 则可以做:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="o">++</span><span class="n">p</span><span class="p">,</span> <span class="n">p</span><span class="o">++</span> <span class="c1">// 指向下一个元素
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">--</span><span class="n">p</span><span class="p">,</span> <span class="n">p</span><span class="o">--</span> <span class="c1">// 指向上一个元素
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">p</span> <span class="o">=</span> <span class="n">p1</span> <span class="c1">// 赋值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">p</span> <span class="o">==</span> <span class="n">p1</span> <span class="c1">// 判断是否相等 
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果 <code>p, p1</code> 是随机访问迭代器, 则可以做:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">p</span> <span class="o">+=</span> <span class="n">i</span> <span class="c1">// 向后移动 i 个元素
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">p</span> <span class="o">-=</span> <span class="n">i</span> <span class="c1">// 向前移动 i 个元素
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="c1">// 第 i 个元素的引用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">p</span> <span class="o">&lt;</span> <span class="n">p1</span> <span class="c1">// 判断大小
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">p</span> <span class="o">-</span> <span class="n">p1</span> <span class="c1">// 计算距离
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>双向迭代器不支持比大小和 <code>[]</code> 运算符.</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>容器</th>
+          <th>支持的迭代器</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>vector</code></td>
+          <td>随机访问</td>
+      </tr>
+      <tr>
+          <td><code>deque</code></td>
+          <td>随机访问</td>
+      </tr>
+      <tr>
+          <td><code>list</code></td>
+          <td>双向</td>
+      </tr>
+      <tr>
+          <td><code>set/multiset</code></td>
+          <td>双向</td>
+      </tr>
+      <tr>
+          <td><code>map/multimap</code></td>
+          <td>双向</td>
+      </tr>
+      <tr>
+          <td><code>stack</code></td>
+          <td>不支持</td>
+      </tr>
+      <tr>
+          <td><code>queue</code></td>
+          <td>不支持</td>
+      </tr>
+      <tr>
+          <td><code>priority_queue</code></td>
+          <td>不支持</td>
+      </tr>
+  </tbody>
+</table></div>
+<h2 id="算法">算法
+</h2><p>算法就是一个个函数模板, 大多数在<code>&lt;algorithm&gt;</code> 中定义.</p>
+<p>示例: <code>find()</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="n">InIt</span> <span class="n">find</span><span class="p">(</span><span class="n">InIt</span> <span class="n">first</span><span class="p">,</span> <span class="n">InIt</span> <span class="n">last</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">val</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>first</code> 和 <code>last</code> 是迭代器, <code>val</code> 是要查找的值, 返回一个迭代器指向找到的元素, 如果没有找到则返回 <code>last</code>.</p>
+<p>关联容器内部的元素是从小到大排序的, 称为 <strong>有序区间算法</strong>. 例如 <code>binary_search</code>; 有些算法会对区间进行从小到大排序, 称为 <strong>排序算法</strong>, 例如 <code>sort</code>.</p>
+<p>有时, &ldquo;<code>x</code> 和 <code>y</code> 相等&rdquo; 等价于 &ldquo;<code>x==y</code> 为真&rdquo;, 例如 <code>find</code>; 有时等价于 &ldquo;<code>x</code> 小于 <code>y</code> 和 <code>y</code> 小于 <code>x</code> 同时为假&rdquo;, 例如 <code>binary_search</code>.</p>
+<p>所有适用于 <code>vector</code> 的操作都适用于 <code>deque</code>. deque还有 <code>push_front</code>(将元素插入到前面) 和 <code>pop_front</code> (删除最前
+面的元素) 操作，复杂度是 O(1).</p>
+<p>对于 <code>list</code>, 除了具有所有顺序容器都有的成员函数以外, 还支持 8 个成员函数:</p>
+<ul>
+<li><code>push_front</code>: 在头部插入元素</li>
+<li><code>pop_front</code>: 删除头部元素</li>
+<li><code>sort</code>: 排序 (<code>list</code> 不支持 STL 的 <code>sort</code> 函数)</li>
+<li><code>remove</code>: 删除指定元素</li>
+<li><code>unique</code>: 删除相邻重复元素, 如果要求所有重复元素, 可以先排序, 然后调用 <code>unique</code> 函数.</li>
+<li><code>merge</code>: 合并两个有序的 <code>list</code>, 操作后第二个容器变为空.</li>
+<li><code>reverse</code>: 反转</li>
+<li><code>splice</code>: 在指定位置前面插入另一链表中的一个或多个元素, 并在另一链表中删除被插入的元素.</li>
+</ul>
+<h2 id="函数对象">函数对象
+</h2><p>是对象, 但是可以像函数一样使用, 即重载 <code>operator()</code>. STL 中有 <code>equal_to</code>, <code>less</code>, <code>greater</code> 等函数对象, 用于比较两个值的大小关系.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">greater</span> <span class="o">:</span> <span class="k">public</span> <span class="n">binary_function</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="kt">bool</span><span class="o">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="nf">operator</span><span class="p">()(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">y</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="n">y</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>list</code> 有两个 <code>sort</code> 函数, 不带参数 <code>sort</code> 函数将 <code>list</code> 中的元素按 <code>&lt;</code> 规定的比较方法升序排列. 还有带参数的版本:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T2</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">sort</span><span class="p">(</span><span class="n">T2</span> <span class="n">op</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以用 <code>op</code> 比较, 为 <code>op(x, y)</code> 为 <code>true</code> 则 <code>x</code> 在 <code>y</code> 前面.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">lst</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">lst</span><span class="p">.</span><span class="n">sort</span><span class="p">(</span><span class="n">greater</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">());</span> <span class="c1">// greater&lt;int&gt;() 是个对象, 本句进行降序排序
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>比较规则:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">MyStruct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="nf">operator</span><span class="p">()(</span><span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span> <span class="n">a1</span><span class="p">,</span><span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span> <span class="n">a2</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 若 a1 应该在 a2 前面, 则返回 true; 否则返回 false。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>比较规则返回 <code>true</code>, 意味着 <code>a1</code> 必须在 <code>a2</code> 前面.</li>
+<li>返回 <code>false</code>, 意味着 <code>a1</code> 并非必须在 <code>a2</code> 前面.</li>
+<li>排序规则的写法, 不能造成比较 <code>a1,a2</code> 返回 <code>true</code>, 比较 <code>a2,a1</code> 也返回 <code>true</code>, 否则会出问题, 比如 <code>sort</code> 会 runtime error.
+比较 <code>a1,a2</code> 返回 <code>false</code>, 比较 <code>a2,a1</code> 也返回 <code>false</code>, 则没有问题.</li>
 </ul>
 
 </section>
