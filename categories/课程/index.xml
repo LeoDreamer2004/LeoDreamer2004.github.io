@@ -219,7 +219,7 @@
 &lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;MyStruct&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;kt&#34;&gt;bool&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;operator&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;T&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;T&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;c1&#34;&gt;// 若 a1 应该在 a2 前面, 则返回 true; 否则返回 false。
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;c1&#34;&gt;// 若 a1 应该在 a2 前面, 则返回 true; 否则返回 false.
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
@@ -791,7 +791,7 @@
 &lt;p&gt;一般会基于不同的核心多次运行 K-means. 均值运算对于噪声和离群点非常敏感.&lt;/p&gt;
 &lt;p&gt;还有一些变体, K-中心点方法通过挑选簇内相对处于最中心位置的一个实际样本点而非样本均值向量来作为簇心.&lt;/p&gt;
 &lt;p&gt;用 $O_l$ 表示簇 $C_l$ 的簇心样本点, 用 $\text{dist}(x_i, O_l)$ 表示样本点 $x_i$ 和 $O_l$ 的相异程度度量, 则 K-中心点方法相当于通过最小化绝对误差&lt;/p&gt;
-$$E = \sum_{l=1}^{K} \sum_{x \in C_l} \text{dist}(x, O_l)$$&lt;p&gt;围绕中心点的化分算法 (PAM) 是一种典型的 K-中心点方法.&lt;/p&gt;
+$$E = \sum_{l=1}^{K} \sum_{x \in C_l} \text{dist}(x, O_l)$$&lt;p&gt;围绕中心点的划分算法 (PAM) 是一种典型的 K-中心点方法.&lt;/p&gt;
 &lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;PAM&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 数据集 $D=\{x_i\}_{i=1}^N$, 聚类簇个数 $K$.&lt;/p&gt;
@@ -817,13 +817,13 @@ $$p(x|\mu_i, \Sigma_i) = \frac{1}{\sqrt{(2\pi)^n |\Sigma_i|}} \exp\left(-\frac{1
 &lt;/ol&gt;
 &lt;/div&gt;
 &lt;p&gt;给定样本集 $D=\{x_i\}_{i=1}^N$, 基于 Gauss 混合模型的聚类算法假定样本 $x_j$ 依据 Gauss 混合分布生成, 即先以概率 $\alpha_i$ 选择一个高斯分布 $p(x | \mu_i, \Sigma_i)$, 然后从该高斯分布中生成样本 $x_j$.&lt;/p&gt;
-&lt;p&gt;对 $x_j$, 设 $z_j$ 表示生成 $x_j$ 的分模型, 即 $P(z_j = i) = \alpha_i$. 后验概率最大化&lt;/p&gt;
+&lt;p&gt;对 $x_j$, 设 $z_j$ 表示生成 $x_j$ 的分模型, 即 $p(z_j = i) = \alpha_i$. 后验概率最大化&lt;/p&gt;
 $$
-\lambda_j = \argmax_i P(z_j = i | x_j)
+\lambda_j = \argmax_i p(z_j = i | x_j)
 $$&lt;p&gt;由 Bayes 公式, 忽略相同的分母, 则&lt;/p&gt;
 $$
 \begin{aligned}
-\lambda_j &amp;= \argmax_i P(x_j | z_j = i) P(z_j = i) \\
+\lambda_j &amp;= \argmax_i p(x_j | z_j = i) p(z_j = i) \\
 &amp;= \argmax_i p(x_j | \mu_i, \Sigma_i) \alpha_i
 \end{aligned}
 $$&lt;p&gt;考虑对数似然函数&lt;/p&gt;
@@ -847,25 +847,120 @@ $$&lt;p&gt;常采用 EM 算法迭代求解.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;E步&lt;/strong&gt;, 求期望: 基于当前参数 $\theta^{(t)}$, 计算对数似然函数关于 $Z$ 的期望:
 $$
-    Q(\theta | \theta^{(t)}) = \mathbb{E}_{Z} \left[ LL(\theta | D, Z) | D, \theta^{(t)} \right] = \sum_Z LL(\theta | D, Z) P(Z | D, \theta^{(t)})
+    Q \left(\theta | \theta^{(t)}\right) = \mathbb{E}_{Z} \left[ LL(\theta | D, Z) | D, \theta^{(t)} \right] = \sum_Z LL(\theta | D, Z) p(Z | D, \theta^{(t)})
     $$&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;M步&lt;/strong&gt;, 最大化: 通过最大化 $Q(\theta | \theta^{(t)})$ 来更新参数 $\theta$:
+&lt;li&gt;&lt;strong&gt;M步&lt;/strong&gt;, 最大化: 通过最大化 $Q\left(\theta | \theta^{(t)}\right)$ 来更新参数 $\theta$:
 $$
-    \theta^{(t+1)} = \argmax_{\theta} Q(\theta | \theta^{(t)})
+    \theta^{(t+1)} = \argmax_{\theta} Q\left(\theta | \theta^{(t)}\right)
     $$&lt;/li&gt;
 &lt;li&gt;迭代直到收敛.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
 &lt;p&gt;用 EM 算法估计参数:&lt;/p&gt;
 $$
-LL(\theta|D,Z)=\sum_{i=1}^k\left\{(\sum_{j=1}^Nz_{ji})\log\alpha_i+\sum_{j=1}^Nz_{ji}\log p(x_j|\mu_i,\sigma_i^2)\right\}k
+LL(\theta|D,Z)=\sum_{i=1}^k\left\{\left(\sum_{j=1}^Nz_{ji}\right)\log\alpha_i+\sum_{j=1}^Nz_{ji}\log p(x_j|\mu_i,\sigma_i^2)\right\}
 $$&lt;p&gt;令 $n_i=\sum_{j=1}^Nz_{ji}$, 则&lt;/p&gt;
 $$
 \begin{aligned}
 &amp; LL(\theta|D,Z)=\sum_{i=1}^k\left\{n_i\log\alpha_i+\sum_{j=1}^Nz_{ji}\log p(x_j|\mu_i,\sigma_i^2)\right\} \\
 &amp; =\sum_{i=1}^{k}\left\{n_{i}\log\alpha_{i}+\sum_{j=1}^{N}z_{ji}\left[\log\left(\frac{1}{\sqrt{2\pi}}\right)-\log\sigma_{i}-\frac{1}{2\sigma_{i}^{2}}(x_{j}-\mu_{i})^{2}\right]\right\}
 \end{aligned}
-$$</description>
+$$&lt;p&gt;我们考虑 $z_{ji}$ 期望:&lt;/p&gt;
+$$
+\begin{aligned}
+\gamma_{ji}^{(t)} &amp;= E_{Z} \left[ z_{ji} | D, \theta^{(t)} \right] = p\left(z_{ji} = 1 | D, \theta^{(t)}\right) \\
+&amp;= p\left(z_j = i | D, \theta^{(t)}\right) = \frac{\alpha_i^{(t)} p\left(x_j | \mu_i^{(t)}, {\sigma_i^2}^{(t)}\right)}{\sum_{l=1}^k \alpha_i^{(t)} p\left(x_j | \mu_l^{(t)}, {\sigma_l^2}^{(t)}\right)}
+\end{aligned}
+$$&lt;p&gt;则对 $E$ 步, 有:&lt;/p&gt;
+$$
+\begin{aligned}
+Q\left(\theta |\theta^{(t)}\right) &amp;= E_Z \left[ LL(\theta | D, Z) | D, \theta^{(t)} \right] \\
+&amp;= \sum_{i=1}^k \left\{ \sum_{j=1}^N \gamma_{ji}^{(t)} \log \alpha_i + \sum_{j=1}^N \gamma_{ji}^{(t)} \left[\log\left(\frac{1}{\sqrt{2\pi}}\right)-\log\sigma_{i}-\frac{1}{2\sigma_{i}^{2}}(x_{j}-\mu_{i})^{2}\right]\right\} \\
+\end{aligned}
+$$&lt;p&gt;既然要极大化 $Q\left(\theta |\theta^{(t)}\right)$, 那么我们可以对 $\mu_i$, $\sigma_i^2$ 分别求偏导数, 令其为 $0$. 分别得到:&lt;/p&gt;
+$$
+\begin{aligned}
+\mu_i^{(t+1)} &amp;= \frac{\sum_{j=1}^N \gamma_{ji}^{(t)} x_j}{\sum_{j=1}^N \gamma_{ji}^{(t)}} \\
+{\sigma_i^2}^{(t+1)} &amp;= \frac{\sum_{j=1}^N \gamma_{ji}^{(t)} \left(x_j - \mu_i^{(t+1)}\right)^2}{\sum_{j=1}^N \gamma_{ji}^{(t)}}
+\end{aligned}
+$$&lt;p&gt;注意 $\alpha_i$ 还有约束 $\sum_{i=1}^k \alpha_i = 1$, 为此用 Lagrange 对偶, 令&lt;/p&gt;
+$$
+L(\theta, \beta) = Q\left(\theta |\theta^{(t)}\right) + \beta \left(1 - \sum_{i=1}^k \alpha_i\right)
+$$&lt;p&gt;对 $\alpha_i$ 求偏导数, 令其为 $0$, 可得:&lt;/p&gt;
+$$
+n_i^{(t)} = \beta \alpha_i
+$$&lt;p&gt;两边求和, 随后可以得出 $\alpha$:&lt;/p&gt;
+$$
+N = \sum_{i=1}^k n_i^{(t)} = \beta \sum_{i=1}^k \alpha_i = \beta
+$$$$
+\alpha_i^{(t+1)} = \frac{n_i^{(t)}}{\beta} = \frac{\sum_{j=1}^N \gamma_{ji}^{(t)}}{N}
+$$&lt;p&gt;把这些综合起来, 就得到基于 Gauss 混合模型的 EM 算法 (GMM):&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;GMM&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 数据集 $D=\{x_i\}_{i=1}^N$, 聚类簇个数 $K$.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 簇划分 $\mathcal{C}=\{C_l\}_{l=1}^K$.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;初始化参数 $\theta =\{\alpha_i, \mu_i, \Sigma_i\}_{i=1}^K, C_l = \emptyset$.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;E步&lt;/strong&gt;: 计算后验概率:
+$$
+    \gamma_{ji} = p(z_j = i | x_j, \theta) = \frac{\alpha_i p(x_j | \mu_i, \Sigma_i)}{\sum_{l=1}^K \alpha_l p(x_j | \mu_l, \Sigma_l)}
+    $$&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;M步&lt;/strong&gt;: 更新参数:
+$$
+    \begin{aligned}
+    \mu_i &amp;= \frac{\sum_{j=1}^N \gamma_{ji} x_j}{\sum_{j=1}^N \gamma_{ji}} \\
+    \Sigma_i &amp;= \frac{\sum_{j=1}^N \gamma_{ji} (x_j - \mu_i)(x_j - \mu_i)^T}{\sum_{j=1}^N \gamma_{ji}} \\
+    \alpha_i &amp;= \frac{\sum_{j=1}^N \gamma_{ji}}{N}
+    \end{aligned}
+    $$&lt;/li&gt;
+&lt;li&gt;重复步骤 2 和 3, 直到收敛.&lt;/li&gt;
+&lt;li&gt;对于每个 $x_j$, 求 $x_j$ 的簇标记:
+$$
+    \lambda_j = \argmax_i \alpha_i p(x_j | \mu_i, \Sigma_i)
+    $$
+并将 $x_j$ 加入到 $C_{\lambda_j}$.&lt;/li&gt;
+&lt;li&gt;返回 $\mathcal{C} = \{C_l\}_{l=1}^K$.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;层次聚类算法&#34;&gt;层次聚类算法
+&lt;/h2&gt;&lt;p&gt;允许在聚类过程中对已有的簇进行合并或分裂, 通过对样本集不同层次的划分形成树状结构.&lt;/p&gt;
+&lt;p&gt;AGNES 算法是自底向上的层次聚类算法, 其基本思想是从每个样本点开始, 逐步合并最相近的簇. 关于衡量簇之间的距离, 可以有很多定义, 例如最小距离, 最大距离, 平均距离, 质心距离, 中心距离等. 如果一个聚类算法分别选用最小距离/最大距离/平均距离作为两个簇的距离, 则相应的算法分别被称为单连接算法/全连接算法/均连接算法.&lt;/p&gt;
+&lt;p&gt;AGNES 算法采用距离 (相异性) 矩阵来保存当前簇之间的距离:&lt;/p&gt;
+$$M(i,j)=d(C_i,C_j),\quad i,j=1,2,\cdots,N$$&lt;p&gt;随着每次距离最近的两个簇的合并, 对距离矩阵也作相应的修正. 不妨设当前距离最近的两个聚类簇为 $C_i^*$ 和 $C_j^*$ 且 $i^*&lt;j^*$, 则&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;将 $C_j^*$ 并入 $C_{i^*}$, 将合并以后的新簇仍然记作 $C_i^*$,并将所有 $j&gt;j^*$ 簇 $C_j$ 的下标减 $1$, 重新标记为 $C_{j-1}$;&lt;/li&gt;
+&lt;li&gt;删除当前距离矩阵$M$的第 $j^*$ 行与第 $j^*$ 列;&lt;/li&gt;
+&lt;li&gt;将 $M(i^*,j)$ 和 $M(j,i^*)$ 更新为 $d(C_{i^*},C_j)$.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;DIANA 算法恰好与 AGNES 相反, 它是自顶向下的层次聚类算法.&lt;/p&gt;
+&lt;h2 id=&#34;基于密度的聚类方法&#34;&gt;基于密度的聚类方法
+&lt;/h2&gt;&lt;p&gt;将簇看作是数据空间中被稀疏区域分开的稠密区域, 聚类就是发现并不断扩展稠密区域的过程. DBSCAN 算法是典型的基于密度的聚类算法.&lt;/p&gt;
+&lt;p&gt;为了刻画稠密区域, DBSCAN 算法引入了密度可达性和密度相连的概念:&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;对于样本点 $x_i \in D$, 在其 $\epsilon$ - 邻域&lt;/p&gt;
+$$
+N_\epsilon(x_i) = \{x_j \in D | \|x_i - x_j\| \leq \epsilon\}
+$$&lt;p&gt;内, 包含至少 $\text{MinPts}$ 个样本点的点称为 &lt;strong&gt;核心点&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;如果 $x_j$ 位于核心点 $x_i$ 的 $\epsilon$ - 邻域内, 则称 $x_j$ 由 $x_i$  &lt;strong&gt;直接密度可达&lt;/strong&gt;, 一般地, 如果存在一个序列 $p_1=x_i, p_2, \cdots, p_k=x_j$, 使得 $p_{l+1}$ 由 $p_l$ 直接密度可达, 则称 $x_j$ 由 $x_i$ &lt;strong&gt;密度可达&lt;/strong&gt;. 如果存在 $p \in D$ 使得 $x_i$ 和 $x_j$ 都由 $p$ 密度可达, 则称 $x_i$ 和 $x_j$ &lt;strong&gt;密度相连&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;此时, 我们定义 &lt;strong&gt;簇&lt;/strong&gt; 是满足如下条件的样本点集合:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果 $x_i,x_j \in C$, 则 $x_i,x_j$ 是密度相连的;&lt;/li&gt;
+&lt;li&gt;对任一 $x_i \in C$, 如果 $x_j$ 由 $x_i$ 密度可达, 则 $x_j \in C$;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;DBSCAN&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 数据集 $D=\{x_i\}_{i=1}^N$, $\epsilon$ - 邻域半径, 最小点数 $\text{MinPts}$.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 簇划分 $\mathcal{C}=\{C_l\}_{l=1}^K$.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;初始化簇划分 $\mathcal{C} = \emptyset$, 并将所有样本点标记为未访问.&lt;/li&gt;
+&lt;li&gt;随机选择一个未访问的样本点 $x_i$ 访问: 如果 $x_i$ 是核心点, 则找出由该样本点密度可达的所有样本点, 将它们划分到同一个簇 $C_l$ 中, 否则将 $x_i$ 标记为噪声点.&lt;/li&gt;
+&lt;li&gt;重复步骤 2, 直到所有样本点都被访问.&lt;/li&gt;
+&lt;li&gt;返回 $\mathcal{C} = \{C_l\}_{l=1}^K$.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
         </item>
         <item>
         <title>机器学习基础(7) —— 集成学习</title>
