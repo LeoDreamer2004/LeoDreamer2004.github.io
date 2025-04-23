@@ -1079,7 +1079,7 @@ $$&lt;p&gt;此处省略了偏差修正.&lt;/p&gt;
 &lt;p&gt;定义集合 $\mathcal{F}$ 为满足如下条件的函数 $f: \mathbb{R}^d \mapsto \mathbb{R}$ 集合:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;$f$ 有界, 即 $$f \le f^\ast$$&lt;/li&gt;
-&lt;li&gt;所有 $n$ 个时间刻的 $f_t$ 是 Lipschitz 连续的, 即 $$\|f_i(x) - f_t(y)\| \le L \|x - y\|$$&lt;/li&gt;
+&lt;li&gt;所有 $n$ 个时间刻的 $f_t$ 是 Lipschitz 连续的, 即 $$\|f_t(x) - f_t(y)\| \le L \|x - y\|$$&lt;/li&gt;
 &lt;li&gt;所有 $n$ 个时间刻的 $f_t$ 满足 $$\sum_{i=0}^{n-1} \| \nabla f_i(x) \|^2 \le D_1 \| \nabla f(x) \|^2 + D_0 $$&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
@@ -1097,7 +1097,7 @@ $$
 \mathbb{E}f(x_{k+1}) - \mathbb{E}f(x_k) \le \mathbb{E} \left&lt; \nabla f(x_k), x_{k+1} - x_k \right&gt; + \frac{L}{2} \mathbb{E} \|x_{k+1} - x_k\|^2
 $$&lt;p&gt;做累加, 有:&lt;/p&gt;
 $$
-\mathbb{E} \sum_{k=t_0}^T \left&lt; \nabla f(x_k), x_{k+1} - x_k \right&gt; \le \frac{L}{2} \mathbb{E} \sum_{k=t_0}^T \|x_{k+1} - x_k\|^2 + \mathbb{E}f(x_{t_0}) - \mathbb{E}f(x_{T+1})
+\mathbb{E} \sum_{k=t_0}^T \left&lt; \nabla f(x_k), x_k - x_{k+1} \right&gt; \le \frac{L}{2} \mathbb{E} \sum_{k=t_0}^T \|x_{k+1} - x_k\|^2 + \mathbb{E}f(x_{t_0}) - \mathbb{E}f(x_{T+1})
 $$&lt;p&gt;首先考虑右侧的上界, 这个相对容易, 注意到由于 $m_k$, $v_k$ 都是常量级:&lt;/p&gt;
 $$
 \begin{aligned}
@@ -1106,11 +1106,11 @@ $$
 \end{aligned}
 $$&lt;p&gt;因此:&lt;/p&gt;
 $$
-\frac{L}{2} \mathbb{E} \sum_{k=t_0}^T \|x_{k+1} - x_k\|^2 = \sum_{k=t_0}^T \mathcal{O}\left(\frac{1}{k}\right) = \mathcal{O}(\log T)
+\frac{L}{2} \mathbb{E} \sum_{k=t_0}^T \|x_{k+1} - x_k\|^2 \le \sum_{k=t_0}^T \mathcal{O}\left(\frac{1}{k}\right) = \mathcal{O}(\log T)
 $$&lt;p&gt;关于左侧的下界, 按每一维展开:&lt;/p&gt;
 $$
 \begin{aligned}
-\mathbb{E} \left&lt; \nabla f(x_k), x_{k+1} - x_k \right&gt; &amp;= \eta_k \mathbb{E} \left&lt; \nabla f(x_k), \sum_{i=0}^{n-1} \frac{m_{k,i}}{\sqrt{v_{k,i}}} \right&gt; \\
+\mathbb{E} \left&lt; \nabla f(x_k), x_k - x_{k+1} \right&gt; &amp;= \eta_k \mathbb{E} \left&lt; \nabla f(x_k), \sum_{i=0}^{n-1} \frac{m_{k,i}}{\sqrt{v_{k,i}}} \right&gt; \\
 &amp;= \eta_k \mathbb{E} \sum_{l=1}^d \sum_{i=0}^{n-1} \partial_l f(x_k) \frac{m_{k,i}^{(l)}}{\sqrt{v_{k,i}^{(l)}}}
 \end{aligned}
 $$&lt;hr&gt;
@@ -1168,6 +1168,66 @@ $$
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;显然, 日常训练中的情形更符合第二种, 我们都是先定义好损失函数, 然后再选择超参数, 因此这也就解释了为什么 Adam 在绝大多数训练中表现良好, 重点在于我们选取的超参数符合定理的要求.&lt;/p&gt;
+&lt;h2 id=&#34;应用-另一个算法&#34;&gt;应用: 另一个算法
+&lt;/h2&gt;&lt;p&gt;遇到了一个基于 Nestorov 等价形式的算法, 和 Adam 非常相似, 于是想能不能直接推广证明, 方便起见暂时叫它 C&amp;rsquo;Adam. 更新公式如下:&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;C&amp;#39;Adam&lt;/span&gt;&lt;/p&gt;
+$$
+\begin{aligned}
+m_t &amp;= \beta_1 m_{t-1} + (1-\beta_1)g_t \\
+v_t &amp;= \beta_2 v_{t-1} + (1-\beta_2)g_t^2 \\
+\theta_{t+1} &amp;= \theta_t - \frac{\eta}{\sqrt{v_t} + \epsilon} \odot (\beta_1 m_t + g_t)
+\end{aligned}
+$$&lt;/div&gt;
+&lt;p&gt;忽略偏差修正, 可以看到和 Adam 只有最后一行不同. 我尝试着给出一份证收敛性证明. 以下仍然简记 $x_k = x_{k,0}$.&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
+&lt;p&gt;设 $f(x) = \sum_{i=0}^{n-1} f_i$ 有界, 且任意时刻 $f_t$ 满足 $L$- Lipschitz 连续, 满足增长性条件 $\sum_{i=0}^{n-1} \| \nabla f_i(x) \|^2 \le D_1 \| \nabla f(x) \| ^2 + D_0$ . 设 $\beta_1^2 &lt; \beta_2 &lt; 1$, 且 $\beta_2 \ge \gamma(n)$, 学习率衰减 $\eta_k= \frac{\eta}{\sqrt{nk}}$, 则存在某个充分大的 $K$, 对于 $T&gt;K$ 均有:&lt;/p&gt;
+$$
+\min_{k \in [K,T]} \mathbb{E} \left\{ \min \left[ \sqrt{\frac{2D_1d}{D_0}} \| \nabla f(x_k) \|^2, \| \nabla f(x_k) \| \right] \right\} = \mathcal{O} \left( \frac{\log T}{\sqrt{T}} + \sqrt{D_0}\right)
+$$&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
+&lt;p&gt;从下降引理出发:&lt;/p&gt;
+$$
+\mathbb{E}f(x_{k+1}) - \mathbb{E}f(x_k) \le \mathbb{E} \left&lt; \nabla f(x_k), x_{k+1} - x_k \right&gt; + \frac{L}{2} \mathbb{E} \|x_{k+1} - x_k\|^2
+$$&lt;p&gt;做累加, 有:&lt;/p&gt;
+$$
+\mathbb{E} \sum_{k=t_0}^T \left&lt; \nabla f(x_k), x_k - x_{k+1} \right&gt; \le \frac{L}{2} \mathbb{E} \sum_{k=t_0}^T \|x_{k+1} - x_k\|^2 + \mathbb{E}f(x_{t_0}) - \mathbb{E}f(x_{T+1})
+$$&lt;p&gt;考虑右侧, 后两项是常数级别, 只需要考虑第一项:&lt;/p&gt;
+$$
+\begin{aligned}
+\mathbb{E} \|x_{k+1} - x_k\|^2 &amp;\le \mathbb{E} \sum_{i=0}^{n-1} \|x_{k,i+1} - x_{k,i}\|^2 \le n \max_{0 \le i &lt; n} \mathbb{E} \|x_{k,i+1} - x_{k,i}\|^2 \\
+&amp;\le n \mathcal{O}\left(\frac{\eta_k^2m^2_{k,i}}{v_{k,i}}\right) = \mathcal{O}\left(\frac{1}{k}\right)
+\end{aligned}
+$$&lt;p&gt;这里用到 $\eta_k = \mathcal{O}(1/\sqrt{k})$, 而对于 $m^2_{k,i}/{v_{k,i}}$, 论文已经证明其为有界.&lt;/p&gt;
+&lt;p&gt;从而右边:&lt;/p&gt;
+$$
+RHS \le \sum_{k=t_0}^T \mathcal{O}\left(\frac{1}{k}\right) + C = \mathcal{O}(\log T) + \mathcal{O}(1)
+$$&lt;p&gt;现在考察左侧, 右上角标 $(l)$ 表示第 $l$ 个分量:&lt;/p&gt;
+$$
+\begin{aligned}
+\mathbb{E} \left&lt; \nabla f(x_k), x_k - x_{k+1} \right&gt; &amp;= \eta_k \mathbb{E} \left&lt; \nabla f(x_k), \sum_{i=0}^{n-1} \frac{\beta_1 m_{k,i}+ g_{k,i}}{\sqrt{v_{k,i}}} \right&gt; \\
+&amp;= \eta_k \mathbb{E} \sum_{l=1}^d \sum_{i=0}^{n-1} \partial_l f(x_k) \left( \frac{\beta_1 m_{k,i}^{(l)} + \partial_l f_i(x_k)}{\sqrt{v_{k,i}^{(l)}}}\right)
+\end{aligned}
+$$&lt;p&gt;按分子上的加号拆成两部分. 对于前者, 论文中 (35) 式已经证明了:&lt;/p&gt;
+$$
+\begin{aligned}
+\mathbb{E} \sum_{l=1}^d \sum_{i=0}^{n-1} \partial_l f(x_k) \frac{m_{k,i}^{(l)}}{\sqrt{v_{k,i}^{(l)}}} \ge &amp;\frac{1}{d \sqrt{10D_1d}} \mathbb{E} \min \left[ \sqrt{\frac{2D_1d}{D_0}} \| \nabla f(x_k) \|^2, \| \nabla f(x_k) \| \right] \\
+&amp; - \mathcal{O}\left(\frac{1}{\sqrt{k}}\right) - \mathcal{O}\left(\sqrt{D_0}\right)
+\end{aligned}
+$$&lt;p&gt;对于后者, 再拆分:&lt;/p&gt;
+$$
+\begin{aligned}
+\mathbb{E} \sum_{l=1}^d \sum_{i=0}^{n-1} \partial_l f(x_k) \frac{\partial_l f_i(x_k)}{\sqrt{v_{k,i}^{(l)}}} = \mathbb{E} \sum_{l=1}^d \sum_{i=0}^{n-1} \frac{\partial_l^2 f(x_k)}{\sqrt{v_{k,i}^{(l)}}} + \mathbb{E} \sum_{l=1}^d \sum_{i=0}^{n-1} \partial_l f(x_k) \frac{\partial_l f_i(x_k) - \partial_l f(x_k)}{\sqrt{v_{k,i}^{(l)}}}
+\end{aligned}
+$$&lt;p&gt;前一项显然非负, 后一项即论文中的 $(a_2)$项, 其在引理 G.5 已经证明当 $\beta_2 \to 1$ 时, 此项趋于 $0$.&lt;/p&gt;
+&lt;p&gt;我们综合关于左侧的讨论, 即有:&lt;/p&gt;
+$$
+LHS \ge \beta_1 \sum_{k=t_0}^T \eta_k \left( \frac{1}{d \sqrt{10D_1d}} \mathbb{E} \min \left[ \sqrt{\frac{2D_1d}{D_0}} \| \nabla f(x_k) \|^2, \| \nabla f(x_k) \| \right] - \mathcal{O}\left(\frac{1}{\sqrt{k}}\right) - \mathcal{O}\left(\sqrt{D_0}\right)  \right)
+$$&lt;p&gt;又 $\eta_k = \mathcal{O}(1/\sqrt{k})$, 则 $\sum_{k=t_0}^T \eta_k = \mathcal{O}(\sqrt{T})$, 忽略所有低阶项, 联合左右两端, 我们得到:&lt;/p&gt;
+$$
+\mathcal{O} \left(\sqrt{T}\right) \left( \frac{1}{d \sqrt{10D_1d}} \mathbb{E} \min \left[ \sqrt{\frac{2D_1d}{D_0}} \| \nabla f(x_k) \|^2, \| \nabla f(x_k) \| \right] - \mathcal{O} \left(\sqrt{D_0}\right) \right) \le \mathcal{O}(\log T)
+$$&lt;p&gt;由此移项即得证.&lt;/p&gt;
+&lt;/div&gt;
 &lt;h2 id=&#34;总结&#34;&gt;总结
 &lt;/h2&gt;&lt;p&gt;Adam 优化器的收敛性问题, 经过多篇论文的讨论, 目前已经有了比较清晰的结论. 论文 &lt;a class=&#34;link cite-1&#34;&gt;[1]
     
