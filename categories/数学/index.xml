@@ -7,7 +7,75 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>LeoDreamer</copyright>
-        <lastBuildDate>Tue, 08 Apr 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/%E6%95%B0%E5%AD%A6/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 22 Apr 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/%E6%95%B0%E5%AD%A6/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>机器学习基础(9) —— 隐 Markov 模型</title>
+        <link>https://LeoDreamer2004.github.io/p/machine-learning/markov/</link>
+        <pubDate>Tue, 22 Apr 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/p/machine-learning/markov/</guid>
+        <description>&lt;h2 id=&#34;markov-链&#34;&gt;Markov 链
+&lt;/h2&gt;&lt;p&gt;Markov 链是刻画随机变量序列的概率分布的模型.&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;设 $\{X_t\mid t=1,2,\cdots\}$ 是随机序列, 若 $X_t$ 都在 $S$ 中取值, 则称 $S$ 是 $\{X_t\}$ 的状态空间, $S$中的元素称为 &lt;strong&gt;状态&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;如果对任何正整数 $t\geq 2$ 和 $S$ 中的状态 $s_i,s_j,s_{i_1},s_{i_2},\cdots,s_{i_{t-1}}$, 随机序列 $\{X_t\}$ 满足&lt;/p&gt;
+$$
+P(X_{t+1}=s_j\mid X_t=s_i,X_{t-1}=s_{i_{t-1}},\cdots,X_1=s_{i_1}) \\
+= P(X_{t+1}=s_j\mid X_t=s_i) = P(X_2=s_j\mid X_1=s_i)
+$$&lt;p&gt;则称$\{X_t\}$为时齐的 &lt;strong&gt;Markov 链&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;我们称&lt;/p&gt;
+$$a_{ij} = P(X_2 = s_j | X_1 = s_i), s_i, s_j \in S$$&lt;p&gt;为 Markov 链 $\{X_t\}$ 的 &lt;strong&gt;转移概率&lt;/strong&gt;. 称矩阵 $A = [a_{ij}]$ 为 Markov 链 $\{X_t\}$ 的 &lt;strong&gt;一步转移概率矩阵&lt;/strong&gt;, 简称为 &lt;strong&gt;转移矩阵&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Markov 链的初始状态 $X_1$ 的分布称为 &lt;strong&gt;初始分布&lt;/strong&gt;, 记为 $\pi = (\pi_1,\pi_2,\cdots,\pi_N)$, 其中 $\pi_i = P(X_1 = s_i)$.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;设 $|S| = N$, 则转移矩阵为 $N \times N$ 矩阵, 且 $\sum_{j=1}^N a_{ij} = 1$.&lt;/p&gt;
+&lt;p&gt;Markov 链的性质直观上可以理解为, 在时刻 $t$ 的状态只与时刻 $t-1$ 的状态有关, 与之前的状态无关. 也就是说, Markov 链具有 无记忆性.&lt;/p&gt;
+&lt;h2 id=&#34;隐-markov-模型&#34;&gt;隐 Markov 模型
+&lt;/h2&gt;&lt;p&gt;实际中, 我们往往无法直接观察到 Markov 链的状态, 而只能观察到与状态相关的观测值.&lt;/p&gt;
+&lt;p&gt;隐 Markov 模型 (HMM) 刻画了首先由一个马尔可夫链随机生成不可观测的状态随机序列 $\{X_t\}$, 再由每个状态 $X_t$ 生成一个观测 $O_t$ 而生成观测随机序列 $\{O_t\}$ 的过程.&lt;/p&gt;
+&lt;p&gt;设 &lt;strong&gt;观测概率&lt;/strong&gt; 矩阵 $B = [b_{ij}]$, 其中 $b_{ij} = P(O_t = o_j | X_t = s_i)$.&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;HMM&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 隐 Markov 模型 $M = (A, B, \pi)$, 其中 $A$ 是转移概率矩阵, $B$ 是观测概率矩阵, $\pi$ 是初始分布.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 长度为 $T$ 的观测序列.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;令 $t=1$, 随机选择初始状态 $X_1$ 使得 $P(X_1 = s_i) = \pi_i$.&lt;/li&gt;
+&lt;li&gt;根据状态 $X_t$ 和观测概率矩阵 $B$, 随机生成观测 $O_t$ 使得 $P(O_t = o_j | X_t = s_i) = b_{ij}$.&lt;/li&gt;
+&lt;li&gt;根据状态 $X_t$ 和转移概率矩阵 $A$, 随机选择下一个状态 $X_{t+1}$ 使得 $P(X_{t+1} = s_j | X_t = s_i) = a_{ij}$.&lt;/li&gt;
+&lt;li&gt;令 $t = t + 1$, 如果 $t \leq T$, 则返回第 2 步, 否则停止.&lt;/li&gt;
+&lt;li&gt;返回观测序列 $O = (O_1, O_2, \cdots, O_T)$.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;概率计算方法&#34;&gt;概率计算方法
+&lt;/h2&gt;&lt;p&gt;Markov 的第一个核心问题是概率计算问题: 给定 Markov 模型 $\lambda = (A,B,\pi)$, 计算 $p(O | \lambda)$, 其中 $O=(O_1,O_2, \cdots, O_T)$, 即计算给定模型时得到观测序列的概率.&lt;/p&gt;
+&lt;h3 id=&#34;前向算法&#34;&gt;前向算法
+&lt;/h3&gt;&lt;p&gt;我们定义前向概率:&lt;/p&gt;
+$$\alpha_t(i) = p(O_1, O_2, \cdots, O_t, X_t = s_i | \lambda)$$&lt;p&gt;显见 $\alpha_T(i) = p(O, X_T = s_i | \lambda)$, 因此 $p(O | \lambda) = \sum_{i=1}^N \alpha_T(i)$. 对于首项:&lt;/p&gt;
+$$
+\begin{aligned}
+\alpha_1(i) &amp;= p(O_1, X_1 = s_i | \lambda) \\
+&amp;= p(X_1 = s_i | \lambda) p(O_1 | X_1 = s_i, \lambda) \\
+&amp;= \pi_i b_i(O_1)
+\end{aligned}
+$$&lt;p&gt;推导递推式:&lt;/p&gt;
+$$
+\begin{aligned}
+\alpha_{t+1}(i) &amp;= p(O_1, O_2, \cdots, O_t, O_{t+1}, X_{t+1} = s_i | \lambda) \\
+&amp;= \sum_{j=1}^N p(O_1, O_2, \cdots, O_t, X_t = s_j, X_{t+1} = s_i | \lambda) \\
+&amp;= \sum_{j=1}^N \alpha_t(j) p(O_{t+1}|X_{t+1}=s_i, \lambda) p(X_{t+1}=s_i|X_t=s_j, \lambda) \\
+&amp;= \sum_{j=1}^N \alpha_t(j)b_i(O_{t+1}) a_{ji} = \left(\sum_{j=1}^N a_{ji}\alpha_t(j)\right)b_i(O_{t+1}) \\
+\end{aligned}
+$$&lt;div class=&#34;math-block&#34;&gt;&lt;p class=&#34;math-block-title&#34;&gt;前向算法&lt;/p&gt;
+$$\alpha_1(i) = \pi_i b_i(O_1)$$$$\alpha_{t+1}(i) = \left(\sum_{j=1}^N a_{ji}\alpha_t(j)\right)b_i(O_{t+1})$$$$p(O | \lambda) = \sum_{i=1}^N \alpha_T(i)$$&lt;/div&gt;
+&lt;h3 id=&#34;后向算法&#34;&gt;后向算法
+&lt;/h3&gt;&lt;p&gt;我们定义后向概率:&lt;/p&gt;
+$$\beta_t(i) = p(O_{t+1}, O_{t+2}, \cdots, O_T | X_t = s_i, \lambda)$$&lt;p&gt;约定 $\beta_T(i) = 1$. 仿照前向算法的思路推导即可.&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;&lt;p class=&#34;math-block-title&#34;&gt;后向算法&lt;/p&gt;
+$$\beta_T(i) = 1$$$$\beta_t(i) = \sum_{j=1}^N a_{ij} b_j(O_{t+1}) \beta_{t+1}(j)$$$$P(O | \lambda) = \sum_{i=1}^N \pi_i b_i(O_1) \beta_1(i)$$&lt;/div&gt;
+&lt;h2 id=&#34;viterbi-算法&#34;&gt;Viterbi 算法
+&lt;/h2&gt;&lt;p&gt;Markov 的第二个核心问题是解码问题: 给定 Markov 模型 $\lambda = (A,B,\pi)$ 和观测序列 $O$, 计算最可能的状态序列 $X = \{X_1, X_2, \cdots, X_T\}$. 即找:&lt;/p&gt;
+$$X^* = \argmax_X p(X | O, \lambda)$$</description>
+        </item>
+        <item>
         <title>机器学习基础(8) —— 聚类简介</title>
         <link>https://LeoDreamer2004.github.io/p/machine-learning/clustering-intro/</link>
         <pubDate>Tue, 08 Apr 2025 00:00:00 +0000</pubDate>

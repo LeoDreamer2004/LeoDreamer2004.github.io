@@ -261,7 +261,13 @@
     
     <li>
         <a href="/materials/program-practice/10-%e6%a0%87%e5%87%86%e6%a8%a1%e6%9d%bf%e5%ba%93.pdf" id="related-material-1" target="_blank" rel="noopener noreferrer">
-            本节课件
+            本节课件 1
+        </a>
+    </li>
+    
+    <li>
+        <a href="/materials/program-practice/10-%e6%a0%87%e5%87%86%e6%a8%a1%e6%9d%bf%e5%ba%932.pdf" id="related-material-2" target="_blank" rel="noopener noreferrer">
+            本节课件 2
         </a>
     </li>
     
@@ -295,6 +301,19 @@
     <li><a href="#迭代器">迭代器</a></li>
     <li><a href="#算法">算法</a></li>
     <li><a href="#函数对象">函数对象</a></li>
+    <li><a href="#集合和映射">集合和映射</a>
+      <ol>
+        <li><a href="#集合">集合</a></li>
+        <li><a href="#映射">映射</a></li>
+      </ol>
+    </li>
+    <li><a href="#适配器">适配器</a></li>
+    <li><a href="#stl-算法">STL 算法</a>
+      <ol>
+        <li><a href="#不变序列算法">不变序列算法</a></li>
+        <li><a href="#变值算法">变值算法</a></li>
+      </ol>
+    </li>
   </ol>
 </nav>
         </div>
@@ -368,7 +387,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 4 分钟
+                    阅读时长: 7 分钟
                 </time>
             </div>
         
@@ -523,7 +542,7 @@
 <p>关联容器内部的元素是从小到大排序的, 称为 <strong>有序区间算法</strong>. 例如 <code>binary_search</code>; 有些算法会对区间进行从小到大排序, 称为 <strong>排序算法</strong>, 例如 <code>sort</code>.</p>
 <p>有时, &ldquo;<code>x</code> 和 <code>y</code> 相等&rdquo; 等价于 &ldquo;<code>x==y</code> 为真&rdquo;, 例如 <code>find</code>; 有时等价于 &ldquo;<code>x</code> 小于 <code>y</code> 和 <code>y</code> 小于 <code>x</code> 同时为假&rdquo;, 例如 <code>binary_search</code>.</p>
 <p>所有适用于 <code>vector</code> 的操作都适用于 <code>deque</code>. deque还有 <code>push_front</code>(将元素插入到前面) 和 <code>pop_front</code> (删除最前
-面的元素) 操作，复杂度是 O(1).</p>
+面的元素) 操作, 复杂度是 O(1).</p>
 <p>对于 <code>list</code>, 除了具有所有顺序容器都有的成员函数以外, 还支持 8 个成员函数:</p>
 <ul>
 <li><code>push_front</code>: 在头部插入元素</li>
@@ -599,6 +618,172 @@
 <li>返回 <code>false</code>, 意味着 <code>a1</code> 并非必须在 <code>a2</code> 前面.</li>
 <li>排序规则的写法, 不能造成比较 <code>a1,a2</code> 返回 <code>true</code>, 比较 <code>a2,a1</code> 也返回 <code>true</code>, 否则会出问题, 比如 <code>sort</code> 会 runtime error.
 比较 <code>a1,a2</code> 返回 <code>false</code>, 比较 <code>a2,a1</code> 也返回 <code>false</code>, 则没有问题.</li>
+</ul>
+<h2 id="集合和映射">集合和映射
+</h2><p><code>set</code> 和 <code>multiset</code> 内部元素有序排列, 新元素插入的位置取决于它的值, 查找速度快. 除了容器都有的函数之外, 还支持:</p>
+<ul>
+<li><code>find</code>: 查找等于某个值的元素 (x小于y和y小于x同时不成立即为相等)</li>
+<li><code>lower_bound</code>: 查找某个下界</li>
+<li><code>upper_bound</code>: 查找某个上界</li>
+<li><code>equal_range</code>: 同时查找上界和下界</li>
+<li><code>count</code>: 计算等于某个值的元素个数 (x小于y和y小于x同时不成立即为相等)</li>
+<li><code>insert</code>: 用以插入一个元素或一个区间</li>
+</ul>
+<h3 id="集合">集合
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Key</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Pred</span> <span class="o">=</span> <span class="n">less</span><span class="o">&lt;</span><span class="n">Key</span><span class="o">&gt;</span><span class="p">,</span> <span class="k">class</span> <span class="nc">A</span> <span class="o">=</span> <span class="n">allocator</span><span class="o">&lt;</span><span class="n">Key</span><span class="o">&gt;&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">multiset</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>Pred</code> 类型的变量决定了 <code>multiset</code> 中的元素“一个比另一个小”是怎么定义的. <code>multiset</code> 运行过程中, 比较两个元素 <code>x,y</code> 的大小的做法, 就是生成一个 <code>Pred</code> 类型的变量, 假定为 <code>op</code>, 若表达式 <code>op(x,y)</code> 返回值为 <code>true</code>, 则 <code>x</code> 比 <code>y</code> 小. 缺省类型为 <code>less</code>.</p>
+<p>插入元素时, <code>multiset</code> 会将被插入元素和已有元素进行比较. 由于<code>less</code> 模板是用 <code>&lt;</code> 进行比较的, 所以,这都要求对象能用 <code>&lt;</code> 比较, 即适当重载了 <code>&lt;</code>. 当然也可以自定义 <code>Pred</code> 类型.</p>
+<p>注意: <code>multiset</code> 集合元素不可修改 (返回的迭代器是 <code>const</code> 的), 只能添加和删除元素.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Key</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Pred</span> <span class="o">=</span> <span class="n">less</span><span class="o">&lt;</span><span class="n">Key</span><span class="o">&gt;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span> <span class="o">=</span> <span class="n">allocator</span><span class="o">&lt;</span><span class="n">Key</span><span class="o">&gt;</span> <span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">set</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>set</code> 与 <code>multiset</code> 的区别在于, <code>set</code> 中的元素是唯一的, 不允许重复. 对于 <code>insert</code>, <code>multiset</code> 会返回一个迭代器指向新插入的元素, <code>set</code> 则会返回插入是否成功的布尔值.</p>
+<h3 id="映射">映射
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Key</span><span class="p">,</span> <span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Pred</span> <span class="o">=</span> <span class="n">less</span><span class="o">&lt;</span><span class="n">Key</span><span class="o">&gt;</span><span class="p">,</span> <span class="k">class</span> <span class="nc">A</span> <span class="o">=</span> <span class="n">allocator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">multimap</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">typedef</span> <span class="n">pair</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">Key</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;</span> <span class="n">value_type</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span> 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>multimap</code> 中的元素由 <code>&lt;k, v&gt;</code> 组成, 每个元素是一个 <code>pair</code> 对象, 关键字就是 <code>first</code> 成员变量, 其类型是 <code>Key</code>. <code>multimap</code> 中允许多个元素的关键字相同. 元素按照 <code>first</code> 成员变量从小到大排列, 缺省情况下用 <code>less&lt;Key&gt;</code> 定义关键字的 <code>&lt;</code> 关系. 拥有等价键的键值对的顺序就是插入顺序, 且不会更改. (C++11 起)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Key</span><span class="p">,</span> <span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Pred</span> <span class="o">=</span> <span class="n">less</span><span class="o">&lt;</span><span class="n">Key</span><span class="o">&gt;</span><span class="p">,</span> <span class="k">class</span> <span class="nc">A</span> <span class="o">=</span> <span class="n">allocator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">map</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">typedef</span> <span class="n">pair</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">Key</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;</span> <span class="n">value_type</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>map</code> 中的元素都是 <code>pair</code> 模板类对象. 关键字 (<code>first</code> 成员变量) 各不相同. 元素按照关键字从小到大排列, 缺省情况下用 <code>less&lt;Key&gt;</code>. <code>map</code> 则要求关键字唯一, 不允许重复. <code>map</code> 还重载了 <code>[]</code> 运算符, 用于访问元素. <code>map</code> 的 <code>[]</code> 运算符返回一个引用, 如果关键字不存在, 则会插入一个新的元素, 用无参构造初始化.</p>
+<h2 id="适配器">适配器
+</h2><p><code>stack</code> 是后进先出的的数据结构, 只能插入/删除/访问栈顶的元素.
+可用 <code>vector</code>, <code>list</code>, <code>deque</code> 来实现。缺省情况下, 用 <code>deque</code> 实现.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Cont</span> <span class="o">=</span> <span class="n">deque</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">stack</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>queue</code> 是先进先出的数据结构, 即 <code>push</code> 在队尾, <code>pop</code> 在队头.
+可用 <code>vector</code>, <code>list</code>, <code>deque</code> 来实现. 缺省情况下, 用 <code>deque</code> 实现.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Cont</span> <span class="o">=</span> <span class="n">deque</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">queue</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>priority_queue</code> 是优先队列, 最高优先级元素先出列. 用堆排序技术实现, 即执行 <code>pop</code> 操作时, 删除的是最大的元素; 执行 <code>top</code> 操作时, 返回的是最大元素的常引用, 默认元素比较器是 <code>less</code>. 可用 <code>vector</code>, <code>deque</code> 来实现. 缺省情况下, 用 <code>vector</code> 实现.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Container</span> <span class="o">=</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Compare</span> <span class="o">=</span> <span class="n">less</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">priority_queue</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="stl-算法">STL 算法
+</h2><p>大多重载的算法都是有两个版本的, 其中一个是用 <code>==</code> 判断元素是否相等, 或用 <code>&lt;</code> 来比较大小; 而另一个版本多出来一个类型参数 <code>Pred</code>, 以及函数形参 <code>Pred op</code>, 通过表达式 <code>op(x,y)</code> 的返回值是 <code>true</code> 还是 <code>false</code>来判断 <code>x</code> 是否“等于” <code>y</code>, 或者 <code>x</code> 是否“小于” <code>y</code>. 例如:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">iterate</span> <span class="nf">min_element</span><span class="p">(</span><span class="n">iterate</span> <span class="n">first</span><span class="p">,</span> <span class="n">iterate</span> <span class="n">last</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">iterate</span> <span class="nf">min_element</span><span class="p">(</span><span class="n">iterate</span> <span class="n">first</span><span class="p">,</span> <span class="n">iterate</span> <span class="n">last</span><span class="p">,</span> <span class="n">Pred</span> <span class="n">op</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="不变序列算法">不变序列算法
+</h3><p>不修改容器或对象的算法, 适用于所有容器, 时间复杂度都是 $O(n)$.</p>
+<ul>
+<li><code>min</code>: 求两个对象中较小的 (可自定义比较器)</li>
+<li><code>max</code>: 求两个对象中较大的 (可自定义比较器)</li>
+<li><code>min_element</code>: 求区间中的最小值 (可自定义比较器)</li>
+<li><code>max_element</code>: 求区间中的最大值 (可自定义比较器)</li>
+<li><code>for_each</code>: 对区间中的每个元素都做某种操作</li>
+<li><code>count</code>: 计算区间中等于某值的元素个数</li>
+<li><code>count_if</code>: 计算区间中符合某种条件的元素个数</li>
+<li><code>find</code>: 在区间中查找等于某值的元素</li>
+<li><code>find_if</code>: 在区间中查找符合某条件的元素</li>
+<li><code>find_end</code>: 在区间中查找另一个区间最后一次出现的位置 (可自定义比较器)</li>
+<li><code>find_first_of</code>: 在区间中查找第一个出现在另一个区间中的元素 (可自定义比较器)</li>
+<li><code>adjacent_find</code>: 在区间中寻找第一次出现连续两个相等元素的位置 (可自定义比较器)</li>
+<li><code>search</code>: 在区间中查找另一个区间第一次出现的位置 (可自定义比较器)</li>
+<li><code>search_n</code>: 在区间中查找第一次出现等于某值的连续 n 个元素 (可自定义比较器)</li>
+<li><code>equal</code>: 判断两区间是否相等 (可自定义比较器)</li>
+<li><code>mismatch</code>: 逐个比较两个区间的元素, 返回第一次发生不相等的两个元素的位置 (可自定义比较器)</li>
+<li><code>lexicographical_compare</code>: 按字典序比较两个区间的大小 (可自定义比较器)</li>
+</ul>
+<h3 id="变值算法">变值算法
+</h3><p>此类算法会修改源区间或目标区间元素的值. 值被修改的那个区间不可以是属于关联容器的.</p>
+<ul>
+<li><code>for_each</code>: 对区间中的每个元素都做某种操作</li>
+<li><code>copy</code>: 复制一个区间到别处</li>
+<li><code>copy_backward</code>: 复制一个区间到别处, 但目标区从后往前被修改的</li>
+<li><code>transform</code>: 将一个区间的元素变形后拷贝到另一个区间</li>
+<li><code>swap_ranges</code>: 交换两个区间内容</li>
+<li><code>fill</code>: 用某个值填充区间</li>
+<li><code>fill_n</code>: 用某个值替换区间中的 n 个元素</li>
+<li><code>generate</code>: 用某个操作的结果填充区间</li>
+<li><code>generate_n</code>: 用某个操作的结果替换区间中的 n 个元素</li>
+<li><code>replace</code>: 将区间中的某个值替换为另一个值</li>
+<li><code>replace_if</code>: 将区间中符合某种条件的值替换成另一个值</li>
+<li><code>replace_copy</code>: 将一个区间拷贝到另一个区间, 拷贝时某个值要换成新值拷过去</li>
+<li><code>replace_copy_if</code>: 将一个区间拷贝到另一个区间, 拷贝时符合某条件的值要换成新值拷过去</li>
 </ul>
 
 </section>

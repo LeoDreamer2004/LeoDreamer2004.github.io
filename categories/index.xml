@@ -7,81 +7,10 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>LeoDreamer</copyright>
-        <lastBuildDate>Wed, 16 Apr 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>程序设计实习</title>
-        <link>https://LeoDreamer2004.github.io/categories/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%AE%9E%E4%B9%A0/</link>
-        <pubDate>Wed, 16 Apr 2025 00:00:00 +0000</pubDate>
-        
-        <guid>https://LeoDreamer2004.github.io/categories/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%AE%9E%E4%B9%A0/</guid>
-        <description>&lt;img src="https://LeoDreamer2004.github.io/categories/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%AE%9E%E4%B9%A0/Q_Py_Cpp.png" alt="Featured image of post 程序设计实习" /&gt;&lt;p&gt;北京大学张勤健老师的程序设计实习课程。&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;&lt;p class=&#34;math-block-title&#34;&gt;&lt;?xml version=&#34;1.0&#34; standalone=&#34;no&#34;?&gt;&lt;!DOCTYPE svg PUBLIC &#34;-//W3C//DTD SVG 1.1//EN&#34; &#34;http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd&#34;&gt;&lt;svg t=&#34;1742970494288&#34; class=&#34;icon&#34; viewBox=&#34;0 0 1024 1024&#34; version=&#34;1.1&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; p-id=&#34;7053&#34; data-darkreader-inline-fill=&#34;&#34; xmlns:xlink=&#34;http://www.w3.org/1999/xlink&#34; width=&#34;200&#34; height=&#34;200&#34;&gt;&lt;path d=&#34;M622.24 959.41A51.58 51.58 0 0 1 574 926.65L437.44 584a52 52 0 0 1 11-55.48l211.9-218.11A36 36 0 1 1 712 360.56L509.12 569.37 621.3 850.91l250.25-697.73-696.76 246.31 176.83 68.84a36 36 0 1 1-26.13 67.09L98.47 447a52 52 0 0 1 1.53-97.44L903.15 65.65A44 44 0 0 1 959.23 122l-288 803a51.62 51.62 0 0 1-48.05 34.44z&#34; p-id=&#34;7054&#34;&gt;&lt;/path&gt;&lt;/svg&gt; 导航&lt;/p&gt;
-&lt;table&gt;
-  &lt;thead&gt;
-      &lt;tr&gt;
-          &lt;th&gt;博客页面&lt;/th&gt;
-          &lt;th&gt;课件&lt;/th&gt;
-      &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/p/program-practice/class-and-object&#34; &gt;程序设计实习(1) —— 类和对象&lt;/a&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/01-%e7%b1%bb%e5%92%8c%e5%af%b9%e8%b1%a101.pdf&#34; &gt;课件链接 1&lt;/a&gt; &lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/02-%e7%b1%bb%e4%b8%8e%e5%af%b9%e8%b1%a102.pdf&#34; &gt;课件链接 2&lt;/a&gt; &lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/03-%e7%b1%bb%e4%b8%8e%e5%af%b9%e8%b1%a103.pdf&#34; &gt;课件链接 3&lt;/a&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/p/program-practice/operator-overload&#34; &gt;程序设计实习(2) —— 运算符重载&lt;/a&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/04-%e8%bf%90%e7%ae%97%e7%ac%a6%e9%87%8d%e8%bd%bd.pdf&#34; &gt;课件链接&lt;/a&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/p/program-practice/inherit&#34; &gt;程序设计实习(3) —— 继承与派生&lt;/a&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/05-%e7%bb%a7%e6%89%bf%e4%b8%8e%e6%b4%be%e7%94%9f.pdf&#34; &gt;课件链接&lt;/a&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/p/program-practice/polymorphism&#34; &gt;程序设计实习(4) —— 多态&lt;/a&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/06-%e5%a4%9a%e6%80%81.pdf&#34; &gt;课件链接&lt;/a&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/p/program-practice/file-io&#34; &gt;程序设计实习(5) —— 输入输出和文件操作&lt;/a&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/07-%e8%be%93%e5%85%a5%e8%be%93%e5%87%ba%e5%92%8c%e6%96%87%e4%bb%b6%e6%93%8d%e4%bd%9c.pdf&#34; &gt;课件链接&lt;/a&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/p/program-practice/template&#34; &gt;程序设计实习(6) —— 模板&lt;/a&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/08-%e6%a8%a1%e6%9d%bf.pdf&#34; &gt;课件链接&lt;/a&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/p/program-practice/string&#34; &gt;程序设计实习(7) —— string 类&lt;/a&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/09-string%e7%b1%bb.pdf&#34; &gt;课件链接&lt;/a&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/p/program-practice/stl&#34; &gt;程序设计实习(8) —— 标准模板库&lt;/a&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/10-%e6%a0%87%e5%87%86%e6%a8%a1%e6%9d%bf%e5%ba%93.pdf&#34; &gt;课件链接&lt;/a&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;blockquote&gt;
-&lt;p&gt;注：Python 部分未记录。&lt;/p&gt;&lt;/blockquote&gt;
-</description>
-        </item>
-        <item>
-        <title>计算机</title>
-        <link>https://LeoDreamer2004.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/</link>
-        <pubDate>Wed, 16 Apr 2025 00:00:00 +0000</pubDate>
-        
-        <guid>https://LeoDreamer2004.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/</guid>
-        <description>&lt;img src="https://LeoDreamer2004.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/Chino_CS.jpg" alt="Featured image of post 计算机" /&gt;</description>
-        </item>
-        <item>
-        <title>课程</title>
-        <link>https://LeoDreamer2004.github.io/categories/%E8%AF%BE%E7%A8%8B/</link>
-        <pubDate>Wed, 16 Apr 2025 00:00:00 +0000</pubDate>
-        
-        <guid>https://LeoDreamer2004.github.io/categories/%E8%AF%BE%E7%A8%8B/</guid>
-        <description>&lt;img src="https://LeoDreamer2004.github.io/categories/%E8%AF%BE%E7%A8%8B/PKU.jpeg" alt="Featured image of post 课程" /&gt;</description>
-        </item>
-        <item>
+        <lastBuildDate>Tue, 22 Apr 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>机器学习基础</title>
         <link>https://LeoDreamer2004.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/</link>
-        <pubDate>Tue, 08 Apr 2025 00:00:00 +0000</pubDate>
+        <pubDate>Tue, 22 Apr 2025 00:00:00 +0000</pubDate>
         
         <guid>https://LeoDreamer2004.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/</guid>
         <description>&lt;img src="https://LeoDreamer2004.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/Chino_ML.jpg" alt="Featured image of post 机器学习基础" /&gt;&lt;p&gt;北京大学牟克典老师的机器学习基础课程。&lt;/p&gt;
@@ -133,6 +62,11 @@
       &lt;tr&gt;
           &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/p/machine-learning/clustering-intro&#34; &gt;机器学习基础(8) —— 聚类简介&lt;/a&gt;&lt;/td&gt;
           &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/MachineLearning-8.pdf&#34; &gt;课件链接&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/homework-5.pdf&#34; &gt;作业链接&lt;/a&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/p/machine-learning/markov&#34; &gt;机器学习基础(9) —— 隐 Markov 模型&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/MachineLearning-9.pdf&#34; &gt;课件链接&lt;/a&gt;&lt;/td&gt;
           &lt;td&gt;&lt;/td&gt;
       &lt;/tr&gt;
   &lt;/tbody&gt;
@@ -141,12 +75,83 @@
 </description>
         </item>
         <item>
+        <title>课程</title>
+        <link>https://LeoDreamer2004.github.io/categories/%E8%AF%BE%E7%A8%8B/</link>
+        <pubDate>Tue, 22 Apr 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/categories/%E8%AF%BE%E7%A8%8B/</guid>
+        <description>&lt;img src="https://LeoDreamer2004.github.io/categories/%E8%AF%BE%E7%A8%8B/PKU.jpeg" alt="Featured image of post 课程" /&gt;</description>
+        </item>
+        <item>
         <title>数学</title>
         <link>https://LeoDreamer2004.github.io/categories/%E6%95%B0%E5%AD%A6/</link>
-        <pubDate>Tue, 08 Apr 2025 00:00:00 +0000</pubDate>
+        <pubDate>Tue, 22 Apr 2025 00:00:00 +0000</pubDate>
         
         <guid>https://LeoDreamer2004.github.io/categories/%E6%95%B0%E5%AD%A6/</guid>
         <description></description>
+        </item>
+        <item>
+        <title>程序设计实习</title>
+        <link>https://LeoDreamer2004.github.io/categories/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%AE%9E%E4%B9%A0/</link>
+        <pubDate>Wed, 16 Apr 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/categories/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%AE%9E%E4%B9%A0/</guid>
+        <description>&lt;img src="https://LeoDreamer2004.github.io/categories/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%AE%9E%E4%B9%A0/Q_Py_Cpp.png" alt="Featured image of post 程序设计实习" /&gt;&lt;p&gt;北京大学张勤健老师的程序设计实习课程。&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;&lt;p class=&#34;math-block-title&#34;&gt;&lt;?xml version=&#34;1.0&#34; standalone=&#34;no&#34;?&gt;&lt;!DOCTYPE svg PUBLIC &#34;-//W3C//DTD SVG 1.1//EN&#34; &#34;http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd&#34;&gt;&lt;svg t=&#34;1742970494288&#34; class=&#34;icon&#34; viewBox=&#34;0 0 1024 1024&#34; version=&#34;1.1&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; p-id=&#34;7053&#34; data-darkreader-inline-fill=&#34;&#34; xmlns:xlink=&#34;http://www.w3.org/1999/xlink&#34; width=&#34;200&#34; height=&#34;200&#34;&gt;&lt;path d=&#34;M622.24 959.41A51.58 51.58 0 0 1 574 926.65L437.44 584a52 52 0 0 1 11-55.48l211.9-218.11A36 36 0 1 1 712 360.56L509.12 569.37 621.3 850.91l250.25-697.73-696.76 246.31 176.83 68.84a36 36 0 1 1-26.13 67.09L98.47 447a52 52 0 0 1 1.53-97.44L903.15 65.65A44 44 0 0 1 959.23 122l-288 803a51.62 51.62 0 0 1-48.05 34.44z&#34; p-id=&#34;7054&#34;&gt;&lt;/path&gt;&lt;/svg&gt; 导航&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;博客页面&lt;/th&gt;
+          &lt;th&gt;课件&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/p/program-practice/class-and-object&#34; &gt;程序设计实习(1) —— 类和对象&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/01-%e7%b1%bb%e5%92%8c%e5%af%b9%e8%b1%a101.pdf&#34; &gt;课件链接 1&lt;/a&gt; &lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/02-%e7%b1%bb%e4%b8%8e%e5%af%b9%e8%b1%a102.pdf&#34; &gt;课件链接 2&lt;/a&gt; &lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/03-%e7%b1%bb%e4%b8%8e%e5%af%b9%e8%b1%a103.pdf&#34; &gt;课件链接 3&lt;/a&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/p/program-practice/operator-overload&#34; &gt;程序设计实习(2) —— 运算符重载&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/04-%e8%bf%90%e7%ae%97%e7%ac%a6%e9%87%8d%e8%bd%bd.pdf&#34; &gt;课件链接&lt;/a&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/p/program-practice/inherit&#34; &gt;程序设计实习(3) —— 继承与派生&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/05-%e7%bb%a7%e6%89%bf%e4%b8%8e%e6%b4%be%e7%94%9f.pdf&#34; &gt;课件链接&lt;/a&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/p/program-practice/polymorphism&#34; &gt;程序设计实习(4) —— 多态&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/06-%e5%a4%9a%e6%80%81.pdf&#34; &gt;课件链接&lt;/a&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/p/program-practice/file-io&#34; &gt;程序设计实习(5) —— 输入输出和文件操作&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/07-%e8%be%93%e5%85%a5%e8%be%93%e5%87%ba%e5%92%8c%e6%96%87%e4%bb%b6%e6%93%8d%e4%bd%9c.pdf&#34; &gt;课件链接&lt;/a&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/p/program-practice/template&#34; &gt;程序设计实习(6) —— 模板&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/08-%e6%a8%a1%e6%9d%bf.pdf&#34; &gt;课件链接&lt;/a&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/p/program-practice/string&#34; &gt;程序设计实习(7) —— string 类&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/09-string%e7%b1%bb.pdf&#34; &gt;课件链接&lt;/a&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/p/program-practice/stl&#34; &gt;程序设计实习(8) —— 标准模板库&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/10-%e6%a0%87%e5%87%86%e6%a8%a1%e6%9d%bf%e5%ba%93.pdf&#34; &gt;课件链接 1&lt;/a&gt; &lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/program-practice/10-%e6%a0%87%e5%87%86%e6%a8%a1%e6%9d%bf%e5%ba%932.pdf&#34; &gt;课件链接 2&lt;/a&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;blockquote&gt;
+&lt;p&gt;注：Python 部分未记录。&lt;/p&gt;&lt;/blockquote&gt;
+</description>
+        </item>
+        <item>
+        <title>计算机</title>
+        <link>https://LeoDreamer2004.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/</link>
+        <pubDate>Wed, 16 Apr 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/</guid>
+        <description>&lt;img src="https://LeoDreamer2004.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/Chino_CS.jpg" alt="Featured image of post 计算机" /&gt;</description>
         </item>
         <item>
         <title>论文</title>
