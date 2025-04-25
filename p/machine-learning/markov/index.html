@@ -424,14 +424,14 @@ $$a_{ij} = P(X_2 = s_j | X_1 = s_i), s_i, s_j \in S$$<p>为 Markov 链 $\{X_t\}$
 <li>根据状态 $X_t$ 和观测概率矩阵 $B$, 随机生成观测 $O_t$ 使得 $P(O_t = o_j | X_t = s_i) = b_{ij}$.</li>
 <li>根据状态 $X_t$ 和转移概率矩阵 $A$, 随机选择下一个状态 $X_{t+1}$ 使得 $P(X_{t+1} = s_j | X_t = s_i) = a_{ij}$.</li>
 <li>令 $t = t + 1$, 如果 $t \leq T$, 则返回第 2 步, 否则停止.</li>
-<li>返回观测序列 $O = (O_1, O_2, \cdots, O_T)$.</li>
+<li>返回观测序列 $\mathbf{O} = (O_1, O_2, \cdots, O_T)$.</li>
 </ol>
 </div>
 <h2 id="概率计算方法">概率计算方法
-</h2><p>Markov 的第一个核心问题是概率计算问题: 给定 Markov 模型 $\lambda = (A,B,\pi)$, 计算 $p(O | \lambda)$, 其中 $O=(O_1,O_2, \cdots, O_T)$, 即计算给定模型时得到观测序列的概率.</p>
+</h2><p>Markov 的第一个核心问题是概率计算问题: 给定 Markov 模型 $\lambda = (A,B,\pi)$, 计算 $p(\mathbf{O} | \lambda)$, 其中 $O=(O_1,O_2, \cdots, O_T)$, 即计算给定模型时得到观测序列的概率.</p>
 <h3 id="前向算法">前向算法
 </h3><p>我们定义前向概率:</p>
-$$\alpha_t(i) = p(O_1, O_2, \cdots, O_t, X_t = s_i | \lambda)$$<p>显见 $\alpha_T(i) = p(O, X_T = s_i | \lambda)$, 因此 $p(O | \lambda) = \sum_{i=1}^N \alpha_T(i)$. 对于首项:</p>
+$$\alpha_t(i) = p(O_1, O_2, \cdots, O_t, X_t = s_i | \lambda)$$<p>显见 $\alpha_T(i) = p(\mathbf{O}, X_T = s_i | \lambda)$, 因此 $p(\mathbf{O} | \lambda) = \sum_{i=1}^N \alpha_T(i)$. 对于首项:</p>
 $$
 \begin{aligned}
 \alpha_1(i) &= p(O_1, X_1 = s_i | \lambda) \\
@@ -447,21 +447,21 @@ $$
 &= \sum_{j=1}^N \alpha_t(j)b_i(O_{t+1}) a_{ji} = \left(\sum_{j=1}^N a_{ji}\alpha_t(j)\right)b_i(O_{t+1}) \\
 \end{aligned}
 $$<div class="math-block"><p class="math-block-title">前向算法</p>
-$$\alpha_1(i) = \pi_i b_i(O_1)$$$$\alpha_{t+1}(i) = \left(\sum_{j=1}^N a_{ji}\alpha_t(j)\right)b_i(O_{t+1})$$$$p(O | \lambda) = \sum_{i=1}^N \alpha_T(i)$$</div>
+$$\alpha_1(i) = \pi_i b_i(O_1)$$$$\alpha_{t+1}(i) = \left(\sum_{j=1}^N a_{ji}\alpha_t(j)\right)b_i(O_{t+1})$$$$p(\mathbf{O} | \lambda) = \sum_{i=1}^N \alpha_T(i)$$</div>
 <h3 id="后向算法">后向算法
 </h3><p>我们定义后向概率:</p>
 $$\beta_t(i) = p(O_{t+1}, O_{t+2}, \cdots, O_T | X_t = s_i, \lambda)$$<p>约定 $\beta_T(i) = 1$. 仿照前向算法的思路推导即可.</p>
 <div class="math-block"><p class="math-block-title">后向算法</p>
-$$\beta_T(i) = 1$$$$\beta_t(i) = \sum_{j=1}^N a_{ij} b_j(O_{t+1}) \beta_{t+1}(j)$$$$p(O | \lambda) = \sum_{i=1}^N \pi_i b_i(O_1) \beta_1(i)$$</div>
+$$\beta_T(i) = 1$$$$\beta_t(i) = \sum_{j=1}^N a_{ij} b_j(O_{t+1}) \beta_{t+1}(j)$$$$p(\mathbf{O} | \lambda) = \sum_{i=1}^N \pi_i b_i(O_1) \beta_1(i)$$</div>
 <h2 id="viterbi-算法">Viterbi 算法
 </h2><p>Markov 的第二个核心问题是解码问题: 给定 Markov 模型 $\lambda = (A,B,\pi)$ 和观测序列 $O$, 计算最可能的状态序列 $X = \{X_1, X_2, \cdots, X_T\}$. 即找:</p>
-$$X^* = \argmax_X p(X | O, \lambda)$$<p>也可以定义为:</p>
+$$X^* = \argmax_X p(X | \mathbf{O}, \lambda)$$<p>也可以定义为:</p>
 $$X^* = \argmax_X p(X, O| \lambda)$$<p>Viterbi 算法是求解该问题的动态规划算法. 考虑时刻 $T$ 状态为 $s_i$ 的所有单个路径 $(X_1,X_2,\cdots X_{T-1},X_T = s_i)$ 的概率最大值为</p>
 $$
 \delta_{T}(i) = \max_{X_{1},X_{2},\cdots,X_{T-1}} P(X_{1},X_{2},\cdots,X_{T-1},O_{1},O_{2},\cdots,O_{T},X_{T}=s_{i}|\lambda)
 $$<p>对于最优路径 $X^*$, 即有:</p>
 $$
-P(X^*|O,\lambda) = \max_{1 \le i \le N} \delta_{T}(i), X_T^* = \argmax_{1 \le i \le N} \delta_{T}(i)
+P(X^*|\mathbf{O},\lambda) = \max_{1 \le i \le N} \delta_{T}(i), X_T^* = \argmax_{1 \le i \le N} \delta_{T}(i)
 $$<p>特别地, $\delta_1(i)=\pi_i b_i(O_1)$. 既然要动态规划, 递推公式如下:</p>
 $$
 \delta_t(i) = \max_{1 \le j \le N} \left( \delta_{t-1}(j) a_{ji} \right) b_i(O_t)
@@ -470,7 +470,7 @@ $$
 \Psi_t(s_i) = \argmax_{1 \le j \le N} \left( \delta_{t-1}(j) a_{ji} \right)
 $$<div class="math-block">
     <p class="math-block-title math-algo">算法<span class="math-subtitle">Viterbi</span></p>
-<p><strong>输入</strong>: $\lambda = (A,B,\pi)$, 观测序列 $O = (O_1,O_2,\cdots,O_T)$</p>
+<p><strong>输入</strong>: $\lambda = (A,B,\pi)$, 观测序列 $\mathbf{O} = (O_1,O_2,\cdots,O_T)$</p>
 <p><strong>输出</strong>: 最优状态序列 $X^* = (X_1^*, X_2^*, \cdots, X_T^*)$</p>
 <ol>
 <li>初始化 $\delta_1(i) = \pi_i b_i(O_1)$, $\Psi_1(s_i) = 0$.</li>
@@ -501,60 +501,60 @@ Q(\theta|\theta^{(t)}) = \sum_{Z} LL(\theta|D,Z) p(Z|D,\theta^{(t)})
 $$<p>用 $\bar{\lambda}$ 表示当前的参数, 则在 M 步中的 $Q$ 函数为:</p>
 $$
 \begin{aligned}
-Q(\lambda|\bar{\lambda}) &= \sum_{X} p(X|O,\bar{\lambda}) \log p(O,X|\lambda) \\
-&= \frac{1}{p(O|\bar{\lambda})} \sum_{X} p(O,X|\bar{\lambda})\log p(O,X|\lambda)
+Q(\lambda|\bar{\lambda}) &= \sum_{X} p(X|\mathbf{O},\bar{\lambda}) \log p(\mathbf{O},X|\lambda) \\
+&= \frac{1}{p(O|\bar{\lambda})} \sum_{X} p(\mathbf{O},X|\bar{\lambda})\log p(\mathbf{O},X|\lambda)
 \end{aligned}
 $$<p>忽略前面的常数项, Baum-Welch 直接定义 $Q$ 函数为:</p>
 $$
-Q(\lambda|\bar{\lambda}) = \sum_{X} p(X|O,\bar{\lambda})\log p(O,X|\lambda)
+Q(\lambda|\bar{\lambda}) = \sum_{X} p(X|\mathbf{O},\bar{\lambda})\log p(\mathbf{O},X|\lambda)
 $$<p>如果我们记相应的隐状态序列为 $X = (X_1=s_{i_1}, X_2=s_{i_2}, \cdots, X_T=s_{i_T})$, 则有:</p>
 $$
-P(O,X|\lambda) = \pi_{i_1} b_{i_1}(O_1) \prod_{t=1}^{T-1} a_{i_t i_{t+1}} b_{i_{t+1}}(O_{t+1})
+P(\mathbf{O},X|\lambda) = \pi_{i_1} b_{i_1}(O_1) \prod_{t=1}^{T-1} a_{i_t i_{t+1}} b_{i_{t+1}}(O_{t+1})
 $$<p>代入有</p>
 $$
 \begin{aligned}
-Q(\lambda,\bar{\lambda}) & =\sum_{X}p(O,X|\bar{\lambda})\log\left[\pi_{i_{1}}b_{i_{1}}(O_{1})\prod_{t=1}^{T-1}a_{i_{t}i_{t+1}}b_{i_{t+1}}(O_{t+1})\right] \\
-&=\sum_{X}p(O,X|\bar{\lambda})\log\pi_{i_{1}}+\sum_{X}p(O,X|\bar{\lambda})\left[\sum_{t=1}^{T-1}\log a_{i_{t}i_{t+1}}\right] +\sum_X p(O,X|\bar{\lambda})\left[\sum_{t=1}^T\log b_{i_t}(O_t)\right].
+Q(\lambda,\bar{\lambda}) & =\sum_{X}p(\mathbf{O},X|\bar{\lambda})\log\left[\pi_{i_{1}}b_{i_{1}}(O_{1})\prod_{t=1}^{T-1}a_{i_{t}i_{t+1}}b_{i_{t+1}}(O_{t+1})\right] \\
+&=\sum_{X}p(\mathbf{O},X|\bar{\lambda})\log\pi_{i_{1}}+\sum_{X}p(\mathbf{O},X|\bar{\lambda})\left[\sum_{t=1}^{T-1}\log a_{i_{t}i_{t+1}}\right] +\sum_X p(\mathbf{O},X|\bar{\lambda})\left[\sum_{t=1}^T\log b_{i_t}(O_t)\right].
 \end{aligned}
 $$<p>三个部分分别设为 $Q_1, Q_2, Q_3$.</p>
 <h3 id="计算-q1">计算 Q1
 </h3>$$
 \begin{aligned}
-Q_1 &= \sum_{i=1}^N \sum_{X_1=s_i, X_2, \cdots, X_T} p(O,X|\bar{\lambda}) \log \pi_i \\
-&= \sum_{i=1}^N p(O,X_1=s_i|\bar{\lambda}) \log \pi_i \\
+Q_1 &= \sum_{i=1}^N \sum_{X_1=s_i, X_2, \cdots, X_T} p(\mathbf{O},X|\bar{\lambda}) \log \pi_i \\
+&= \sum_{i=1}^N p(\mathbf{O},X_1=s_i|\bar{\lambda}) \log \pi_i \\
 \end{aligned}
 $$<p>$\pi_i$ 要满足 $\sum_{i=1}^N \pi_i = 1$, 因此可以用 Lagrange 乘子法来求解. 得到:</p>
 $$
-\pi_i = \frac{p(O,X_1=s_i|\bar{\lambda})}{p(O|\bar{\lambda})} = p(X_1=s_i|O,\bar{\lambda})
+\pi_i = \frac{p(\mathbf{O},X_1=s_i|\bar{\lambda})}{p(O|\bar{\lambda})} = p(X_1=s_i|\mathbf{O},\bar{\lambda})
 $$<h3 id="计算-q2">计算 Q2
 </h3><p>类似 $Q_1$ 的处理手法:</p>
 $$
-Q_2 = \sum_{i,j=1}^{N} \sum_{t=1}^{T-1} p(O, X_t=s_i, X_{t+1}=s_j|\bar{\lambda}) \log a_{ij}
+Q_2 = \sum_{i,j=1}^{N} \sum_{t=1}^{T-1} p(\mathbf{O}, X_t=s_i, X_{t+1}=s_j|\bar{\lambda}) \log a_{ij}
 $$<p>附加条件 $\sum_{j=1}^N a_{ij} = 1$, Lagrange 乘子法求解, 得到:</p>
 $$
-a_{ij} = \frac{\sum_{t=1}^{T-1}P(X_t=s_i,X_{t+1}=s_j|O,\bar{\lambda})}{\sum_{t=1}^{T-1}P(X_t=s_i|O,\bar{\lambda})}
+a_{ij} = \frac{\sum_{t=1}^{T-1}P(X_t=s_i,X_{t+1}=s_j|\mathbf{O},\bar{\lambda})}{\sum_{t=1}^{T-1}P(X_t=s_i|\mathbf{O},\bar{\lambda})}
 $$<p>这里分子分母也同时除了 $p(O|\bar{\lambda})$.</p>
 <h3 id="计算-q3">计算 Q3
 </h3><p>仍然类似处理:</p>
 $$
-Q_{3}=\sum_{j=1}^{N}\sum_{t=1}^{T}P(O,X_{t}=s_{j}|\bar{\lambda})\log b_{j}(O_{t})
+Q_{3}=\sum_{j=1}^{N}\sum_{t=1}^{T}P(\mathbf{O},X_{t}=s_{j}|\bar{\lambda})\log b_{j}(O_{t})
 $$<p>附加条件 $\sum_{k=1}^M b_j(k) = 1$. 注意 $b_{j}(O_{t})$ 和  $b_{j}(t)$ 并不见得相同, 我们需要简单改写一下:</p>
 $$
 \log b_j(O_t) = \sum_{k=1}^M I(O_t=\nu_k) \log b_j(k)
 $$<p>此时再用 Lagrange 乘子法求解, 得到:</p>
 $$
-b_{j}(k) = \frac{\sum_{t=1}^{T}P(X_{t}=s_{j}|O,\bar{\lambda})I(O_{t}=\nu_{k})}{\sum_{t=1}^{T}P(X_{t}=s_{j}|O,\bar{\lambda})}
+b_{j}(k) = \frac{\sum_{t=1}^{T}P(X_{t}=s_{j}|\mathbf{O},\bar{\lambda})I(O_{t}=\nu_{k})}{\sum_{t=1}^{T}P(X_{t}=s_{j}|\mathbf{O},\bar{\lambda})}
 $$<p>这里分子分母也同时除了 $p(O|\bar{\lambda})$.</p>
 <p>于是核心转化为了计算:</p>
 $$
 \begin{aligned}
-\gamma_t(i|\lambda) &= p(X_t=s_i|O,\bar{\lambda})\\
-\xi(i,j|\lambda)&=p(X_t=s_i,X_{t+1}=s_j|O,\bar{\lambda})
+\gamma_t(i|\lambda) &= p(X_t=s_i|\mathbf{O},\bar{\lambda})\\
+\xi(i,j|\lambda)&=p(X_t=s_i,X_{t+1}=s_j|\mathbf{O},\bar{\lambda})
 \end{aligned}
 $$<p>利用 Bayes 公式, 结合前向后向算法可得结果.</p>
 <div class="math-block">
     <p class="math-block-title math-algo">算法<span class="math-subtitle">Baum-Welch</span></p>
-<p><strong>输入</strong>: 观测序列 $O = (O_1,O_2,\cdots,O_T)$</p>
+<p><strong>输入</strong>: 观测序列 $\mathbf{O} = (O_1,O_2,\cdots,O_T)$</p>
 <p><strong>输出</strong>: 隐 Markov 模型 $\lambda = (A,B,\pi)$</p>
 <ol>
 <li>初始化 $\lambda = (A,B,\pi)$.</li>
@@ -563,7 +563,7 @@ $$<p>利用 Bayes 公式, 结合前向后向算法可得结果.</p>
 $$
     \begin{aligned}
     \gamma_t(i|\lambda) &= \frac{\alpha_t(i)\beta_t(i)}{\sum_{j=1}^N \alpha_t(j)\beta_t(j)} \\
-    \xi(i,j|\lambda) &= \frac{\alpha_t(i)a_{ij}b_j(O_{t+1})\beta_{t+1}(j)}{\sum_{k=1}^N \alpha_t(k)a_{kj}b_j(O_{t+1})\beta_{t+1}(k)} \\
+    \xi(i,j|\lambda) &= \frac{\alpha_t(i)a_{ij}b_j(O_{t+1})\beta_{t+1}(j)}{\sum_{j=1}^N \sum_{k=1}^N \alpha_t(k)a_{kj}b_j(O_{t+1})\beta_{t+1}(k)} \\
     \pi_i &= \gamma_1(i|\lambda) \\
     a_{ij} &= \frac{\sum_{t=1}^{T-1} \xi(i,j|\lambda)}{\sum_{t=1}^{T-1} \gamma_t(i|\lambda)} \\
     b_{j}(k) &= \frac{\sum_{t=1}^{T} \gamma_t(j|\lambda)I(O_t=\nu_k)}{\sum_{t=1}^{T} \gamma_t(j|\lambda)}
