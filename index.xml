@@ -70,10 +70,129 @@ $$\alpha_1(i) = \pi_i b_i(O_1)$$$$\alpha_{t+1}(i) = \left(\sum_{j=1}^N a_{ji}\al
 &lt;/h3&gt;&lt;p&gt;我们定义后向概率:&lt;/p&gt;
 $$\beta_t(i) = p(O_{t+1}, O_{t+2}, \cdots, O_T | X_t = s_i, \lambda)$$&lt;p&gt;约定 $\beta_T(i) = 1$. 仿照前向算法的思路推导即可.&lt;/p&gt;
 &lt;div class=&#34;math-block&#34;&gt;&lt;p class=&#34;math-block-title&#34;&gt;后向算法&lt;/p&gt;
-$$\beta_T(i) = 1$$$$\beta_t(i) = \sum_{j=1}^N a_{ij} b_j(O_{t+1}) \beta_{t+1}(j)$$$$P(O | \lambda) = \sum_{i=1}^N \pi_i b_i(O_1) \beta_1(i)$$&lt;/div&gt;
+$$\beta_T(i) = 1$$$$\beta_t(i) = \sum_{j=1}^N a_{ij} b_j(O_{t+1}) \beta_{t+1}(j)$$$$p(O | \lambda) = \sum_{i=1}^N \pi_i b_i(O_1) \beta_1(i)$$&lt;/div&gt;
 &lt;h2 id=&#34;viterbi-算法&#34;&gt;Viterbi 算法
 &lt;/h2&gt;&lt;p&gt;Markov 的第二个核心问题是解码问题: 给定 Markov 模型 $\lambda = (A,B,\pi)$ 和观测序列 $O$, 计算最可能的状态序列 $X = \{X_1, X_2, \cdots, X_T\}$. 即找:&lt;/p&gt;
-$$X^* = \argmax_X p(X | O, \lambda)$$</description>
+$$X^* = \argmax_X p(X | O, \lambda)$$&lt;p&gt;也可以定义为:&lt;/p&gt;
+$$X^* = \argmax_X p(X, O| \lambda)$$&lt;p&gt;Viterbi 算法是求解该问题的动态规划算法. 考虑时刻 $T$ 状态为 $s_i$ 的所有单个路径 $(X_1,X_2,\cdots X_{T-1},X_T = s_i)$ 的概率最大值为&lt;/p&gt;
+$$
+\delta_{T}(i) = \max_{X_{1},X_{2},\cdots,X_{T-1}} P(X_{1},X_{2},\cdots,X_{T-1},O_{1},O_{2},\cdots,O_{T},X_{T}=s_{i}|\lambda)
+$$&lt;p&gt;对于最优路径 $X^*$, 即有:&lt;/p&gt;
+$$
+P(X^*|O,\lambda) = \max_{1 \le i \le N} \delta_{T}(i), X_T^* = \argmax_{1 \le i \le N} \delta_{T}(i)
+$$&lt;p&gt;特别地, $\delta_1(i)=\pi_i b_i(O_1)$. 既然要动态规划, 递推公式如下:&lt;/p&gt;
+$$
+\delta_t(i) = \max_{1 \le j \le N} \left( \delta_{t-1}(j) a_{ji} \right) b_i(O_t)
+$$&lt;p&gt;动态规划还要记住路径, 用 $\Psi_t(s_i)$ 记录时刻 $t$ 状态为 $s_i$ 的概率最大的路径的前一个状态, 即:&lt;/p&gt;
+$$
+\Psi_t(s_i) = \argmax_{1 \le j \le N} \left( \delta_{t-1}(j) a_{ji} \right)
+$$&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;Viterbi&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: $\lambda = (A,B,\pi)$, 观测序列 $O = (O_1,O_2,\cdots,O_T)$&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 最优状态序列 $X^* = (X_1^*, X_2^*, \cdots, X_T^*)$&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;初始化 $\delta_1(i) = \pi_i b_i(O_1)$, $\Psi_1(s_i) = 0$.&lt;/li&gt;
+&lt;li&gt;对于 $t=2,3,\cdots,T$:
+$$
+    \begin{aligned}
+    \delta_t(i) &amp;= \max_{1 \le j \le N} \left( \delta_{t-1}(j) a_{ji} \right) b_i(O_t) \\
+    \Psi_t(s_i) &amp;= \argmax_{1 \le j \le N} \left( \delta_{t-1}(j) a_{ji} \right)
+    \end{aligned}
+    $$&lt;/li&gt;
+&lt;li&gt;选择最优路径:
+$$
+    \begin{aligned}
+    P^* &amp;= \max_{1 \le i \le N} \delta_T(i) \\
+    X_T^* &amp;= \argmax_{1 \le i \le N} \delta_T(i)
+    \end{aligned}
+    $$&lt;/li&gt;
+&lt;li&gt;从时间 $T$ 追溯历史:
+$$X_{t-1}^* = \Psi_t(X_t^*)$$&lt;/li&gt;
+&lt;li&gt;返回最优路径 $X^* = (X_1^*, X_2^*, \cdots, X_T^*)$.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;baum-welch-算法&#34;&gt;Baum-Welch 算法
+&lt;/h2&gt;&lt;p&gt;Markov 的第三个核心问题是学习问题: 给定观测序列 $O$ 和隐 Markov 模型 $\lambda = (A,B,\pi)$, 计算最优的模型参数使得似然 $p(O|\lambda)$ 最大.&lt;/p&gt;
+&lt;p&gt;如果 Markov 链是可观测的, 则可以直接用极大似然估计来估计参数. 如果隐藏, 可以用 EM 算法来估计参数. 我们依然沿用 EM 算法的思路:&lt;/p&gt;
+$$
+Q(\theta|\theta^{(t)}) = \sum_{Z} LL(\theta|D,Z) p(Z|D,\theta^{(t)})
+$$&lt;p&gt;用 $\bar{\lambda}$ 表示当前的参数, 则在 M 步中的 $Q$ 函数为:&lt;/p&gt;
+$$
+\begin{aligned}
+Q(\lambda|\bar{\lambda}) &amp;= \sum_{X} p(X|O,\bar{\lambda}) \log p(O,X|\lambda) \\
+&amp;= \frac{1}{p(O|\bar{\lambda})} \sum_{X} p(O,X|\bar{\lambda})\log p(O,X|\lambda)
+\end{aligned}
+$$&lt;p&gt;忽略前面的常数项, Baum-Welch 直接定义 $Q$ 函数为:&lt;/p&gt;
+$$
+Q(\lambda|\bar{\lambda}) = \sum_{X} p(X|O,\bar{\lambda})\log p(O,X|\lambda)
+$$&lt;p&gt;如果我们记相应的隐状态序列为 $X = (X_1=s_{i_1}, X_2=s_{i_2}, \cdots, X_T=s_{i_T})$, 则有:&lt;/p&gt;
+$$
+P(O,X|\lambda) = \pi_{i_1} b_{i_1}(O_1) \prod_{t=1}^{T-1} a_{i_t i_{t+1}} b_{i_{t+1}}(O_{t+1})
+$$&lt;p&gt;代入有&lt;/p&gt;
+$$
+\begin{aligned}
+Q(\lambda,\bar{\lambda}) &amp; =\sum_{X}p(O,X|\bar{\lambda})\log\left[\pi_{i_{1}}b_{i_{1}}(O_{1})\prod_{t=1}^{T-1}a_{i_{t}i_{t+1}}b_{i_{t+1}}(O_{t+1})\right] \\
+&amp;=\sum_{X}p(O,X|\bar{\lambda})\log\pi_{i_{1}}+\sum_{X}p(O,X|\bar{\lambda})\left[\sum_{t=1}^{T-1}\log a_{i_{t}i_{t+1}}\right] +\sum_X p(O,X|\bar{\lambda})\left[\sum_{t=1}^T\log b_{i_t}(O_t)\right].
+\end{aligned}
+$$&lt;p&gt;三个部分分别设为 $Q_1, Q_2, Q_3$.&lt;/p&gt;
+&lt;h3 id=&#34;计算-q1&#34;&gt;计算 Q1
+&lt;/h3&gt;$$
+\begin{aligned}
+Q_1 &amp;= \sum_{i=1}^N \sum_{X_1=s_i, X_2, \cdots, X_T} p(O,X|\bar{\lambda}) \log \pi_i \\
+&amp;= \sum_{i=1}^N p(O,X_1=s_i|\bar{\lambda}) \log \pi_i \\
+\end{aligned}
+$$&lt;p&gt;$\pi_i$ 要满足 $\sum_{i=1}^N \pi_i = 1$, 因此可以用 Lagrange 乘子法来求解. 得到:&lt;/p&gt;
+$$
+\pi_i = \frac{p(O,X_1=s_i|\bar{\lambda})}{p(O|\bar{\lambda})} = p(X_1=s_i|O,\bar{\lambda})
+$$&lt;h3 id=&#34;计算-q2&#34;&gt;计算 Q2
+&lt;/h3&gt;&lt;p&gt;类似 $Q_1$ 的处理手法:&lt;/p&gt;
+$$
+Q_2 = \sum_{i,j=1}^{N} \sum_{t=1}^{T-1} p(O, X_t=s_i, X_{t+1}=s_j|\bar{\lambda}) \log a_{ij}
+$$&lt;p&gt;附加条件 $\sum_{j=1}^N a_{ij} = 1$, Lagrange 乘子法求解, 得到:&lt;/p&gt;
+$$
+a_{ij} = \frac{\sum_{t=1}^{T-1}P(X_t=s_i,X_{t+1}=s_j|O,\bar{\lambda})}{\sum_{t=1}^{T-1}P(X_t=s_i|O,\bar{\lambda})}
+$$&lt;p&gt;这里分子分母也同时除了 $p(O|\bar{\lambda})$.&lt;/p&gt;
+&lt;h3 id=&#34;计算-q3&#34;&gt;计算 Q3
+&lt;/h3&gt;&lt;p&gt;仍然类似处理:&lt;/p&gt;
+$$
+Q_{3}=\sum_{j=1}^{N}\sum_{t=1}^{T}P(O,X_{t}=s_{j}|\bar{\lambda})\log b_{j}(O_{t})
+$$&lt;p&gt;附加条件 $\sum_{k=1}^M b_j(k) = 1$. 注意 $b_{j}(O_{t})$ 和  $b_{j}(t)$ 并不见得相同, 我们需要简单改写一下:&lt;/p&gt;
+$$
+\log b_j(O_t) = \sum_{k=1}^M I(O_t=\nu_k) \log b_j(k)
+$$&lt;p&gt;此时再用 Lagrange 乘子法求解, 得到:&lt;/p&gt;
+$$
+b_{j}(k) = \frac{\sum_{t=1}^{T}P(X_{t}=s_{j}|O,\bar{\lambda})I(O_{t}=\nu_{k})}{\sum_{t=1}^{T}P(X_{t}=s_{j}|O,\bar{\lambda})}
+$$&lt;p&gt;这里分子分母也同时除了 $p(O|\bar{\lambda})$.&lt;/p&gt;
+&lt;p&gt;于是核心转化为了计算:&lt;/p&gt;
+$$
+\begin{aligned}
+\gamma_t(i|\lambda) &amp;= p(X_t=s_i|O,\bar{\lambda})\\
+\xi(i,j|\lambda)&amp;=p(X_t=s_i,X_{t+1}=s_j|O,\bar{\lambda})
+\end{aligned}
+$$&lt;p&gt;利用 Bayes 公式, 结合前向后向算法可得结果.&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;Baum-Welch&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 观测序列 $O = (O_1,O_2,\cdots,O_T)$&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 隐 Markov 模型 $\lambda = (A,B,\pi)$&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;初始化 $\lambda = (A,B,\pi)$.&lt;/li&gt;
+&lt;li&gt;按概率计算方法计算前向概率 $\alpha_t(i)$ 和后向概率 $\beta_t(i)$.&lt;/li&gt;
+&lt;li&gt;计算以下参数:
+$$
+    \begin{aligned}
+    \gamma_t(i|\lambda) &amp;= \frac{\alpha_t(i)\beta_t(i)}{\sum_{j=1}^N \alpha_t(j)\beta_t(j)} \\
+    \xi(i,j|\lambda) &amp;= \frac{\alpha_t(i)a_{ij}b_j(O_{t+1})\beta_{t+1}(j)}{\sum_{k=1}^N \alpha_t(k)a_{kj}b_j(O_{t+1})\beta_{t+1}(k)} \\
+    \pi_i &amp;= \gamma_1(i|\lambda) \\
+    a_{ij} &amp;= \frac{\sum_{t=1}^{T-1} \xi(i,j|\lambda)}{\sum_{t=1}^{T-1} \gamma_t(i|\lambda)} \\
+    b_{j}(k) &amp;= \frac{\sum_{t=1}^{T} \gamma_t(j|\lambda)I(O_t=\nu_k)}{\sum_{t=1}^{T} \gamma_t(j|\lambda)}
+    \end{aligned}
+    $$&lt;/li&gt;
+&lt;li&gt;得到新的参数 $\lambda = (A,B,\pi)$.&lt;/li&gt;
+&lt;li&gt;重复步骤 2-4 直到收敛.&lt;/li&gt;
+&lt;li&gt;返回隐 Markov 模型 $\lambda = (A,B,\pi)$.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
         </item>
         <item>
         <title>程序设计实习(8) —— 标准模板库</title>
