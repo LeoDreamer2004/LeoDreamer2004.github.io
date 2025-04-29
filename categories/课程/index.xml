@@ -7,7 +7,69 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>LeoDreamer</copyright>
-        <lastBuildDate>Tue, 22 Apr 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/%E8%AF%BE%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 29 Apr 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/%E8%AF%BE%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>机器学习基础(10) —— PAC 和 UC 可学习性</title>
+        <link>https://LeoDreamer2004.github.io/p/machine-learning/pac_uc/</link>
+        <pubDate>Tue, 29 Apr 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/p/machine-learning/pac_uc/</guid>
+        <description>&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;我们定义 &lt;strong&gt;泛化误差&lt;/strong&gt; 为:&lt;/p&gt;
+$$
+L_{D,f}(h) = P_{X \sim D}(h(X) \neq f(X))
+$$&lt;p&gt;&lt;strong&gt;训练误差&lt;/strong&gt; 为:&lt;/p&gt;
+$$
+L_S(h) = \frac{1}{m} \sum_{i=1}^m \mathbb{I}(h(X_i) \neq f(X_i))
+$$&lt;/div&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;如果存在 $h^*$ 使得对任意 $L_{D,f}(h^*) = 0$, 则称为 $f,D$ 满足 &lt;strong&gt;可实现假设&lt;/strong&gt;. 对 $1$ 的概率, 满足 $L_S(h^*) = 0$, 且对每个经验风险最小化的假设 $h_S$ 有 $L_S(h_S) =0$.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
+&lt;p&gt;设 $\mathcal{H}$ 是有限的假设空间, $\delta \in (0,1), \epsilon&gt;0$, 设正整数 $m$ 满足:&lt;/p&gt;
+$$
+m \ge \frac{\log(|\mathcal{H}|/\delta)}{\epsilon}
+$$&lt;p&gt;对任意标签函数 $f$ 和任意分布 $D$, 如果可实现性假设相对于 $\mathcal{H}, \mathcal{D}, f$ 成立, 则在大小为 $m$ 的独立同分布样本 $S$ 的选择上有最低 $1-\delta$ 的概率满足: 对每个经验风险最小化的假设 $h_S$ 有:&lt;/p&gt;
+$$
+L_{D,f}(h_S) \leq \epsilon
+$$&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
+&lt;p&gt;令 $\mathcal{H}_B$ 表示“坏”假设的集合, 即&lt;/p&gt;
+$$
+\mathcal{H}_B = \{ h \in \mathcal{H} : L_{(D, f)}(h) &gt; \epsilon \}
+$$&lt;p&gt;令 $S|_x = \{ x_1, \cdots, x_m \}$ 表示训练集的实例, $M = \{S|_x : \exists h \in \mathcal{H}_B, L_S(h) = 0\}$. 注意由可实现假设:&lt;/p&gt;
+$$
+\{S|_x : L_{(D, f)}(h_S) &gt; \epsilon\} \subseteq M = \bigcup_{h \in \mathcal{H}_B} \{S|_x : L_S(h) = 0\}.
+$$&lt;p&gt;因此:&lt;/p&gt;
+$$
+\begin{aligned}
+D^m(\{S|_x : L_{(D, f)}(h_S) &gt; \epsilon\}) &amp;\leq D^m(M) = D^m\left(\bigcup_{h \in \mathcal{H}_B} \{S|_x : L_S(h) = 0\}\right) \\
+&amp;\leq \sum_{h \in \mathcal{H}_B} D^m(\{S|_x : L_S(h) = 0\}) \\
+&amp;= \sum_{h \in \mathcal{H}_B} \prod_{i=1}^m D(\{x_i : h(x_i) = f(x_i)\})
+\end{aligned}
+$$&lt;p&gt;注意到对于每个 $h \in \mathcal{H}_B$,&lt;/p&gt;
+$$
+D(\{x_i : h(x_i) = f(x_i)\}) = 1 - L_{(D, f)}(h) \leq 1 - \epsilon
+$$&lt;p&gt;代入上式, 再利用 $m$ 的定义可得:&lt;/p&gt;
+$$
+D^m(\{S|_x : L_{(D, f)}(h_S) &gt; \epsilon\}) \leq |\mathcal{H}_B| (1 - \epsilon)^m \le |\mathcal{H}| e^{-\epsilon m} \le \delta
+$$&lt;p&gt;由此, 即 $1-D^m(\{S|_x : L_{(D, f)}(h_S) &gt; \epsilon\}) &gt; 1-\delta$, 得证.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;我们现在可以引入 PAC 可学习性的概念.&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;称假设空间 $\mathcal{H}$ 是 &lt;strong&gt;PAC 可学习的&lt;/strong&gt;, 如果存在一个函数 $m_{\mathcal{H}} : (0, 1)^2 \to \mathbb{N}$ 和一个学习算法, 满足以下性质: 对于任意 $\delta, \epsilon \in (0, 1)$, 对于任意定义在 $\mathcal{X}$ 上的分布 $\mathcal{D}$, 以及对于任意标记函数 $f : \mathcal{X} \to \{0, 1\}$, 如果可实现性假设相对于 $\mathcal{H}, \mathcal{D}, f$ 成立, 那么当使用由 $\mathcal{D}$ 生成的 $m \geq m_{\mathcal{H}}(\epsilon, \delta)$ 个独立同分布样本, 并用 $f$ 标记这些样本运行该算法时, 算法将返回一个假设 $h$, 使得在样本选择上以至少 $1 - \delta$ 的概率满足&lt;/p&gt;
+$$
+L_{(\mathcal{D}, f)}(h) \leq \epsilon
+$$&lt;p&gt;这里, $m$ 的大小称为 &lt;strong&gt;样本复杂度&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;由刚才的定理, 显然:&lt;/p&gt;
+$$
+m_{\mathcal{H}}(\epsilon, \delta) \le \lceil\frac{\log(|\mathcal{H}|/\delta)}{\epsilon}\rceil
+$$</description>
+        </item>
+        <item>
         <title>机器学习基础(9) —— 隐 Markov 模型</title>
         <link>https://LeoDreamer2004.github.io/p/machine-learning/markov/</link>
         <pubDate>Tue, 22 Apr 2025 00:00:00 +0000</pubDate>
@@ -172,8 +234,8 @@ $$
 $$&lt;p&gt;利用 Bayes 公式, 结合前向后向算法可得结果.&lt;/p&gt;
 &lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;Baum-Welch&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 观测序列 $\mathbf{O} = (O_1,O_2,\cdots,O_T)$&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 隐 Markov 模型 $\lambda = (A,B,\pi)$&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 观测序列 $\mathbf{O} = (O_1,O_2,\cdots,O_T)$.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 隐 Markov 模型 $\lambda = (A,B,\pi)$.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;初始化 $\lambda = (A,B,\pi)$.&lt;/li&gt;
 &lt;li&gt;按概率计算方法计算前向概率 $\alpha_t(i)$ 和后向概率 $\beta_t(i)$.&lt;/li&gt;
