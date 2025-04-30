@@ -266,7 +266,7 @@
     </li>
     
     <li>
-        <a href="/materials/program-practice/10-%e6%a0%87%e5%87%86%e6%a8%a1%e6%9d%bf%e5%ba%932.pdf" id="related-material-2" target="_blank" rel="noopener noreferrer">
+        <a href="/materials/program-practice/11-%e6%a0%87%e5%87%86%e6%a8%a1%e6%9d%bf%e5%ba%932.pdf" id="related-material-2" target="_blank" rel="noopener noreferrer">
             本节课件 2
         </a>
     </li>
@@ -312,6 +312,10 @@
       <ol>
         <li><a href="#不变序列算法">不变序列算法</a></li>
         <li><a href="#变值算法">变值算法</a></li>
+        <li><a href="#删除算法">删除算法</a></li>
+        <li><a href="#变序算法">变序算法</a></li>
+        <li><a href="#排序算法">排序算法</a></li>
+        <li><a href="#有序区间算法">有序区间算法</a></li>
       </ol>
     </li>
   </ol>
@@ -387,7 +391,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 7 分钟
+                    阅读时长: 10 分钟
                 </time>
             </div>
         
@@ -701,7 +705,7 @@
 </div><p><code>map</code> 中的元素都是 <code>pair</code> 模板类对象. 关键字 (<code>first</code> 成员变量) 各不相同. 元素按照关键字从小到大排列, 缺省情况下用 <code>less&lt;Key&gt;</code>. <code>map</code> 则要求关键字唯一, 不允许重复. <code>map</code> 还重载了 <code>[]</code> 运算符, 用于访问元素. <code>map</code> 的 <code>[]</code> 运算符返回一个引用, 如果关键字不存在, 则会插入一个新的元素, 用无参构造初始化.</p>
 <h2 id="适配器">适配器
 </h2><p><code>stack</code> 是后进先出的的数据结构, 只能插入/删除/访问栈顶的元素.
-可用 <code>vector</code>, <code>list</code>, <code>deque</code> 来实现。缺省情况下, 用 <code>deque</code> 实现.</p>
+可用 <code>vector</code>, <code>list</code>, <code>deque</code> 来实现. 缺省情况下, 用 <code>deque</code> 实现.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -785,6 +789,59 @@
 <li><code>replace_copy</code>: 将一个区间拷贝到另一个区间, 拷贝时某个值要换成新值拷过去</li>
 <li><code>replace_copy_if</code>: 将一个区间拷贝到另一个区间, 拷贝时符合某条件的值要换成新值拷过去</li>
 </ul>
+<h3 id="删除算法">删除算法
+</h3><p>删除算法会删除一个容器里的某些元素. 这里所说的“删除”, 并不会使容器里的元素减少, 其工作过程是：将所有应该被删除的元素看做空位子, 然后用留下的元素从后往前移, 依次去填空位子</p>
+<ul>
+<li><code>remove</code>: 删除区间中等于某个值的元素</li>
+<li><code>remove_if</code>: 删除区间中满足某种条件的元素</li>
+<li><code>remove_copy</code>: 拷贝区间到另一个区间. 等于某个值的元素不拷贝</li>
+<li><code>remove_copy_if</code>: 拷贝区间到另一个区间. 符合某种条件的元素不拷贝</li>
+<li><code>unique</code>: 删除区间中连续相等的元素, 只留下一个 (可自定义比较器)</li>
+<li><code>unique_copy</code>: 拷贝区间到另一个区间. 连续相等的元素, 只拷贝第一个到目标区间 (可自定义比较器)</li>
+</ul>
+<h3 id="变序算法">变序算法
+</h3><p>变序算法改变容器中元素的顺序, 但是不改变元素的值. 变序算法不适用于关联容器. 此类算法复杂度都是 $O(n)$ 的.</p>
+<ul>
+<li><code>reverse</code>: 颠倒区间的前后次序</li>
+<li><code>reverse_copy</code>: 把一个区间颠倒后的结果拷贝到另一个区间, 源区间不变</li>
+<li><code>rotate</code>: 将区间进行循环左移</li>
+<li><code>rotate_copy</code>: 将区间以首尾相接的形式进行旋转后的结果拷贝到另一个区间, 源区间不变</li>
+<li><code>next_permutation</code>: 将区间改为下一个排列 (可自定义比较器)</li>
+<li><code>prev_permutation</code>: 将区间改为上一个排列 (可自定义比较器)</li>
+<li><code>random_shuffle</code>: 随机打乱区间内元素的顺序</li>
+<li><code>partition</code>: 把区间内满足某个条件的元素移到前面, 不满足该条件的移到后面</li>
+<li><code>stable_patitio</code>: 把区间内满足某个条件的元素移到前面, 不满足该条件的移到后面. 而且对这两部分元素, 分别保持它们原来的先后次序不变</li>
+</ul>
+<h3 id="排序算法">排序算法
+</h3><p>排序算法比前面的变序算法复杂度更高, 一般是 $O(n \log n)$. 排序算法需要随机访问迭代器的支持, 因而不适用于关联容器和 <code>list</code>.</p>
+<ul>
+<li><code>sort</code>: 将区间从小到大排序 (可自定义比较器)</li>
+<li><code>stable_sort</code>: 将区间从小到大排序, 并保持相等元素间的相对次序 (可自定义比较器)</li>
+<li><code>partial_sort</code>: 对区间部分排序, 直到最小的 n 个元素就位 (可自定义比较器)</li>
+<li><code>partial_sort_copy</code>: 将区间前 n 个元素的排序结果拷贝到别处. 源区间不变 (可自定义比较器)</li>
+<li><code>nth_element</code>: 对区间部分排序, 使得第 n 小的元素（n 从 0 开始算）就位, 而且比它小的都在它前面, 比它大的都在它后面 (可自定义比较器)</li>
+<li><code>make_heap</code>: 使区间成为一个“堆” (可自定义比较器)</li>
+<li><code>push_heap</code>: 将元素加入一个是“堆”区间 (可自定义比较器)</li>
+<li><code>pop_heap</code>: 从“堆”区间删除堆顶元素 (可自定义比较器)</li>
+<li><code>sort_heap</code>: 将一个“堆”区间进行排序, 排序结束后, 该区间就是普通的有序区间, 不再是“堆”了 (可自定义比较器)</li>
+</ul>
+<p><code>sort</code> 实际上是快速排序, 平均性能最优. <code>stable_sort</code> 是归并排序, 能保证最差情况下的性能.</p>
+<h3 id="有序区间算法">有序区间算法
+</h3><p>有序区间算法要求所操作的区间是已经从小到大排好序的, 而且需要随机访问迭代器的支持. 所以有序区间算法不能用于关联容器和 <code>list</code>.</p>
+<ul>
+<li><code>binary_search</code>: 判断区间中是否包含某个元素.</li>
+<li><code>includes</code>: 判断是否一个区间中的每个元素, 都在另一个区间中.</li>
+<li><code>lower_bound</code>: 查找最后一个不小于某值的元素的位置.</li>
+<li><code>upper_bound</code>: 查找第一个大于某值的元素的位置.</li>
+<li><code>equal_range</code>: 同时获取 <code>lower_bound</code> 和 <code>upper_bound</code>.</li>
+<li><code>merge</code>: 合并两个有序区间到第三个区间.</li>
+<li><code>set_union</code>: 将两个有序区间的并拷贝到第三个区间</li>
+<li><code>set_intersection</code>: 将两个有序区间的交拷贝到第三个区间</li>
+<li><code>set_difference</code>: 将两个有序区间的差拷贝到第三个区间</li>
+<li><code>set_symmetric_difference</code>: 将两个有序区间的对称差拷贝到第三个区间</li>
+<li><code>inplace_merge</code>: 将两个连续的有序区间原地合并为一个有序区间</li>
+</ul>
+<p>附注: STL 还提供了位图 <code>bitset</code>, 用于压缩存储.</p>
 
 </section>
 
@@ -847,6 +904,19 @@
             
                 
 <article class="">
+    <a href="/p/program-practice/cpp-feature/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">程序设计实习(9) —— C&#43;&#43; 特性</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
     <a href="/p/program-practice/string/">
         
         
@@ -892,19 +962,6 @@
 
         <div class="article-details">
             <h2 class="article-title">程序设计实习(4) —— 多态</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/program-practice/inherit/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">程序设计实习(3) —— 继承与派生</h2>
         </div>
     </a>
 </article>
