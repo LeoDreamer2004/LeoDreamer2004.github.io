@@ -7,12 +7,42 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>LeoDreamer</copyright>
-        <lastBuildDate>Tue, 29 Apr 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 13 May 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>机器学习基础(11) —— 奇异值分解与主成分分析简介</title>
+        <link>https://LeoDreamer2004.github.io/p/machine-learning/pca/</link>
+        <pubDate>Tue, 13 May 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/p/machine-learning/pca/</guid>
+        <description>&lt;h2 id=&#34;奇异值分解&#34;&gt;奇异值分解
+&lt;/h2&gt;&lt;p&gt;用 $R(A)$ 表达 $\text{Im}(A)$, $N(A)$ 表达 $\text{Ker}(A)$. 则 $\text{dim} R(A) = \text{rank}(A)$, $\text{dim} R(A) + \text{dim} N(A) = n$.&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;奇异值分解&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;对任意矩阵 $A$, 存在正交矩阵 $U$ 和 $V$, 以及对角矩阵 $\Sigma$ 使得:&lt;/p&gt;
+$$
+A = U \Sigma V^T
+$$&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
+&lt;p&gt;$A^TA$ 是对称的, $\text{rank}(A^TA) = r$, 则特征值 $\lambda_1 \ge \lambda_2 \ge \cdots \lambda_r &gt; 0 = \lambda_{r+1} = \lambda_{r+2} = \cdots \lambda_n$, 可正交对角化:&lt;/p&gt;
+$$A^TA = V \Lambda V^T$$&lt;p&gt;把 $V$ 分成两部分 $V=[V_1, V_2]$, 其中 $V_1 = [v_1, \cdots, v_r]$, $V_2 = [v_{r+1}, \cdots, v_n]$. 显见 $v_{r+1}, \cdots, v_n$ 恰好构成 $N(A^TA)$ 的标准正交基.&lt;/p&gt;
+&lt;p&gt;从 $V_1 = [v_1, \cdots, v_r]$ 出发考虑 $U_1 = [u_1, \cdots, u_r]$:&lt;/p&gt;
+$$
+u_i = \frac{1}{\sqrt{\lambda_i}} A v_i
+$$&lt;p&gt;则容易验证 $u_i$ 是 $R(A)$ 的标准正交基. $R(A)$ 的正交补是 $N(A^T)$, 考虑其一组正交基 $U_2 = [u_{r+1}, \cdots, u_n]$, 则 $U = [U_1, U_2]$ 是正交矩阵. 记:&lt;/p&gt;
+$$
+\Sigma_1 = \text{diag}(\sqrt{\lambda_1}, \cdots, \sqrt{\lambda_r}) \\
+\Sigma = \begin{pmatrix}
+\Sigma_1 &amp; 0 \\
+0 &amp; 0
+\end{pmatrix}
+$$&lt;p&gt;则可以得出 $U_1\Sigma_1 = AV_1$, 随后命题即可得证.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+        </item>
+        <item>
         <title>机器学习基础(10) —— PAC 和 UC 可学习性</title>
-        <link>https://LeoDreamer2004.github.io/p/machine-learning/pac_uc/</link>
+        <link>https://LeoDreamer2004.github.io/p/machine-learning/pac-uc/</link>
         <pubDate>Tue, 29 Apr 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://LeoDreamer2004.github.io/p/machine-learning/pac_uc/</guid>
+        <guid>https://LeoDreamer2004.github.io/p/machine-learning/pac-uc/</guid>
         <description>&lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;我们定义 &lt;strong&gt;泛化误差&lt;/strong&gt; 为:&lt;/p&gt;

@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 定义\n我们定义 泛化误差 为:\n$$ L_{D,f}(h) = P_{X \\sim D}(h(X) \\neq f(X)) $$训练误差 为:\n$$ L_S(h) = \\frac{1}{m} \\sum_{i=1}^m \\mathbb{I}(h(X_i) \\neq f(X_i)) $$ 定义\n如果存在 $h^*$ 使得对任意 $L_{D,f}(h^*) = 0$, 则称为 $f,D$ 满足 可实现假设. 对 $1$ 的概率, 满足 $L_S(h^*) = 0$, 且对每个经验风险最小化的假设 $h_S$ 有 $L_S(h_S) =0$.\n">
-<title>机器学习基础(10) —— PAC 和 UC 可学习性</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="奇异值分解 用 $R(A)$ 表达 $\\text{Im}(A)$, $N(A)$ 表达 $\\text{Ker}(A)$. 则 $\\text{dim} R(A) = \\text{rank}(A)$, $\\text{dim} R(A) + \\text{dim} N(A) = n$.\n定理奇异值分解\n对任意矩阵 $A$, 存在正交矩阵 $U$ 和 $V$, 以及对角矩阵 $\\Sigma$ 使得:\n$$ A = U \\Sigma V^T $$证明\n">
+<title>机器学习基础(11) —— 奇异值分解与主成分分析简介</title>
 
-<link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning/pac_uc/'>
+<link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning/pca/'>
 
-<link rel="stylesheet" href="/scss/style.min.12d819feb41150701e7a7fe3d3806145fccdb05afb708f3d239a8a5416bcdcb1.css"><meta property='og:title' content="机器学习基础(10) —— PAC 和 UC 可学习性">
-<meta property='og:description' content=" 定义\n我们定义 泛化误差 为:\n$$ L_{D,f}(h) = P_{X \\sim D}(h(X) \\neq f(X)) $$训练误差 为:\n$$ L_S(h) = \\frac{1}{m} \\sum_{i=1}^m \\mathbb{I}(h(X_i) \\neq f(X_i)) $$ 定义\n如果存在 $h^*$ 使得对任意 $L_{D,f}(h^*) = 0$, 则称为 $f,D$ 满足 可实现假设. 对 $1$ 的概率, 满足 $L_S(h^*) = 0$, 且对每个经验风险最小化的假设 $h_S$ 有 $L_S(h_S) =0$.\n">
-<meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning/pac_uc/'>
+<link rel="stylesheet" href="/scss/style.min.12d819feb41150701e7a7fe3d3806145fccdb05afb708f3d239a8a5416bcdcb1.css"><meta property='og:title' content="机器学习基础(11) —— 奇异值分解与主成分分析简介">
+<meta property='og:description' content="奇异值分解 用 $R(A)$ 表达 $\\text{Im}(A)$, $N(A)$ 表达 $\\text{Ker}(A)$. 则 $\\text{dim} R(A) = \\text{rank}(A)$, $\\text{dim} R(A) + \\text{dim} N(A) = n$.\n定理奇异值分解\n对任意矩阵 $A$, 存在正交矩阵 $U$ 和 $V$, 以及对角矩阵 $\\Sigma$ 使得:\n$$ A = U \\Sigma V^T $$证明\n">
+<meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning/pca/'>
 <meta property='og:site_name' content='LeoDreamer'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-04-29T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-04-29T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="机器学习基础(10) —— PAC 和 UC 可学习性">
-<meta name="twitter:description" content=" 定义\n我们定义 泛化误差 为:\n$$ L_{D,f}(h) = P_{X \\sim D}(h(X) \\neq f(X)) $$训练误差 为:\n$$ L_S(h) = \\frac{1}{m} \\sum_{i=1}^m \\mathbb{I}(h(X_i) \\neq f(X_i)) $$ 定义\n如果存在 $h^*$ 使得对任意 $L_{D,f}(h^*) = 0$, 则称为 $f,D$ 满足 可实现假设. 对 $1$ 的概率, 满足 $L_S(h^*) = 0$, 且对每个经验风险最小化的假设 $h_S$ 有 $L_S(h_S) =0$.\n">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-05-13T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-05-13T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="机器学习基础(11) —— 奇异值分解与主成分分析简介">
+<meta name="twitter:description" content="奇异值分解 用 $R(A)$ 表达 $\\text{Im}(A)$, $N(A)$ 表达 $\\text{Ker}(A)$. 则 $\\text{dim} R(A) = \\text{rank}(A)$, $\\text{dim} R(A) + \\text{dim} N(A) = n$.\n定理奇异值分解\n对任意矩阵 $A$, 存在正交矩阵 $U$ 和 $V$, 以及对角矩阵 $\\Sigma$ 使得:\n$$ A = U \\Sigma V^T $$证明\n">
     </head>
     <body class="
     article-page
@@ -260,8 +260,14 @@
              <ol>
     
     <li>
-        <a href="/materials/machine-learning/MachineLearning-10.pdf" id="related-material-1" target="_blank" rel="noopener noreferrer">
+        <a href="/materials/machine-learning/MachineLearning-11.pdf" id="related-material-1" target="_blank" rel="noopener noreferrer">
             本节课件
+        </a>
+    </li>
+    
+    <li>
+        <a href="/materials/machine-learning/homework-7.pdf" id="related-material-2" target="_blank" rel="noopener noreferrer">
+            作业 7
         </a>
     </li>
     
@@ -273,6 +279,30 @@
         
             
                 
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#奇异值分解">奇异值分解</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
 
             
         
@@ -304,7 +334,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/machine-learning/pac_uc/">机器学习基础(10) —— PAC 和 UC 可学习性</a>
+            <a href="/p/machine-learning/pca/">机器学习基础(11) —— 奇异值分解与主成分分析简介</a>
         </h2>
     
         
@@ -326,7 +356,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2025-04-29</time>
+                <time class="article-time--published">2025-05-13</time>
             </div>
         
 
@@ -341,7 +371,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 2 分钟
+                    阅读时长: 1 分钟
                 </time>
             </div>
         
@@ -356,61 +386,29 @@
     <section class="article-content">
     
     
-    <div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>我们定义 <strong>泛化误差</strong> 为:</p>
-$$
-L_{D,f}(h) = P_{X \sim D}(h(X) \neq f(X))
-$$<p><strong>训练误差</strong> 为:</p>
-$$
-L_S(h) = \frac{1}{m} \sum_{i=1}^m \mathbb{I}(h(X_i) \neq f(X_i))
-$$</div>
+    <h2 id="奇异值分解">奇异值分解
+</h2><p>用 $R(A)$ 表达 $\text{Im}(A)$, $N(A)$ 表达 $\text{Ker}(A)$. 则 $\text{dim} R(A) = \text{rank}(A)$, $\text{dim} R(A) + \text{dim} N(A) = n$.</p>
 <div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>如果存在 $h^*$ 使得对任意 $L_{D,f}(h^*) = 0$, 则称为 $f,D$ 满足 <strong>可实现假设</strong>. 对 $1$ 的概率, 满足 $L_S(h^*) = 0$, 且对每个经验风险最小化的假设 $h_S$ 有 $L_S(h_S) =0$.</p>
-</div>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
-<p>设 $\mathcal{H}$ 是有限的假设空间, $\delta \in (0,1), \epsilon>0$, 设正整数 $m$ 满足:</p>
+    <p class="math-block-title math-thm">定理<span class="math-subtitle">奇异值分解</span></p>
+<p>对任意矩阵 $A$, 存在正交矩阵 $U$ 和 $V$, 以及对角矩阵 $\Sigma$ 使得:</p>
 $$
-m \ge \frac{\log(|\mathcal{H}|/\delta)}{\epsilon}
-$$<p>对任意标签函数 $f$ 和任意分布 $D$, 如果可实现性假设相对于 $\mathcal{H}, \mathcal{D}, f$ 成立, 则在大小为 $m$ 的独立同分布样本 $S$ 的选择上有最低 $1-\delta$ 的概率满足: 对每个经验风险最小化的假设 $h_S$ 有:</p>
-$$
-L_{D,f}(h_S) \leq \epsilon
+A = U \Sigma V^T
 $$<p class="math-block-title math-prf">证明</p>
-<p>令 $\mathcal{H}_B$ 表示“坏”假设的集合, 即</p>
+<p>$A^TA$ 是对称的, $\text{rank}(A^TA) = r$, 则特征值 $\lambda_1 \ge \lambda_2 \ge \cdots \lambda_r > 0 = \lambda_{r+1} = \lambda_{r+2} = \cdots \lambda_n$, 可正交对角化:</p>
+$$A^TA = V \Lambda V^T$$<p>把 $V$ 分成两部分 $V=[V_1, V_2]$, 其中 $V_1 = [v_1, \cdots, v_r]$, $V_2 = [v_{r+1}, \cdots, v_n]$. 显见 $v_{r+1}, \cdots, v_n$ 恰好构成 $N(A^TA)$ 的标准正交基.</p>
+<p>从 $V_1 = [v_1, \cdots, v_r]$ 出发考虑 $U_1 = [u_1, \cdots, u_r]$:</p>
 $$
-\mathcal{H}_B = \{ h \in \mathcal{H} : L_{(D, f)}(h) > \epsilon \}
-$$<p>令 $S|_x = \{ x_1, \cdots, x_m \}$ 表示训练集的实例, $M = \{S|_x : \exists h \in \mathcal{H}_B, L_S(h) = 0\}$. 注意由可实现假设:</p>
+u_i = \frac{1}{\sqrt{\lambda_i}} A v_i
+$$<p>则容易验证 $u_i$ 是 $R(A)$ 的标准正交基. $R(A)$ 的正交补是 $N(A^T)$, 考虑其一组正交基 $U_2 = [u_{r+1}, \cdots, u_n]$, 则 $U = [U_1, U_2]$ 是正交矩阵. 记:</p>
 $$
-\{S|_x : L_{(D, f)}(h_S) > \epsilon\} \subseteq M = \bigcup_{h \in \mathcal{H}_B} \{S|_x : L_S(h) = 0\}.
-$$<p>因此:</p>
-$$
-\begin{aligned}
-D^m(\{S|_x : L_{(D, f)}(h_S) > \epsilon\}) &\leq D^m(M) = D^m\left(\bigcup_{h \in \mathcal{H}_B} \{S|_x : L_S(h) = 0\}\right) \\
-&\leq \sum_{h \in \mathcal{H}_B} D^m(\{S|_x : L_S(h) = 0\}) \\
-&= \sum_{h \in \mathcal{H}_B} \prod_{i=1}^m D(\{x_i : h(x_i) = f(x_i)\})
-\end{aligned}
-$$<p>注意到对于每个 $h \in \mathcal{H}_B$,</p>
-$$
-D(\{x_i : h(x_i) = f(x_i)\}) = 1 - L_{(D, f)}(h) \leq 1 - \epsilon
-$$<p>代入上式, 再利用 $m$ 的定义可得:</p>
-$$
-D^m(\{S|_x : L_{(D, f)}(h_S) > \epsilon\}) \leq |\mathcal{H}_B| (1 - \epsilon)^m \le |\mathcal{H}| e^{-\epsilon m} \le \delta
-$$<p>由此, 即 $1-D^m(\{S|_x : L_{(D, f)}(h_S) > \epsilon\}) > 1-\delta$, 得证.</p>
+\Sigma_1 = \text{diag}(\sqrt{\lambda_1}, \cdots, \sqrt{\lambda_r}) \\
+\Sigma = \begin{pmatrix}
+\Sigma_1 & 0 \\
+0 & 0
+\end{pmatrix}
+$$<p>则可以得出 $U_1\Sigma_1 = AV_1$, 随后命题即可得证.</p>
 </div>
-<p>我们现在可以引入 PAC 可学习性的概念.</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>称假设空间 $\mathcal{H}$ 是 <strong>PAC 可学习的</strong>, 如果存在一个函数 $m_{\mathcal{H}} : (0, 1)^2 \to \mathbb{N}$ 和一个学习算法, 满足以下性质: 对于任意 $\delta, \epsilon \in (0, 1)$, 对于任意定义在 $\mathcal{X}$ 上的分布 $\mathcal{D}$, 以及对于任意标记函数 $f : \mathcal{X} \to \{0, 1\}$, 如果可实现性假设相对于 $\mathcal{H}, \mathcal{D}, f$ 成立, 那么当使用由 $\mathcal{D}$ 生成的 $m \geq m_{\mathcal{H}}(\epsilon, \delta)$ 个独立同分布样本, 并用 $f$ 标记这些样本运行该算法时, 算法将返回一个假设 $h$, 使得在样本选择上以至少 $1 - \delta$ 的概率满足</p>
-$$
-L_{(\mathcal{D}, f)}(h) \leq \epsilon
-$$<p>这里, $m$ 的大小称为 <strong>样本复杂度</strong>.</p>
-</div>
-<p>由刚才的定理, 显然:</p>
-$$
-m_{\mathcal{H}}(\epsilon, \delta) \le \lceil\frac{\log(|\mathcal{H}|/\delta)}{\epsilon}\rceil
-$$
+
 </section>
 
 
@@ -472,6 +470,19 @@ $$
             
                 
 <article class="">
+    <a href="/p/machine-learning/pac-uc/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">机器学习基础(10) —— PAC 和 UC 可学习性</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
     <a href="/p/machine-learning/markov/">
         
         
@@ -517,19 +528,6 @@ $$
 
         <div class="article-details">
             <h2 class="article-title">机器学习基础(6) —— 神经网络学习初步</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/machine-learning/decision-tree/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">机器学习基础(5) —— 决策树模型</h2>
         </div>
     </a>
 </article>
