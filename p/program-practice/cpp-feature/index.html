@@ -795,6 +795,7 @@
 </span><span class="lnt">10
 </span><span class="lnt">11
 </span><span class="lnt">12
+</span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
@@ -805,8 +806,9 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">p3</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">);</span> <span class="c1">// yes
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">p3</span> <span class="o">==</span> <span class="n">p2</span><span class="p">);</span> <span class="c1">// error
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">p3</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">);</span> <span class="c1">// yes
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">bool</span> <span class="n">b</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span> <span class="c1">// error, bool b(nullptr); ok
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span> <span class="c1">// error, nullptr 不能自动转换成整型
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">bool</span> <span class="n">b</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span> <span class="c1">// error
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">bool</span> <span class="n">b</span><span class="p">(</span><span class="k">nullptr</span><span class="p">);</span> <span class="n">ok</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span> <span class="c1">// error, nullptr 不能自动转换成整型
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -920,7 +922,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">MyThread</span> <span class="n">x</span><span class="p">;</span> <span class="c1">// 对 x 的要求：可复制
+</span></span><span class="line"><span class="cl">    <span class="n">MyThread</span> <span class="n">x</span><span class="p">;</span> <span class="c1">// 对 x 的要求: 可复制
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">thread</span> <span class="n">th</span><span class="p">(</span><span class="n">x</span><span class="p">);</span> <span class="c1">// 创建线程并执行
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">thread</span> <span class="n">th1</span><span class="p">(</span><span class="n">my_thread</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
