@@ -696,7 +696,7 @@ L_S(h) = \frac{1}{m} \sum_{i=1}^m \mathbb{I}(h(X_i) \neq f(X_i))
 $$&lt;/div&gt;
 &lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
-&lt;p&gt;如果存在 $h^*$ 使得对任意 $L_{\mathcal{D},f}(h^*) = 0$, 则称为 $f,D$ 满足 &lt;strong&gt;可实现假设&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;如果存在 $h^*$ 使得对任意 $L_{\mathcal{D},f}(h^*) = 0$, 则称为 $f,\mathcal{D}$ 满足 &lt;strong&gt;可实现假设&lt;/strong&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;可实现假设意味着对 $1$ 的概率, 满足 $L_S(h^*) = 0$, 且对每个经验风险最小化的假设 $h_S$ 有 $L_S(h_S) =0$.&lt;/p&gt;
 &lt;div class=&#34;math-block&#34;&gt;
@@ -717,17 +717,17 @@ $$
 $$&lt;p&gt;因此:&lt;/p&gt;
 $$
 \begin{aligned}
-D^m(\{S|_x : L_{(\mathcal{D}, f)}(h_S) &gt; \epsilon\}) &amp;\leq \mathcal{\mathcal{D}}^m(M) = \mathcal{\mathcal{D}}^m\left(\bigcup_{h \in \mathcal{H}_B} \{S|_x : L_S(h) = 0\}\right) \\
+\mathcal{D}^m(\{S|_x : L_{(\mathcal{D}, f)}(h_S) &gt; \epsilon\}) &amp;\leq \mathcal{\mathcal{D}}^m(M) = \mathcal{\mathcal{D}}^m\left(\bigcup_{h \in \mathcal{H}_B} \{S|_x : L_S(h) = 0\}\right) \\
 &amp;\leq \sum_{h \in \mathcal{H}_B} \mathcal{\mathcal{D}}^m(\{S|_x : L_S(h) = 0\}) \\
 &amp;= \sum_{h \in \mathcal{H}_B} \prod_{i=1}^m \mathcal{\mathcal{D}}(\{x_i : h(x_i) = f(x_i)\})
 \end{aligned}
 $$&lt;p&gt;注意到对于每个 $h \in \mathcal{H}_B$,&lt;/p&gt;
 $$
-D(\{x_i : h(x_i) = f(x_i)\}) = 1 - L_{(\mathcal{D}, f)}(h) \leq 1 - \epsilon
+\mathcal{D}(\{x_i : h(x_i) = f(x_i)\}) = 1 - L_{(\mathcal{D}, f)}(h) \leq 1 - \epsilon
 $$&lt;p&gt;代入上式, 再利用 $m$ 的定义可得:&lt;/p&gt;
 $$
-D^m(\{S|_x : L_{(\mathcal{D}, f)}(h_S) &gt; \epsilon\}) \leq |\mathcal{H}_B| (1 - \epsilon)^m \le |\mathcal{H}| e^{-\epsilon m} \le \delta
-$$&lt;p&gt;由此, 即 $1-D^m(\{S|_x : L_{(\mathcal{D}, f)}(h_S) &gt; \epsilon\}) &gt; 1-\delta$, 得证.&lt;/p&gt;
+\mathcal{D}^m(\{S|_x : L_{(\mathcal{D}, f)}(h_S) &gt; \epsilon\}) \leq |\mathcal{H}_B| (1 - \epsilon)^m \le |\mathcal{H}| e^{-\epsilon m} \le \delta
+$$&lt;p&gt;由此, 即 $1-\mathcal{D}^m(\{S|_x : L_{(\mathcal{D}, f)}(h_S) &gt; \epsilon\}) &gt; 1-\delta$, 得证.&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;我们现在可以引入 PAC 可学习性的概念.&lt;/p&gt;
 &lt;div class=&#34;math-block&#34;&gt;
@@ -742,7 +742,7 @@ $$
 m_{\mathcal{H}}(\epsilon, \delta) \le \left\lceil\frac{\log(|\mathcal{H}|/\delta)}{\epsilon}\right\rceil
 $$&lt;h2 id=&#34;不可知-pac-可学习性&#34;&gt;不可知 PAC 可学习性
 &lt;/h2&gt;&lt;p&gt;实际中 PAC 可学习性的假设很强. 我们放宽可实现性假设.&lt;/p&gt;
-&lt;p&gt;Bayers 最优预测: 对于任意 $\mathcal{X} \times {0,1}$ 上的分布 $\mathcal{\mathcal{D}}$, 则最优预测是:&lt;/p&gt;
+&lt;p&gt;Bayers 最优预测: 对于任意 $\mathcal{X} \times (0,1)$ 上的分布 $\mathcal{\mathcal{D}}$, 则最优预测是:&lt;/p&gt;
 $$
 f_{\mathcal{\mathcal{D}}}(x) = \begin{cases}
 1 &amp; \text{if } P(y=1|x) \ge \frac{1}{2} \\
@@ -768,7 +768,7 @@ $$&lt;/div&gt;
     &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
 &lt;p&gt;假设训练集 $S$ 是 $\epsilon/2$-典型的, 则对于任意 $ERM_\mathcal{\mathcal{H}}(S)$ 算法的输出, 即任意 $h_S \in \argmin_{h \in \mathcal{H}} L_S(h)$, 有:&lt;/p&gt;
 $$
-L_{\mathcal{\mathcal{D}}}(h_S) \leq \min{h \in \mathcal{H}} L_D(h) + \epsilon
+L_{\mathcal{\mathcal{D}}}(h_S) \leq \min_{h \in \mathcal{H}} L_D(h) + \epsilon
 $$&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
 &lt;p&gt;利用定义可知&lt;/p&gt;
 $$

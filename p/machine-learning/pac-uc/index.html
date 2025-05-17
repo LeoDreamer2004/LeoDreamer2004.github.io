@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="概率近似正确 (PAC) 定义\n我们定义 泛化误差 为:\n$$ L_{\\mathcal{D},f}(h) = P_{X \\sim \\mathcal{\\mathcal{D}}}(h(X) \\neq f(X)) $$训练误差 为:\n$$ L_S(h) = \\frac{1}{m} \\sum_{i=1}^m \\mathbb{I}(h(X_i) \\neq f(X_i)) $$ 定义\n如果存在 $h^*$ 使得对任意 $L_{\\mathcal{D},f}(h^*) = 0$, 则称为 $f,D$ 满足 可实现假设.\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="概率近似正确 (PAC) 定义\n我们定义 泛化误差 为:\n$$ L_{\\mathcal{D},f}(h) = P_{X \\sim \\mathcal{\\mathcal{D}}}(h(X) \\neq f(X)) $$训练误差 为:\n$$ L_S(h) = \\frac{1}{m} \\sum_{i=1}^m \\mathbb{I}(h(X_i) \\neq f(X_i)) $$ 定义\n如果存在 $h^*$ 使得对任意 $L_{\\mathcal{D},f}(h^*) = 0$, 则称为 $f,\\mathcal{D}$ 满足 可实现假设.\n">
 <title>机器学习基础(10) —— PAC 和 UC 可学习性</title>
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning/pac-uc/'>
 
 <link rel="stylesheet" href="/scss/style.min.12d819feb41150701e7a7fe3d3806145fccdb05afb708f3d239a8a5416bcdcb1.css"><meta property='og:title' content="机器学习基础(10) —— PAC 和 UC 可学习性">
-<meta property='og:description' content="概率近似正确 (PAC) 定义\n我们定义 泛化误差 为:\n$$ L_{\\mathcal{D},f}(h) = P_{X \\sim \\mathcal{\\mathcal{D}}}(h(X) \\neq f(X)) $$训练误差 为:\n$$ L_S(h) = \\frac{1}{m} \\sum_{i=1}^m \\mathbb{I}(h(X_i) \\neq f(X_i)) $$ 定义\n如果存在 $h^*$ 使得对任意 $L_{\\mathcal{D},f}(h^*) = 0$, 则称为 $f,D$ 满足 可实现假设.\n">
+<meta property='og:description' content="概率近似正确 (PAC) 定义\n我们定义 泛化误差 为:\n$$ L_{\\mathcal{D},f}(h) = P_{X \\sim \\mathcal{\\mathcal{D}}}(h(X) \\neq f(X)) $$训练误差 为:\n$$ L_S(h) = \\frac{1}{m} \\sum_{i=1}^m \\mathbb{I}(h(X_i) \\neq f(X_i)) $$ 定义\n如果存在 $h^*$ 使得对任意 $L_{\\mathcal{D},f}(h^*) = 0$, 则称为 $f,\\mathcal{D}$ 满足 可实现假设.\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning/pac-uc/'>
 <meta property='og:site_name' content='LeoDreamer'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-04-29T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-04-29T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="机器学习基础(10) —— PAC 和 UC 可学习性">
-<meta name="twitter:description" content="概率近似正确 (PAC) 定义\n我们定义 泛化误差 为:\n$$ L_{\\mathcal{D},f}(h) = P_{X \\sim \\mathcal{\\mathcal{D}}}(h(X) \\neq f(X)) $$训练误差 为:\n$$ L_S(h) = \\frac{1}{m} \\sum_{i=1}^m \\mathbb{I}(h(X_i) \\neq f(X_i)) $$ 定义\n如果存在 $h^*$ 使得对任意 $L_{\\mathcal{D},f}(h^*) = 0$, 则称为 $f,D$ 满足 可实现假设.\n">
+<meta name="twitter:description" content="概率近似正确 (PAC) 定义\n我们定义 泛化误差 为:\n$$ L_{\\mathcal{D},f}(h) = P_{X \\sim \\mathcal{\\mathcal{D}}}(h(X) \\neq f(X)) $$训练误差 为:\n$$ L_S(h) = \\frac{1}{m} \\sum_{i=1}^m \\mathbb{I}(h(X_i) \\neq f(X_i)) $$ 定义\n如果存在 $h^*$ 使得对任意 $L_{\\mathcal{D},f}(h^*) = 0$, 则称为 $f,\\mathcal{D}$ 满足 可实现假设.\n">
     </head>
     <body class="
     article-page
@@ -395,7 +395,7 @@ L_S(h) = \frac{1}{m} \sum_{i=1}^m \mathbb{I}(h(X_i) \neq f(X_i))
 $$</div>
 <div class="math-block">
     <p class="math-block-title math-def">定义</p>
-<p>如果存在 $h^*$ 使得对任意 $L_{\mathcal{D},f}(h^*) = 0$, 则称为 $f,D$ 满足 <strong>可实现假设</strong>.</p>
+<p>如果存在 $h^*$ 使得对任意 $L_{\mathcal{D},f}(h^*) = 0$, 则称为 $f,\mathcal{D}$ 满足 <strong>可实现假设</strong>.</p>
 </div>
 <p>可实现假设意味着对 $1$ 的概率, 满足 $L_S(h^*) = 0$, 且对每个经验风险最小化的假设 $h_S$ 有 $L_S(h_S) =0$.</p>
 <div class="math-block">
@@ -416,17 +416,17 @@ $$
 $$<p>因此:</p>
 $$
 \begin{aligned}
-D^m(\{S|_x : L_{(\mathcal{D}, f)}(h_S) > \epsilon\}) &\leq \mathcal{\mathcal{D}}^m(M) = \mathcal{\mathcal{D}}^m\left(\bigcup_{h \in \mathcal{H}_B} \{S|_x : L_S(h) = 0\}\right) \\
+\mathcal{D}^m(\{S|_x : L_{(\mathcal{D}, f)}(h_S) > \epsilon\}) &\leq \mathcal{\mathcal{D}}^m(M) = \mathcal{\mathcal{D}}^m\left(\bigcup_{h \in \mathcal{H}_B} \{S|_x : L_S(h) = 0\}\right) \\
 &\leq \sum_{h \in \mathcal{H}_B} \mathcal{\mathcal{D}}^m(\{S|_x : L_S(h) = 0\}) \\
 &= \sum_{h \in \mathcal{H}_B} \prod_{i=1}^m \mathcal{\mathcal{D}}(\{x_i : h(x_i) = f(x_i)\})
 \end{aligned}
 $$<p>注意到对于每个 $h \in \mathcal{H}_B$,</p>
 $$
-D(\{x_i : h(x_i) = f(x_i)\}) = 1 - L_{(\mathcal{D}, f)}(h) \leq 1 - \epsilon
+\mathcal{D}(\{x_i : h(x_i) = f(x_i)\}) = 1 - L_{(\mathcal{D}, f)}(h) \leq 1 - \epsilon
 $$<p>代入上式, 再利用 $m$ 的定义可得:</p>
 $$
-D^m(\{S|_x : L_{(\mathcal{D}, f)}(h_S) > \epsilon\}) \leq |\mathcal{H}_B| (1 - \epsilon)^m \le |\mathcal{H}| e^{-\epsilon m} \le \delta
-$$<p>由此, 即 $1-D^m(\{S|_x : L_{(\mathcal{D}, f)}(h_S) > \epsilon\}) > 1-\delta$, 得证.</p>
+\mathcal{D}^m(\{S|_x : L_{(\mathcal{D}, f)}(h_S) > \epsilon\}) \leq |\mathcal{H}_B| (1 - \epsilon)^m \le |\mathcal{H}| e^{-\epsilon m} \le \delta
+$$<p>由此, 即 $1-\mathcal{D}^m(\{S|_x : L_{(\mathcal{D}, f)}(h_S) > \epsilon\}) > 1-\delta$, 得证.</p>
 </div>
 <p>我们现在可以引入 PAC 可学习性的概念.</p>
 <div class="math-block">
@@ -441,7 +441,7 @@ $$
 m_{\mathcal{H}}(\epsilon, \delta) \le \left\lceil\frac{\log(|\mathcal{H}|/\delta)}{\epsilon}\right\rceil
 $$<h2 id="不可知-pac-可学习性">不可知 PAC 可学习性
 </h2><p>实际中 PAC 可学习性的假设很强. 我们放宽可实现性假设.</p>
-<p>Bayers 最优预测: 对于任意 $\mathcal{X} \times {0,1}$ 上的分布 $\mathcal{\mathcal{D}}$, 则最优预测是:</p>
+<p>Bayers 最优预测: 对于任意 $\mathcal{X} \times (0,1)$ 上的分布 $\mathcal{\mathcal{D}}$, 则最优预测是:</p>
 $$
 f_{\mathcal{\mathcal{D}}}(x) = \begin{cases}
 1 & \text{if } P(y=1|x) \ge \frac{1}{2} \\
@@ -467,7 +467,7 @@ $$</div>
     <p class="math-block-title math-thm">定理</p>
 <p>假设训练集 $S$ 是 $\epsilon/2$-典型的, 则对于任意 $ERM_\mathcal{\mathcal{H}}(S)$ 算法的输出, 即任意 $h_S \in \argmin_{h \in \mathcal{H}} L_S(h)$, 有:</p>
 $$
-L_{\mathcal{\mathcal{D}}}(h_S) \leq \min{h \in \mathcal{H}} L_D(h) + \epsilon
+L_{\mathcal{\mathcal{D}}}(h_S) \leq \min_{h \in \mathcal{H}} L_D(h) + \epsilon
 $$<p class="math-block-title math-prf">证明</p>
 <p>利用定义可知</p>
 $$
