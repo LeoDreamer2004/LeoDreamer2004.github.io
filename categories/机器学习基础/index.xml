@@ -48,51 +48,52 @@ $$&lt;p&gt;则可以得出 $U_1\Sigma_1 = AV_1$, 随后命题即可得证.&lt;/p
     &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;我们定义 &lt;strong&gt;泛化误差&lt;/strong&gt; 为:&lt;/p&gt;
 $$
-L_{D,f}(h) = P_{X \sim D}(h(X) \neq f(X))
+L_{\mathcal{D},f}(h) = P_{X \sim \mathcal{\mathcal{D}}}(h(X) \neq f(X))
 $$&lt;p&gt;&lt;strong&gt;训练误差&lt;/strong&gt; 为:&lt;/p&gt;
 $$
 L_S(h) = \frac{1}{m} \sum_{i=1}^m \mathbb{I}(h(X_i) \neq f(X_i))
 $$&lt;/div&gt;
 &lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
-&lt;p&gt;如果存在 $h^*$ 使得对任意 $L_{D,f}(h^*) = 0$, 则称为 $f,D$ 满足 &lt;strong&gt;可实现假设&lt;/strong&gt;. 对 $1$ 的概率, 满足 $L_S(h^*) = 0$, 且对每个经验风险最小化的假设 $h_S$ 有 $L_S(h_S) =0$.&lt;/p&gt;
+&lt;p&gt;如果存在 $h^*$ 使得对任意 $L_{\mathcal{D},f}(h^*) = 0$, 则称为 $f,D$ 满足 &lt;strong&gt;可实现假设&lt;/strong&gt;.&lt;/p&gt;
 &lt;/div&gt;
+&lt;p&gt;可实现假设意味着对 $1$ 的概率, 满足 $L_S(h^*) = 0$, 且对每个经验风险最小化的假设 $h_S$ 有 $L_S(h_S) =0$.&lt;/p&gt;
 &lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
 &lt;p&gt;设 $\mathcal{H}$ 是有限的假设空间, $\delta \in (0,1), \epsilon&gt;0$, 设正整数 $m$ 满足:&lt;/p&gt;
 $$
 m \ge \frac{\log(|\mathcal{H}|/\delta)}{\epsilon}
-$$&lt;p&gt;对任意标签函数 $f$ 和任意分布 $D$, 如果可实现性假设相对于 $\mathcal{H}, \mathcal{D}, f$ 成立, 则在大小为 $m$ 的独立同分布样本 $S$ 的选择上有最低 $1-\delta$ 的概率满足: 对每个经验风险最小化的假设 $h_S$ 有:&lt;/p&gt;
+$$&lt;p&gt;对任意标签函数 $f$ 和任意分布 $\mathcal{D}$, 如果可实现性假设相对于 $\mathcal{H}, \mathcal{\mathcal{D}}, f$ 成立, 则在大小为 $m$ 的独立同分布样本 $S$ 的选择上有最低 $1-\delta$ 的概率满足: 对每个经验风险最小化的假设 $h_S$ 有:&lt;/p&gt;
 $$
-L_{D,f}(h_S) \leq \epsilon
+L_{\mathcal{D},f}(h_S) \leq \epsilon
 $$&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
 &lt;p&gt;令 $\mathcal{H}_B$ 表示“坏”假设的集合, 即&lt;/p&gt;
 $$
-\mathcal{H}_B = \{ h \in \mathcal{H} : L_{(D, f)}(h) &gt; \epsilon \}
+\mathcal{H}_B = \{ h \in \mathcal{H} : L_{(\mathcal{D}, f)}(h) &gt; \epsilon \}
 $$&lt;p&gt;令 $S|_x = \{ x_1, \cdots, x_m \}$ 表示训练集的实例, $M = \{S|_x : \exists h \in \mathcal{H}_B, L_S(h) = 0\}$. 注意由可实现假设:&lt;/p&gt;
 $$
-\{S|_x : L_{(D, f)}(h_S) &gt; \epsilon\} \subseteq M = \bigcup_{h \in \mathcal{H}_B} \{S|_x : L_S(h) = 0\}.
+\{S|_x : L_{(\mathcal{D}, f)}(h_S) &gt; \epsilon\} \subseteq M = \bigcup_{h \in \mathcal{H}_B} \{S|_x : L_S(h) = 0\}.
 $$&lt;p&gt;因此:&lt;/p&gt;
 $$
 \begin{aligned}
-D^m(\{S|_x : L_{(D, f)}(h_S) &gt; \epsilon\}) &amp;\leq D^m(M) = D^m\left(\bigcup_{h \in \mathcal{H}_B} \{S|_x : L_S(h) = 0\}\right) \\
-&amp;\leq \sum_{h \in \mathcal{H}_B} D^m(\{S|_x : L_S(h) = 0\}) \\
-&amp;= \sum_{h \in \mathcal{H}_B} \prod_{i=1}^m D(\{x_i : h(x_i) = f(x_i)\})
+D^m(\{S|_x : L_{(\mathcal{D}, f)}(h_S) &gt; \epsilon\}) &amp;\leq \mathcal{\mathcal{D}}^m(M) = \mathcal{\mathcal{D}}^m\left(\bigcup_{h \in \mathcal{H}_B} \{S|_x : L_S(h) = 0\}\right) \\
+&amp;\leq \sum_{h \in \mathcal{H}_B} \mathcal{\mathcal{D}}^m(\{S|_x : L_S(h) = 0\}) \\
+&amp;= \sum_{h \in \mathcal{H}_B} \prod_{i=1}^m \mathcal{\mathcal{D}}(\{x_i : h(x_i) = f(x_i)\})
 \end{aligned}
 $$&lt;p&gt;注意到对于每个 $h \in \mathcal{H}_B$,&lt;/p&gt;
 $$
-D(\{x_i : h(x_i) = f(x_i)\}) = 1 - L_{(D, f)}(h) \leq 1 - \epsilon
+D(\{x_i : h(x_i) = f(x_i)\}) = 1 - L_{(\mathcal{D}, f)}(h) \leq 1 - \epsilon
 $$&lt;p&gt;代入上式, 再利用 $m$ 的定义可得:&lt;/p&gt;
 $$
-D^m(\{S|_x : L_{(D, f)}(h_S) &gt; \epsilon\}) \leq |\mathcal{H}_B| (1 - \epsilon)^m \le |\mathcal{H}| e^{-\epsilon m} \le \delta
-$$&lt;p&gt;由此, 即 $1-D^m(\{S|_x : L_{(D, f)}(h_S) &gt; \epsilon\}) &gt; 1-\delta$, 得证.&lt;/p&gt;
+D^m(\{S|_x : L_{(\mathcal{D}, f)}(h_S) &gt; \epsilon\}) \leq |\mathcal{H}_B| (1 - \epsilon)^m \le |\mathcal{H}| e^{-\epsilon m} \le \delta
+$$&lt;p&gt;由此, 即 $1-D^m(\{S|_x : L_{(\mathcal{D}, f)}(h_S) &gt; \epsilon\}) &gt; 1-\delta$, 得证.&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;我们现在可以引入 PAC 可学习性的概念.&lt;/p&gt;
 &lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
-&lt;p&gt;称假设空间 $\mathcal{H}$ 是 &lt;strong&gt;PAC 可学习的&lt;/strong&gt;, 如果存在一个函数 $m_{\mathcal{H}} : (0, 1)^2 \to \mathbb{N}$ 和一个学习算法, 满足以下性质: 对于任意 $\delta, \epsilon \in (0, 1)$, 对于任意定义在 $\mathcal{X}$ 上的分布 $\mathcal{D}$, 以及对于任意标记函数 $f : \mathcal{X} \to \{0, 1\}$, 如果可实现性假设相对于 $\mathcal{H}, \mathcal{D}, f$ 成立, 那么当使用由 $\mathcal{D}$ 生成的 $m \geq m_{\mathcal{H}}(\epsilon, \delta)$ 个独立同分布样本, 并用 $f$ 标记这些样本运行该算法时, 算法将返回一个假设 $h$, 使得在样本选择上以至少 $1 - \delta$ 的概率满足&lt;/p&gt;
+&lt;p&gt;称假设空间 $\mathcal{H}$ 是 &lt;strong&gt;PAC 可学习的&lt;/strong&gt;, 如果存在一个函数 $m_{\mathcal{H}} : (0, 1)^2 \to \mathbb{N}$ 和一个学习算法, 满足以下性质: 对于任意 $\delta, \epsilon \in (0, 1)$, 对于任意定义在 $\mathcal{X}$ 上的分布 $\mathcal{\mathcal{D}}$, 以及对于任意标记函数 $f : \mathcal{X} \to \{0, 1\}$, 如果可实现性假设相对于 $\mathcal{H}, \mathcal{\mathcal{D}}, f$ 成立, 那么当使用由 $\mathcal{\mathcal{D}}$ 生成的 $m \geq m_{\mathcal{H}}(\epsilon, \delta)$ 个独立同分布样本, 并用 $f$ 标记这些样本运行该算法时, 算法将返回一个假设 $h$, 使得在样本选择上以至少 $1 - \delta$ 的概率满足&lt;/p&gt;
 $$
-L_{(\mathcal{D}, f)}(h) \leq \epsilon
+L_{(\mathcal{\mathcal{D}}, f)}(h) \leq \epsilon
 $$&lt;p&gt;这里, $m$ 的大小称为 &lt;strong&gt;样本复杂度&lt;/strong&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;由刚才的定理, 显然:&lt;/p&gt;
@@ -100,41 +101,41 @@ $$
 m_{\mathcal{H}}(\epsilon, \delta) \le \left\lceil\frac{\log(|\mathcal{H}|/\delta)}{\epsilon}\right\rceil
 $$&lt;h2 id=&#34;不可知-pac-可学习性&#34;&gt;不可知 PAC 可学习性
 &lt;/h2&gt;&lt;p&gt;实际中 PAC 可学习性的假设很强. 我们放宽可实现性假设.&lt;/p&gt;
-&lt;p&gt;Bayers 最优预测: 对于任意 $\mathcal{X} \times {0,1}$ 上的分布 $\mathcal{D}$, 则最优预测是:&lt;/p&gt;
+&lt;p&gt;Bayers 最优预测: 对于任意 $\mathcal{X} \times {0,1}$ 上的分布 $\mathcal{\mathcal{D}}$, 则最优预测是:&lt;/p&gt;
 $$
-f_{\mathcal{D}}(x) = \begin{cases}
+f_{\mathcal{\mathcal{D}}}(x) = \begin{cases}
 1 &amp; \text{if } P(y=1|x) \ge \frac{1}{2} \\
 0 &amp; \text{otherwise}
 \end{cases}
-$$&lt;p&gt;但由于 $\mathcal{D}$ 是未知的, 我们不能直接使用 $f_{\mathcal{D}}$ 进行预测. 我们希望找一个预测函数使得损失不比 $f_{\mathcal{D}}$ 大很多.&lt;/p&gt;
+$$&lt;p&gt;但由于 $\mathcal{\mathcal{D}}$ 是未知的, 我们不能直接使用 $f_{\mathcal{\mathcal{D}}}$ 进行预测. 我们希望找一个预测函数使得损失不比 $f_{\mathcal{\mathcal{D}}}$ 大很多.&lt;/p&gt;
 &lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
-&lt;p&gt;称假设空间 $\mathcal{H}$ 是 &lt;strong&gt;不可知 PAC 可学习的&lt;/strong&gt;, 如果存在一个函数 $m_{\mathcal{H}} : (0, 1)^2 \to \mathbb{N}$ 和一个学习算法, 满足以下性质: 对于任意 $\delta, \epsilon \in (0, 1)$, 对于任意定义在 $\mathcal{X} \times \mathcal{Y}$ 上的分布 $\mathcal{D}$, 当使用由 $\mathcal{D}$ 生成的 $m \geq m_{\mathcal{H}}(\epsilon, \delta)$ 个独立同分布样本训练时, 算法将返回一个假设 $h$, 使得在样本选择上以至少 $1 - \delta$ 的概率满足:&lt;/p&gt;
+&lt;p&gt;称假设空间 $\mathcal{H}$ 是 &lt;strong&gt;不可知 PAC 可学习的&lt;/strong&gt;, 如果存在一个函数 $m_{\mathcal{H}} : (0, 1)^2 \to \mathbb{N}$ 和一个学习算法, 满足以下性质: 对于任意 $\delta, \epsilon \in (0, 1)$, 对于任意定义在 $\mathcal{X} \times \mathcal{Y}$ 上的分布 $\mathcal{\mathcal{D}}$, 当使用由 $\mathcal{\mathcal{D}}$ 生成的 $m \geq m_{\mathcal{H}}(\epsilon, \delta)$ 个独立同分布样本训练时, 算法将返回一个假设 $h$, 使得在样本选择上以至少 $1 - \delta$ 的概率满足:&lt;/p&gt;
 $$
-L_{\mathcal{D}}(h) \le \min_{h&#39; \in \mathcal{H}} L_{\mathcal{D}}(h&#39;) + \epsilon
-$$&lt;p&gt;特别地, 我们称假设空间 $\mathcal{H}$ 是关于集合 $Z$ 和损失函数 $\ell: \mathcal{H} \times Z \to \mathbb{R}_+$ &lt;strong&gt;不可知 PAC 可学习的&lt;/strong&gt;, 如果在上述定义中 $\mathcal{D}$ 是 $Z$ 上的分布, 且不等式中 $L_{\mathcal{D}}(h) = \mathbb{E}_{z \sim \mathcal{D}}[\ell(h, z)]$.&lt;/p&gt;
+L_{\mathcal{\mathcal{D}}}(h) \le \min_{h&#39; \in \mathcal{H}} L_{\mathcal{\mathcal{D}}}(h&#39;) + \epsilon
+$$&lt;p&gt;特别地, 我们称假设空间 $\mathcal{H}$ 是关于集合 $Z$ 和损失函数 $\ell: \mathcal{H} \times Z \to \mathbb{R}_+$ &lt;strong&gt;不可知 PAC 可学习的&lt;/strong&gt;, 如果在上述定义中 $\mathcal{\mathcal{D}}$ 是 $Z$ 上的分布, 且不等式中 $L_{\mathcal{\mathcal{D}}}(h) = \mathbb{E}_{z \sim \mathcal{\mathcal{D}}}[\ell(h, z)]$.&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;显然, 如果可实现性假设成立, 则不可知 PAC 可学习性转化为 PAC 可学习性.&lt;/p&gt;
 &lt;h2 id=&#34;一致收敛-uc&#34;&gt;一致收敛 (UC)
 &lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
-&lt;p&gt;训练集 $S$ 被称为关于域 $Z$, 假设空间 $\mathcal{H}$, 损失函数 $\ell$ 和分布 $\mathcal{D}$ 是 &lt;strong&gt;$\epsilon$-典型的&lt;/strong&gt;, 如果&lt;/p&gt;
+&lt;p&gt;训练集 $S$ 被称为关于域 $Z$, 假设空间 $\mathcal{H}$, 损失函数 $\ell$ 和分布 $\mathcal{\mathcal{D}}$ 是 &lt;strong&gt;$\epsilon$-典型的&lt;/strong&gt;, 如果&lt;/p&gt;
 $$
-\forall h \in \mathcal{H}, |L_S(h) - L_{\mathcal{D}}(h)| \leq \epsilon
+\forall h \in \mathcal{H}, |L_S(h) - L_{\mathcal{\mathcal{D}}}(h)| \leq \epsilon
 $$&lt;/div&gt;
 &lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
 &lt;p&gt;假设训练集 $S$ 是 $\epsilon/2$-典型的, 则对于任意 $ERM_\mathcal{\mathcal{H}}(S)$ 算法的输出, 即任意 $h_S \in \argmin_{h \in \mathcal{H}} L_S(h)$, 有:&lt;/p&gt;
 $$
-L_{\mathcal{D}}(h_S) \leq \min{h \in \mathcal{H}} L_D(h) + \epsilon
+L_{\mathcal{\mathcal{D}}}(h_S) \leq \min{h \in \mathcal{H}} L_D(h) + \epsilon
 $$&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
 &lt;p&gt;利用定义可知&lt;/p&gt;
 $$
-L_{\mathcal{D}}(h_S) \le L_S(h_S) + \epsilon/2 \le L_S(h) + \epsilon/2 \le L_{\mathcal{D}}(h) + \epsilon
+L_{\mathcal{\mathcal{D}}}(h_S) \le L_S(h_S) + \epsilon/2 \le L_S(h) + \epsilon/2 \le L_{\mathcal{\mathcal{D}}}(h) + \epsilon
 $$&lt;/div&gt;
 &lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
-&lt;p&gt;称假设空间 $\mathcal{H}$ 关于域 $Z$, 损失函数 $\ell$ 具有 &lt;strong&gt;一致收敛性&lt;/strong&gt;, 如果存在一个函数 $m_{\mathcal{H}}^{UC}: (0, 1)^2 \to \mathbb{N}$, 使得对于任意 $\epsilon, \delta \in (0, 1)$ 和任意 $Z$ 上的分布 $\mathcal{D}$,  如果 $S$ 是从 $\mathcal{D}$ 中独立同分布抽取的大小为 $m \geq m_{\mathcal{H}}^{UC}(\epsilon, \delta)$ 的样本, 则以至少 $1 - \delta$ 的概率, $S$ 是 $\epsilon$-典型的.&lt;/p&gt;
+&lt;p&gt;称假设空间 $\mathcal{H}$ 关于域 $Z$, 损失函数 $\ell$ 具有 &lt;strong&gt;一致收敛性&lt;/strong&gt;, 如果存在一个函数 $m_{\mathcal{H}}^{UC}: (0, 1)^2 \to \mathbb{N}$, 使得对于任意 $\epsilon, \delta \in (0, 1)$ 和任意 $Z$ 上的分布 $\mathcal{\mathcal{D}}$,  如果 $S$ 是从 $\mathcal{\mathcal{D}}$ 中独立同分布抽取的大小为 $m \geq m_{\mathcal{H}}^{UC}(\epsilon, \delta)$ 的样本, 则以至少 $1 - \delta$ 的概率, $S$ 是 $\epsilon$-典型的.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
@@ -158,14 +159,14 @@ $$&lt;p&gt;且此时 $\mathcal{H}$ 是不可知 PAC 可学习的, 且样本复�
 $$
 m_{\mathcal{H}}(\epsilon, \delta) \leq m_{\mathcal{H}}^{UC}(\epsilon/2, \delta) \leq \left\lceil \frac{2\log(2|\mathcal{H}|/\delta)}{\epsilon^2} \right\rceil
 $$&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
-&lt;p&gt;固定 $\epsilon, \delta$, 我们要找 $m$ 使得对任意 $\mathcal{D}$, 至少 $1 - \delta$ 的概率, $S$ 是 $\epsilon$-典型的. 即:&lt;/p&gt;
+&lt;p&gt;固定 $\epsilon, \delta$, 我们要找 $m$ 使得对任意 $\mathcal{\mathcal{D}}$, 至少 $1 - \delta$ 的概率, $S$ 是 $\epsilon$-典型的. 即:&lt;/p&gt;
 $$
-\mathcal{D}^m(\{ S: \forall h \in \mathcal{H}, |L_S(h)-L_{\mathcal{D}}(h)| \le \epsilon \}) \ge 1 - \delta
+\mathcal{\mathcal{D}}^m(\{ S: \forall h \in \mathcal{H}, |L_S(h)-L_{\mathcal{\mathcal{D}}}(h)| \le \epsilon \}) \ge 1 - \delta
 $$&lt;p&gt;注意由 Hoeffding 不等式:&lt;/p&gt;
 $$
 \begin{aligned}
-&amp;\mathcal{D}^m(\{ S: \forall h \in \mathcal{H}, |L_S(h)-L_{\mathcal{D}}(h)| &gt; \epsilon \}) \\
-&amp; \le \sum_{h \in \mathcal{H}} \mathcal{D}^m(\{ S: |L_S(h)-L_{\mathcal{D}}(h)| &gt; \epsilon \}) \\
+&amp;\mathcal{\mathcal{D}}^m(\{ S: \forall h \in \mathcal{H}, |L_S(h)-L_{\mathcal{\mathcal{D}}}(h)| &gt; \epsilon \}) \\
+&amp; \le \sum_{h \in \mathcal{H}} \mathcal{\mathcal{D}}^m(\{ S: |L_S(h)-L_{\mathcal{\mathcal{D}}}(h)| &gt; \epsilon \}) \\
 &amp; \le \sum_{h \in \mathcal{H}} 2 e^{-2m\epsilon^2} = 2|\mathcal{H}| e^{-2m\epsilon^2}
 \end{aligned}
 $$&lt;p&gt;我们只要取:&lt;/p&gt;
@@ -173,16 +174,16 @@ $$
 m \ge \frac{\log(2|\mathcal{H}|/\delta)}{2\epsilon^2}
 $$&lt;p&gt;即得:&lt;/p&gt;
 $$
-\mathcal{D}^m(\{ S: \forall h \in \mathcal{H}, |L_S(h)-L_{\mathcal{D}}(h)| &gt; \epsilon \}) \le \delta
+\mathcal{\mathcal{D}}^m(\{ S: \forall h \in \mathcal{H}, |L_S(h)-L_{\mathcal{\mathcal{D}}}(h)| &gt; \epsilon \}) \le \delta
 $$&lt;p&gt;从而得证.&lt;/p&gt;
 &lt;/div&gt;
 &lt;h2 id=&#34;偏差复杂性分解&#34;&gt;偏差复杂性分解
 &lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;无免费午餐&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;设 $A$ 是在域 $X$ 上的 $0-1$ 误差函数二分类学习算法, 训练集大小 $m$ 是小于 $|X|/2$ 的任意数. 则存在一个在 $X \times \{0, 1\}$ 上的分布 $\mathcal{D}$ 使得:&lt;/p&gt;
+&lt;p&gt;设 $A$ 是在域 $X$ 上的 $0-1$ 误差函数二分类学习算法, 训练集大小 $m$ 是小于 $|X|/2$ 的任意数. 则存在一个在 $X \times \{0, 1\}$ 上的分布 $\mathcal{\mathcal{D}}$ 使得:&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;存在一个函数 $f : X \to \{0, 1\}$ 使得 $L_{\mathcal{D}}(f) = 0$.&lt;/li&gt;
-&lt;li&gt;选择 $S \sim \mathcal{D}^m$ 时, 有至少 $1/7$ 的概率满足 $L_{\mathcal{D}}(A(S)) \geq 1/8$.&lt;/li&gt;
+&lt;li&gt;存在一个函数 $f : X \to \{0, 1\}$ 使得 $L_{\mathcal{\mathcal{D}}}(f) = 0$.&lt;/li&gt;
+&lt;li&gt;选择 $S \sim \mathcal{\mathcal{D}}^m$ 时, 有至少 $1/7$ 的概率满足 $L_{\mathcal{\mathcal{D}}}(A(S)) \geq 1/8$.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
 &lt;p&gt;以此我们可以得到如下推论:&lt;/p&gt;
@@ -190,12 +191,12 @@ $$&lt;p&gt;从而得证.&lt;/p&gt;
     &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
 &lt;p&gt;设 $\mathcal{X}$ 是一个无限域, $\mathcal{H}$ 是从 $\mathcal{X}$ 到 $\{0, 1\}$ 的所有函数的集合. 则 $\mathcal{H}$ 不是 PAC 可学习的.&lt;/p&gt;
 &lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
-&lt;p&gt;假设 $\mathcal{H}$ 是 PAC 可学习的, 选 $\epsilon &lt; 1/8, \delta &lt; 1/7$, 则存在一个算法 $A$ 和一个整数 $m=m_{\mathcal{H}}(\epsilon, \delta)$, 对任意 $\mathcal{X} \times \{0, 1\}$ 上的分布 $D$, 如果对于某个函数 $f: \mathcal{X} \to \{0, 1\}$, $L_{\mathcal{D}}(f) = 0$, 则当 $A$ 在 $S \sim D^m$ 上运行时, 有至少 $1 - \delta$ 的概率满足: $L_{\mathcal{D}}(A(S)) \leq \epsilon$.&lt;/p&gt;
-&lt;p&gt;但根据无免费午餐定理, 由于 $|X|&gt;2m$, 对于算法 $A$, 存在一个分布 $\mathcal{D}$ 使得有至少 $1/7&gt;\delta$ 的概率满足 $L_{\mathcal{D}}(A(S)) \geq 1/8&gt;\epsilon$, 矛盾.&lt;/p&gt;
+&lt;p&gt;假设 $\mathcal{H}$ 是 PAC 可学习的, 选 $\epsilon &lt; 1/8, \delta &lt; 1/7$, 则存在一个算法 $A$ 和一个整数 $m=m_{\mathcal{H}}(\epsilon, \delta)$, 对任意 $\mathcal{X} \times \{0, 1\}$ 上的分布 $\mathcal{D}$, 如果对于某个函数 $f: \mathcal{X} \to \{0, 1\}$, $L_{\mathcal{\mathcal{D}}}(f) = 0$, 则当 $A$ 在 $S \sim \mathcal{\mathcal{D}}^m$ 上运行时, 有至少 $1 - \delta$ 的概率满足: $L_{\mathcal{\mathcal{D}}}(A(S)) \leq \epsilon$.&lt;/p&gt;
+&lt;p&gt;但根据无免费午餐定理, 由于 $|X|&gt;2m$, 对于算法 $A$, 存在一个分布 $\mathcal{\mathcal{D}}$ 使得有至少 $1/7&gt;\delta$ 的概率满足 $L_{\mathcal{\mathcal{D}}}(A(S)) \geq 1/8&gt;\epsilon$, 矛盾.&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;误差分解:&lt;/p&gt;
 $$
-L_{\mathcal{D}}(h_S) = \min_{h \in \mathcal{H}} L_{\mathcal{D}}(h) + (L_{\mathcal{D}}(h_S) - \min_{h \in \mathcal{H}} L_{\mathcal{D}}(h))
+L_{\mathcal{\mathcal{D}}}(h_S) = \min_{h \in \mathcal{H}} L_{\mathcal{\mathcal{D}}}(h) + (L_{\mathcal{\mathcal{D}}}(h_S) - \min_{h \in \mathcal{H}} L_{\mathcal{\mathcal{D}}}(h))
 $$&lt;p&gt;第一项称为 &lt;strong&gt;近似误差&lt;/strong&gt;; 第二项称为 &lt;strong&gt;估计误差&lt;/strong&gt; $\epsilon_{\text{est}}$: 最小化风险和经验风险之间的差距.&lt;/p&gt;
 &lt;p&gt;在有限假设情形下, $\epsilon_{\text{est}}$ 通常随 $|H|$ 增加, 随 $m$ 减小. 当 $\mathcal{H}$ 很小时, 估计误差很小, 但近似误差可能很大, 是欠拟合; 当 $\mathcal{H}$ 很大时, 近似误差很小, 但估计误差可能很大, 是过拟合.&lt;/p&gt;
 </description>
