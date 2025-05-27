@@ -29,13 +29,234 @@ u_i = \frac{1}{\sqrt{\lambda_i}} A v_i
 $$&lt;p&gt;则容易验证 $u_i$ 是 $R(A)$ 的标准正交基. $R(A)$ 的正交补是 $N(A^T)$, 考虑其一组正交基 $U_2 = [u_{r+1}, \cdots, u_n]$, 则 $U = [U_1, U_2]$ 是正交矩阵. 记:&lt;/p&gt;
 $$
 \Sigma_1 = \text{diag}(\sqrt{\lambda_1}, \cdots, \sqrt{\lambda_r}) \\
-\Sigma = \begin{pmatrix}
+\Sigma = \begin{bmatrix}
 \Sigma_1 &amp; 0 \\
 0 &amp; 0
-\end{pmatrix}
-$$&lt;p&gt;则可以得出 $U_1\Sigma_1 = AV_1$, 随后命题即可得证.&lt;/p&gt;
+\end{bmatrix}
+$$&lt;p&gt;则可以得出 $U_1\Sigma_1 = AV_1$. 则:&lt;/p&gt;
+$$
+U \Sigma V^T = [U_1, U_2] \begin{bmatrix}
+\Sigma_1 &amp; 0 \\
+0 &amp; 0
+\end{bmatrix} \begin{bmatrix}
+V_1^T \\
+V_2^T
+\end{bmatrix}
+= U_1 \Sigma_1 V_1^T = AV_1V_1^T = A
+$$&lt;/div&gt;
+&lt;p&gt;可以看出右奇异向量 $V$ 的列向量是 $A^TA$ 的特征向量, 左奇异向量 $U$ 的列向量是 $AA^T$ 的特征向量.&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;对一个非零的 $m \times n$ 实矩阵 $A \in \mathbb{R}^{m \times n}$, 可将其表示为满足如下特性的三个实矩阵乘积形式的因子分解运算:&lt;/p&gt;
+$$A = U \Sigma V^T$$&lt;p&gt;其中:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$U$ 是 $m$ 阶正交矩阵, $U^T U = I$;&lt;/li&gt;
+&lt;li&gt;$V$ 是 $n$ 阶正交矩阵, $V^T V = I$;&lt;/li&gt;
+&lt;li&gt;$\Sigma$ 是由降序排列的非负的对角线元素组成的 $m \times n$ 矩形对角矩阵:&lt;/li&gt;
+&lt;/ul&gt;
+$$
+\Sigma = \text{diag}(\sigma_1, \cdots, \sigma_p)$$&lt;p&gt;
+这里 $\sigma_1 \geq \cdots \geq \sigma_p \geq 0$, 且 $p = \min(m, n)$.&lt;/p&gt;
+&lt;p&gt;$U \Sigma V^T$ 称为 $A$ 的 &lt;strong&gt;奇异值分解&lt;/strong&gt;, $\sigma_i$ 称为 $A$ 的 &lt;strong&gt;奇异值&lt;/strong&gt;, $U$ 和 $V$ 的列向量分别称为 $A$ 的 &lt;strong&gt;左,右奇异向量&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;特别地, 当 $\text{rank}(A)=r$ 时, $\Sigma$ 的前 $r$ 个对角线元素 $\sigma_1, \cdots, \sigma_r$ 是正的, 我们称 $U_r\Sigma_r V_r^T$ 为 $A$ 的 &lt;strong&gt;紧奇异值分解&lt;/strong&gt;; 对于任意 $0 \lt k \lt r$, $U_k\Sigma_k V_k^T$ 称为 $A$ 的 &lt;strong&gt;截断奇异值分解&lt;/strong&gt;.&lt;/p&gt;
 &lt;/div&gt;
-</description>
+&lt;h3 id=&#34;奇异值分解与矩阵近似&#34;&gt;奇异值分解与矩阵近似
+&lt;/h3&gt;&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;设 $A \in \mathbb{R}^{m \times n}$ 且 $A = [a_{ij}]_{m \times n}$, $A$ 的 &lt;strong&gt;Frobenius 范数&lt;/strong&gt; $\|A\|_F$ 定义如下:&lt;/p&gt;
+$$\|A\|_F = \left[\sum_{i=1}^{m} \sum_{j=1}^{n} a_{ij}^2\right]^{\frac{1}{2}}$$&lt;/div&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
+&lt;p&gt;若 $Q$ 是 $m$ 阶正交矩阵, 则 $\|QA\|_F = \|A\|_F$.&lt;/p&gt;
+&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
+&lt;p&gt;设 $A = [a_1, \cdots, a_n]$, 则:&lt;/p&gt;
+$$
+\begin{aligned}
+\|QA\|_F^2 &amp;= \| [Qa_1, \cdots, Qa_n]\|_F^2 = \sum_{i=1}^{n} \|Qa_i\|^2 \\
+&amp;= \sum_{i=1}^{n} (Qa_i)^T (Qa_i) = \sum_{i=1}^{n} a_i^T Q^T Q a_i \\
+&amp;= \sum_{i=1}^{n} a_i^T a_i = \sum_{i=1}^{n} \|a\|^2 = \|A\|_F^2
+\end{aligned}
+$$&lt;/div&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
+&lt;p&gt;设 $A \in \mathbb{R}^{m \times n}$, $\text{rank}(A) = r$, $A = U \Sigma V^T$ 是 $A$ 的奇异值分解, 并设 $\mathcal{M}$ 是 $\mathbb{R}^{m \times n}$ 中所有秩不超过 $k$ 的矩阵的集合, $0 \lt k \lt r$.&lt;/p&gt;
+&lt;p&gt;若 $A&#39;=U\Sigma&#39;V^T$, 其中 $\Sigma&#39;_{m \times n} = \begin{bmatrix} \Sigma_k &amp; 0 \\ 0 &amp; 0 \end{bmatrix}$, 这里 $\Sigma_k = \text{diag}(\sigma_1, \cdots, \sigma_k)$, 则:&lt;/p&gt;
+$$
+\|A-A&#39;\|_F = \sqrt{\sum_{l=k+1}^{n} \sigma_l^2} = \min_{S\in \mathcal{M}} \|A-S\|_F
+$$&lt;p&gt;即截断奇异值分解 $A&#39; = U\Sigma&#39;V^T$ 是 $A$ 在 $\mathcal{M}$ 中的最优近似.&lt;/p&gt;
+&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
+&lt;p&gt;一个显然的结论是, 由上一个定理, 设 $A=U\Sigma V^T$, 则:&lt;/p&gt;
+$$
+\|A\|_F = \|U\Sigma V^T\|_F = \|\Sigma\|_F = \sqrt{\sum_{l=1}^{n} \sigma_l^2}
+$$&lt;p&gt;设 $X$ 是 $A$ 的最优近似, 则:&lt;/p&gt;
+$$
+\|A-X\|_F = \|A-A&#39;\|_F = \sqrt{\sum_{l=k+1}^{n} \sigma_l^2}
+$$&lt;p&gt;下面只需要证明:&lt;/p&gt;
+$$\|A-X\|_F \ge \sqrt{\sum_{l=k+1}^{n} \sigma_l^2}$$&lt;p&gt;再设 $X$ 的奇异值分解为 $X = Q\Omega P^T$, 其中:&lt;/p&gt;
+$$
+\Omega = \begin{bmatrix}
+\Omega_1 &amp; 0 \\
+0 &amp; 0
+\end{bmatrix}
+$$&lt;p&gt;这里 $\Omega_1 = \text{diag}(\omega_1, \cdots, \omega_k)$.&lt;/p&gt;
+&lt;p&gt;令 $B=Q^TAP$, 则 $A=QBP^T$, 按照 $\Omega$ 的分块方法对 $B$ 进行分块:&lt;/p&gt;
+$$
+B = \begin{bmatrix}
+B_{11} &amp; B_{12} \\
+B_{21} &amp; B_{22}
+\end{bmatrix}
+$$&lt;p&gt;则:&lt;/p&gt;
+$$
+\begin{aligned}
+\|A-X\|_F^2 &amp;= \|Q(B-\Omega)P^T\|_F^2 = \|B-\Omega\|_F^2 \\
+&amp;= \|B_{11}-\Omega_1\|_F^2 + \|B_{12}\|_F^2 + \|B_{21}\|_F^2 + \|B_{22}\|_F^2
+\end{aligned}
+$$&lt;p&gt;既然 $X$ 使得 $\|A-X\|_F^2$ 最小, 我们考虑取 $Y=Q\Omega&#39;P^T \in \mathcal{M}$, 其中 $\Omega&#39; = \begin{bmatrix} B_{11} &amp; B_{12} \\ 0 &amp; 0 \end{bmatrix}$, 则由最小性可得:&lt;/p&gt;
+$$
+\|A-X\|_F^2 \le \|A-Y\|_F^2 = \|B_{21}\|_F^2 + \|B_{22}\|_F^2
+$$&lt;p&gt;由此立得 $B_{12} = 0$, 且 $B_{11} = \Omega_1$, 同理 $B_{21}=0$. 从而我们得到:&lt;/p&gt;
+$$
+\|A-X\|_F = \|B_{22}\|_F
+$$&lt;p&gt;设 $B_{22}$ 的奇异值分解是 $B_{22} = U_1 \Lambda V_1^T$, 则:&lt;/p&gt;
+$$
+\|A-X\|_F = \|B_{22}\|_F = \|\Lambda\|_F
+$$&lt;p&gt;注意到:&lt;/p&gt;
+$$
+Q^T A P = B = \begin{bmatrix}
+\Omega_1 &amp; 0 \\
+0 &amp; B_{22}
+\end{bmatrix}
+$$&lt;p&gt;那么右下角也可以对角化, 准确来说设:&lt;/p&gt;
+$$
+U_2 = \begin{bmatrix}
+I_k &amp; 0 \\
+0 &amp; U_1
+\end{bmatrix}, \quad V_2 = \begin{bmatrix}
+I_k &amp; 0 \\
+0 &amp; V_1
+\end{bmatrix}
+$$&lt;p&gt;显见:&lt;/p&gt;
+$$
+U_2^T Q^T A P V_2 = U_2^T B V_2 = \begin{bmatrix}
+\Omega_1 &amp; 0 \\
+0 &amp; \Lambda
+\end{bmatrix}
+$$&lt;p&gt;即:&lt;/p&gt;
+$$
+A = QU_2 \begin{bmatrix}
+\Omega_1 &amp; 0 \\
+0 &amp; \Lambda
+\end{bmatrix} \left(PV_2\right)^T
+$$&lt;p&gt;这意味着 $\Lambda$ 的对角线元素是 $A$ 的奇异值, 故有&lt;/p&gt;
+$$
+\|A-X\|_F = \|\Lambda\|_F \ge \sqrt{\sum_{l=k+1}^n \sigma_l^2}
+$$&lt;p&gt;因此 $\|A-X\|_F = \sqrt{\sum_{l=k+1}^n \sigma_l^2} = \|A-A&#39;\|_F$.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;实际上:&lt;/p&gt;
+$$A = U\Sigma V^T = \sum_{i=1}^n \sigma_i u_i v_i^T$$&lt;p&gt;这也称为 $A$ 的 &lt;strong&gt;外积展开式&lt;/strong&gt;, 显然截断奇异值分解 $A_k = \sum_{i=1}^k \sigma_i u_i v_i^T$.&lt;/p&gt;
+&lt;h2 id=&#34;主成分分析&#34;&gt;主成分分析
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;如果数据的一些特征之间存在相关性，处理起来不太方便；&lt;/li&gt;
+&lt;li&gt;如果数据维数过高，影响算法性能.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;我们希望能构造一组新的相互不相关的特征来表示数据：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;通常用原来特征的线性组合来构造新特征.&lt;/li&gt;
+&lt;li&gt;希望特征变换的过程中损失的信息尽可能少.&lt;/li&gt;
+&lt;li&gt;构造出的新特征个数比原来的特征数少很多，达到降维的目的.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;总体主成分分析&#34;&gt;总体主成分分析
+&lt;/h3&gt;&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;设 $x = (x_1,x_2,\cdots, x_m)^T$ 是 $m$ 维随机向量, $\alpha \in \mathbb{R}^m$ 且 $\alpha^T \alpha = 1$, 则称:&lt;/p&gt;
+$$
+y=\alpha^T x
+$$&lt;p&gt;为 &lt;strong&gt;标准线性组合&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;设 $\mathbf{x}=(x_1,x_2,\cdots,x_m)^T$ 是均值为 $\mu$, 协方差矩阵为 $\Sigma$ 的 $m$ 维随机向量, $A$ 是半正定矩阵 $\Sigma$ 的对角化正交矩阵, 即 $A^T \Sigma A = \Lambda$. 则如下线性变换被称为 &lt;strong&gt;主成分变换&lt;/strong&gt;:&lt;/p&gt;
+$$\mathbf{y}=A^T(\mathbf{x}-\mu).$$&lt;p&gt;并称 $\mathbf{y}$ 的第 $i$ 个分量:&lt;/p&gt;
+$$y_i=\alpha_i^T(\mathbf{x}-\mu)$$&lt;p&gt;为 $\mathbf{x}$ 的第 $i$ 主成分，这里 $\alpha_i$ 为 $A$ 的第 $i$ 个列向量.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
+&lt;p&gt;设 $\mathbf{x} \sim (\mu, \Sigma)$, 则 $\mathbf{y} = A^T (\mathbf{x} - \mu)$ 满足:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$E[\mathbf{y}] = 0$.&lt;/li&gt;
+&lt;li&gt;$\text{Var}(y_i) = \lambda_i, i = 1, 2, \cdots, m$.&lt;/li&gt;
+&lt;li&gt;$\text{Cov}(y_i, y_j) = 0, i \neq j, i, j = 1, 2, \cdots, m$.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;p&gt;证明略, 用协方差矩阵的性质即可.&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
+&lt;p&gt;不存在方差比 $\lambda_1$ 更大的标准线性组合 $y = \alpha^T \mathbf{x}$.&lt;/p&gt;
+&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
+&lt;p&gt;考虑标准线性组合 $y=\alpha^T\mathbf{x}$, 其中 $\alpha \in \mathbf{R}^m$ 且 $\alpha^T\alpha=1$. 由于 $\alpha_1,\alpha_2,\cdots,\alpha_m$ 正好构成了 $\mathbf{R}^m$ 的一组标准正交基, 则存在 $c_1,c_2,\cdots,c_m\in\mathbb{R}$ 使得&lt;/p&gt;
+$$\alpha=\sum_{i=1}^mc_i\alpha_i$$&lt;p&gt;对此线性组合来说，&lt;/p&gt;
+$$\begin{aligned}
+\text{Var}(y)=\alpha^T\Sigma\alpha&amp;=\left[\sum_{i=1}^mc_i\alpha_i^T\right]\Sigma\left[\sum_{i=1}^mc_i\alpha_i\right]\\
+&amp;=\sum_{i=1}^mc_i^2\lambda_i\alpha_i^T\alpha_i=\sum_{i=1}^mc_i^2\lambda_i.\end{aligned}$$&lt;p&gt;另一方面结合:&lt;/p&gt;
+$$1=\alpha^T\alpha=\sum_{i=1}^mc_i^2\alpha_i^T\alpha_i=\sum_{i=1}^mc_i^2$$&lt;p&gt;问题显然是 $c_1 = 1, c_2 = c_3 = \cdots = c_m = 0$ 时取得最大值 $\lambda_1$. 因此:&lt;/p&gt;
+$$\max_{c_1,\cdots,c_m}\text{Var}(y)=\lambda_1$$&lt;p&gt;对应的标准线性组合为:&lt;/p&gt;
+$$y=\alpha_1^T\mathbf{x}$$&lt;/div&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
+&lt;p&gt;如果标准线性组合 $y = \alpha^T \mathbf{x}$ 和 $\mathbf{x}$ 的前 $k$ 个主成分都不相关, 则 $y$ 得到方差当 $y$ 是第 $k+1$ 个主成分时最大.&lt;/p&gt;
+&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
+&lt;p&gt;证明：设 $y=\alpha^T\mathbf{x}$, 其中 $\alpha^T\alpha=1$. 且 $\alpha=\sum_i^mc_i\alpha_i$, 对此线性组合来说:&lt;/p&gt;
+$$\text{Var}(y)=\sum_{i=1}^mc_i^2\lambda_i$$&lt;p&gt;对 $1\leq j \lt k$ 来说:&lt;/p&gt;
+$$
+\begin{aligned}
+\text{Cov}(y,y_j)&amp;=\text{Cov}(\alpha^T\mathbf{x},\alpha_j^T\mathbf{x})=\left[\sum_{i=1}^mc_i\alpha_i^T\right]\Sigma\alpha_j\\
+&amp;=c_j\lambda_j\alpha_j^T\alpha_j=c_j\lambda_j=0
+\end{aligned}
+$$&lt;p&gt;这意味着对$1\leq j \lt k$ 来说, $c_j^2\lambda_j=0$. 故:&lt;/p&gt;
+$$\text{Var}(y)=\sum_{i=k+1}^mc_i^2\lambda_i$$&lt;p&gt;和前面证明类似, 我们可得:&lt;/p&gt;
+$$\max_{c_1,\cdots,c_m}\text{Var}(y)=\lambda_{k+1}$$&lt;p&gt;对应的标准线性组合:&lt;/p&gt;
+$$y=\alpha_{k+1}^T\mathbf{x}$$&lt;p&gt;正好是第 $k+1$ 主成分.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;$\mathbf{x}$ 的第 $k$ 个主成分 $y_k$ 的 &lt;strong&gt;方差贡献率&lt;/strong&gt; 定义为:
+&lt;/p&gt;
+$$
+\eta_k = \frac{\lambda_k}{\sum_{i=1}^m \lambda_i}
+$$&lt;p&gt;$\mathbf{x}$ 的前 $k$ 个主成分 $y_1, y_2, \cdots, y_k$ 的 &lt;strong&gt;累计方差贡献率&lt;/strong&gt; 定义为:
+&lt;/p&gt;
+$$
+\eta_{1 \to k} = \sum_{i=1}^k \lambda_i= \frac{\sum_{i=1}^k\lambda_k}{\sum_{i=1}^m \lambda_i}
+$$&lt;/div&gt;
+&lt;p&gt;累计方差贡献率体现了前 $k$ 个主成分对数据的方差贡献.&lt;/p&gt;
+&lt;p&gt;显然, $\mathbf{y}=A^T\mathbf{x}$ 的逆为 $\mathbf{x}=A\mathbf{y}$, 由此可以给出如下定义:&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;定义 &lt;strong&gt;因子负荷量&lt;/strong&gt; 为第 $k$ 个主成分 $y_k$ 和原始变量 $x_i$ 的相关系数:&lt;/p&gt;
+$$
+\begin{aligned}
+\rho(y_k,x_i) &amp;= \frac{\text{Cov}(y_k, x_i)}{\sqrt{\text{Var}(y_k) \cdot \text{Var}(x_i)}} = \frac{\text{Cov}\left(\sum_{j=1}^m \alpha_{ij}y_j, y_k\right)}{\sqrt{\lambda_k \sigma_{ii}}} \\
+&amp;= \frac{\alpha_{ik} \text{Var}(y_k) }{\sqrt{\lambda_k \sigma_{ii}}} = \frac{\sqrt{\lambda_k} \alpha_{ik}}{\sqrt{\sigma_{ii}}}
+\end{aligned}
+$$&lt;/div&gt;
+&lt;p&gt;容易验证因子负荷量满足:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$$ \sum_{i=1}^m \sigma_{ii} \rho^2(y_k,x_i)=\lambda_k $$&lt;/li&gt;
+&lt;li&gt;$$ \sum_{k=1}^m \rho^2(y_k,x_i)=1 $$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;$\mathbf{x}$ 的前 $k$ 个主成分 $y_1, y_2, \cdots, y_k$ 对原有变量 $x_i$ 的 &lt;strong&gt;贡献率&lt;/strong&gt; 定义为:
+&lt;/p&gt;
+$$
+\nu_{1 \to k} = \sum_{j=1}^k \rho^2(y_j, x_i) = \sum_{j=1}^k \frac{\lambda_j \alpha_{ij}^2}{\sigma_{ii}}
+$$&lt;/div&gt;
+&lt;h3 id=&#34;样本主成分分析&#34;&gt;样本主成分分析
+&lt;/h3&gt;&lt;p&gt;设 $\mathbf{x}_1,\mathbf{x}_2,\cdots,\mathbf{x}_n$ 是对 $m$ 维随机向量 $\mathbf{x}=(x_1,x_2,\cdots,x_m)^T$ 进行 $n$ 次独立观测的样本, 其中 $\mathbf{x}_j=(x_{1j},x_{2j},\cdots,x_{mj})^T$ 表示第 $j$ 个观测样本, 则观测数据矩阵:&lt;/p&gt;
+$$\mathbf{X}=[\mathbf{x}_1,\mathbf{x}_2,\cdots,\mathbf{x}_n]=\left[\begin{array}{ccc}x_{11}&amp;\cdots&amp;x_{1n}\\\vdots&amp;\vdots&amp;\vdots\\x_{m1}&amp;\cdots&amp;x_{mn}\end{array}\right]$$&lt;p&gt;样本均值向量为:&lt;/p&gt;
+$$\bar{\mathbf{x}}=\frac{1}{n}\sum\limits_{j=1}^n\mathbf{x}_j=(\bar{x}_1,\cdots,\bar{x}_m)^T$$&lt;p&gt;样本协方差矩阵为 $\mathbf{S}=[s_{ij}]_{m\times m}$, 其中:&lt;/p&gt;
+$$s_{ij}=\frac{1}{n-1}\sum\limits_{k=1}^n(x_{ik}-\bar{x}_i)(x_{jk}-\bar{x}_j), i,j=1,2,\cdots,m$$&lt;p&gt;样本相关矩阵为 $\mathbf{R}=[r_{ij}]_{m\times m}$, 其中:&lt;/p&gt;
+$$r_{ij}=\frac{s_{ij}}{\sqrt{s_{ii}s_{jj}}}$$</description>
         </item>
         <item>
         <title>机器学习基础(10) —— PAC 和 UC 可学习性</title>
