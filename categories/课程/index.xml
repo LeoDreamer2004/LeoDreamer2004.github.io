@@ -7,7 +7,209 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>LeoDreamer</copyright>
-        <lastBuildDate>Tue, 13 May 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/%E8%AF%BE%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 23 May 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/%E8%AF%BE%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>机器学习基础(12) —— VC 维与非一致可学习</title>
+        <link>https://LeoDreamer2004.github.io/p/machine-learning/vc-nu/</link>
+        <pubDate>Fri, 23 May 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/p/machine-learning/vc-nu/</guid>
+        <description>&lt;h2 id=&#34;vc-维&#34;&gt;VC 维
+&lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;设 $\mathcal{H}$ 是从 $X$ 到 $\{0, 1\}$ 的函数类, $C = \{c_1, \ldots, c_m\} \subset X$. $\mathcal{H}$ 在 $C$ 上的 &lt;strong&gt;限制&lt;/strong&gt; 是可以从 $\mathcal{H}$ 生成的从 $C$ 到 $\{0, 1\}$ 的函数集, 即:&lt;/p&gt;
+$$\mathcal{H}_C = \{(h(c_1), \ldots, h(c_m)) : h \in \mathcal{H}\}$$&lt;p&gt;其中我们将每个从 $C$ 到 $\{0, 1\}$ 的函数表示为一个 $\{0,1\}^{|C|}$ 向量.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;一个假设类 $\mathcal{H}$ &lt;strong&gt;打破&lt;/strong&gt; 一个有限集 $C \subset X$, 如果 $\mathcal{H}_C$ 是从 $C$ 到 $\{0, 1\}$ 的所有函数的集合. 即:&lt;/p&gt;
+$$|\mathcal{H}_C| = 2^{|C|}$$&lt;/div&gt;
+&lt;p&gt;我们有如下推论:&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
+&lt;p&gt;设 $\mathcal{H}$ 是从 $\mathcal{X}$ 到 $\{0, 1\}$ 的假设类, $m$ 是训练集大小. 如果存在一个大小为 $2m$ 的集合 $C \subset \mathcal{X}$ 被 $\mathcal{H}$ 打破, 则对于任何学习算法 $A$, 存在一个在 $\mathcal{X} \times \{0, 1\}$ 上的分布 $\mathcal{D}$, 和一个预测器 $h \in \mathcal{H}$, 使得 $L_{\mathcal{D}}(h) = 0$, 但以至少 $\frac{1}{7}$ 的概率, 在 $S \sim \mathcal{D}^m$ 上有:
+&lt;/p&gt;
+$$
+L_{\mathcal{D}}(A(S)) \geq \frac{1}{8}
+$$&lt;/div&gt;
+&lt;p&gt;我们引入 VC 维的概念:&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;假设类 $\mathcal{H}$ 的 &lt;strong&gt;VC 维&lt;/strong&gt;, 记为 $\text{VCdim}(\mathcal{H})$, 是 $\mathcal{H}$ 可以打破的最大集合 $C \subset \mathcal{X}$ 的大小. 如果 $\mathcal{H}$ 可以打破任意大大小的集合, 则称 $\mathcal{H}$ 的 VC 维为无穷大.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;例如对于 $\mathcal{H} = \{\mathbb{I}(x \lt a): a\in \mathbb{R}\}$, 不难证明 $\text{VCdim}(\mathcal{H}) = 1$.&lt;/p&gt;
+&lt;p&gt;显然, 对于有限假设类 $\mathcal{H}$, 有 $\text{VCdim}(\mathcal{H}) \le \log_2 |\mathcal{H}|$.&lt;/p&gt;
+&lt;p&gt;关于 VC 维和可学习的关系, 要用到统计学习基本定理, 在此之前先引入一些背景.&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;设 $\mathcal{H}$ 是从 $\mathcal{X}$ 到 $\{0, 1\}$ 的假设类. 则 $\mathcal{H}$ 的 &lt;strong&gt;增长函数&lt;/strong&gt; $\tau_{\mathcal{H}}: \mathbb{N} \to \mathbb{N}$ 定义为:&lt;/p&gt;
+$$
+\tau_{\mathcal{H}}(m) = \max_{C \subset \mathcal{X}: |C| = m} |\mathcal{H}_C|
+$$&lt;/div&gt;
+&lt;p&gt;例如当 $\text{VCdim}(\mathcal{H}) = d &lt; \infty$ 时, 则对于 $m \le d$, 有 $\tau_{\mathcal{H}}(m) = 2^m$. 对于 $m &gt; d$ 呢?&amp;hellip;&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;Sauer-Shelah-Perles&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;设 $\mathcal{H}$ 是一个假设类, 且 $\text{VCdim}(\mathcal{H}) = d &lt; \infty$. 则对于所有 $m$, 有:&lt;/p&gt;
+$$
+\tau_{\mathcal{H}}(m) \leq \sum_{i=0}^{d} \binom{m}{i}
+$$&lt;p&gt;特别地, 如果 $m &gt; d + 1$, 则有:&lt;/p&gt;
+$$
+\tau_{\mathcal{H}}(m) \leq \left(\frac{em}{d}\right)^d
+$$&lt;/div&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
+&lt;p&gt;设 $\mathcal{H}$ 是一个假设类, 且 $\tau_{\mathcal{H}}$ 是它的增长函数. 则对于每个分布 $\mathcal{D}$ 和每个 $\delta \in (0, 1)$, 在 $S \sim \mathcal{D}^m$ 的选择下, 有超过 $1 - \delta$ 的概率满足:&lt;/p&gt;
+$$
+|L_{\mathcal{D}}(h) - L_{S}(h)| \leq \frac{4 + \sqrt{\log(\tau_{\mathcal{H}}(2m))}}{\delta\sqrt{2m}}
+$$&lt;/div&gt;
+&lt;p&gt;现在引入统计学习的基本定理, 它将 VC 维与可学习性联系起来.&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;统计学习基本定理&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;设 $\mathcal{H}$ 是从 $\mathcal{X}$ 到 $\{0, 1\}$ 的假设类, 且损失函数为 0-1 损失. 则以下条件等价:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;$\mathcal{H}$ 具有一致收敛性质.&lt;/li&gt;
+&lt;li&gt;任何经验风险最小化 (ERM) 规则都是 $\mathcal{H}$ 的成功不可知 PAC 学习器.&lt;/li&gt;
+&lt;li&gt;$\mathcal{H}$ 是不可知 PAC 可学习的.&lt;/li&gt;
+&lt;li&gt;$\mathcal{H}$ 是 PAC 可学习的.&lt;/li&gt;
+&lt;li&gt;任何经验风险最小化 (ERM) 规则都是 $\mathcal{H}$ 的成功 PAC 学习器.&lt;/li&gt;
+&lt;li&gt;$\mathcal{H}$ 的 VC 维是有限的.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
+&lt;p&gt;只要证明 VC 维有限时一致收敛性质成立即可. 根据 Sauer 引理, 对于 $m &gt; d$, 有 $\tau_{\mathcal{H}}(2m) \leq (2em/d)^d$. 结合上述定理, 得到超过 $1 - \delta$ 的概率满足:&lt;/p&gt;
+$$
+|L_{\mathcal{D}}(h) - L_{S}(h)| \leq \frac{4 + \sqrt{d \log(2em/d)}}{\delta \sqrt{2m}}
+$$&lt;p&gt;简化考虑 $\sqrt{d \log(2em/d)} \geq 4$ 忽略常数, 即:&lt;/p&gt;
+$$
+|L_{\mathcal{D}}(h) - L_{S}(h)| \leq \frac{1}{\delta} \sqrt{\frac{2d \log(2em/d)}{m}}
+$$&lt;p&gt;要保证右边不超过 $\epsilon$, 只需满足:&lt;/p&gt;
+$$
+m \geq \frac{2d \log(m)}{(\delta \epsilon)^2} + \frac{2d \log(2e/d)}{(\delta \epsilon)^2}
+$$&lt;p&gt;为了消去右边的 $x$, 可以证明 $x \geq 4a \log(2a) + 2b \Rightarrow x \geq a \log(x) + b$ 对于 $a \geq 1$ 和 $b &gt; 0$ 成立, 则上述不等式的充分条件是:&lt;/p&gt;
+$$
+m \geq 4 \frac{2d}{(\delta \epsilon)^2} \log\left(\frac{4d}{(\delta \epsilon)^2}\right) + \frac{4d \log(2e/d)}{(\delta \epsilon)^2}
+$$&lt;p&gt;此时即可满足, 因此$\mathcal{H}$ 具有一致收敛性质.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;我们给出更具体的量化版本:&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;统计学习基本定理量化版本&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;设 $\mathcal{H}$ 是从 $\mathcal{X}$ 到 $\{0, 1\}$ 的假设类, 且损失函数为 0-1 损失. 假设 $\text{VCdim}(\mathcal{H}) = d &lt; \infty$. 则存在常数 $C_1, C_2$ 满足:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;$\mathcal{H}$ 具有一致收敛性质, 且样本复杂度满足:
+$$
+    C_1 \frac{d + \log(1/\delta)}{\epsilon^2} \leq m_{\mathcal{H}}^{UC}(\epsilon, \delta) \leq C_2 \frac{d + \log(1/\delta)}{\epsilon^2}
+    $$&lt;/li&gt;
+&lt;li&gt;$\mathcal{H}$ 是不可知 PAC 可学习的, 且样本复杂度满足:
+$$
+    C_1 \frac{d + \log(1/\delta)}{\epsilon^2} \leq m_{\mathcal{H}}(\epsilon, \delta) \leq C_2 \frac{d + \log(1/\delta)}{\epsilon^2}
+    $$&lt;/li&gt;
+&lt;li&gt;$\mathcal{H}$ 是 PAC 可学习的, 且样本复杂度满足:
+$$
+    C_1 \frac{d + \log(1/\delta)}{\epsilon} \leq m_{\mathcal{H}}(\epsilon, \delta) \leq C_2 \frac{d \log(1/\epsilon) + \log(1/\delta)}{\epsilon}
+    $$&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;非一致可学习&#34;&gt;非一致可学习
+&lt;/h2&gt;&lt;h3 id=&#34;非一致可学习性质&#34;&gt;非一致可学习性质
+&lt;/h3&gt;&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;我们称假设 $h$ 关于假设 $h&#39;$ 是 &lt;strong&gt;$(\epsilon, \delta)$ 可比的&lt;/strong&gt;, 如果有超过 $1-\delta$ 的概率满足:&lt;/p&gt;
+$$
+L_{\mathcal{D}}(h) \le L_{\mathcal{D}}(h&#39;) + \epsilon
+$$&lt;/div&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;一个假设类 $\mathcal{H}$ 是 &lt;strong&gt;非一致可学习的&lt;/strong&gt;, 如果存在一个学习算法 $A$ 和一个函数 $m_{\mathcal{H}}^{NUL} : (0, 1)^2 \times \mathcal{H} \rightarrow \mathbb{N}$, 使得对于每个 $\epsilon, \delta \in (0, 1)$ 和每个 $h \in \mathcal{H}$, 如果 $m \geq m_{\mathcal{H}}^{NUL}(\epsilon, \delta, h)$, 则对于每个分布 $\mathcal{D}$, 在 $S \sim \mathcal{D}^m$ 上有超过 $1-\delta$ 的概率满足:&lt;/p&gt;
+$$
+L_{\mathcal{D}}(A(S)) \leq L_{\mathcal{D}}(h) + \epsilon
+$$&lt;/div&gt;
+&lt;p&gt;与 PAC 不可知学习不同，非一致可学习的容量 $m$ 可以与 $h$ 相关.&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
+&lt;p&gt;如果一个假设类 $\mathcal{H}$ 可以被写成可数个假设类的并集 $\mathcal{H} = \bigcup_{n \in \mathbb{N}} \mathcal{H}_n$, 且每个 $\mathcal{H}_n$ 都是一致收敛的, 则 $\mathcal{H}$ 是非一致可学习的.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
+&lt;p&gt;一个二分类假设类 $\mathcal{H}$ 是非一致可学习的，当且仅当它是若干个不可知 PAC 可学习假设类的并集.&lt;/p&gt;
+&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;充分性&lt;/strong&gt;: 假设 $\mathcal{H} = \bigcup_{n \in \mathbb{N}} \mathcal{H}_n$, 其中每个 $\mathcal{H}_n$ 都是不可知 PAC 可学习的. 根据统计学习的基本定理, 每个 $\mathcal{H}_n$ 都具有一致收敛性质, 从而 $\mathcal{H}$ 是非一致可学习的.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;必要性&lt;/strong&gt;: 假设 $\mathcal{H}$ 是非一致可学习的, 使用某个算法 $A$. 对于每个 $n \in \mathbb{N}$, 令:&lt;/p&gt;
+$$
+\mathcal{H}_n = \{h \in \mathcal{H} : m_{\mathcal{H}}^{NUL}(1/8, 1/7, h) \leq n\}
+$$&lt;p&gt;显见 $\mathcal{H} = \bigcup_{n \in \mathbb{N}} \mathcal{H}_n$.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;存在非一致可学习的假设类, 但不是不可知 PAC 学习的: 考虑 $\mathcal{H} = \bigcup_{n \in \mathbb{N}} \mathcal{H}_n$, 其中 $\mathcal{H}_n$ 是次数为 $n$ 的多项式分类器类.&lt;/p&gt;
+&lt;p&gt;$\text{VCdim}(\mathcal{H}_n) = n+1$, 且 $\mathcal{H}_n$ 是不可知 PAC 可学习的, 则由上述定理, $\mathcal{H}$ 是非一致可学习的. 但 $\mathcal{H}$ 不是不可知 PAC 可学习的.&lt;/p&gt;
+&lt;h3 id=&#34;结构风险最小化&#34;&gt;结构风险最小化
+&lt;/h3&gt;&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
+&lt;p&gt;设 $w: \mathbb{N} \to [0, 1]$ 是一个函数, 满足 $\sum_{n=1}^\infty w(n) \leq 1$. 设假设类 $\mathcal{H}$ 可以写成 $\mathcal{H} = \bigcup_{n \in \mathbb{N}} \mathcal{H}_n$, 且每个 $\mathcal{H}_n$ 都满足一致收敛性质, 具有样本复杂度函数 $m_{\mathcal{H}_n}^{UC}$. 定义 $\epsilon_n: \mathbb{N} \times (0, 1) \to (0, 1)$ 为:&lt;/p&gt;
+$$
+\epsilon_n(m, \delta) = \min \{\epsilon \in (0, 1) : m_{\mathcal{H}_n}^{UC}(\epsilon, \delta) \leq m\}
+$$&lt;p&gt;则对于每个 $\delta \in (0, 1)$ 和分布 $\mathcal{D}$, 在 $S \sim \mathcal{D}^m$ 上, 有超过 $1 - \delta$ 的概率满足:&lt;/p&gt;
+$$
+|L_{\mathcal{D}}(h) - L_S(h)| \leq \epsilon_n(m, w(n) \cdot \delta)
+$$&lt;p&gt;因此，对于每个 $\delta \in (0, 1)$ 和分布 $\mathcal{D}$, 在 $S \sim \mathcal{D}^m$ 上, 有超过 $1 - \delta$ 的概率满足:&lt;/p&gt;
+$$
+\forall h \in \mathcal{H}, L_{\mathcal{D}}(h) \leq L_S(h) + \min_{n: h \in \mathcal{H}_n} \epsilon_n(m, w(n) \cdot \delta)
+$$&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
+&lt;p&gt;对于每个 $n$ 定义 $\delta_n = w(n) \delta$. 应用一致收敛性质的假设, 预先固定 $n$, 则对于每个 $S \sim \mathcal{D}^m$, 有超过 $1 - \delta_n$ 的概率满足:&lt;/p&gt;
+$$
+\forall h \in \mathcal{H}_n, \ |L_{\mathcal{D}}(h) - L_{S}(h)| \leq \epsilon_n(m, \delta_n).
+$$&lt;p&gt;则对于所有 $n = 1, 2, \ldots$, 有超过&lt;/p&gt;
+$$1 - \sum_{n} \delta_n = 1 - \delta\left(\sum_{n} w(n)\right) \geq 1 - \delta$$&lt;p&gt;的概率满足上述不等式, 这就完成了证明.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;记:&lt;/p&gt;
+$$
+n(h) = \min\{n: h \in \mathcal{H}_n\}
+$$&lt;p&gt;则:&lt;/p&gt;
+$$
+\forall h \in \mathcal{H}, L_{\mathcal{D}}(h) \leq L_{S}(h) + \min_{n: h \in \mathcal{H}_n} \epsilon_n(m, w(n) \cdot \delta)
+$$&lt;p&gt;这意味着:&lt;/p&gt;
+$$
+L_{\mathcal{D}}(h) \leq L_{S}(h) + \epsilon_{n(h)}(m, w(n(h)) \cdot \delta)
+$$&lt;p&gt;这表明结构风险最小化范式搜索 $h$ 使得上述界限最小.&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;结构风险最小化 (SRM)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 训练集 $S \sim \mathcal{D}^m$, 置信度 $\delta$.
+&lt;strong&gt;输出&lt;/strong&gt;: $h \in \arg\min_{h \in \mathcal{H}} [L_S(h) + \epsilon_{n(h)}(m, w(n(h))\delta)]$.&lt;/p&gt;
+&lt;p&gt;先前知识:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$\mathcal{H} = \bigcup_{n \in \mathbb{N}} \mathcal{H}_n$, 其中每个 $\mathcal{H}_n$ 都满足一致收敛性质, 具有样本复杂度函数 $m_{\mathcal{H}_n}^{UC}$;&lt;/li&gt;
+&lt;li&gt;$w : \mathbb{N} \to [0, 1]$, 且 $\sum_n w(n) \leq 1$.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;定义:&lt;/p&gt;
+$$\epsilon_n(m, \delta) = \min \{ \epsilon \in (0, 1) : m_{\mathcal{H}_n}^{UC}(\epsilon, \delta) \leq m \}$$$$n(h) = \min \{ n : h \in \mathcal{H}_n \}$$&lt;/div&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
+&lt;p&gt;设 $\mathcal{H}$ 是一个假设类, 满足 $\mathcal{H} = \bigcup_{n \in \mathbb{N}} \mathcal{H}_n$, 其中每个 $\mathcal{H}_n$ 都满足一致收敛性质, 具有样本复杂度函数 $m_{\mathcal{H}_n}^{UC}$. 令 $w: \mathbb{N} \to [0, 1]$ 是一个加权函数, 满足 $w(n) = \frac{6}{n^2 \pi^2}$. 则 $\mathcal{H}$ 是非一致可学习的, 使用 SRM 规则, 且速率为:&lt;/p&gt;
+$$
+m_{\mathcal{H}}^{NUL}(\epsilon, \delta, h) \leq m_{\mathcal{H}_{n(h)}}^{UC}(\epsilon/2, \frac{6\delta}{(\pi n(h))^2})$$&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
+&lt;p&gt;设 $A$ 是关于加权函数 $w$ 的 SRM 算法. 对于每个 $h \in \mathcal{H}$, $\epsilon$, 和 $\delta$, 令:
+&lt;/p&gt;
+$$
+m \geq m_{\mathcal{H}_{n(h)}}^{UC}(\epsilon, w(n(h))\delta)
+$$&lt;p&gt;由于 $\sum_{n} w(n) = 1$, 由如上定理, 得到在 $S \sim \mathcal{D}^m$ 的选择下, 有超过 $1 - \delta$ 的概率满足:&lt;/p&gt;
+$$
+L_{\mathcal{D}}(h&#39;) \leq L_{S}(h&#39;) + \epsilon_{n(h&#39;)}(m, w(n(h&#39;))\delta)
+$$&lt;p&gt;这个不等式对于每个 $h&#39; \in \mathcal{H}$ 都成立, 取 $h&#39; = A(S)$, 由 SRM 得到:&lt;/p&gt;
+$$
+\begin{aligned}
+L_{\mathcal{D}}(A(S)) &amp;\leq \min_{h&#39;}[L_{S}(h&#39;) + \epsilon_{n(h&#39;)}(m, w(n(h&#39;))\delta)] \\
+&amp;\leq L_{S}(h) + \epsilon_{n(h)}(m, w(n(h))\delta)
+\end{aligned}
+$$&lt;p&gt;如果 $m \geq m_{\mathcal{H}_{n(h)}}^{UC}(\epsilon/2, w(n(h))\delta)$, 则显然:&lt;/p&gt;
+$$
+\epsilon_{n(h)}(m, w(n(h))\delta) \leq \epsilon/2
+$$&lt;p&gt;此外, 由于每个 $\mathcal{H}_n$ 都满足一致收敛性质, 有超过 $1 - \delta$ 的概率满足:&lt;/p&gt;
+$$
+L_S(h) \leq L_{\mathcal{D}}(h) + \epsilon/2
+$$&lt;p&gt;综上所述, 得到:&lt;/p&gt;
+$$
+L_{\mathcal{D}}(A(S)) \leq L_{\mathcal{D}}(h) + \epsilon
+$$&lt;/div&gt;
+&lt;p&gt;这个定理也证明了前面未证明非一致可学习充分性的定理.&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>机器学习基础(11) —— 奇异值分解与主成分分析简介</title>
         <link>https://LeoDreamer2004.github.io/p/machine-learning/pca/</link>
         <pubDate>Tue, 13 May 2025 00:00:00 +0000</pubDate>
