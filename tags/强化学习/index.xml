@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>强化学习 on LeoDreamer</title>
+        <link>https://LeoDreamer2004.github.io/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/</link>
+        <description>Recent content in 强化学习 on LeoDreamer</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>LeoDreamer</copyright>
+        <lastBuildDate>Thu, 29 May 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>论文阅读 - 带有 CLIP 反馈的强化学习</title>
+        <link>https://LeoDreamer2004.github.io/p/paper-reading/reinforcement-learning-with-clip-feedback/</link>
+        <pubDate>Thu, 29 May 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/p/paper-reading/reinforcement-learning-with-clip-feedback/</guid>
+        <description>&lt;h2 id=&#34;背景&#34;&gt;背景
+&lt;/h2&gt;&lt;p&gt;通常情况下, 深度学习模型在训练完成后就固定了参数, 在测试或部署阶段不再更新. 但在实际应用中, 测试数据可能与训练数据的分布存在差异, 导致模型性能下降. 因此后续的微调显得非常重要.&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;测试时适应算法 (Test-time Adaption, TTA)&lt;/strong&gt; 指在不使用真实标签的前提下, 利用当前测试样本或其增强版本来在线微调模型, 使其更适应当前的输入分布.&lt;/p&gt;
+&lt;p&gt;常见的测试时适应算法包括:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;自适应批归一化&lt;/strong&gt;: 在测试阶段对批归一化层的均值和方差进行调整, 使其更适应当前输入分布, 同时不修改学习参数 &lt;code&gt;gamma&lt;/code&gt; 和 &lt;code&gt;beta&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;熵最小化&lt;/strong&gt;: 在测试阶段通过最小化模型输出的熵来提高模型的自信度.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;p&gt;我们现在关心视觉语言模型 (VLM), 因此要衡量跨模态的相似性. 论文 &lt;a class=&#34;link cite-2&#34;&gt;[2]
+    
+&lt;/a&gt; 提出了 &lt;strong&gt;对比语言-图像预训练 (Contrastive Language-Image Pre-training, CLIP)&lt;/strong&gt; 模型, 这个模型通过对图像和文本进行编码, 使得它们在同一个共享的向量空间中具有相似的表示.&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;CLIP&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 图像 $v$ 和文本 $t$.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 图像和文本的相似度分数 $s(v,t)$.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;CLIP 训练两个编码器: 图像编码器 $g$ 和文本编码器 $h$.&lt;/li&gt;
+&lt;li&gt;二者的输出分别为 $g(v)$ 和 $h(t)$.&lt;/li&gt;
+&lt;li&gt;计算相似度分数, 常用的是余弦相似度:
+$$s(v,t) = \frac{g(v) \cdot h(t)}{\|g(v)\| \|h(t)\|}$$&lt;/li&gt;
+&lt;li&gt;返回相似度分数 $s(v,t)$.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;rlcf&#34;&gt;RLCF
+&lt;/h2&gt;&lt;p&gt;文章 &lt;a class=&#34;link cite-1&#34;&gt;[1]
+    &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
+&lt;/a&gt; 的目的主要包含:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;对于图像分类任务, 传统的测试时适应算法要最小化熵, 但很显然这个方式容易陷入错误的模型预测中(如下图). 本文通过引入 CLIP 反馈来解决这个问题, 称为 RLCF.
+&lt;img src=&#34;https://arxiv.org/html/2305.18010/x1.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;tpt-vs-rlcf&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;除了分类任务外, 通过特定任务的采样策略和适当的选择奖励基线, RLCF 可以很容易地扩展到不仅仅是检索这样的区分任务, 还可以扩展到图像字幕这样的泛化任务.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;对于 VLM, 训练集 $\mathcal{D}_\text{train}$ 和测试集 $\mathcal{D}_\text{test}$ 都是图像和文本对 $(v,t)$ 的集合. 需要注意, 算法的微调是在 &lt;strong&gt;单个&lt;/strong&gt; 测试样本上进行的.&lt;/p&gt;
+&lt;p&gt;对于奖励函数 $R$, 我们希望学习到最好的概率分布 $f_{\theta}(v) = [p(t|v,\theta)]_{t \in T}$ 使得其能最大化奖励:&lt;/p&gt;
+$$\max_{\theta} \mathbb{E}_{t \sim f_{\theta}(v)}R(t,v)$$&lt;p&gt;我们正式引入 &lt;strong&gt;带有 CLIP 反馈的强化学习 (Reinforcement Learning with CLIP Feedback, RLCF)&lt;/strong&gt; 算法.&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;RLCF (分类任务)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 一个已经训练好的 VLM 模型 $f_{\theta}$, 测试样本 $v$.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 微调后的模型 $f_{\theta&#39;}$.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;对测试样本 $v$ 进行数据增强, 生成多个增强样本 $\tau_i(v)$.&lt;/li&gt;
+&lt;li&gt;按照 CLIP 的编码器编码 $v$ 和 $\tau_i(v)$, 计算当前模型的预测 $P(t|v,\theta)$. 注意此时训练文本应当是类似于 prompt + label 的形式, 如 &amp;ldquo;a photo of a cat&amp;rdquo;.&lt;/li&gt;
+&lt;li&gt;做置信度筛选, 只保留预测熵足够低的样本 $\tau_i(v)$. 在这些样本中, 按照 top-K 策略选择预测结果, 得到 K 对文本和图像 $(\tau_i(v), t_j)_{j=1}^K$. 暂记为 $(v,t)$ 以进行后续计算.&lt;/li&gt;
+&lt;li&gt;按照先前的工作, 根据 CLIP 模型计算 CLIPScore:
+$$
+    \text{CLIP-S}(t,v) = w \times \max(\text{CLIP}(t,v), 0)
+    $$
+其中 $w=2.5$ 是一个常数.&lt;/li&gt;
+&lt;li&gt;由于 CLIPScore 永远是非负的, 加入一个奖励基线增加稳定性:
+$$
+    R(t,v) = \text{CLIP-S}(t,v) - \mathbb{E}_{t&#39; \sim f_{\theta}(v)}[\text{CLIP-S}(t&#39;,v)]
+    $$&lt;/li&gt;
+&lt;li&gt;通过 REINFORCE 策略梯度更新模型参数 $\theta$ 为 $\theta&#39;$, 使得模型能够最大化奖励, 注意此时 &lt;strong&gt;只&lt;/strong&gt; 更新图像编码器 $g$ 的参数:
+$$
+    \nabla_{\theta} \mathbb{E}_{t \sim f_{\theta}(v)}[R(t,v)] = \mathbb{E}_{t \sim f_{\theta}(v)}[R(t,v) \nabla_{\theta} \log f_{\theta}(t|v, \theta)]
+    $$&lt;/li&gt;
+&lt;li&gt;返回微调后的模型 $f_{\theta&#39;}$.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;https://arxiv.org/html/2305.18010/x3.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;rlcf-algo&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;关于为什么要把 CLIP 作为反馈而非监督, 文章中提到带有反馈的学习模型相比监督微调模型有更好的泛化能力. 此外监督学习不能进行图像描述的任务, 但反馈是通用的.&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;RLCF (图文转换)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;基本可以从上面的 RLCF 算法中直接泛化修改. 只需要注意如果是文本生成图片时, 应该固定图像编码编码器 $g$ 而微调文本编码器 $h$, 且此时不做数据增强.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://arxiv.org/html/2305.18010/x4.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;rlcf-algo-general&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

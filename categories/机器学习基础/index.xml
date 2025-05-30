@@ -169,8 +169,8 @@ L_{\mathcal{D}}(h) \leq L_{S}(h) + \epsilon_{n(h)}(m, w(n(h)) \cdot \delta)
 $$&lt;p&gt;这表明结构风险最小化范式搜索 $h$ 使得上述界限最小.&lt;/p&gt;
 &lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;结构风险最小化 (SRM)&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 训练集 $S \sim \mathcal{D}^m$, 置信度 $\delta$.
-&lt;strong&gt;输出&lt;/strong&gt;: $h \in \arg\min_{h \in \mathcal{H}} [L_S(h) + \epsilon_{n(h)}(m, w(n(h))\delta)]$.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 训练集 $S \sim \mathcal{D}^m$, 置信度 $\delta$.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: $h \in \arg\min_{h \in \mathcal{H}} [L_S(h) + \epsilon_{n(h)}(m, w(n(h))\delta)]$.&lt;/p&gt;
 &lt;p&gt;先前知识:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;$\mathcal{H} = \bigcup_{n \in \mathbb{N}} \mathcal{H}_n$, 其中每个 $\mathcal{H}_n$ 都满足一致收敛性质, 具有样本复杂度函数 $m_{\mathcal{H}_n}^{UC}$;&lt;/li&gt;

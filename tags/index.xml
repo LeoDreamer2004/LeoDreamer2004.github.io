@@ -6,6 +6,55 @@
         <description>Recent content in Tags on LeoDreamer</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <copyright>LeoDreamer</copyright><atom:link href="https://LeoDreamer2004.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+        <copyright>LeoDreamer</copyright>
+        <lastBuildDate>Thu, 29 May 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>CLIP</title>
+        <link>https://LeoDreamer2004.github.io/tags/clip/</link>
+        <pubDate>Thu, 29 May 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/tags/clip/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>VLM</title>
+        <link>https://LeoDreamer2004.github.io/tags/vlm/</link>
+        <pubDate>Thu, 29 May 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/tags/vlm/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>强化学习</title>
+        <link>https://LeoDreamer2004.github.io/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/</link>
+        <pubDate>Thu, 29 May 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Adam</title>
+        <link>https://LeoDreamer2004.github.io/tags/adam/</link>
+        <pubDate>Sun, 30 Mar 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/tags/adam/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>收敛性</title>
+        <link>https://LeoDreamer2004.github.io/tags/%E6%94%B6%E6%95%9B%E6%80%A7/</link>
+        <pubDate>Sun, 30 Mar 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/tags/%E6%94%B6%E6%95%9B%E6%80%A7/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>优化算法</title>
+        <link>https://LeoDreamer2004.github.io/tags/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/</link>
+        <pubDate>Sun, 30 Mar 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/tags/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/</guid>
+        <description></description>
+        </item>
+        
     </channel>
 </rss>

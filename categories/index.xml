@@ -7,7 +7,23 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>LeoDreamer</copyright>
-        <lastBuildDate>Fri, 23 May 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 29 May 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>计算机</title>
+        <link>https://LeoDreamer2004.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/</link>
+        <pubDate>Thu, 29 May 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/</guid>
+        <description>&lt;img src="https://LeoDreamer2004.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/Chino_CS.jpg" alt="Featured image of post 计算机" /&gt;</description>
+        </item>
+        <item>
+        <title>论文</title>
+        <link>https://LeoDreamer2004.github.io/categories/%E8%AE%BA%E6%96%87/</link>
+        <pubDate>Thu, 29 May 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/categories/%E8%AE%BA%E6%96%87/</guid>
+        <description>&lt;img src="https://LeoDreamer2004.github.io/categories/%E8%AE%BA%E6%96%87/Chino_Paper.jpeg" alt="Featured image of post 论文" /&gt;</description>
+        </item>
+        <item>
         <title>机器学习基础</title>
         <link>https://LeoDreamer2004.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/</link>
         <pubDate>Fri, 23 May 2025 00:00:00 +0000</pubDate>
@@ -77,6 +93,11 @@
       &lt;tr&gt;
           &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/p/machine-learning/pca&#34; &gt;机器学习基础(11) —— 奇异值分解与主成分分析简介&lt;/a&gt;&lt;/td&gt;
           &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/MachineLearning-11.pdf&#34; &gt;课件链接&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/p/machine-learning/vc-nu&#34; &gt;机器学习基础(12) —— VC 维与非一致可学习&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/materials/machine-learning/MachineLearning-12.pdf&#34; &gt;课件链接&lt;/a&gt;&lt;/td&gt;
           &lt;td&gt;&lt;/td&gt;
       &lt;/tr&gt;
   &lt;/tbody&gt;
@@ -158,22 +179,6 @@
 &lt;blockquote&gt;
 &lt;p&gt;注：Python 部分未记录。&lt;/p&gt;&lt;/blockquote&gt;
 </description>
-        </item>
-        <item>
-        <title>计算机</title>
-        <link>https://LeoDreamer2004.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/</link>
-        <pubDate>Wed, 30 Apr 2025 00:00:00 +0000</pubDate>
-        
-        <guid>https://LeoDreamer2004.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/</guid>
-        <description>&lt;img src="https://LeoDreamer2004.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/Chino_CS.jpg" alt="Featured image of post 计算机" /&gt;</description>
-        </item>
-        <item>
-        <title>论文</title>
-        <link>https://LeoDreamer2004.github.io/categories/%E8%AE%BA%E6%96%87/</link>
-        <pubDate>Sun, 30 Mar 2025 00:00:00 +0000</pubDate>
-        
-        <guid>https://LeoDreamer2004.github.io/categories/%E8%AE%BA%E6%96%87/</guid>
-        <description>&lt;img src="https://LeoDreamer2004.github.io/categories/%E8%AE%BA%E6%96%87/Chino_Paper.jpeg" alt="Featured image of post 论文" /&gt;</description>
         </item>
         <item>
         <title>最优化方法</title>
