@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="[2025-06-06 周会] 对输出太过自信, 未必是件好事.">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="[2025-06-06 周会] 你是说... 放养 AI, 它自己就能学会推理?">
 <title>论文阅读 - 测试时强化学习</title>
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/paper-reading/test-time-reinforcement-learning/'>
 
-<link rel="stylesheet" href="/scss/style.min.0d382f590b9280849f0123d0e728e4a51157ba206fdbcabcc63d2b2878a829db.css"><meta property='og:title' content="论文阅读 - 测试时强化学习">
-<meta property='og:description' content="[2025-06-06 周会] 对输出太过自信, 未必是件好事.">
+<link rel="stylesheet" href="/scss/style.min.13ddb3d602f4eed25afe08fc013445f3a0e1fb232c898fc9d09503c618c3e844.css"><meta property='og:title' content="论文阅读 - 测试时强化学习">
+<meta property='og:description' content="[2025-06-06 周会] 你是说... 放养 AI, 它自己就能学会推理?">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/paper-reading/test-time-reinforcement-learning/'>
 <meta property='og:site_name' content='LeoDreamer'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='强化学习' /><meta property='article:tag' content='视觉语言模型' /><meta property='article:tag' content='测试时适应' /><meta property='article:published_time' content='2025-05-29T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-05-29T00:00:00&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='强化学习' /><meta property='article:tag' content='测试时适应' /><meta property='article:tag' content='置信度' /><meta property='article:published_time' content='2025-05-29T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-05-29T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="论文阅读 - 测试时强化学习">
-<meta name="twitter:description" content="[2025-06-06 周会] 对输出太过自信, 未必是件好事.">
+<meta name="twitter:description" content="[2025-06-06 周会] 你是说... 放养 AI, 它自己就能学会推理?">
     </head>
     <body class="
     article-page
@@ -290,8 +290,8 @@
     </li>
     
     <li>
-        <a href="https://arxiv.org/abs/2103.00020" id="related-material-6" target="_blank" rel="noopener noreferrer">
-            Learning Transferable Visual Models From Natural Language Supervision
+        <a href="https://arxiv.org/abs/2505.12392" id="related-material-6" target="_blank" rel="noopener noreferrer">
+            SLOT: Sample-specific Language Model Optimization at Test-time
         </a>
     </li>
     
@@ -321,7 +321,12 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#测试时强化学习">测试时强化学习</a></li>
+    <li><a href="#测试时强化学习">测试时强化学习</a>
+      <ol>
+        <li><a href="#tta">TTA</a></li>
+        <li><a href="#ttrl">TTRL</a></li>
+      </ol>
+    </li>
     <li><a href="#基于熵最小化的强化学习">基于熵最小化的强化学习</a></li>
     <li><a href="#内部反馈的强化学习">内部反馈的强化学习</a></li>
     <li><a href="#带有-clip-反馈的强化学习">带有 CLIP 反馈的强化学习</a>
@@ -341,6 +346,7 @@
         <li><a href="#实验-1">实验</a></li>
       </ol>
     </li>
+    <li><a href="#测试时样本特定语言模型优化">测试时样本特定语言模型优化</a></li>
   </ol>
 </nav>
         </div>
@@ -378,7 +384,7 @@
     
         
         <h3 class="article-subtitle">
-            [2025-06-06 周会] 对输出太过自信, 未必是件好事.
+            [2025-06-06 周会] 你是说... 放养 AI, 它自己就能学会推理?
         </h3>
         
     </div>
@@ -414,7 +420,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 6 分钟
+                    阅读时长: 8 分钟
                 </time>
             </div>
         
@@ -445,7 +451,7 @@
 
 
                 <span class="article-keyword">
-                    视觉语言模型
+                    测试时适应
                 </span>
                 
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tag" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -457,7 +463,7 @@
 
 
                 <span class="article-keyword">
-                    测试时适应
+                    置信度
                 </span>
                 
             </div>
@@ -476,7 +482,8 @@
     
     
     <h2 id="测试时强化学习">测试时强化学习
-</h2><p>通常情况下, 深度学习模型在训练完成后就固定了参数, 在测试或部署阶段不再更新. 但在实际应用中, 测试数据可能与训练数据的分布存在差异, 导致模型性能下降. 因此后续的微调显得非常重要.</p>
+</h2><h3 id="tta">TTA
+</h3><p>通常情况下, 深度学习模型在训练完成后就固定了参数, 在测试或部署阶段不再更新. 但在实际应用中, 测试数据可能与训练数据的分布存在差异, 导致模型性能下降. 因此后续的微调显得非常重要.</p>
 <div class="math-block">
     <p class="math-block-title math-def">定义</p>
 <p><strong>测试时适应 (Test-time Adaption, TTA)</strong> 算法指在不使用真实标签的前提下, 利用当前测试样本或其增强版本来在线微调模型, 使其更适应当前的输入分布.</p>
@@ -486,12 +493,75 @@
 <li><strong>熵最小化</strong>: 在测试阶段通过最小化模型输出的熵来提高模型的自信度.</li>
 </ul>
 </div>
-<h2 id="基于熵最小化的强化学习">基于熵最小化的强化学习
-</h2><p>过往的 TTA 算法一般基于无监督学习, 即便是强化学习算法, 需要辛苦设计奖励函数, RLHF 需要人工标注数据, 成本高昂.</p>
-<p>论文 <a class="link cite-2">[2]
+<p>过往的 TTA 算法一般基于无监督学习, 即便是强化学习算法, 需要辛苦设计奖励函数, RLHF 需要人工标注数据, 成本高昂.</p>
+<h3 id="ttrl">TTRL
+</h3><p>论文 <a class="link cite-1">[1]
     <span class="material-name">Unknown-material</span> 
-</a> 给出基于最小化熵的强化学习算法 (Reinforcement Learning via Entropy Minimization, RENT). 基于 GRPO 框架测试, 认为可以在 <strong>无监督</strong> 的情况下, 把奖励函数设置为负熵, 只通过最小化输出的熵, 即可提高模型推理能力.</p>
-<p><img src="https://arxiv.org/html/2505.22660/x1.png"
+</a> 开创性地提出了 <strong>测试时强化学习 (Test-Time Reinforcement Learning, TTRL)</strong> 算法 (后面几篇论文都是在此基础上进行改进). TTRL 通过强化学习的方式, 在测试时对模型进行微调, 使其更好地适应当前输入分布.</p>
+<p>在 <strong>无监督</strong> 的情况下, 怎么设置奖励函数? 论文的策略非常简单: 多数投票.</p>
+<div class="math-block">
+    <p class="math-block-title math-algo">算法<span class="math-subtitle">TTRL</span></p>
+<p><strong>输入</strong>: 一个模型 $f_{\theta}$, 测试样本 $x$.</p>
+<p><strong>输出</strong>: 微调后的模型 $f_{\theta'}$.</p>
+<ol>
+<li>对输入 $x$ 做多次预测, 得到预测结果 $y_i$.</li>
+<li>统计每个预测结果的出现次数, 设最常见的预测结果为 $y^*$, 称为一致动作.</li>
+<li>计算奖励函数 $R(y_i)$:
+$$
+    R(y_i) = \mathbb{I}(y_i = y^*)
+    $$</li>
+<li>通过梯度上升更新模型参数 $\theta$ 为 $\theta'$:
+$$
+    \theta' = \theta + \eta \nabla_{\theta} \mathbb{E}_{y_i \sim f_{\theta}(x)}[R(y_i)]
+    $$</li>
+</ol>
+<p>
+
+
+
+<img src="/p/paper-reading/test-time-reinforcement-learning/img/TTRL.png"
+	width="1923"
+	height="762"
+	srcset="/p/paper-reading/test-time-reinforcement-learning/img/TTRL_hu_f4f946abf4795f84.png 480w, /p/paper-reading/test-time-reinforcement-learning/img/TTRL_hu_3334de21ebd2a53.png 1024w"
+	loading="lazy"
+	
+		alt="TTRL"
+	
+	class="gallery-image" 
+></p>
+</div>
+<p>效果非常显著, 甚至可以与带有有一定数据泄漏的监督方案相媲美.</p>
+<p>
+
+
+
+<img src="/p/paper-reading/test-time-reinforcement-learning/img/TTRL-result.png"
+	width="1048"
+	height="347"
+	srcset="/p/paper-reading/test-time-reinforcement-learning/img/TTRL-result_hu_a86b3d16c865f70.png 480w, /p/paper-reading/test-time-reinforcement-learning/img/TTRL-result_hu_5e6e1e57de726b73.png 1024w"
+	loading="lazy"
+	
+		alt="TTRL 结果"
+	
+	class="gallery-image" 
+></p>
+<p>为什么能做这么好? 论文 <a class="link cite-1">[1]
+    
+</a> 给出了三个原因:</p>
+<ul>
+<li><strong>标签估计</strong>: TTRL 引入标签估计, 尽管存在不确定性, RL 仍具有一定鲁棒性, 且通常比 SFT 具有更好的泛化能力.</li>
+<li><strong>奖励函数设计</strong>: &ldquo;幸运命中&rdquo; (lucky hit) 现象, 即便预测不准确, 只要估计标签与预测答案不同, 验证器就能分配正确的 $0$ 奖励. 实验表明, 尽管多数投票的标签估计可能不准确, 但奖励函数的估计却非常准确. 原因是模型输出概率非常分散, 因此即使标签未被准确估计, 由于 &ldquo;幸运命中&rdquo;, 大多数输出仍然可以收到正确的奖励.</li>
+<li><strong>在线学习</strong>: TTRL 是在线学习算法, 可以在测试时不断更新模型参数, 使其更好地适应当前输入分布.</li>
+</ul>
+<h2 id="基于熵最小化的强化学习">基于熵最小化的强化学习
+</h2><p>论文 <a class="link cite-2">[2]
+    <span class="material-name">Unknown-material</span> 
+</a> 给出基于最小化熵的强化学习算法 (Reinforcement Learning via Entropy Minimization, RENT). 基于 GRPO 框架测试, 把奖励函数设置为负熵, 认为只通过最小化输出的熵, 即可提高模型推理能力.</p>
+<p>
+
+
+
+<img src="https://arxiv.org/html/2505.22660/x1.png"
 	
 	
 	
@@ -499,7 +569,7 @@
 	
 		alt="RENT"
 	
-	
+	class="gallery-image" 
 ></p>
 <h2 id="内部反馈的强化学习">内部反馈的强化学习
 </h2><p>除了 KL 正则化等等项之外, 我们关心奖励函数的设计. 这个奖励要与任务无关, 而由模型内部的反馈来决定. 与 <a class="link cite-2">[2]
@@ -516,20 +586,22 @@ $$<p>其中 $o$ 是 token 序列, $U$ 表示均匀分布.</p>
 </h3><p>文章 <a class="link cite-4">[4]
     <span class="material-name">Unknown-material</span> 
 </a> 通过引入 CLIP 反馈来解决置信度过高问题, 称为 RLCF(如下图).</p>
-<p><img src="https://arxiv.org/html/2305.18010/x1.png"
+<p>
+
+
+
+<img src="https://arxiv.org/html/2305.18010/x1.png"
 	
 	
 	
 	loading="lazy"
 	
-		alt="tpt-vs-rlcf"
+		alt="TPT 与 RLCF 对比"
 	
-	
+	class="gallery-image" 
 ></p>
 <p>除了分类任务外, 通过特定任务的采样策略和适当的选择奖励基线, RLCF 可以很容易地扩展到不仅仅是检索这样的区分任务, 还可以扩展到图像字幕这样的泛化任务.</p>
-<p>我们现在关心视觉语言模型 (VLM), 因此要衡量跨模态的相似性. 论文 <a class="link cite-6">[6]
-    
-</a> 提出了 <strong>对比语言-图像预训练 (Contrastive Language-Image Pre-training, CLIP)</strong> 模型, 这个模型通过对图像和文本进行编码, 使得它们在同一个共享的向量空间中具有相似的表示.</p>
+<p>我们现在关心视觉语言模型 (VLM), 因此要衡量跨模态的相似性. <strong>对比语言-图像预训练 (Contrastive Language-Image Pre-training, CLIP)</strong> 模型通过对图像和文本进行编码, 使得它们在同一个共享的向量空间中具有相似的表示.</p>
 <div class="math-block">
     <p class="math-block-title math-algo">算法<span class="math-subtitle">CLIP</span></p>
 <p><strong>输入</strong>: 图像 $v$ 和文本 $t$.</p>
@@ -569,30 +641,38 @@ $$
     $$</li>
 <li>返回微调后的模型 $f_{\theta'}$.</li>
 </ol>
-<p><img src="https://arxiv.org/html/2305.18010/x3.png"
+<p>
+
+
+
+<img src="https://arxiv.org/html/2305.18010/x3.png"
 	
 	
 	
 	loading="lazy"
 	
-		alt="rlcf-algo"
+		alt="RLCF 分类任务"
 	
-	
+	class="gallery-image" 
 ></p>
 </div>
 <p>相较于监督学习, 基于反馈的强化学习更加通用, 例如可以进行图像描述的任务.</p>
 <div class="math-block">
     <p class="math-block-title math-algo">算法<span class="math-subtitle">RLCF (图文转换)</span></p>
 <p>基本可以从上面的 RLCF 算法中直接泛化修改. 只需要注意如果是文本生成图片时, 应该固定图像编码编码器 $g$ 而微调文本编码器 $h$, 且此时不做数据增强.</p>
-<p><img src="https://arxiv.org/html/2305.18010/x4.png"
+<p>
+
+
+
+<img src="https://arxiv.org/html/2305.18010/x4.png"
 	
 	
 	
 	loading="lazy"
 	
-		alt="rlcf-algo-general"
+		alt="RLCF 图文转换"
 	
-	
+	class="gallery-image" 
 ></p>
 </div>
 <h3 id="技巧和变体">技巧和变体
@@ -611,7 +691,11 @@ $$
 </a> 通过熵动力学来研究熵崩溃的问题, 最终的目的依然是控制熵.</p>
 <h3 id="熵崩溃">熵崩溃
 </h3><p>强化学习过程中对于高置信度的策略会愈发增强其使用概率, 导致熵变得更加降低. 以下图揭示了熵崩溃和性能饱和的关系. 当熵下降到某个阈值时, 性能会达到饱和点.</p>
-<p><img src="https://arxiv.org/html/2505.22617/x1.png"
+<p>
+
+
+
+<img src="https://arxiv.org/html/2505.22617/x1.png"
 	
 	
 	
@@ -619,7 +703,7 @@ $$
 	
 		alt="熵崩溃和性能饱和"
 	
-	
+	class="gallery-image" 
 ></p>
 <p>论文定量分析认为, 如果没有像熵损失或者 KL 散度这样的正则化, 下游性能完全可以通过策略熵来预测, 精确来说可以拟合成指数函数:</p>
 $$
@@ -628,7 +712,12 @@ $$<p>$R$ 是验证集的性能, $\mathcal{H}$ 是策略的熵.</p>
 <h3 id="熵-性能函数">熵-性能函数
 </h3><p>这个函数可以用来分析模型的性能和熵之间的关系, 有几个特点:</p>
 <ul>
-<li><strong>系数与算法无关</strong>: 下面这个图几个算法得到的曲线是类似的, 这表明 $a,b$  可能是模型和数据的固有属性.
+<li><strong>系数与算法无关</strong>: 下面这个图几个算法得到的曲线是类似的, 这表明 $a,b$  可能是模型和数据的固有属性.</li>
+</ul>
+<p>
+
+
+
 <img src="https://arxiv.org/html/2505.22617/x11.png"
 	
 	
@@ -637,8 +726,9 @@ $$<p>$R$ 是验证集的性能, $\mathcal{H}$ 是策略的熵.</p>
 	
 		alt="熵-性能函数"
 	
-	
-></li>
+	class="gallery-image" 
+></p>
+<ul>
 <li><strong>预测不同模型的函数系数</strong>: 显然 $a$ 是模型将熵转化为下游性能的速度. $−a+b$ 是当熵归零时模型可以达到的最大验证性能. 理论上个更大的性能应该对应更大的 $a$ 和 $b$. 此外不同的任务也会有不同的系数
 <div class="table-wrapper"><table>
   <thead>
@@ -651,7 +741,11 @@ $$<p>$R$ 是验证集的性能, $\mathcal{H}$ 是策略的熵.</p>
   <tbody>
       <tr>
           <td>数学任务</td>
-          <td><img src="https://arxiv.org/html/2505.22617/x12.png"
+          <td>
+
+
+
+<img src="https://arxiv.org/html/2505.22617/x12.png"
 	
 	
 	
@@ -659,9 +753,13 @@ $$<p>$R$ 是验证集的性能, $\mathcal{H}$ 是策略的熵.</p>
 	
 		alt="a-math"
 	
-	
+	class="gallery-image" 
 ></td>
-          <td><img src="https://arxiv.org/html/2505.22617/x13.png"
+          <td>
+
+
+
+<img src="https://arxiv.org/html/2505.22617/x13.png"
 	
 	
 	
@@ -669,12 +767,16 @@ $$<p>$R$ 是验证集的性能, $\mathcal{H}$ 是策略的熵.</p>
 	
 		alt="b-math"
 	
-	
+	class="gallery-image" 
 ></td>
       </tr>
       <tr>
           <td>代码任务</td>
-          <td><img src="https://arxiv.org/html/2505.22617/x14.png"
+          <td>
+
+
+
+<img src="https://arxiv.org/html/2505.22617/x14.png"
 	
 	
 	
@@ -682,9 +784,13 @@ $$<p>$R$ 是验证集的性能, $\mathcal{H}$ 是策略的熵.</p>
 	
 		alt="a-code"
 	
-	
+	class="gallery-image" 
 ></td>
-          <td><img src="https://arxiv.org/html/2505.22617/x15.png"
+          <td>
+
+
+
+<img src="https://arxiv.org/html/2505.22617/x15.png"
 	
 	
 	
@@ -692,7 +798,7 @@ $$<p>$R$ 是验证集的性能, $\mathcal{H}$ 是策略的熵.</p>
 	
 		alt="b-code"
 	
-	
+	class="gallery-image" 
 ></td>
       </tr>
   </tbody>
@@ -767,7 +873,11 @@ $$
   <tbody>
       <tr>
           <td>Qwen-7B</td>
-          <td><img src="https://arxiv.org/html/2505.22617/x22.png"
+          <td>
+
+
+
+<img src="https://arxiv.org/html/2505.22617/x22.png"
 	
 	
 	
@@ -775,9 +885,13 @@ $$
 	
 		alt="7B-entropy"
 	
-	
+	class="gallery-image" 
 ></td>
-          <td><img src="https://arxiv.org/html/2505.22617/x23.png"
+          <td>
+
+
+
+<img src="https://arxiv.org/html/2505.22617/x23.png"
 	
 	
 	
@@ -785,9 +899,13 @@ $$
 	
 		alt="7B-response"
 	
-	
+	class="gallery-image" 
 ></td>
-          <td><img src="https://arxiv.org/html/2505.22617/x24.png"
+          <td>
+
+
+
+<img src="https://arxiv.org/html/2505.22617/x24.png"
 	
 	
 	
@@ -795,12 +913,16 @@ $$
 	
 		alt="7B-accuracy"
 	
-	
+	class="gallery-image" 
 ></td>
       </tr>
       <tr>
           <td>Qwen-32B</td>
-          <td><img src="https://arxiv.org/html/2505.22617/x25.png"
+          <td>
+
+
+
+<img src="https://arxiv.org/html/2505.22617/x25.png"
 	
 	
 	
@@ -808,9 +930,13 @@ $$
 	
 		alt="32B-entropy"
 	
-	
+	class="gallery-image" 
 ></td>
-          <td><img src="https://arxiv.org/html/2505.22617/x26.png"
+          <td>
+
+
+
+<img src="https://arxiv.org/html/2505.22617/x26.png"
 	
 	
 	
@@ -818,9 +944,13 @@ $$
 	
 		alt="32B-response"
 	
-	
+	class="gallery-image" 
 ></td>
-          <td><img src="https://arxiv.org/html/2505.22617/x27.png"
+          <td>
+
+
+
+<img src="https://arxiv.org/html/2505.22617/x27.png"
 	
 	
 	
@@ -828,11 +958,64 @@ $$
 	
 		alt="32B-accuracy"
 	
-	
+	class="gallery-image" 
 ></td>
       </tr>
   </tbody>
 </table></div>
+<h2 id="测试时样本特定语言模型优化">测试时样本特定语言模型优化
+</h2><p>论文 <a class="link cite-6">[6]
+    <span class="material-name">Unknown-material</span> 
+</a> 提出了 <strong>测试时样本特定语言模型优化 (Sample-specific Language Model Optimization at Test-time, SLOT)</strong> 算法.</p>
+<div class="math-block">
+    <p class="math-block-title math-algo">算法<span class="math-subtitle">SLOT</span></p>
+<p><strong>输入</strong>: 预训练语言模型 $f_{\theta}$, 输入 token 序列 $x=(x_1, x_2, \ldots, x_n)$, 优化步数 $T$.</p>
+<p><strong>输出</strong>: 拓展生成的文本 $x$.</p>
+<ol>
+<li>初始化样本特定参数 $\delta=\mathbf{0}\in \mathbb{R}^{1 \times d}$.</li>
+<li>计算最后一层的隐藏特征 $H = f_{\text{pre}}(x) \in \mathbb{R}^{n \times d}$.</li>
+<li>修改 $H' = H + \delta$, 这里是广播加法.</li>
+<li>计算 logits $L = W_{\text{LM}} H' \in \mathbb{R}^{n \times |V|}$ 和其对应的交叉熵损失 $\mathcal{L}$, 并根据损失 $\mathcal{L}$ 优化 $\delta$.</li>
+<li>重复步骤 2-4, 直到达到优化步数 $T$, 最后得到 $\delta_{\text{opt}}$.</li>
+<li>计算最后一个 token 的隐藏特征 $H_{\text{last}} = f_{\text{pre}}(x) [-1] \in \mathbb{R}^{1 \times d}$.</li>
+<li>修改 $H_{\text{last}}' = H_{\text{last}} + \delta_{\text{opt}}$.</li>
+<li>计算下一个 token 的 logits $L_{\text{next}} = W_{\text{LM}} H_{\text{last}}'$, 随后按 softmax 选择下一个 token $x_{\text{next}}$.</li>
+<li>把 $x_{\text{next}}$ 添加到输入序列 $x$ 中, 并重复步骤 6-8, 直到生成满足条件的文本.</li>
+</ol>
+<p>
+
+
+
+<img src="https://arxiv.org/html/2505.12392/x2.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="SLOT"
+	
+	class="gallery-image" 
+></p>
+</div>
+<p>特意把参数 $\delta$ 放在预测头之前, 是为了减小计算量. 称这个增量为 <strong>概率向量调制向量 (Logit Modulation Vector, LMV)</strong>:</p>
+$$
+\text{LMV} = W_{\text{LM}}\delta \in \mathbb{R}^{|V|}
+$$<p>测试表明, 与推理过程相关的词如 &ldquo;think&rdquo; 和 &ldquo;reasoning&rdquo; 在 LMV 的作用下得到了显著增强.</p>
+<p>
+
+
+
+<img src="https://arxiv.org/html/2505.12392/x3.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="LMV 调节"
+	
+	class="gallery-image" 
+></p>
+<p>我的理解是和直接插入一层网络的区别是, 这个反向传播只更新 $\delta$ 而不更新模型参数, 且是一次性的, 只在测试时进行微调.</p>
 
 </section>
 
@@ -1065,7 +1248,7 @@ $$
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.b48cb422dc6b96500532b30ae9ee76742f170be4c0b8c75572a6d184cc051969.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.821bb812210297d9a43eb2e9912a631148f1f316e39772f2d0ca399c3c137820.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

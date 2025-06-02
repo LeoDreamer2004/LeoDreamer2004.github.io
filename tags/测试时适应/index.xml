@@ -14,7 +14,8 @@
         
         <guid>https://LeoDreamer2004.github.io/p/paper-reading/test-time-reinforcement-learning/</guid>
         <description>&lt;h2 id=&#34;测试时强化学习&#34;&gt;测试时强化学习
-&lt;/h2&gt;&lt;p&gt;通常情况下, 深度学习模型在训练完成后就固定了参数, 在测试或部署阶段不再更新. 但在实际应用中, 测试数据可能与训练数据的分布存在差异, 导致模型性能下降. 因此后续的微调显得非常重要.&lt;/p&gt;
+&lt;/h2&gt;&lt;h3 id=&#34;tta&#34;&gt;TTA
+&lt;/h3&gt;&lt;p&gt;通常情况下, 深度学习模型在训练完成后就固定了参数, 在测试或部署阶段不再更新. 但在实际应用中, 测试数据可能与训练数据的分布存在差异, 导致模型性能下降. 因此后续的微调显得非常重要.&lt;/p&gt;
 &lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;测试时适应 (Test-time Adaption, TTA)&lt;/strong&gt; 算法指在不使用真实标签的前提下, 利用当前测试样本或其增强版本来在线微调模型, 使其更适应当前的输入分布.&lt;/p&gt;
@@ -24,12 +25,75 @@
 &lt;li&gt;&lt;strong&gt;熵最小化&lt;/strong&gt;: 在测试阶段通过最小化模型输出的熵来提高模型的自信度.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
-&lt;h2 id=&#34;基于熵最小化的强化学习&#34;&gt;基于熵最小化的强化学习
-&lt;/h2&gt;&lt;p&gt;过往的 TTA 算法一般基于无监督学习, 即便是强化学习算法, 需要辛苦设计奖励函数, RLHF 需要人工标注数据, 成本高昂.&lt;/p&gt;
-&lt;p&gt;论文 &lt;a class=&#34;link cite-2&#34;&gt;[2]
+&lt;p&gt;过往的 TTA 算法一般基于无监督学习, 即便是强化学习算法, 需要辛苦设计奖励函数, RLHF 需要人工标注数据, 成本高昂.&lt;/p&gt;
+&lt;h3 id=&#34;ttrl&#34;&gt;TTRL
+&lt;/h3&gt;&lt;p&gt;论文 &lt;a class=&#34;link cite-1&#34;&gt;[1]
     &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
-&lt;/a&gt; 给出基于最小化熵的强化学习算法 (Reinforcement Learning via Entropy Minimization, RENT). 基于 GRPO 框架测试, 认为可以在 &lt;strong&gt;无监督&lt;/strong&gt; 的情况下, 把奖励函数设置为负熵, 只通过最小化输出的熵, 即可提高模型推理能力.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://arxiv.org/html/2505.22660/x1.png&#34;
+&lt;/a&gt; 开创性地提出了 &lt;strong&gt;测试时强化学习 (Test-Time Reinforcement Learning, TTRL)&lt;/strong&gt; 算法 (后面几篇论文都是在此基础上进行改进). TTRL 通过强化学习的方式, 在测试时对模型进行微调, 使其更好地适应当前输入分布.&lt;/p&gt;
+&lt;p&gt;在 &lt;strong&gt;无监督&lt;/strong&gt; 的情况下, 怎么设置奖励函数? 论文的策略非常简单: 多数投票.&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;TTRL&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 一个模型 $f_{\theta}$, 测试样本 $x$.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 微调后的模型 $f_{\theta&#39;}$.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;对输入 $x$ 做多次预测, 得到预测结果 $y_i$.&lt;/li&gt;
+&lt;li&gt;统计每个预测结果的出现次数, 设最常见的预测结果为 $y^*$, 称为一致动作.&lt;/li&gt;
+&lt;li&gt;计算奖励函数 $R(y_i)$:
+$$
+    R(y_i) = \mathbb{I}(y_i = y^*)
+    $$&lt;/li&gt;
+&lt;li&gt;通过梯度上升更新模型参数 $\theta$ 为 $\theta&#39;$:
+$$
+    \theta&#39; = \theta + \eta \nabla_{\theta} \mathbb{E}_{y_i \sim f_{\theta}(x)}[R(y_i)]
+    $$&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://LeoDreamer2004.github.io/p/paper-reading/test-time-reinforcement-learning/img/TTRL.png&#34;
+	width=&#34;1923&#34;
+	height=&#34;762&#34;
+	srcset=&#34;https://LeoDreamer2004.github.io/p/paper-reading/test-time-reinforcement-learning/img/TTRL_hu_f4f946abf4795f84.png 480w, https://LeoDreamer2004.github.io/p/paper-reading/test-time-reinforcement-learning/img/TTRL_hu_3334de21ebd2a53.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;TTRL&#34;
+	
+	class=&#34;gallery-image&#34; 
+&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;效果非常显著, 甚至可以与带有有一定数据泄漏的监督方案相媲美.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://LeoDreamer2004.github.io/p/paper-reading/test-time-reinforcement-learning/img/TTRL-result.png&#34;
+	width=&#34;1048&#34;
+	height=&#34;347&#34;
+	srcset=&#34;https://LeoDreamer2004.github.io/p/paper-reading/test-time-reinforcement-learning/img/TTRL-result_hu_a86b3d16c865f70.png 480w, https://LeoDreamer2004.github.io/p/paper-reading/test-time-reinforcement-learning/img/TTRL-result_hu_5e6e1e57de726b73.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;TTRL 结果&#34;
+	
+	class=&#34;gallery-image&#34; 
+&gt;&lt;/p&gt;
+&lt;p&gt;为什么能做这么好? 论文 &lt;a class=&#34;link cite-1&#34;&gt;[1]
+    
+&lt;/a&gt; 给出了三个原因:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;标签估计&lt;/strong&gt;: TTRL 引入标签估计, 尽管存在不确定性, RL 仍具有一定鲁棒性, 且通常比 SFT 具有更好的泛化能力.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;奖励函数设计&lt;/strong&gt;: &amp;ldquo;幸运命中&amp;rdquo; (lucky hit) 现象, 即便预测不准确, 只要估计标签与预测答案不同, 验证器就能分配正确的 $0$ 奖励. 实验表明, 尽管多数投票的标签估计可能不准确, 但奖励函数的估计却非常准确. 原因是模型输出概率非常分散, 因此即使标签未被准确估计, 由于 &amp;ldquo;幸运命中&amp;rdquo;, 大多数输出仍然可以收到正确的奖励.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;在线学习&lt;/strong&gt;: TTRL 是在线学习算法, 可以在测试时不断更新模型参数, 使其更好地适应当前输入分布.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;基于熵最小化的强化学习&#34;&gt;基于熵最小化的强化学习
+&lt;/h2&gt;&lt;p&gt;论文 &lt;a class=&#34;link cite-2&#34;&gt;[2]
+    &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
+&lt;/a&gt; 给出基于最小化熵的强化学习算法 (Reinforcement Learning via Entropy Minimization, RENT). 基于 GRPO 框架测试, 把奖励函数设置为负熵, 认为只通过最小化输出的熵, 即可提高模型推理能力.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://arxiv.org/html/2505.22660/x1.png&#34;
 	
 	
 	
@@ -37,7 +101,7 @@
 	
 		alt=&#34;RENT&#34;
 	
-	
+	class=&#34;gallery-image&#34; 
 &gt;&lt;/p&gt;
 &lt;h2 id=&#34;内部反馈的强化学习&#34;&gt;内部反馈的强化学习
 &lt;/h2&gt;&lt;p&gt;除了 KL 正则化等等项之外, 我们关心奖励函数的设计. 这个奖励要与任务无关, 而由模型内部的反馈来决定. 与 &lt;a class=&#34;link cite-2&#34;&gt;[2]
@@ -54,20 +118,22 @@ $$&lt;p&gt;其中 $o$ 是 token 序列, $U$ 表示均匀分布.&lt;/p&gt;
 &lt;/h3&gt;&lt;p&gt;文章 &lt;a class=&#34;link cite-4&#34;&gt;[4]
     &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
 &lt;/a&gt; 通过引入 CLIP 反馈来解决置信度过高问题, 称为 RLCF(如下图).&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://arxiv.org/html/2305.18010/x1.png&#34;
+&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://arxiv.org/html/2305.18010/x1.png&#34;
 	
 	
 	
 	loading=&#34;lazy&#34;
 	
-		alt=&#34;tpt-vs-rlcf&#34;
+		alt=&#34;TPT 与 RLCF 对比&#34;
 	
-	
+	class=&#34;gallery-image&#34; 
 &gt;&lt;/p&gt;
 &lt;p&gt;除了分类任务外, 通过特定任务的采样策略和适当的选择奖励基线, RLCF 可以很容易地扩展到不仅仅是检索这样的区分任务, 还可以扩展到图像字幕这样的泛化任务.&lt;/p&gt;
-&lt;p&gt;我们现在关心视觉语言模型 (VLM), 因此要衡量跨模态的相似性. 论文 &lt;a class=&#34;link cite-6&#34;&gt;[6]
-    
-&lt;/a&gt; 提出了 &lt;strong&gt;对比语言-图像预训练 (Contrastive Language-Image Pre-training, CLIP)&lt;/strong&gt; 模型, 这个模型通过对图像和文本进行编码, 使得它们在同一个共享的向量空间中具有相似的表示.&lt;/p&gt;
+&lt;p&gt;我们现在关心视觉语言模型 (VLM), 因此要衡量跨模态的相似性. &lt;strong&gt;对比语言-图像预训练 (Contrastive Language-Image Pre-training, CLIP)&lt;/strong&gt; 模型通过对图像和文本进行编码, 使得它们在同一个共享的向量空间中具有相似的表示.&lt;/p&gt;
 &lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;CLIP&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 图像 $v$ 和文本 $t$.&lt;/p&gt;
@@ -107,30 +173,38 @@ $$
     $$&lt;/li&gt;
 &lt;li&gt;返回微调后的模型 $f_{\theta&#39;}$.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;https://arxiv.org/html/2305.18010/x3.png&#34;
+&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://arxiv.org/html/2305.18010/x3.png&#34;
 	
 	
 	
 	loading=&#34;lazy&#34;
 	
-		alt=&#34;rlcf-algo&#34;
+		alt=&#34;RLCF 分类任务&#34;
 	
-	
+	class=&#34;gallery-image&#34; 
 &gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;相较于监督学习, 基于反馈的强化学习更加通用, 例如可以进行图像描述的任务.&lt;/p&gt;
 &lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;RLCF (图文转换)&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;基本可以从上面的 RLCF 算法中直接泛化修改. 只需要注意如果是文本生成图片时, 应该固定图像编码编码器 $g$ 而微调文本编码器 $h$, 且此时不做数据增强.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://arxiv.org/html/2305.18010/x4.png&#34;
+&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://arxiv.org/html/2305.18010/x4.png&#34;
 	
 	
 	
 	loading=&#34;lazy&#34;
 	
-		alt=&#34;rlcf-algo-general&#34;
+		alt=&#34;RLCF 图文转换&#34;
 	
-	
+	class=&#34;gallery-image&#34; 
 &gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;h3 id=&#34;技巧和变体&#34;&gt;技巧和变体
@@ -149,7 +223,11 @@ $$
 &lt;/a&gt; 通过熵动力学来研究熵崩溃的问题, 最终的目的依然是控制熵.&lt;/p&gt;
 &lt;h3 id=&#34;熵崩溃&#34;&gt;熵崩溃
 &lt;/h3&gt;&lt;p&gt;强化学习过程中对于高置信度的策略会愈发增强其使用概率, 导致熵变得更加降低. 以下图揭示了熵崩溃和性能饱和的关系. 当熵下降到某个阈值时, 性能会达到饱和点.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://arxiv.org/html/2505.22617/x1.png&#34;
+&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://arxiv.org/html/2505.22617/x1.png&#34;
 	
 	
 	
@@ -157,7 +235,7 @@ $$
 	
 		alt=&#34;熵崩溃和性能饱和&#34;
 	
-	
+	class=&#34;gallery-image&#34; 
 &gt;&lt;/p&gt;
 &lt;p&gt;论文定量分析认为, 如果没有像熵损失或者 KL 散度这样的正则化, 下游性能完全可以通过策略熵来预测, 精确来说可以拟合成指数函数:&lt;/p&gt;
 $$
@@ -166,7 +244,12 @@ $$&lt;p&gt;$R$ 是验证集的性能, $\mathcal{H}$ 是策略的熵.&lt;/p&gt;
 &lt;h3 id=&#34;熵-性能函数&#34;&gt;熵-性能函数
 &lt;/h3&gt;&lt;p&gt;这个函数可以用来分析模型的性能和熵之间的关系, 有几个特点:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;系数与算法无关&lt;/strong&gt;: 下面这个图几个算法得到的曲线是类似的, 这表明 $a,b$  可能是模型和数据的固有属性.
+&lt;li&gt;&lt;strong&gt;系数与算法无关&lt;/strong&gt;: 下面这个图几个算法得到的曲线是类似的, 这表明 $a,b$  可能是模型和数据的固有属性.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+
+
+
 &lt;img src=&#34;https://arxiv.org/html/2505.22617/x11.png&#34;
 	
 	
@@ -175,8 +258,9 @@ $$&lt;p&gt;$R$ 是验证集的性能, $\mathcal{H}$ 是策略的熵.&lt;/p&gt;
 	
 		alt=&#34;熵-性能函数&#34;
 	
-	
-&gt;&lt;/li&gt;
+	class=&#34;gallery-image&#34; 
+&gt;&lt;/p&gt;
+&lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;预测不同模型的函数系数&lt;/strong&gt;: 显然 $a$ 是模型将熵转化为下游性能的速度. $−a+b$ 是当熵归零时模型可以达到的最大验证性能. 理论上个更大的性能应该对应更大的 $a$ 和 $b$. 此外不同的任务也会有不同的系数
 &lt;table&gt;
   &lt;thead&gt;
@@ -189,7 +273,11 @@ $$&lt;p&gt;$R$ 是验证集的性能, $\mathcal{H}$ 是策略的熵.&lt;/p&gt;
   &lt;tbody&gt;
       &lt;tr&gt;
           &lt;td&gt;数学任务&lt;/td&gt;
-          &lt;td&gt;&lt;img src=&#34;https://arxiv.org/html/2505.22617/x12.png&#34;
+          &lt;td&gt;
+
+
+
+&lt;img src=&#34;https://arxiv.org/html/2505.22617/x12.png&#34;
 	
 	
 	
@@ -197,9 +285,13 @@ $$&lt;p&gt;$R$ 是验证集的性能, $\mathcal{H}$ 是策略的熵.&lt;/p&gt;
 	
 		alt=&#34;a-math&#34;
 	
-	
+	class=&#34;gallery-image&#34; 
 &gt;&lt;/td&gt;
-          &lt;td&gt;&lt;img src=&#34;https://arxiv.org/html/2505.22617/x13.png&#34;
+          &lt;td&gt;
+
+
+
+&lt;img src=&#34;https://arxiv.org/html/2505.22617/x13.png&#34;
 	
 	
 	
@@ -207,12 +299,16 @@ $$&lt;p&gt;$R$ 是验证集的性能, $\mathcal{H}$ 是策略的熵.&lt;/p&gt;
 	
 		alt=&#34;b-math&#34;
 	
-	
+	class=&#34;gallery-image&#34; 
 &gt;&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
           &lt;td&gt;代码任务&lt;/td&gt;
-          &lt;td&gt;&lt;img src=&#34;https://arxiv.org/html/2505.22617/x14.png&#34;
+          &lt;td&gt;
+
+
+
+&lt;img src=&#34;https://arxiv.org/html/2505.22617/x14.png&#34;
 	
 	
 	
@@ -220,9 +316,13 @@ $$&lt;p&gt;$R$ 是验证集的性能, $\mathcal{H}$ 是策略的熵.&lt;/p&gt;
 	
 		alt=&#34;a-code&#34;
 	
-	
+	class=&#34;gallery-image&#34; 
 &gt;&lt;/td&gt;
-          &lt;td&gt;&lt;img src=&#34;https://arxiv.org/html/2505.22617/x15.png&#34;
+          &lt;td&gt;
+
+
+
+&lt;img src=&#34;https://arxiv.org/html/2505.22617/x15.png&#34;
 	
 	
 	
@@ -230,7 +330,7 @@ $$&lt;p&gt;$R$ 是验证集的性能, $\mathcal{H}$ 是策略的熵.&lt;/p&gt;
 	
 		alt=&#34;b-code&#34;
 	
-	
+	class=&#34;gallery-image&#34; 
 &gt;&lt;/td&gt;
       &lt;/tr&gt;
   &lt;/tbody&gt;
@@ -305,7 +405,11 @@ $$
   &lt;tbody&gt;
       &lt;tr&gt;
           &lt;td&gt;Qwen-7B&lt;/td&gt;
-          &lt;td&gt;&lt;img src=&#34;https://arxiv.org/html/2505.22617/x22.png&#34;
+          &lt;td&gt;
+
+
+
+&lt;img src=&#34;https://arxiv.org/html/2505.22617/x22.png&#34;
 	
 	
 	
@@ -313,9 +417,13 @@ $$
 	
 		alt=&#34;7B-entropy&#34;
 	
-	
+	class=&#34;gallery-image&#34; 
 &gt;&lt;/td&gt;
-          &lt;td&gt;&lt;img src=&#34;https://arxiv.org/html/2505.22617/x23.png&#34;
+          &lt;td&gt;
+
+
+
+&lt;img src=&#34;https://arxiv.org/html/2505.22617/x23.png&#34;
 	
 	
 	
@@ -323,9 +431,13 @@ $$
 	
 		alt=&#34;7B-response&#34;
 	
-	
+	class=&#34;gallery-image&#34; 
 &gt;&lt;/td&gt;
-          &lt;td&gt;&lt;img src=&#34;https://arxiv.org/html/2505.22617/x24.png&#34;
+          &lt;td&gt;
+
+
+
+&lt;img src=&#34;https://arxiv.org/html/2505.22617/x24.png&#34;
 	
 	
 	
@@ -333,12 +445,16 @@ $$
 	
 		alt=&#34;7B-accuracy&#34;
 	
-	
+	class=&#34;gallery-image&#34; 
 &gt;&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
           &lt;td&gt;Qwen-32B&lt;/td&gt;
-          &lt;td&gt;&lt;img src=&#34;https://arxiv.org/html/2505.22617/x25.png&#34;
+          &lt;td&gt;
+
+
+
+&lt;img src=&#34;https://arxiv.org/html/2505.22617/x25.png&#34;
 	
 	
 	
@@ -346,9 +462,13 @@ $$
 	
 		alt=&#34;32B-entropy&#34;
 	
-	
+	class=&#34;gallery-image&#34; 
 &gt;&lt;/td&gt;
-          &lt;td&gt;&lt;img src=&#34;https://arxiv.org/html/2505.22617/x26.png&#34;
+          &lt;td&gt;
+
+
+
+&lt;img src=&#34;https://arxiv.org/html/2505.22617/x26.png&#34;
 	
 	
 	
@@ -356,9 +476,13 @@ $$
 	
 		alt=&#34;32B-response&#34;
 	
-	
+	class=&#34;gallery-image&#34; 
 &gt;&lt;/td&gt;
-          &lt;td&gt;&lt;img src=&#34;https://arxiv.org/html/2505.22617/x27.png&#34;
+          &lt;td&gt;
+
+
+
+&lt;img src=&#34;https://arxiv.org/html/2505.22617/x27.png&#34;
 	
 	
 	
@@ -366,11 +490,64 @@ $$
 	
 		alt=&#34;32B-accuracy&#34;
 	
-	
+	class=&#34;gallery-image&#34; 
 &gt;&lt;/td&gt;
       &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
+&lt;h2 id=&#34;测试时样本特定语言模型优化&#34;&gt;测试时样本特定语言模型优化
+&lt;/h2&gt;&lt;p&gt;论文 &lt;a class=&#34;link cite-6&#34;&gt;[6]
+    &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
+&lt;/a&gt; 提出了 &lt;strong&gt;测试时样本特定语言模型优化 (Sample-specific Language Model Optimization at Test-time, SLOT)&lt;/strong&gt; 算法.&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;SLOT&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 预训练语言模型 $f_{\theta}$, 输入 token 序列 $x=(x_1, x_2, \ldots, x_n)$, 优化步数 $T$.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 拓展生成的文本 $x$.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;初始化样本特定参数 $\delta=\mathbf{0}\in \mathbb{R}^{1 \times d}$.&lt;/li&gt;
+&lt;li&gt;计算最后一层的隐藏特征 $H = f_{\text{pre}}(x) \in \mathbb{R}^{n \times d}$.&lt;/li&gt;
+&lt;li&gt;修改 $H&#39; = H + \delta$, 这里是广播加法.&lt;/li&gt;
+&lt;li&gt;计算 logits $L = W_{\text{LM}} H&#39; \in \mathbb{R}^{n \times |V|}$ 和其对应的交叉熵损失 $\mathcal{L}$, 并根据损失 $\mathcal{L}$ 优化 $\delta$.&lt;/li&gt;
+&lt;li&gt;重复步骤 2-4, 直到达到优化步数 $T$, 最后得到 $\delta_{\text{opt}}$.&lt;/li&gt;
+&lt;li&gt;计算最后一个 token 的隐藏特征 $H_{\text{last}} = f_{\text{pre}}(x) [-1] \in \mathbb{R}^{1 \times d}$.&lt;/li&gt;
+&lt;li&gt;修改 $H_{\text{last}}&#39; = H_{\text{last}} + \delta_{\text{opt}}$.&lt;/li&gt;
+&lt;li&gt;计算下一个 token 的 logits $L_{\text{next}} = W_{\text{LM}} H_{\text{last}}&#39;$, 随后按 softmax 选择下一个 token $x_{\text{next}}$.&lt;/li&gt;
+&lt;li&gt;把 $x_{\text{next}}$ 添加到输入序列 $x$ 中, 并重复步骤 6-8, 直到生成满足条件的文本.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://arxiv.org/html/2505.12392/x2.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;SLOT&#34;
+	
+	class=&#34;gallery-image&#34; 
+&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;特意把参数 $\delta$ 放在预测头之前, 是为了减小计算量. 称这个增量为 &lt;strong&gt;概率向量调制向量 (Logit Modulation Vector, LMV)&lt;/strong&gt;:&lt;/p&gt;
+$$
+\text{LMV} = W_{\text{LM}}\delta \in \mathbb{R}^{|V|}
+$$&lt;p&gt;测试表明, 与推理过程相关的词如 &amp;ldquo;think&amp;rdquo; 和 &amp;ldquo;reasoning&amp;rdquo; 在 LMV 的作用下得到了显著增强.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://arxiv.org/html/2505.12392/x3.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;LMV 调节&#34;
+	
+	class=&#34;gallery-image&#34; 
+&gt;&lt;/p&gt;
+&lt;p&gt;我的理解是和直接插入一层网络的区别是, 这个反向传播只更新 $\delta$ 而不更新模型参数, 且是一次性的, 只在测试时进行微调.&lt;/p&gt;
 </description>
         </item>
         
