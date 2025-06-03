@@ -295,6 +295,12 @@
         </a>
     </li>
     
+    <li>
+        <a href="https://github.com/ruixin31/Rethink_RLVR" id="related-material-7" target="_blank" rel="noopener noreferrer">
+            Spurious Rewards: Rethinking Training Signals in RLVR
+        </a>
+    </li>
+    
 </ol>
         </div>
     </section>
@@ -347,6 +353,14 @@
       </ol>
     </li>
     <li><a href="#测试时样本特定语言模型优化">测试时样本特定语言模型优化</a></li>
+    <li><a href="#虚假奖励也能训练">虚假奖励也能训练?!</a>
+      <ol>
+        <li><a href="#不同模型在推理策略上存在先存差异">不同模型在推理策略上存在先存差异</a></li>
+        <li><a href="#rlvr-在引入虚假奖励时可以增强预存的推理策略">RLVR 在引入虚假奖励时可以增强预存的推理策略</a></li>
+        <li><a href="#推理策略切换对性能的细化影响">推理策略切换对性能的细化影响</a></li>
+        <li><a href="#随机奖励与策略裁剪">随机奖励与策略裁剪</a></li>
+      </ol>
+    </li>
   </ol>
 </nav>
         </div>
@@ -420,7 +434,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 8 分钟
+                    阅读时长: 10 分钟
                 </time>
             </div>
         
@@ -1015,7 +1029,87 @@ $$<p>测试表明, 与推理过程相关的词如 &ldquo;think&rdquo; 和 &ldquo
 	
 	class="gallery-image" 
 ></p>
-<p>我的理解是和直接插入一层网络的区别是, 这个反向传播只更新 $\delta$ 而不更新模型参数, 且是一次性的, 只在测试时进行微调.</p>
+<p>我的理解是和直接插入一层网络的区别是, 这个反向传播只更新 $\delta$ 而不更新模型参数, 且是一次性的, 只在测试时进行微调. 这只是一个测试时微调, 似乎不是强化学习.</p>
+<h2 id="虚假奖励也能训练">虚假奖励也能训练?!
+</h2><p>说了这么多, 其实都是在说如何设计奖励函数. 但是, 论文 <a class="link cite-7">[7]
+    <span class="material-name">Unknown-material</span> 
+</a> 提出了一个非常反直觉的问题: 即使在使用与正确答案几乎没有或甚至负相关关系的虚假奖励下训练, RLVR 仍能在某些模型中激发强烈的数学推理能力!</p>
+<p>论文给出了五种奖励函数:</p>
+<ul>
+<li>真实标签 (Ground Truth) 奖励: 直接用真实标签作为奖励函数, 这标定了 RLVR 的上限.</li>
+<li>多数投票 (Majority Vote) 奖励: 通过多数投票的方式估计标签 (标签很可能是错误的), 以此作为奖励函数.</li>
+<li>格式化 (Format) 奖励: 当模型输出最后包含 <code>\box{}</code> 时, 给予奖励, 否则不奖励. 这个奖励函数与正确答案无关.</li>
+<li>随机 (Random) 奖励: 随机生成奖励.</li>
+<li>错误 (Incorrect) 奖励: 只对错误的答案给予奖励, 正确答案不奖励.</li>
+</ul>
+<p>
+
+
+
+<img src="/p/paper-reading/test-time-reinforcement-learning/img/spurious-reward.png"
+	width="1208"
+	height="1042"
+	srcset="/p/paper-reading/test-time-reinforcement-learning/img/spurious-reward_hu_87f3118ec7eac58a.png 480w, /p/paper-reading/test-time-reinforcement-learning/img/spurious-reward_hu_797e55031f22f02e.png 1024w"
+	loading="lazy"
+	
+		alt="虚假奖励"
+	
+	class="gallery-image" 
+></p>
+<p>论文围绕了一个小问题展开: 问大模型 $(2,-6)$ 和 $(-4,3)$ 的距离是多少?</p>
+<h3 id="不同模型在推理策略上存在先存差异">不同模型在推理策略上存在先存差异
+</h3><p>有些强模型会尝试写 Python 代码来计算距离, 尽管实际上它们并没有代码运行环境. 这种行为称为代码推理 (Code Reasoning), 且实验表明代码推理与准确率呈现强正相关性. 有些弱模型不生成代码, 或者对于代码生成性能弱.</p>
+<h3 id="rlvr-在引入虚假奖励时可以增强预存的推理策略">RLVR 在引入虚假奖励时可以增强预存的推理策略
+</h3><p>在进行 RLVR 训练后, 代码推理的频率迅速增加, 与准确度提升高度相关; 随机奖励则相对缓慢, 但最终也达到了相似的水平. 此后随着模型自然语言推理准确度的提高, 这一频率逐渐下降, 这表明模型正在从高质量的真实标签奖励中学习真正的知识.</p>
+<p>
+
+
+
+<img src="/p/paper-reading/test-time-reinforcement-learning/img/code-reasoning.png"
+	width="1827"
+	height="832"
+	srcset="/p/paper-reading/test-time-reinforcement-learning/img/code-reasoning_hu_71a4530fb9d54bca.png 480w, /p/paper-reading/test-time-reinforcement-learning/img/code-reasoning_hu_8b8cf624e5e6a2bd.png 1024w"
+	loading="lazy"
+	
+		alt="代码推理"
+	
+	class="gallery-image" 
+></p>
+<h3 id="推理策略切换对性能的细化影响">推理策略切换对性能的细化影响
+</h3><p>
+
+
+
+<img src="/p/paper-reading/test-time-reinforcement-learning/img/code-policy-switch.png"
+	width="2244"
+	height="480"
+	srcset="/p/paper-reading/test-time-reinforcement-learning/img/code-policy-switch_hu_2c99c1110751da97.png 480w, /p/paper-reading/test-time-reinforcement-learning/img/code-policy-switch_hu_eddac65eea7e766c.png 1024w"
+	loading="lazy"
+	
+		alt="推理策略切换"
+	
+	class="gallery-image" 
+></p>
+<p>对于所有较弱和虚假的奖励, 模型在 RLVR 后更倾向于使用代码推理. 虚假奖励上的准确度提升主要是通过激发模型使用正确的推理策略实现的.</p>
+<h3 id="随机奖励与策略裁剪">随机奖励与策略裁剪
+</h3><p>关于随机奖励的问题, 论文证明了尽管优势期望值为零, 但由于损失函数中的 clip 机制, GRPO 损失的期望梯度并非为零.</p>
+<p>为了验证这个想法, 论文进行了一组对比, 同样使用随机奖励, 区别是是否进行 $(1-\epsilon, 1+\epsilon)$ 重要性采样比裁剪. 结果表明, 在没有裁剪的情况下, 随机奖励不能给模型带来任何提升.</p>
+<p>
+
+
+
+<img src="/p/paper-reading/test-time-reinforcement-learning/img/random-reward-clip.png"
+	width="1820"
+	height="764"
+	srcset="/p/paper-reading/test-time-reinforcement-learning/img/random-reward-clip_hu_694331c2a1779c35.png 480w, /p/paper-reading/test-time-reinforcement-learning/img/random-reward-clip_hu_27d878a2a934c9ec.png 1024w"
+	loading="lazy"
+	
+		alt="随机奖励与策略裁剪"
+	
+	class="gallery-image" 
+></p>
+<p>因此综合来看, 论文推测, 在随机奖励训练中, 看似 &ldquo;训练信号&rdquo; 实际上是优化算法偏向利用预训练中学习到的先验知识的结果.</p>
+<p>(TODO: RLVR)</p>
 
 </section>
 

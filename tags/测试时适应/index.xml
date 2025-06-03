@@ -547,7 +547,87 @@ $$&lt;p&gt;测试表明, 与推理过程相关的词如 &amp;ldquo;think&amp;rdq
 	
 	class=&#34;gallery-image&#34; 
 &gt;&lt;/p&gt;
-&lt;p&gt;我的理解是和直接插入一层网络的区别是, 这个反向传播只更新 $\delta$ 而不更新模型参数, 且是一次性的, 只在测试时进行微调.&lt;/p&gt;
+&lt;p&gt;我的理解是和直接插入一层网络的区别是, 这个反向传播只更新 $\delta$ 而不更新模型参数, 且是一次性的, 只在测试时进行微调. 这只是一个测试时微调, 似乎不是强化学习.&lt;/p&gt;
+&lt;h2 id=&#34;虚假奖励也能训练&#34;&gt;虚假奖励也能训练?!
+&lt;/h2&gt;&lt;p&gt;说了这么多, 其实都是在说如何设计奖励函数. 但是, 论文 &lt;a class=&#34;link cite-7&#34;&gt;[7]
+    &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
+&lt;/a&gt; 提出了一个非常反直觉的问题: 即使在使用与正确答案几乎没有或甚至负相关关系的虚假奖励下训练, RLVR 仍能在某些模型中激发强烈的数学推理能力!&lt;/p&gt;
+&lt;p&gt;论文给出了五种奖励函数:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;真实标签 (Ground Truth) 奖励: 直接用真实标签作为奖励函数, 这标定了 RLVR 的上限.&lt;/li&gt;
+&lt;li&gt;多数投票 (Majority Vote) 奖励: 通过多数投票的方式估计标签 (标签很可能是错误的), 以此作为奖励函数.&lt;/li&gt;
+&lt;li&gt;格式化 (Format) 奖励: 当模型输出最后包含 &lt;code&gt;\box{}&lt;/code&gt; 时, 给予奖励, 否则不奖励. 这个奖励函数与正确答案无关.&lt;/li&gt;
+&lt;li&gt;随机 (Random) 奖励: 随机生成奖励.&lt;/li&gt;
+&lt;li&gt;错误 (Incorrect) 奖励: 只对错误的答案给予奖励, 正确答案不奖励.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://LeoDreamer2004.github.io/p/paper-reading/test-time-reinforcement-learning/img/spurious-reward.png&#34;
+	width=&#34;1208&#34;
+	height=&#34;1042&#34;
+	srcset=&#34;https://LeoDreamer2004.github.io/p/paper-reading/test-time-reinforcement-learning/img/spurious-reward_hu_87f3118ec7eac58a.png 480w, https://LeoDreamer2004.github.io/p/paper-reading/test-time-reinforcement-learning/img/spurious-reward_hu_797e55031f22f02e.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;虚假奖励&#34;
+	
+	class=&#34;gallery-image&#34; 
+&gt;&lt;/p&gt;
+&lt;p&gt;论文围绕了一个小问题展开: 问大模型 $(2,-6)$ 和 $(-4,3)$ 的距离是多少?&lt;/p&gt;
+&lt;h3 id=&#34;不同模型在推理策略上存在先存差异&#34;&gt;不同模型在推理策略上存在先存差异
+&lt;/h3&gt;&lt;p&gt;有些强模型会尝试写 Python 代码来计算距离, 尽管实际上它们并没有代码运行环境. 这种行为称为代码推理 (Code Reasoning), 且实验表明代码推理与准确率呈现强正相关性. 有些弱模型不生成代码, 或者对于代码生成性能弱.&lt;/p&gt;
+&lt;h3 id=&#34;rlvr-在引入虚假奖励时可以增强预存的推理策略&#34;&gt;RLVR 在引入虚假奖励时可以增强预存的推理策略
+&lt;/h3&gt;&lt;p&gt;在进行 RLVR 训练后, 代码推理的频率迅速增加, 与准确度提升高度相关; 随机奖励则相对缓慢, 但最终也达到了相似的水平. 此后随着模型自然语言推理准确度的提高, 这一频率逐渐下降, 这表明模型正在从高质量的真实标签奖励中学习真正的知识.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://LeoDreamer2004.github.io/p/paper-reading/test-time-reinforcement-learning/img/code-reasoning.png&#34;
+	width=&#34;1827&#34;
+	height=&#34;832&#34;
+	srcset=&#34;https://LeoDreamer2004.github.io/p/paper-reading/test-time-reinforcement-learning/img/code-reasoning_hu_71a4530fb9d54bca.png 480w, https://LeoDreamer2004.github.io/p/paper-reading/test-time-reinforcement-learning/img/code-reasoning_hu_8b8cf624e5e6a2bd.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;代码推理&#34;
+	
+	class=&#34;gallery-image&#34; 
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;推理策略切换对性能的细化影响&#34;&gt;推理策略切换对性能的细化影响
+&lt;/h3&gt;&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://LeoDreamer2004.github.io/p/paper-reading/test-time-reinforcement-learning/img/code-policy-switch.png&#34;
+	width=&#34;2244&#34;
+	height=&#34;480&#34;
+	srcset=&#34;https://LeoDreamer2004.github.io/p/paper-reading/test-time-reinforcement-learning/img/code-policy-switch_hu_2c99c1110751da97.png 480w, https://LeoDreamer2004.github.io/p/paper-reading/test-time-reinforcement-learning/img/code-policy-switch_hu_eddac65eea7e766c.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;推理策略切换&#34;
+	
+	class=&#34;gallery-image&#34; 
+&gt;&lt;/p&gt;
+&lt;p&gt;对于所有较弱和虚假的奖励, 模型在 RLVR 后更倾向于使用代码推理. 虚假奖励上的准确度提升主要是通过激发模型使用正确的推理策略实现的.&lt;/p&gt;
+&lt;h3 id=&#34;随机奖励与策略裁剪&#34;&gt;随机奖励与策略裁剪
+&lt;/h3&gt;&lt;p&gt;关于随机奖励的问题, 论文证明了尽管优势期望值为零, 但由于损失函数中的 clip 机制, GRPO 损失的期望梯度并非为零.&lt;/p&gt;
+&lt;p&gt;为了验证这个想法, 论文进行了一组对比, 同样使用随机奖励, 区别是是否进行 $(1-\epsilon, 1+\epsilon)$ 重要性采样比裁剪. 结果表明, 在没有裁剪的情况下, 随机奖励不能给模型带来任何提升.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://LeoDreamer2004.github.io/p/paper-reading/test-time-reinforcement-learning/img/random-reward-clip.png&#34;
+	width=&#34;1820&#34;
+	height=&#34;764&#34;
+	srcset=&#34;https://LeoDreamer2004.github.io/p/paper-reading/test-time-reinforcement-learning/img/random-reward-clip_hu_694331c2a1779c35.png 480w, https://LeoDreamer2004.github.io/p/paper-reading/test-time-reinforcement-learning/img/random-reward-clip_hu_27d878a2a934c9ec.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;随机奖励与策略裁剪&#34;
+	
+	class=&#34;gallery-image&#34; 
+&gt;&lt;/p&gt;
+&lt;p&gt;因此综合来看, 论文推测, 在随机奖励训练中, 看似 &amp;ldquo;训练信号&amp;rdquo; 实际上是优化算法偏向利用预训练中学习到的先验知识的结果.&lt;/p&gt;
+&lt;p&gt;(TODO: RLVR)&lt;/p&gt;
 </description>
         </item>
         
