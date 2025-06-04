@@ -265,6 +265,12 @@
         </a>
     </li>
     
+    <li>
+        <a href="/materials/machine-learning/homework-9.pdf" id="related-material-2" target="_blank" rel="noopener noreferrer">
+            作业 9
+        </a>
+    </li>
+    
 </ol>
         </div>
     </section>
@@ -396,12 +402,12 @@ $$\mathcal{H}_C = \{(h(c_1), \ldots, h(c_m)) : h \in \mathcal{H}\}$$<p>其中我
 </div>
 <div class="math-block">
     <p class="math-block-title math-def">定义</p>
-<p>一个假设类 $\mathcal{H}$ <strong>打破</strong> 一个有限集 $C \subset X$, 如果 $\mathcal{H}_C$ 是从 $C$ 到 $\{0, 1\}$ 的所有函数的集合. 即:</p>
+<p>一个假设类 $\mathcal{H}$ <strong>打散</strong> 一个有限集 $C \subset X$, 如果 $\mathcal{H}_C$ 是从 $C$ 到 $\{0, 1\}$ 的所有函数的集合. 即:</p>
 $$|\mathcal{H}_C| = 2^{|C|}$$</div>
 <p>我们有如下推论:</p>
 <div class="math-block">
     <p class="math-block-title math-thm">定理</p>
-<p>设 $\mathcal{H}$ 是从 $\mathcal{X}$ 到 $\{0, 1\}$ 的假设类, $m$ 是训练集大小. 如果存在一个大小为 $2m$ 的集合 $C \subset \mathcal{X}$ 被 $\mathcal{H}$ 打破, 则对于任何学习算法 $A$, 存在一个在 $\mathcal{X} \times \{0, 1\}$ 上的分布 $\mathcal{D}$, 和一个预测器 $h \in \mathcal{H}$, 使得 $L_{\mathcal{D}}(h) = 0$, 但以至少 $\frac{1}{7}$ 的概率, 在 $S \sim \mathcal{D}^m$ 上有:
+<p>设 $\mathcal{H}$ 是从 $\mathcal{X}$ 到 $\{0, 1\}$ 的假设类, $m$ 是训练集大小. 如果存在一个大小为 $2m$ 的集合 $C \subset \mathcal{X}$ 被 $\mathcal{H}$ 打散, 则对于任何学习算法 $A$, 存在一个在 $\mathcal{X} \times \{0, 1\}$ 上的分布 $\mathcal{D}$, 和一个预测器 $h \in \mathcal{H}$, 使得 $L_{\mathcal{D}}(h) = 0$, 但以至少 $\frac{1}{7}$ 的概率, 在 $S \sim \mathcal{D}^m$ 上有:
 </p>
 $$
 L_{\mathcal{D}}(A(S)) \geq \frac{1}{8}
@@ -409,7 +415,7 @@ $$</div>
 <p>我们引入 VC 维的概念:</p>
 <div class="math-block">
     <p class="math-block-title math-def">定义</p>
-<p>假设类 $\mathcal{H}$ 的 <strong>VC 维</strong>, 记为 $\text{VCdim}(\mathcal{H})$, 是 $\mathcal{H}$ 可以打破的最大集合 $C \subset \mathcal{X}$ 的大小. 如果 $\mathcal{H}$ 可以打破任意大大小的集合, 则称 $\mathcal{H}$ 的 VC 维为无穷大.</p>
+<p>假设类 $\mathcal{H}$ 的 <strong>VC 维</strong>, 记为 $\text{VCdim}(\mathcal{H})$, 是 $\mathcal{H}$ 可以打散的最大集合 $C \subset \mathcal{X}$ 的大小. 如果 $\mathcal{H}$ 可以打散任意大大小的集合, 则称 $\mathcal{H}$ 的 VC 维为无穷大.</p>
 </div>
 <p>例如对于 $\mathcal{H} = \{\mathbb{I}(x \lt a): a\in \mathbb{R}\}$, 不难证明 $\text{VCdim}(\mathcal{H}) = 1$.</p>
 <p>显然, 对于有限假设类 $\mathcal{H}$, 有 $\text{VCdim}(\mathcal{H}) \le \log_2 |\mathcal{H}|$.</p>
