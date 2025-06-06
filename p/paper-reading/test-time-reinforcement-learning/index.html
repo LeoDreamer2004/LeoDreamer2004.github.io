@@ -301,6 +301,12 @@
         </a>
     </li>
     
+    <li>
+        <a href="https://arxiv.org/abs/2505.22651" id="related-material-8" target="_blank" rel="noopener noreferrer">
+            Sherlock: Self-Correcting Reasoning in Vision-Language Models
+        </a>
+    </li>
+    
 </ol>
         </div>
     </section>
@@ -359,6 +365,13 @@
         <li><a href="#rlvr-在引入虚假奖励时可以增强预存的推理策略">RLVR 在引入虚假奖励时可以增强预存的推理策略</a></li>
         <li><a href="#推理策略切换对性能的细化影响">推理策略切换对性能的细化影响</a></li>
         <li><a href="#随机奖励与策略裁剪">随机奖励与策略裁剪</a></li>
+      </ol>
+    </li>
+    <li><a href="#sherlock-自我纠正推理">Sherlock: 自我纠正推理</a>
+      <ol>
+        <li><a href="#自我纠正">自我纠正</a></li>
+        <li><a href="#sherlock">Sherlock</a></li>
+        <li><a href="#实验-2">实验</a></li>
       </ol>
     </li>
   </ol>
@@ -434,7 +447,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 10 分钟
+                    阅读时长: 12 分钟
                 </time>
             </div>
         
@@ -824,13 +837,13 @@ $$<p>$R$ 是验证集的性能, $\mathcal{H}$ 是策略的熵.</p>
 </h3><p>我们主要关注相邻两次迭代的熵变化 $\mathcal{H}(\pi_{\theta}^{k+1}) - \mathcal{H}(\pi_{\theta}^{k})$.</p>
 <div class="math-block">
     <p class="math-block-title math-thm">定理<span class="math-subtitle">策略梯度下的熵变化</span></p>
-<p>令行为策略 $\pi_{\theta}$ 为一个 softmax 策略，并通过标准策略梯度更新，两个连续步骤中给定状态 $s$ 的策略熵之差满足:</p>
+<p>令行为策略 $\pi_{\theta}$ 为一个 softmax 策略, 并通过标准策略梯度更新, 两个连续步骤中给定状态 $s$ 的策略熵之差满足:</p>
 $$
 \mathcal{H}(\pi_{\theta}^{k+1}|s) - \mathcal{H}(\pi_{\theta}^{k}|s) \approx -\eta \text{Cov}_{a \sim \pi_{\theta}^{k}(\cdot|s)} \left( \log \pi_{\theta}^{k}(a|s), \pi_{\theta}^k(a|s) \cdot A(s,a) \right)
 $$</div>
 <div class="math-block">
     <p class="math-block-title math-thm">定理<span class="math-subtitle">自然策略梯度下的熵变化</span></p>
-<p>令行为策略 $\pi_{\theta}$ 为一个 softmax 策略，并通过标准策略梯度更新，两个连续步骤中给定状态 $s$ 的策略熵之差满足:</p>
+<p>令行为策略 $\pi_{\theta}$ 为一个 softmax 策略, 并通过标准策略梯度更新, 两个连续步骤中给定状态 $s$ 的策略熵之差满足:</p>
 $$
 \mathcal{H}(\pi_{\theta}^{k+1}|s) - \mathcal{H}(\pi_{\theta}^{k}|s) \approx -\eta \text{Cov}_{a \sim \pi_{\theta}^{k}(\cdot|s)} \left( \log \pi_{\theta}^{k}(a|s), A(s,a) \right)
 $$</div>
@@ -1109,6 +1122,114 @@ $$<p>测试表明, 与推理过程相关的词如 &ldquo;think&rdquo; 和 &ldquo
 	class="gallery-image" 
 ></p>
 <p>因此综合来看, 论文推测, 在随机奖励训练中, 看似 &ldquo;训练信号&rdquo; 实际上是优化算法偏向利用预训练中学习到的先验知识的结果.</p>
+<h2 id="sherlock-自我纠正推理">Sherlock: 自我纠正推理
+</h2><p>论文 <a class="link cite-8">[8]
+    <span class="material-name">Unknown-material</span> 
+</a> 指出, 使用 SFT 或 RL 训练的模型缺乏逐步和响应层面自我纠正的能力. 一旦出现错误, 模型难以修正其推理, 往往无法从错误中恢复.</p>
+<h3 id="自我纠正">自我纠正
+</h3><p>对于推理模型, 自我纠正行为可以有两种实现方式:</p>
+<ul>
+<li>
+<p><strong>逐步骤纠正</strong>: 模型在其单次思考过程中反思其之前的第 i 步错误, 并对其进行修正:</p>
+$$
+  (r, y_{i+1}, \cdots, y_n; a) \sim \pi(\cdot| x_{I \& T}; y_1, \cdots, y_i^*)
+  $$<p>其中 $y_i$ 代表第 $i$ 步推理, $a$ 是最终答案, $r$ 是模型的反思提示词 (如 &ldquo;但是&rdquo;, &ldquo;等等&rdquo;), $x_{I \& T}$ 是输入的图像和文本, $y_i^*$ 是错误的推理.</p>
+</li>
+<li>
+<p><strong>逐响应纠正</strong>: 模型尝试纠正其之前的错误响应:</p>
+$$
+  (y_1^2, \cdots, y_n^2; a) \sim \pi(\cdot| x_{I \& T}; y_1^1, \cdots, y_n^1; t)
+  $$<p>其中 $y^j, a^j$ 是模型的第 $j$ 次尝试响应.</p>
+</li>
+</ul>
+<h3 id="sherlock">Sherlock
+</h3><p>为解决这一局限, 论文 <a class="link cite-8">[8]
+    
+</a> 引入所谓 <strong>Sherlock</strong> 算法来教导模型自我纠正, 从而增强其推理能力.</p>
+<div class="math-block">
+    <p class="math-block-title math-algo">算法<span class="math-subtitle">Sherlock</span></p>
+<p>I: <strong>SFT 冷启动</strong></p>
+<ol>
+<li>从已知数据集中随机采样样本, 形成训练集 $\mathcal{D}_A$; 再次采样形成 $\mathcal{D}_B$, 这些样本包含高质量的 COT.</li>
+<li>在 $\mathcal{D}_A$ 上使用普通监督微调 (SFT) 训练基础 VLM，得到模型 $R0_{\text{VLM}}$。</li>
+<li>对于每个样本 $(x_{I\&T}, Y^w)$ 在 $\mathcal{D}_B$ 中, 保留原本标签 $Y^w$, 同时用 $R0_{\text{VLM}}$ 生成一个推理轨迹 $Y^l$, 组合成新数据集 $\mathcal{D}_{\text{Sherlock}} = (x_{I\&T}, Y^w, Y^l)$。</li>
+<li>使用如下公式中的损失函数, 联合 <strong>直接生成 (Direct Generation)</strong> 和 <strong>自我纠正 (Self-Correction)</strong> 两个任务.:</li>
+</ol>
+$$
+  \mathcal{L}_{\text{Sherlock-SFT}}(\pi) = -\mathbb{E}_{(x_{I\&T}, Y^w, Y^l) \sim \mathcal{D}_{\text{Sherlock}}} \left[ \log \pi(Y^w | x_{I\&T}) + \log \pi(Y^l | x_{I\&T}, Y^l, t) \right]
+  $$<p>II. <strong>离线偏好训练</strong></p>
+<p>现在对于初始轨迹 $Y^1 = (y_1^1, \cdots, y_n^1;a^1)$, 我们假定此时已经有一部分推理正确, 需要在生成一个更好的轨迹 $Y^2 = (y_1^2, \cdots, y_n^2;a^2)$.</p>
+<ol>
+<li>
+<p>随机在 $1 \sim n$ 中采样一个整数 $i$, 此时我们假定 $Y^1_{\lt i}$ 是正确的, 希望生成更好的 $Y^2_{\ge i}$.</p>
+</li>
+<li>
+<p>按照如下公式:</p>
+$$
+    \max_{\pi}\mathbb{E}_{Y_{\geq i}^{2}\sim\pi(\cdot|[x_{I\&T},Y^{1},t;Y_{\lt i}^{2}])}\left[p(Y_{\geq i}^{2}\succ Y_{\geq i}^{1}|x_{I\&T};Y_{\lt i}^{2})-\beta D_{\text{KL}}(\pi\|\pi_{\text{ref}}|[x_{I\&T},Y^{1},t;Y_{\lt i}^{2}])\right]\\+\mathbb{E}_{Y_{\geq i}^{2}\sim\pi(\cdot|[x_{I\&T},Y^{1},t;Y_{\lt i}^{1}])}\left[p(Y_{\geq i}^{2}\succ Y_{\geq i}^{1}|x_{I\&T};Y_{\lt i}^{1})-\beta D_{\text{KL}}(\pi\|\pi_{\text{ref}}|[x_{I\&T},Y^{1},t;Y_{\lt i}^{1}])\right]
+    $$<p>$t$ 是一个指令. 即希望 $Y_{\geq i}^{2}$ 在 $Y_{\lt i}^{2}$ 的条件下, 能够比 $Y_{\geq i}^{1}$ 更好, 且与参考模型 $\pi_{\text{ref}}$ 尽量接近. 要最大化此式, 设:</p>
+$$
+    v(x, Y^1, t; Y_{\lt i}^{1}, Y_{\lt i}^{2}; \pi_{\theta}) = \beta \log \rho(Y_{\geq i}^{2} | [x, Y^1, t; Y_{\lt i}^{2}]) - \beta \log \rho(Y_{\geq i}^{1} | [x, Y^1, t; Y_{\lt i}^{1}]) \\
+    u(x, Y^1, t; Y_{\lt i}^{1}, Y_{\lt i}^{2}; \pi_{\theta}) = \beta \log \rho(Y_{\geq i}^{2} | [x, Y^1, t; Y_{\lt i}^{1}]) - \beta \log \rho(Y_{\geq i}^{1} | [x, Y^1, t; Y_{\lt i}^{2}])
+    $$<p>其中 $\rho$ 表示 $\pi_{\theta}$ 和 $\pi_{\text{ref}}$ 的重要性采样比, 前一项是鼓励生成更好的轨迹, 后一项是惩罚生成更差的轨迹. 论文证明采用 MSE 误差函数:</p>
+$$
+    \begin{aligned}
+    L_{\text{SC}}(\pi_{\theta}; \pi_{\text{ref}}) &= \mathbb{E}_{(x, Y^w, Y^l) \sim \mathcal{D}} \left[ 1 - v(x_{I\&T}, Y^l, t; Y_{\lt i}^{l}, Y_{\lt i}^{w}; \pi_{\theta}) - u(x_{I\&T}, Y^l, t; Y_{\lt i}^{l}, Y_{\lt i}^{w}; \pi_{\theta}) \right]^2 \\
+    & + \mathbb{E}_{(x, Y^w, Y^l) \sim \mathcal{D}} \left[ 1 + v(x_{I\&T}, Y^w, t; Y_{\lt i}^{w}, Y_{\lt i}^{l}; \pi_{\theta}) + u(x_{I\&T}, Y^w, t; Y_{\lt i}^{w}, Y_{\lt i}^{l}; \pi_{\theta}) \right]^2
+    \end{aligned}
+    $$</li>
+<li>
+<p>随后再加上 DPO 的损失函数 (前面做的工作已经是偏好优化策略, 再加上这个的目的存疑):</p>
+$$
+    L_{\text{Sherlock}}(\pi_{\theta}; \pi_{\text{ref}})  = L_{\text{SC}}(\pi_{\theta}; \pi_{\text{ref}}) + \alpha L_{\text{DPO}}(\pi_{\theta}; \pi_{\text{ref}})
+    $$</li>
+<li>
+<p>在此过程中可以根究不同的 $i$ 采用不同的 $\beta$:</p>
+$$
+    \beta(i, n, \epsilon) = \frac{1}{4\left( 0.5 + \left( \frac{i}{n} \right)^{0.5 + \epsilon / 2} \right)}
+    $$<p>当截断较早, $i$ 较小, $\beta$ 较大, 使得模型更倾向于靠拢 $\pi_{\text{ref}}$, 产生更谨慎的更新, 反之亦然.</p>
+</li>
+</ol>
+<p>III. <strong>迭代在线偏好训练</strong></p>
+<p>在线迭代训练与离线阶段唯一的区别是没有 ground-truth 的回答 $Y^w$.</p>
+<ol>
+<li>对于每个直接生成的 $Y^1$, 我们进行三轮自我纠正以获得 $Y^2, Y^3, Y^4$.</li>
+<li>应用自我一致性过滤策略: 如果三个纠正响应的最终答案在语义上相同 ($a^2 = a^3 = a^4$), 则认为 $Y^4$ 是偏好回应, $Y_1$ 是非偏好回应. 否则跳过此次训练.</li>
+<li>为进一步减小模型偏好优化的噪声, 让初始的 $Y^1$ 变得更差: 维持 $Y^{l}_{\lt i} = Y^{1}_{\lt i}$, 但对于 $Y^{l}_{\ge i}$ 则在 $Y^{1}_{\ge i}$ 的基础上进行扰动.</li>
+<li>随后按照离线偏好训练的方式继续进行.</li>
+</ol>
+<p>
+
+
+
+<img src="/p/paper-reading/test-time-reinforcement-learning/img/Sherlock.png"
+	width="2278"
+	height="912"
+	srcset="/p/paper-reading/test-time-reinforcement-learning/img/Sherlock_hu_eafe89ecb6e28239.png 480w, /p/paper-reading/test-time-reinforcement-learning/img/Sherlock_hu_94b896caa624b201.png 1024w"
+	loading="lazy"
+	
+		alt="Sherlock"
+	
+	class="gallery-image" 
+></p>
+</div>
+<h3 id="实验-2">实验
+</h3><p>论文指出现有的模型并不能通过自我纠正提高推理能力, 经过 Sherlock 进行训练后, 再进行自我纠正, 模型的推理能力有了显著提升.</p>
+<p>
+
+
+
+<img src="/p/paper-reading/test-time-reinforcement-learning/img/Sherlock-result.png"
+	width="1185"
+	height="651"
+	srcset="/p/paper-reading/test-time-reinforcement-learning/img/Sherlock-result_hu_245149195dfce731.png 480w, /p/paper-reading/test-time-reinforcement-learning/img/Sherlock-result_hu_f85b5011af6983e0.png 1024w"
+	loading="lazy"
+	
+		alt="Sherlock 实验结果"
+	
+	class="gallery-image" 
+></p>
+<p>论文进行了消融实验, 验证了 DPO 损失, SC 损失和动态 $\beta$ 的有效性.</p>
 <p>(TODO: RLVR)</p>
 
 </section>
@@ -1342,7 +1463,7 @@ $$<p>测试表明, 与推理过程相关的词如 &ldquo;think&rdquo; 和 &ldquo
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.821bb812210297d9a43eb2e9912a631148f1f316e39772f2d0ca399c3c137820.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.5c09fe190420e66c8e31e7d8216a5ab1a0b948bb3d147b8ea533dc18d4c546e0.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');
