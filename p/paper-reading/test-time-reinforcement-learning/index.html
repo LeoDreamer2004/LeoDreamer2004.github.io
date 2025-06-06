@@ -307,6 +307,12 @@
         </a>
     </li>
     
+    <li>
+        <a href="https://safe-lip-9a8.notion.site/Incorrect-Baseline-Evaluations-Call-into-Question-Recent-LLM-RL-Claims-2012f1fbf0ee8094ab8ded1953c15a37" id="related-material-9" target="_blank" rel="noopener noreferrer">
+            Incorrect Baseline Evaluations Call into Question Recent LLM RL Claims
+        </a>
+    </li>
+    
 </ol>
         </div>
     </section>
@@ -374,6 +380,7 @@
         <li><a href="#实验-2">实验</a></li>
       </ol>
     </li>
+    <li><a href="#objection">Objection!</a></li>
   </ol>
 </nav>
         </div>
@@ -447,7 +454,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 12 分钟
+                    阅读时长: 13 分钟
                 </time>
             </div>
         
@@ -1230,7 +1237,33 @@ $$
 	class="gallery-image" 
 ></p>
 <p>论文进行了消融实验, 验证了 DPO 损失, SC 损失和动态 $\beta$ 的有效性.</p>
-<p>(TODO: RLVR)</p>
+<h2 id="objection">Objection!
+</h2><p>刚才提及的多数论文都是错的! 一篇未正式发布的文章 <a class="link cite-9">[9]
+    
+</a> 要打假, 尤其是有关随机奖励的内容, 批驳的论文如下图:</p>
+<p>
+
+
+
+<img src="https://safe-lip-9a8.notion.site/image/attachment%3Ad9cf43ed-51bc-4e52-977c-84589883eb8b%3Aimage.png?table=block&amp;id=2022f1fb-f0ee-805a-acb7-e3701d4b482b&amp;spaceId=50ca3720-be45-4590-b18e-7dba386545c2&amp;width=1420&amp;userId=&amp;cache=v2"
+	
+	
+	
+	loading="lazy"
+	
+		alt="Fake news!"
+	
+	class="gallery-image" 
+></p>
+<p>文章声称, 这是因为预-RL 模型的 Baseline 相比 Qwen 发布的官方数据或其它标准化评估被严重低估了, 在很多情况下，经过 RL 后的模型性能实际上比它们开始时的 (正确评估的) 预-RL Baseline 还要差!</p>
+<p>主要问题在于这些论文没有开放数据权重, 导致不能测试, 因而论文的证据不具有说服力. 作者提出了几个可能错误低估的原因:</p>
+<ol>
+<li><strong>格式</strong>: 数学基准测试使用精确匹配评估, 模型需要以特定格式作答, 例如在 <code>\boxed{}</code> 内, 有时模型未能遵循格式. 如果模型解决了问题并得到正确答案, 但未能正确格式化, 并不意味着模型的推理能力存在问题. 应该事先通过示例提示或在进行格式演示的少量样本 SFT 来解决 LLMs 的格式问题.</li>
+<li><strong>温度</strong>: <a class="link" href="https://huggingface.co/Qwen/Qwen3-8B"  target="_blank" rel="noopener"
+    >Qwen3 模型页面</a> 上关于最佳设置有明确的建议. 有几篇论文把温度设置太低, 导致降低准确率.</li>
+<li><strong>测试规模</strong>: 有的论文使用的 Benchmark 规模太小, 方差太大.</li>
+<li><strong>token 长度</strong>: 有些模型需要较长的推理流程, 截断较小时会导致模型无法完成响应, 进而降低准确率.</li>
+</ol>
 
 </section>
 
