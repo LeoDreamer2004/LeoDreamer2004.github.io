@@ -7,7 +7,16 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>LeoDreamer</copyright>
-        <lastBuildDate>Fri, 23 May 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/%E6%95%B0%E5%AD%A6/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 29 May 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/%E6%95%B0%E5%AD%A6/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>机器学习基础(13) —— 神经网络学习之小批量梯度下降法</title>
+        <link>https://LeoDreamer2004.github.io/p/machine-learning/minibatch/</link>
+        <pubDate>Thu, 29 May 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/p/machine-learning/minibatch/</guid>
+        <description>&lt;p&gt;无&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>机器学习基础(12) —— VC 维与非一致可学习</title>
         <link>https://LeoDreamer2004.github.io/p/machine-learning/vc-nu/</link>
         <pubDate>Fri, 23 May 2025 00:00:00 +0000</pubDate>
