@@ -1056,7 +1056,7 @@ $$&lt;p&gt;即截断奇异值分解 $A&#39; = U\Sigma&#39;V^T$ 是 $A$ 在 $\mat
 &lt;p&gt;一个显然的结论是, 由上一个定理, 设 $A=U\Sigma V^T$, 则:&lt;/p&gt;
 $$
 \|A\|_F = \|U\Sigma V^T\|_F = \|\Sigma\|_F = \sqrt{\sum_{l=1}^{n} \sigma_l^2}
-$$&lt;p&gt;设 $X$ 是 $A$ 的最优近似, 则:&lt;/p&gt;
+$$&lt;p&gt;取 $X$ 为 $A$ 的截断奇异值 $A&#39;$, 则:&lt;/p&gt;
 $$
 \|A-X\|_F = \|A-A&#39;\|_F = \sqrt{\sum_{l=k+1}^{n} \sigma_l^2}
 $$&lt;p&gt;下面只需要证明:&lt;/p&gt;
@@ -1224,7 +1224,20 @@ $$&lt;/div&gt;
 $$\mathbf{X}=[\mathbf{x}_1,\mathbf{x}_2,\cdots,\mathbf{x}_n]=\left[\begin{array}{ccc}x_{11}&amp;\cdots&amp;x_{1n}\\\vdots&amp;\vdots&amp;\vdots\\x_{m1}&amp;\cdots&amp;x_{mn}\end{array}\right]$$&lt;p&gt;样本均值向量为:&lt;/p&gt;
 $$\bar{\mathbf{x}}=\frac{1}{n}\sum\limits_{j=1}^n\mathbf{x}_j=(\bar{x}_1,\cdots,\bar{x}_m)^T$$&lt;p&gt;样本协方差矩阵为 $\mathbf{S}=[s_{ij}]_{m\times m}$, 其中:&lt;/p&gt;
 $$s_{ij}=\frac{1}{n-1}\sum\limits_{k=1}^n(x_{ik}-\bar{x}_i)(x_{jk}-\bar{x}_j), i,j=1,2,\cdots,m$$&lt;p&gt;样本相关矩阵为 $\mathbf{R}=[r_{ij}]_{m\times m}$, 其中:&lt;/p&gt;
-$$r_{ij}=\frac{s_{ij}}{\sqrt{s_{ii}s_{jj}}}$$</description>
+$$r_{ij}=\frac{s_{ij}}{\sqrt{s_{ii}s_{jj}}}$$&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;PCA&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 规范化后的样本数据矩阵 $\mathbf{X}_{m \times n}$&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 样本主成分矩阵 $\mathbf{Y}_{k \times n}$&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;构造:
+$$\mathbf{X}&#39; = \frac{1}{\sqrt{n-1}}\mathbf{X}^T$$&lt;/li&gt;
+&lt;li&gt;求 $X&#39;$ 的 $k$ 秩截断奇异值分解:
+$$\mathbf{X}&#39; = U_k \Sigma_k V_k^T$$&lt;/li&gt;
+&lt;li&gt;返回样本前 $k$ 主成分矩阵:
+$$\mathbf{Y} = V^T\mathbf{X}$$&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
         </item>
         <item>
         <title>程序设计实习(9) —— C&#43;&#43; 特性</title>
@@ -2098,7 +2111,7 @@ $$\beta_T(i) = 1$$$$\beta_t(i) = \sum_{j=1}^N a_{ij} b_j(O_{t+1}) \beta_{t+1}(j)
 &lt;h2 id=&#34;viterbi-算法&#34;&gt;Viterbi 算法
 &lt;/h2&gt;&lt;p&gt;Markov 的第二个核心问题是解码问题: 给定 Markov 模型 $\lambda = (A,B,\pi)$ 和观测序列 $O$, 计算最可能的状态序列 $X = \{X_1, X_2, \cdots, X_T\}$. 即找:&lt;/p&gt;
 $$X^* = \argmax_X p(X | \mathbf{O}, \lambda)$$&lt;p&gt;也可以定义为:&lt;/p&gt;
-$$X^* = \argmax_X p(X, O| \lambda)$$&lt;p&gt;Viterbi 算法是求解该问题的动态规划算法. 考虑时刻 $T$ 状态为 $s_i$ 的所有单个路径 $(X_1,X_2,\cdots X_{T-1},X_T = s_i)$ 的概率最大值为&lt;/p&gt;
+$$X^* = \argmax_X p(X, \mathbf{O}| \lambda)$$&lt;p&gt;Viterbi 算法是求解该问题的动态规划算法. 考虑时刻 $T$ 状态为 $s_i$ 的所有单个路径 $(X_1,X_2,\cdots X_{T-1},X_T = s_i)$ 的概率最大值为&lt;/p&gt;
 $$
 \delta_{T}(i) = \max_{X_{1},X_{2},\cdots,X_{T-1}} P(X_{1},X_{2},\cdots,X_{T-1},O_{1},O_{2},\cdots,O_{T},X_{T}=s_{i}|\lambda)
 $$&lt;p&gt;对于最优路径 $X^*$, 即有:&lt;/p&gt;
@@ -2191,7 +2204,7 @@ $$&lt;p&gt;这里分子分母也同时除了 $p(O|\bar{\lambda})$.&lt;/p&gt;
 $$
 \begin{aligned}
 \gamma_t(i|\lambda) &amp;= p(X_t=s_i|\mathbf{O},\bar{\lambda})\\
-\xi(i,j|\lambda)&amp;=p(X_t=s_i,X_{t+1}=s_j|\mathbf{O},\bar{\lambda})
+\xi_t(i,j|\lambda)&amp;=p(X_t=s_i,X_{t+1}=s_j|\mathbf{O},\bar{\lambda})
 \end{aligned}
 $$&lt;p&gt;利用 Bayes 公式, 结合前向后向算法可得结果.&lt;/p&gt;
 &lt;div class=&#34;math-block&#34;&gt;
@@ -2205,10 +2218,10 @@ $$&lt;p&gt;利用 Bayes 公式, 结合前向后向算法可得结果.&lt;/p&gt;
 $$
     \begin{aligned}
     \gamma_t(i|\lambda) &amp;= \frac{\alpha_t(i)\beta_t(i)}{\sum_{j=1}^N \alpha_t(j)\beta_t(j)} \\
-    \xi(i,j|\lambda) &amp;= \frac{\alpha_t(i)a_{ij}b_j(O_{t+1})\beta_{t+1}(j)}{\sum_{j=1}^N \sum_{k=1}^N \alpha_t(k)a_{kj}b_j(O_{t+1})\beta_{t+1}(k)} \\
+    \xi_t(i,j|\lambda) &amp;= \frac{\alpha_t(i)a_{ij}b_j(O_{t+1})\beta_{t+1}(j)}{\sum_{j=1}^N \sum_{k=1}^N \alpha_t(k)a_{kj}b_j(O_{t+1})\beta_{t+1}(k)} \\
     \pi_i &amp;= \gamma_1(i|\lambda) \\
-    a_{ij} &amp;= \frac{\sum_{t=1}^{T-1} \xi(i,j|\lambda)}{\sum_{t=1}^{T-1} \gamma_t(i|\lambda)} \\
-    b_{j}(k) &amp;= \frac{\sum_{t=1}^{T} \gamma_t(j|\lambda)I(O_t=\nu_k)}{\sum_{t=1}^{T} \gamma_t(j|\lambda)}
+    a_{ij} &amp;= \frac{\sum_{t=1}^{T-1} \xi_t(i,j|\lambda)}{\sum_{t=1}^{T-1} \gamma_t(i|\lambda)} \\
+    b_{j}(k) &amp;= \frac{\sum_{t=1}^{T} \gamma_t(j|\lambda)\mathbb{I}(O_t=\nu_k)}{\sum_{t=1}^{T} \gamma_t(j|\lambda)}
     \end{aligned}
     $$&lt;/li&gt;
 &lt;li&gt;得到新的参数 $\lambda = (A,B,\pi)$.&lt;/li&gt;

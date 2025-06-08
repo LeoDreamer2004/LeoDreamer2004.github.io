@@ -464,7 +464,7 @@ $$\beta_T(i) = 1$$$$\beta_t(i) = \sum_{j=1}^N a_{ij} b_j(O_{t+1}) \beta_{t+1}(j)
 <h2 id="viterbi-算法">Viterbi 算法
 </h2><p>Markov 的第二个核心问题是解码问题: 给定 Markov 模型 $\lambda = (A,B,\pi)$ 和观测序列 $O$, 计算最可能的状态序列 $X = \{X_1, X_2, \cdots, X_T\}$. 即找:</p>
 $$X^* = \argmax_X p(X | \mathbf{O}, \lambda)$$<p>也可以定义为:</p>
-$$X^* = \argmax_X p(X, O| \lambda)$$<p>Viterbi 算法是求解该问题的动态规划算法. 考虑时刻 $T$ 状态为 $s_i$ 的所有单个路径 $(X_1,X_2,\cdots X_{T-1},X_T = s_i)$ 的概率最大值为</p>
+$$X^* = \argmax_X p(X, \mathbf{O}| \lambda)$$<p>Viterbi 算法是求解该问题的动态规划算法. 考虑时刻 $T$ 状态为 $s_i$ 的所有单个路径 $(X_1,X_2,\cdots X_{T-1},X_T = s_i)$ 的概率最大值为</p>
 $$
 \delta_{T}(i) = \max_{X_{1},X_{2},\cdots,X_{T-1}} P(X_{1},X_{2},\cdots,X_{T-1},O_{1},O_{2},\cdots,O_{T},X_{T}=s_{i}|\lambda)
 $$<p>对于最优路径 $X^*$, 即有:</p>
@@ -557,7 +557,7 @@ $$<p>这里分子分母也同时除了 $p(O|\bar{\lambda})$.</p>
 $$
 \begin{aligned}
 \gamma_t(i|\lambda) &= p(X_t=s_i|\mathbf{O},\bar{\lambda})\\
-\xi(i,j|\lambda)&=p(X_t=s_i,X_{t+1}=s_j|\mathbf{O},\bar{\lambda})
+\xi_t(i,j|\lambda)&=p(X_t=s_i,X_{t+1}=s_j|\mathbf{O},\bar{\lambda})
 \end{aligned}
 $$<p>利用 Bayes 公式, 结合前向后向算法可得结果.</p>
 <div class="math-block">
@@ -571,10 +571,10 @@ $$<p>利用 Bayes 公式, 结合前向后向算法可得结果.</p>
 $$
     \begin{aligned}
     \gamma_t(i|\lambda) &= \frac{\alpha_t(i)\beta_t(i)}{\sum_{j=1}^N \alpha_t(j)\beta_t(j)} \\
-    \xi(i,j|\lambda) &= \frac{\alpha_t(i)a_{ij}b_j(O_{t+1})\beta_{t+1}(j)}{\sum_{j=1}^N \sum_{k=1}^N \alpha_t(k)a_{kj}b_j(O_{t+1})\beta_{t+1}(k)} \\
+    \xi_t(i,j|\lambda) &= \frac{\alpha_t(i)a_{ij}b_j(O_{t+1})\beta_{t+1}(j)}{\sum_{j=1}^N \sum_{k=1}^N \alpha_t(k)a_{kj}b_j(O_{t+1})\beta_{t+1}(k)} \\
     \pi_i &= \gamma_1(i|\lambda) \\
-    a_{ij} &= \frac{\sum_{t=1}^{T-1} \xi(i,j|\lambda)}{\sum_{t=1}^{T-1} \gamma_t(i|\lambda)} \\
-    b_{j}(k) &= \frac{\sum_{t=1}^{T} \gamma_t(j|\lambda)I(O_t=\nu_k)}{\sum_{t=1}^{T} \gamma_t(j|\lambda)}
+    a_{ij} &= \frac{\sum_{t=1}^{T-1} \xi_t(i,j|\lambda)}{\sum_{t=1}^{T-1} \gamma_t(i|\lambda)} \\
+    b_{j}(k) &= \frac{\sum_{t=1}^{T} \gamma_t(j|\lambda)\mathbb{I}(O_t=\nu_k)}{\sum_{t=1}^{T} \gamma_t(j|\lambda)}
     \end{aligned}
     $$</li>
 <li>得到新的参数 $\lambda = (A,B,\pi)$.</li>

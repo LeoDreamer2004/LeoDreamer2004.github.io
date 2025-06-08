@@ -473,7 +473,7 @@ $$<p>即截断奇异值分解 $A' = U\Sigma'V^T$ 是 $A$ 在 $\mathcal{M}$ 中�
 <p>一个显然的结论是, 由上一个定理, 设 $A=U\Sigma V^T$, 则:</p>
 $$
 \|A\|_F = \|U\Sigma V^T\|_F = \|\Sigma\|_F = \sqrt{\sum_{l=1}^{n} \sigma_l^2}
-$$<p>设 $X$ 是 $A$ 的最优近似, 则:</p>
+$$<p>取 $X$ 为 $A$ 的截断奇异值 $A'$, 则:</p>
 $$
 \|A-X\|_F = \|A-A'\|_F = \sqrt{\sum_{l=k+1}^{n} \sigma_l^2}
 $$<p>下面只需要证明:</p>
@@ -641,7 +641,20 @@ $$</div>
 $$\mathbf{X}=[\mathbf{x}_1,\mathbf{x}_2,\cdots,\mathbf{x}_n]=\left[\begin{array}{ccc}x_{11}&\cdots&x_{1n}\\\vdots&\vdots&\vdots\\x_{m1}&\cdots&x_{mn}\end{array}\right]$$<p>样本均值向量为:</p>
 $$\bar{\mathbf{x}}=\frac{1}{n}\sum\limits_{j=1}^n\mathbf{x}_j=(\bar{x}_1,\cdots,\bar{x}_m)^T$$<p>样本协方差矩阵为 $\mathbf{S}=[s_{ij}]_{m\times m}$, 其中:</p>
 $$s_{ij}=\frac{1}{n-1}\sum\limits_{k=1}^n(x_{ik}-\bar{x}_i)(x_{jk}-\bar{x}_j), i,j=1,2,\cdots,m$$<p>样本相关矩阵为 $\mathbf{R}=[r_{ij}]_{m\times m}$, 其中:</p>
-$$r_{ij}=\frac{s_{ij}}{\sqrt{s_{ii}s_{jj}}}$$
+$$r_{ij}=\frac{s_{ij}}{\sqrt{s_{ii}s_{jj}}}$$<div class="math-block">
+    <p class="math-block-title math-algo">算法<span class="math-subtitle">PCA</span></p>
+<p><strong>输入</strong>: 规范化后的样本数据矩阵 $\mathbf{X}_{m \times n}$</p>
+<p><strong>输出</strong>: 样本主成分矩阵 $\mathbf{Y}_{k \times n}$</p>
+<ol>
+<li>构造:
+$$\mathbf{X}' = \frac{1}{\sqrt{n-1}}\mathbf{X}^T$$</li>
+<li>求 $X'$ 的 $k$ 秩截断奇异值分解:
+$$\mathbf{X}' = U_k \Sigma_k V_k^T$$</li>
+<li>返回样本前 $k$ 主成分矩阵:
+$$\mathbf{Y} = V^T\mathbf{X}$$</li>
+</ol>
+</div>
+
 </section>
 
 
