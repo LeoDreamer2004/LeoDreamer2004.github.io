@@ -422,19 +422,22 @@ $$<p>然而很难找到最优解, 因此采用迭代的方式来近似求解:</p
 <p><strong>输入</strong>: 给定训练样本集 $D = \{(x_i,y_i)\}_{i=1}^n$, 其中 $x_i \in \mathbb{R}^n$, $y_i \in \mathcal{Y} = \{c_1, c_2, \cdots, c_k\}$, 以及距离度量 $\text{dist}(x,y)=\Vert x-y \Vert_2$.</p>
 <p><strong>输出</strong>: 对于每个样本点 $x \in \mathbb{R}^n$, 预测其类别 $y$.</p>
 <ol>
-<li>初始化 $k$ 个簇的中心 $c_{ij}$;</li>
+<li>对每个类 $c_i$ 初始化 $k$ 个簇的中心 $c_{ij}$;</li>
 <li>对每个 $(x_t, y_t) \in D_i$ (即 $y_t=c_i$), 令
 $$I_{x_t}= \argmin_{j} \Vert x_t-c_{ij} \Vert_2^2$$
 即将 $x_t$ 分配到最近的簇;</li>
 <li>对每个 $D_{ij}$, 更新均值
 $$c_{ij} = \frac{1}{|D_{ij}|} \sum_{(x_t,y_t) \in D_{ij}} x_t$$</li>
 <li>重复 2, 3 直到收敛.</li>
+<li>对于样本点 $x$, 找到最近的簇中心 $c_{ij}$, 即
+$$c_{ij} = \argmin_{m,n} \Vert x - c_{mn} \Vert_2^2$$</li>
+<li>返回预测结果 $y = c_i$.</li>
 </ol>
 </div>
 <p>有可能会使得某些离分类边界很近的点被错误分类. 引入学习向量量化方法 (LVQ 算法). 让同类和异类的点在构建过程中都能起作用.</p>
 <div class="math-block">
     <p class="math-block-title math-algo">算法<span class="math-subtitle">LVQ</span></p>
-<p><strong>输入</strong>: 给定训练样本集 $D = \{(x_i,y_i)\}_{i=1}^n$, 其中 $x_i \in \mathbb{R}^n$, $y_i \in \mathcal{Y} = \{c_1, c_2, \cdots, c_k\}$, 以及距离度量 $\text{dist}(x,y)=\Vert x-y \Vert_2$.</p>
+<p><strong>输入</strong>: 给定训练样本集 $D = \{(x_i,y_i)\}_{i=1}^n$, 其中 $x_i \in \mathbb{R}^n$, $y_i \in \mathcal{Y} = \{c_1, c_2, \cdots, c_k\}$, 以及距离度量 $\text{dist}(x,y)=\Vert x-y \Vert_2$, 学习率 $\eta \in (0,1)$.</p>
 <p><strong>输出</strong>: 对于每个样本点 $x \in \mathbb{R}^n$, 预测其类别 $y$.</p>
 <ol>
 <li>对每个类 $c_m$ 随机选择 $k$ 个点 $I_{mi}$ 作为代表;</li>
@@ -445,10 +448,11 @@ $$I_{m^\ast i^\ast} \gets I_{m^\ast i^\ast} + \eta(x_t - I_{m^\ast i^\ast})$$
 否则
 $$I_{m^\ast i^\ast} \gets I_{m^\ast i^\ast} - \eta(x_t - I_{m^\ast i^\ast})$$</li>
 <li>重复 2, 3 直到收敛.</li>
+<li>对于样本点 $x$, 找到最近的代表元 $I_{m^\ast i^\ast}$, 即
+$$I_{m^\ast i^\ast} = \argmin_{m,i} \Vert x - I_{mi} \Vert_2^2$$</li>
+<li>返回预测结果 $y = c_{m^\ast}$.</li>
 </ol>
-<p>这里 $\eta$ 是学习率.</p>
 </div>
-<p>在 $\eta=1$ 时, LVQ 算法相当于逐步地进行 k-means 算法.</p>
 <p>在最近邻算法和其扩展方法中, 每个簇的代表点也称为相应单元的原型. 这种方法也常被称作原型方法或免模型方法.</p>
 
 </section>

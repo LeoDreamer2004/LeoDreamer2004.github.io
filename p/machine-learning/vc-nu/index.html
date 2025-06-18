@@ -509,7 +509,7 @@ $$</div>
 </div>
 <div class="math-block">
     <p class="math-block-title math-thm">定理</p>
-<p>一个二分类假设类 $\mathcal{H}$ 是非一致可学习的，当且仅当它是若干个不可知 PAC 可学习假设类的并集.</p>
+<p>一个二分类假设类 $\mathcal{H}$ 是非一致可学习的，当且仅当它是可数个不可知 PAC 可学习假设类的并集.</p>
 <p class="math-block-title math-prf">证明</p>
 <p><strong>充分性</strong>: 假设 $\mathcal{H} = \bigcup_{n \in \mathbb{N}} \mathcal{H}_n$, 其中每个 $\mathcal{H}_n$ 都是不可知 PAC 可学习的. 根据统计学习的基本定理, 每个 $\mathcal{H}_n$ 都具有一致收敛性质, 从而 $\mathcal{H}$ 是非一致可学习的.</p>
 <p><strong>必要性</strong>: 假设 $\mathcal{H}$ 是非一致可学习的, 使用某个算法 $A$. 对于每个 $n \in \mathbb{N}$, 令:</p>
@@ -518,7 +518,7 @@ $$
 $$<p>显见 $\mathcal{H} = \bigcup_{n \in \mathbb{N}} \mathcal{H}_n$.</p>
 </div>
 <p>存在非一致可学习的假设类, 但不是不可知 PAC 学习的: 考虑 $\mathcal{H} = \bigcup_{n \in \mathbb{N}} \mathcal{H}_n$, 其中 $\mathcal{H}_n$ 是次数为 $n$ 的多项式分类器类.</p>
-<p>$\text{VCdim}(\mathcal{H}_n) = n+1$, 且 $\mathcal{H}_n$ 是不可知 PAC 可学习的, 则由上述定理, $\mathcal{H}$ 是非一致可学习的. 但 $\mathcal{H}$ 不是不可知 PAC 可学习的.</p>
+<p>$\text{VCdim}(\mathcal{H}_n) = n+1$, 且 $\mathcal{H}_n$ 是不可知 PAC 可学习的, 则由上述定理, $\mathcal{H}$ 是非一致可学习的. 但 $\text{VCdim}(\mathcal{H}) = \infty$, $\mathcal{H}$ 不是不可知 PAC 可学习的.</p>
 <h3 id="结构风险最小化">结构风险最小化
 </h3><div class="math-block">
     <p class="math-block-title math-thm">定理</p>
@@ -563,7 +563,7 @@ $$\epsilon_n(m, \delta) = \min \{ \epsilon \in (0, 1) : m_{\mathcal{H}_n}^{UC}(\
     <p class="math-block-title math-thm">定理</p>
 <p>设 $\mathcal{H}$ 是一个假设类, 满足 $\mathcal{H} = \bigcup_{n \in \mathbb{N}} \mathcal{H}_n$, 其中每个 $\mathcal{H}_n$ 都满足一致收敛性质, 具有样本复杂度函数 $m_{\mathcal{H}_n}^{UC}$. 令 $w: \mathbb{N} \to [0, 1]$ 是一个加权函数, 满足 $w(n) = \frac{6}{n^2 \pi^2}$. 则 $\mathcal{H}$ 是非一致可学习的, 使用 SRM 规则, 且速率为:</p>
 $$
-m_{\mathcal{H}}^{NUL}(\epsilon, \delta, h) \leq m_{\mathcal{H}_{n(h)}}^{UC}(\epsilon/2, \frac{6\delta}{(\pi n(h))^2})$$<p class="math-block-title math-prf">证明</p>
+m_{\mathcal{H}}^{NUL}(\epsilon, \delta, h) \leq m_{\mathcal{H}_{n(h)}}^{UC}\left(\epsilon/2, \frac{6\delta}{(\pi n(h))^2}\right)$$<p class="math-block-title math-prf">证明</p>
 <p>设 $A$ 是关于加权函数 $w$ 的 SRM 算法. 对于每个 $h \in \mathcal{H}$, $\epsilon$, 和 $\delta$, 令:
 </p>
 $$
