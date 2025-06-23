@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="熵最小化? Too naive too simple.">
+<title>论文阅读 - 基于自适应代理的置信度估计</title>
+
+<link rel='canonical' href='https://LeoDreamer2004.github.io/p/paper-reading/region-confidence-proxy-for-wild-test-time-adaption/'>
+
+<link rel="stylesheet" href="/scss/style.min.13ddb3d602f4eed25afe08fc013445f3a0e1fb232c898fc9d09503c618c3e844.css"><meta property='og:title' content="论文阅读 - 基于自适应代理的置信度估计">
+<meta property='og:description' content="熵最小化? Too naive too simple.">
+<meta property='og:url' content='https://LeoDreamer2004.github.io/p/paper-reading/region-confidence-proxy-for-wild-test-time-adaption/'>
+<meta property='og:site_name' content='LeoDreamer'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='TTA' /><meta property='article:tag' content='Confidence' /><meta property='article:published_time' content='2025-06-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-06-19T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="论文阅读 - 基于自适应代理的置信度估计">
+<meta name="twitter:description" content="熵最小化? Too naive too simple.">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "light");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_af500e90a6e0f79a.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">💫</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">LeoDreamer</a></h1>
+            <h2 class="site-description">PKU 本科在读/新手&#43;&#43;</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/503370537'
+                        target="_blank"
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-bilibili"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6z" /><path d="M8 3l2 3" /><path d="M16 3l-2 3" /><path d="M9 13v-2" /><path d="M15 11v2" /></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/LeoDreamer2004'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>存档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>相关链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+
+    <section class="widget related-materials">
+
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">相关材料</h2>
+
+        <div class="widget--related-materials">
+             <ol>
+    
+    <li>
+        <a href="https://arxiv.org/abs/2505.20704" id="related-material-1" target="_blank" rel="noopener noreferrer">
+            Beyond Entropy: Region Confidence Proxy for Wild Test-Time Adaptation
+        </a>
+    </li>
+    
+</ol>
+        </div>
+    </section>
+
+            
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#传统-tta-方法">传统 TTA 方法</a></li>
+    <li><a href="#局部不一致性">局部不一致性</a></li>
+    <li><a href="#recap">ReCAP</a>
+      <ol>
+        <li><a href="#概率区域">概率区域</a></li>
+        <li><a href="#置信度度量">置信度度量</a></li>
+        <li><a href="#recap-训练">ReCAP 训练</a></li>
+      </ol>
+    </li>
+    <li><a href="#实验与可视化">实验与可视化</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E8%AE%BA%E6%96%87/" style="background-color: #aa2b2c; color: #fff;">
+                论文
+            </a>
+        
+            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" style="background-color: #2a9d8f; color: #fff;">
+                计算机
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/paper-reading/region-confidence-proxy-for-wild-test-time-adaption/">论文阅读 - 基于自适应代理的置信度估计</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            熵最小化? Too naive too simple.
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-06-19</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 4 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+    
+        <footer class="article-keywords">
+            <div>
+                
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tag" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11 3L20 12a1.5 1.5 0 0 1 0 2L14 20a1.5 1.5 0 0 1 -2 0L3 11v-4a4 4 0 0 1 4 -4h4" />
+  <circle cx="9" cy="9" r="2" />
+</svg>
+
+
+
+                <span class="article-keyword">
+                    TTA
+                </span>
+                
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tag" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11 3L20 12a1.5 1.5 0 0 1 0 2L14 20a1.5 1.5 0 0 1 -2 0L3 11v-4a4 4 0 0 1 4 -4h4" />
+  <circle cx="9" cy="9" r="2" />
+</svg>
+
+
+
+                <span class="article-keyword">
+                    Confidence
+                </span>
+                
+            </div>
+        </footer>
+    
+    
+
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="传统-tta-方法">传统 TTA 方法
+</h2><p>野外测试时自适应 (Wild Test-Time Adaptation, WTTA) 相较于温和的 TTA, 需要在数据极其稀少时让模型适应从未见到过的领域, 通常有三个实际挑战:</p>
+<ul>
+<li>有限的数据流. 批大小通常为 $1$.</li>
+<li>测试域是混合的分布. 通常由 $k$ 个子域组成: $D_{\text{test}} = \sum_{i=1}^k \Pi_i \cdot D_i$, 其中 $\Pi_i$ 是每个子域的混合系数.</li>
+<li>标签的不平衡性和浮动性. 测试标签分布不均, 且可能会随着时间的推移而变化.</li>
+</ul>
+<p>常见的 TTA 方法是熵最小化策略 (<a class="link" href="/p/paper-reading/test-time-reinforcement-learning/" >这篇博客</a> 有提及, 如 Tent 方法), 但当 TTA 的环境从 mild 变为 wild 时, 熵最小化的效果会大打折扣, 因此一些现有的工作是做样本过滤筛选.</p>
+<h2 id="局部不一致性">局部不一致性
+</h2><p>为此, 论文 <a class="link cite-1">[1]
+    <span class="material-name">Unknown-material</span> 
+</a> 提出了一个对模型输出确定性的替代方案, 即区域置信度.</p>
+<p>熵最小化的核心思想是通过引导预测概率向主要的类别集中收敛, 其有效性很大程度上依赖于局部一致性, 也就是附近的点应该有相似的预测概率. WTTA 中, 局部不一致现象非常普遍, 此时简单的熵最小化会导致性能崩溃.</p>
+<p>
+
+
+
+<img src="https://arxiv.org/html/2505.20704v2/x2.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="局部不一致性"
+	
+	class="gallery-image" 
+></p>
+<p>在此基础上, 必须解决优化方向与区域目标之间的偏差, 并减少局部区域内不一致预测概率的方差.</p>
+<div class="math-block">
+    <p class="math-block-title math-def">定义</p>
+<p>考虑样本 $x$ 和其一个局部区域 $\Omega$, $x$ 在 $\Omega$ 上的 <strong>区域置信度 (Region Confidence)</strong> 定义为在 $\Omega$ 上熵损失的积分 (偏差项) 加上 $x$ 的预测概率与 $\Omega$  中样本预测概率的 KL 散度 (方差项):</p>
+$$
+\mathcal{L}_{\text{RC}}(x) = - \int_{\Omega} \sum_{i=1}^C p_{\theta}(\hat{x})_i \log p_{\theta}(\hat{x})_i d\hat{x} + \lambda \int_{\Omega} D_{KL}(p_{\theta}(\hat{x}) \| p_{\theta}(x)) d\hat{x}
+$$</div>
+<p>这里我们采用积分, 意味着理论可以在无限样本上整合损失项.</p>
+<h2 id="recap">ReCAP
+</h2><p>然而, 区域置信度的计算相当困难. 首先 $\Omega$ 的范围选择不确定, 其次两项都不能直接计算, 需要大量近似采样和前向传播的步骤. 为了降低训练复杂度, 论文引入了一种新的 <strong>区域置信度自适应代理 (Region Confidence Adaptation Proxy, ReCAP)</strong> 框架.</p>
+<h3 id="概率区域">概率区域
+</h3><p>我们先确定 $\Omega$ 的范围. 我们从主干网络的隐藏层中找区域置信度.</p>
+$$
+p_{\theta}(z)_i = (\text{softmax}(Az+b))_i
+$$<p>下标 $i$ 表示第 $i$ 个类别, $A$ 和 $b$ 是分类器线性层的参数. 关于局部区域, 我们将其建模成一个多元高斯分布, 而非静态区域:</p>
+$$
+\Omega(z_t) := \mathcal{N}(z_t, \tau \cdot \Sigma)
+$$<p>其中, $\Omega(z_t)$ 是第 $t$ 个测试批次 $z_t$ 的局部区域, $\Sigma$ 是基于少量源数据得到的方差对角矩阵, $\tau$ 是一个超参数, 用于控制范围.</p>
+<h3 id="置信度度量">置信度度量
+</h3><p>接下来我们给出一个估计置信度的高效度量, 在此省略论文的数学推导, 直接给出结果:</p>
+<div class="math-block">
+    <p class="math-block-title math-thm">定理<span class="math-subtitle">偏差项的有效度量</span></p>
+<p>给定一个特征 $z$ 及其局部区域 $\Omega$, 该局部区域服从高斯分布 $\mathcal{N}(\mu, \Sigma)$. 整个分布上的熵损失期望具有上界:</p>
+$$
+\begin{aligned}
+&\mathbb{E}[\mathcal{L}_{\text{ent}}] = -\mathbb{E}_{\hat{z} \sim \mathcal{N}(\mu, \Sigma)} \sum_{i=1}^C p_{\theta}(\hat{z})_i \log p_{\theta}(\hat{z})_i \\
+&\le \sum_{j=1}^C \frac{e^{u_j}}{\sum_{k=1}^C e^{u_k}} \log \sum_{i=1}^C e^{u_i - u_j} \triangleq \mathcal{L}_{\text{RE}}(z)
+\end{aligned}
+$$<p>其中 $u_j = a_j \cdot z + b_j + \frac{1}{2} a_j \Sigma a_j^T$.</p>
+</div>
+<div class="math-block">
+    <p class="math-block-title math-thm">定理<span class="math-subtitle">方差项的有效度量</span></p>
+<p>给定一个特征 $z$ 及其局部区域 $\Omega$, 该局部区域服从高斯分布 $\mathcal{N}(\mu, \Sigma)$. 此分布输出概率与中心概率之间的 KL散度的期望值具有上界：</p>
+$$
+\begin{aligned}
+&\mathbb{E}[D_{KL}(p_{\theta}(\hat{z}) \| p_{\theta}(z))] \\
+&\le \sum_{j=1}^C \frac{e^{v_j}}{\sum_{k=1}^C e^{v_k}} \log \sum_{i=1}^C \frac{e^{v_j}}{\sum_{k=1}^C e^{v_k}} e^{\frac{1}{2} (a_i-a_j) \Sigma (a_i-a_j)^T} \triangleq \mathcal{L}_{\text{RI}}(z)
+\end{aligned}
+$$<p>其中 $v_j = a_j \cdot z + b_j$.</p>
+</div>
+<p>因此我们只需要最小化不等式右侧的代理 $\mathcal{L}_{\text{RE}}(z)$ 和 $\mathcal{L}_{\text{RI}}(z)$, 就可以了, 这个计算难度非常低, 不需要额外的采样和前向传播.</p>
+<h3 id="recap-训练">ReCAP 训练
+</h3><p>我们也做样本过滤, 但是我们现在使用区域熵 $\mathcal{L}_{\text{RE}}$ 来识别可靠的样本, 并在适应过程中优化, 具体来说就是:</p>
+$$\min_{\theta}\frac{\mathbb{I}_{\{\mathcal{L}_{\text{RE}}(x)<\tau_{\text{RE}}\}}(\mathcal{L}_{\text{RE}}(x)+\lambda\mathcal{L}_{\text{RI}}(x))}{\exp(\mathcal{L}_{\text{RE}}(x)-\mathcal{L}_0)}$$<p>分母表示加权项, $\tau_{\text{RE}}$ 表示区域熵的阈值, $\mathcal{L}_0$ 是超参数.</p>
+<p>
+
+
+
+<img src="https://arxiv.org/html/2505.20704v2/x3.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="ReCAP"
+	
+	class="gallery-image" 
+></p>
+<h2 id="实验与可视化">实验与可视化
+</h2><p>实验表明, ReCAP 能较好地应对数据稀缺和标签不平衡的情况, 而且还可以和之前基于熵最小化的方法 (如 SAR 和 DeYO) 结合, 进一步提升性能, 且算法开销很低.</p>
+<p>两个超参数 $\tau$ 和 $\lambda$ 分别控制区域范围和方差项的权重, 论文取 $\tau = 1.2 \in [0.5, 1.5], \lambda = 0.5$, 实际上模型对两个参数也具有相对较好的鲁棒性.</p>
+<p>由于引入了区域置信度, 分类的区域一致性确实得到了改善, 下图中的不同颜色表示此区域内分类不同的类别, 可以看到随着迭代, 分类区域的颜色变得越来越一致, 这也说明了区域置信度的有效性.</p>
+<p>
+
+
+
+<img src="/p/paper-reading/region-confidence-proxy-for-wild-test-time-adaption/clarify.png"
+	width="1433"
+	height="843"
+	srcset="/p/paper-reading/region-confidence-proxy-for-wild-test-time-adaption/clarify_hu_1f6b1f9dedfd3f7.png 480w, /p/paper-reading/region-confidence-proxy-for-wild-test-time-adaption/clarify_hu_5684d1f9326b593f.png 1024w"
+	loading="lazy"
+	
+		alt="区域一致性"
+	
+	class="gallery-image" 
+></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>本文遵循 CC BY-NC-SA 4.0 协议</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/paper-reading/test-time-reinforcement-learning/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - 测试时强化学习</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-adam-%E7%9A%84%E6%94%B6%E6%95%9B%E6%80%A7%E5%88%86%E6%9E%90/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - Adam 的收敛性分析</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/program-practice/cpp-feature/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">程序设计实习(9) —— C&#43;&#43; 特性</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/program-practice/stl/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">程序设计实习(8) —— 标准模板库</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/program-practice/string/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">程序设计实习(7) —— string 类</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 LeoDreamer
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.5c09fe190420e66c8e31e7d8216a5ab1a0b948bb3d147b8ea533dc18d4c546e0.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        z-index: 99;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-image: url(https://LeoDreamer2004.github.io/icons/back-top.svg);
+    }
+</style>
+
+<script>
+    function initTocHide() {
+        let toc = document.querySelector(".widget--toc");
+        if (!toc) {
+            return;
+        }
+        window.addEventListener('scroll', function () {
+            let openUl = document.querySelectorAll(".open");
+            openUl.forEach((ul) => {
+                ul.classList.remove("open")
+            })
+
+            let currentLi = document.querySelector(".active-class");
+            if (!currentLi) {
+                return
+            }
+
+            
+            if (currentLi.children.length > 1) {
+                currentLi.children[1].classList.add("open")
+            }
+            let ul = currentLi.parentElement;
+            do {
+                ul.classList.add("open");
+                ul = ul.parentElement.parentElement
+            } while (ul !== undefined && (ul.localName === 'ul' || ul.localName === 'ol'))
+        });
+    }
+
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.title = "返回顶部";
+        btn.onclick = backToTop
+        rightSideBar.appendChild(btn)
+        window.onscroll = function () {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    function backToTop() {
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initTocHide()
+    initScrollTop();
+</script>
+    </body>
+</html>

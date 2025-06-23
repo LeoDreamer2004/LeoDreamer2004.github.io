@@ -7,7 +7,118 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>LeoDreamer</copyright>
-        <lastBuildDate>Thu, 29 May 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 19 Jun 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>论文阅读 - 基于自适应代理的置信度估计</title>
+        <link>https://LeoDreamer2004.github.io/p/paper-reading/region-confidence-proxy-for-wild-test-time-adaption/</link>
+        <pubDate>Thu, 19 Jun 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/p/paper-reading/region-confidence-proxy-for-wild-test-time-adaption/</guid>
+        <description>&lt;h2 id=&#34;传统-tta-方法&#34;&gt;传统 TTA 方法
+&lt;/h2&gt;&lt;p&gt;野外测试时自适应 (Wild Test-Time Adaptation, WTTA) 相较于温和的 TTA, 需要在数据极其稀少时让模型适应从未见到过的领域, 通常有三个实际挑战:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;有限的数据流. 批大小通常为 $1$.&lt;/li&gt;
+&lt;li&gt;测试域是混合的分布. 通常由 $k$ 个子域组成: $D_{\text{test}} = \sum_{i=1}^k \Pi_i \cdot D_i$, 其中 $\Pi_i$ 是每个子域的混合系数.&lt;/li&gt;
+&lt;li&gt;标签的不平衡性和浮动性. 测试标签分布不均, 且可能会随着时间的推移而变化.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;常见的 TTA 方法是熵最小化策略 (&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/p/paper-reading/test-time-reinforcement-learning/&#34; &gt;这篇博客&lt;/a&gt; 有提及, 如 Tent 方法), 但当 TTA 的环境从 mild 变为 wild 时, 熵最小化的效果会大打折扣, 因此一些现有的工作是做样本过滤筛选.&lt;/p&gt;
+&lt;h2 id=&#34;局部不一致性&#34;&gt;局部不一致性
+&lt;/h2&gt;&lt;p&gt;为此, 论文 &lt;a class=&#34;link cite-1&#34;&gt;[1]
+    &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
+&lt;/a&gt; 提出了一个对模型输出确定性的替代方案, 即区域置信度.&lt;/p&gt;
+&lt;p&gt;熵最小化的核心思想是通过引导预测概率向主要的类别集中收敛, 其有效性很大程度上依赖于局部一致性, 也就是附近的点应该有相似的预测概率. WTTA 中, 局部不一致现象非常普遍, 此时简单的熵最小化会导致性能崩溃.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://arxiv.org/html/2505.20704v2/x2.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;局部不一致性&#34;
+	
+	class=&#34;gallery-image&#34; 
+&gt;&lt;/p&gt;
+&lt;p&gt;在此基础上, 必须解决优化方向与区域目标之间的偏差, 并减少局部区域内不一致预测概率的方差.&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;考虑样本 $x$ 和其一个局部区域 $\Omega$, $x$ 在 $\Omega$ 上的 &lt;strong&gt;区域置信度 (Region Confidence)&lt;/strong&gt; 定义为在 $\Omega$ 上熵损失的积分 (偏差项) 加上 $x$ 的预测概率与 $\Omega$  中样本预测概率的 KL 散度 (方差项):&lt;/p&gt;
+$$
+\mathcal{L}_{\text{RC}}(x) = - \int_{\Omega} \sum_{i=1}^C p_{\theta}(\hat{x})_i \log p_{\theta}(\hat{x})_i d\hat{x} + \lambda \int_{\Omega} D_{KL}(p_{\theta}(\hat{x}) \| p_{\theta}(x)) d\hat{x}
+$$&lt;/div&gt;
+&lt;p&gt;这里我们采用积分, 意味着理论可以在无限样本上整合损失项.&lt;/p&gt;
+&lt;h2 id=&#34;recap&#34;&gt;ReCAP
+&lt;/h2&gt;&lt;p&gt;然而, 区域置信度的计算相当困难. 首先 $\Omega$ 的范围选择不确定, 其次两项都不能直接计算, 需要大量近似采样和前向传播的步骤. 为了降低训练复杂度, 论文引入了一种新的 &lt;strong&gt;区域置信度自适应代理 (Region Confidence Adaptation Proxy, ReCAP)&lt;/strong&gt; 框架.&lt;/p&gt;
+&lt;h3 id=&#34;概率区域&#34;&gt;概率区域
+&lt;/h3&gt;&lt;p&gt;我们先确定 $\Omega$ 的范围. 我们从主干网络的隐藏层中找区域置信度.&lt;/p&gt;
+$$
+p_{\theta}(z)_i = (\text{softmax}(Az+b))_i
+$$&lt;p&gt;下标 $i$ 表示第 $i$ 个类别, $A$ 和 $b$ 是分类器线性层的参数. 关于局部区域, 我们将其建模成一个多元高斯分布, 而非静态区域:&lt;/p&gt;
+$$
+\Omega(z_t) := \mathcal{N}(z_t, \tau \cdot \Sigma)
+$$&lt;p&gt;其中, $\Omega(z_t)$ 是第 $t$ 个测试批次 $z_t$ 的局部区域, $\Sigma$ 是基于少量源数据得到的方差对角矩阵, $\tau$ 是一个超参数, 用于控制范围.&lt;/p&gt;
+&lt;h3 id=&#34;置信度度量&#34;&gt;置信度度量
+&lt;/h3&gt;&lt;p&gt;接下来我们给出一个估计置信度的高效度量, 在此省略论文的数学推导, 直接给出结果:&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;偏差项的有效度量&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;给定一个特征 $z$ 及其局部区域 $\Omega$, 该局部区域服从高斯分布 $\mathcal{N}(\mu, \Sigma)$. 整个分布上的熵损失期望具有上界:&lt;/p&gt;
+$$
+\begin{aligned}
+&amp;\mathbb{E}[\mathcal{L}_{\text{ent}}] = -\mathbb{E}_{\hat{z} \sim \mathcal{N}(\mu, \Sigma)} \sum_{i=1}^C p_{\theta}(\hat{z})_i \log p_{\theta}(\hat{z})_i \\
+&amp;\le \sum_{j=1}^C \frac{e^{u_j}}{\sum_{k=1}^C e^{u_k}} \log \sum_{i=1}^C e^{u_i - u_j} \triangleq \mathcal{L}_{\text{RE}}(z)
+\end{aligned}
+$$&lt;p&gt;其中 $u_j = a_j \cdot z + b_j + \frac{1}{2} a_j \Sigma a_j^T$.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;方差项的有效度量&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;给定一个特征 $z$ 及其局部区域 $\Omega$, 该局部区域服从高斯分布 $\mathcal{N}(\mu, \Sigma)$. 此分布输出概率与中心概率之间的 KL散度的期望值具有上界：&lt;/p&gt;
+$$
+\begin{aligned}
+&amp;\mathbb{E}[D_{KL}(p_{\theta}(\hat{z}) \| p_{\theta}(z))] \\
+&amp;\le \sum_{j=1}^C \frac{e^{v_j}}{\sum_{k=1}^C e^{v_k}} \log \sum_{i=1}^C \frac{e^{v_j}}{\sum_{k=1}^C e^{v_k}} e^{\frac{1}{2} (a_i-a_j) \Sigma (a_i-a_j)^T} \triangleq \mathcal{L}_{\text{RI}}(z)
+\end{aligned}
+$$&lt;p&gt;其中 $v_j = a_j \cdot z + b_j$.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;因此我们只需要最小化不等式右侧的代理 $\mathcal{L}_{\text{RE}}(z)$ 和 $\mathcal{L}_{\text{RI}}(z)$, 就可以了, 这个计算难度非常低, 不需要额外的采样和前向传播.&lt;/p&gt;
+&lt;h3 id=&#34;recap-训练&#34;&gt;ReCAP 训练
+&lt;/h3&gt;&lt;p&gt;我们也做样本过滤, 但是我们现在使用区域熵 $\mathcal{L}_{\text{RE}}$ 来识别可靠的样本, 并在适应过程中优化, 具体来说就是:&lt;/p&gt;
+$$\min_{\theta}\frac{\mathbb{I}_{\{\mathcal{L}_{\text{RE}}(x)&lt;\tau_{\text{RE}}\}}(\mathcal{L}_{\text{RE}}(x)+\lambda\mathcal{L}_{\text{RI}}(x))}{\exp(\mathcal{L}_{\text{RE}}(x)-\mathcal{L}_0)}$$&lt;p&gt;分母表示加权项, $\tau_{\text{RE}}$ 表示区域熵的阈值, $\mathcal{L}_0$ 是超参数.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://arxiv.org/html/2505.20704v2/x3.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;ReCAP&#34;
+	
+	class=&#34;gallery-image&#34; 
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;实验与可视化&#34;&gt;实验与可视化
+&lt;/h2&gt;&lt;p&gt;实验表明, ReCAP 能较好地应对数据稀缺和标签不平衡的情况, 而且还可以和之前基于熵最小化的方法 (如 SAR 和 DeYO) 结合, 进一步提升性能, 且算法开销很低.&lt;/p&gt;
+&lt;p&gt;两个超参数 $\tau$ 和 $\lambda$ 分别控制区域范围和方差项的权重, 论文取 $\tau = 1.2 \in [0.5, 1.5], \lambda = 0.5$, 实际上模型对两个参数也具有相对较好的鲁棒性.&lt;/p&gt;
+&lt;p&gt;由于引入了区域置信度, 分类的区域一致性确实得到了改善, 下图中的不同颜色表示此区域内分类不同的类别, 可以看到随着迭代, 分类区域的颜色变得越来越一致, 这也说明了区域置信度的有效性.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://LeoDreamer2004.github.io/p/paper-reading/region-confidence-proxy-for-wild-test-time-adaption/clarify.png&#34;
+	width=&#34;1433&#34;
+	height=&#34;843&#34;
+	srcset=&#34;https://LeoDreamer2004.github.io/p/paper-reading/region-confidence-proxy-for-wild-test-time-adaption/clarify_hu_1f6b1f9dedfd3f7.png 480w, https://LeoDreamer2004.github.io/p/paper-reading/region-confidence-proxy-for-wild-test-time-adaption/clarify_hu_5684d1f9326b593f.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;区域一致性&#34;
+	
+	class=&#34;gallery-image&#34; 
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>机器学习基础(13) —— 神经网络学习之小批量梯度下降法</title>
         <link>https://LeoDreamer2004.github.io/p/machine-learning/minibatch/</link>
         <pubDate>Thu, 29 May 2025 00:00:00 +0000</pubDate>
@@ -7458,6 +7569,40 @@ $$&lt;p&gt;如果有约束要求, 还要同时考虑到约束违反度. 对于�
 $$
 \frac{{\Vert x_{k+1} - x_k \Vert}}{\max\left\{\Vert x_k \Vert, 1\right\}} \le \varepsilon
 $$</description>
+        </item>
+        <item>
+        <title></title>
+        <link>https://LeoDreamer2004.github.io/p/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/p/</guid>
+        <description>&lt;!-- ---
+title: 论文阅读 - 强化学习算法
+description: &#34;希望智能体能拥抱智慧&#34;
+date: 2025-06-19
+slug: paper-reading/reinforcement-learning-algorithms
+categories:
+    - 论文
+    - 计算机
+tags:
+    - 强化学习
+materials:
+    - text: &#34;DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models&#34;
+      url: https://arxiv.org/abs/2402.03300
+    - text: &#34;REINFORCE++: An Efficient RLHF Algorithm with Robustness to Both Prompt and Reward Models&#34;
+      url: https://arxiv.org/abs/2501.03262
+---
+
+## GRPO
+
+Deepseek 横空出世, 震惊全球. 在 Deepseek Math 中团队首次介绍了 **组相对策略优化 (Group Relative Policy Optimization, GRPO)** 算法.
+
+GRPO 主要受 PPO 启发. 
+
+## REINFORCE++
+
+ --&gt;
+</description>
         </item>
         
     </channel>

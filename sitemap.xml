@@ -3,18 +3,33 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://LeoDreamer2004.github.io/</loc>
-    <lastmod>2025-05-29T00:00:00+00:00</lastmod>
+    <lastmod>2025-06-19T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://LeoDreamer2004.github.io/categories/</loc>
-    <lastmod>2025-05-29T00:00:00+00:00</lastmod>
+    <lastmod>2025-06-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://LeoDreamer2004.github.io/tags/confidence/</loc>
+    <lastmod>2025-06-19T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://LeoDreamer2004.github.io/post/</loc>
-    <lastmod>2025-05-29T00:00:00+00:00</lastmod>
+    <lastmod>2025-06-19T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://LeoDreamer2004.github.io/tags/</loc>
-    <lastmod>2025-05-29T00:00:00+00:00</lastmod>
+    <lastmod>2025-06-19T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://LeoDreamer2004.github.io/tags/%E6%B5%8B%E8%AF%95%E6%97%B6%E9%80%82%E5%BA%94/</loc>
+    <loc>https://LeoDreamer2004.github.io/tags/tta/</loc>
+    <lastmod>2025-06-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://LeoDreamer2004.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/</loc>
+    <lastmod>2025-06-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://LeoDreamer2004.github.io/categories/%E8%AE%BA%E6%96%87/</loc>
+    <lastmod>2025-06-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://LeoDreamer2004.github.io/p/paper-reading/region-confidence-proxy-for-wild-test-time-adaption/</loc>
+    <lastmod>2025-06-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://LeoDreamer2004.github.io/tags/rl/</loc>
     <lastmod>2025-05-29T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://LeoDreamer2004.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/</loc>
@@ -23,25 +38,13 @@
     <loc>https://LeoDreamer2004.github.io/p/machine-learning/minibatch/</loc>
     <lastmod>2025-05-29T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://LeoDreamer2004.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/</loc>
-    <lastmod>2025-05-29T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://LeoDreamer2004.github.io/categories/%E8%AF%BE%E7%A8%8B/</loc>
-    <lastmod>2025-05-29T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://LeoDreamer2004.github.io/categories/%E8%AE%BA%E6%96%87/</loc>
     <lastmod>2025-05-29T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://LeoDreamer2004.github.io/p/paper-reading/test-time-reinforcement-learning/</loc>
     <lastmod>2025-05-29T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://LeoDreamer2004.github.io/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2025-05-29T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://LeoDreamer2004.github.io/categories/%E6%95%B0%E5%AD%A6/</loc>
-    <lastmod>2025-05-29T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://LeoDreamer2004.github.io/tags/%E7%BD%AE%E4%BF%A1%E5%BA%A6/</loc>
     <lastmod>2025-05-29T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://LeoDreamer2004.github.io/p/machine-learning/vc-nu/</loc>
@@ -80,13 +83,10 @@
     <loc>https://LeoDreamer2004.github.io/tags/adam/</loc>
     <lastmod>2025-03-30T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://LeoDreamer2004.github.io/tags/optimization/</loc>
+    <lastmod>2025-03-30T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://LeoDreamer2004.github.io/p/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-adam-%E7%9A%84%E6%94%B6%E6%95%9B%E6%80%A7%E5%88%86%E6%9E%90/</loc>
-    <lastmod>2025-03-30T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://LeoDreamer2004.github.io/tags/%E6%94%B6%E6%95%9B%E6%80%A7/</loc>
-    <lastmod>2025-03-30T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://LeoDreamer2004.github.io/tags/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/</loc>
     <lastmod>2025-03-30T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://LeoDreamer2004.github.io/p/machine-learning/integrated-learning/</loc>
@@ -145,6 +145,8 @@
   </url><url>
     <loc>https://LeoDreamer2004.github.io/archives/</loc>
     <lastmod>2020-01-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://LeoDreamer2004.github.io/p/</loc>
   </url><url>
     <loc>https://LeoDreamer2004.github.io/about/</loc>
   </url><url>
