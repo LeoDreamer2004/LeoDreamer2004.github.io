@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="熵最小化? Too naive too simple.">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="熵最小化? Too young too simple.">
 <title>论文阅读 - 基于自适应代理的置信度估计</title>
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/paper-reading/region-confidence-proxy-for-wild-test-time-adaption/'>
 
-<link rel="stylesheet" href="/scss/style.min.13ddb3d602f4eed25afe08fc013445f3a0e1fb232c898fc9d09503c618c3e844.css"><meta property='og:title' content="论文阅读 - 基于自适应代理的置信度估计">
-<meta property='og:description' content="熵最小化? Too naive too simple.">
+<link rel="stylesheet" href="/scss/style.min.f991297a51bfb3ec7265f5caabcf8b61b92014e8d7b4c22fa6d4f0c6cb9ce9ce.css"><meta property='og:title' content="论文阅读 - 基于自适应代理的置信度估计">
+<meta property='og:description' content="熵最小化? Too young too simple.">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/paper-reading/region-confidence-proxy-for-wild-test-time-adaption/'>
 <meta property='og:site_name' content='LeoDreamer'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='TTA' /><meta property='article:tag' content='Confidence' /><meta property='article:published_time' content='2025-06-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-06-19T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="论文阅读 - 基于自适应代理的置信度估计">
-<meta name="twitter:description" content="熵最小化? Too naive too simple.">
+<meta name="twitter:description" content="熵最小化? Too young too simple.">
     </head>
     <body class="
     article-page
@@ -260,7 +260,7 @@
              <ol>
     
     <li>
-        <a href="https://arxiv.org/abs/2505.20704" id="related-material-1" target="_blank" rel="noopener noreferrer">
+        <a href="https://arxiv.org/abs/2505.20704" id="related-material-1" name="paper" target="_blank" rel="noopener noreferrer">
             Beyond Entropy: Region Confidence Proxy for Wild Test-Time Adaptation
         </a>
     </li>
@@ -338,7 +338,7 @@
     
         
         <h3 class="article-subtitle">
-            熵最小化? Too naive too simple.
+            熵最小化? Too young too simple.
         </h3>
         
     </div>
@@ -430,9 +430,9 @@
 <li>测试域是混合的分布. 通常由 $k$ 个子域组成: $D_{\text{test}} = \sum_{i=1}^k \Pi_i \cdot D_i$, 其中 $\Pi_i$ 是每个子域的混合系数.</li>
 <li>标签的不平衡性和浮动性. 测试标签分布不均, 且可能会随着时间的推移而变化.</li>
 </ul>
-<p>常见的 TTA 方法是熵最小化策略 (<a class="link" href="/p/paper-reading/test-time-reinforcement-learning/" >这篇博客</a> 有提及, 如 Tent 方法), 但当 TTA 的环境从 mild 变为 wild 时, 熵最小化的效果会大打折扣, 因此一些现有的工作是做样本过滤筛选.</p>
+<p>常见的 TTA 方法是熵最小化策略 (<a class="link" href="/p/paper-reading/test-time-reinforcement-learning/" >这篇博客</a> 有提及, 如 Tent 方法), 但当 TTA 的环境从 mild 变为 wild 时, 熵最小化的效果会大打折扣, 因此一些现有的工作是做样本过滤筛选, 例如 SAR <a class="link ref-SAR"></a> 和 DeYO <a class="link ref-DeYO"></a>.</p>
 <h2 id="局部不一致性">局部不一致性
-</h2><p>为此, 论文 <a class="link cite-1">[1]
+</h2><p>为此, 论文 <a class="link cite-paper">[<span class="material-index"></span>]
     <span class="material-name">Unknown-material</span> 
 </a> 提出了一个对模型输出确定性的替代方案, 即区域置信度.</p>
 <p>熵最小化的核心思想是通过引导预测概率向主要的类别集中收敛, 其有效性很大程度上依赖于局部一致性, 也就是附近的点应该有相似的预测概率. WTTA 中, 局部不一致现象非常普遍, 此时简单的熵最小化会导致性能崩溃.</p>
@@ -461,18 +461,19 @@ $$</div>
 <h2 id="recap">ReCAP
 </h2><p>然而, 区域置信度的计算相当困难. 首先 $\Omega$ 的范围选择不确定, 其次两项都不能直接计算, 需要大量近似采样和前向传播的步骤. 为了降低训练复杂度, 论文引入了一种新的 <strong>区域置信度自适应代理 (Region Confidence Adaptation Proxy, ReCAP)</strong> 框架.</p>
 <h3 id="概率区域">概率区域
-</h3><p>我们先确定 $\Omega$ 的范围. 我们从主干网络的隐藏层中找区域置信度.</p>
+</h3><p>我们先确定 $\Omega$ 的范围. 我们从主干网络的隐藏层中找区域置信度, 具体来说, 我们选定一个隐藏层, 输入 $x$ 后计算 $x$ 在经过网络中此隐藏层之后的特征 $z$, 然后对 $z$ 做一个仿射变换, 得到一个分类器的输出概率:</p>
 $$
 p_{\theta}(z)_i = (\text{softmax}(Az+b))_i
-$$<p>下标 $i$ 表示第 $i$ 个类别, $A$ 和 $b$ 是分类器线性层的参数. 关于局部区域, 我们将其建模成一个多元高斯分布, 而非静态区域:</p>
+$$<p>下标 $i$ 表示第 $i$ 个类别, $A$ 和 $b$ 是分类器线性层的参数.</p>
+<p>关于局部区域, 我们将其建模成一个多元高斯分布, 而非静态区域:</p>
 $$
 \Omega(z_t) := \mathcal{N}(z_t, \tau \cdot \Sigma)
-$$<p>其中, $\Omega(z_t)$ 是第 $t$ 个测试批次 $z_t$ 的局部区域, $\Sigma$ 是基于少量源数据得到的方差对角矩阵, $\tau$ 是一个超参数, 用于控制范围.</p>
+$$<p>其中, $\Omega(z_t)$ 是第 $t$ 个测试批次 $z_t$ 的局部区域, 它是以 $z_T$ 为中心的高斯区域. $\Sigma$ 是基于少量源数据得到的方差对角矩阵, $\tau$ 是一个超参数, 用于控制范围.</p>
 <h3 id="置信度度量">置信度度量
 </h3><p>接下来我们给出一个估计置信度的高效度量, 在此省略论文的数学推导, 直接给出结果:</p>
 <div class="math-block">
     <p class="math-block-title math-thm">定理<span class="math-subtitle">偏差项的有效度量</span></p>
-<p>给定一个特征 $z$ 及其局部区域 $\Omega$, 该局部区域服从高斯分布 $\mathcal{N}(\mu, \Sigma)$. 整个分布上的熵损失期望具有上界:</p>
+<p>给定一个特征 $z$ 及其局部区域 $\Omega$, 该局部区域服从高斯分布 $\mathcal{N}(z, \Sigma)$. 整个分布上的熵损失期望具有上界:</p>
 $$
 \begin{aligned}
 &\mathbb{E}[\mathcal{L}_{\text{ent}}] = -\mathbb{E}_{\hat{z} \sim \mathcal{N}(\mu, \Sigma)} \sum_{i=1}^C p_{\theta}(\hat{z})_i \log p_{\theta}(\hat{z})_i \\
@@ -482,7 +483,7 @@ $$<p>其中 $u_j = a_j \cdot z + b_j + \frac{1}{2} a_j \Sigma a_j^T$.</p>
 </div>
 <div class="math-block">
     <p class="math-block-title math-thm">定理<span class="math-subtitle">方差项的有效度量</span></p>
-<p>给定一个特征 $z$ 及其局部区域 $\Omega$, 该局部区域服从高斯分布 $\mathcal{N}(\mu, \Sigma)$. 此分布输出概率与中心概率之间的 KL散度的期望值具有上界：</p>
+<p>给定一个特征 $z$ 及其局部区域 $\Omega$, 该局部区域服从高斯分布 $\mathcal{N}(z, \Sigma)$. 此分布输出概率与中心概率之间的 KL散度的期望值具有上界：</p>
 $$
 \begin{aligned}
 &\mathbb{E}[D_{KL}(p_{\theta}(\hat{z}) \| p_{\theta}(z))] \\
@@ -490,7 +491,7 @@ $$
 \end{aligned}
 $$<p>其中 $v_j = a_j \cdot z + b_j$.</p>
 </div>
-<p>因此我们只需要最小化不等式右侧的代理 $\mathcal{L}_{\text{RE}}(z)$ 和 $\mathcal{L}_{\text{RI}}(z)$, 就可以了, 这个计算难度非常低, 不需要额外的采样和前向传播.</p>
+<p>因此我们只需要最小化不等式右侧的代理 $\mathcal{L}_{\text{RE}}(z)$ 和 $\mathcal{L}_{\text{RI}}(z)$ 就可以了, 这个计算难度非常低, 不需要额外的采样和前向传播.</p>
 <h3 id="recap-训练">ReCAP 训练
 </h3><p>我们也做样本过滤, 但是我们现在使用区域熵 $\mathcal{L}_{\text{RE}}$ 来识别可靠的样本, 并在适应过程中优化, 具体来说就是:</p>
 $$\min_{\theta}\frac{\mathbb{I}_{\{\mathcal{L}_{\text{RE}}(x)<\tau_{\text{RE}}\}}(\mathcal{L}_{\text{RE}}(x)+\lambda\mathcal{L}_{\text{RI}}(x))}{\exp(\mathcal{L}_{\text{RE}}(x)-\mathcal{L}_0)}$$<p>分母表示加权项, $\tau_{\text{RE}}$ 表示区域熵的阈值, $\mathcal{L}_0$ 是超参数.</p>
@@ -527,12 +528,31 @@ $$\min_{\theta}\frac{\mathbb{I}_{\{\mathcal{L}_{\text{RE}}(x)<\tau_{\text{RE}}\}
 	class="gallery-image" 
 ></p>
 
+
+    
+<div class="article-references">
+    <h4>参考文献</h4>
+    <ul class="reference-list">
+        
+        <li>
+            <span id="reference-1" name="SAR" data-author="Niu et al., 2023">
+                Niu, S., Wu, J., Zhang, Y., Wen, Z., Chen, Y., Zhao, P., and Tan, M. Towards stable test-time adaptation in dynamic wild world. In Internetional Conference on Learning Representations, 2023
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-2" name="DeYO" data-author="Lee et al., 2024">
+                Lee, J., Jung, D., Lee, S., Park, J., Shin, J., Hwang, U., and Yoon, S. Entropy is not enough for test-time adaptation: From the perspective of disentangled factors. In The Twelfth International Conference on Learning Representations, 2024.
+            </span>
+        </li>
+        
+    </ul>
+</div>
+
 </section>
 
 
     <footer class="article-footer">
-    
-
     
     <section class="article-copyright">
         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -601,6 +621,19 @@ $$\min_{\theta}\frac{\mathbb{I}_{\{\mathcal{L}_{\text{RE}}(x)<\tau_{\text{RE}}\}
             
                 
 <article class="">
+    <a href="/p/paper-reading/icml-2025-oral-and-spotlight/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - ICML2025 高光论文选读</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
     <a href="/p/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-adam-%E7%9A%84%E6%94%B6%E6%95%9B%E6%80%A7%E5%88%86%E6%9E%90/">
         
         
@@ -633,19 +666,6 @@ $$\min_{\theta}\frac{\mathbb{I}_{\{\mathcal{L}_{\text{RE}}(x)<\tau_{\text{RE}}\}
 
         <div class="article-details">
             <h2 class="article-title">程序设计实习(8) —— 标准模板库</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/program-practice/string/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">程序设计实习(7) —— string 类</h2>
         </div>
     </a>
 </article>
@@ -758,7 +778,7 @@ $$\min_{\theta}\frac{\mathbb{I}_{\{\mathcal{L}_{\text{RE}}(x)<\tau_{\text{RE}}\}
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.5c09fe190420e66c8e31e7d8216a5ab1a0b948bb3d147b8ea533dc18d4c546e0.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.57552279ca013738c47491303c9548ea01540dd70ebc626d50929bdb46504578.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

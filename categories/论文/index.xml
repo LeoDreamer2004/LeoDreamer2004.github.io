@@ -7,7 +7,134 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>LeoDreamer</copyright>
-        <lastBuildDate>Thu, 19 Jun 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/%E8%AE%BA%E6%96%87/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 24 Jun 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/%E8%AE%BA%E6%96%87/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>论文阅读 - ICML2025 高光论文选读</title>
+        <link>https://LeoDreamer2004.github.io/p/paper-reading/icml-2025-oral-and-spotlight/</link>
+        <pubDate>Tue, 24 Jun 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/p/paper-reading/icml-2025-oral-and-spotlight/</guid>
+        <description>&lt;h2 id=&#34;oral-基于-svd-学习伪造特征&#34;&gt;[Oral] 基于 SVD 学习伪造特征
+&lt;/h2&gt;&lt;h3 id=&#34;aigis&#34;&gt;AIGIs
+&lt;/h3&gt;&lt;p&gt;AI 生成图像 (AI-Generated Images, AIGIs) 发展很快, 但也带来了潜在的巨大风险, 因此 AIGIs 的检测显得非常重要. 传统的方式是拿视觉基础模型 (Vision Foundation Model, VFM) 用二分类器, 预测图像被判定为虚假的可能性. 检测伪造的核心难点在于泛化. 现有的工作大概有两个方向:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;伪造模式 (fake pattern)&lt;/strong&gt; 学习, 是最主流的一种, 通过某个变换函数把 $x$ 映射到 $x&#39;$, 认为 $x&#39;$ 的特征空间可以学到伪造模式. 然而, 鉴于现实世界中伪造方法的多样性不断增加, 试图详尽列举所有可能的伪造模式并 &amp;ldquo;期望&amp;rdquo; 在未见过的伪造方法上实现良好的泛化是不现实的. (原话)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;真实分布 (real distribution)&lt;/strong&gt; 学习, 典型方法如单类异常检测, 提出一种误差作为得分, 来判断图像是否为伪造. 但这需要大量真实样本, 且通常属性分布不均衡的样本相当有限, 难以学习到真实图像的鲁棒表示.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;effort&#34;&gt;Effort
+&lt;/h3&gt;&lt;p&gt;论文 &lt;a class=&#34;link cite-SVD-AIGIs&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
+    &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
+&lt;/a&gt; 认为, 发生过拟合现象的重要原因是简单训练的检测器尝试寻找到已见过的假图像模式的捷径, 导致特征空间实质降维为低秩结构, 限制了表达能力和泛化能力. 因此论文采用了 PCA 方法, 强制模型保留高秩结构.&lt;/p&gt;
+&lt;p&gt;基于此, 对于预训练权重矩阵 $W$ (一般的 VFM 权重矩阵都是方阵, 比如 ResNet), SVD 将其分解为 $W = U \Sigma V^T$, 并采用秩-$r$ 近似 $W_r = U_r \Sigma_r V_r^T$. 残差分量 $W - W_r = U_{n-r} \Sigma_{n-r} V_{n-r}^T$ 是我们要学习的形式, 而 $U_r, \Sigma_r, V_r$ 则固定.&lt;/p&gt;
+&lt;p&gt;我们一方面希望 $\Delta W$ 捕捉真实与虚假之间有意义的差异, 一方面又希望优化 $\Delta W$ 是不改变 $W$ 整体的属性. 我们介绍 Effort 方法:&lt;/p&gt;
+&lt;div class=&#34;math-block&#34;&gt;
+    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;Effort&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 预训练权重矩阵 $W \in \mathbb{R}^{n \times n}$, 秩 $r$, 训练集 $D = \{(x_i, y_i)\}_{i=1}^N$, 超参数 $\lambda_1, \lambda_2$.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 更新后的权重矩阵 $W$.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;做 SVD 分解 $W = U \Sigma V^T$.&lt;/li&gt;
+&lt;li&gt;取 $r$ 个主成分, 计算 $W_r = U_r \Sigma_r V_r^T$, 保持不变.&lt;/li&gt;
+&lt;li&gt;对残差分量做 SVD: $\Delta W = W-W_r = U_{n-r} \Sigma_{n-r} V_{n-r}^T$. 并记:
+$$
+    \hat{U} = \begin{bmatrix} U_r &amp; U_{n-r} \end{bmatrix} \quad
+    \hat{V} = \begin{bmatrix} V_r &amp; V_{n-r} \end{bmatrix}
+    $$&lt;/li&gt;
+&lt;li&gt;利用 $W=W_r+\Delta W$ 做前向传播, 计算损失 $\mathcal{L}_{\text{cls}}$.&lt;/li&gt;
+&lt;li&gt;计算正交正则化损失 &lt;em&gt;(用于保持奇异向量的正交性质)&lt;/em&gt;:
+$$
+    \mathcal{L}_{\text{ortho}} = \| \hat{U}^T \hat{U} - I \|_F^2 + \| \hat{V}^T \hat{V} - I \|_F^2
+    $$&lt;/li&gt;
+&lt;li&gt;计算奇异值约束损失 &lt;em&gt;(用于控制奇异值的接近程度)&lt;/em&gt;:
+$$
+    \mathcal{L}_{\text{ksv}} = \left| \| \hat{W} \|_F^2 - \|W\|_F^2 \right|
+    $$&lt;/li&gt;
+&lt;li&gt;计算总损失:
+$$
+    \mathcal{L} = \mathcal{L}_{\text{cls}} + \lambda_1 \mathcal{L}_{\text{ortho}} + \lambda_2 \mathcal{L}_{\text{ksv}}
+    $$&lt;/li&gt;
+&lt;li&gt;反向传播, 更新 $\Delta W$.&lt;/li&gt;
+&lt;li&gt;对每个 epoch 和 batch, 重复步骤 4-8.&lt;/li&gt;
+&lt;li&gt;返回更新后的权重矩阵 $W = W_r + \Delta W$.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://arxiv.org/html/2411.15633v4/x5.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Effort&#34;
+	
+	class=&#34;gallery-image&#34; 
+&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;论文推荐 $r=n-1$, 即只用一个特征向量来捕捉虚假图像的特征. 对其他的 $r$ 也有一定鲁棒性.&lt;/p&gt;
+&lt;h3 id=&#34;实验及可视化&#34;&gt;实验及可视化
+&lt;/h3&gt;&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://LeoDreamer2004.github.io/p/paper-reading/icml-2025-oral-and-spotlight/img/effort-result.png&#34;
+	width=&#34;2347&#34;
+	height=&#34;535&#34;
+	srcset=&#34;https://LeoDreamer2004.github.io/p/paper-reading/icml-2025-oral-and-spotlight/img/effort-result_hu_b4485ebffc8ff0bc.png 480w, https://LeoDreamer2004.github.io/p/paper-reading/icml-2025-oral-and-spotlight/img/effort-result_hu_879f45f6271575ff.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Effort 实验结果&#34;
+	
+	class=&#34;gallery-image&#34; 
+&gt;&lt;/p&gt;
+&lt;p&gt;这张表格展现了 Effort 的巨大优势. 仅用了原本模型的约 0.1% ~ 1% 的训练参数量, 能带来高达 10 个点的提升.&lt;/p&gt;
+&lt;p&gt;论文还做了消融实验, 证明了正交正则化和奇异值约束对模型性能的作用. 架构默认采用 CLIP 作为 VFM, 但对其他 VFM 也有良好的适应性.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://arxiv.org/html/2411.15633v4/x4.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;语义-真实性分解&#34;
+	
+	class=&#34;gallery-image&#34; 
+&gt;&lt;/p&gt;
+&lt;p&gt;值得一提的是论文给出的语义-虚假性分解可视化方案. 一般的网络只能给出虚假性分数, 但 Effort 可以实现对语义和虚假性的正交分解学习.&lt;/p&gt;
+&lt;h2 id=&#34;oral-稀疏的-rl-网络可能更好&#34;&gt;[Oral] 稀疏的 RL 网络可能更好
+&lt;/h2&gt;&lt;h3 id=&#34;1000--10--100&#34;&gt;1000 * 10% &amp;gt; 100
+&lt;/h3&gt;&lt;p&gt;一般深度学习中较大的模型通常能获得更好的结果, 但在深度强化学习 (Deep Reinforcement Learning, DRL) 中, 这种规模扩展模式会失效，增加模型大小往往会导致性能下降.&lt;/p&gt;
+&lt;p&gt;论文 &lt;a class=&#34;link cite-Sparsity-RL&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
+    &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
+&lt;/a&gt; 指出, 如果在扩大参数规模的同时, 保持网络的稀疏性, 可以有效避免性能崩溃和优化问题.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://LeoDreamer2004.github.io/p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-result.png&#34;
+	width=&#34;2193&#34;
+	height=&#34;880&#34;
+	srcset=&#34;https://LeoDreamer2004.github.io/p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-result_hu_f0bdfc71a032e1ed.png 480w, https://LeoDreamer2004.github.io/p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-result_hu_6b006e621940d3fb.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;一般规模和大规模的稀疏网络对比&#34;
+	
+	class=&#34;gallery-image&#34; 
+&gt;&lt;/p&gt;
+&lt;p&gt;从这个图可以看出:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一般规模的网络在高稀疏化后表现不佳, 这很可能是因为稀疏化导致了网络容量的显著下降, 使得模型无法捕捉到足够的环境信息.&lt;/li&gt;
+&lt;li&gt;当网络规模增大时, 只允许学习一部分参数的高稀疏性的网络几乎总是优于原网络, 且此时比具有相同可学习参数量的稠密网络有更好的性能.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;参数壁垒和稀疏化&#34;&gt;参数壁垒和稀疏化
+&lt;/h3&gt;&lt;p&gt;实验显然带来了一个疑问: 稀疏网络在参数较少的情况下, 是如何实现优于密集网络的性能的?&lt;/p&gt;
+&lt;h4 id=&#34;表达能力&#34;&gt;表达能力
+&lt;/h4&gt;&lt;p&gt;论文用稳定秩 (Stable rank, Srank) &lt;a class=&#34;link ref-Srank&#34;&gt;&lt;/a&gt; 来衡量网络的表达能力.&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>论文阅读 - 基于自适应代理的置信度估计</title>
         <link>https://LeoDreamer2004.github.io/p/paper-reading/region-confidence-proxy-for-wild-test-time-adaption/</link>
         <pubDate>Thu, 19 Jun 2025 00:00:00 +0000</pubDate>
@@ -20,9 +147,9 @@
 &lt;li&gt;测试域是混合的分布. 通常由 $k$ 个子域组成: $D_{\text{test}} = \sum_{i=1}^k \Pi_i \cdot D_i$, 其中 $\Pi_i$ 是每个子域的混合系数.&lt;/li&gt;
 &lt;li&gt;标签的不平衡性和浮动性. 测试标签分布不均, 且可能会随着时间的推移而变化.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;常见的 TTA 方法是熵最小化策略 (&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/p/paper-reading/test-time-reinforcement-learning/&#34; &gt;这篇博客&lt;/a&gt; 有提及, 如 Tent 方法), 但当 TTA 的环境从 mild 变为 wild 时, 熵最小化的效果会大打折扣, 因此一些现有的工作是做样本过滤筛选.&lt;/p&gt;
+&lt;p&gt;常见的 TTA 方法是熵最小化策略 (&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/p/paper-reading/test-time-reinforcement-learning/&#34; &gt;这篇博客&lt;/a&gt; 有提及, 如 Tent 方法), 但当 TTA 的环境从 mild 变为 wild 时, 熵最小化的效果会大打折扣, 因此一些现有的工作是做样本过滤筛选, 例如 SAR &lt;a class=&#34;link ref-SAR&#34;&gt;&lt;/a&gt; 和 DeYO &lt;a class=&#34;link ref-DeYO&#34;&gt;&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;局部不一致性&#34;&gt;局部不一致性
-&lt;/h2&gt;&lt;p&gt;为此, 论文 &lt;a class=&#34;link cite-1&#34;&gt;[1]
+&lt;/h2&gt;&lt;p&gt;为此, 论文 &lt;a class=&#34;link cite-paper&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
 &lt;/a&gt; 提出了一个对模型输出确定性的替代方案, 即区域置信度.&lt;/p&gt;
 &lt;p&gt;熵最小化的核心思想是通过引导预测概率向主要的类别集中收敛, 其有效性很大程度上依赖于局部一致性, 也就是附近的点应该有相似的预测概率. WTTA 中, 局部不一致现象非常普遍, 此时简单的熵最小化会导致性能崩溃.&lt;/p&gt;
@@ -51,18 +178,19 @@ $$&lt;/div&gt;
 &lt;h2 id=&#34;recap&#34;&gt;ReCAP
 &lt;/h2&gt;&lt;p&gt;然而, 区域置信度的计算相当困难. 首先 $\Omega$ 的范围选择不确定, 其次两项都不能直接计算, 需要大量近似采样和前向传播的步骤. 为了降低训练复杂度, 论文引入了一种新的 &lt;strong&gt;区域置信度自适应代理 (Region Confidence Adaptation Proxy, ReCAP)&lt;/strong&gt; 框架.&lt;/p&gt;
 &lt;h3 id=&#34;概率区域&#34;&gt;概率区域
-&lt;/h3&gt;&lt;p&gt;我们先确定 $\Omega$ 的范围. 我们从主干网络的隐藏层中找区域置信度.&lt;/p&gt;
+&lt;/h3&gt;&lt;p&gt;我们先确定 $\Omega$ 的范围. 我们从主干网络的隐藏层中找区域置信度, 具体来说, 我们选定一个隐藏层, 输入 $x$ 后计算 $x$ 在经过网络中此隐藏层之后的特征 $z$, 然后对 $z$ 做一个仿射变换, 得到一个分类器的输出概率:&lt;/p&gt;
 $$
 p_{\theta}(z)_i = (\text{softmax}(Az+b))_i
-$$&lt;p&gt;下标 $i$ 表示第 $i$ 个类别, $A$ 和 $b$ 是分类器线性层的参数. 关于局部区域, 我们将其建模成一个多元高斯分布, 而非静态区域:&lt;/p&gt;
+$$&lt;p&gt;下标 $i$ 表示第 $i$ 个类别, $A$ 和 $b$ 是分类器线性层的参数.&lt;/p&gt;
+&lt;p&gt;关于局部区域, 我们将其建模成一个多元高斯分布, 而非静态区域:&lt;/p&gt;
 $$
 \Omega(z_t) := \mathcal{N}(z_t, \tau \cdot \Sigma)
-$$&lt;p&gt;其中, $\Omega(z_t)$ 是第 $t$ 个测试批次 $z_t$ 的局部区域, $\Sigma$ 是基于少量源数据得到的方差对角矩阵, $\tau$ 是一个超参数, 用于控制范围.&lt;/p&gt;
+$$&lt;p&gt;其中, $\Omega(z_t)$ 是第 $t$ 个测试批次 $z_t$ 的局部区域, 它是以 $z_T$ 为中心的高斯区域. $\Sigma$ 是基于少量源数据得到的方差对角矩阵, $\tau$ 是一个超参数, 用于控制范围.&lt;/p&gt;
 &lt;h3 id=&#34;置信度度量&#34;&gt;置信度度量
 &lt;/h3&gt;&lt;p&gt;接下来我们给出一个估计置信度的高效度量, 在此省略论文的数学推导, 直接给出结果:&lt;/p&gt;
 &lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;偏差项的有效度量&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;给定一个特征 $z$ 及其局部区域 $\Omega$, 该局部区域服从高斯分布 $\mathcal{N}(\mu, \Sigma)$. 整个分布上的熵损失期望具有上界:&lt;/p&gt;
+&lt;p&gt;给定一个特征 $z$ 及其局部区域 $\Omega$, 该局部区域服从高斯分布 $\mathcal{N}(z, \Sigma)$. 整个分布上的熵损失期望具有上界:&lt;/p&gt;
 $$
 \begin{aligned}
 &amp;\mathbb{E}[\mathcal{L}_{\text{ent}}] = -\mathbb{E}_{\hat{z} \sim \mathcal{N}(\mu, \Sigma)} \sum_{i=1}^C p_{\theta}(\hat{z})_i \log p_{\theta}(\hat{z})_i \\
@@ -72,7 +200,7 @@ $$&lt;p&gt;其中 $u_j = a_j \cdot z + b_j + \frac{1}{2} a_j \Sigma a_j^T$.&lt;/
 &lt;/div&gt;
 &lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;方差项的有效度量&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;给定一个特征 $z$ 及其局部区域 $\Omega$, 该局部区域服从高斯分布 $\mathcal{N}(\mu, \Sigma)$. 此分布输出概率与中心概率之间的 KL散度的期望值具有上界：&lt;/p&gt;
+&lt;p&gt;给定一个特征 $z$ 及其局部区域 $\Omega$, 该局部区域服从高斯分布 $\mathcal{N}(z, \Sigma)$. 此分布输出概率与中心概率之间的 KL散度的期望值具有上界：&lt;/p&gt;
 $$
 \begin{aligned}
 &amp;\mathbb{E}[D_{KL}(p_{\theta}(\hat{z}) \| p_{\theta}(z))] \\
@@ -80,7 +208,7 @@ $$
 \end{aligned}
 $$&lt;p&gt;其中 $v_j = a_j \cdot z + b_j$.&lt;/p&gt;
 &lt;/div&gt;
-&lt;p&gt;因此我们只需要最小化不等式右侧的代理 $\mathcal{L}_{\text{RE}}(z)$ 和 $\mathcal{L}_{\text{RI}}(z)$, 就可以了, 这个计算难度非常低, 不需要额外的采样和前向传播.&lt;/p&gt;
+&lt;p&gt;因此我们只需要最小化不等式右侧的代理 $\mathcal{L}_{\text{RE}}(z)$ 和 $\mathcal{L}_{\text{RI}}(z)$ 就可以了, 这个计算难度非常低, 不需要额外的采样和前向传播.&lt;/p&gt;
 &lt;h3 id=&#34;recap-训练&#34;&gt;ReCAP 训练
 &lt;/h3&gt;&lt;p&gt;我们也做样本过滤, 但是我们现在使用区域熵 $\mathcal{L}_{\text{RE}}$ 来识别可靠的样本, 并在适应过程中优化, 具体来说就是:&lt;/p&gt;
 $$\min_{\theta}\frac{\mathbb{I}_{\{\mathcal{L}_{\text{RE}}(x)&lt;\tau_{\text{RE}}\}}(\mathcal{L}_{\text{RE}}(x)+\lambda\mathcal{L}_{\text{RI}}(x))}{\exp(\mathcal{L}_{\text{RE}}(x)-\mathcal{L}_0)}$$&lt;p&gt;分母表示加权项, $\tau_{\text{RE}}$ 表示区域熵的阈值, $\mathcal{L}_0$ 是超参数.&lt;/p&gt;
@@ -133,12 +261,12 @@ $$\min_{\theta}\frac{\mathbb{I}_{\{\mathcal{L}_{\text{RE}}(x)&lt;\tau_{\text{RE}
 &lt;p&gt;常见的测试时适应算法包括:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;自适应批归一化&lt;/strong&gt;: 在测试阶段对批归一化层的均值和方差进行调整, 使其更适应当前输入分布, 同时不修改学习参数 &lt;code&gt;gamma&lt;/code&gt; 和 &lt;code&gt;beta&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;熵最小化&lt;/strong&gt;: 在测试阶段通过最小化模型输出的熵来提高模型的自信度.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;熵最小化&lt;/strong&gt;: 在测试阶段通过最小化模型输出的熵来提高模型的自信度, 最典型的如 TENT &lt;a class=&#34;link ref-TENT&#34;&gt;&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;p&gt;过往的 TTA 算法一般基于无监督学习, 即便是强化学习算法, 需要辛苦设计奖励函数, RLHF 需要人工标注数据, 成本高昂.&lt;/p&gt;
 &lt;h3 id=&#34;ttrl&#34;&gt;TTRL
-&lt;/h3&gt;&lt;p&gt;论文 &lt;a class=&#34;link cite-1&#34;&gt;[1]
+&lt;/h3&gt;&lt;p&gt;论文 &lt;a class=&#34;link cite-TTRL&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
 &lt;/a&gt; 开创性地提出了 &lt;strong&gt;测试时强化学习 (Test-Time Reinforcement Learning, TTRL)&lt;/strong&gt; 算法 (后面几篇论文都是在此基础上进行改进). TTRL 通过强化学习的方式, 在测试时对模型进行微调, 使其更好地适应当前输入分布.&lt;/p&gt;
 &lt;p&gt;在 &lt;strong&gt;无监督&lt;/strong&gt; 的情况下, 怎么设置奖励函数? 论文的策略非常简单: 多数投票.&lt;/p&gt;
@@ -188,7 +316,7 @@ $$
 	
 	class=&#34;gallery-image&#34; 
 &gt;&lt;/p&gt;
-&lt;p&gt;为什么能做这么好? 论文 &lt;a class=&#34;link cite-1&#34;&gt;[1]
+&lt;p&gt;为什么能做这么好? 论文 &lt;a class=&#34;link cite-TTRL&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     
 &lt;/a&gt; 给出了三个原因:&lt;/p&gt;
 &lt;ul&gt;
@@ -197,7 +325,7 @@ $$
 &lt;li&gt;&lt;strong&gt;在线学习&lt;/strong&gt;: TTRL 是在线学习算法, 可以在测试时不断更新模型参数, 使其更好地适应当前输入分布.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;基于熵最小化的强化学习&#34;&gt;基于熵最小化的强化学习
-&lt;/h2&gt;&lt;p&gt;论文 &lt;a class=&#34;link cite-2&#34;&gt;[2]
+&lt;/h2&gt;&lt;p&gt;论文 &lt;a class=&#34;link cite-RENT&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
 &lt;/a&gt; 给出基于最小化熵的强化学习算法 (Reinforcement Learning via Entropy Minimization, RENT). 基于 GRPO 框架测试, 把奖励函数设置为负熵, 认为只通过最小化输出的熵, 即可提高模型推理能力.&lt;/p&gt;
 &lt;p&gt;
@@ -215,18 +343,18 @@ $$
 	class=&#34;gallery-image&#34; 
 &gt;&lt;/p&gt;
 &lt;h2 id=&#34;内部反馈的强化学习&#34;&gt;内部反馈的强化学习
-&lt;/h2&gt;&lt;p&gt;除了 KL 正则化等等项之外, 我们关心奖励函数的设计. 这个奖励要与任务无关, 而由模型内部的反馈来决定. 与 &lt;a class=&#34;link cite-2&#34;&gt;[2]
+&lt;/h2&gt;&lt;p&gt;除了 KL 正则化等等项之外, 我们关心奖励函数的设计. 这个奖励要与任务无关, 而由模型内部的反馈来决定. 与 &lt;a class=&#34;link cite-RENT&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     
-&lt;/a&gt; 提出的负熵奖励不同, 论文 &lt;a class=&#34;link cite-3&#34;&gt;[3]
+&lt;/a&gt; 提出的负熵奖励不同, 论文 &lt;a class=&#34;link cite-RENT-2&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
 &lt;/a&gt; 给出了另一个置信度函数:&lt;/p&gt;
 $$
 S(o) = \frac{1}{|o|}\sum_{i=1}^{|o|}KL(U \| p_{\pi_{\theta}}(\cdot|o_{\lt i})) = -\frac{1}{|o| \cdot |V|} \sum_{i=1}^{|o|}\sum_{j=1}^{|V|} \log \left( |V| \cdot p_{\pi_{\theta}} (j|o_{\lt i}) \right)
 $$&lt;p&gt;其中 $o$ 是 token 序列, $U$ 表示均匀分布.&lt;/p&gt;
 &lt;h2 id=&#34;带有-clip-反馈的强化学习&#34;&gt;带有 CLIP 反馈的强化学习
-&lt;/h2&gt;&lt;p&gt;对于一般任务, 传统的测试时适应算法要最小化熵, 但很显然这个方式容易陷入错误的模型预测中. 与带有反馈的学习模型相比, 监督微调模型有更好的泛化能力.&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;对于一般任务, 传统的测试时适应算法要最小化熵, 但很显然这个方式容易陷入错误的模型预测中. 与监督微调模型相比, 带有反馈的学习模型有更好的泛化能力.&lt;/p&gt;
 &lt;h3 id=&#34;clip&#34;&gt;CLIP
-&lt;/h3&gt;&lt;p&gt;文章 &lt;a class=&#34;link cite-4&#34;&gt;[4]
+&lt;/h3&gt;&lt;p&gt;文章 &lt;a class=&#34;link cite-CLIP&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
 &lt;/a&gt; 通过引入 CLIP 反馈来解决置信度过高问题, 称为 RLCF(如下图).&lt;/p&gt;
 &lt;p&gt;
@@ -327,10 +455,10 @@ $$
 &lt;h3 id=&#34;实验&#34;&gt;实验
 &lt;/h3&gt;&lt;p&gt;RLCF 方法可以通用地建立在常用的架构上. 在零样本分类任务, 零样本图文检索和图像描述任务上, RLCF 都能显著提升模型的性能.&lt;/p&gt;
 &lt;h2 id=&#34;引入协方差正则化的强化学习&#34;&gt;引入协方差正则化的强化学习
-&lt;/h2&gt;&lt;p&gt;与论文 &lt;a class=&#34;link cite-4&#34;&gt;[4]
+&lt;/h2&gt;&lt;p&gt;与论文 &lt;a class=&#34;link cite-CLIP&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     
-&lt;/a&gt; 不同, 论文 &lt;a class=&#34;link cite-5&#34;&gt;[5]
-    
+&lt;/a&gt; 不同, 论文 &lt;a class=&#34;link cite-Entropy&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
+    &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
 &lt;/a&gt; 通过熵动力学来研究熵崩溃的问题, 最终的目的依然是控制熵.&lt;/p&gt;
 &lt;h3 id=&#34;熵崩溃&#34;&gt;熵崩溃
 &lt;/h3&gt;&lt;p&gt;强化学习过程中对于高置信度的策略会愈发增强其使用概率, 导致熵变得更加降低. 以下图揭示了熵崩溃和性能饱和的关系. 当熵下降到某个阈值时, 性能会达到饱和点.&lt;/p&gt;
@@ -607,7 +735,7 @@ $$
   &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;h2 id=&#34;测试时样本特定语言模型优化&#34;&gt;测试时样本特定语言模型优化
-&lt;/h2&gt;&lt;p&gt;论文 &lt;a class=&#34;link cite-6&#34;&gt;[6]
+&lt;/h2&gt;&lt;p&gt;论文 &lt;a class=&#34;link cite-SLOT&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
 &lt;/a&gt; 提出了 &lt;strong&gt;测试时样本特定语言模型优化 (Sample-specific Language Model Optimization at Test-time, SLOT)&lt;/strong&gt; 算法.&lt;/p&gt;
 &lt;div class=&#34;math-block&#34;&gt;
@@ -660,7 +788,7 @@ $$&lt;p&gt;测试表明, 与推理过程相关的词如 &amp;ldquo;think&amp;rdq
 &gt;&lt;/p&gt;
 &lt;p&gt;我的理解是和直接插入一层网络的区别是, 这个反向传播只更新 $\delta$ 而不更新模型参数, 且是一次性的, 只在测试时进行微调. 这只是一个测试时微调, 似乎不是强化学习.&lt;/p&gt;
 &lt;h2 id=&#34;虚假奖励也能训练&#34;&gt;虚假奖励也能训练?!
-&lt;/h2&gt;&lt;p&gt;说了这么多, 其实都是在说如何设计奖励函数. 但是, 论文 &lt;a class=&#34;link cite-7&#34;&gt;[7]
+&lt;/h2&gt;&lt;p&gt;说了这么多, 其实都是在说如何设计奖励函数. 但是, 论文 &lt;a class=&#34;link cite-Spurious&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
 &lt;/a&gt; 提出了一个非常反直觉的问题: 即使在使用与正确答案几乎没有或甚至负相关关系的虚假奖励下训练, RLVR 仍能在某些模型中激发强烈的数学推理能力!&lt;/p&gt;
 &lt;p&gt;论文给出了五种奖励函数:&lt;/p&gt;
@@ -739,7 +867,7 @@ $$&lt;p&gt;测试表明, 与推理过程相关的词如 &amp;ldquo;think&amp;rdq
 &gt;&lt;/p&gt;
 &lt;p&gt;因此综合来看, 论文推测, 在随机奖励训练中, 看似 &amp;ldquo;训练信号&amp;rdquo; 实际上是优化算法偏向利用预训练中学习到的先验知识的结果.&lt;/p&gt;
 &lt;h2 id=&#34;sherlock-自我纠正推理&#34;&gt;Sherlock: 自我纠正推理
-&lt;/h2&gt;&lt;p&gt;论文 &lt;a class=&#34;link cite-8&#34;&gt;[8]
+&lt;/h2&gt;&lt;p&gt;论文 &lt;a class=&#34;link cite-Sherlock&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
 &lt;/a&gt; 指出, 使用 SFT 或 RL 训练的模型缺乏逐步和响应层面自我纠正的能力. 一旦出现错误, 模型难以修正其推理, 往往无法从错误中恢复.&lt;/p&gt;
 &lt;h3 id=&#34;自我纠正&#34;&gt;自我纠正
@@ -759,7 +887,7 @@ $$
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;sherlock&#34;&gt;Sherlock
-&lt;/h3&gt;&lt;p&gt;为解决这一局限, 论文 &lt;a class=&#34;link cite-8&#34;&gt;[8]
+&lt;/h3&gt;&lt;p&gt;为解决这一局限, 论文 &lt;a class=&#34;link cite-Sherlock&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     
 &lt;/a&gt; 引入所谓 &lt;strong&gt;Sherlock&lt;/strong&gt; 算法来教导模型自我纠正, 从而增强其推理能力.&lt;/p&gt;
 &lt;div class=&#34;math-block&#34;&gt;
@@ -847,8 +975,8 @@ $$
 &gt;&lt;/p&gt;
 &lt;p&gt;论文进行了消融实验, 验证了 DPO 损失, SC 损失和动态 $\beta$ 的有效性.&lt;/p&gt;
 &lt;h2 id=&#34;objection&#34;&gt;Objection!
-&lt;/h2&gt;&lt;p&gt;刚才提及的多数论文都是错的! 一篇未正式发布的文章 &lt;a class=&#34;link cite-9&#34;&gt;[9]
-    
+&lt;/h2&gt;&lt;p&gt;刚才提及的多数论文都是错的! 一篇未正式发布的文章 &lt;a class=&#34;link cite-Objection&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
+    &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
 &lt;/a&gt; 要打假, 尤其是有关随机奖励的内容, 批驳的论文如下图:&lt;/p&gt;
 &lt;p&gt;
 
@@ -882,7 +1010,7 @@ $$
         
         <guid>https://LeoDreamer2004.github.io/p/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-adam-%E7%9A%84%E6%94%B6%E6%95%9B%E6%80%A7%E5%88%86%E6%9E%90/</guid>
         <description>&lt;h2 id=&#34;介绍&#34;&gt;介绍
-&lt;/h2&gt;&lt;p&gt;在论文 &lt;a class=&#34;link cite-1&#34;&gt;[1]
+&lt;/h2&gt;&lt;p&gt;在论文 &lt;a class=&#34;link cite-original&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
 &lt;/a&gt; 中, 作者首次介绍了 Adam 优化器. 此算法一经出现立刻爆火, 现在在深度学习当中已经成为一种最常用的优化算法.&lt;/p&gt;
 &lt;div class=&#34;math-block&#34;&gt;
@@ -906,7 +1034,7 @@ $$&lt;p&gt;其中 $\odot$ 表示逐元素相乘. 超参数通常取 $\beta_1=0.9
 &lt;/ul&gt;
 &lt;p&gt;当然还有加上衰减的 AdamW, 以及其他的变种, 以适应 Transformer 等模型的训练.&lt;/p&gt;
 &lt;h2 id=&#34;收敛--吗&#34;&gt;收敛 &amp;hellip; 吗?
-&lt;/h2&gt;&lt;p&gt;论文 &lt;a class=&#34;link cite-1&#34;&gt;[1]
+&lt;/h2&gt;&lt;p&gt;论文 &lt;a class=&#34;link cite-original&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     
 &lt;/a&gt; 中提到我们可以引入误差量来衡量收敛性:&lt;/p&gt;
 &lt;div class=&#34;math-block&#34;&gt;
@@ -977,9 +1105,9 @@ $$
 R(T) \le \mathcal{O}(\sqrt{T}) + \mathcal{O}(1) + \mathcal{O}(\ln T) = \mathcal{O}(\sqrt{T})
 $$&lt;/div&gt;
 &lt;h2 id=&#34;objection&#34;&gt;Objection!
-&lt;/h2&gt;&lt;p&gt;论文 &lt;a class=&#34;link cite-1&#34;&gt;[1]
+&lt;/h2&gt;&lt;p&gt;论文 &lt;a class=&#34;link cite-original&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     
-&lt;/a&gt; 的这个漏洞显然为人诟病. 于是论文 &lt;a class=&#34;link cite-2&#34;&gt;[2]
+&lt;/a&gt; 的这个漏洞显然为人诟病. 于是论文 &lt;a class=&#34;link cite-objection&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
 &lt;/a&gt; 中, 作者指出 Adam 并不总是收敛的. 论文中给出了一个反例:&lt;/p&gt;
 &lt;p&gt;我们取 $\beta_1=0, \beta_2=\frac{1}{1+C^2}$. 设考虑在时间 $t$ 观测到的函数 $f_t$ 为:&lt;/p&gt;
@@ -1002,18 +1130,18 @@ v_t &amp; = \beta_2 v_{t-1} + (1 - \beta_2) g_t^2 \\
 \end{aligned}
 $$&lt;p&gt;此处省略了偏差修正.&lt;/p&gt;
 &lt;/div&gt;
-&lt;p&gt;论文 &lt;a class=&#34;link cite-2&#34;&gt;[2]
+&lt;p&gt;论文 &lt;a class=&#34;link cite-objection&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     
 &lt;/a&gt; 采取实验证明, Amsgrad 具有更好的收敛性.&lt;/p&gt;
 &lt;h2 id=&#34;辩护与和解&#34;&gt;辩护与和解
-&lt;/h2&gt;&lt;p&gt;既然 Adam 可能不收敛, 那为什么在实际中表现良好呢? 一个直观的批驳是, 论文 &lt;a class=&#34;link cite-2&#34;&gt;[2]
+&lt;/h2&gt;&lt;p&gt;既然 Adam 可能不收敛, 那为什么在实际中表现良好呢? 一个直观的批驳是, 论文 &lt;a class=&#34;link cite-objection&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     
-&lt;/a&gt; 中的反例取的参数相当极端: $\beta_1, \beta_2$ 都很小. 在实际中, 我们通常取 $\beta_1=0.9, \beta_2=0.999$, 这便是论文 &lt;a class=&#34;link cite-3&#34;&gt;[3]
+&lt;/a&gt; 中的反例取的参数相当极端: $\beta_1, \beta_2$ 都很小. 在实际中, 我们通常取 $\beta_1=0.9, \beta_2=0.999$, 这便是论文 &lt;a class=&#34;link cite-converge&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
 &lt;/a&gt; 的切入点. 作者认为, 只要 $\beta_1^2 &lt; \beta_2$, 且 $\beta_2$ 充分大, 就可以保证收敛.&lt;/p&gt;
-&lt;p&gt;和 &lt;a class=&#34;link cite-2&#34;&gt;[2]
+&lt;p&gt;和 &lt;a class=&#34;link cite-objection&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     
-&lt;/a&gt;不同, 论文 &lt;a class=&#34;link cite-3&#34;&gt;[3]
+&lt;/a&gt;不同, 论文 &lt;a class=&#34;link cite-converge&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     
 &lt;/a&gt; 更注重实际. 从训练角度上, 一般是分成若干个 Epoch, 每个 Epoch 内处理的都是相同的 $n$ 个函数. 作者对 $f$ 以及其内的 $n$ 个分函数提出了如下要求:&lt;/p&gt;
 &lt;div class=&#34;math-block&#34;&gt;
@@ -1079,9 +1207,9 @@ $$
 $$&lt;p&gt;第二项正是我们的目标:&lt;/p&gt;
 $$M_2 = \frac{\nabla f(x_k)}{\sqrt{v_{k,0}}}\sum_{i=0}^{n-1} \nabla f_i(x_k) = \frac{\| \nabla f(x_k)^2 \|}{\sqrt{v_{k,0}}} \ge 0$$&lt;p&gt;现在全力以赴地考虑第一项, 这是证明的核心, 证明也很繁杂, 涉及大量计算以及对梯度范围的讨论, 这里省略. 最后合并处理得到结论.&lt;/p&gt;
 &lt;/div&gt;
-&lt;p&gt;强调一点, 所谓 $\beta_2$ 充分大, 是指 $\beta_2$ 需要大于一个与 $n$ 有关的常数 $\gamma(n)$, 如果 $n$ 不固定, 定理并不能证明什么. 因此, 作者与 &lt;a class=&#34;link cite-2&#34;&gt;[2]
+&lt;p&gt;强调一点, 所谓 $\beta_2$ 充分大, 是指 $\beta_2$ 需要大于一个与 $n$ 有关的常数 $\gamma(n)$, 如果 $n$ 不固定, 定理并不能证明什么. 因此, 作者与 &lt;a class=&#34;link cite-objection&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     
-&lt;/a&gt; 的结论达成了和解, 它们并不矛盾. 在 &lt;a class=&#34;link cite-3&#34;&gt;[3]
+&lt;/a&gt; 的结论达成了和解, 它们并不矛盾. 在 &lt;a class=&#34;link cite-converge&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     
 &lt;/a&gt; 中, 作者给出了关于收敛的结论:&lt;/p&gt;
 &lt;ul&gt;
@@ -1101,7 +1229,7 @@ $$
     \frac{1}{2}(x+2)^2 - \frac{3}{2}, &amp; x &lt; -1
     \end{cases} \\
     \end{aligned}
-    $$&lt;p&gt;在 $n \to \infty$ 时, 不收敛的 &amp;ldquo;危险区域&amp;rdquo; 会变得越来越大, 直到盖住 $(\beta_1, \beta_2)$ 这个点. 这个反例显然要比论文 &lt;a class=&#34;link cite-2&#34;&gt;[2]
+    $$&lt;p&gt;在 $n \to \infty$ 时, 不收敛的 &amp;ldquo;危险区域&amp;rdquo; 会变得越来越大, 直到盖住 $(\beta_1, \beta_2)$ 这个点. 这个反例显然要比论文 &lt;a class=&#34;link cite-objection&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     
 &lt;/a&gt; 中的更加深刻.&lt;/p&gt;
 &lt;/li&gt;
@@ -1171,9 +1299,9 @@ $$
 $$&lt;p&gt;由此移项即得证.&lt;/p&gt;
 &lt;/div&gt;
 &lt;h2 id=&#34;总结&#34;&gt;总结
-&lt;/h2&gt;&lt;p&gt;Adam 优化器的收敛性问题, 经过多篇论文的讨论, 目前已经有了比较清晰的结论. 论文 &lt;a class=&#34;link cite-1&#34;&gt;[1]
+&lt;/h2&gt;&lt;p&gt;Adam 优化器的收敛性问题, 经过多篇论文的讨论, 目前已经有了比较清晰的结论. 论文 &lt;a class=&#34;link cite-original&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     
-&lt;/a&gt; 中的定理是有漏洞的, 但在实际中, Adam 的表现依然良好. 尽管存在着不收敛的情况, 论文 &lt;a class=&#34;link cite-3&#34;&gt;[3]
+&lt;/a&gt; 中的定理是有漏洞的, 但在实际中, Adam 的表现依然良好. 尽管存在着不收敛的情况, 论文 &lt;a class=&#34;link cite-converge&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     
 &lt;/a&gt; 已经充分表明, 在日常使用中, 只要按照正常习惯选取合理的超参数, 就可以保证收敛, Adam 的实用性至此得到了验证.&lt;/p&gt;
 </description>

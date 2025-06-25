@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="什么人才能站着讲15分钟不冷场...(By Deepseek)">
+<title>论文阅读 - ICML2025 高光论文选读</title>
+
+<link rel='canonical' href='https://LeoDreamer2004.github.io/p/paper-reading/icml-2025-oral-and-spotlight/'>
+
+<link rel="stylesheet" href="/scss/style.min.f991297a51bfb3ec7265f5caabcf8b61b92014e8d7b4c22fa6d4f0c6cb9ce9ce.css"><meta property='og:title' content="论文阅读 - ICML2025 高光论文选读">
+<meta property='og:description' content="什么人才能站着讲15分钟不冷场...(By Deepseek)">
+<meta property='og:url' content='https://LeoDreamer2004.github.io/p/paper-reading/icml-2025-oral-and-spotlight/'>
+<meta property='og:site_name' content='LeoDreamer'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-06-24T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-06-24T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="论文阅读 - ICML2025 高光论文选读">
+<meta name="twitter:description" content="什么人才能站着讲15分钟不冷场...(By Deepseek)">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "light");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_af500e90a6e0f79a.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">💫</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">LeoDreamer</a></h1>
+            <h2 class="site-description">PKU 本科在读/新手&#43;&#43;</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/503370537'
+                        target="_blank"
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-bilibili"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6z" /><path d="M8 3l2 3" /><path d="M16 3l-2 3" /><path d="M9 13v-2" /><path d="M15 11v2" /></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/LeoDreamer2004'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>存档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>相关链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+
+    <section class="widget related-materials">
+
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">相关材料</h2>
+
+        <div class="widget--related-materials">
+             <ol>
+    
+    <li>
+        <a href="https://arxiv.org/abs/2411.15633" id="related-material-1" name="SVD-AIGIs" target="_blank" rel="noopener noreferrer">
+            Orthogonal Subspace Decomposition for Generalizable AI-Generated Image Detection
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://arxiv.org/abs/2506.17204" id="related-material-2" name="Sparsity-RL" target="_blank" rel="noopener noreferrer">
+            Network Sparsity Unlocks the Scaling Potential of Deep Reinforcement Learning
+        </a>
+    </li>
+    
+</ol>
+        </div>
+    </section>
+
+            
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#oral-基于-svd-学习伪造特征">[Oral] 基于 SVD 学习伪造特征</a>
+      <ol>
+        <li><a href="#aigis">AIGIs</a></li>
+        <li><a href="#effort">Effort</a></li>
+        <li><a href="#实验及可视化">实验及可视化</a></li>
+      </ol>
+    </li>
+    <li><a href="#oral-稀疏的-rl-网络可能更好">[Oral] 稀疏的 RL 网络可能更好</a>
+      <ol>
+        <li><a href="#1000--10--100">1000 * 10% &gt; 100</a></li>
+        <li><a href="#参数壁垒和稀疏化">参数壁垒和稀疏化</a>
+          <ol>
+            <li><a href="#表达能力">表达能力</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E8%AE%BA%E6%96%87/" style="background-color: #aa2b2c; color: #fff;">
+                论文
+            </a>
+        
+            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" style="background-color: #2a9d8f; color: #fff;">
+                计算机
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/paper-reading/icml-2025-oral-and-spotlight/">论文阅读 - ICML2025 高光论文选读</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            什么人才能站着讲15分钟不冷场...(By Deepseek)
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-06-24</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 3 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="oral-基于-svd-学习伪造特征">[Oral] 基于 SVD 学习伪造特征
+</h2><h3 id="aigis">AIGIs
+</h3><p>AI 生成图像 (AI-Generated Images, AIGIs) 发展很快, 但也带来了潜在的巨大风险, 因此 AIGIs 的检测显得非常重要. 传统的方式是拿视觉基础模型 (Vision Foundation Model, VFM) 用二分类器, 预测图像被判定为虚假的可能性. 检测伪造的核心难点在于泛化. 现有的工作大概有两个方向:</p>
+<ul>
+<li><strong>伪造模式 (fake pattern)</strong> 学习, 是最主流的一种, 通过某个变换函数把 $x$ 映射到 $x'$, 认为 $x'$ 的特征空间可以学到伪造模式. 然而, 鉴于现实世界中伪造方法的多样性不断增加, 试图详尽列举所有可能的伪造模式并 &ldquo;期望&rdquo; 在未见过的伪造方法上实现良好的泛化是不现实的. (原话)</li>
+<li><strong>真实分布 (real distribution)</strong> 学习, 典型方法如单类异常检测, 提出一种误差作为得分, 来判断图像是否为伪造. 但这需要大量真实样本, 且通常属性分布不均衡的样本相当有限, 难以学习到真实图像的鲁棒表示.</li>
+</ul>
+<h3 id="effort">Effort
+</h3><p>论文 <a class="link cite-SVD-AIGIs">[<span class="material-index"></span>]
+    <span class="material-name">Unknown-material</span> 
+</a> 认为, 发生过拟合现象的重要原因是简单训练的检测器尝试寻找到已见过的假图像模式的捷径, 导致特征空间实质降维为低秩结构, 限制了表达能力和泛化能力. 因此论文采用了 PCA 方法, 强制模型保留高秩结构.</p>
+<p>基于此, 对于预训练权重矩阵 $W$ (一般的 VFM 权重矩阵都是方阵, 比如 ResNet), SVD 将其分解为 $W = U \Sigma V^T$, 并采用秩-$r$ 近似 $W_r = U_r \Sigma_r V_r^T$. 残差分量 $W - W_r = U_{n-r} \Sigma_{n-r} V_{n-r}^T$ 是我们要学习的形式, 而 $U_r, \Sigma_r, V_r$ 则固定.</p>
+<p>我们一方面希望 $\Delta W$ 捕捉真实与虚假之间有意义的差异, 一方面又希望优化 $\Delta W$ 是不改变 $W$ 整体的属性. 我们介绍 Effort 方法:</p>
+<div class="math-block">
+    <p class="math-block-title math-algo">算法<span class="math-subtitle">Effort</span></p>
+<p><strong>输入</strong>: 预训练权重矩阵 $W \in \mathbb{R}^{n \times n}$, 秩 $r$, 训练集 $D = \{(x_i, y_i)\}_{i=1}^N$, 超参数 $\lambda_1, \lambda_2$.</p>
+<p><strong>输出</strong>: 更新后的权重矩阵 $W$.</p>
+<ol>
+<li>做 SVD 分解 $W = U \Sigma V^T$.</li>
+<li>取 $r$ 个主成分, 计算 $W_r = U_r \Sigma_r V_r^T$, 保持不变.</li>
+<li>对残差分量做 SVD: $\Delta W = W-W_r = U_{n-r} \Sigma_{n-r} V_{n-r}^T$. 并记:
+$$
+    \hat{U} = \begin{bmatrix} U_r & U_{n-r} \end{bmatrix} \quad
+    \hat{V} = \begin{bmatrix} V_r & V_{n-r} \end{bmatrix}
+    $$</li>
+<li>利用 $W=W_r+\Delta W$ 做前向传播, 计算损失 $\mathcal{L}_{\text{cls}}$.</li>
+<li>计算正交正则化损失 <em>(用于保持奇异向量的正交性质)</em>:
+$$
+    \mathcal{L}_{\text{ortho}} = \| \hat{U}^T \hat{U} - I \|_F^2 + \| \hat{V}^T \hat{V} - I \|_F^2
+    $$</li>
+<li>计算奇异值约束损失 <em>(用于控制奇异值的接近程度)</em>:
+$$
+    \mathcal{L}_{\text{ksv}} = \left| \| \hat{W} \|_F^2 - \|W\|_F^2 \right|
+    $$</li>
+<li>计算总损失:
+$$
+    \mathcal{L} = \mathcal{L}_{\text{cls}} + \lambda_1 \mathcal{L}_{\text{ortho}} + \lambda_2 \mathcal{L}_{\text{ksv}}
+    $$</li>
+<li>反向传播, 更新 $\Delta W$.</li>
+<li>对每个 epoch 和 batch, 重复步骤 4-8.</li>
+<li>返回更新后的权重矩阵 $W = W_r + \Delta W$.</li>
+</ol>
+<p>
+
+
+
+<img src="https://arxiv.org/html/2411.15633v4/x5.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="Effort"
+	
+	class="gallery-image" 
+></p>
+</div>
+<p>论文推荐 $r=n-1$, 即只用一个特征向量来捕捉虚假图像的特征. 对其他的 $r$ 也有一定鲁棒性.</p>
+<h3 id="实验及可视化">实验及可视化
+</h3><p>
+
+
+
+<img src="/p/paper-reading/icml-2025-oral-and-spotlight/img/effort-result.png"
+	width="2347"
+	height="535"
+	srcset="/p/paper-reading/icml-2025-oral-and-spotlight/img/effort-result_hu_b4485ebffc8ff0bc.png 480w, /p/paper-reading/icml-2025-oral-and-spotlight/img/effort-result_hu_879f45f6271575ff.png 1024w"
+	loading="lazy"
+	
+		alt="Effort 实验结果"
+	
+	class="gallery-image" 
+></p>
+<p>这张表格展现了 Effort 的巨大优势. 仅用了原本模型的约 0.1% ~ 1% 的训练参数量, 能带来高达 10 个点的提升.</p>
+<p>论文还做了消融实验, 证明了正交正则化和奇异值约束对模型性能的作用. 架构默认采用 CLIP 作为 VFM, 但对其他 VFM 也有良好的适应性.</p>
+<p>
+
+
+
+<img src="https://arxiv.org/html/2411.15633v4/x4.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="语义-真实性分解"
+	
+	class="gallery-image" 
+></p>
+<p>值得一提的是论文给出的语义-虚假性分解可视化方案. 一般的网络只能给出虚假性分数, 但 Effort 可以实现对语义和虚假性的正交分解学习.</p>
+<h2 id="oral-稀疏的-rl-网络可能更好">[Oral] 稀疏的 RL 网络可能更好
+</h2><h3 id="1000--10--100">1000 * 10% &gt; 100
+</h3><p>一般深度学习中较大的模型通常能获得更好的结果, 但在深度强化学习 (Deep Reinforcement Learning, DRL) 中, 这种规模扩展模式会失效，增加模型大小往往会导致性能下降.</p>
+<p>论文 <a class="link cite-Sparsity-RL">[<span class="material-index"></span>]
+    <span class="material-name">Unknown-material</span> 
+</a> 指出, 如果在扩大参数规模的同时, 保持网络的稀疏性, 可以有效避免性能崩溃和优化问题.</p>
+<p>
+
+
+
+<img src="/p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-result.png"
+	width="2193"
+	height="880"
+	srcset="/p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-result_hu_f0bdfc71a032e1ed.png 480w, /p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-result_hu_6b006e621940d3fb.png 1024w"
+	loading="lazy"
+	
+		alt="一般规模和大规模的稀疏网络对比"
+	
+	class="gallery-image" 
+></p>
+<p>从这个图可以看出:</p>
+<ul>
+<li>一般规模的网络在高稀疏化后表现不佳, 这很可能是因为稀疏化导致了网络容量的显著下降, 使得模型无法捕捉到足够的环境信息.</li>
+<li>当网络规模增大时, 只允许学习一部分参数的高稀疏性的网络几乎总是优于原网络, 且此时比具有相同可学习参数量的稠密网络有更好的性能.</li>
+</ul>
+<h3 id="参数壁垒和稀疏化">参数壁垒和稀疏化
+</h3><p>实验显然带来了一个疑问: 稀疏网络在参数较少的情况下, 是如何实现优于密集网络的性能的?</p>
+<h4 id="表达能力">表达能力
+</h4><p>论文用稳定秩 (Stable rank, Srank) <a class="link ref-Srank"></a> 来衡量网络的表达能力.</p>
+
+
+    
+<div class="article-references">
+    <h4>参考文献</h4>
+    <ul class="reference-list">
+        
+        <li>
+            <span id="reference-1" name="Srank" data-author="Kumar et al., 2021">
+                Kumar, A., Agarwal, R., Ghosh, D., and Levine, S. Implicit under-parameterization inhibits data-efficient deep reinforcement learning. In International Conference on Learning Representations, 2021.
+            </span>
+        </li>
+        
+    </ul>
+</div>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>本文遵循 CC BY-NC-SA 4.0 协议</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/paper-reading/region-confidence-proxy-for-wild-test-time-adaption/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - 基于自适应代理的置信度估计</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/paper-reading/test-time-reinforcement-learning/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - 测试时强化学习</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-adam-%E7%9A%84%E6%94%B6%E6%95%9B%E6%80%A7%E5%88%86%E6%9E%90/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - Adam 的收敛性分析</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/program-practice/cpp-feature/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">程序设计实习(9) —— C&#43;&#43; 特性</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/program-practice/stl/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">程序设计实习(8) —— 标准模板库</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 LeoDreamer
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.57552279ca013738c47491303c9548ea01540dd70ebc626d50929bdb46504578.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        z-index: 99;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-image: url(https://LeoDreamer2004.github.io/icons/back-top.svg);
+    }
+</style>
+
+<script>
+    function initTocHide() {
+        let toc = document.querySelector(".widget--toc");
+        if (!toc) {
+            return;
+        }
+        window.addEventListener('scroll', function () {
+            let openUl = document.querySelectorAll(".open");
+            openUl.forEach((ul) => {
+                ul.classList.remove("open")
+            })
+
+            let currentLi = document.querySelector(".active-class");
+            if (!currentLi) {
+                return
+            }
+
+            
+            if (currentLi.children.length > 1) {
+                currentLi.children[1].classList.add("open")
+            }
+            let ul = currentLi.parentElement;
+            do {
+                ul.classList.add("open");
+                ul = ul.parentElement.parentElement
+            } while (ul !== undefined && (ul.localName === 'ul' || ul.localName === 'ol'))
+        });
+    }
+
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.title = "返回顶部";
+        btn.onclick = backToTop
+        rightSideBar.appendChild(btn)
+        window.onscroll = function () {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    function backToTop() {
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initTocHide()
+    initScrollTop();
+</script>
+    </body>
+</html>

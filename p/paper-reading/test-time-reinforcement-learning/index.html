@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/paper-reading/test-time-reinforcement-learning/'>
 
-<link rel="stylesheet" href="/scss/style.min.13ddb3d602f4eed25afe08fc013445f3a0e1fb232c898fc9d09503c618c3e844.css"><meta property='og:title' content="论文阅读 - 测试时强化学习">
+<link rel="stylesheet" href="/scss/style.min.f991297a51bfb3ec7265f5caabcf8b61b92014e8d7b4c22fa6d4f0c6cb9ce9ce.css"><meta property='og:title' content="论文阅读 - 测试时强化学习">
 <meta property='og:description' content="[2025-06-06 周会] 你是说... 放养 AI, 它自己就能学会推理?">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/paper-reading/test-time-reinforcement-learning/'>
 <meta property='og:site_name' content='LeoDreamer'>
@@ -260,55 +260,55 @@
              <ol>
     
     <li>
-        <a href="https://arxiv.org/abs/2504.16084" id="related-material-1" target="_blank" rel="noopener noreferrer">
+        <a href="https://arxiv.org/abs/2504.16084" id="related-material-1" name="TTRL" target="_blank" rel="noopener noreferrer">
             TTRL: Test-Time Reinforcement Learning
         </a>
     </li>
     
     <li>
-        <a href="https://arxiv.org/abs/2505.22660" id="related-material-2" target="_blank" rel="noopener noreferrer">
+        <a href="https://arxiv.org/abs/2505.22660" id="related-material-2" name="RENT" target="_blank" rel="noopener noreferrer">
             Maximizing Confidence Alone Improves Reasoning
         </a>
     </li>
     
     <li>
-        <a href="https://arxiv.org/abs/2505.19590" id="related-material-3" target="_blank" rel="noopener noreferrer">
+        <a href="https://arxiv.org/abs/2505.19590" id="related-material-3" name="RENT-2" target="_blank" rel="noopener noreferrer">
             Learning to Reason without External Rewards
         </a>
     </li>
     
     <li>
-        <a href="https://arxiv.org/abs/2305.18010" id="related-material-4" target="_blank" rel="noopener noreferrer">
+        <a href="https://arxiv.org/abs/2305.18010" id="related-material-4" name="CLIP" target="_blank" rel="noopener noreferrer">
             Test-Time Adaptation with CLIP Reward for Zero-Shot Generalization in Vision-Language Models
         </a>
     </li>
     
     <li>
-        <a href="https://arxiv.org/abs/2505.22617" id="related-material-5" target="_blank" rel="noopener noreferrer">
+        <a href="https://arxiv.org/abs/2505.22617" id="related-material-5" name="Entropy" target="_blank" rel="noopener noreferrer">
             The Entropy Mechanism of Reinforcement Learning for Reasoning Language Models
         </a>
     </li>
     
     <li>
-        <a href="https://arxiv.org/abs/2505.12392" id="related-material-6" target="_blank" rel="noopener noreferrer">
+        <a href="https://arxiv.org/abs/2505.12392" id="related-material-6" name="SLOT" target="_blank" rel="noopener noreferrer">
             SLOT: Sample-specific Language Model Optimization at Test-time
         </a>
     </li>
     
     <li>
-        <a href="https://github.com/ruixin31/Rethink_RLVR" id="related-material-7" target="_blank" rel="noopener noreferrer">
+        <a href="https://github.com/ruixin31/Rethink_RLVR" id="related-material-7" name="Spurious" target="_blank" rel="noopener noreferrer">
             Spurious Rewards: Rethinking Training Signals in RLVR
         </a>
     </li>
     
     <li>
-        <a href="https://arxiv.org/abs/2505.22651" id="related-material-8" target="_blank" rel="noopener noreferrer">
+        <a href="https://arxiv.org/abs/2505.22651" id="related-material-8" name="Sherlock" target="_blank" rel="noopener noreferrer">
             Sherlock: Self-Correcting Reasoning in Vision-Language Models
         </a>
     </li>
     
     <li>
-        <a href="https://safe-lip-9a8.notion.site/Incorrect-Baseline-Evaluations-Call-into-Question-Recent-LLM-RL-Claims-2012f1fbf0ee8094ab8ded1953c15a37" id="related-material-9" target="_blank" rel="noopener noreferrer">
+        <a href="https://safe-lip-9a8.notion.site/Incorrect-Baseline-Evaluations-Call-into-Question-Recent-LLM-RL-Claims-2012f1fbf0ee8094ab8ded1953c15a37" id="related-material-9" name="Objection" target="_blank" rel="noopener noreferrer">
             Incorrect Baseline Evaluations Call into Question Recent LLM RL Claims
         </a>
     </li>
@@ -524,12 +524,12 @@
 <p>常见的测试时适应算法包括:</p>
 <ul>
 <li><strong>自适应批归一化</strong>: 在测试阶段对批归一化层的均值和方差进行调整, 使其更适应当前输入分布, 同时不修改学习参数 <code>gamma</code> 和 <code>beta</code>.</li>
-<li><strong>熵最小化</strong>: 在测试阶段通过最小化模型输出的熵来提高模型的自信度.</li>
+<li><strong>熵最小化</strong>: 在测试阶段通过最小化模型输出的熵来提高模型的自信度, 最典型的如 TENT <a class="link ref-TENT"></a>.</li>
 </ul>
 </div>
 <p>过往的 TTA 算法一般基于无监督学习, 即便是强化学习算法, 需要辛苦设计奖励函数, RLHF 需要人工标注数据, 成本高昂.</p>
 <h3 id="ttrl">TTRL
-</h3><p>论文 <a class="link cite-1">[1]
+</h3><p>论文 <a class="link cite-TTRL">[<span class="material-index"></span>]
     <span class="material-name">Unknown-material</span> 
 </a> 开创性地提出了 <strong>测试时强化学习 (Test-Time Reinforcement Learning, TTRL)</strong> 算法 (后面几篇论文都是在此基础上进行改进). TTRL 通过强化学习的方式, 在测试时对模型进行微调, 使其更好地适应当前输入分布.</p>
 <p>在 <strong>无监督</strong> 的情况下, 怎么设置奖励函数? 论文的策略非常简单: 多数投票.</p>
@@ -579,7 +579,7 @@ $$
 	
 	class="gallery-image" 
 ></p>
-<p>为什么能做这么好? 论文 <a class="link cite-1">[1]
+<p>为什么能做这么好? 论文 <a class="link cite-TTRL">[<span class="material-index"></span>]
     
 </a> 给出了三个原因:</p>
 <ul>
@@ -588,7 +588,7 @@ $$
 <li><strong>在线学习</strong>: TTRL 是在线学习算法, 可以在测试时不断更新模型参数, 使其更好地适应当前输入分布.</li>
 </ul>
 <h2 id="基于熵最小化的强化学习">基于熵最小化的强化学习
-</h2><p>论文 <a class="link cite-2">[2]
+</h2><p>论文 <a class="link cite-RENT">[<span class="material-index"></span>]
     <span class="material-name">Unknown-material</span> 
 </a> 给出基于最小化熵的强化学习算法 (Reinforcement Learning via Entropy Minimization, RENT). 基于 GRPO 框架测试, 把奖励函数设置为负熵, 认为只通过最小化输出的熵, 即可提高模型推理能力.</p>
 <p>
@@ -606,18 +606,18 @@ $$
 	class="gallery-image" 
 ></p>
 <h2 id="内部反馈的强化学习">内部反馈的强化学习
-</h2><p>除了 KL 正则化等等项之外, 我们关心奖励函数的设计. 这个奖励要与任务无关, 而由模型内部的反馈来决定. 与 <a class="link cite-2">[2]
+</h2><p>除了 KL 正则化等等项之外, 我们关心奖励函数的设计. 这个奖励要与任务无关, 而由模型内部的反馈来决定. 与 <a class="link cite-RENT">[<span class="material-index"></span>]
     
-</a> 提出的负熵奖励不同, 论文 <a class="link cite-3">[3]
+</a> 提出的负熵奖励不同, 论文 <a class="link cite-RENT-2">[<span class="material-index"></span>]
     <span class="material-name">Unknown-material</span> 
 </a> 给出了另一个置信度函数:</p>
 $$
 S(o) = \frac{1}{|o|}\sum_{i=1}^{|o|}KL(U \| p_{\pi_{\theta}}(\cdot|o_{\lt i})) = -\frac{1}{|o| \cdot |V|} \sum_{i=1}^{|o|}\sum_{j=1}^{|V|} \log \left( |V| \cdot p_{\pi_{\theta}} (j|o_{\lt i}) \right)
 $$<p>其中 $o$ 是 token 序列, $U$ 表示均匀分布.</p>
 <h2 id="带有-clip-反馈的强化学习">带有 CLIP 反馈的强化学习
-</h2><p>对于一般任务, 传统的测试时适应算法要最小化熵, 但很显然这个方式容易陷入错误的模型预测中. 与带有反馈的学习模型相比, 监督微调模型有更好的泛化能力.</p>
+</h2><p>对于一般任务, 传统的测试时适应算法要最小化熵, 但很显然这个方式容易陷入错误的模型预测中. 与监督微调模型相比, 带有反馈的学习模型有更好的泛化能力.</p>
 <h3 id="clip">CLIP
-</h3><p>文章 <a class="link cite-4">[4]
+</h3><p>文章 <a class="link cite-CLIP">[<span class="material-index"></span>]
     <span class="material-name">Unknown-material</span> 
 </a> 通过引入 CLIP 反馈来解决置信度过高问题, 称为 RLCF(如下图).</p>
 <p>
@@ -718,10 +718,10 @@ $$
 <h3 id="实验">实验
 </h3><p>RLCF 方法可以通用地建立在常用的架构上. 在零样本分类任务, 零样本图文检索和图像描述任务上, RLCF 都能显著提升模型的性能.</p>
 <h2 id="引入协方差正则化的强化学习">引入协方差正则化的强化学习
-</h2><p>与论文 <a class="link cite-4">[4]
+</h2><p>与论文 <a class="link cite-CLIP">[<span class="material-index"></span>]
     
-</a> 不同, 论文 <a class="link cite-5">[5]
-    
+</a> 不同, 论文 <a class="link cite-Entropy">[<span class="material-index"></span>]
+    <span class="material-name">Unknown-material</span> 
 </a> 通过熵动力学来研究熵崩溃的问题, 最终的目的依然是控制熵.</p>
 <h3 id="熵崩溃">熵崩溃
 </h3><p>强化学习过程中对于高置信度的策略会愈发增强其使用概率, 导致熵变得更加降低. 以下图揭示了熵崩溃和性能饱和的关系. 当熵下降到某个阈值时, 性能会达到饱和点.</p>
@@ -998,7 +998,7 @@ $$
   </tbody>
 </table></div>
 <h2 id="测试时样本特定语言模型优化">测试时样本特定语言模型优化
-</h2><p>论文 <a class="link cite-6">[6]
+</h2><p>论文 <a class="link cite-SLOT">[<span class="material-index"></span>]
     <span class="material-name">Unknown-material</span> 
 </a> 提出了 <strong>测试时样本特定语言模型优化 (Sample-specific Language Model Optimization at Test-time, SLOT)</strong> 算法.</p>
 <div class="math-block">
@@ -1051,7 +1051,7 @@ $$<p>测试表明, 与推理过程相关的词如 &ldquo;think&rdquo; 和 &ldquo
 ></p>
 <p>我的理解是和直接插入一层网络的区别是, 这个反向传播只更新 $\delta$ 而不更新模型参数, 且是一次性的, 只在测试时进行微调. 这只是一个测试时微调, 似乎不是强化学习.</p>
 <h2 id="虚假奖励也能训练">虚假奖励也能训练?!
-</h2><p>说了这么多, 其实都是在说如何设计奖励函数. 但是, 论文 <a class="link cite-7">[7]
+</h2><p>说了这么多, 其实都是在说如何设计奖励函数. 但是, 论文 <a class="link cite-Spurious">[<span class="material-index"></span>]
     <span class="material-name">Unknown-material</span> 
 </a> 提出了一个非常反直觉的问题: 即使在使用与正确答案几乎没有或甚至负相关关系的虚假奖励下训练, RLVR 仍能在某些模型中激发强烈的数学推理能力!</p>
 <p>论文给出了五种奖励函数:</p>
@@ -1130,7 +1130,7 @@ $$<p>测试表明, 与推理过程相关的词如 &ldquo;think&rdquo; 和 &ldquo
 ></p>
 <p>因此综合来看, 论文推测, 在随机奖励训练中, 看似 &ldquo;训练信号&rdquo; 实际上是优化算法偏向利用预训练中学习到的先验知识的结果.</p>
 <h2 id="sherlock-自我纠正推理">Sherlock: 自我纠正推理
-</h2><p>论文 <a class="link cite-8">[8]
+</h2><p>论文 <a class="link cite-Sherlock">[<span class="material-index"></span>]
     <span class="material-name">Unknown-material</span> 
 </a> 指出, 使用 SFT 或 RL 训练的模型缺乏逐步和响应层面自我纠正的能力. 一旦出现错误, 模型难以修正其推理, 往往无法从错误中恢复.</p>
 <h3 id="自我纠正">自我纠正
@@ -1150,7 +1150,7 @@ $$
 </li>
 </ul>
 <h3 id="sherlock">Sherlock
-</h3><p>为解决这一局限, 论文 <a class="link cite-8">[8]
+</h3><p>为解决这一局限, 论文 <a class="link cite-Sherlock">[<span class="material-index"></span>]
     
 </a> 引入所谓 <strong>Sherlock</strong> 算法来教导模型自我纠正, 从而增强其推理能力.</p>
 <div class="math-block">
@@ -1238,8 +1238,8 @@ $$
 ></p>
 <p>论文进行了消融实验, 验证了 DPO 损失, SC 损失和动态 $\beta$ 的有效性.</p>
 <h2 id="objection">Objection!
-</h2><p>刚才提及的多数论文都是错的! 一篇未正式发布的文章 <a class="link cite-9">[9]
-    
+</h2><p>刚才提及的多数论文都是错的! 一篇未正式发布的文章 <a class="link cite-Objection">[<span class="material-index"></span>]
+    <span class="material-name">Unknown-material</span> 
 </a> 要打假, 尤其是有关随机奖励的内容, 批驳的论文如下图:</p>
 <p>
 
@@ -1265,12 +1265,25 @@ $$
 <li><strong>token 长度</strong>: 有些模型需要较长的推理流程, 截断较小时会导致模型无法完成响应, 进而降低准确率.</li>
 </ol>
 
+
+    
+<div class="article-references">
+    <h4>参考文献</h4>
+    <ul class="reference-list">
+        
+        <li>
+            <span id="reference-1" name="TENT" data-author="Wang et al., 2020">
+                Dequan Wang, Evan Shelhamer, Shaoteng Liu, Bruno Olshausen, and Trevor Darrell. Tent: Fully test-time adaptation by entropy minimization.arXiv preprint arXiv:2006.10726, 2020.
+            </span>
+        </li>
+        
+    </ul>
+</div>
+
 </section>
 
 
     <footer class="article-footer">
-    
-
     
     <section class="article-copyright">
         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -1339,6 +1352,19 @@ $$
             
                 
 <article class="">
+    <a href="/p/paper-reading/icml-2025-oral-and-spotlight/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - ICML2025 高光论文选读</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
     <a href="/p/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-adam-%E7%9A%84%E6%94%B6%E6%95%9B%E6%80%A7%E5%88%86%E6%9E%90/">
         
         
@@ -1371,19 +1397,6 @@ $$
 
         <div class="article-details">
             <h2 class="article-title">程序设计实习(8) —— 标准模板库</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/program-practice/string/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">程序设计实习(7) —— string 类</h2>
         </div>
     </a>
 </article>
@@ -1496,7 +1509,7 @@ $$
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.5c09fe190420e66c8e31e7d8216a5ab1a0b948bb3d147b8ea533dc18d4c546e0.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.57552279ca013738c47491303c9548ea01540dd70ebc626d50929bdb46504578.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

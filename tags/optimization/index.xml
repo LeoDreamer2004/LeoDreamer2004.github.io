@@ -14,7 +14,7 @@
         
         <guid>https://LeoDreamer2004.github.io/p/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-adam-%E7%9A%84%E6%94%B6%E6%95%9B%E6%80%A7%E5%88%86%E6%9E%90/</guid>
         <description>&lt;h2 id=&#34;介绍&#34;&gt;介绍
-&lt;/h2&gt;&lt;p&gt;在论文 &lt;a class=&#34;link cite-1&#34;&gt;[1]
+&lt;/h2&gt;&lt;p&gt;在论文 &lt;a class=&#34;link cite-original&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
 &lt;/a&gt; 中, 作者首次介绍了 Adam 优化器. 此算法一经出现立刻爆火, 现在在深度学习当中已经成为一种最常用的优化算法.&lt;/p&gt;
 &lt;div class=&#34;math-block&#34;&gt;
@@ -38,7 +38,7 @@ $$&lt;p&gt;其中 $\odot$ 表示逐元素相乘. 超参数通常取 $\beta_1=0.9
 &lt;/ul&gt;
 &lt;p&gt;当然还有加上衰减的 AdamW, 以及其他的变种, 以适应 Transformer 等模型的训练.&lt;/p&gt;
 &lt;h2 id=&#34;收敛--吗&#34;&gt;收敛 &amp;hellip; 吗?
-&lt;/h2&gt;&lt;p&gt;论文 &lt;a class=&#34;link cite-1&#34;&gt;[1]
+&lt;/h2&gt;&lt;p&gt;论文 &lt;a class=&#34;link cite-original&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     
 &lt;/a&gt; 中提到我们可以引入误差量来衡量收敛性:&lt;/p&gt;
 &lt;div class=&#34;math-block&#34;&gt;
@@ -109,9 +109,9 @@ $$
 R(T) \le \mathcal{O}(\sqrt{T}) + \mathcal{O}(1) + \mathcal{O}(\ln T) = \mathcal{O}(\sqrt{T})
 $$&lt;/div&gt;
 &lt;h2 id=&#34;objection&#34;&gt;Objection!
-&lt;/h2&gt;&lt;p&gt;论文 &lt;a class=&#34;link cite-1&#34;&gt;[1]
+&lt;/h2&gt;&lt;p&gt;论文 &lt;a class=&#34;link cite-original&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     
-&lt;/a&gt; 的这个漏洞显然为人诟病. 于是论文 &lt;a class=&#34;link cite-2&#34;&gt;[2]
+&lt;/a&gt; 的这个漏洞显然为人诟病. 于是论文 &lt;a class=&#34;link cite-objection&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
 &lt;/a&gt; 中, 作者指出 Adam 并不总是收敛的. 论文中给出了一个反例:&lt;/p&gt;
 &lt;p&gt;我们取 $\beta_1=0, \beta_2=\frac{1}{1+C^2}$. 设考虑在时间 $t$ 观测到的函数 $f_t$ 为:&lt;/p&gt;
@@ -134,18 +134,18 @@ v_t &amp; = \beta_2 v_{t-1} + (1 - \beta_2) g_t^2 \\
 \end{aligned}
 $$&lt;p&gt;此处省略了偏差修正.&lt;/p&gt;
 &lt;/div&gt;
-&lt;p&gt;论文 &lt;a class=&#34;link cite-2&#34;&gt;[2]
+&lt;p&gt;论文 &lt;a class=&#34;link cite-objection&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     
 &lt;/a&gt; 采取实验证明, Amsgrad 具有更好的收敛性.&lt;/p&gt;
 &lt;h2 id=&#34;辩护与和解&#34;&gt;辩护与和解
-&lt;/h2&gt;&lt;p&gt;既然 Adam 可能不收敛, 那为什么在实际中表现良好呢? 一个直观的批驳是, 论文 &lt;a class=&#34;link cite-2&#34;&gt;[2]
+&lt;/h2&gt;&lt;p&gt;既然 Adam 可能不收敛, 那为什么在实际中表现良好呢? 一个直观的批驳是, 论文 &lt;a class=&#34;link cite-objection&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     
-&lt;/a&gt; 中的反例取的参数相当极端: $\beta_1, \beta_2$ 都很小. 在实际中, 我们通常取 $\beta_1=0.9, \beta_2=0.999$, 这便是论文 &lt;a class=&#34;link cite-3&#34;&gt;[3]
+&lt;/a&gt; 中的反例取的参数相当极端: $\beta_1, \beta_2$ 都很小. 在实际中, 我们通常取 $\beta_1=0.9, \beta_2=0.999$, 这便是论文 &lt;a class=&#34;link cite-converge&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
 &lt;/a&gt; 的切入点. 作者认为, 只要 $\beta_1^2 &lt; \beta_2$, 且 $\beta_2$ 充分大, 就可以保证收敛.&lt;/p&gt;
-&lt;p&gt;和 &lt;a class=&#34;link cite-2&#34;&gt;[2]
+&lt;p&gt;和 &lt;a class=&#34;link cite-objection&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     
-&lt;/a&gt;不同, 论文 &lt;a class=&#34;link cite-3&#34;&gt;[3]
+&lt;/a&gt;不同, 论文 &lt;a class=&#34;link cite-converge&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     
 &lt;/a&gt; 更注重实际. 从训练角度上, 一般是分成若干个 Epoch, 每个 Epoch 内处理的都是相同的 $n$ 个函数. 作者对 $f$ 以及其内的 $n$ 个分函数提出了如下要求:&lt;/p&gt;
 &lt;div class=&#34;math-block&#34;&gt;
@@ -211,9 +211,9 @@ $$
 $$&lt;p&gt;第二项正是我们的目标:&lt;/p&gt;
 $$M_2 = \frac{\nabla f(x_k)}{\sqrt{v_{k,0}}}\sum_{i=0}^{n-1} \nabla f_i(x_k) = \frac{\| \nabla f(x_k)^2 \|}{\sqrt{v_{k,0}}} \ge 0$$&lt;p&gt;现在全力以赴地考虑第一项, 这是证明的核心, 证明也很繁杂, 涉及大量计算以及对梯度范围的讨论, 这里省略. 最后合并处理得到结论.&lt;/p&gt;
 &lt;/div&gt;
-&lt;p&gt;强调一点, 所谓 $\beta_2$ 充分大, 是指 $\beta_2$ 需要大于一个与 $n$ 有关的常数 $\gamma(n)$, 如果 $n$ 不固定, 定理并不能证明什么. 因此, 作者与 &lt;a class=&#34;link cite-2&#34;&gt;[2]
+&lt;p&gt;强调一点, 所谓 $\beta_2$ 充分大, 是指 $\beta_2$ 需要大于一个与 $n$ 有关的常数 $\gamma(n)$, 如果 $n$ 不固定, 定理并不能证明什么. 因此, 作者与 &lt;a class=&#34;link cite-objection&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     
-&lt;/a&gt; 的结论达成了和解, 它们并不矛盾. 在 &lt;a class=&#34;link cite-3&#34;&gt;[3]
+&lt;/a&gt; 的结论达成了和解, 它们并不矛盾. 在 &lt;a class=&#34;link cite-converge&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     
 &lt;/a&gt; 中, 作者给出了关于收敛的结论:&lt;/p&gt;
 &lt;ul&gt;
@@ -233,7 +233,7 @@ $$
     \frac{1}{2}(x+2)^2 - \frac{3}{2}, &amp; x &lt; -1
     \end{cases} \\
     \end{aligned}
-    $$&lt;p&gt;在 $n \to \infty$ 时, 不收敛的 &amp;ldquo;危险区域&amp;rdquo; 会变得越来越大, 直到盖住 $(\beta_1, \beta_2)$ 这个点. 这个反例显然要比论文 &lt;a class=&#34;link cite-2&#34;&gt;[2]
+    $$&lt;p&gt;在 $n \to \infty$ 时, 不收敛的 &amp;ldquo;危险区域&amp;rdquo; 会变得越来越大, 直到盖住 $(\beta_1, \beta_2)$ 这个点. 这个反例显然要比论文 &lt;a class=&#34;link cite-objection&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     
 &lt;/a&gt; 中的更加深刻.&lt;/p&gt;
 &lt;/li&gt;
@@ -303,9 +303,9 @@ $$
 $$&lt;p&gt;由此移项即得证.&lt;/p&gt;
 &lt;/div&gt;
 &lt;h2 id=&#34;总结&#34;&gt;总结
-&lt;/h2&gt;&lt;p&gt;Adam 优化器的收敛性问题, 经过多篇论文的讨论, 目前已经有了比较清晰的结论. 论文 &lt;a class=&#34;link cite-1&#34;&gt;[1]
+&lt;/h2&gt;&lt;p&gt;Adam 优化器的收敛性问题, 经过多篇论文的讨论, 目前已经有了比较清晰的结论. 论文 &lt;a class=&#34;link cite-original&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     
-&lt;/a&gt; 中的定理是有漏洞的, 但在实际中, Adam 的表现依然良好. 尽管存在着不收敛的情况, 论文 &lt;a class=&#34;link cite-3&#34;&gt;[3]
+&lt;/a&gt; 中的定理是有漏洞的, 但在实际中, Adam 的表现依然良好. 尽管存在着不收敛的情况, 论文 &lt;a class=&#34;link cite-converge&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     
 &lt;/a&gt; 已经充分表明, 在日常使用中, 只要按照正常习惯选取合理的超参数, 就可以保证收敛, Adam 的实用性至此得到了验证.&lt;/p&gt;
 </description>

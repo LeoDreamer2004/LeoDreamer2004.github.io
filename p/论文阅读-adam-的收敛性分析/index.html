@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-adam-%E7%9A%84%E6%94%B6%E6%95%9B%E6%80%A7%E5%88%86%E6%9E%90/'>
 
-<link rel="stylesheet" href="/scss/style.min.13ddb3d602f4eed25afe08fc013445f3a0e1fb232c898fc9d09503c618c3e844.css"><meta property='og:title' content="论文阅读 - Adam 的收敛性分析">
+<link rel="stylesheet" href="/scss/style.min.f991297a51bfb3ec7265f5caabcf8b61b92014e8d7b4c22fa6d4f0c6cb9ce9ce.css"><meta property='og:title' content="论文阅读 - Adam 的收敛性分析">
 <meta property='og:description' content="到底收不收敛? 实际上要看微调水准.">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-adam-%E7%9A%84%E6%94%B6%E6%95%9B%E6%80%A7%E5%88%86%E6%9E%90/'>
 <meta property='og:site_name' content='LeoDreamer'>
@@ -260,19 +260,19 @@
              <ol>
     
     <li>
-        <a href="https://arxiv.org/abs/1412.6980" id="related-material-1" target="_blank" rel="noopener noreferrer">
+        <a href="https://arxiv.org/abs/1412.6980" id="related-material-1" name="original" target="_blank" rel="noopener noreferrer">
             Adam: A Method for Stochastic Optimization
         </a>
     </li>
     
     <li>
-        <a href="https://arxiv.org/abs/1904.09237" id="related-material-2" target="_blank" rel="noopener noreferrer">
+        <a href="https://arxiv.org/abs/1904.09237" id="related-material-2" name="objection" target="_blank" rel="noopener noreferrer">
             On the Convergence of Adam and Beyond
         </a>
     </li>
     
     <li>
-        <a href="https://arxiv.org/abs/2208.09632" id="related-material-3" target="_blank" rel="noopener noreferrer">
+        <a href="https://arxiv.org/abs/2208.09632" id="related-material-3" name="converge" target="_blank" rel="noopener noreferrer">
             Adam Can Converge Without Any Modification On Update Rules
         </a>
     </li>
@@ -432,7 +432,7 @@
     
     
     <h2 id="介绍">介绍
-</h2><p>在论文 <a class="link cite-1">[1]
+</h2><p>在论文 <a class="link cite-original">[<span class="material-index"></span>]
     <span class="material-name">Unknown-material</span> 
 </a> 中, 作者首次介绍了 Adam 优化器. 此算法一经出现立刻爆火, 现在在深度学习当中已经成为一种最常用的优化算法.</p>
 <div class="math-block">
@@ -456,7 +456,7 @@ $$<p>其中 $\odot$ 表示逐元素相乘. 超参数通常取 $\beta_1=0.9, \bet
 </ul>
 <p>当然还有加上衰减的 AdamW, 以及其他的变种, 以适应 Transformer 等模型的训练.</p>
 <h2 id="收敛--吗">收敛 &hellip; 吗?
-</h2><p>论文 <a class="link cite-1">[1]
+</h2><p>论文 <a class="link cite-original">[<span class="material-index"></span>]
     
 </a> 中提到我们可以引入误差量来衡量收敛性:</p>
 <div class="math-block">
@@ -527,9 +527,9 @@ $$
 R(T) \le \mathcal{O}(\sqrt{T}) + \mathcal{O}(1) + \mathcal{O}(\ln T) = \mathcal{O}(\sqrt{T})
 $$</div>
 <h2 id="objection">Objection!
-</h2><p>论文 <a class="link cite-1">[1]
+</h2><p>论文 <a class="link cite-original">[<span class="material-index"></span>]
     
-</a> 的这个漏洞显然为人诟病. 于是论文 <a class="link cite-2">[2]
+</a> 的这个漏洞显然为人诟病. 于是论文 <a class="link cite-objection">[<span class="material-index"></span>]
     <span class="material-name">Unknown-material</span> 
 </a> 中, 作者指出 Adam 并不总是收敛的. 论文中给出了一个反例:</p>
 <p>我们取 $\beta_1=0, \beta_2=\frac{1}{1+C^2}$. 设考虑在时间 $t$ 观测到的函数 $f_t$ 为:</p>
@@ -552,18 +552,18 @@ v_t & = \beta_2 v_{t-1} + (1 - \beta_2) g_t^2 \\
 \end{aligned}
 $$<p>此处省略了偏差修正.</p>
 </div>
-<p>论文 <a class="link cite-2">[2]
+<p>论文 <a class="link cite-objection">[<span class="material-index"></span>]
     
 </a> 采取实验证明, Amsgrad 具有更好的收敛性.</p>
 <h2 id="辩护与和解">辩护与和解
-</h2><p>既然 Adam 可能不收敛, 那为什么在实际中表现良好呢? 一个直观的批驳是, 论文 <a class="link cite-2">[2]
+</h2><p>既然 Adam 可能不收敛, 那为什么在实际中表现良好呢? 一个直观的批驳是, 论文 <a class="link cite-objection">[<span class="material-index"></span>]
     
-</a> 中的反例取的参数相当极端: $\beta_1, \beta_2$ 都很小. 在实际中, 我们通常取 $\beta_1=0.9, \beta_2=0.999$, 这便是论文 <a class="link cite-3">[3]
+</a> 中的反例取的参数相当极端: $\beta_1, \beta_2$ 都很小. 在实际中, 我们通常取 $\beta_1=0.9, \beta_2=0.999$, 这便是论文 <a class="link cite-converge">[<span class="material-index"></span>]
     <span class="material-name">Unknown-material</span> 
 </a> 的切入点. 作者认为, 只要 $\beta_1^2 < \beta_2$, 且 $\beta_2$ 充分大, 就可以保证收敛.</p>
-<p>和 <a class="link cite-2">[2]
+<p>和 <a class="link cite-objection">[<span class="material-index"></span>]
     
-</a>不同, 论文 <a class="link cite-3">[3]
+</a>不同, 论文 <a class="link cite-converge">[<span class="material-index"></span>]
     
 </a> 更注重实际. 从训练角度上, 一般是分成若干个 Epoch, 每个 Epoch 内处理的都是相同的 $n$ 个函数. 作者对 $f$ 以及其内的 $n$ 个分函数提出了如下要求:</p>
 <div class="math-block">
@@ -629,9 +629,9 @@ $$
 $$<p>第二项正是我们的目标:</p>
 $$M_2 = \frac{\nabla f(x_k)}{\sqrt{v_{k,0}}}\sum_{i=0}^{n-1} \nabla f_i(x_k) = \frac{\| \nabla f(x_k)^2 \|}{\sqrt{v_{k,0}}} \ge 0$$<p>现在全力以赴地考虑第一项, 这是证明的核心, 证明也很繁杂, 涉及大量计算以及对梯度范围的讨论, 这里省略. 最后合并处理得到结论.</p>
 </div>
-<p>强调一点, 所谓 $\beta_2$ 充分大, 是指 $\beta_2$ 需要大于一个与 $n$ 有关的常数 $\gamma(n)$, 如果 $n$ 不固定, 定理并不能证明什么. 因此, 作者与 <a class="link cite-2">[2]
+<p>强调一点, 所谓 $\beta_2$ 充分大, 是指 $\beta_2$ 需要大于一个与 $n$ 有关的常数 $\gamma(n)$, 如果 $n$ 不固定, 定理并不能证明什么. 因此, 作者与 <a class="link cite-objection">[<span class="material-index"></span>]
     
-</a> 的结论达成了和解, 它们并不矛盾. 在 <a class="link cite-3">[3]
+</a> 的结论达成了和解, 它们并不矛盾. 在 <a class="link cite-converge">[<span class="material-index"></span>]
     
 </a> 中, 作者给出了关于收敛的结论:</p>
 <ul>
@@ -651,7 +651,7 @@ $$
     \frac{1}{2}(x+2)^2 - \frac{3}{2}, & x < -1
     \end{cases} \\
     \end{aligned}
-    $$<p>在 $n \to \infty$ 时, 不收敛的 &ldquo;危险区域&rdquo; 会变得越来越大, 直到盖住 $(\beta_1, \beta_2)$ 这个点. 这个反例显然要比论文 <a class="link cite-2">[2]
+    $$<p>在 $n \to \infty$ 时, 不收敛的 &ldquo;危险区域&rdquo; 会变得越来越大, 直到盖住 $(\beta_1, \beta_2)$ 这个点. 这个反例显然要比论文 <a class="link cite-objection">[<span class="material-index"></span>]
     
 </a> 中的更加深刻.</p>
 </li>
@@ -721,18 +721,18 @@ $$
 $$<p>由此移项即得证.</p>
 </div>
 <h2 id="总结">总结
-</h2><p>Adam 优化器的收敛性问题, 经过多篇论文的讨论, 目前已经有了比较清晰的结论. 论文 <a class="link cite-1">[1]
+</h2><p>Adam 优化器的收敛性问题, 经过多篇论文的讨论, 目前已经有了比较清晰的结论. 论文 <a class="link cite-original">[<span class="material-index"></span>]
     
-</a> 中的定理是有漏洞的, 但在实际中, Adam 的表现依然良好. 尽管存在着不收敛的情况, 论文 <a class="link cite-3">[3]
+</a> 中的定理是有漏洞的, 但在实际中, Adam 的表现依然良好. 尽管存在着不收敛的情况, 论文 <a class="link cite-converge">[<span class="material-index"></span>]
     
 </a> 已经充分表明, 在日常使用中, 只要按照正常习惯选取合理的超参数, 就可以保证收敛, Adam 的实用性至此得到了验证.</p>
 
+
+    
 </section>
 
 
     <footer class="article-footer">
-    
-
     
     <section class="article-copyright">
         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -788,6 +788,19 @@ $$<p>由此移项即得证.</p>
             
                 
 <article class="">
+    <a href="/p/paper-reading/icml-2025-oral-and-spotlight/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - ICML2025 高光论文选读</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
     <a href="/p/paper-reading/region-confidence-proxy-for-wild-test-time-adaption/">
         
         
@@ -833,19 +846,6 @@ $$<p>由此移项即得证.</p>
 
         <div class="article-details">
             <h2 class="article-title">程序设计实习(8) —— 标准模板库</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/program-practice/string/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">程序设计实习(7) —— string 类</h2>
         </div>
     </a>
 </article>
@@ -958,7 +958,7 @@ $$<p>由此移项即得证.</p>
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.5c09fe190420e66c8e31e7d8216a5ab1a0b948bb3d147b8ea533dc18d4c546e0.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.57552279ca013738c47491303c9548ea01540dd70ebc626d50929bdb46504578.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');
