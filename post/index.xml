@@ -248,10 +248,10 @@ $$\min_{\theta}\frac{\mathbb{I}_{\{\mathcal{L}_{\text{RE}}(x)&lt;\tau_{\text{RE}
         </item>
         <item>
         <title>机器学习基础(13) —— 神经网络学习之小批量梯度下降法</title>
-        <link>https://LeoDreamer2004.github.io/p/machine-learning/minibatch/</link>
+        <link>https://LeoDreamer2004.github.io/p/machine-learning-base/minibatch/</link>
         <pubDate>Thu, 29 May 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://LeoDreamer2004.github.io/p/machine-learning/minibatch/</guid>
+        <guid>https://LeoDreamer2004.github.io/p/machine-learning-base/minibatch/</guid>
         <description>&lt;p&gt;无&lt;/p&gt;
 </description>
         </item>
@@ -1014,10 +1014,10 @@ $$
         </item>
         <item>
         <title>机器学习基础(12) —— VC 维与非一致可学习</title>
-        <link>https://LeoDreamer2004.github.io/p/machine-learning/vc-nu/</link>
+        <link>https://LeoDreamer2004.github.io/p/machine-learning-base/vc-nu/</link>
         <pubDate>Fri, 23 May 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://LeoDreamer2004.github.io/p/machine-learning/vc-nu/</guid>
+        <guid>https://LeoDreamer2004.github.io/p/machine-learning-base/vc-nu/</guid>
         <description>&lt;h2 id=&#34;vc-维&#34;&gt;VC 维
 &lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
@@ -1216,10 +1216,10 @@ $$&lt;/div&gt;
         </item>
         <item>
         <title>机器学习基础(11) —— 奇异值分解与主成分分析简介</title>
-        <link>https://LeoDreamer2004.github.io/p/machine-learning/pca/</link>
+        <link>https://LeoDreamer2004.github.io/p/machine-learning-base/pca/</link>
         <pubDate>Tue, 13 May 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://LeoDreamer2004.github.io/p/machine-learning/pca/</guid>
+        <guid>https://LeoDreamer2004.github.io/p/machine-learning-base/pca/</guid>
         <description>&lt;h2 id=&#34;奇异值分解&#34;&gt;奇异值分解
 &lt;/h2&gt;&lt;p&gt;用 $R(A)$ 表达 $\text{Im}(A)$, $N(A)$ 表达 $\text{Ker}(A)$. 则 $\text{dim} R(A) = \text{rank}(A)$, $\text{dim} R(A) + \text{dim} N(A) = n$.&lt;/p&gt;
 &lt;div class=&#34;math-block&#34;&gt;
@@ -2121,10 +2121,10 @@ $$\mathbf{Y} = V^T\mathbf{X}$$&lt;/li&gt;
         </item>
         <item>
         <title>机器学习基础(10) —— PAC 和 UC 可学习性</title>
-        <link>https://LeoDreamer2004.github.io/p/machine-learning/pac-uc/</link>
+        <link>https://LeoDreamer2004.github.io/p/machine-learning-base/pac-uc/</link>
         <pubDate>Tue, 29 Apr 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://LeoDreamer2004.github.io/p/machine-learning/pac-uc/</guid>
+        <guid>https://LeoDreamer2004.github.io/p/machine-learning-base/pac-uc/</guid>
         <description>&lt;h2 id=&#34;概率近似正确-pac&#34;&gt;概率近似正确 (PAC)
 &lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
@@ -2285,10 +2285,10 @@ $$&lt;p&gt;第一项称为 &lt;strong&gt;近似误差&lt;/strong&gt;; 第二项�
         </item>
         <item>
         <title>机器学习基础(9) —— 隐 Markov 模型</title>
-        <link>https://LeoDreamer2004.github.io/p/machine-learning/markov/</link>
+        <link>https://LeoDreamer2004.github.io/p/machine-learning-base/markov/</link>
         <pubDate>Tue, 22 Apr 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://LeoDreamer2004.github.io/p/machine-learning/markov/</guid>
+        <guid>https://LeoDreamer2004.github.io/p/machine-learning-base/markov/</guid>
         <description>&lt;h2 id=&#34;markov-链&#34;&gt;Markov 链
 &lt;/h2&gt;&lt;p&gt;Markov 链是刻画随机变量序列的概率分布的模型.&lt;/p&gt;
 &lt;div class=&#34;math-block&#34;&gt;
@@ -3451,10 +3451,10 @@ $$
         </item>
         <item>
         <title>机器学习基础(8) —— 聚类简介</title>
-        <link>https://LeoDreamer2004.github.io/p/machine-learning/clustering-intro/</link>
+        <link>https://LeoDreamer2004.github.io/p/machine-learning-base/clustering-intro/</link>
         <pubDate>Tue, 08 Apr 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://LeoDreamer2004.github.io/p/machine-learning/clustering-intro/</guid>
+        <guid>https://LeoDreamer2004.github.io/p/machine-learning-base/clustering-intro/</guid>
         <description>&lt;h2 id=&#34;基于原型的聚类方法&#34;&gt;基于原型的聚类方法
 &lt;/h2&gt;&lt;p&gt;与监督学习不同, 无监督学习基于数据集 $D=\{x_i\}_{i=1}^N$, 没有标签 $y_i$. 基于原型的方法通常假设数据内在的分布结构可以通过一组原型刻画, 先对原型初始化, 然后按照相应策略和准则进行迭代更新.&lt;/p&gt;
 &lt;h3 id=&#34;k-means-聚类&#34;&gt;K-means 聚类
@@ -3949,10 +3949,10 @@ $$&lt;p&gt;由此移项即得证.&lt;/p&gt;
         </item>
         <item>
         <title>机器学习基础(7) —— 集成学习</title>
-        <link>https://LeoDreamer2004.github.io/p/machine-learning/integrated-learning/</link>
+        <link>https://LeoDreamer2004.github.io/p/machine-learning-base/integrated-learning/</link>
         <pubDate>Fri, 28 Mar 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://LeoDreamer2004.github.io/p/machine-learning/integrated-learning/</guid>
+        <guid>https://LeoDreamer2004.github.io/p/machine-learning-base/integrated-learning/</guid>
         <description>&lt;h2 id=&#34;集成学习概述&#34;&gt;集成学习概述
 &lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
@@ -4059,10 +4059,10 @@ $$\epsilon^{\text{oob}} = \frac{1}{N} \sum_{i=1}^N \mathbb{I}(f_{\text{oob}}(x_i
         </item>
         <item>
         <title>机器学习基础(6) —— 神经网络学习初步</title>
-        <link>https://LeoDreamer2004.github.io/p/machine-learning/nn-beginner/</link>
+        <link>https://LeoDreamer2004.github.io/p/machine-learning-base/nn-beginner/</link>
         <pubDate>Tue, 25 Mar 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://LeoDreamer2004.github.io/p/machine-learning/nn-beginner/</guid>
+        <guid>https://LeoDreamer2004.github.io/p/machine-learning-base/nn-beginner/</guid>
         <description>&lt;h2 id=&#34;特征的线性组合&#34;&gt;特征的线性组合
 &lt;/h2&gt;&lt;p&gt;之前的二分类问题中, 如果把 $z=w^Tx+b$ 看做是衍生的新特征, 实际上感知机的模型就是 $y=\text{sign}(z)$. 二项逻辑斯蒂回归模型中, $P(y=1 \mid x) = \sigma(z)=\frac{1}{1+e^{-z}}$. 相当于引入了一个 sigmoid 函数进行非线性变换.&lt;/p&gt;
 &lt;p&gt;因此, 神经网络应运而生, 主要想法:&lt;/p&gt;
@@ -4611,10 +4611,10 @@ $$&lt;p&gt;直接推导也得到相应结果, 二者实际上是等价的. (利�
         </item>
         <item>
         <title>机器学习基础(5) —— 决策树模型</title>
-        <link>https://LeoDreamer2004.github.io/p/machine-learning/decision-tree/</link>
+        <link>https://LeoDreamer2004.github.io/p/machine-learning-base/decision-tree/</link>
         <pubDate>Tue, 18 Mar 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://LeoDreamer2004.github.io/p/machine-learning/decision-tree/</guid>
+        <guid>https://LeoDreamer2004.github.io/p/machine-learning-base/decision-tree/</guid>
         <description>&lt;h2 id=&#34;特征的分类能力评估&#34;&gt;特征的分类能力评估
 &lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
@@ -4727,10 +4727,10 @@ $$C(T) = \sum_{t=1}^{|T|} N_tQ_t(T) = \sum_{t=1}^{|T|} \sum_{x_i \in R_t} (y_i-\
         </item>
         <item>
         <title>机器学习基础(4) —— 基于近邻的分类方法</title>
-        <link>https://LeoDreamer2004.github.io/p/machine-learning/knn/</link>
+        <link>https://LeoDreamer2004.github.io/p/machine-learning-base/knn/</link>
         <pubDate>Fri, 14 Mar 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://LeoDreamer2004.github.io/p/machine-learning/knn/</guid>
+        <guid>https://LeoDreamer2004.github.io/p/machine-learning-base/knn/</guid>
         <description>&lt;h2 id=&#34;k-近邻算法&#34;&gt;k-近邻算法
 &lt;/h2&gt;&lt;p&gt;k-近邻算法的主要思想是, 对于一个给定的样本点 $x$, 找到训练集中与 $x$ 最近的 $k$ 个样本点, 然后根据这 $k$ 个样本点的类别进行多数占优的投票方式来预测 $x$ 的类别.&lt;/p&gt;
 &lt;p&gt;在 $n$ 维实数空间 $\mathbb{R}$ 中, 通常用 Minkowski 距离来度量两个点 $x_i, x_j$ 的相似性:&lt;/p&gt;
@@ -4805,10 +4805,10 @@ $$I_{m^\ast i^\ast} = \argmin_{m,i} \Vert x - I_{mi} \Vert_2^2$$&lt;/li&gt;
         </item>
         <item>
         <title>机器学习基础(3) —— 基于后验概率最大化准则的分类模型</title>
-        <link>https://LeoDreamer2004.github.io/p/machine-learning/bayes/</link>
+        <link>https://LeoDreamer2004.github.io/p/machine-learning-base/bayes/</link>
         <pubDate>Tue, 11 Mar 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://LeoDreamer2004.github.io/p/machine-learning/bayes/</guid>
+        <guid>https://LeoDreamer2004.github.io/p/machine-learning-base/bayes/</guid>
         <description>&lt;h2 id=&#34;后验概率最大化准则&#34;&gt;后验概率最大化准则
 &lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
@@ -5288,10 +5288,10 @@ $$&lt;p&gt;$\lambda=1$ 时称为 Laplace 平滑.&lt;/p&gt;
         </item>
         <item>
         <title>机器学习基础(2) —— 支持向量机</title>
-        <link>https://LeoDreamer2004.github.io/p/machine-learning/vector-machine/</link>
+        <link>https://LeoDreamer2004.github.io/p/machine-learning-base/vector-machine/</link>
         <pubDate>Fri, 28 Feb 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://LeoDreamer2004.github.io/p/machine-learning/vector-machine/</guid>
+        <guid>https://LeoDreamer2004.github.io/p/machine-learning-base/vector-machine/</guid>
         <description>&lt;h2 id=&#34;线性可分支持向量机&#34;&gt;线性可分支持向量机
 &lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
@@ -6801,10 +6801,10 @@ $$&lt;div class=&#34;math-block&#34;&gt;
         </item>
         <item>
         <title>机器学习基础(1) —— 概述</title>
-        <link>https://LeoDreamer2004.github.io/p/machine-learning/intro/</link>
+        <link>https://LeoDreamer2004.github.io/p/machine-learning-base/intro/</link>
         <pubDate>Tue, 18 Feb 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://LeoDreamer2004.github.io/p/machine-learning/intro/</guid>
+        <guid>https://LeoDreamer2004.github.io/p/machine-learning-base/intro/</guid>
         <description>&lt;h2 id=&#34;基础数学工具&#34;&gt;基础数学工具
 &lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
     &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;

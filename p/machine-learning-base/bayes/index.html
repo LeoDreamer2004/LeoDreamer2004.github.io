@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="特征的分类能力评估 定义\n给定数据集 $D=\\{(x_i,y_i)\\}_{i=1}^N$, 其中 $x_i=\\left(x_i^{(1)},x_i^{(2)},\\cdots,x_i^{(m)}\\right) \\in \\mathcal{X}$ 是第 $i$ 个样本的特征向量, $y_i \\in \\mathcal{Y}=\\{c_1,c_2,\\cdots,c_K\\}$ 是第 $i$ 个样本的标签. 假设数据集 $D$ 根据特征分成了 $K$ 个子集 $D_1,D_2,\\cdots,D_K$, 定义 经验熵 为\n">
-<title>机器学习基础(5) —— 决策树模型</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="后验概率最大化准则 定义\n对训练样本集 $D=\\{(x_i,y_i)\\}_{i=1}^n$, 其中 $x_i \\in \\mathcal{X}$, $y_i \\in \\mathcal{Y} = \\{c_1, c_2, \\cdots, c_K\\}$, 将 $x$ 的类别预测为 $c_i$ 的 风险 为\n$$ R(Y=c_i | x) = \\sum_{j=1}^K \\lambda_{ij} P(Y=c_j | x) $$其中 $\\lambda_{ij}$ 是将属于 $c_j$ 的样本预测为 $c_i$ 的损失. 最优预测 $\\hat{y}$ 是使得风险最小的类别, 即\n">
+<title>机器学习基础(3) —— 基于后验概率最大化准则的分类模型</title>
 
-<link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning/decision-tree/'>
+<link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning-base/bayes/'>
 
-<link rel="stylesheet" href="/scss/style.min.f991297a51bfb3ec7265f5caabcf8b61b92014e8d7b4c22fa6d4f0c6cb9ce9ce.css"><meta property='og:title' content="机器学习基础(5) —— 决策树模型">
-<meta property='og:description' content="特征的分类能力评估 定义\n给定数据集 $D=\\{(x_i,y_i)\\}_{i=1}^N$, 其中 $x_i=\\left(x_i^{(1)},x_i^{(2)},\\cdots,x_i^{(m)}\\right) \\in \\mathcal{X}$ 是第 $i$ 个样本的特征向量, $y_i \\in \\mathcal{Y}=\\{c_1,c_2,\\cdots,c_K\\}$ 是第 $i$ 个样本的标签. 假设数据集 $D$ 根据特征分成了 $K$ 个子集 $D_1,D_2,\\cdots,D_K$, 定义 经验熵 为\n">
-<meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning/decision-tree/'>
+<link rel="stylesheet" href="/scss/style.min.f991297a51bfb3ec7265f5caabcf8b61b92014e8d7b4c22fa6d4f0c6cb9ce9ce.css"><meta property='og:title' content="机器学习基础(3) —— 基于后验概率最大化准则的分类模型">
+<meta property='og:description' content="后验概率最大化准则 定义\n对训练样本集 $D=\\{(x_i,y_i)\\}_{i=1}^n$, 其中 $x_i \\in \\mathcal{X}$, $y_i \\in \\mathcal{Y} = \\{c_1, c_2, \\cdots, c_K\\}$, 将 $x$ 的类别预测为 $c_i$ 的 风险 为\n$$ R(Y=c_i | x) = \\sum_{j=1}^K \\lambda_{ij} P(Y=c_j | x) $$其中 $\\lambda_{ij}$ 是将属于 $c_j$ 的样本预测为 $c_i$ 的损失. 最优预测 $\\hat{y}$ 是使得风险最小的类别, 即\n">
+<meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning-base/bayes/'>
 <meta property='og:site_name' content='LeoDreamer'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-03-18T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-18T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="机器学习基础(5) —— 决策树模型">
-<meta name="twitter:description" content="特征的分类能力评估 定义\n给定数据集 $D=\\{(x_i,y_i)\\}_{i=1}^N$, 其中 $x_i=\\left(x_i^{(1)},x_i^{(2)},\\cdots,x_i^{(m)}\\right) \\in \\mathcal{X}$ 是第 $i$ 个样本的特征向量, $y_i \\in \\mathcal{Y}=\\{c_1,c_2,\\cdots,c_K\\}$ 是第 $i$ 个样本的标签. 假设数据集 $D$ 根据特征分成了 $K$ 个子集 $D_1,D_2,\\cdots,D_K$, 定义 经验熵 为\n">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-03-11T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-11T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="机器学习基础(3) —— 基于后验概率最大化准则的分类模型">
+<meta name="twitter:description" content="后验概率最大化准则 定义\n对训练样本集 $D=\\{(x_i,y_i)\\}_{i=1}^n$, 其中 $x_i \\in \\mathcal{X}$, $y_i \\in \\mathcal{Y} = \\{c_1, c_2, \\cdots, c_K\\}$, 将 $x$ 的类别预测为 $c_i$ 的 风险 为\n$$ R(Y=c_i | x) = \\sum_{j=1}^K \\lambda_{ij} P(Y=c_j | x) $$其中 $\\lambda_{ij}$ 是将属于 $c_j$ 的样本预测为 $c_i$ 的损失. 最优预测 $\\hat{y}$ 是使得风险最小的类别, 即\n">
     </head>
     <body class="
     article-page
@@ -260,20 +260,8 @@
              <ol>
     
     <li>
-        <a href="/materials/machine-learning/MachineLearning-5.pdf" id="related-material-1" name="" target="_blank" rel="noopener noreferrer">
+        <a href="/materials/machine-learning-base/MachineLearning-3.pdf" id="related-material-1" name="" target="_blank" rel="noopener noreferrer">
             本节课件
-        </a>
-    </li>
-    
-    <li>
-        <a href="/materials/machine-learning/homework-3.pdf" id="related-material-2" name="" target="_blank" rel="noopener noreferrer">
-            作业 3
-        </a>
-    </li>
-    
-    <li>
-        <a href="/materials/machine-learning/homework-3-decision_tree.py" id="related-material-3" name="" target="_blank" rel="noopener noreferrer">
-            作业 3-代码
         </a>
     </li>
     
@@ -303,9 +291,9 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#特征的分类能力评估">特征的分类能力评估</a></li>
-    <li><a href="#决策树模型">决策树模型</a></li>
-    <li><a href="#最小二乘回归树模型">最小二乘回归树模型</a></li>
+    <li><a href="#后验概率最大化准则">后验概率最大化准则</a></li>
+    <li><a href="#逻辑斯蒂回归模型">逻辑斯蒂回归模型</a></li>
+    <li><a href="#朴素-bayes-分类器">朴素 Bayes 分类器</a></li>
   </ol>
 </nav>
         </div>
@@ -342,7 +330,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/machine-learning/decision-tree/">机器学习基础(5) —— 决策树模型</a>
+            <a href="/p/machine-learning-base/bayes/">机器学习基础(3) —— 基于后验概率最大化准则的分类模型</a>
         </h2>
     
         
@@ -364,7 +352,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2025-03-18</time>
+                <time class="article-time--published">2025-03-11</time>
             </div>
         
 
@@ -379,7 +367,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 4 分钟
+                    阅读时长: 2 分钟
                 </time>
             </div>
         
@@ -396,114 +384,74 @@
     <section class="article-content">
     
     
-    <h2 id="特征的分类能力评估">特征的分类能力评估
+    <h2 id="后验概率最大化准则">后验概率最大化准则
 </h2><div class="math-block">
     <p class="math-block-title math-def">定义</p>
-<p>给定数据集 $D=\{(x_i,y_i)\}_{i=1}^N$, 其中 $x_i=\left(x_i^{(1)},x_i^{(2)},\cdots,x_i^{(m)}\right) \in \mathcal{X}$ 是第 $i$ 个样本的特征向量, $y_i \in \mathcal{Y}=\{c_1,c_2,\cdots,c_K\}$ 是第 $i$ 个样本的标签. 假设数据集 $D$ 根据特征分成了 $K$ 个子集 $D_1,D_2,\cdots,D_K$, 定义 <strong>经验熵</strong> 为</p>
+<p>对训练样本集 $D=\{(x_i,y_i)\}_{i=1}^n$, 其中 $x_i \in \mathcal{X}$, $y_i \in \mathcal{Y} = \{c_1, c_2, \cdots, c_K\}$, 将 $x$ 的类别预测为 $c_i$ 的 <strong>风险</strong> 为</p>
 $$
-H(D) = -\sum_{k=1}^K \frac{|D_k|}{|D|} \log_2 \frac{|D_k|}{|D|}
-$$<p>现在给定某维特征 $A$ 和其取值集合 $\{a_1,a_2,\cdots,a_m\}$, 根据 $A$ 的取值将数据集 $D$ 分成了 $m$ 个子集 $D_1^A,D_2^A,\cdots,D_m^A$, 并进一步考虑 $D_i^A$ 中的标签分布, 定义 <strong>条件经验熵</strong> 为</p>
+R(Y=c_i | x) = \sum_{j=1}^K \lambda_{ij} P(Y=c_j | x)
+$$<p>其中 $\lambda_{ij}$ 是将属于 $c_j$ 的样本预测为 $c_i$ 的损失. <strong>最优预测</strong> $\hat{y}$ 是使得风险最小的类别, 即</p>
 $$
-H(D|A) = \sum_{i=1}^m \frac{|D_i^A|}{|D|} H(D_i^A)
+\hat{y} = \argmin_{c_i} R(Y=c_i | x)
 $$</div>
-<p>如果条件经验熵和经验熵之差越大, 则说明特征 $A$ 对数据集 $D$ 的分类能力越强.</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>属性 $A$ 对数据集 $D$ 的 <strong>信息增益</strong> $g(D,A)$ 定义为</p>
+<p>假设采用 $0-1$ 损失函数, 易知</p>
 $$
-g(D,A) = H(D) - H(D|A)
-$$</div>
-<p>考虑到信息增益的计算会偏向于选择取值较多的特征, 为了避免这种情况, 引入信息增益率来评估特征的分类能力.</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>特征 $A$ 的 <strong>分裂信息</strong> $IV(A)$ 定义为</p>
-$$
-IV(A) = -\sum_{i=1}^m \frac{|D_i^A|}{|D|} \log_2 \frac{|D_i^A|}{|D|}
-$$<p>特征 $A$ 的 <strong>信息增益率</strong> $g_R(D,A)$ 定义为</p>
-$$
-g_R(D,A) = \frac{g(D,A)}{IV(A)}
-$$</div>
-<p>分裂信息其实就是按照 $A$ 取值作划分的经验熵.</p>
-<p>除了信息增益和信息增益率, 还有 Gini 指数可以用来评估特征的分类能力.</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>数据集 $D$ 的 <strong>Gini 指数</strong> $\text{Gini}(D)$ 定义为</p>
-$$
-\text{Gini}(D) = 1 - \sum_{k=1}^K \left(\frac{|D_k|}{|D|}\right)^2
-$$<p>特征 $A$ 的 <strong>Gini 指数</strong> $\text{Gini}(D,A)$ 定义为</p>
-$$
-\text{Gini}(D,A) = \sum_{i=1}^m \frac{|D_i^A|}{|D|} \text{Gini}(D_i^A)
-$$<p>如果按照特征 $A$ 是否取值为 $a_i$ 对数据集 $D$ 进行划分 $D=D_i^A \cup (D-D_i^A)$, 则 $A=a_i$ 的 <strong>Gini 指数</strong> $\text{Gini}_d(D,A=a_i)$ 定义为</p>
-$$
-\text{Gini}_d(D,A=a_i) = \frac{|D_i^A|}{|D|} \text{Gini}(D_i^A) + \frac{|D-D_i^A|}{|D|} \text{Gini}(D-D_i^A)
-$$</div>
-<p>Gini 指数可以看作任取两个样本, 它们的标签不一致的概率. 如果 Gini 指数越小, 则说明特征 $A$ 对数据集 $D$ 的分类能力越强.</p>
-<h2 id="决策树模型">决策树模型
+R(Y=c_i | x) = 1 - P(Y=c_i | x)
+$$<p>即输入 $x$ 的最优预测 $\hat{y}$ 为使得后验概率 $P(y | x)$ 最大的类别.</p>
+<h2 id="逻辑斯蒂回归模型">逻辑斯蒂回归模型
 </h2><div class="math-block">
-    <p class="math-block-title math-algo">算法<span class="math-subtitle">生成决策树</span></p>
-<p><strong>输入</strong>: 训练数据集 $D=\{(x_i,y_i)\}_{i=1}^N$, 特征集 $\mathcal{A}=\{A_1,A_2,\cdots,A_m\}$, 最优特征选择函数 $F$.</p>
-<p><strong>输出</strong>: 决策树 $T$.</p>
-<ol>
-<li>若数据集 $D$ 中所有样本的标签都是 $c_k$, 则生成一个类标记为 $c_k$ 的叶结点, 返回 $T$;</li>
-<li>若 $A=\emptyset$, 且 $D$ 非空, 则生成一个单节点树, 并以 $D$ 中样本数最多的类标记作为该节点的类标记, 返回 $T$;</li>
-<li>计算 $A^\ast=F(D,\mathcal{A})$;</li>
-<li>对 $A^\ast$ 的每一个取值 $a_i$, 构造一个对应于 $D_i$ 的子节点;</li>
-<li>若 $D_i=\emptyset$, 则将子节点标记为叶结点, 类标记为 $D$ 中样本数最多的类标记;</li>
-<li>否则, 将 $D_i$ 中样本数最多的类标记作为该节点的类标记</li>
-<li>对每个 $D_i$ 对应的非叶子节点, 以 $D_i$ 为训练集, 以 $\mathcal{A}-\{A^\ast\}$ 为特征集, 递归调用 1-6 步, 构建决策树 $T$.</li>
-</ol>
+    <p class="math-block-title math-def">定义</p>
+<p>设 $\mathcal{X}=\mathbb{R}^n, \mathcal{Y}=\{c_1,c_2\}$, <strong>逻辑斯蒂回归模型</strong> 是如下的后验概率分布:</p>
+$$
+\begin{aligned}
+P(Y=c_1 | x) &= \frac{\exp(w \cdot x + b)}{1+\exp(w \cdot x + b)} \\
+P(Y=c_2 | x) &= \frac{1}{1+\exp(w \cdot x + b)
+}
+\end{aligned}
+$$<p>其中 $w,b$ 是模型参数.</p>
 </div>
-<p>如果以信息增益为特征选择函数, 即 $A^\ast = \arg\max_{A \in \mathcal{A}} g(D,A)$, 则算法对应于 ID3 算法; 如果以信息增益率为特征选择函数, 即 $A^\ast = \arg\max_{A \in \mathcal{A}} g_R(D,A)$, 则算法对应于 C4.5 算法.</p>
-<p>二路划分会采用以特征的可能取值为切分点的二分法划分当前数据集, 例如与选择 Gini 指数最小的特征和切分点对应的特征值, 即 $(A^\ast,a^\ast) = \arg\min_{A \in \mathcal{A},a \in V(A)} \text{Gini}_d(D,A=a)$, 则算法对应于 CART 算法.</p>
-<p>为了降低过拟合风险, 可以对决策树进行剪枝. 常用的是后剪枝, 即先生成一棵完全生长的决策树, 然后根据泛化性能决定是否剪枝. 也可以采用正则化方法, 例如, 定义决策树 $T$ 的损失或代价函数:</p>
+<p>按照后验概率最大化准则, 显然当 $w \cdot x + b > 0$ 时, 预测为 $c_1$, 否则预测为 $c_2$.</p>
+<p>对于多类分类任务, 仍然可以使用逻辑斯蒂回归模型:</p>
 $$
-C_\alpha(T) = C(T) + \alpha |T|
-$$<p>其中 $C(T)$ 用于衡量 $T$ 对 $D$ 的拟合程度, $|T|$ 表示 $T$ 的叶结点个数, $\alpha \geq 0$ 用于权衡拟合程度和模型复杂度.</p>
-<p>CART 算法有特别的剪枝处理: 从 CART 算法生成得到完整决策树 $T_0$ 开始, 产生一个递增的权衡系数序列 $0=\alpha_0 < \alpha_1 < \cdots < \alpha_n < +\infty$ 和一个嵌套的子树序列 $\{T_0, T_1, \cdots, T_n\}$, $T_i$ 为 $\alpha \in [\alpha_i, \alpha_{i+1})$ 时的最优子树, $T_n$ 是根节点单独构成的树.</p>
-<p>如果是连续特征, 则可以考虑将其离散化, 例如, 通过二分法将其划分为两个区间, 选择最优划分点.</p>
-<p>现在继续从经验风险的角度来看决策树模型.采用 $0-1$ 损失函数, 设节点 $t$ 设置的标记是 $c_k$, 则在 $t$ 对应的数据集上的经验风险为</p>
+\begin{aligned}
+p(y=c_i | x) &= \frac{\exp(w_i \cdot x + b_i)}{\sum_{j=1}^{K-1} \exp(w_j \cdot x + b_j)}, \quad i=1,2,\cdots,K-1 \\
+p(y=c_K | x) &= \frac{1}{\sum_{j=1}^{K-1} \exp(w_j \cdot x + b_j)}
+\end{aligned}
+$$<p>给定 $D=\{(x_i,y_i)\}_{i=1}^n$, 其中 $x_i \in \mathbb{R}^n$, $y_i \in \mathcal{Y} = \{0,1\}$, 用 $\theta=(w,b)$ 表示二项逻辑斯蒂回归模型的参数, 令</p>
 $$
-\frac{1}{|D_t|} \sum_{i=1}^{|D_t|} I(y_i \neq c_k)
-$$<p>显见, 等价于</p>
+p(x;\theta) = p(Y=1 | x;\theta)
+$$<p>则考虑似然函数为</p>
 $$
-\max_{c_k \in \mathcal{Y}} \frac{1}{|D_t|} \sum_{i=1}^{|D_t|} I(y_i = c_k)
-$$<p>从现在来看, 决策树构造过程中划分的单元都是矩形的, 即分类边界是若干与特征坐标轴平行的边界组成. 多变量决策树模型允许用若干特征的线性组合来划分数据集, 对每个非叶结点学习一个线性分类器.</p>
-<h2 id="最小二乘回归树模型">最小二乘回归树模型
-</h2><p>CART 算法用于回归问题时, 采用平方误差损失函数选择属性和切分点.</p>
-<div class="math-block">
-    <p class="math-block-title math-algo">算法<span class="math-subtitle">CART</span></p>
-<p><strong>输入</strong>: 训练数据集 $D=\{(x_i,y_i)\}_{i=1}^N$, 特征集 $\mathcal{A}=\{A_1,A_2,\cdots,A_m\}$.</p>
-<p><strong>输出</strong>: 回归树 $T$.</p>
-<ol>
-<li>
-<p>设回归树将输入空间划分为 $M$ 个单元 $R_1,R_2,\cdots,R_M$, 并在每个单元上有一个固定的输出值 $c_m$, 则回归树模型可以表示为</p>
+\begin{aligned}
+L(\theta) &= \prod_{i=1}^n p(x_i;\theta)^{y_i} (1-p(x_i;\theta))^{1-y_i} \\
+\log L(\theta) &= \sum_{i=1}^n y_i \log p(x_i;\theta) + (1-y_i) \log (1-p(x_i;\theta)) \\
+&= \sum_{i=1}^N y_i(w \cdot x_i + b) - \log(1+\exp(w \cdot x_i + b))
+\end{aligned}
+$$<p>对 $w,b$ 求偏导为 $0$, 得到</p>
 $$
-    f(x)=\sum_{m=1}^M c_m I(x \in R_m)
-    $$</li>
-<li>
-<p>如果采用平方误差, 则 $R_m$ 的输出值 $c_m$ 应该是 $R_m$ 中所有样本输出值的均值, 即</p>
+\begin{aligned}
+\frac{\partial \log L(\theta)}{\partial w} &= \sum_{i=1}^n x_i(y_i - p(x_i;\theta)) = 0\\
+\frac{\partial \log L(\theta)}{\partial b} &= \sum_{i=1}^n (y_i - p(x_i;\theta)) = 0
+\end{aligned}
+$$<h2 id="朴素-bayes-分类器">朴素 Bayes 分类器
+</h2><div class="math-block">
+    <p class="math-block-title math-thm">定理<span class="math-subtitle">Bayes 公式</span></p>
 $$
-    \hat{c}_m = \frac{1}{|R_m|} \sum_{x_i \in R_m} y_i
-    $$</li>
-<li>
-<p>对于一个输入空间, 若选用第 $j$ 维特征变量作为切分变量, $s$ 作为切分点, 则可以将输入空间划分为两个区域</p>
+\begin{aligned}
+P(Y=c_i | x) &= \frac{P(x | Y=c_i) P(Y=c_i)}{P(x)} \\
+&= \frac{P(x | Y=c_i) P(Y=c_i)}{\sum_{j=1}^K P(x | Y=c_j) P(Y=c_j)}
+\end{aligned}
+$$</div>
+<p>朴素 Bayes 假定特征之间相互独立, 即</p>
 $$
-    R_1(j,s) = \{x|x^{(j)} \leq s\}, \quad R_2(j,s) = \{x|x^{(j)} > s\}
-    $$<p>则可以通过求解优化问题</p>
+p(X^1=x^1, X^2=x^2, \cdots, X^n=x^n | Y=c_k) = \prod_{j=1}^n p(X^j=x^j | Y=c_k)
+$$<p>对于输入实例 $x=(x^1,x^2,\cdots,x^n)$, 则后验概率</p>
 $$
-    \min_{j,s} \left[\min_{c_1} \sum_{x_i \in R_1(j,s)} (y_i-c_1)^2 + \min_{c_2} \sum_{x_i \in R_2(j,s)} (y_i-c_2)^2\right]
-    $$<p>来确定最优切分变量 $j$ 和切分点 $s$. 实际上这里的 $c_i$ 就应该取 2 步中的 $\hat{c}_m$.</p>
-</li>
-<li>
-<p>从初始输入空间开始, 按照误差最小原则递归划分, 重复如上过程, 直到满足停止条件.</p>
-</li>
-</ol>
-</div>
-<p>对于剪枝, 和分类任务处理框架一致, 采用</p>
+p(Y=c_k|x)=\frac{\left( \prod_{i=1}^n p(X^i=x^i | Y=c_k) \right) P(Y=c_k)}{\sum_{j=1}^K \left( \prod_{i=1}^n p(X^i=x^i | Y=c_j) \right) P(Y=c_j)}
+$$<p>分母是固定的, 只需比较分子的大小即可. 但是一旦某个特征取值和分类没有同时出现, 后验概率直接为 $0$, 为了避免这种情况, 通常引入一些平滑技术:</p>
 $$
-C_\alpha(T) = C(T) + \alpha |T|
-$$<p>计算损失, 其中</p>
-$$C(T) = \sum_{t=1}^{|T|} N_tQ_t(T) = \sum_{t=1}^{|T|} \sum_{x_i \in R_t} (y_i-\hat{c}_t)^2$$<p>$N_t$ 表示叶结点 $t$ 中的样本数, $Q_t(T)$ 表示叶结点 $t$ 的均方损失, $\hat{c}_t$ 表示叶结点 $t$ 的输出值均值.</p>
+p_{\lambda}(Y=c_k) = \frac{\sum_{j=1}^NI(y_j=c_k)+\lambda}{N+K\lambda}
+$$<p>$\lambda=1$ 时称为 Laplace 平滑.</p>
 
 
     
@@ -566,7 +514,7 @@ $$C(T) = \sum_{t=1}^{|T|} N_tQ_t(T) = \sum_{t=1}^{|T|} \sum_{x_i \in R_t} (y_i-\
             
                 
 <article class="">
-    <a href="/p/machine-learning/minibatch/">
+    <a href="/p/machine-learning-base/minibatch/">
         
         
 
@@ -579,7 +527,7 @@ $$C(T) = \sum_{t=1}^{|T|} N_tQ_t(T) = \sum_{t=1}^{|T|} \sum_{x_i \in R_t} (y_i-\
             
                 
 <article class="">
-    <a href="/p/machine-learning/vc-nu/">
+    <a href="/p/machine-learning-base/vc-nu/">
         
         
 
@@ -592,7 +540,7 @@ $$C(T) = \sum_{t=1}^{|T|} N_tQ_t(T) = \sum_{t=1}^{|T|} \sum_{x_i \in R_t} (y_i-\
             
                 
 <article class="">
-    <a href="/p/machine-learning/pca/">
+    <a href="/p/machine-learning-base/pca/">
         
         
 
@@ -605,7 +553,7 @@ $$C(T) = \sum_{t=1}^{|T|} N_tQ_t(T) = \sum_{t=1}^{|T|} \sum_{x_i \in R_t} (y_i-\
             
                 
 <article class="">
-    <a href="/p/machine-learning/pac-uc/">
+    <a href="/p/machine-learning-base/pac-uc/">
         
         
 
@@ -618,7 +566,7 @@ $$C(T) = \sum_{t=1}^{|T|} N_tQ_t(T) = \sum_{t=1}^{|T|} \sum_{x_i \in R_t} (y_i-\
             
                 
 <article class="">
-    <a href="/p/machine-learning/markov/">
+    <a href="/p/machine-learning-base/markov/">
         
         
 

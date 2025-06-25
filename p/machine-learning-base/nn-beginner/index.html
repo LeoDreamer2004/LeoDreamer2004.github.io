@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="概率近似正确 (PAC) 定义\n我们定义 泛化误差 为:\n$$ L_{\\mathcal{D},f}(h) = P_{X \\sim \\mathcal{\\mathcal{D}}}(h(X) \\neq f(X)) $$训练误差 为:\n$$ L_S(h) = \\frac{1}{m} \\sum_{i=1}^m \\mathbb{I}(h(X_i) \\neq f(X_i)) $$ 定义\n如果存在 $h^*$ 使得对任意 $L_{\\mathcal{D},f}(h^*) = 0$, 则称为 $f,\\mathcal{D}$ 满足 可实现假设.\n">
-<title>机器学习基础(10) —— PAC 和 UC 可学习性</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="特征的线性组合 之前的二分类问题中, 如果把 $z=w^Tx+b$ 看做是衍生的新特征, 实际上感知机的模型就是 $y=\\text{sign}(z)$. 二项逻辑斯蒂回归模型中, $P(y=1 \\mid x) = \\sigma(z)=\\frac{1}{1+e^{-z}}$. 相当于引入了一个 sigmoid 函数进行非线性变换.\n">
+<title>机器学习基础(6) —— 神经网络学习初步</title>
 
-<link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning/pac-uc/'>
+<link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning-base/nn-beginner/'>
 
-<link rel="stylesheet" href="/scss/style.min.f991297a51bfb3ec7265f5caabcf8b61b92014e8d7b4c22fa6d4f0c6cb9ce9ce.css"><meta property='og:title' content="机器学习基础(10) —— PAC 和 UC 可学习性">
-<meta property='og:description' content="概率近似正确 (PAC) 定义\n我们定义 泛化误差 为:\n$$ L_{\\mathcal{D},f}(h) = P_{X \\sim \\mathcal{\\mathcal{D}}}(h(X) \\neq f(X)) $$训练误差 为:\n$$ L_S(h) = \\frac{1}{m} \\sum_{i=1}^m \\mathbb{I}(h(X_i) \\neq f(X_i)) $$ 定义\n如果存在 $h^*$ 使得对任意 $L_{\\mathcal{D},f}(h^*) = 0$, 则称为 $f,\\mathcal{D}$ 满足 可实现假设.\n">
-<meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning/pac-uc/'>
+<link rel="stylesheet" href="/scss/style.min.f991297a51bfb3ec7265f5caabcf8b61b92014e8d7b4c22fa6d4f0c6cb9ce9ce.css"><meta property='og:title' content="机器学习基础(6) —— 神经网络学习初步">
+<meta property='og:description' content="特征的线性组合 之前的二分类问题中, 如果把 $z=w^Tx+b$ 看做是衍生的新特征, 实际上感知机的模型就是 $y=\\text{sign}(z)$. 二项逻辑斯蒂回归模型中, $P(y=1 \\mid x) = \\sigma(z)=\\frac{1}{1+e^{-z}}$. 相当于引入了一个 sigmoid 函数进行非线性变换.\n">
+<meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning-base/nn-beginner/'>
 <meta property='og:site_name' content='LeoDreamer'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-04-29T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-04-29T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="机器学习基础(10) —— PAC 和 UC 可学习性">
-<meta name="twitter:description" content="概率近似正确 (PAC) 定义\n我们定义 泛化误差 为:\n$$ L_{\\mathcal{D},f}(h) = P_{X \\sim \\mathcal{\\mathcal{D}}}(h(X) \\neq f(X)) $$训练误差 为:\n$$ L_S(h) = \\frac{1}{m} \\sum_{i=1}^m \\mathbb{I}(h(X_i) \\neq f(X_i)) $$ 定义\n如果存在 $h^*$ 使得对任意 $L_{\\mathcal{D},f}(h^*) = 0$, 则称为 $f,\\mathcal{D}$ 满足 可实现假设.\n">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-03-25T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-25T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="机器学习基础(6) —— 神经网络学习初步">
+<meta name="twitter:description" content="特征的线性组合 之前的二分类问题中, 如果把 $z=w^Tx+b$ 看做是衍生的新特征, 实际上感知机的模型就是 $y=\\text{sign}(z)$. 二项逻辑斯蒂回归模型中, $P(y=1 \\mid x) = \\sigma(z)=\\frac{1}{1+e^{-z}}$. 相当于引入了一个 sigmoid 函数进行非线性变换.\n">
     </head>
     <body class="
     article-page
@@ -260,14 +260,14 @@
              <ol>
     
     <li>
-        <a href="/materials/machine-learning/MachineLearning-10.pdf" id="related-material-1" name="" target="_blank" rel="noopener noreferrer">
+        <a href="/materials/machine-learning-base/MachineLearning-6.pdf" id="related-material-1" name="" target="_blank" rel="noopener noreferrer">
             本节课件
         </a>
     </li>
     
     <li>
-        <a href="/materials/machine-learning/homework-7.pdf" id="related-material-2" name="" target="_blank" rel="noopener noreferrer">
-            作业 7
+        <a href="/materials/machine-learning-base/homework-4.pdf" id="related-material-2" name="" target="_blank" rel="noopener noreferrer">
+            作业 4
         </a>
     </li>
     
@@ -297,10 +297,9 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#概率近似正确-pac">概率近似正确 (PAC)</a></li>
-    <li><a href="#不可知-pac-可学习性">不可知 PAC 可学习性</a></li>
-    <li><a href="#一致收敛-uc">一致收敛 (UC)</a></li>
-    <li><a href="#偏差复杂性分解">偏差复杂性分解</a></li>
+    <li><a href="#特征的线性组合">特征的线性组合</a></li>
+    <li><a href="#多层前馈神经网络">多层前馈神经网络</a></li>
+    <li><a href="#误差反向传播算法">误差反向传播算法</a></li>
   </ol>
 </nav>
         </div>
@@ -337,7 +336,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/machine-learning/pac-uc/">机器学习基础(10) —— PAC 和 UC 可学习性</a>
+            <a href="/p/machine-learning-base/nn-beginner/">机器学习基础(6) —— 神经网络学习初步</a>
         </h2>
     
         
@@ -359,7 +358,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2025-04-29</time>
+                <time class="article-time--published">2025-03-25</time>
             </div>
         
 
@@ -374,7 +373,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 5 分钟
+                    阅读时长: 2 分钟
                 </time>
             </div>
         
@@ -391,162 +390,82 @@
     <section class="article-content">
     
     
-    <h2 id="概率近似正确-pac">概率近似正确 (PAC)
-</h2><div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>我们定义 <strong>泛化误差</strong> 为:</p>
-$$
-L_{\mathcal{D},f}(h) = P_{X \sim \mathcal{\mathcal{D}}}(h(X) \neq f(X))
-$$<p><strong>训练误差</strong> 为:</p>
-$$
-L_S(h) = \frac{1}{m} \sum_{i=1}^m \mathbb{I}(h(X_i) \neq f(X_i))
-$$</div>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>如果存在 $h^*$ 使得对任意 $L_{\mathcal{D},f}(h^*) = 0$, 则称为 $f,\mathcal{D}$ 满足 <strong>可实现假设</strong>.</p>
-</div>
-<p>可实现假设意味着对 $1$ 的概率, 满足 $L_S(h^*) = 0$, 且对每个经验风险最小化的假设 $h_S$ 有 $L_S(h_S) =0$.</p>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
-<p>设 $\mathcal{H}$ 是有限的假设空间, $\delta \in (0,1), \epsilon>0$, 设正整数 $m$ 满足:</p>
-$$
-m \ge \frac{\log(|\mathcal{H}|/\delta)}{\epsilon}
-$$<p>对任意标签函数 $f$ 和任意分布 $\mathcal{D}$, 如果可实现性假设相对于 $\mathcal{H}, \mathcal{\mathcal{D}}, f$ 成立, 则在大小为 $m$ 的独立同分布样本 $S$ 的选择上有最低 $1-\delta$ 的概率满足: 对每个经验风险最小化的假设 $h_S$ 有:</p>
-$$
-L_{\mathcal{D},f}(h_S) \leq \epsilon
-$$<p class="math-block-title math-prf">证明</p>
-<p>令 $\mathcal{H}_B$ 表示“坏”假设的集合, 即</p>
-$$
-\mathcal{H}_B = \{ h \in \mathcal{H} : L_{(\mathcal{D}, f)}(h) > \epsilon \}
-$$<p>令 $S|_x = \{ x_1, \cdots, x_m \}$ 表示训练集的实例, $M = \{S|_x : \exists h \in \mathcal{H}_B, L_S(h) = 0\}$. 注意由可实现假设:</p>
-$$
-\{S|_x : L_{(\mathcal{D}, f)}(h_S) > \epsilon\} \subseteq M = \bigcup_{h \in \mathcal{H}_B} \{S|_x : L_S(h) = 0\}.
-$$<p>因此:</p>
-$$
-\begin{aligned}
-\mathcal{D}^m(\{S|_x : L_{(\mathcal{D}, f)}(h_S) > \epsilon\}) &\leq \mathcal{\mathcal{D}}^m(M) = \mathcal{\mathcal{D}}^m\left(\bigcup_{h \in \mathcal{H}_B} \{S|_x : L_S(h) = 0\}\right) \\
-&\leq \sum_{h \in \mathcal{H}_B} \mathcal{\mathcal{D}}^m(\{S|_x : L_S(h) = 0\}) \\
-&= \sum_{h \in \mathcal{H}_B} \prod_{i=1}^m \mathcal{\mathcal{D}}(\{x_i : h(x_i) = f(x_i)\})
-\end{aligned}
-$$<p>注意到对于每个 $h \in \mathcal{H}_B$,</p>
-$$
-\mathcal{D}(\{x_i : h(x_i) = f(x_i)\}) = 1 - L_{(\mathcal{D}, f)}(h) \leq 1 - \epsilon
-$$<p>代入上式, 再利用 $m$ 的定义可得:</p>
-$$
-\mathcal{D}^m(\{S|_x : L_{(\mathcal{D}, f)}(h_S) > \epsilon\}) \leq |\mathcal{H}_B| (1 - \epsilon)^m \le |\mathcal{H}| e^{-\epsilon m} \le \delta
-$$<p>由此, 即 $1-\mathcal{D}^m(\{S|_x : L_{(\mathcal{D}, f)}(h_S) > \epsilon\}) > 1-\delta$, 得证.</p>
-</div>
-<p>我们现在可以引入 PAC 可学习性的概念.</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>称假设空间 $\mathcal{H}$ 是 <strong>PAC 可学习的</strong>, 如果存在一个函数 $m_{\mathcal{H}} : (0, 1)^2 \to \mathbb{N}$ 和一个学习算法, 满足以下性质: 对于任意 $\delta, \epsilon \in (0, 1)$, 对于任意定义在 $\mathcal{X}$ 上的分布 $\mathcal{\mathcal{D}}$, 以及对于任意标记函数 $f : \mathcal{X} \to \{0, 1\}$, 如果可实现性假设相对于 $\mathcal{H}, \mathcal{\mathcal{D}}, f$ 成立, 那么当使用由 $\mathcal{\mathcal{D}}$ 生成的 $m \geq m_{\mathcal{H}}(\epsilon, \delta)$ 个独立同分布样本, 并用 $f$ 标记这些样本运行该算法时, 算法将返回一个假设 $h$, 使得在样本选择上以至少 $1 - \delta$ 的概率满足</p>
-$$
-L_{(\mathcal{\mathcal{D}}, f)}(h) \leq \epsilon
-$$<p>这里, $m$ 的大小称为 <strong>样本复杂度</strong>.</p>
-</div>
-<p>由刚才的定理, 显然:</p>
-$$
-m_{\mathcal{H}}(\epsilon, \delta) \le \left\lceil\frac{\log(|\mathcal{H}|/\delta)}{\epsilon}\right\rceil
-$$<h2 id="不可知-pac-可学习性">不可知 PAC 可学习性
-</h2><p>实际中 PAC 可学习性的假设很强. 我们放宽可实现性假设.</p>
-<p>Bayers 最优预测: 对于任意 $\mathcal{X} \times (0,1)$ 上的分布 $\mathcal{\mathcal{D}}$, 则最优预测是:</p>
-$$
-f_{\mathcal{\mathcal{D}}}(x) = \begin{cases}
-1 & \text{if } P(y=1|x) \ge \frac{1}{2} \\
-0 & \text{otherwise}
-\end{cases}
-$$<p>但由于 $\mathcal{\mathcal{D}}$ 是未知的, 我们不能直接使用 $f_{\mathcal{\mathcal{D}}}$ 进行预测. 我们希望找一个预测函数使得损失不比 $f_{\mathcal{\mathcal{D}}}$ 大很多.</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>称假设空间 $\mathcal{H}$ 是 <strong>不可知 PAC 可学习的</strong>, 如果存在一个函数 $m_{\mathcal{H}} : (0, 1)^2 \to \mathbb{N}$ 和一个学习算法, 满足以下性质: 对于任意 $\delta, \epsilon \in (0, 1)$, 对于任意定义在 $\mathcal{X} \times \mathcal{Y}$ 上的分布 $\mathcal{\mathcal{D}}$, 当使用由 $\mathcal{\mathcal{D}}$ 生成的 $m \geq m_{\mathcal{H}}(\epsilon, \delta)$ 个独立同分布样本训练时, 算法将返回一个假设 $h$, 使得在样本选择上以至少 $1 - \delta$ 的概率满足:</p>
-$$
-L_{\mathcal{\mathcal{D}}}(h) \le \min_{h' \in \mathcal{H}} L_{\mathcal{\mathcal{D}}}(h') + \epsilon
-$$<p>特别地, 我们称假设空间 $\mathcal{H}$ 是关于集合 $Z$ 和损失函数 $\ell: \mathcal{H} \times Z \to \mathbb{R}_+$ <strong>不可知 PAC 可学习的</strong>, 如果在上述定义中 $\mathcal{\mathcal{D}}$ 是 $Z$ 上的分布, 且不等式中 $L_{\mathcal{\mathcal{D}}}(h) = \mathbb{E}_{z \sim \mathcal{\mathcal{D}}}[\ell(h, z)]$.</p>
-</div>
-<p>显然, 如果可实现性假设成立, 则不可知 PAC 可学习性转化为 PAC 可学习性.</p>
-<h2 id="一致收敛-uc">一致收敛 (UC)
-</h2><div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>训练集 $S$ 被称为关于域 $Z$, 假设空间 $\mathcal{H}$, 损失函数 $\ell$ 和分布 $\mathcal{\mathcal{D}}$ 是 <strong>$\epsilon$-典型的</strong>, 如果</p>
-$$
-\forall h \in \mathcal{H}, |L_S(h) - L_{\mathcal{\mathcal{D}}}(h)| \leq \epsilon
-$$</div>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
-<p>假设训练集 $S$ 是 $\epsilon/2$-典型的, 则对于任意 $ERM_\mathcal{\mathcal{H}}(S)$ 算法的输出, 即任意 $h_S \in \argmin_{h \in \mathcal{H}} L_S(h)$, 有:</p>
-$$
-L_{\mathcal{\mathcal{D}}}(h_S) \leq \min_{h \in \mathcal{H}} L_D(h) + \epsilon
-$$<p class="math-block-title math-prf">证明</p>
-<p>利用定义可知</p>
-$$
-L_{\mathcal{\mathcal{D}}}(h_S) \le L_S(h_S) + \epsilon/2 \le L_S(h) + \epsilon/2 \le L_{\mathcal{\mathcal{D}}}(h) + \epsilon
-$$</div>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>称假设空间 $\mathcal{H}$ 关于域 $Z$, 损失函数 $\ell$ 具有 <strong>一致收敛性</strong>, 如果存在一个函数 $m_{\mathcal{H}}^{UC}: (0, 1)^2 \to \mathbb{N}$, 使得对于任意 $\epsilon, \delta \in (0, 1)$ 和任意 $Z$ 上的分布 $\mathcal{\mathcal{D}}$,  如果 $S$ 是从 $\mathcal{\mathcal{D}}$ 中独立同分布抽取的大小为 $m \geq m_{\mathcal{H}}^{UC}(\epsilon, \delta)$ 的样本, 则以至少 $1 - \delta$ 的概率, $S$ 是 $\epsilon$-典型的.</p>
-</div>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
-<p>如果假设空间 $\mathcal{H}$ 对于 $m_{\mathcal{H}}^{UC}(\epsilon, \delta)$ 具有一致收敛性, 则 $\mathcal{H}$ 是不可知 PAC 可学习的, 且样本复杂度满足:</p>
-$$
-m_{\mathcal{H}}(\epsilon, \delta) \leq m_{\mathcal{H}}^{UC}(\epsilon/2, \delta)
-$$<p>在这种情况下, $ERM_\mathcal{H}(S)$ 算法是 $\mathcal{H}$ 的不可知 PAC 学习算法.</p>
-</div>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理<span class="math-subtitle">Hoeffding 不等式</span></p>
-<p>设 $\theta_1, \cdots, \theta_m$ 是独立同分布随机变量, 且 $\mathbb{E}[\theta_i] = \mu$, $P(\theta_i \in [a, b]) = 1$. 则对于任意 $\epsilon > 0$, 有:</p>
-$$
-P\left(\left|\frac{1}{m} \sum_{i=1}^m \theta_i - \mu\right| > \epsilon\right) \leq 2 \exp\left(-\frac{2m\epsilon^2}{(b-a)^2}\right)
-$$</div>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
-<p>设 $\mathcal{H}$ 是有限的假设空间, $Z$ 是一个域, $\ell : \mathcal{H} \times Z \to [0, 1]$ 是一个损失函数. 则 $\mathcal{H}$ 具有一致收敛性, 且样本复杂度满足:</p>
-$$
-m_{\mathcal{H}}^{UC}(\epsilon, \delta) \leq \left\lceil \frac{\log(2|\mathcal{H}|/\delta)}{2\epsilon^2} \right\rceil
-$$<p>且此时 $\mathcal{H}$ 是不可知 PAC 可学习的, 且样本复杂度满足:</p>
-$$
-m_{\mathcal{H}}(\epsilon, \delta) \leq m_{\mathcal{H}}^{UC}(\epsilon/2, \delta) \leq \left\lceil \frac{2\log(2|\mathcal{H}|/\delta)}{\epsilon^2} \right\rceil
-$$<p class="math-block-title math-prf">证明</p>
-<p>固定 $\epsilon, \delta$, 我们要找 $m$ 使得对任意 $\mathcal{\mathcal{D}}$, 至少 $1 - \delta$ 的概率, $S$ 是 $\epsilon$-典型的. 即:</p>
-$$
-\mathcal{\mathcal{D}}^m(\{ S: \forall h \in \mathcal{H}, |L_S(h)-L_{\mathcal{\mathcal{D}}}(h)| \le \epsilon \}) \ge 1 - \delta
-$$<p>注意由 Hoeffding 不等式:</p>
-$$
-\begin{aligned}
-&\mathcal{\mathcal{D}}^m(\{ S: \forall h \in \mathcal{H}, |L_S(h)-L_{\mathcal{\mathcal{D}}}(h)| > \epsilon \}) \\
-& \le \sum_{h \in \mathcal{H}} \mathcal{\mathcal{D}}^m(\{ S: |L_S(h)-L_{\mathcal{\mathcal{D}}}(h)| > \epsilon \}) \\
-& \le \sum_{h \in \mathcal{H}} 2 e^{-2m\epsilon^2} = 2|\mathcal{H}| e^{-2m\epsilon^2}
-\end{aligned}
-$$<p>我们只要取:</p>
-$$
-m \ge \frac{\log(2|\mathcal{H}|/\delta)}{2\epsilon^2}
-$$<p>即得:</p>
-$$
-\mathcal{\mathcal{D}}^m(\{ S: \forall h \in \mathcal{H}, |L_S(h)-L_{\mathcal{\mathcal{D}}}(h)| > \epsilon \}) \le \delta
-$$<p>从而得证.</p>
-</div>
-<h2 id="偏差复杂性分解">偏差复杂性分解
-</h2><div class="math-block">
-    <p class="math-block-title math-thm">定理<span class="math-subtitle">无免费午餐</span></p>
-<p>设 $A$ 是在域 $X$ 上的 $0-1$ 误差函数二分类学习算法, 训练集大小 $m$ 是小于 $|X|/2$ 的任意数. 则存在一个在 $X \times \{0, 1\}$ 上的分布 $\mathcal{\mathcal{D}}$ 使得:</p>
+    <h2 id="特征的线性组合">特征的线性组合
+</h2><p>之前的二分类问题中, 如果把 $z=w^Tx+b$ 看做是衍生的新特征, 实际上感知机的模型就是 $y=\text{sign}(z)$. 二项逻辑斯蒂回归模型中, $P(y=1 \mid x) = \sigma(z)=\frac{1}{1+e^{-z}}$. 相当于引入了一个 sigmoid 函数进行非线性变换.</p>
+<p>因此, 神经网络应运而生, 主要想法:</p>
 <ol>
-<li>存在一个函数 $f : X \to \{0, 1\}$ 使得 $L_{\mathcal{\mathcal{D}}}(f) = 0$.</li>
-<li>选择 $S \sim \mathcal{\mathcal{D}}^m$ 时, 有至少 $1/7$ 的概率满足 $L_{\mathcal{\mathcal{D}}}(A(S)) \geq 1/8$.</li>
+<li>通过各维特征线性组合得到新特征</li>
+<li>基于衍生特征通过非线性变换得到新特征</li>
+<li>再对新特征进行线性组合和非线性变换, 逐层叠加</li>
+<li>通过嵌套逼近复杂函数</li>
 </ol>
-</div>
-<p>以此我们可以得到如下推论:</p>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
-<p>设 $\mathcal{X}$ 是一个无限域, $\mathcal{H}$ 是从 $\mathcal{X}$ 到 $\{0, 1\}$ 的所有函数的集合. 则 $\mathcal{H}$ 不是 PAC 可学习的.</p>
-<p class="math-block-title math-prf">证明</p>
-<p>假设 $\mathcal{H}$ 是 PAC 可学习的, 选 $\epsilon < 1/8, \delta < 1/7$, 则存在一个算法 $A$ 和一个整数 $m=m_{\mathcal{H}}(\epsilon, \delta)$, 对任意 $\mathcal{X} \times \{0, 1\}$ 上的分布 $\mathcal{D}$, 如果对于某个函数 $f: \mathcal{X} \to \{0, 1\}$, $L_{\mathcal{\mathcal{D}}}(f) = 0$, 则当 $A$ 在 $S \sim \mathcal{\mathcal{D}}^m$ 上运行时, 有至少 $1 - \delta$ 的概率满足: $L_{\mathcal{\mathcal{D}}}(A(S)) \leq \epsilon$.</p>
-<p>但根据无免费午餐定理, 由于 $|X|>2m$, 对于算法 $A$, 存在一个分布 $\mathcal{\mathcal{D}}$ 使得有至少 $1/7>\delta$ 的概率满足 $L_{\mathcal{\mathcal{D}}}(A(S)) \geq 1/8>\epsilon$, 矛盾.</p>
-</div>
-<p>误差分解:</p>
+<h2 id="多层前馈神经网络">多层前馈神经网络
+</h2><p>设当前的 (衍生) 特征向量是</p>
 $$
-L_{\mathcal{\mathcal{D}}}(h_S) = \min_{h \in \mathcal{H}} L_{\mathcal{\mathcal{D}}}(h) + (L_{\mathcal{\mathcal{D}}}(h_S) - \min_{h \in \mathcal{H}} L_{\mathcal{\mathcal{D}}}(h))
-$$<p>第一项称为 <strong>近似误差</strong>; 第二项称为 <strong>估计误差</strong> $\epsilon_{\text{est}}$: 最小化风险和经验风险之间的差距.</p>
-<p>在有限假设情形下, $\epsilon_{\text{est}}$ 通常随 $|H|$ 增加, 随 $m$ 减小. 当 $\mathcal{H}$ 很小时, 估计误差很小, 但近似误差可能很大, 是欠拟合; 当 $\mathcal{H}$ 很大时, 近似误差很小, 但估计误差可能很大, 是过拟合.</p>
+z = \left(z^{(1)},z^{(2)},\cdots,z^{(m)}\right)^T
+$$<p>进行线性组合</p>
+$$
+v \cdot z - \theta = \sum_{i=1}^m v_i z^{(i)} - \theta
+$$<p>再通过非线性变换 (考虑到数学性质, 通常是 sigmoid 函数):</p>
+$$
+t = g(v \cdot z - \theta)
+$$<div class="math-block">
+    <p class="math-block-title math-def">定义</p>
+<p><strong>多层前馈神经网络</strong> 是常见的神经网络模型:</p>
+<ul>
+<li>逐层排列神经元, 仅限于相邻层之间的完全连接;</li>
+<li>接受外部输入信号的神经元在同一层, 称为 <strong>输入层</strong>;</li>
+<li>最后一层神经元输出网络的结果, 称为 <strong>输出层</strong>;</li>
+<li>输入层和输出层之间的神经元称为 <strong>隐藏层</strong>;</li>
+<li>输入层直接接受激活函数, 输出层和隐藏层都对接受到的信号做激活函数变换.</li>
+</ul>
+<p>所谓 <strong>感知机</strong>, 就是没有隐藏层的前馈神经网络.</p>
+</div>
+<p>前面学到的感知机学习能力有限, 例如它无法解决异或问题. 但是, 只要再加一层隐藏层, 就可以解决.</p>
+<p>考虑一个单隐层的神经网络:</p>
+<ul>
+<li>输入层有 $n$ 个神经元来接受输入信号;</li>
+<li>输出层有 $k$ 个神经元来输出结果, 且第 $l$ 个神经元的阈值是 $\theta_l$;</li>
+<li>隐藏层有 $m$ 个神经元, 第 $t$ 个神经元的阈值是 $\gamma_t$.</li>
+<li>输入层到隐藏层的权重是 $w_{jt}$, 隐藏层到输出层的权重是 $v_{tl}$.</li>
+</ul>
+<p>因而, 隐藏层的输出是</p>
+$$
+z^{(t)}(x)=\sigma \left(\sum_{j=1}^n w_{jt} x^{(j)} - \gamma_t \right)
+$$<p>输出层的输出是</p>
+$$
+y^{(l)}(x) = \sigma \left( \sum_{t=1}^m v_{tl} z^{(t)} - \theta_l \right)
+$$<p>参数集为 $\Theta = \{w_{jt},v_{tl},\gamma_t,\theta_l\}$</p>
+<h2 id="误差反向传播算法">误差反向传播算法
+</h2><p>我们采用平方误差作为预测损失函数, 则</p>
+$$
+R(\Theta) = \sum_{i=1}^N R_i(\Theta) = \sum_{i=1}^N \| y_i - \hat{y}_i \| ^2 = \sum_{i=1}^N \sum_{l=1}^k (y_i^{(l)} - \hat{y}_i^{(l)})^2
+$$<p>依然采用经验风险最小化策略, 通过梯度下降法来求解参数集 $\Theta$. 求偏导可得:</p>
+$$
+\begin{aligned}
+\frac{\partial R_i(\Theta)}{\partial v_{tl}} &= \delta_i^{(l)}z^{(t)}(x_i) \\
+\frac{\partial R_i(\Theta)}{\partial \theta_l} &= -\delta_i^{(l)} \\
+\frac{\partial R_i(\Theta)}{\partial w_{jt}} &= s_i^{(t)} x_i^{(j)} \\
+\frac{\partial R_i(\Theta)}{\partial \gamma_t} &= -s_i^{(t)}
+\end{aligned}
+$$<p>其中</p>
+$$
+\begin{aligned}
+\delta_i^{(l)}&=-2(y_i^{(l)}-\hat{y}_i^{(l)})\hat{y}_i^{(l)}(1-\hat{y}_i^{(l)}) \\
+s_i^{(t)} &= z^{(t)}(x_i)(1-z^{(t)}(x_i))\sum_{l=1}^k v_{tl}\delta_i^{(l)}
+\end{aligned}
+$$<p>给定学习率 $\eta$, 按照 $\alpha = \alpha - \eta \frac{\partial R_i(\Theta)}{\partial \alpha}$ 进行迭代更新.</p>
+<p>采用正则化策略来缓解过拟合问题:</p>
+$$
+\hat{\Theta} = \argmin_{\Theta} (R(\Theta) + \lambda J(\Theta))
+$$<p>其中 $J(\Theta)$ 是正则化项, 通常是参数的 $L_2$ 范数, 所有参数的平方和.</p>
+<p>关于激活函数, 除了 sigmoid 函数, 还有 tanh 函数, ReLU 函数等. 前两者函数性质连续, 但是在部分情况可能导数接近 $0$, 从而导致梯度消失问题. 相对之下, ReLU 函数梯度计算简单. 还有带泄漏的 ReLU 函数:</p>
+$$
+f(x) = \begin{cases}
+x & x>0 \\
+\lambda x & x \leq 0
+\end{cases}
+$$<p>等等.</p>
 
 
     
@@ -609,7 +528,7 @@ $$<p>第一项称为 <strong>近似误差</strong>; 第二项称为 <strong>估�
             
                 
 <article class="">
-    <a href="/p/machine-learning/minibatch/">
+    <a href="/p/machine-learning-base/minibatch/">
         
         
 
@@ -622,7 +541,7 @@ $$<p>第一项称为 <strong>近似误差</strong>; 第二项称为 <strong>估�
             
                 
 <article class="">
-    <a href="/p/machine-learning/vc-nu/">
+    <a href="/p/machine-learning-base/vc-nu/">
         
         
 
@@ -635,7 +554,7 @@ $$<p>第一项称为 <strong>近似误差</strong>; 第二项称为 <strong>估�
             
                 
 <article class="">
-    <a href="/p/machine-learning/pca/">
+    <a href="/p/machine-learning-base/pca/">
         
         
 
@@ -648,12 +567,12 @@ $$<p>第一项称为 <strong>近似误差</strong>; 第二项称为 <strong>估�
             
                 
 <article class="">
-    <a href="/p/machine-learning/markov/">
+    <a href="/p/machine-learning-base/pac-uc/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">机器学习基础(9) —— 隐 Markov 模型</h2>
+            <h2 class="article-title">机器学习基础(10) —— PAC 和 UC 可学习性</h2>
         </div>
     </a>
 </article>
@@ -661,12 +580,12 @@ $$<p>第一项称为 <strong>近似误差</strong>; 第二项称为 <strong>估�
             
                 
 <article class="">
-    <a href="/p/machine-learning/clustering-intro/">
+    <a href="/p/machine-learning-base/markov/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">机器学习基础(8) —— 聚类简介</h2>
+            <h2 class="article-title">机器学习基础(9) —— 隐 Markov 模型</h2>
         </div>
     </a>
 </article>

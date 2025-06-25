@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="奇异值分解 用 $R(A)$ 表达 $\\text{Im}(A)$, $N(A)$ 表达 $\\text{Ker}(A)$. 则 $\\text{dim} R(A) = \\text{rank}(A)$, $\\text{dim} R(A) + \\text{dim} N(A) = n$.\n定理奇异值分解\n对任意矩阵 $A$, 存在正交矩阵 $U$ 和 $V$, 以及对角矩阵 $\\Sigma$ 使得:\n$$ A = U \\Sigma V^T $$证明\n">
-<title>机器学习基础(11) —— 奇异值分解与主成分分析简介</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="线性可分支持向量机 定义\n对于一个数据集 $D$, 如果能找到一个超平面 $H: w^Tx + b = 0$, 将数据分为两类. 即对任意 $(x_i, y_i) \\in D$, 若 $y_i = 1$, 则 $w^Tx_i + b \\geq 0$; 若 $y_i = -1$, 则 $w^Tx_i + b < 0$. 则称 $D$ 是 线性可分的 , 超平面 $H$ 是 $D$ 的一个 分离超平面.\n">
+<title>机器学习基础(2) —— 支持向量机</title>
 
-<link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning/pca/'>
+<link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning-base/vector-machine/'>
 
-<link rel="stylesheet" href="/scss/style.min.f991297a51bfb3ec7265f5caabcf8b61b92014e8d7b4c22fa6d4f0c6cb9ce9ce.css"><meta property='og:title' content="机器学习基础(11) —— 奇异值分解与主成分分析简介">
-<meta property='og:description' content="奇异值分解 用 $R(A)$ 表达 $\\text{Im}(A)$, $N(A)$ 表达 $\\text{Ker}(A)$. 则 $\\text{dim} R(A) = \\text{rank}(A)$, $\\text{dim} R(A) + \\text{dim} N(A) = n$.\n定理奇异值分解\n对任意矩阵 $A$, 存在正交矩阵 $U$ 和 $V$, 以及对角矩阵 $\\Sigma$ 使得:\n$$ A = U \\Sigma V^T $$证明\n">
-<meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning/pca/'>
+<link rel="stylesheet" href="/scss/style.min.f991297a51bfb3ec7265f5caabcf8b61b92014e8d7b4c22fa6d4f0c6cb9ce9ce.css"><meta property='og:title' content="机器学习基础(2) —— 支持向量机">
+<meta property='og:description' content="线性可分支持向量机 定义\n对于一个数据集 $D$, 如果能找到一个超平面 $H: w^Tx + b = 0$, 将数据分为两类. 即对任意 $(x_i, y_i) \\in D$, 若 $y_i = 1$, 则 $w^Tx_i + b \\geq 0$; 若 $y_i = -1$, 则 $w^Tx_i + b < 0$. 则称 $D$ 是 线性可分的 , 超平面 $H$ 是 $D$ 的一个 分离超平面.\n">
+<meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning-base/vector-machine/'>
 <meta property='og:site_name' content='LeoDreamer'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-05-13T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-05-13T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="机器学习基础(11) —— 奇异值分解与主成分分析简介">
-<meta name="twitter:description" content="奇异值分解 用 $R(A)$ 表达 $\\text{Im}(A)$, $N(A)$ 表达 $\\text{Ker}(A)$. 则 $\\text{dim} R(A) = \\text{rank}(A)$, $\\text{dim} R(A) + \\text{dim} N(A) = n$.\n定理奇异值分解\n对任意矩阵 $A$, 存在正交矩阵 $U$ 和 $V$, 以及对角矩阵 $\\Sigma$ 使得:\n$$ A = U \\Sigma V^T $$证明\n">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-02-28T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-02-28T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="机器学习基础(2) —— 支持向量机">
+<meta name="twitter:description" content="线性可分支持向量机 定义\n对于一个数据集 $D$, 如果能找到一个超平面 $H: w^Tx + b = 0$, 将数据分为两类. 即对任意 $(x_i, y_i) \\in D$, 若 $y_i = 1$, 则 $w^Tx_i + b \\geq 0$; 若 $y_i = -1$, 则 $w^Tx_i + b < 0$. 则称 $D$ 是 线性可分的 , 超平面 $H$ 是 $D$ 的一个 分离超平面.\n">
     </head>
     <body class="
     article-page
@@ -260,14 +260,14 @@
              <ol>
     
     <li>
-        <a href="/materials/machine-learning/MachineLearning-11.pdf" id="related-material-1" name="" target="_blank" rel="noopener noreferrer">
+        <a href="/materials/machine-learning-base/MachineLearning-2.pdf" id="related-material-1" name="" target="_blank" rel="noopener noreferrer">
             本节课件
         </a>
     </li>
     
     <li>
-        <a href="/materials/machine-learning/homework-8.pdf" id="related-material-2" name="" target="_blank" rel="noopener noreferrer">
-            作业 8
+        <a href="/materials/machine-learning-base/homework-2.pdf" id="related-material-2" name="" target="_blank" rel="noopener noreferrer">
+            作业 2
         </a>
     </li>
     
@@ -297,17 +297,10 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#奇异值分解">奇异值分解</a>
-      <ol>
-        <li><a href="#奇异值分解与矩阵近似">奇异值分解与矩阵近似</a></li>
-      </ol>
-    </li>
-    <li><a href="#主成分分析">主成分分析</a>
-      <ol>
-        <li><a href="#总体主成分分析">总体主成分分析</a></li>
-        <li><a href="#样本主成分分析">样本主成分分析</a></li>
-      </ol>
-    </li>
+    <li><a href="#线性可分支持向量机">线性可分支持向量机</a></li>
+    <li><a href="#线性支持向量机">线性支持向量机</a></li>
+    <li><a href="#smo-算法">SMO 算法</a></li>
+    <li><a href="#核方法和非线性支持向量机">核方法和非线性支持向量机</a></li>
   </ol>
 </nav>
         </div>
@@ -344,7 +337,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/machine-learning/pca/">机器学习基础(11) —— 奇异值分解与主成分分析简介</a>
+            <a href="/p/machine-learning-base/vector-machine/">机器学习基础(2) —— 支持向量机</a>
         </h2>
     
         
@@ -366,7 +359,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2025-05-13</time>
+                <time class="article-time--published">2025-02-28</time>
             </div>
         
 
@@ -381,7 +374,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 6 分钟
+                    阅读时长: 5 分钟
                 </time>
             </div>
         
@@ -398,262 +391,200 @@
     <section class="article-content">
     
     
-    <h2 id="奇异值分解">奇异值分解
-</h2><p>用 $R(A)$ 表达 $\text{Im}(A)$, $N(A)$ 表达 $\text{Ker}(A)$. 则 $\text{dim} R(A) = \text{rank}(A)$, $\text{dim} R(A) + \text{dim} N(A) = n$.</p>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理<span class="math-subtitle">奇异值分解</span></p>
-<p>对任意矩阵 $A$, 存在正交矩阵 $U$ 和 $V$, 以及对角矩阵 $\Sigma$ 使得:</p>
-$$
-A = U \Sigma V^T
-$$<p class="math-block-title math-prf">证明</p>
-<p>$A^TA$ 是对称的, $\text{rank}(A^TA) = r$, 则特征值 $\lambda_1 \ge \lambda_2 \ge \cdots \lambda_r > 0 = \lambda_{r+1} = \lambda_{r+2} = \cdots \lambda_n$, 可正交对角化:</p>
-$$A^TA = V \Lambda V^T$$<p>把 $V$ 分成两部分 $V=[V_1, V_2]$, 其中 $V_1 = [v_1, \cdots, v_r]$, $V_2 = [v_{r+1}, \cdots, v_n]$. 显见 $v_{r+1}, \cdots, v_n$ 恰好构成 $N(A^TA)$ 的标准正交基.</p>
-<p>从 $V_1 = [v_1, \cdots, v_r]$ 出发考虑 $U_1 = [u_1, \cdots, u_r]$:</p>
-$$
-u_i = \frac{1}{\sqrt{\lambda_i}} A v_i
-$$<p>则容易验证 $u_i$ 是 $R(A)$ 的标准正交基. $R(A)$ 的正交补是 $N(A^T)$, 考虑其一组正交基 $U_2 = [u_{r+1}, \cdots, u_n]$, 则 $U = [U_1, U_2]$ 是正交矩阵. 记:</p>
-$$
-\Sigma_1 = \text{diag}(\sqrt{\lambda_1}, \cdots, \sqrt{\lambda_r}) \\
-\Sigma = \begin{bmatrix}
-\Sigma_1 & 0 \\
-0 & 0
-\end{bmatrix}
-$$<p>则可以得出 $U_1\Sigma_1 = AV_1$. 则:</p>
-$$
-U \Sigma V^T = [U_1, U_2] \begin{bmatrix}
-\Sigma_1 & 0 \\
-0 & 0
-\end{bmatrix} \begin{bmatrix}
-V_1^T \\
-V_2^T
-\end{bmatrix}
-= U_1 \Sigma_1 V_1^T = AV_1V_1^T = A
-$$</div>
-<p>可以看出右奇异向量 $V$ 的列向量是 $A^TA$ 的特征向量, 左奇异向量 $U$ 的列向量是 $AA^T$ 的特征向量.</p>
-<div class="math-block">
+    <h2 id="线性可分支持向量机">线性可分支持向量机
+</h2><div class="math-block">
     <p class="math-block-title math-def">定义</p>
-<p>对一个非零的 $m \times n$ 实矩阵 $A \in \mathbb{R}^{m \times n}$, 可将其表示为满足如下特性的三个实矩阵乘积形式的因子分解运算:</p>
-$$A = U \Sigma V^T$$<p>其中:</p>
-<ul>
-<li>$U$ 是 $m$ 阶正交矩阵, $U^T U = I$;</li>
-<li>$V$ 是 $n$ 阶正交矩阵, $V^T V = I$;</li>
-<li>$\Sigma$ 是由降序排列的非负的对角线元素组成的 $m \times n$ 矩形对角矩阵:</li>
-</ul>
-$$
-\Sigma = \text{diag}(\sigma_1, \cdots, \sigma_p)$$<p>
-这里 $\sigma_1 \geq \cdots \geq \sigma_p \geq 0$, 且 $p = \min(m, n)$.</p>
-<p>$U \Sigma V^T$ 称为 $A$ 的 <strong>奇异值分解</strong>, $\sigma_i$ 称为 $A$ 的 <strong>奇异值</strong>, $U$ 和 $V$ 的列向量分别称为 $A$ 的 <strong>左,右奇异向量</strong>.</p>
-<p>特别地, 当 $\text{rank}(A)=r$ 时, $\Sigma$ 的前 $r$ 个对角线元素 $\sigma_1, \cdots, \sigma_r$ 是正的, 我们称 $U_r\Sigma_r V_r^T$ 为 $A$ 的 <strong>紧奇异值分解</strong>; 对于任意 $0 \lt k \lt r$, $U_k\Sigma_k V_k^T$ 称为 $A$ 的 <strong>截断奇异值分解</strong>.</p>
+<p>对于一个数据集 $D$, 如果能找到一个超平面 $H: w^Tx + b = 0$, 将数据分为两类. 即对任意 $(x_i, y_i) \in D$, 若 $y_i = 1$, 则 $w^Tx_i + b \geq 0$; 若 $y_i = -1$, 则 $w^Tx_i + b < 0$. 则称 $D$ 是 <strong>线性可分的</strong> , 超平面 $H$ 是 $D$ 的一个 <strong>分离超平面</strong>.</p>
 </div>
-<h3 id="奇异值分解与矩阵近似">奇异值分解与矩阵近似
-</h3><div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>设 $A \in \mathbb{R}^{m \times n}$ 且 $A = [a_{ij}]_{m \times n}$, $A$ 的 <strong>Frobenius 范数</strong> $\|A\|_F$ 定义如下:</p>
-$$\|A\|_F = \left[\sum_{i=1}^{m} \sum_{j=1}^{n} a_{ij}^2\right]^{\frac{1}{2}}$$</div>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
-<p>若 $Q$ 是 $m$ 阶正交矩阵, 则 $\|QA\|_F = \|A\|_F$.</p>
-<p class="math-block-title math-prf">证明</p>
-<p>设 $A = [a_1, \cdots, a_n]$, 则:</p>
+<p>最优超平面不仅要能够将数据分开, 还要使得两类数据点到超平面的距离尽可能远.</p>
+<p>考虑到 $w,b$ 任意缩放都不影响超平面的位置, 我们可以规定 $w^Tx + b = 1$ 为最近的正类数据点满足的方程. 此时距离为 $1/{\|w\|}$, 要最大化这个量, 即化归成凸二次规划问题:</p>
 $$
 \begin{aligned}
-\|QA\|_F^2 &= \| [Qa_1, \cdots, Qa_n]\|_F^2 = \sum_{i=1}^{n} \|Qa_i\|^2 \\
-&= \sum_{i=1}^{n} (Qa_i)^T (Qa_i) = \sum_{i=1}^{n} a_i^T Q^T Q a_i \\
-&= \sum_{i=1}^{n} a_i^T a_i = \sum_{i=1}^{n} \|a\|^2 = \|A\|_F^2
+& \min_{w, b} \frac{1}{2} \|w\|^2 \\
+& \text{s.t.} \quad y_i(w \cdot x_i + b) \geq 1, \quad i = 1, 2, \cdots, n
 \end{aligned}
-$$</div>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
-<p>设 $A \in \mathbb{R}^{m \times n}$, $\text{rank}(A) = r$, $A = U \Sigma V^T$ 是 $A$ 的奇异值分解, 并设 $\mathcal{M}$ 是 $\mathbb{R}^{m \times n}$ 中所有秩不超过 $k$ 的矩阵的集合, $0 \lt k \lt r$.</p>
-<p>若 $A'=U\Sigma'V^T$, 其中 $\Sigma'_{m \times n} = \begin{bmatrix} \Sigma_k & 0 \\ 0 & 0 \end{bmatrix}$, 这里 $\Sigma_k = \text{diag}(\sigma_1, \cdots, \sigma_k)$, 则:</p>
+$$<p>只要 $D$ 是线性可分的, 上述问题一定有解且唯一. 对应的分类决策函数</p>
 $$
-\|A-A'\|_F = \sqrt{\sum_{l=k+1}^{n} \sigma_l^2} = \min_{S\in \mathcal{M}} \|A-S\|_F
-$$<p>即截断奇异值分解 $A' = U\Sigma'V^T$ 是 $A$ 在 $\mathcal{M}$ 中的最优近似.</p>
-<p class="math-block-title math-prf">证明</p>
-<p>一个显然的结论是, 由上一个定理, 设 $A=U\Sigma V^T$, 则:</p>
+f(x) = \text{sign}(w^Tx + b)
+$$<p>称为 <strong>线性可分支持向量机</strong>.</p>
+<p>引入 Lagrange 乘子 $\alpha_i \geq 0$:</p>
 $$
-\|A\|_F = \|U\Sigma V^T\|_F = \|\Sigma\|_F = \sqrt{\sum_{l=1}^{n} \sigma_l^2}
-$$<p>取 $X$ 为 $A$ 的截断奇异值 $A'$, 则:</p>
-$$
-\|A-X\|_F = \|A-A'\|_F = \sqrt{\sum_{l=k+1}^{n} \sigma_l^2}
-$$<p>下面只需要证明:</p>
-$$\|A-X\|_F \ge \sqrt{\sum_{l=k+1}^{n} \sigma_l^2}$$<p>再设 $X$ 的奇异值分解为 $X = Q\Omega P^T$, 其中:</p>
-$$
-\Omega = \begin{bmatrix}
-\Omega_1 & 0 \\
-0 & 0
-\end{bmatrix}
-$$<p>这里 $\Omega_1 = \text{diag}(\omega_1, \cdots, \omega_k)$.</p>
-<p>令 $B=Q^TAP$, 则 $A=QBP^T$, 按照 $\Omega$ 的分块方法对 $B$ 进行分块:</p>
-$$
-B = \begin{bmatrix}
-B_{11} & B_{12} \\
-B_{21} & B_{22}
-\end{bmatrix}
-$$<p>则:</p>
+L(w, b, \alpha) = \frac{1}{2} \|w\|^2 - \sum_{i=1}^n \alpha_i(y_i(w \cdot x_i + b) - 1)
+$$<p>对 $w, b$ 求偏导为 $0$, 得到</p>
 $$
 \begin{aligned}
-\|A-X\|_F^2 &= \|Q(B-\Omega)P^T\|_F^2 = \|B-\Omega\|_F^2 \\
-&= \|B_{11}-\Omega_1\|_F^2 + \|B_{12}\|_F^2 + \|B_{21}\|_F^2 + \|B_{22}\|_F^2
+& w = \sum_{i=1}^n \alpha_i y_i x_i \\
+& 0 = \sum_{i=1}^n \alpha_i y_i
 \end{aligned}
-$$<p>既然 $X$ 使得 $\|A-X\|_F^2$ 最小, 我们考虑取 $Y=Q\Omega'P^T \in \mathcal{M}$, 其中 $\Omega' = \begin{bmatrix} B_{11} & B_{12} \\ 0 & 0 \end{bmatrix}$, 则由最小性可得:</p>
-$$
-\|A-X\|_F^2 \le \|A-Y\|_F^2 = \|B_{21}\|_F^2 + \|B_{22}\|_F^2
-$$<p>由此立得 $B_{12} = 0$, 且 $B_{11} = \Omega_1$, 同理 $B_{21}=0$. 从而我们得到:</p>
-$$
-\|A-X\|_F = \|B_{22}\|_F
-$$<p>设 $B_{22}$ 的奇异值分解是 $B_{22} = U_1 \Lambda V_1^T$, 则:</p>
-$$
-\|A-X\|_F = \|B_{22}\|_F = \|\Lambda\|_F
-$$<p>注意到:</p>
-$$
-Q^T A P = B = \begin{bmatrix}
-\Omega_1 & 0 \\
-0 & B_{22}
-\end{bmatrix}
-$$<p>那么右下角也可以对角化, 准确来说设:</p>
-$$
-U_2 = \begin{bmatrix}
-I_k & 0 \\
-0 & U_1
-\end{bmatrix}, \quad V_2 = \begin{bmatrix}
-I_k & 0 \\
-0 & V_1
-\end{bmatrix}
-$$<p>显见:</p>
-$$
-U_2^T Q^T A P V_2 = U_2^T B V_2 = \begin{bmatrix}
-\Omega_1 & 0 \\
-0 & \Lambda
-\end{bmatrix}
-$$<p>即:</p>
-$$
-A = QU_2 \begin{bmatrix}
-\Omega_1 & 0 \\
-0 & \Lambda
-\end{bmatrix} \left(PV_2\right)^T
-$$<p>这意味着 $\Lambda$ 的对角线元素是 $A$ 的奇异值, 故有</p>
-$$
-\|A-X\|_F = \|\Lambda\|_F \ge \sqrt{\sum_{l=k+1}^n \sigma_l^2}
-$$<p>因此 $\|A-X\|_F = \sqrt{\sum_{l=k+1}^n \sigma_l^2} = \|A-A'\|_F$.</p>
-</div>
-<p>实际上:</p>
-$$A = U\Sigma V^T = \sum_{i=1}^n \sigma_i u_i v_i^T$$<p>这也称为 $A$ 的 <strong>外积展开式</strong>, 显然截断奇异值分解 $A_k = \sum_{i=1}^k \sigma_i u_i v_i^T$.</p>
-<h2 id="主成分分析">主成分分析
-</h2><ul>
-<li>如果数据的一些特征之间存在相关性，处理起来不太方便；</li>
-<li>如果数据维数过高，影响算法性能.</li>
-</ul>
-<p>我们希望能构造一组新的相互不相关的特征来表示数据：</p>
-<ul>
-<li>通常用原来特征的线性组合来构造新特征.</li>
-<li>希望特征变换的过程中损失的信息尽可能少.</li>
-<li>构造出的新特征个数比原来的特征数少很多，达到降维的目的.</li>
-</ul>
-<h3 id="总体主成分分析">总体主成分分析
-</h3><div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>设 $x = (x_1,x_2,\cdots, x_m)^T$ 是 $m$ 维随机向量, $\alpha \in \mathbb{R}^m$ 且 $\alpha^T \alpha = 1$, 则称:</p>
-$$
-y=\alpha^T x
-$$<p>为 <strong>标准线性组合</strong>.</p>
-</div>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>设 $\mathbf{x}=(x_1,x_2,\cdots,x_m)^T$ 是均值为 $\mu$, 协方差矩阵为 $\Sigma$ 的 $m$ 维随机向量, $A$ 是半正定矩阵 $\Sigma$ 的对角化正交矩阵, 即 $A^T \Sigma A = \Lambda$. 则如下线性变换被称为 <strong>主成分变换</strong>:</p>
-$$\mathbf{y}=A^T(\mathbf{x}-\mu).$$<p>并称 $\mathbf{y}$ 的第 $i$ 个分量:</p>
-$$y_i=\alpha_i^T(\mathbf{x}-\mu)$$<p>为 $\mathbf{x}$ 的第 $i$ 主成分，这里 $\alpha_i$ 为 $A$ 的第 $i$ 个列向量.</p>
-</div>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
-<p>设 $\mathbf{x} \sim (\mu, \Sigma)$, 则 $\mathbf{y} = A^T (\mathbf{x} - \mu)$ 满足:</p>
-<ul>
-<li>$E[\mathbf{y}] = 0$.</li>
-<li>$\text{Var}(y_i) = \lambda_i, i = 1, 2, \cdots, m$.</li>
-<li>$\text{Cov}(y_i, y_j) = 0, i \neq j, i, j = 1, 2, \cdots, m$.</li>
-</ul>
-</div>
-<p>证明略, 用协方差矩阵的性质即可.</p>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
-<p>不存在方差比 $\lambda_1$ 更大的标准线性组合 $y = \alpha^T \mathbf{x}$.</p>
-<p class="math-block-title math-prf">证明</p>
-<p>考虑标准线性组合 $y=\alpha^T\mathbf{x}$, 其中 $\alpha \in \mathbf{R}^m$ 且 $\alpha^T\alpha=1$. 由于 $\alpha_1,\alpha_2,\cdots,\alpha_m$ 正好构成了 $\mathbf{R}^m$ 的一组标准正交基, 则存在 $c_1,c_2,\cdots,c_m\in\mathbb{R}$ 使得</p>
-$$\alpha=\sum_{i=1}^mc_i\alpha_i$$<p>对此线性组合来说，</p>
-$$\begin{aligned}
-\text{Var}(y)=\alpha^T\Sigma\alpha&=\left[\sum_{i=1}^mc_i\alpha_i^T\right]\Sigma\left[\sum_{i=1}^mc_i\alpha_i\right]\\
-&=\sum_{i=1}^mc_i^2\lambda_i\alpha_i^T\alpha_i=\sum_{i=1}^mc_i^2\lambda_i.\end{aligned}$$<p>另一方面结合:</p>
-$$1=\alpha^T\alpha=\sum_{i=1}^mc_i^2\alpha_i^T\alpha_i=\sum_{i=1}^mc_i^2$$<p>问题显然是 $c_1 = 1, c_2 = c_3 = \cdots = c_m = 0$ 时取得最大值 $\lambda_1$. 因此:</p>
-$$\max_{c_1,\cdots,c_m}\text{Var}(y)=\lambda_1$$<p>对应的标准线性组合为:</p>
-$$y=\alpha_1^T\mathbf{x}$$</div>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
-<p>如果标准线性组合 $y = \alpha^T \mathbf{x}$ 和 $\mathbf{x}$ 的前 $k$ 个主成分都不相关, 则 $y$ 的方差当 $y$ 是第 $k+1$ 个主成分时最大.</p>
-<p class="math-block-title math-prf">证明</p>
-<p>证明：设 $y=\alpha^T\mathbf{x}$, 其中 $\alpha^T\alpha=1$. 且 $\alpha=\sum_i^mc_i\alpha_i$, 对此线性组合来说:</p>
-$$\text{Var}(y)=\sum_{i=1}^mc_i^2\lambda_i$$<p>对 $1\leq j \lt k$ 来说:</p>
+$$<p>代入 $L(w, b, \alpha)$, 得到对偶问题:</p>
+<div class="math-block"><p class="math-block-title">线性可分对偶问题</p>
 $$
 \begin{aligned}
-\text{Cov}(y,y_j)&=\text{Cov}(\alpha^T\mathbf{x},\alpha_j^T\mathbf{x})=\left[\sum_{i=1}^mc_i\alpha_i^T\right]\Sigma\alpha_j\\
-&=c_j\lambda_j\alpha_j^T\alpha_j=c_j\lambda_j=0
+& \max_{\alpha} \sum_{i=1}^n \alpha_i - \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j x_i \cdot x_j \\
+& \text{s.t.} \quad \alpha_i \geq 0, \quad \sum_{i=1}^n \alpha_i y_i = 0
 \end{aligned}
-$$<p>这意味着对$1\leq j \lt k$ 来说, $c_j^2\lambda_j=0$. 故:</p>
-$$\text{Var}(y)=\sum_{i=k+1}^mc_i^2\lambda_i$$<p>和前面证明类似, 我们可得:</p>
-$$\max_{c_1,\cdots,c_m}\text{Var}(y)=\lambda_{k+1}$$<p>对应的标准线性组合:</p>
-$$y=\alpha_{k+1}^T\mathbf{x}$$<p>正好是第 $k+1$ 主成分.</p>
-</div>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>$\mathbf{x}$ 的第 $k$ 个主成分 $y_k$ 的 <strong>方差贡献率</strong> 定义为:
-</p>
-$$
-\eta_k = \frac{\lambda_k}{\sum_{i=1}^m \lambda_i}
-$$<p>$\mathbf{x}$ 的前 $k$ 个主成分 $y_1, y_2, \cdots, y_k$ 的 <strong>累计方差贡献率</strong> 定义为:
-</p>
-$$
-\eta_{1 \to k} = \sum_{i=1}^k \lambda_i= \frac{\sum_{i=1}^k\lambda_k}{\sum_{i=1}^m \lambda_i}
 $$</div>
-<p>累计方差贡献率体现了前 $k$ 个主成分对数据的方差贡献.</p>
-<p>显然, $\mathbf{y}=A^T\mathbf{x}$ 的逆为 $\mathbf{x}=A\mathbf{y}$, 由此可以给出如下定义:</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>定义 <strong>因子负荷量</strong> 为第 $k$ 个主成分 $y_k$ 和原始变量 $x_i$ 的相关系数:</p>
+<p>由 KKT 条件, 最优解一定满足</p>
 $$
 \begin{aligned}
-\rho(y_k,x_i) &= \frac{\text{Cov}(y_k, x_i)}{\sqrt{\text{Var}(y_k) \cdot \text{Var}(x_i)}} = \frac{\text{Cov}\left(\sum_{j=1}^m \alpha_{ij}y_j, y_k\right)}{\sqrt{\lambda_k \sigma_{ii}}} \\
-&= \frac{\alpha_{ik} \text{Var}(y_k) }{\sqrt{\lambda_k \sigma_{ii}}} = \frac{\sqrt{\lambda_k} \alpha_{ik}}{\sqrt{\sigma_{ii}}}
+\alpha_i(y_i(w \cdot x_i + b) - 1) &= 0 \\
+y_i(w \cdot x_i + b) - 1 &\geq 0 \\
+\alpha_i &\geq 0 \\
+\end{aligned}
+$$<p>由于 $\alpha_i$ 不全为 $0$, 存在 $j$ 使得 $y_j(w \cdot x_j + b) = 1$, 由此</p>
+$$
+b = y_j - w \cdot x_j = y_j - \sum_{i=1}^n \alpha_i y_i x_i \cdot x_j
+$$<p>乘上 $\alpha_jy_j$ 做累和, 有</p>
+$$
+0=\sum_{j=1}^n \alpha_jy_jb = \sum_{j=1}^n \alpha_j - \| w \|^2
+$$<p>上式中 $\alpha_i=0$ 的 $i$ 也成立, 因为都是 $0$ 不影响结果. 注意到 $w = \sum_{i=1}^n \alpha_i y_i x_i$ 也只收到 $\alpha_i > 0$ 的影响, 而这些项的点都落在间隔边界</p>
+$$
+H_1: w \cdot x + b = 1, \quad H_2: w \cdot x + b = -1
+$$<p>上, 称这些点 $x_i$ 为 <strong>支持向量</strong>.</p>
+<p>支持向量机的留一误差</p>
+$$
+\hat{R}_{\text{loo}} = \frac{1}{n} \sum_{i=1}^n I(f_{D-\{x_i\}}(x_i) \neq y_i)
+$$<p>则 $\hat{R}_{\text{loo}} \le N_{SV}/n$, 其中 $N_{SV}$ 为支持向量的个数.</p>
+<h2 id="线性支持向量机">线性支持向量机
+</h2><p>要求 $D$ 线性可分有点苛刻. 容忍一些误差, 引入松弛变量 $\xi_i \geq 0$, 使得约束条件变为</p>
+$$
+y_i(w \cdot x_i + b) \geq 1 - \xi_i
+$$<p>对于被错误分类的点, $\xi_i$ 可以大于 $1$. 把 $\xi_i \ne 0$ 的点视为特异点, 那么希望特异点尽可能少, 于是优化目标变为</p>
+$$
+\begin{aligned}
+& \min_{w, b, \xi} \frac{1}{2} \|w\|^2 + C \sum_{i=1}^n I(\xi_i \ne 0) \\
+& \text{s.t.} \quad y_i(w \cdot x_i + b) \geq 1 - \xi_i, \quad \xi_i \geq 0
+\end{aligned}
+$$<p>直接用 $\xi_i$ 代替 $I(\xi_i \ne 0)$, 问题变为</p>
+$$
+\begin{aligned}
+& \min_{w, b, \xi} \frac{1}{2} \|w\|^2 + C \sum_{i=1}^n \xi_i \\
+& \text{s.t.} \quad y_i(w \cdot x_i + b) \geq 1 - \xi_i, \quad \xi_i \geq 0
+\end{aligned}
+$$<p>既然要 $\xi_i$ 尽可能小, 不妨取 $\xi_i = 1 - y_i(w \cdot x_i + b)$,  引入合页损失函数 $h(z) = \max(0, 1-z)$, 即</p>
+$$\xi_i = h(y_i(w \cdot x_i + b))$$<p>则提出一个 $C$ 后, 优化目标变为</p>
+$$
+\min_{w, b} \frac{1}{2C} \|w\|^2 + \sum_{i=1}^n h(y_i(w \cdot x_i + b))
+$$<p>做了这么多, 只是相当于把 0-1 损失函数换成了合页损失函数.</p>
+<p>回到原问题, 引入 Lagrange 乘子 $\alpha_i, \beta_i \geq 0$, 得到</p>
+$$
+L(w, b, \xi, \alpha, \beta) = \frac{1}{2} \|w\|^2 + C \sum_{i=1}^n \xi_i - \sum_{i=1}^n \alpha_i(y_i(w \cdot x_i + b) - 1 + \xi_i) - \sum_{i=1}^n \beta_i \xi_i
+$$<p>对 $w, b, \xi$ 偏导为 $0$, 得到</p>
+$$
+\begin{aligned}
+& w = \sum_{i=1}^n \alpha_i y_i x_i \\
+& 0 = \sum_{i=1}^n \alpha_i y_i \\
+& \beta_i = C - \alpha_i
+\end{aligned}
+$$<p>代入 $L(w, b, \xi, \alpha, \beta)$, 得到对偶问题</p>
+<div class="math-block"><p class="math-block-title">线性支持向量机对偶问题</p>
+$$
+\begin{aligned}
+& \max_{\alpha} \sum_{i=1}^n \alpha_i - \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j x_i \cdot x_j \\
+& \text{s.t.} \quad 0 \leq \alpha_i \leq C, \quad \sum_{i=1}^n \alpha_i y_i = 0
 \end{aligned}
 $$</div>
-<p>容易验证因子负荷量满足:</p>
-<ul>
-<li>$$ \sum_{i=1}^m \sigma_{ii} \rho^2(y_k,x_i)=\lambda_k $$</li>
-<li>$$ \sum_{k=1}^m \rho^2(y_k,x_i)=1 $$</li>
-</ul>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>$\mathbf{x}$ 的前 $k$ 个主成分 $y_1, y_2, \cdots, y_k$ 对原有变量 $x_i$ 的 <strong>贡献率</strong> 定义为:
-</p>
+<p>与线性可分支持向量机类似, 只是多了一个 $\alpha_i \leq C$ 的约束. 现在考虑 KKT 条件, 有</p>
 $$
-\nu_{1 \to k} = \sum_{j=1}^k \rho^2(y_j, x_i) = \sum_{j=1}^k \frac{\lambda_j \alpha_{ij}^2}{\sigma_{ii}}
-$$</div>
-<h3 id="样本主成分分析">样本主成分分析
-</h3><p>设 $\mathbf{x}_1,\mathbf{x}_2,\cdots,\mathbf{x}_n$ 是对 $m$ 维随机向量 $\mathbf{x}=(x_1,x_2,\cdots,x_m)^T$ 进行 $n$ 次独立观测的样本, 其中 $\mathbf{x}_j=(x_{1j},x_{2j},\cdots,x_{mj})^T$ 表示第 $j$ 个观测样本, 则观测数据矩阵:</p>
-$$\mathbf{X}=[\mathbf{x}_1,\mathbf{x}_2,\cdots,\mathbf{x}_n]=\left[\begin{array}{ccc}x_{11}&\cdots&x_{1n}\\\vdots&\vdots&\vdots\\x_{m1}&\cdots&x_{mn}\end{array}\right]$$<p>样本均值向量为:</p>
-$$\bar{\mathbf{x}}=\frac{1}{n}\sum\limits_{j=1}^n\mathbf{x}_j=(\bar{x}_1,\cdots,\bar{x}_m)^T$$<p>样本协方差矩阵为 $\mathbf{S}=[s_{ij}]_{m\times m}$, 其中:</p>
-$$s_{ij}=\frac{1}{n-1}\sum\limits_{k=1}^n(x_{ik}-\bar{x}_i)(x_{jk}-\bar{x}_j), i,j=1,2,\cdots,m$$<p>样本相关矩阵为 $\mathbf{R}=[r_{ij}]_{m\times m}$, 其中:</p>
-$$r_{ij}=\frac{s_{ij}}{\sqrt{s_{ii}s_{jj}}}$$<div class="math-block">
-    <p class="math-block-title math-algo">算法<span class="math-subtitle">PCA</span></p>
-<p><strong>输入</strong>: 规范化后的样本数据矩阵 $\mathbf{X}_{m \times n}$</p>
-<p><strong>输出</strong>: 样本主成分矩阵 $\mathbf{Y}_{k \times n}$</p>
+\begin{aligned}
+\alpha_i(y_i(w \cdot x_i + b) - 1 + \xi_i) &= 0 \\
+y_i(w \cdot x_i + b) - 1 + \xi_i &\geq 0 \\
+\beta_i \xi_i &= 0 \\
+\alpha_i &\geq 0 \\
+\beta_i &\geq 0 \\
+\alpha_i + \beta_i&=C
+\end{aligned}
+$$<p>则 $\alpha_i > 0$ 的点 $x_i$ 为支持向量, 满足 $y_i(w \cdot x_i + b) = 1 - \xi_i$. 这点与线性可分支持向量机的支持向量不同. 但进一步如果 $\alpha_i \lt C$ , 则 $\beta_i \gt 0$, 则 $\xi_i=0$, 从而 $y_i(w \cdot x_i + b) = 1$, 这样就一致了.</p>
+<p>进一步, 把 $y_i(w \cdot x_i + b) = 1$ 两边乘 $y_i$, 类似有</p>
+$$
+b = y_j - \sum_{i=1}^n \alpha_i y_i x_i \cdot x_j
+$$<p>因而最优分类超平面为</p>
+$$
+\sum_{i=1}^n \alpha_i y_i x_i \cdot x + b = 0
+$$<p>和决策函数</p>
+$$
+f(x) = \text{sign}\left(\sum_{i=1}^n \alpha_i y_i x_i \cdot x + b\right)
+$$<p>超平面法向量可以被唯一确定, 但是偏置不唯一.</p>
+<h2 id="smo-算法">SMO 算法
+</h2><p>SMO 算法是一种启发式算法, 用于求解支持向量机的对偶问题. SMO 算法的基本思想是: 每次选择两个变量, 固定其他变量, 优化这两个变量. 这样不断迭代, 直到收敛.</p>
+<p>设当前迭代的两个变量为 $\alpha_i, \alpha_j$, 则</p>
+$$
+\alpha_1 y_1 + \alpha_2 y_2 = -\sum_{i=3}^n \alpha_i y_i
+$$<p>同乘 $y_1$, 有</p>
+$$
+\alpha_1 + \alpha_2 y_1y_2= -\sum_{i=3}^n \alpha_i y_1y_i
+$$<p>记右边为 $\gamma$, $s=y_1y_2 \in \{-1, 1\}$, 则</p>
+$$
+\alpha_1 + s\alpha_2 = \gamma
+$$<p>记$K_{ij} = x_i \cdot x_j$, $v_i = \sum_{j=3}^{N} \alpha_j y_j K_{ij}$, 则对偶问题转化为</p>
+$$
+\begin{aligned}
+& \max_{\alpha_1, \alpha_2} \alpha_1 + \alpha_2 - \frac{1}{2} K_{11}\alpha_1^2 - \frac{1}{2} K_{22}\alpha_2^2 - sK_{12}\alpha_1\alpha_2 - y_1v_1\alpha_1 - y_2v_2\alpha_2 \\
+& \text{s.t.} \quad 0 \leq \alpha_i \leq C, \quad \alpha_1 + s\alpha_2 = \gamma
+\end{aligned}
+$$<p>再由 $\alpha_1 = \gamma - s\alpha_2$, 代入目标函数, 并对 $\alpha_2$ 求导为 $0$, 得到</p>
+$$
+\alpha_2 = \frac{s(K_{11}-K_{12})\gamma + y_2(v_1 - v_2) - s + 1}{K_{11} + K_{22} - 2K_{12}}
+$$<p>代入 $v$ 的定义, 随后化简得</p>
+$$
+\alpha_2 = \alpha_2^* + y_2 \frac{(y_2 - f(x_2))- (y_1-f(x_1))}{K_{11} + K_{22} - 2K_{12}}
+$$<p>别忘了约束 $0 \le \alpha_1, \alpha_2 \le C$, 以及 $\alpha_1 + s\alpha_2 = \gamma$, 对 $\alpha_2$ 进行裁剪为 $\alpha_2^{\text{clip}}$. 相应地,</p>
+$$
+\alpha_1 = \alpha_1^* + s(\alpha_2^* - \alpha_2^{\text{clip}})
+$$<p>最后, 更新 $b$. 假设在 $\alpha_1, \alpha_2$ 中, $0 \lt \alpha_i \lt C$, 则</p>
+$$
+b = y_i - \sum_{j=1}^n \alpha_j y_j K_{ij}
+$$<p>关于选取 $\alpha_1, \alpha_2$, 一般有两个原则:</p>
 <ol>
-<li>构造:
-$$\mathbf{X}' = \frac{1}{\sqrt{n-1}}\mathbf{X}^T$$</li>
-<li>求 $X'$ 的 $k$ 秩截断奇异值分解:
-$$\mathbf{X}' = U_k \Sigma_k V_k^T$$</li>
-<li>返回样本前 $k$ 主成分矩阵:
-$$\mathbf{Y} = V^T\mathbf{X}$$</li>
+<li>选择违反 KKT 条件最严重的两个变量.</li>
+<li>选择两个变量使得目标函数有最大变化.</li>
 </ol>
+<h2 id="核方法和非线性支持向量机">核方法和非线性支持向量机
+</h2><p>对于非线性问题, 可以通过核方法将数据映射到高维空间, 从而在高维空间中找到一个线性超平面.</p>
+<p>假设有一个映射 $\phi: \mathcal{X} \mapsto \mathcal{Z}$, 则在 $\mathcal{Z}$ 的线性支持向量机变为:</p>
+$$
+\begin{aligned}
+& \min_{w, b, \xi} \frac{1}{2} \|w\|^2 + C \sum_{i=1}^n \xi_i \\
+& \text{s.t.} \quad y_i(w \cdot \phi(x_i) + b) \geq 1 - \xi_i, \quad \xi_i \geq 0
+\end{aligned}
+$$<p>对应的对偶问题为</p>
+$$
+\begin{aligned}
+& \max_{\alpha} \sum_{i=1}^n \alpha_i - \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j \phi(x_i) \cdot \phi(x_j) \\
+& \text{s.t.} \quad 0 \leq \alpha_i \leq C, \quad \sum_{i=1}^n \alpha_i y_i = 0
+\end{aligned}
+$$<p>相应的分类决策函数为</p>
+$$
+f(x) = \text{sign}\left(\sum_{i=1}^n \alpha_i y_i \phi(x_i) \cdot \phi(x) + b\right)
+$$<p>然而, 直接计算 $\phi(x_i) \cdot \phi(x_j)$ 的复杂度很高. 为此, 引入核函数</p>
+<div class="math-block">
+    <p class="math-block-title math-def">定义</p>
+<p>设 $\mathcal{X}$ 是输入空间, $\mathcal{Z}$ 是特征空间, 如果存在一个从 $\mathcal{X}$ 到 $\mathcal{Z}$ 的映射 $\phi$, 使得对任意 $x, x' \in \mathcal{X}$, 都有</p>
+$$
+K(x, x') = \phi(x) \cdot \phi(x')
+$$<p>则称 $K$ 为 <strong>核函数</strong>.</p>
 </div>
+<p>注意, 这里我们不再需要显式地计算 $\phi(x_i)$, 因为结果只与 $K(x_i, x_j)$ 有关.</p>
+<div class="math-block"><p class="math-block-title">非线性支持向量机对偶问题</p>
+$$
+\begin{aligned}
+& \max_{\alpha} \sum_{i=1}^n \alpha_i - \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j K(x_i, x_j) \\
+& \text{s.t.} \quad 0 \leq \alpha_i \leq C, \quad \sum_{i=1}^n \alpha_i y_i = 0
+\end{aligned}
+$$</div>
+<p>此时, 分类决策函数为</p>
+$$
+f(x) = \text{sign}\left(\sum_{i=1}^n \alpha_i y_i K(x_i, x) + b\right)
+$$<div class="math-block">
+    <p class="math-block-title math-def">定义</p>
+<p>$\mathcal{X}$ 上的函数 $K: \mathcal{X} \times \mathcal{X} \mapsto \mathbb{R}$ 称为 <strong>正定对称核函数</strong>, 如果对任意 $x_1, x_2, \cdots, x_n \in \mathcal{X}$, 核矩阵 (Gram 矩阵) $[K_{ij}]_{m \times m}$ 是半正定的.</p>
+</div>
+<p>常见的核函数有:</p>
+<ul>
+<li>线性核函数: $K(x, x') = x \cdot x'$, 对应线性支持向量机.</li>
+<li>多项式核函数: $K(x, x') = (x \cdot x' + 1)^d, c \gt 0$</li>
+<li>高斯核函数: $K(x, x') = \exp\left(-\frac{\|x-x'\|^2}{2\sigma^2}\right), \sigma \gt 0$</li>
+</ul>
 
 
     
@@ -716,7 +647,7 @@ $$\mathbf{Y} = V^T\mathbf{X}$$</li>
             
                 
 <article class="">
-    <a href="/p/machine-learning/minibatch/">
+    <a href="/p/machine-learning-base/minibatch/">
         
         
 
@@ -729,7 +660,7 @@ $$\mathbf{Y} = V^T\mathbf{X}$$</li>
             
                 
 <article class="">
-    <a href="/p/machine-learning/vc-nu/">
+    <a href="/p/machine-learning-base/vc-nu/">
         
         
 
@@ -742,7 +673,20 @@ $$\mathbf{Y} = V^T\mathbf{X}$$</li>
             
                 
 <article class="">
-    <a href="/p/machine-learning/pac-uc/">
+    <a href="/p/machine-learning-base/pca/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">机器学习基础(11) —— 奇异值分解与主成分分析简介</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/machine-learning-base/pac-uc/">
         
         
 
@@ -755,25 +699,12 @@ $$\mathbf{Y} = V^T\mathbf{X}$$</li>
             
                 
 <article class="">
-    <a href="/p/machine-learning/markov/">
+    <a href="/p/machine-learning-base/markov/">
         
         
 
         <div class="article-details">
             <h2 class="article-title">机器学习基础(9) —— 隐 Markov 模型</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/machine-learning/clustering-intro/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">机器学习基础(8) —— 聚类简介</h2>
         </div>
     </a>
 </article>

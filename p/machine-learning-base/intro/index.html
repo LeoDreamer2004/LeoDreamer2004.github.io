@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="无\n">
-<title>机器学习基础(13) —— 神经网络学习之小批量梯度下降法</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="基础数学工具 定义\n随机变量 $X$ 的 期望 $E[X]$ 定义为\n$$ E[X] = \\sum_{x} x \\cdot P(X=x) $$随机变量 $X$ 的 方差 $\\text{Var}(X)$ 定义为\n$$ \\text{Var}(X) = E[(X - E[X])^2] $$标准差 $\\sigma(X)$ 定义为\n$$ \\sigma(X) = \\sqrt{\\text{Var}(X)} $$ 定理Markov 不等式\n">
+<title>机器学习基础(1) —— 概述</title>
 
-<link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning/minibatch/'>
+<link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning-base/intro/'>
 
-<link rel="stylesheet" href="/scss/style.min.f991297a51bfb3ec7265f5caabcf8b61b92014e8d7b4c22fa6d4f0c6cb9ce9ce.css"><meta property='og:title' content="机器学习基础(13) —— 神经网络学习之小批量梯度下降法">
-<meta property='og:description' content="无\n">
-<meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning/minibatch/'>
+<link rel="stylesheet" href="/scss/style.min.f991297a51bfb3ec7265f5caabcf8b61b92014e8d7b4c22fa6d4f0c6cb9ce9ce.css"><meta property='og:title' content="机器学习基础(1) —— 概述">
+<meta property='og:description' content="基础数学工具 定义\n随机变量 $X$ 的 期望 $E[X]$ 定义为\n$$ E[X] = \\sum_{x} x \\cdot P(X=x) $$随机变量 $X$ 的 方差 $\\text{Var}(X)$ 定义为\n$$ \\text{Var}(X) = E[(X - E[X])^2] $$标准差 $\\sigma(X)$ 定义为\n$$ \\sigma(X) = \\sqrt{\\text{Var}(X)} $$ 定理Markov 不等式\n">
+<meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning-base/intro/'>
 <meta property='og:site_name' content='LeoDreamer'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-05-29T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-05-29T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="机器学习基础(13) —— 神经网络学习之小批量梯度下降法">
-<meta name="twitter:description" content="无\n">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-02-18T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-02-18T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="机器学习基础(1) —— 概述">
+<meta name="twitter:description" content="基础数学工具 定义\n随机变量 $X$ 的 期望 $E[X]$ 定义为\n$$ E[X] = \\sum_{x} x \\cdot P(X=x) $$随机变量 $X$ 的 方差 $\\text{Var}(X)$ 定义为\n$$ \\text{Var}(X) = E[(X - E[X])^2] $$标准差 $\\sigma(X)$ 定义为\n$$ \\sigma(X) = \\sqrt{\\text{Var}(X)} $$ 定理Markov 不等式\n">
     </head>
     <body class="
     article-page
@@ -260,8 +260,14 @@
              <ol>
     
     <li>
-        <a href="/materials/machine-learning/MachineLearning-13.pdf" id="related-material-1" name="" target="_blank" rel="noopener noreferrer">
+        <a href="/materials/machine-learning-base/MachineLearning-1.pdf" id="related-material-1" name="" target="_blank" rel="noopener noreferrer">
             本节课件
+        </a>
+    </li>
+    
+    <li>
+        <a href="/materials/machine-learning-base/homework-1.pdf" id="related-material-2" name="" target="_blank" rel="noopener noreferrer">
+            作业 1
         </a>
     </li>
     
@@ -273,6 +279,40 @@
         
             
                 
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#基础数学工具">基础数学工具</a></li>
+    <li><a href="#基本概念和术语">基本概念和术语</a></li>
+    <li><a href="#模型评估与选择">模型评估与选择</a>
+      <ol>
+        <li><a href="#损失函数">损失函数</a></li>
+        <li><a href="#二分类">二分类</a></li>
+        <li><a href="#过拟合和正则化">过拟合和正则化</a></li>
+        <li><a href="#数据集划分">数据集划分</a></li>
+      </ol>
+    </li>
+    <li><a href="#偏差-方差分解">偏差-方差分解</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
 
             
         
@@ -304,7 +344,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/machine-learning/minibatch/">机器学习基础(13) —— 神经网络学习之小批量梯度下降法</a>
+            <a href="/p/machine-learning-base/intro/">机器学习基础(1) —— 概述</a>
         </h2>
     
         
@@ -326,7 +366,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2025-05-29</time>
+                <time class="article-time--published">2025-02-18</time>
             </div>
         
 
@@ -341,7 +381,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 1 分钟
+                    阅读时长: 4 分钟
                 </time>
             </div>
         
@@ -358,7 +398,144 @@
     <section class="article-content">
     
     
-    <p>无</p>
+    <h2 id="基础数学工具">基础数学工具
+</h2><div class="math-block">
+    <p class="math-block-title math-def">定义</p>
+<p>随机变量 $X$ 的 <strong>期望</strong> $E[X]$ 定义为</p>
+$$
+E[X] = \sum_{x} x \cdot P(X=x)
+$$<p>随机变量 $X$ 的 <strong>方差</strong> $\text{Var}(X)$ 定义为</p>
+$$
+\text{Var}(X) = E[(X - E[X])^2]
+$$<p><strong>标准差</strong> $\sigma(X)$ 定义为</p>
+$$
+\sigma(X) = \sqrt{\text{Var}(X)}
+$$</div>
+<div class="math-block">
+    <p class="math-block-title math-thm">定理<span class="math-subtitle">Markov 不等式</span></p>
+<p>设 $X$ 是一个非负随机变量, 期望存在, 那么对于任意 $t > 0$ 有</p>
+$$
+P(X \geq t) \leq \frac{E[X]}{t}
+$$</div>
+<div class="math-block">
+    <p class="math-block-title math-thm">定理<span class="math-subtitle">Chebyshev 不等式</span></p>
+<p>设 $X$ 是一个随机变量, 期望和方差都存在, 那么对于任意 $t > 0$ 有</p>
+$$
+P(|X - E[X]| \geq t) \leq \frac{\text{Var}(X)}{t^2}
+$$</div>
+<div class="math-block">
+    <p class="math-block-title math-def">定义</p>
+<p>随机变量 $X$ 和 $Y$ 的 <strong>协方差</strong> $\text{Cov}(X, Y)$ 定义为</p>
+$$
+\text{Cov}(X, Y) = E[(X - E[X])(Y - E[Y])]
+$$<p>如果 $\text{Cov}(X, Y) = 0$, 则称 $X$ 和 $Y$ <strong>不相关</strong>.</p>
+</div>
+<p>协方差具有对称性, 双线性.</p>
+<div class="math-block">
+    <p class="math-block-title math-def">定义</p>
+<p>随机向量 $X=(X_1, X_2, \ldots, X_n)$ 的 <strong>协方差矩阵</strong> $C(X)$ 定义为</p>
+$$
+C(X) = E[(X - E[X])(X - E[X])^T] = (\text{Cov}(X_i, X_j))_{ij}
+$$</div>
+<div class="math-block">
+    <p class="math-block-title math-def">定义</p>
+<p><strong>Gauss 分布</strong> (正态分布) 的概率密度函数为</p>
+$$
+f(x) = \frac{1}{\sqrt{2\pi}\sigma} \exp(-\frac{(x-\mu)^2}{2\sigma^2})
+$$<p><strong>Laplace 分布</strong> 的概率密度函数为</p>
+$$
+f(x) = \frac{1}{2b} \exp(-\frac{|x-\mu|}{b})
+$$</div>
+<p>最优化问题</p>
+$$
+\begin{aligned}
+& \min f(x) \\
+\text{s.t. } & c_i(x) \leq 0, i = 1, 2, \dots, k \\
+& h_j(x) = 0, j = 1, 2, \dots, l
+\end{aligned}
+$$<p>构造 Lagrange 函数</p>
+$$
+L(x, \alpha, \beta) = f(x) + \sum_{i=1}^{k} \alpha_i c_i(x) + \sum_{j=1}^{l} \beta_j h_j(x)
+$$<p>引入 Karush-Kuhn-Tucker (KKT) 条件</p>
+$$
+\begin{aligned}
+& \nabla_x L(x, \alpha, \beta) = 0 \\
+& c_i(x) \leq 0, i = 1, 2, \dots, k \\
+& h_j(x) = 0, j = 1, 2, \dots, l \\
+& \alpha_i c_i(x) = 0, i = 1, 2, \dots, k \\
+& \alpha_i \geq 0, i = 1, 2, \dots, k
+\end{aligned}
+$$<h2 id="基本概念和术语">基本概念和术语
+</h2><div class="math-block">
+    <p class="math-block-title math-def">定义</p>
+<p><strong>监督学习</strong>: 基于标记数据 $T=\{ (x_i,y_i) \}_{i=1}^N$, 学习一个从输入空间到输出空间的映射 $f: \mathcal{X} \mapsto \mathcal{Y}$. 利用此对未见数据进行预测. 通常分为 <strong>回归</strong> 和 <strong>分类</strong> 两类.</p>
+<p><strong>无监督学习</strong>: 基于未标记数据 $T=\{ x_i \}_{i=1}^N$, 发现其中隐含的知识模式. <strong>聚类</strong> 是典型的无监督学习任务.</p>
+<p><strong>半监督学习</strong>: 既有标记数据又有未标记数据 (通常占比较大).</p>
+<p><strong>强化学习</strong>: 通过观察环境的反馈, 学习如何选择动作以获得最大的奖励.</p>
+</div>
+<h2 id="模型评估与选择">模型评估与选择
+</h2><h3 id="损失函数">损失函数
+</h3><p>模型基于算法按照一定策略给出假设 $h \in \mathcal{H}$, 通过 <strong>损失函数</strong> $L(h(x), y)$ 衡量假设的好坏.</p>
+<ul>
+<li>0-1 损失函数:</li>
+</ul>
+$$L(h(x), y) = \mathbb{I}(h(x) \neq y) = \begin{cases} 0, & h(x) = y \\ 1, & h(x) \neq y \end{cases}$$<ul>
+<li>平方损失函数:</li>
+</ul>
+$$L(h(x), y) = (h(x) - y)^2$$<p>平均损失 $R(h) = E_{x \sim D} [L(h(x), y)]$ 称为 <strong>泛化误差</strong>.</p>
+<p>容易验证, 对于 0-1 损失函数, 准确率 $a = 1-R(h)$.</p>
+<h3 id="二分类">二分类
+</h3><p>对于二分类问题, 样本预测结果有四种情况:</p>
+<ul>
+<li><strong>真正例</strong> (True Positive, TP): 预测为正例, 实际为正例.</li>
+<li><strong>假正例</strong> (False Positive, FP): 预测为正例, 实际为负例.</li>
+<li><strong>真负例</strong> (True Negative, TN): 预测为负例, 实际为负例.</li>
+<li><strong>假负例</strong> (False Negative, FN): 预测为负例, 实际为正例.</li>
+</ul>
+<p>由此引入</p>
+<ul>
+<li><strong>准确率(查准率):</strong> $P = \frac{TP}{TP+FP}$.</li>
+<li><strong>召回率(查全率):</strong> $R = \frac{TP}{TP+FN}$.</li>
+<li><strong>$F_1$ 度量:</strong> 考虑到二者抵触, 引入调和均值 $F_1 = \frac{2PR}{P+R}$.</li>
+</ul>
+<h3 id="过拟合和正则化">过拟合和正则化
+</h3><p>为了防止由于模型过于复杂而导致的过拟合, 可以通过 <strong>正则化</strong> 方法来限制模型的复杂度.</p>
+$$
+\min \sum_{i=1}^{N} L(h(x_i), y_i) + \lambda J(h)
+$$<p>其中 $J(h)$ 是随着模型复杂度增加而增加的函数. $\lambda$ 是正则化参数.</p>
+<p>怎么选取合适的 $\lambda$ ? 一般是先给出若干候选, 在验证集上进行评估, 选取泛化误差最小的.</p>
+<h3 id="数据集划分">数据集划分
+</h3><p>一般将数据集划分为 <strong>训练集</strong> $T$ 和 <strong>测试(验证)集</strong> $T^\prime$.</p>
+<ul>
+<li><strong>留出法 (hold-out)</strong>: 分层无放回地随机采样. 也叫简单交叉验证.</li>
+<li><strong>$k$ 折交叉验证 ($k$-fold cross validation)</strong>: 将数据集分为 $k$ 个大小相等的子集, 每次取其中一个作为验证集, 其余作为训练集, 最后以这 $k$ 次的平均误差作为泛化误差的估计. 当 $k=|D|$ 时称为留一 (leave-one-out) 验证法.</li>
+<li><strong>自助法 (bootstrapping)</strong>: 从数据集中<em>有放回地</em>采样 $|D|$ 个数据作为训练集, 没抽中的作为验证集. 因而训练集 $T$ 和原始数据集 $D$ 的分布未必一致, 对数据分布敏感的模型不适用.</li>
+</ul>
+<h2 id="偏差-方差分解">偏差-方差分解
+</h2><p>为什么泛化误差会随着模型复杂度的增加而先减小后增大?</p>
+<div class="math-block">
+    <p class="math-block-title math-def">定义</p>
+<p><strong>偏差</strong> (bias): 模型预测值的期望与真实值之间的差异. 体现了模型的拟合能力.</p>
+$$\text{Bias}(x) = E_T[h_T(x)-c(x)] = \bar{h}(x) - c(x)$$<p><strong>方差</strong> (variance): 模型预测值的方差. 体现了模型的对数据扰动的稳定性.</p>
+$$\text{Var}(x) = E[(h(x) - \bar{h}(x))^2]$$</div>
+<p>现在对泛化误差进行分解:</p>
+$$
+\begin{aligned}
+R(h) &= E_T[(h_T(x) - c(x))^2] \\
+&= E_T[h_T^2(x) - 2h_T(x)c(x) + c^2(x)] \\
+&= E_T[h_T^2(x)] - 2c(x)E_T[h_T(x)] + c^2(x) \\
+&= E_T[h_T^2(x)] - \bar{h}^2(x) + \bar{h}^2(x) - 2\bar{h}(x)c(x) + c^2(x) \\
+&= E_T[(h_T(x) - \bar{h}(x))^2] + (\bar{h}(x) - c(x))^2 \\
+&= \text{Var}(x) + \text{Bias}^2(x)
+\end{aligned}
+$$<p>当然, 由于噪声存在, $y$ 未必一定等于 $c(x)$, 不妨设 $y=c(x)+\varepsilon$, 其中 $\varepsilon \sim \Epsilon$ 期望为 $0$. 可以证明</p>
+<div class="math-block">
+    <p class="math-block-title math-thm">定理<span class="math-subtitle">偏差-方差分解</span></p>
+$$
+E_{T \sim D^{|T|}, \varepsilon \sim \Epsilon} [(h_T(x)-y)^2] = \text{Bias}^2(x) + \text{Var}(x) + E[\varepsilon^2]
+$$<p>即泛化误差可以分解为偏差、方差和噪声三部分.</p>
+</div>
+<p>起初, 模型较为简单, 偏差在泛化误差起主导作用. 随着模型复杂度的增加, 拟合能力增强, 偏差减小, 但带来过拟合风险, 算法对数据扰动敏感, 方差增大. 方差占比逐渐增大, 最终导致泛化误差增大.</p>
 
 
     
@@ -421,7 +598,20 @@
             
                 
 <article class="">
-    <a href="/p/machine-learning/vc-nu/">
+    <a href="/p/machine-learning-base/minibatch/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">机器学习基础(13) —— 神经网络学习之小批量梯度下降法</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/machine-learning-base/vc-nu/">
         
         
 
@@ -434,7 +624,7 @@
             
                 
 <article class="">
-    <a href="/p/machine-learning/pca/">
+    <a href="/p/machine-learning-base/pca/">
         
         
 
@@ -447,7 +637,7 @@
             
                 
 <article class="">
-    <a href="/p/machine-learning/pac-uc/">
+    <a href="/p/machine-learning-base/pac-uc/">
         
         
 
@@ -460,25 +650,12 @@
             
                 
 <article class="">
-    <a href="/p/machine-learning/markov/">
+    <a href="/p/machine-learning-base/markov/">
         
         
 
         <div class="article-details">
             <h2 class="article-title">机器学习基础(9) —— 隐 Markov 模型</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/machine-learning/clustering-intro/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">机器学习基础(8) —— 聚类简介</h2>
         </div>
     </a>
 </article>

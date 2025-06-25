@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="集成学习概述 定义\n集成学习 是指通过将相对比较容易构建但泛化性能一般的多个学习器进行结合, 以获得比单一学习器更好的泛化性能的一种机器学习方法.\n">
-<title>机器学习基础(7) —— 集成学习</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="无\n">
+<title>机器学习基础(13) —— 神经网络学习之小批量梯度下降法</title>
 
-<link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning/integrated-learning/'>
+<link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning-base/minibatch/'>
 
-<link rel="stylesheet" href="/scss/style.min.f991297a51bfb3ec7265f5caabcf8b61b92014e8d7b4c22fa6d4f0c6cb9ce9ce.css"><meta property='og:title' content="机器学习基础(7) —— 集成学习">
-<meta property='og:description' content="集成学习概述 定义\n集成学习 是指通过将相对比较容易构建但泛化性能一般的多个学习器进行结合, 以获得比单一学习器更好的泛化性能的一种机器学习方法.\n">
-<meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning/integrated-learning/'>
+<link rel="stylesheet" href="/scss/style.min.f991297a51bfb3ec7265f5caabcf8b61b92014e8d7b4c22fa6d4f0c6cb9ce9ce.css"><meta property='og:title' content="机器学习基础(13) —— 神经网络学习之小批量梯度下降法">
+<meta property='og:description' content="无\n">
+<meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning-base/minibatch/'>
 <meta property='og:site_name' content='LeoDreamer'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-03-28T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-28T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="机器学习基础(7) —— 集成学习">
-<meta name="twitter:description" content="集成学习概述 定义\n集成学习 是指通过将相对比较容易构建但泛化性能一般的多个学习器进行结合, 以获得比单一学习器更好的泛化性能的一种机器学习方法.\n">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-05-29T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-05-29T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="机器学习基础(13) —— 神经网络学习之小批量梯度下降法">
+<meta name="twitter:description" content="无\n">
     </head>
     <body class="
     article-page
@@ -260,7 +260,7 @@
              <ol>
     
     <li>
-        <a href="/materials/machine-learning/MachineLearning-7.pdf" id="related-material-1" name="" target="_blank" rel="noopener noreferrer">
+        <a href="/materials/machine-learning-base/MachineLearning-13.pdf" id="related-material-1" name="" target="_blank" rel="noopener noreferrer">
             本节课件
         </a>
     </li>
@@ -273,39 +273,6 @@
         
             
                 
-    <section class="widget archives">
-        <div class="widget-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <line x1="5" y1="9" x2="19" y2="9" />
-  <line x1="5" y1="15" x2="19" y2="15" />
-  <line x1="11" y1="4" x2="7" y2="20" />
-  <line x1="17" y1="4" x2="13" y2="20" />
-</svg>
-
-
-
-        </div>
-        <h2 class="widget-title section-title">目录</h2>
-        
-        <div class="widget--toc">
-            <nav id="TableOfContents">
-  <ol>
-    <li><a href="#集成学习概述">集成学习概述</a></li>
-    <li><a href="#提升方法">提升方法</a>
-      <ol>
-        <li><a href="#adaboost-算法">AdaBoost 算法</a></li>
-        <li><a href="#adaboost-误差分析">AdaBoost 误差分析</a></li>
-        <li><a href="#加法模型">加法模型</a></li>
-      </ol>
-    </li>
-    <li><a href="#bagging-方法">Bagging 方法</a></li>
-    <li><a href="#随机森林">随机森林</a></li>
-  </ol>
-</nav>
-        </div>
-    </section>
-
 
             
         
@@ -337,7 +304,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/machine-learning/integrated-learning/">机器学习基础(7) —— 集成学习</a>
+            <a href="/p/machine-learning-base/minibatch/">机器学习基础(13) —— 神经网络学习之小批量梯度下降法</a>
         </h2>
     
         
@@ -359,7 +326,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2025-03-28</time>
+                <time class="article-time--published">2025-05-29</time>
             </div>
         
 
@@ -374,7 +341,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 3 分钟
+                    阅读时长: 1 分钟
                 </time>
             </div>
         
@@ -391,108 +358,7 @@
     <section class="article-content">
     
     
-    <h2 id="集成学习概述">集成学习概述
-</h2><div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p><strong>集成学习</strong> 是指通过将相对比较容易构建但泛化性能一般的多个学习器进行结合, 以获得比单一学习器更好的泛化性能的一种机器学习方法.</p>
-<p>根据个体分类器是否由同一学习算法, 集成学习可以分为 <strong>同质集成</strong> 和 <strong>异质集成</strong> 两大类; 根据个体分类器的依赖关系, 可以将学习方法分为 <strong>序列化方法(串行集成)</strong> 和 <strong>并行化方法(并行集成)</strong> 两种.</p>
-</div>
-<h2 id="提升方法">提升方法
-</h2><p>PAC 框架下, 概念类强可学习和其弱可学习等价, 但弱可学习实现更容易, 提升方法就是指将弱学习算法提升为强学习算法的方法.</p>
-<h3 id="adaboost-算法">AdaBoost 算法
-</h3><div class="math-block">
-    <p class="math-block-title math-algo">算法<span class="math-subtitle">AdaBoost</span></p>
-<p><strong>输入</strong>: 给定训练数据集 $D=\{(x_i,y_i)\}_{i=1}^N$, 其中 $x_i \in \mathcal{X}, y_i \in \mathcal{Y}=\{-1,+1\}, i=1,2,\cdots,N$; 弱学习算法 $\mathcal{L}$ 以及基本分类器个数 $T$.</p>
-<p><strong>输出</strong>: 最终分类器 $f(x)$.</p>
-<ol>
-<li>准备一个权重向量 $W_t=(w_{i,t})_{i=1}^N$, 表示第 $t$ 轮训练数据的权重分布, 初始时 $w_{i,1}=\frac{1}{N}$;</li>
-<li>在第 $t$ 轮学习中, 应用算法 $\mathcal{L}$ 基于训练数据集 $D$ 和权重向量 $W_t$ 学得具有最小训练误差的基本分类器 $f_t(x)$, 即
-$$f_t = \argmin_{f} \sum_{i=1}^N w_{i,t} \mathbb{I}(f(x_i) \neq y_i)$$</li>
-<li>计算 $f_t(x)$ 的误差率
-$$e_t = \sum_{i=1}^N w_{i,t} \mathbb{I}(f_t(x_i) \neq y_i)$$</li>
-<li>计算 $f_t(x)$ 的权值
-$$\alpha_t = \frac{1}{2} \ln \frac{1-e_t}{e_t}$$</li>
-<li>按照投票权值更新训练数据集的权重分布
-$$w_{i,t+1} = \frac{w_{i,t}}{Z_t} \exp(-\alpha_t y_i f_t(x_i))$$
-其中 $Z_t$ 是规范化因子, 使得 $w_{i,t+1}$ 成为一个概率分布.</li>
-<li>经过 $T$ 轮迭代后, 得到最终分类器
-$$
-    \begin{aligned}
-    f(x) &= \text{sign}(G(x)) \\
-    G(x) &= \sum_{t=1}^T \alpha_t f_t(x)
-    \end{aligned}
-    $$
-$G(x)$ 的符号决定了 $x$ 的类别, $|G(x)|$ 表示分类的确信度.</li>
-</ol>
-</div>
-<p>注意:</p>
-<ul>
-<li>$e_t$ 越小, $\alpha_t$ 越大, 表示 $f_t(x)$ 的权重越大;</li>
-<li>$\alpha_t$ 不仅仅平衡了 $f_t(x)$ 的权重, 还调节了样本分布的权重:
-$$w_{i,t+1}=\begin{cases}
-    \frac{w_{i,t}}{Z_t} \exp(\alpha_t), & y_i=f_t(x_i) \\
-    \frac{w_{i,t}}{Z_t} \exp(-\alpha_t), & y_i \neq f_t(x_i)
-    \end{cases}
-    $$
-对于那些错误样本, 下次迭代时的权重会增大, 以便让弱分类器更关注这些样本.</li>
-<li>关于为什么要这样赋值 $\alpha_t$, 由表达式可以得到
-$$\exp(\alpha_t)e_t = \exp(-\alpha_t)(1-e_t)$$
-这表明分配给错误样本的权重之和与正确样本的权重之和相等.</li>
-<li>计算可知
-$$Z_t = \sum_{i=1}^N w_{i,t} \exp(-\alpha_t y_i f_t(x_i)) = 2 \sqrt{e_t(1-e_t)}$$</li>
-<li>权值调整累计过程
-$$
-    \begin{aligned}
-    w_{i,t+1}&=w_{i,t} \frac{\exp(-\alpha_t y_i f_t(x_i))}{Z_t} \\
-    &=w_{i,1} \frac{\exp \left(-y_i \sum_{s=1}^t \alpha_s f_s(x_i)\right)}{\prod_{s=1}^t Z_s} \\
-    \end{aligned}
-    $$
-取 $t=T$, 由 $w_{i,1}=\frac{1}{N}$ 可得
-$$
-    w_{i,T} = \frac{1}{N} \frac{\exp (-y_i G(x_i))}{\prod_{s=1}^T Z_s}
-    $$</li>
-</ul>
-<h3 id="adaboost-误差分析">AdaBoost 误差分析
-</h3><p>集成分类器的训练误差为</p>
-$$
-\begin{aligned}
-\hat{R}(f) &= \frac{1}{N} \sum_{i=1}^N \mathbb{I}(f(x_i) \neq y_i) =\frac{1}{N} \sum_{i=1}^N \mathbb{I}(y_iG(x_i) \le 0) \\
-&\le \frac{1}{N} \sum_{i=1}^N \exp(-y_iG(x_i)) = \frac{1}{N} \sum_{i=1}^N \left( N \prod_{t=1}^T Z_tw_{i,T+1} \right) \\
-&=\prod_{t=1}^T Z_t = \prod_{t=1}^T \left(2\sqrt{e_t(1-e_t)}\right) \le \exp\left(-2 \sum_{t=1}^T \left(\frac{1}{2}-e_t\right)^2\right)\\
-\end{aligned}
-$$<p>这说明 AdaBoost 的训练误差是负指数量级的. 而且不需要提前知道 $e_t$ 的值, 只需要知道 $e_t$ 的上界即可, 这也是 AdaBoost 的 Adaptive 性质所在.</p>
-<h3 id="加法模型">加法模型
-</h3><p>AdaBoost 可以看作是 $\{\alpha_t, f_t(x)\}$ 的加法模型, 如果我们采用指数损失函数 $\exp(-y_if(x))$, 令</p>
-$$
-G_t(\alpha, f) = \frac{1}{N} \sum_{i=1}^N \exp(-y_iG(x_i) + \alpha f(x_i))
-$$<p>则可以证明第 $t$ 轮迭代得到的 $(\alpha_t,f_t)$ 是最小化 $G_t(\alpha, f)$ 的解, 过程略.</p>
-<div class="math-block">
-    <p class="math-block-title math-algo">算法<span class="math-subtitle">提升树模型</span></p>
-<p><strong>输入</strong>: 给定训练数据集 $D=\{(x_i,y_i)\}_{i=1}^N$, 其中 $x_i \in \mathcal{X}, y_i \in \mathcal{Y}=\{-1,+1\}, i=1,2,\cdots,N$; 弱学习算法(一般是分类或回归树) $\mathcal{T}$, 损失函数 $L(y,f(x))$.</p>
-<p><strong>输出</strong>: 最终分类器 $f(x)$.</p>
-<p>第 $m$ 个基学习器 $T(x; \Theta_m)$ 由经验风险最小化得到, 即</p>
-$$\Theta_m = \argmin_{\Theta} \sum_{i=1}^N L(y_i, f_{m-1}(x_i)+T(x_i; \Theta))$$</div>
-<p>如果是平方损失, 提升树算法实际上就是在拟合当前模型的残差.</p>
-<h2 id="bagging-方法">Bagging 方法
-</h2><p>对训练样本进行重采样, 利用不同的样本数据来学习不同的基学习器, 通过降低方差来提高集成学习器的泛化性能. Bagging (Bootstrap Aggregating) 就是一种典型的并行集成学习方法.</p>
-<div class="math-block">
-    <p class="math-block-title math-algo">算法<span class="math-subtitle">Bagging</span></p>
-<p><strong>输入</strong>: 给定训练数据集 $D=\{(x_i,y_i)\}_{i=1}^N$, 其中 $x_i \in \mathcal{X}, y_i \in \mathcal{Y}, i=1,2,\cdots,N$; 弱学习算法 $\mathcal{L}$ 以及基分类器个数 $T$.</p>
-<p><strong>输出</strong>: 最终分类器 $f(x)$.</p>
-<ol>
-<li>
-<p>对 $t=1,2,\ldots,T$, 从$D$利用自助采样法随机抽取 $N$ 个样本得到 $D_t$. 从 $D_t$ 依学习算法 $\mathcal{L}$ 学得基分类器 $f_t(x)$.</p>
-</li>
-<li>
-<p>返回集成分类器</p>
-$$f(x)=\argmax_{y\in\mathcal{Y}} \sum_{t=1}^T I(f_t(x)=y)$$</li>
-</ol>
-</div>
-<p>对样本 $x_i$ 来说，我们采用 $x_i$ 未参与训练的基学习器在 $x_i$ 上的预测的简单投票结果作为 $x_i$ 的包外预测</p>
-$$f_{\text{oob}}(x_i) = \argmax_{y \in Y} \sum_{t=1}^{T} \mathbb{I} (f_t(x_i) = y) \mathbb{I} (x_i \notin D_t)$$<p>相应的 Bagging 算法泛化误差的包外估计 (out-of-bag estimate) 为</p>
-$$\epsilon^{\text{oob}} = \frac{1}{N} \sum_{i=1}^N \mathbb{I}(f_{\text{oob}}(x_i) \neq y_i)$$<h2 id="随机森林">随机森林
-</h2><p>所谓随机森林, 就是在 Bagging 方法中以决策树算法作为基学习器, 并引入随机属性选择, 即在选择划分特征时, 先从当前节点的所有 $d$ 个特征中随机选择 $k$ 个特征, 再从这 $k$ 个特征中选择最优划分特征. 随机选取的目的是为了增加基学习器之间的差异性, 使得集成学习器的泛化性能更好.</p>
-<p>当 $k=d$ 时, 随机森林退化为 Bagging 方法, 一般取 $k=\log_2 d$.</p>
+    <p>无</p>
 
 
     
@@ -555,20 +421,7 @@ $$\epsilon^{\text{oob}} = \frac{1}{N} \sum_{i=1}^N \mathbb{I}(f_{\text{oob}}(x_i
             
                 
 <article class="">
-    <a href="/p/machine-learning/minibatch/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">机器学习基础(13) —— 神经网络学习之小批量梯度下降法</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/machine-learning/vc-nu/">
+    <a href="/p/machine-learning-base/vc-nu/">
         
         
 
@@ -581,7 +434,7 @@ $$\epsilon^{\text{oob}} = \frac{1}{N} \sum_{i=1}^N \mathbb{I}(f_{\text{oob}}(x_i
             
                 
 <article class="">
-    <a href="/p/machine-learning/pca/">
+    <a href="/p/machine-learning-base/pca/">
         
         
 
@@ -594,7 +447,7 @@ $$\epsilon^{\text{oob}} = \frac{1}{N} \sum_{i=1}^N \mathbb{I}(f_{\text{oob}}(x_i
             
                 
 <article class="">
-    <a href="/p/machine-learning/pac-uc/">
+    <a href="/p/machine-learning-base/pac-uc/">
         
         
 
@@ -607,12 +460,25 @@ $$\epsilon^{\text{oob}} = \frac{1}{N} \sum_{i=1}^N \mathbb{I}(f_{\text{oob}}(x_i
             
                 
 <article class="">
-    <a href="/p/machine-learning/markov/">
+    <a href="/p/machine-learning-base/markov/">
         
         
 
         <div class="article-details">
             <h2 class="article-title">机器学习基础(9) —— 隐 Markov 模型</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/machine-learning-base/clustering-intro/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">机器学习基础(8) —— 聚类简介</h2>
         </div>
     </a>
 </article>

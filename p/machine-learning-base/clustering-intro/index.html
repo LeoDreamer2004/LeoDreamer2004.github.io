@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="基础数学工具 定义\n随机变量 $X$ 的 期望 $E[X]$ 定义为\n$$ E[X] = \\sum_{x} x \\cdot P(X=x) $$随机变量 $X$ 的 方差 $\\text{Var}(X)$ 定义为\n$$ \\text{Var}(X) = E[(X - E[X])^2] $$标准差 $\\sigma(X)$ 定义为\n$$ \\sigma(X) = \\sqrt{\\text{Var}(X)} $$ 定理Markov 不等式\n">
-<title>机器学习基础(1) —— 概述</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="基于原型的聚类方法 与监督学习不同, 无监督学习基于数据集 $D=\\{x_i\\}_{i=1}^N$, 没有标签 $y_i$. 基于原型的方法通常假设数据内在的分布结构可以通过一组原型刻画, 先对原型初始化, 然后按照相应策略和准则进行迭代更新.\n">
+<title>机器学习基础(8) —— 聚类简介</title>
 
-<link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning/intro/'>
+<link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning-base/clustering-intro/'>
 
-<link rel="stylesheet" href="/scss/style.min.f991297a51bfb3ec7265f5caabcf8b61b92014e8d7b4c22fa6d4f0c6cb9ce9ce.css"><meta property='og:title' content="机器学习基础(1) —— 概述">
-<meta property='og:description' content="基础数学工具 定义\n随机变量 $X$ 的 期望 $E[X]$ 定义为\n$$ E[X] = \\sum_{x} x \\cdot P(X=x) $$随机变量 $X$ 的 方差 $\\text{Var}(X)$ 定义为\n$$ \\text{Var}(X) = E[(X - E[X])^2] $$标准差 $\\sigma(X)$ 定义为\n$$ \\sigma(X) = \\sqrt{\\text{Var}(X)} $$ 定理Markov 不等式\n">
-<meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning/intro/'>
+<link rel="stylesheet" href="/scss/style.min.f991297a51bfb3ec7265f5caabcf8b61b92014e8d7b4c22fa6d4f0c6cb9ce9ce.css"><meta property='og:title' content="机器学习基础(8) —— 聚类简介">
+<meta property='og:description' content="基于原型的聚类方法 与监督学习不同, 无监督学习基于数据集 $D=\\{x_i\\}_{i=1}^N$, 没有标签 $y_i$. 基于原型的方法通常假设数据内在的分布结构可以通过一组原型刻画, 先对原型初始化, 然后按照相应策略和准则进行迭代更新.\n">
+<meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning-base/clustering-intro/'>
 <meta property='og:site_name' content='LeoDreamer'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-02-18T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-02-18T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="机器学习基础(1) —— 概述">
-<meta name="twitter:description" content="基础数学工具 定义\n随机变量 $X$ 的 期望 $E[X]$ 定义为\n$$ E[X] = \\sum_{x} x \\cdot P(X=x) $$随机变量 $X$ 的 方差 $\\text{Var}(X)$ 定义为\n$$ \\text{Var}(X) = E[(X - E[X])^2] $$标准差 $\\sigma(X)$ 定义为\n$$ \\sigma(X) = \\sqrt{\\text{Var}(X)} $$ 定理Markov 不等式\n">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-04-08T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-04-08T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="机器学习基础(8) —— 聚类简介">
+<meta name="twitter:description" content="基于原型的聚类方法 与监督学习不同, 无监督学习基于数据集 $D=\\{x_i\\}_{i=1}^N$, 没有标签 $y_i$. 基于原型的方法通常假设数据内在的分布结构可以通过一组原型刻画, 先对原型初始化, 然后按照相应策略和准则进行迭代更新.\n">
     </head>
     <body class="
     article-page
@@ -260,14 +260,14 @@
              <ol>
     
     <li>
-        <a href="/materials/machine-learning/MachineLearning-1.pdf" id="related-material-1" name="" target="_blank" rel="noopener noreferrer">
+        <a href="/materials/machine-learning-base/MachineLearning-8.pdf" id="related-material-1" name="" target="_blank" rel="noopener noreferrer">
             本节课件
         </a>
     </li>
     
     <li>
-        <a href="/materials/machine-learning/homework-1.pdf" id="related-material-2" name="" target="_blank" rel="noopener noreferrer">
-            作业 1
+        <a href="/materials/machine-learning-base/homework-5.pdf" id="related-material-2" name="" target="_blank" rel="noopener noreferrer">
+            作业 5
         </a>
     </li>
     
@@ -297,17 +297,14 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#基础数学工具">基础数学工具</a></li>
-    <li><a href="#基本概念和术语">基本概念和术语</a></li>
-    <li><a href="#模型评估与选择">模型评估与选择</a>
+    <li><a href="#基于原型的聚类方法">基于原型的聚类方法</a>
       <ol>
-        <li><a href="#损失函数">损失函数</a></li>
-        <li><a href="#二分类">二分类</a></li>
-        <li><a href="#过拟合和正则化">过拟合和正则化</a></li>
-        <li><a href="#数据集划分">数据集划分</a></li>
+        <li><a href="#k-means-聚类">K-means 聚类</a></li>
+        <li><a href="#gauss-混合模型">Gauss 混合模型</a></li>
       </ol>
     </li>
-    <li><a href="#偏差-方差分解">偏差-方差分解</a></li>
+    <li><a href="#层次聚类算法">层次聚类算法</a></li>
+    <li><a href="#基于密度的聚类方法">基于密度的聚类方法</a></li>
   </ol>
 </nav>
         </div>
@@ -344,7 +341,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/machine-learning/intro/">机器学习基础(1) —— 概述</a>
+            <a href="/p/machine-learning-base/clustering-intro/">机器学习基础(8) —— 聚类简介</a>
         </h2>
     
         
@@ -366,7 +363,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2025-02-18</time>
+                <time class="article-time--published">2025-04-08</time>
             </div>
         
 
@@ -381,7 +378,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 4 分钟
+                    阅读时长: 5 分钟
                 </time>
             </div>
         
@@ -398,144 +395,193 @@
     <section class="article-content">
     
     
-    <h2 id="基础数学工具">基础数学工具
-</h2><div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>随机变量 $X$ 的 <strong>期望</strong> $E[X]$ 定义为</p>
-$$
-E[X] = \sum_{x} x \cdot P(X=x)
-$$<p>随机变量 $X$ 的 <strong>方差</strong> $\text{Var}(X)$ 定义为</p>
-$$
-\text{Var}(X) = E[(X - E[X])^2]
-$$<p><strong>标准差</strong> $\sigma(X)$ 定义为</p>
-$$
-\sigma(X) = \sqrt{\text{Var}(X)}
-$$</div>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理<span class="math-subtitle">Markov 不等式</span></p>
-<p>设 $X$ 是一个非负随机变量, 期望存在, 那么对于任意 $t > 0$ 有</p>
-$$
-P(X \geq t) \leq \frac{E[X]}{t}
-$$</div>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理<span class="math-subtitle">Chebyshev 不等式</span></p>
-<p>设 $X$ 是一个随机变量, 期望和方差都存在, 那么对于任意 $t > 0$ 有</p>
-$$
-P(|X - E[X]| \geq t) \leq \frac{\text{Var}(X)}{t^2}
-$$</div>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>随机变量 $X$ 和 $Y$ 的 <strong>协方差</strong> $\text{Cov}(X, Y)$ 定义为</p>
-$$
-\text{Cov}(X, Y) = E[(X - E[X])(Y - E[Y])]
-$$<p>如果 $\text{Cov}(X, Y) = 0$, 则称 $X$ 和 $Y$ <strong>不相关</strong>.</p>
+    <h2 id="基于原型的聚类方法">基于原型的聚类方法
+</h2><p>与监督学习不同, 无监督学习基于数据集 $D=\{x_i\}_{i=1}^N$, 没有标签 $y_i$. 基于原型的方法通常假设数据内在的分布结构可以通过一组原型刻画, 先对原型初始化, 然后按照相应策略和准则进行迭代更新.</p>
+<h3 id="k-means-聚类">K-means 聚类
+</h3><div class="math-block">
+    <p class="math-block-title math-algo">算法<span class="math-subtitle">K-means 聚类</span></p>
+<p><strong>输入</strong>: 数据集 $D=\{x_i\}_{i=1}^N$, 聚类簇个数 $K$.</p>
+<p><strong>输出</strong>: 簇划分 $\mathcal{C}=\{C_l\}_{l=1}^K$.</p>
+<ol>
+<li>选择 $K$ 个样本点作为初始簇心 $\mu_l$. 初始化 $C_l = \emptyset$.</li>
+<li>对每个 $x_i$, 求 $x_i$ 的簇标记 $\lambda_i = \argmin_j \|x_i - \mu_j\|^2$, 即找到距离最近的簇心, 并将 $x_i$ 加入到 $C_{\lambda_i}$.</li>
+<li>对每个簇 $C_l$, 更新簇心 $\mu_l = \frac{1}{|C_l|} \sum_{x_i \in C_l} x_i$.</li>
+<li>如果簇心不再变化, 则停止迭代, 否则返回第 2 步.</li>
+<li>返回 $\mathcal{C} = \{C_l\}_{l=1}^K$.</li>
+</ol>
 </div>
-<p>协方差具有对称性, 双线性.</p>
+<p>一般会基于不同的核心多次运行 K-means. 均值运算对于噪声和离群点非常敏感.</p>
+<p>还有一些变体, K-中心点方法通过挑选簇内相对处于最中心位置的一个实际样本点而非样本均值向量来作为簇心.</p>
+<p>用 $O_l$ 表示簇 $C_l$ 的簇心样本点, 用 $\text{dist}(x_i, O_l)$ 表示样本点 $x_i$ 和 $O_l$ 的相异程度度量, 则 K-中心点方法相当于通过最小化绝对误差</p>
+$$E = \sum_{l=1}^{K} \sum_{x \in C_l} \text{dist}(x, O_l)$$<p>围绕中心点的划分算法 (PAM) 是一种典型的 K-中心点方法.</p>
 <div class="math-block">
+    <p class="math-block-title math-algo">算法<span class="math-subtitle">PAM</span></p>
+<p><strong>输入</strong>: 数据集 $D=\{x_i\}_{i=1}^N$, 聚类簇个数 $K$.</p>
+<p><strong>输出</strong>: 簇划分 $\mathcal{C}=\{C_l\}_{l=1}^K$.</p>
+<ol>
+<li>首先对每个簇的中心点进行随机初始化，并将非中心点的样本划分到簇心与其最相似的簇中，形成样本集的初始划分.</li>
+<li>然后采用贪心策略，迭代更新划分，直到没有变化为止.</li>
+<li>对当前的一个中心点 $o_l$, 随机选择一个非中心点样本 $x_i$, 评估以 $x_i$ 替代 $o_l$ 作为簇心能否得到更好的划分.</li>
+<li>如果这种替代能得到更好的划分，则以 $x_i$ 作为簇 $C_l$ 的新中心点, 然后对当前的非中心点样本进行重新划分;</li>
+<li>尝试这样所有可能的替换, 直到簇划分不再发生变化为止.</li>
+</ol>
+</div>
+<p>PAM 算法使用中心点作为簇的原型表示，可以避免均值向量作为原型时易受离群点影响的问题.</p>
+<h3 id="gauss-混合模型">Gauss 混合模型
+</h3><div class="math-block">
     <p class="math-block-title math-def">定义</p>
-<p>随机向量 $X=(X_1, X_2, \ldots, X_n)$ 的 <strong>协方差矩阵</strong> $C(X)$ 定义为</p>
+<p><strong>Gauss 混合模型</strong> 是指具有如下概率分布密度函数的模型:</p>
+$$p(x|\theta) = \sum_{k=1}^K \alpha_i p(x | \mu_i, \Sigma_i)$$<p>其中:</p>
+<ol>
+<li>$\alpha_i$ 是混合系数, 满足 $\sum_{i=1}^K \alpha_i = 1$;</li>
+<li>$p(x | \mu_i, \Sigma_i)$ 是 Gauss 分布, 其均值为 $\mu_i$, 协方差矩阵为 $\Sigma_i$, 即
+$$p(x|\mu_i, \Sigma_i) = \frac{1}{\sqrt{(2\pi)^n |\Sigma_i|}} \exp\left(-\frac{1}{2}(x - \mu_i)^T \Sigma_i^{-1} (x - \mu_i)\right)$$</li>
+</ol>
+</div>
+<p>给定样本集 $D=\{x_i\}_{i=1}^N$, 基于 Gauss 混合模型的聚类算法假定样本 $x_j$ 依据 Gauss 混合分布生成, 即先以概率 $\alpha_i$ 选择一个高斯分布 $p(x | \mu_i, \Sigma_i)$, 然后从该高斯分布中生成样本 $x_j$.</p>
+<p>对 $x_j$, 设 $z_j$ 表示生成 $x_j$ 的分模型, 即 $p(z_j = i) = \alpha_i$. 后验概率最大化</p>
 $$
-C(X) = E[(X - E[X])(X - E[X])^T] = (\text{Cov}(X_i, X_j))_{ij}
-$$</div>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p><strong>Gauss 分布</strong> (正态分布) 的概率密度函数为</p>
-$$
-f(x) = \frac{1}{\sqrt{2\pi}\sigma} \exp(-\frac{(x-\mu)^2}{2\sigma^2})
-$$<p><strong>Laplace 分布</strong> 的概率密度函数为</p>
-$$
-f(x) = \frac{1}{2b} \exp(-\frac{|x-\mu|}{b})
-$$</div>
-<p>最优化问题</p>
+\lambda_j = \argmax_i p(z_j = i | x_j)
+$$<p>由 Bayes 公式, 忽略相同的分母, 则</p>
 $$
 \begin{aligned}
-& \min f(x) \\
-\text{s.t. } & c_i(x) \leq 0, i = 1, 2, \dots, k \\
-& h_j(x) = 0, j = 1, 2, \dots, l
+\lambda_j &= \argmax_i p(x_j | z_j = i) p(z_j = i) \\
+&= \argmax_i p(x_j | \mu_i, \Sigma_i) \alpha_i
 \end{aligned}
-$$<p>构造 Lagrange 函数</p>
+$$<p>考虑对数似然函数</p>
 $$
-L(x, \alpha, \beta) = f(x) + \sum_{i=1}^{k} \alpha_i c_i(x) + \sum_{j=1}^{l} \beta_j h_j(x)
-$$<p>引入 Karush-Kuhn-Tucker (KKT) 条件</p>
+LL(\theta | D) = \sum_{j=1}^N \log p(x_j | \theta) = \sum_{j=1}^N \log \left( \sum_{i=1}^K \alpha_i p(x_j | \mu_i, \Sigma_i) \right)
+$$<p>并不是很好求解. 我们引入隐变量 $z_{ji}$ 表示 $x_j$ 由第 $i$ 个高斯分布生成, 即</p>
+$$
+z_{ji} = \begin{cases}
+1, & \text{if } z_j = i \\
+0, & \text{otherwise}
+\end{cases}
+$$<p>则这样的对数似然函数可以写成</p>
 $$
 \begin{aligned}
-& \nabla_x L(x, \alpha, \beta) = 0 \\
-& c_i(x) \leq 0, i = 1, 2, \dots, k \\
-& h_j(x) = 0, j = 1, 2, \dots, l \\
-& \alpha_i c_i(x) = 0, i = 1, 2, \dots, k \\
-& \alpha_i \geq 0, i = 1, 2, \dots, k
+LL(\theta D|Z)&=\sum_{j=1}^N \sum_{i=1}^K z_{ji} \log \left( \alpha_i p(x_j | \mu_i, \Sigma_i) \right) \\
+&=\sum_{i=1}^K \left( \sum_{j=1}^N z_{ji} \right) \log \alpha_i + \sum_{i=1}^K \sum_{j=1}^N z_{ji} \log p(x_j | \mu_i, \Sigma_i)
 \end{aligned}
-$$<h2 id="基本概念和术语">基本概念和术语
-</h2><div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p><strong>监督学习</strong>: 基于标记数据 $T=\{ (x_i,y_i) \}_{i=1}^N$, 学习一个从输入空间到输出空间的映射 $f: \mathcal{X} \mapsto \mathcal{Y}$. 利用此对未见数据进行预测. 通常分为 <strong>回归</strong> 和 <strong>分类</strong> 两类.</p>
-<p><strong>无监督学习</strong>: 基于未标记数据 $T=\{ x_i \}_{i=1}^N$, 发现其中隐含的知识模式. <strong>聚类</strong> 是典型的无监督学习任务.</p>
-<p><strong>半监督学习</strong>: 既有标记数据又有未标记数据 (通常占比较大).</p>
-<p><strong>强化学习</strong>: 通过观察环境的反馈, 学习如何选择动作以获得最大的奖励.</p>
-</div>
-<h2 id="模型评估与选择">模型评估与选择
-</h2><h3 id="损失函数">损失函数
-</h3><p>模型基于算法按照一定策略给出假设 $h \in \mathcal{H}$, 通过 <strong>损失函数</strong> $L(h(x), y)$ 衡量假设的好坏.</p>
-<ul>
-<li>0-1 损失函数:</li>
-</ul>
-$$L(h(x), y) = \mathbb{I}(h(x) \neq y) = \begin{cases} 0, & h(x) = y \\ 1, & h(x) \neq y \end{cases}$$<ul>
-<li>平方损失函数:</li>
-</ul>
-$$L(h(x), y) = (h(x) - y)^2$$<p>平均损失 $R(h) = E_{x \sim D} [L(h(x), y)]$ 称为 <strong>泛化误差</strong>.</p>
-<p>容易验证, 对于 0-1 损失函数, 准确率 $a = 1-R(h)$.</p>
-<h3 id="二分类">二分类
-</h3><p>对于二分类问题, 样本预测结果有四种情况:</p>
-<ul>
-<li><strong>真正例</strong> (True Positive, TP): 预测为正例, 实际为正例.</li>
-<li><strong>假正例</strong> (False Positive, FP): 预测为正例, 实际为负例.</li>
-<li><strong>真负例</strong> (True Negative, TN): 预测为负例, 实际为负例.</li>
-<li><strong>假负例</strong> (False Negative, FN): 预测为负例, 实际为正例.</li>
-</ul>
-<p>由此引入</p>
-<ul>
-<li><strong>准确率(查准率):</strong> $P = \frac{TP}{TP+FP}$.</li>
-<li><strong>召回率(查全率):</strong> $R = \frac{TP}{TP+FN}$.</li>
-<li><strong>$F_1$ 度量:</strong> 考虑到二者抵触, 引入调和均值 $F_1 = \frac{2PR}{P+R}$.</li>
-</ul>
-<h3 id="过拟合和正则化">过拟合和正则化
-</h3><p>为了防止由于模型过于复杂而导致的过拟合, 可以通过 <strong>正则化</strong> 方法来限制模型的复杂度.</p>
-$$
-\min \sum_{i=1}^{N} L(h(x_i), y_i) + \lambda J(h)
-$$<p>其中 $J(h)$ 是随着模型复杂度增加而增加的函数. $\lambda$ 是正则化参数.</p>
-<p>怎么选取合适的 $\lambda$ ? 一般是先给出若干候选, 在验证集上进行评估, 选取泛化误差最小的.</p>
-<h3 id="数据集划分">数据集划分
-</h3><p>一般将数据集划分为 <strong>训练集</strong> $T$ 和 <strong>测试(验证)集</strong> $T^\prime$.</p>
-<ul>
-<li><strong>留出法 (hold-out)</strong>: 分层无放回地随机采样. 也叫简单交叉验证.</li>
-<li><strong>$k$ 折交叉验证 ($k$-fold cross validation)</strong>: 将数据集分为 $k$ 个大小相等的子集, 每次取其中一个作为验证集, 其余作为训练集, 最后以这 $k$ 次的平均误差作为泛化误差的估计. 当 $k=|D|$ 时称为留一 (leave-one-out) 验证法.</li>
-<li><strong>自助法 (bootstrapping)</strong>: 从数据集中<em>有放回地</em>采样 $|D|$ 个数据作为训练集, 没抽中的作为验证集. 因而训练集 $T$ 和原始数据集 $D$ 的分布未必一致, 对数据分布敏感的模型不适用.</li>
-</ul>
-<h2 id="偏差-方差分解">偏差-方差分解
-</h2><p>为什么泛化误差会随着模型复杂度的增加而先减小后增大?</p>
+$$<p>常采用 EM 算法迭代求解.</p>
 <div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p><strong>偏差</strong> (bias): 模型预测值的期望与真实值之间的差异. 体现了模型的拟合能力.</p>
-$$\text{Bias}(x) = E_T[h_T(x)-c(x)] = \bar{h}(x) - c(x)$$<p><strong>方差</strong> (variance): 模型预测值的方差. 体现了模型的对数据扰动的稳定性.</p>
-$$\text{Var}(x) = E[(h(x) - \bar{h}(x))^2]$$</div>
-<p>现在对泛化误差进行分解:</p>
+    <p class="math-block-title math-algo">算法<span class="math-subtitle">EM</span></p>
+<ol>
+<li><strong>E步</strong>, 求期望: 基于当前参数 $\theta^{(t)}$, 计算对数似然函数关于 $Z$ 的期望:
+$$
+    Q \left(\theta | \theta^{(t)}\right) = \mathbb{E}_{Z} \left[ LL(\theta | D, Z) | D, \theta^{(t)} \right] = \sum_Z LL(\theta | D, Z) p(Z | D, \theta^{(t)})
+    $$</li>
+<li><strong>M步</strong>, 最大化: 通过最大化 $Q\left(\theta | \theta^{(t)}\right)$ 来更新参数 $\theta$:
+$$
+    \theta^{(t+1)} = \argmax_{\theta} Q\left(\theta | \theta^{(t)}\right)
+    $$</li>
+<li>迭代直到收敛.</li>
+</ol>
+</div>
+<p>用 EM 算法估计参数:</p>
+$$
+LL(\theta|D,Z)=\sum_{i=1}^k\left\{\left(\sum_{j=1}^Nz_{ji}\right)\log\alpha_i+\sum_{j=1}^Nz_{ji}\log p(x_j|\mu_i,\sigma_i^2)\right\}
+$$<p>令 $n_i=\sum_{j=1}^Nz_{ji}$, 则</p>
 $$
 \begin{aligned}
-R(h) &= E_T[(h_T(x) - c(x))^2] \\
-&= E_T[h_T^2(x) - 2h_T(x)c(x) + c^2(x)] \\
-&= E_T[h_T^2(x)] - 2c(x)E_T[h_T(x)] + c^2(x) \\
-&= E_T[h_T^2(x)] - \bar{h}^2(x) + \bar{h}^2(x) - 2\bar{h}(x)c(x) + c^2(x) \\
-&= E_T[(h_T(x) - \bar{h}(x))^2] + (\bar{h}(x) - c(x))^2 \\
-&= \text{Var}(x) + \text{Bias}^2(x)
+& LL(\theta|D,Z)=\sum_{i=1}^k\left\{n_i\log\alpha_i+\sum_{j=1}^Nz_{ji}\log p(x_j|\mu_i,\sigma_i^2)\right\} \\
+& =\sum_{i=1}^{k}\left\{n_{i}\log\alpha_{i}+\sum_{j=1}^{N}z_{ji}\left[\log\left(\frac{1}{\sqrt{2\pi}}\right)-\log\sigma_{i}-\frac{1}{2\sigma_{i}^{2}}(x_{j}-\mu_{i})^{2}\right]\right\}
 \end{aligned}
-$$<p>当然, 由于噪声存在, $y$ 未必一定等于 $c(x)$, 不妨设 $y=c(x)+\varepsilon$, 其中 $\varepsilon \sim \Epsilon$ 期望为 $0$. 可以证明</p>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理<span class="math-subtitle">偏差-方差分解</span></p>
+$$<p>我们考虑 $z_{ji}$ 期望:</p>
 $$
-E_{T \sim D^{|T|}, \varepsilon \sim \Epsilon} [(h_T(x)-y)^2] = \text{Bias}^2(x) + \text{Var}(x) + E[\varepsilon^2]
-$$<p>即泛化误差可以分解为偏差、方差和噪声三部分.</p>
+\begin{aligned}
+\gamma_{ji}^{(t)} &= E_{Z} \left[ z_{ji} | D, \theta^{(t)} \right] = p\left(z_{ji} = 1 | D, \theta^{(t)}\right) \\
+&= p\left(z_j = i | D, \theta^{(t)}\right) = \frac{\alpha_i^{(t)} p\left(x_j | \mu_i^{(t)}, {\sigma_i^2}^{(t)}\right)}{\sum_{l=1}^k \alpha_i^{(t)} p\left(x_j | \mu_l^{(t)}, {\sigma_l^2}^{(t)}\right)}
+\end{aligned}
+$$<p>则对 $E$ 步, 有:</p>
+$$
+\begin{aligned}
+Q\left(\theta |\theta^{(t)}\right) &= E_Z \left[ LL(\theta | D, Z) | D, \theta^{(t)} \right] \\
+&= \sum_{i=1}^k \left\{ \sum_{j=1}^N \gamma_{ji}^{(t)} \log \alpha_i + \sum_{j=1}^N \gamma_{ji}^{(t)} \left[\log\left(\frac{1}{\sqrt{2\pi}}\right)-\log\sigma_{i}-\frac{1}{2\sigma_{i}^{2}}(x_{j}-\mu_{i})^{2}\right]\right\} \\
+\end{aligned}
+$$<p>既然要极大化 $Q\left(\theta |\theta^{(t)}\right)$, 那么我们可以对 $\mu_i$, $\sigma_i^2$ 分别求偏导数, 令其为 $0$. 分别得到:</p>
+$$
+\begin{aligned}
+\mu_i^{(t+1)} &= \frac{\sum_{j=1}^N \gamma_{ji}^{(t)} x_j}{\sum_{j=1}^N \gamma_{ji}^{(t)}} \\
+{\sigma_i^2}^{(t+1)} &= \frac{\sum_{j=1}^N \gamma_{ji}^{(t)} \left(x_j - \mu_i^{(t+1)}\right)^2}{\sum_{j=1}^N \gamma_{ji}^{(t)}}
+\end{aligned}
+$$<p>注意 $\alpha_i$ 还有约束 $\sum_{i=1}^k \alpha_i = 1$, 为此用 Lagrange 对偶, 令</p>
+$$
+L(\theta, \beta) = Q\left(\theta |\theta^{(t)}\right) + \beta \left(1 - \sum_{i=1}^k \alpha_i\right)
+$$<p>对 $\alpha_i$ 求偏导数, 令其为 $0$, 可得:</p>
+$$
+n_i^{(t)} = \beta \alpha_i
+$$<p>两边求和, 随后可以得出 $\alpha$:</p>
+$$
+N = \sum_{i=1}^k n_i^{(t)} = \beta \sum_{i=1}^k \alpha_i = \beta
+$$$$
+\alpha_i^{(t+1)} = \frac{n_i^{(t)}}{\beta} = \frac{\sum_{j=1}^N \gamma_{ji}^{(t)}}{N}
+$$<p>把这些综合起来, 就得到基于 Gauss 混合模型的 EM 算法 (GMM):</p>
+<div class="math-block">
+    <p class="math-block-title math-algo">算法<span class="math-subtitle">GMM</span></p>
+<p><strong>输入</strong>: 数据集 $D=\{x_i\}_{i=1}^N$, 聚类簇个数 $K$.</p>
+<p><strong>输出</strong>: 簇划分 $\mathcal{C}=\{C_l\}_{l=1}^K$.</p>
+<ol>
+<li>初始化参数 $\theta =\{\alpha_i, \mu_i, \Sigma_i\}_{i=1}^K, C_l = \emptyset$.</li>
+<li><strong>E步</strong>: 计算后验概率:
+$$
+    \gamma_{ji} = p(z_j = i | x_j, \theta) = \frac{\alpha_i p(x_j | \mu_i, \Sigma_i)}{\sum_{l=1}^K \alpha_l p(x_j | \mu_l, \Sigma_l)}
+    $$</li>
+<li><strong>M步</strong>: 更新参数:
+$$
+    \begin{aligned}
+    \mu_i &= \frac{\sum_{j=1}^N \gamma_{ji} x_j}{\sum_{j=1}^N \gamma_{ji}} \\
+    \Sigma_i &= \frac{\sum_{j=1}^N \gamma_{ji} (x_j - \mu_i)(x_j - \mu_i)^T}{\sum_{j=1}^N \gamma_{ji}} \\
+    \alpha_i &= \frac{\sum_{j=1}^N \gamma_{ji}}{N}
+    \end{aligned}
+    $$</li>
+<li>重复步骤 2 和 3, 直到收敛.</li>
+<li>对于每个 $x_j$, 求 $x_j$ 的簇标记:
+$$
+    \lambda_j = \argmax_i \alpha_i p(x_j | \mu_i, \Sigma_i)
+    $$
+并将 $x_j$ 加入到 $C_{\lambda_j}$.</li>
+<li>返回 $\mathcal{C} = \{C_l\}_{l=1}^K$.</li>
+</ol>
 </div>
-<p>起初, 模型较为简单, 偏差在泛化误差起主导作用. 随着模型复杂度的增加, 拟合能力增强, 偏差减小, 但带来过拟合风险, 算法对数据扰动敏感, 方差增大. 方差占比逐渐增大, 最终导致泛化误差增大.</p>
+<h2 id="层次聚类算法">层次聚类算法
+</h2><p>允许在聚类过程中对已有的簇进行合并或分裂, 通过对样本集不同层次的划分形成树状结构.</p>
+<p>AGNES 算法是自底向上的层次聚类算法, 其基本思想是从每个样本点开始, 逐步合并最相近的簇. 关于衡量簇之间的距离, 可以有很多定义, 例如最小距离, 最大距离, 平均距离, 质心距离, 中心距离等. 如果一个聚类算法分别选用最小距离/最大距离/平均距离作为两个簇的距离, 则相应的算法分别被称为单连接算法/全连接算法/均连接算法.</p>
+<p>AGNES 算法采用距离 (相异性) 矩阵来保存当前簇之间的距离:</p>
+$$M(i,j)=d(C_i,C_j),\quad i,j=1,2,\cdots,N$$<p>随着每次距离最近的两个簇的合并, 对距离矩阵也作相应的修正. 不妨设当前距离最近的两个聚类簇为 $C_i^*$ 和 $C_j^*$ 且 $i^*\lt j^*$, 则</p>
+<ol>
+<li>将 $C_j^*$ 并入 $C_{i^*}$, 将合并以后的新簇仍然记作 $C_i^*$,并将所有 $j>j^*$ 簇 $C_j$ 的下标减 $1$, 重新标记为 $C_{j-1}$;</li>
+<li>删除当前距离矩阵$M$的第 $j^*$ 行与第 $j^*$ 列;</li>
+<li>将 $M(i^*,j)$ 和 $M(j,i^*)$ 更新为 $d(C_{i^*},C_j)$.</li>
+</ol>
+<p>DIANA 算法恰好与 AGNES 相反, 它是自顶向下的层次聚类算法.</p>
+<h2 id="基于密度的聚类方法">基于密度的聚类方法
+</h2><p>将簇看作是数据空间中被稀疏区域分开的稠密区域, 聚类就是发现并不断扩展稠密区域的过程. DBSCAN 算法是典型的基于密度的聚类算法.</p>
+<p>为了刻画稠密区域, DBSCAN 算法引入了密度可达性和密度相连的概念:</p>
+<div class="math-block">
+    <p class="math-block-title math-def">定义</p>
+<p>对于样本点 $x_i \in D$, 在其 $\epsilon$ - 邻域</p>
+$$
+N_\epsilon(x_i) = \{x_j \in D | \|x_i - x_j\| \leq \epsilon\}
+$$<p>内, 包含至少 $\text{MinPts}$ 个样本点的点称为 <strong>核心点</strong>.</p>
+<p>如果 $x_j$ 位于核心点 $x_i$ 的 $\epsilon$ - 邻域内, 则称 $x_j$ 由 $x_i$  <strong>直接密度可达</strong>, 一般地, 如果存在一个序列 $p_1=x_i, p_2, \cdots, p_k=x_j$, 使得 $p_{l+1}$ 由 $p_l$ 直接密度可达, 则称 $x_j$ 由 $x_i$ <strong>密度可达</strong>. 如果存在 $p \in D$ 使得 $x_i$ 和 $x_j$ 都由 $p$ 密度可达, 则称 $x_i$ 和 $x_j$ <strong>密度相连</strong>.</p>
+<p>此时, 我们定义 <strong>簇</strong> 是满足如下条件的样本点集合:</p>
+<ul>
+<li>如果 $x_i,x_j \in C$, 则 $x_i,x_j$ 是密度相连的;</li>
+<li>对任一 $x_i \in C$, 如果 $x_j$ 由 $x_i$ 密度可达, 则 $x_j \in C$;</li>
+</ul>
+</div>
+<div class="math-block">
+    <p class="math-block-title math-algo">算法<span class="math-subtitle">DBSCAN</span></p>
+<p><strong>输入</strong>: 数据集 $D=\{x_i\}_{i=1}^N$, $\epsilon$ - 邻域半径, 最小点数 $\text{MinPts}$.</p>
+<p><strong>输出</strong>: 簇划分 $\mathcal{C}=\{C_l\}_{l=1}^K$.</p>
+<ol>
+<li>初始化簇划分 $\mathcal{C} = \emptyset$, 并将所有样本点标记为未访问.</li>
+<li>随机选择一个未访问的样本点 $x_i$ 访问: 如果 $x_i$ 是核心点, 则找出由该样本点密度可达的所有样本点, 将它们划分到同一个簇 $C_l$ 中, 否则将 $x_i$ 标记为噪声点.</li>
+<li>重复步骤 2, 直到所有样本点都被访问.</li>
+<li>返回 $\mathcal{C} = \{C_l\}_{l=1}^K$.</li>
+</ol>
+</div>
 
 
     
@@ -598,7 +644,7 @@ $$<p>即泛化误差可以分解为偏差、方差和噪声三部分.</p>
             
                 
 <article class="">
-    <a href="/p/machine-learning/minibatch/">
+    <a href="/p/machine-learning-base/minibatch/">
         
         
 
@@ -611,7 +657,7 @@ $$<p>即泛化误差可以分解为偏差、方差和噪声三部分.</p>
             
                 
 <article class="">
-    <a href="/p/machine-learning/vc-nu/">
+    <a href="/p/machine-learning-base/vc-nu/">
         
         
 
@@ -624,7 +670,7 @@ $$<p>即泛化误差可以分解为偏差、方差和噪声三部分.</p>
             
                 
 <article class="">
-    <a href="/p/machine-learning/pca/">
+    <a href="/p/machine-learning-base/pca/">
         
         
 
@@ -637,7 +683,7 @@ $$<p>即泛化误差可以分解为偏差、方差和噪声三部分.</p>
             
                 
 <article class="">
-    <a href="/p/machine-learning/pac-uc/">
+    <a href="/p/machine-learning-base/pac-uc/">
         
         
 
@@ -650,7 +696,7 @@ $$<p>即泛化误差可以分解为偏差、方差和噪声三部分.</p>
             
                 
 <article class="">
-    <a href="/p/machine-learning/markov/">
+    <a href="/p/machine-learning-base/markov/">
         
         
 
