@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Markov 链 Markov 链是刻画随机变量序列的概率分布的模型.\n定义\n设 $\\{X_t\\mid t=1,2,\\cdots\\}$ 是随机序列, 若 $X_t$ 都在 $S$ 中取值, 则称 $S$ 是 $\\{X_t\\}$ 的状态空间, $S$中的元素称为 状态.\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Markov 链 Markov 链是刻画随机变量序列的概率分布的模型.\n定义\n设 $\\{X_t\\mid t=1,2,\\cdots\\}$ 是随机序列, 若 $X_t$ 都在 $S$ 中取值, 则称 $S$ 是 $\\{X_t\\}$ 的状态空间, $S$中的元素称为 状态.\n如果对任何正整数 $t\\geq 2$ 和 $S$ 中的状态 $s_i,s_j,s_{i_1},s_{i_2},\\cdots,s_{i_{t-1}}$, 随机序列 $\\{X_t\\}$ 满足\n">
 <title>机器学习基础(9) —— 隐 Markov 模型</title>
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning-base/markov/'>
 
-<link rel="stylesheet" href="/scss/style.min.f991297a51bfb3ec7265f5caabcf8b61b92014e8d7b4c22fa6d4f0c6cb9ce9ce.css"><meta property='og:title' content="机器学习基础(9) —— 隐 Markov 模型">
-<meta property='og:description' content="Markov 链 Markov 链是刻画随机变量序列的概率分布的模型.\n定义\n设 $\\{X_t\\mid t=1,2,\\cdots\\}$ 是随机序列, 若 $X_t$ 都在 $S$ 中取值, 则称 $S$ 是 $\\{X_t\\}$ 的状态空间, $S$中的元素称为 状态.\n">
+<link rel="stylesheet" href="/scss/style.min.050e713ce6ba4df4f898621146cc9dece02afd8477586323296cb867d14a1d9a.css"><meta property='og:title' content="机器学习基础(9) —— 隐 Markov 模型">
+<meta property='og:description' content="Markov 链 Markov 链是刻画随机变量序列的概率分布的模型.\n定义\n设 $\\{X_t\\mid t=1,2,\\cdots\\}$ 是随机序列, 若 $X_t$ 都在 $S$ 中取值, 则称 $S$ 是 $\\{X_t\\}$ 的状态空间, $S$中的元素称为 状态.\n如果对任何正整数 $t\\geq 2$ 和 $S$ 中的状态 $s_i,s_j,s_{i_1},s_{i_2},\\cdots,s_{i_{t-1}}$, 随机序列 $\\{X_t\\}$ 满足\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning-base/markov/'>
 <meta property='og:site_name' content='LeoDreamer'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-04-22T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-04-22T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="机器学习基础(9) —— 隐 Markov 模型">
-<meta name="twitter:description" content="Markov 链 Markov 链是刻画随机变量序列的概率分布的模型.\n定义\n设 $\\{X_t\\mid t=1,2,\\cdots\\}$ 是随机序列, 若 $X_t$ 都在 $S$ 中取值, 则称 $S$ 是 $\\{X_t\\}$ 的状态空间, $S$中的元素称为 状态.\n">
+<meta name="twitter:description" content="Markov 链 Markov 链是刻画随机变量序列的概率分布的模型.\n定义\n设 $\\{X_t\\mid t=1,2,\\cdots\\}$ 是随机序列, 若 $X_t$ 都在 $S$ 中取值, 则称 $S$ 是 $\\{X_t\\}$ 的状态空间, $S$中的元素称为 状态.\n如果对任何正整数 $t\\geq 2$ 和 $S$ 中的状态 $s_i,s_j,s_{i_1},s_{i_2},\\cdots,s_{i_{t-1}}$, 随机序列 $\\{X_t\\}$ 满足\n">
     </head>
     <body class="
     article-page
@@ -405,8 +405,8 @@
     
     <h2 id="markov-链">Markov 链
 </h2><p>Markov 链是刻画随机变量序列的概率分布的模型.</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>设 $\{X_t\mid t=1,2,\cdots\}$ 是随机序列, 若 $X_t$ 都在 $S$ 中取值, 则称 $S$ 是 $\{X_t\}$ 的状态空间, $S$中的元素称为 <strong>状态</strong>.</p>
 <p>如果对任何正整数 $t\geq 2$ 和 $S$ 中的状态 $s_i,s_j,s_{i_1},s_{i_2},\cdots,s_{i_{t-1}}$, 随机序列 $\{X_t\}$ 满足</p>
 $$
@@ -423,10 +423,10 @@ $$a_{ij} = P(X_2 = s_j | X_1 = s_i), s_i, s_j \in S$$<p>为 Markov 链 $\{X_t\}$
 </h2><p>实际中, 我们往往无法直接观察到 Markov 链的状态, 而只能观察到与状态相关的观测值.</p>
 <p>隐 Markov 模型 (HMM) 刻画了首先由一个马尔可夫链随机生成不可观测的状态随机序列 $\{X_t\}$, 再由每个状态 $X_t$ 生成一个观测 $O_t$ 而生成观测随机序列 $\{O_t\}$ 的过程.</p>
 <p>设 <strong>观测概率</strong> 矩阵 $B = [b_{ij}]$, 其中 $b_{ij} = P(O_t = o_j | X_t = s_i)$.</p>
-<div class="math-block">
-    <p class="math-block-title math-algo">算法<span class="math-subtitle">HMM</span></p>
-<p><strong>输入</strong>: 隐 Markov 模型 $M = (A, B, \pi)$, 其中 $A$ 是转移概率矩阵, $B$ 是观测概率矩阵, $\pi$ 是初始分布.</p>
-<p><strong>输出</strong>: 长度为 $T$ 的观测序列.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">HMM</span></p>
+<p><strong class="algo-input">输入 &gt; </strong> 隐 Markov 模型 $M = (A, B, \pi)$, 其中 $A$ 是转移概率矩阵, $B$ 是观测概率矩阵, $\pi$ 是初始分布.</p>
+<p><strong class="algo-output">输出 &gt; </strong> 长度为 $T$ 的观测序列.</p>
 <ol>
 <li>令 $t=1$, 随机选择初始状态 $X_1$ 使得 $P(X_1 = s_i) = \pi_i$.</li>
 <li>根据状态 $X_t$ 和观测概率矩阵 $B$, 随机生成观测 $O_t$ 使得 $P(O_t = o_j | X_t = s_i) = b_{ij}$.</li>
@@ -476,10 +476,10 @@ $$
 $$<p>动态规划还要记住路径, 用 $\Psi_t(s_i)$ 记录时刻 $t$ 状态为 $s_i$ 的概率最大的路径的前一个状态, 即:</p>
 $$
 \Psi_t(s_i) = \argmax_{1 \le j \le N} \left( \delta_{t-1}(j) a_{ji} \right)
-$$<div class="math-block">
-    <p class="math-block-title math-algo">算法<span class="math-subtitle">Viterbi</span></p>
-<p><strong>输入</strong>: $\lambda = (A,B,\pi)$, 观测序列 $\mathbf{O} = (O_1,O_2,\cdots,O_T)$</p>
-<p><strong>输出</strong>: 最优状态序列 $X^* = (X_1^*, X_2^*, \cdots, X_T^*)$</p>
+$$<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">Viterbi</span></p>
+<p><strong class="algo-input">输入 &gt; </strong> $\lambda = (A,B,\pi)$, 观测序列 $\mathbf{O} = (O_1,O_2,\cdots,O_T)$</p>
+<p><strong class="algo-output">输出 &gt; </strong> 最优状态序列 $X^* = (X_1^*, X_2^*, \cdots, X_T^*)$</p>
 <ol>
 <li>初始化 $\delta_1(i) = \pi_i b_i(O_1)$, $\Psi_1(s_i) = 0$.</li>
 <li>对于 $t=2,3,\cdots,T$:
@@ -560,10 +560,10 @@ $$
 \xi_t(i,j|\lambda)&=p(X_t=s_i,X_{t+1}=s_j|\mathbf{O},\bar{\lambda})
 \end{aligned}
 $$<p>利用 Bayes 公式, 结合前向后向算法可得结果.</p>
-<div class="math-block">
-    <p class="math-block-title math-algo">算法<span class="math-subtitle">Baum-Welch</span></p>
-<p><strong>输入</strong>: 观测序列 $\mathbf{O} = (O_1,O_2,\cdots,O_T)$.</p>
-<p><strong>输出</strong>: 隐 Markov 模型 $\lambda = (A,B,\pi)$.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">Baum-Welch</span></p>
+<p><strong class="algo-input">输入 &gt; </strong> 观测序列 $\mathbf{O} = (O_1,O_2,\cdots,O_T)$.</p>
+<p><strong class="algo-output">输出 &gt; </strong> 隐 Markov 模型 $\lambda = (A,B,\pi)$.</p>
 <ol>
 <li>初始化 $\lambda = (A,B,\pi)$.</li>
 <li>按概率计算方法计算前向概率 $\alpha_t(i)$ 和后向概率 $\beta_t(i)$.</li>

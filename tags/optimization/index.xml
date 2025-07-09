@@ -9,16 +9,16 @@
         <copyright>LeoDreamer</copyright>
         <lastBuildDate>Sun, 30 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/tags/optimization/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>论文阅读 - Adam 的收敛性分析</title>
-        <link>https://LeoDreamer2004.github.io/p/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-adam-%E7%9A%84%E6%94%B6%E6%95%9B%E6%80%A7%E5%88%86%E6%9E%90/</link>
+        <link>https://LeoDreamer2004.github.io/p/paper-reading/adam-convergence/</link>
         <pubDate>Sun, 30 Mar 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://LeoDreamer2004.github.io/p/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-adam-%E7%9A%84%E6%94%B6%E6%95%9B%E6%80%A7%E5%88%86%E6%9E%90/</guid>
-        <description>&lt;h2 id=&#34;介绍&#34;&gt;介绍
+        <guid>https://LeoDreamer2004.github.io/p/paper-reading/adam-convergence/</guid>
+        <description>&lt;img src="https://LeoDreamer2004.github.io/p/paper-reading/adam-convergence/banner.jpeg" alt="Featured image of post 论文阅读 - Adam 的收敛性分析" /&gt;&lt;h2 id=&#34;介绍&#34;&gt;介绍
 &lt;/h2&gt;&lt;p&gt;在论文 &lt;a class=&#34;link cite-original&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
 &lt;/a&gt; 中, 作者首次介绍了 Adam 优化器. 此算法一经出现立刻爆火, 现在在深度学习当中已经成为一种最常用的优化算法.&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;Adam&lt;/span&gt;&lt;/p&gt;
+&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;Adam&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;Adam 的更新公式如下:&lt;/p&gt;
 $$
 \begin{aligned}
@@ -41,8 +41,8 @@ $$&lt;p&gt;其中 $\odot$ 表示逐元素相乘. 超参数通常取 $\beta_1=0.9
 &lt;/h2&gt;&lt;p&gt;论文 &lt;a class=&#34;link cite-original&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     
 &lt;/a&gt; 中提到我们可以引入误差量来衡量收敛性:&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;称 &lt;strong&gt;累积误差&lt;/strong&gt; 为&lt;/p&gt;
 $$R(T) = \sum_{t=1}^T (f_t(\theta_t) - f_t(\theta^*))$$&lt;p&gt;其中 $\theta^*$ 是最优解, 即 $\theta^* = \argmin_{\theta} \sum_{t=1}^T f_t(\theta)$.&lt;/p&gt;
 &lt;/div&gt;
@@ -50,10 +50,10 @@ $$R(T) = \sum_{t=1}^T (f_t(\theta_t) - f_t(\theta^*))$$&lt;p&gt;其中 $\theta^*
 &lt;p&gt;鉴于偏差修正只在初期有较大影响, 之后对于收敛性的讨论, 以下证明对其不予考虑 (原论文有), 此外忽略微小项 $\epsilon$.&lt;/p&gt;
 &lt;p&gt;在原始的 Adam 中 $\beta_1, \eta$ 都是常数, 实际上此时难以证明. 因此原文中, 对参数做了随时间动态调整:&lt;/p&gt;
 $$\eta_t = \frac{\eta}{\sqrt{t}}, \beta_{1,t}=\beta_1 \lambda^{t-1}, \lambda \in (0,1)$$&lt;p&gt;&lt;strong&gt;注意: 以下定理的证明有争议!&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
+&lt;div class=&#34;math-block math-thm&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定理&lt;/p&gt;
 &lt;p&gt;假设 $f_t$ 梯度有界, $\theta_t$ 之间的距离有界, 即 $\| g_t \|_{\infty} \le G, \|\theta_i-\theta_j\|_{\infty} \le D$, 且 $\beta_1^4 &lt; \beta_2$, Adam 中超参数 $\eta, \beta_1$ 遵从如上动态调整, 则 $R(T) \le \mathcal{O}(\sqrt{T})$, 因而 Adam 收敛.&lt;/p&gt;
-&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
+&lt;p class=&#34;math-prf&#34;&gt;证明&lt;/p&gt;
 &lt;p&gt;首先, 可以证明:&lt;/p&gt;
 $$
 f_t(\theta_t) - f_t(\theta^*) \le g_t^T(\theta_t - \theta^*) = \sum_{i=1}^d g_{t,i}(\theta_{t,i} - \theta^*_i)
@@ -87,7 +87,7 @@ $$&lt;blockquote&gt;
 $$
 \begin{aligned}
 M_2 &amp;=\sum_{t=1}^{T} \beta_{1,t}m_{t-1}(\theta_t - \theta^*) \le \sum_{t=1}^{T} \beta_{1,t} |m_{t-1}| D \\
-&amp;\le GD \sum_{t=1}^{T} \beta_{1,t} = G D \beta_1 \frac{1-\lambda^T}{1-\lambda} = \mathcal{O}(1)
+&amp;\le GD \sum_{t=1}^{T} \beta_{1,t} = G D \beta_1 \frac{1-\lambda^\top}{1-\lambda} = \mathcal{O}(1)
 \end{aligned}
 $$&lt;p&gt;&lt;strong&gt;第三项&lt;/strong&gt;: $v_t$ 未必有下界, 有点麻烦! 直接写通式:&lt;/p&gt;
 $$
@@ -118,12 +118,12 @@ $$&lt;/div&gt;
 $$
 f_t(x) = \begin{cases}
 Cx &amp; t \equiv 1 \pmod {3} \\
--x &amp; \text{Otherwise} \\
+-x &amp; \text{otherwise} \\
 \end{cases}, \quad x \in [-1,1]
 $$&lt;p&gt;其中 $C&gt;2$ 是一个常数. 从宏观尺度上, $f=\frac{1}{3}(C-2)x$, 最低点在 $x=-1$ 处. 显然 $f$ 和其他超参数满足定理条件, 然而经过 (冗长枯燥的) 计算可以得知, 由于每三次迭代中 $f$ 就会有两次向错误的方向更新, 加上移动平均导致的历史遗忘, 会导致无法正确收敛. 具体过程可以参考原文附录.&lt;/p&gt;
 &lt;p&gt;为了解决这个问题, 作者提出为了确保 $\gamma$ 是单调不减的, 可以在更新时让 $v_{t+1}$ 与 $v_t$ 取一个最大值作为更新值. 由此, 引出 Amsgrad 算法:&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;Amsgrad&lt;/span&gt;&lt;/p&gt;
+&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;Amsgrad&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;Amsgrad 的更新公式如下:&lt;/p&gt;
 $$
 \begin{aligned}
@@ -148,8 +148,8 @@ $$&lt;p&gt;此处省略了偏差修正.&lt;/p&gt;
 &lt;/a&gt;不同, 论文 &lt;a class=&#34;link cite-converge&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     
 &lt;/a&gt; 更注重实际. 从训练角度上, 一般是分成若干个 Epoch, 每个 Epoch 内处理的都是相同的 $n$ 个函数. 作者对 $f$ 以及其内的 $n$ 个分函数提出了如下要求:&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;定义集合 $\mathcal{F}$ 为满足如下条件的函数 $f: \mathbb{R}^d \mapsto \mathbb{R}$ 集合:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;$f$ 有界, 即 $$f \le f^\ast$$&lt;/li&gt;
@@ -159,12 +159,12 @@ $$&lt;p&gt;此处省略了偏差修正.&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;作者称第三个要求实际上是非常容易的, 事实上确实如此.&lt;/p&gt;
 &lt;p&gt;我们记第 $k$ 个 Epoch 开始时的变量为 $x_k$, 运行到第 $0 \le i &lt; n$ 个函数时为 $x_{k,i}$, 即 $x_k=x_{k,0}=x_{k-1,n}$. 现在, 作者称梯度的上界有保证:&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
+&lt;div class=&#34;math-block math-thm&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定理&lt;/p&gt;
 &lt;p&gt;设 $f(x) \in \mathcal{F}$, 遵守 $\mathcal{F}$ 内定义中的记号. 设 $\beta_1^2 &lt; \beta_2 &lt; 1$, 且 $\beta_2 \ge \gamma(n)$, 学习率衰减 $\eta_k= \frac{\eta}{\sqrt{nk}}$, 则存在某个充分大的 $K$, 对于 $T&gt;K$ 均有:&lt;/p&gt;
 $$
 \min_{k \in [K,T]} \mathbb{E} \left\{ \min \left[ \sqrt{\frac{2D_1d}{D_0}} \| \nabla f(x_k) \|^2, \| \nabla f(x_k) \| \right] \right\} = \mathcal{O} \left( \frac{\log T}{\sqrt{T}} + \sqrt{D_0}\right)
-$$&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
+$$&lt;p class=&#34;math-prf&#34;&gt;证明&lt;/p&gt;
 &lt;p&gt;我们先澄清, 由 $R(T)$ 中的证明, $m_t$ 和 $v_t$ 有上界, 且 $\frac{m_t}{\sqrt{v_t}}$ 也有上界 (证明依然类似, 把 Young 特化成 Cauchy 即可, 此时条件变为 $\beta_1^2 \le \beta_2$).&lt;/p&gt;
 &lt;p&gt;从下降引理出发:&lt;/p&gt;
 $$
@@ -244,8 +244,8 @@ $$
 &lt;p&gt;显然, 日常训练中的情形更符合第二种, 我们都是先定义好损失函数, 然后再选择超参数, 因此这也就解释了为什么 Adam 在绝大多数训练中表现良好, 重点在于我们选取的超参数符合定理的要求.&lt;/p&gt;
 &lt;h2 id=&#34;应用-另一个算法&#34;&gt;应用: 另一个算法
 &lt;/h2&gt;&lt;p&gt;遇到了一个基于 Nestorov 等价形式的算法, 和 Adam 非常相似, 于是想能不能直接推广证明, 方便起见暂时叫它 C&amp;rsquo;Adam. 更新公式如下:&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;C&amp;#39;Adam&lt;/span&gt;&lt;/p&gt;
+&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;C&amp;#39;Adam&lt;/span&gt;&lt;/p&gt;
 $$
 \begin{aligned}
 m_t &amp;= \beta_1 m_{t-1} + (1-\beta_1)g_t \\
@@ -254,12 +254,12 @@ v_t &amp;= \beta_2 v_{t-1} + (1-\beta_2)g_t^2 \\
 \end{aligned}
 $$&lt;/div&gt;
 &lt;p&gt;忽略偏差修正, 可以看到和 Adam 只有最后一行不同. 我尝试着给出一份证收敛性证明. 以下仍然简记 $x_k = x_{k,0}$.&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
+&lt;div class=&#34;math-block math-thm&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定理&lt;/p&gt;
 &lt;p&gt;设 $f(x) = \sum_{i=0}^{n-1} f_i$ 有界, 且任意时刻 $f_t$ 满足 $L$- Lipschitz 连续, 满足增长性条件 $\sum_{i=0}^{n-1} \| \nabla f_i(x) \|^2 \le D_1 \| \nabla f(x) \| ^2 + D_0$ . 设 $\beta_1^2 &lt; \beta_2 &lt; 1$, 且 $\beta_2 \ge \gamma(n)$, 学习率衰减 $\eta_k= \frac{\eta}{\sqrt{nk}}$, 则存在某个充分大的 $K$, 对于 $T&gt;K$ 均有:&lt;/p&gt;
 $$
 \min_{k \in [K,T]} \mathbb{E} \left\{ \min \left[ \sqrt{\frac{2D_1d}{D_0}} \| \nabla f(x_k) \|^2, \| \nabla f(x_k) \| \right] \right\} = \mathcal{O} \left( \frac{\log T}{\sqrt{T}} + \sqrt{D_0}\right)
-$$&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
+$$&lt;p class=&#34;math-prf&#34;&gt;证明&lt;/p&gt;
 &lt;p&gt;从下降引理出发:&lt;/p&gt;
 $$
 \mathbb{E}f(x_{k+1}) - \mathbb{E}f(x_k) \le \mathbb{E} \left&lt; \nabla f(x_k), x_{k+1} - x_k \right&gt; + \frac{L}{2} \mathbb{E} \|x_{k+1} - x_k\|^2

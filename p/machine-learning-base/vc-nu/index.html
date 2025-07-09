@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning-base/vc-nu/'>
 
-<link rel="stylesheet" href="/scss/style.min.f991297a51bfb3ec7265f5caabcf8b61b92014e8d7b4c22fa6d4f0c6cb9ce9ce.css"><meta property='og:title' content="机器学习基础(12) —— VC 维与非一致可学习">
+<link rel="stylesheet" href="/scss/style.min.050e713ce6ba4df4f898621146cc9dece02afd8477586323296cb867d14a1d9a.css"><meta property='og:title' content="机器学习基础(12) —— VC 维与非一致可学习">
 <meta property='og:description' content="VC 维 定义\n设 $\\mathcal{H}$ 是从 $X$ 到 $\\{0, 1\\}$ 的函数类, $C = \\{c_1, \\ldots, c_m\\} \\subset X$. $\\mathcal{H}$ 在 $C$ 上的 限制 是可以从 $\\mathcal{H}$ 生成的从 $C$ 到 $\\{0, 1\\}$ 的函数集, 即:\n$$\\mathcal{H}_C = \\{(h(c_1), \\ldots, h(c_m)) : h \\in \\mathcal{H}\\}$$其中我们将每个从 $C$ 到 $\\{0, 1\\}$ 的函数表示为一个 $\\{0,1\\}^{|C|}$ 向量.\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning-base/vc-nu/'>
 <meta property='og:site_name' content='LeoDreamer'>
@@ -395,56 +395,56 @@
     
     
     <h2 id="vc-维">VC 维
-</h2><div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+</h2><div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>设 $\mathcal{H}$ 是从 $X$ 到 $\{0, 1\}$ 的函数类, $C = \{c_1, \ldots, c_m\} \subset X$. $\mathcal{H}$ 在 $C$ 上的 <strong>限制</strong> 是可以从 $\mathcal{H}$ 生成的从 $C$ 到 $\{0, 1\}$ 的函数集, 即:</p>
 $$\mathcal{H}_C = \{(h(c_1), \ldots, h(c_m)) : h \in \mathcal{H}\}$$<p>其中我们将每个从 $C$ 到 $\{0, 1\}$ 的函数表示为一个 $\{0,1\}^{|C|}$ 向量.</p>
 </div>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>一个假设类 $\mathcal{H}$ <strong>打散</strong> 一个有限集 $C \subset X$, 如果 $\mathcal{H}_C$ 是从 $C$ 到 $\{0, 1\}$ 的所有函数的集合. 即:</p>
 $$|\mathcal{H}_C| = 2^{|C|}$$</div>
 <p>我们有如下推论:</p>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
+<div class="math-block math-thm">
+    <p class="math-title">定理</p>
 <p>设 $\mathcal{H}$ 是从 $\mathcal{X}$ 到 $\{0, 1\}$ 的假设类, $m$ 是训练集大小. 如果存在一个大小为 $2m$ 的集合 $C \subset \mathcal{X}$ 被 $\mathcal{H}$ 打散, 则对于任何学习算法 $A$, 存在一个在 $\mathcal{X} \times \{0, 1\}$ 上的分布 $\mathcal{D}$, 和一个预测器 $h \in \mathcal{H}$, 使得 $L_{\mathcal{D}}(h) = 0$, 但以至少 $\frac{1}{7}$ 的概率, 在 $S \sim \mathcal{D}^m$ 上有:
 </p>
 $$
 L_{\mathcal{D}}(A(S)) \geq \frac{1}{8}
 $$</div>
 <p>我们引入 VC 维的概念:</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>假设类 $\mathcal{H}$ 的 <strong>VC 维</strong>, 记为 $\text{VCdim}(\mathcal{H})$, 是 $\mathcal{H}$ 可以打散的最大集合 $C \subset \mathcal{X}$ 的大小. 如果 $\mathcal{H}$ 可以打散任意大大小的集合, 则称 $\mathcal{H}$ 的 VC 维为无穷大.</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
+<p>假设类 $\mathcal{H}$ 的 <strong>VC 维</strong>, 记为 $\mathrm{VCdim}(\mathcal{H})$, 是 $\mathcal{H}$ 可以打散的最大集合 $C \subset \mathcal{X}$ 的大小. 如果 $\mathcal{H}$ 可以打散任意大大小的集合, 则称 $\mathcal{H}$ 的 VC 维为无穷大.</p>
 </div>
-<p>例如对于 $\mathcal{H} = \{\mathbb{I}(x \lt a): a\in \mathbb{R}\}$, 不难证明 $\text{VCdim}(\mathcal{H}) = 1$.</p>
-<p>显然, 对于有限假设类 $\mathcal{H}$, 有 $\text{VCdim}(\mathcal{H}) \le \log_2 |\mathcal{H}|$.</p>
+<p>例如对于 $\mathcal{H} = \{\mathbb{I}(x \lt a): a\in \mathbb{R}\}$, 不难证明 $\mathrm{VCdim}(\mathcal{H}) = 1$.</p>
+<p>显然, 对于有限假设类 $\mathcal{H}$, 有 $\mathrm{VCdim}(\mathcal{H}) \le \log_2 |\mathcal{H}|$.</p>
 <p>关于 VC 维和可学习的关系, 要用到统计学习基本定理, 在此之前先引入一些背景.</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>设 $\mathcal{H}$ 是从 $\mathcal{X}$ 到 $\{0, 1\}$ 的假设类. 则 $\mathcal{H}$ 的 <strong>增长函数</strong> $\tau_{\mathcal{H}}: \mathbb{N} \to \mathbb{N}$ 定义为:</p>
 $$
 \tau_{\mathcal{H}}(m) = \max_{C \subset \mathcal{X}: |C| = m} |\mathcal{H}_C|
 $$</div>
-<p>例如当 $\text{VCdim}(\mathcal{H}) = d < \infty$ 时, 则对于 $m \le d$, 有 $\tau_{\mathcal{H}}(m) = 2^m$. 对于 $m > d$ 呢?&hellip;</p>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理<span class="math-subtitle">Sauer-Shelah-Perles</span></p>
-<p>设 $\mathcal{H}$ 是一个假设类, 且 $\text{VCdim}(\mathcal{H}) = d < \infty$. 则对于所有 $m$, 有:</p>
+<p>例如当 $\mathrm{VCdim}(\mathcal{H}) = d < \infty$ 时, 则对于 $m \le d$, 有 $\tau_{\mathcal{H}}(m) = 2^m$. 对于 $m > d$ 呢?&hellip;</p>
+<div class="math-block math-thm">
+    <p class="math-title">定理<span class="math-subtitle">Sauer-Shelah-Perles</span></p>
+<p>设 $\mathcal{H}$ 是一个假设类, 且 $\mathrm{VCdim}(\mathcal{H}) = d < \infty$. 则对于所有 $m$, 有:</p>
 $$
 \tau_{\mathcal{H}}(m) \leq \sum_{i=0}^{d} \binom{m}{i}
 $$<p>特别地, 如果 $m > d + 1$, 则有:</p>
 $$
 \tau_{\mathcal{H}}(m) \leq \left(\frac{em}{d}\right)^d
 $$</div>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
+<div class="math-block math-thm">
+    <p class="math-title">定理</p>
 <p>设 $\mathcal{H}$ 是一个假设类, 且 $\tau_{\mathcal{H}}$ 是它的增长函数. 则对于每个分布 $\mathcal{D}$ 和每个 $\delta \in (0, 1)$, 在 $S \sim \mathcal{D}^m$ 的选择下, 有超过 $1 - \delta$ 的概率满足:</p>
 $$
 |L_{\mathcal{D}}(h) - L_{S}(h)| \leq \frac{4 + \sqrt{\log(\tau_{\mathcal{H}}(2m))}}{\delta\sqrt{2m}}
 $$</div>
 <p>现在引入统计学习的基本定理, 它将 VC 维与可学习性联系起来.</p>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理<span class="math-subtitle">统计学习基本定理</span></p>
+<div class="math-block math-thm">
+    <p class="math-title">定理<span class="math-subtitle">统计学习基本定理</span></p>
 <p>设 $\mathcal{H}$ 是从 $\mathcal{X}$ 到 $\{0, 1\}$ 的假设类, 且损失函数为 0-1 损失. 则以下条件等价:</p>
 <ol>
 <li>$\mathcal{H}$ 具有一致收敛性质.</li>
@@ -454,7 +454,7 @@ $$</div>
 <li>任何经验风险最小化 (ERM) 规则都是 $\mathcal{H}$ 的成功 PAC 学习器.</li>
 <li>$\mathcal{H}$ 的 VC 维是有限的.</li>
 </ol>
-<p class="math-block-title math-prf">证明</p>
+<p class="math-prf">证明</p>
 <p>只要证明 VC 维有限时一致收敛性质成立即可. 根据 Sauer 引理, 对于 $m > d$, 有 $\tau_{\mathcal{H}}(2m) \leq (2em/d)^d$. 结合上述定理, 得到超过 $1 - \delta$ 的概率满足:</p>
 $$
 |L_{\mathcal{D}}(h) - L_{S}(h)| \leq \frac{4 + \sqrt{d \log(2em/d)}}{\delta \sqrt{2m}}
@@ -470,9 +470,9 @@ m \geq 4 \frac{2d}{(\delta \epsilon)^2} \log\left(\frac{4d}{(\delta \epsilon)^2}
 $$<p>此时即可满足, 因此$\mathcal{H}$ 具有一致收敛性质.</p>
 </div>
 <p>我们给出更具体的量化版本:</p>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理<span class="math-subtitle">统计学习基本定理量化版本</span></p>
-<p>设 $\mathcal{H}$ 是从 $\mathcal{X}$ 到 $\{0, 1\}$ 的假设类, 且损失函数为 0-1 损失. 假设 $\text{VCdim}(\mathcal{H}) = d < \infty$. 则存在常数 $C_1, C_2$ 满足:</p>
+<div class="math-block math-thm">
+    <p class="math-title">定理<span class="math-subtitle">统计学习基本定理量化版本</span></p>
+<p>设 $\mathcal{H}$ 是从 $\mathcal{X}$ 到 $\{0, 1\}$ 的假设类, 且损失函数为 0-1 损失. 假设 $\mathrm{VCdim}(\mathcal{H}) = d < \infty$. 则存在常数 $C_1, C_2$ 满足:</p>
 <ol>
 <li>$\mathcal{H}$ 具有一致收敛性质, 且样本复杂度满足:
 $$
@@ -490,27 +490,27 @@ $$
 </div>
 <h2 id="非一致可学习">非一致可学习
 </h2><h3 id="非一致可学习性质">非一致可学习性质
-</h3><div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+</h3><div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>我们称假设 $h$ 关于假设 $h'$ 是 <strong>$(\epsilon, \delta)$ 可比的</strong>, 如果有超过 $1-\delta$ 的概率满足:</p>
 $$
 L_{\mathcal{D}}(h) \le L_{\mathcal{D}}(h') + \epsilon
 $$</div>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>一个假设类 $\mathcal{H}$ 是 <strong>非一致可学习的</strong>, 如果存在一个学习算法 $A$ 和一个函数 $m_{\mathcal{H}}^{NUL} : (0, 1)^2 \times \mathcal{H} \rightarrow \mathbb{N}$, 使得对于每个 $\epsilon, \delta \in (0, 1)$ 和每个 $h \in \mathcal{H}$, 如果 $m \geq m_{\mathcal{H}}^{NUL}(\epsilon, \delta, h)$, 则对于每个分布 $\mathcal{D}$, 在 $S \sim \mathcal{D}^m$ 上有超过 $1-\delta$ 的概率满足:</p>
 $$
 L_{\mathcal{D}}(A(S)) \leq L_{\mathcal{D}}(h) + \epsilon
 $$</div>
 <p>与 PAC 不可知学习不同，非一致可学习的容量 $m$ 可以与 $h$ 相关.</p>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
+<div class="math-block math-thm">
+    <p class="math-title">定理</p>
 <p>如果一个假设类 $\mathcal{H}$ 可以被写成可数个假设类的并集 $\mathcal{H} = \bigcup_{n \in \mathbb{N}} \mathcal{H}_n$, 且每个 $\mathcal{H}_n$ 都是一致收敛的, 则 $\mathcal{H}$ 是非一致可学习的.</p>
 </div>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
+<div class="math-block math-thm">
+    <p class="math-title">定理</p>
 <p>一个二分类假设类 $\mathcal{H}$ 是非一致可学习的，当且仅当它是可数个不可知 PAC 可学习假设类的并集.</p>
-<p class="math-block-title math-prf">证明</p>
+<p class="math-prf">证明</p>
 <p><strong>充分性</strong>: 假设 $\mathcal{H} = \bigcup_{n \in \mathbb{N}} \mathcal{H}_n$, 其中每个 $\mathcal{H}_n$ 都是不可知 PAC 可学习的. 根据统计学习的基本定理, 每个 $\mathcal{H}_n$ 都具有一致收敛性质, 从而 $\mathcal{H}$ 是非一致可学习的.</p>
 <p><strong>必要性</strong>: 假设 $\mathcal{H}$ 是非一致可学习的, 使用某个算法 $A$. 对于每个 $n \in \mathbb{N}$, 令:</p>
 $$
@@ -518,10 +518,10 @@ $$
 $$<p>显见 $\mathcal{H} = \bigcup_{n \in \mathbb{N}} \mathcal{H}_n$.</p>
 </div>
 <p>存在非一致可学习的假设类, 但不是不可知 PAC 学习的: 考虑 $\mathcal{H} = \bigcup_{n \in \mathbb{N}} \mathcal{H}_n$, 其中 $\mathcal{H}_n$ 是次数为 $n$ 的多项式分类器类.</p>
-<p>$\text{VCdim}(\mathcal{H}_n) = n+1$, 且 $\mathcal{H}_n$ 是不可知 PAC 可学习的, 则由上述定理, $\mathcal{H}$ 是非一致可学习的. 但 $\text{VCdim}(\mathcal{H}) = \infty$, $\mathcal{H}$ 不是不可知 PAC 可学习的.</p>
+<p>$\mathrm{VCdim}(\mathcal{H}_n) = n+1$, 且 $\mathcal{H}_n$ 是不可知 PAC 可学习的, 则由上述定理, $\mathcal{H}$ 是非一致可学习的. 但 $\mathrm{VCdim}(\mathcal{H}) = \infty$, $\mathcal{H}$ 不是不可知 PAC 可学习的.</p>
 <h3 id="结构风险最小化">结构风险最小化
-</h3><div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
+</h3><div class="math-block math-thm">
+    <p class="math-title">定理</p>
 <p>设 $w: \mathbb{N} \to [0, 1]$ 是一个函数, 满足 $\sum_{n=1}^\infty w(n) \leq 1$. 设假设类 $\mathcal{H}$ 可以写成 $\mathcal{H} = \bigcup_{n \in \mathbb{N}} \mathcal{H}_n$, 且每个 $\mathcal{H}_n$ 都满足一致收敛性质, 具有样本复杂度函数 $m_{\mathcal{H}_n}^{UC}$. 定义 $\epsilon_n: \mathbb{N} \times (0, 1) \to (0, 1)$ 为:</p>
 $$
 \epsilon_n(m, \delta) = \min \{\epsilon \in (0, 1) : m_{\mathcal{H}_n}^{UC}(\epsilon, \delta) \leq m\}
@@ -531,7 +531,7 @@ $$
 $$<p>因此，对于每个 $\delta \in (0, 1)$ 和分布 $\mathcal{D}$, 在 $S \sim \mathcal{D}^m$ 上, 有超过 $1 - \delta$ 的概率满足:</p>
 $$
 \forall h \in \mathcal{H}, L_{\mathcal{D}}(h) \leq L_S(h) + \min_{n: h \in \mathcal{H}_n} \epsilon_n(m, w(n) \cdot \delta)
-$$<p class="math-block-title math-prf">证明</p>
+$$<p class="math-prf">证明</p>
 <p>对于每个 $n$ 定义 $\delta_n = w(n) \delta$. 应用一致收敛性质的假设, 预先固定 $n$, 则对于每个 $S \sim \mathcal{D}^m$, 有超过 $1 - \delta_n$ 的概率满足:</p>
 $$
 \forall h \in \mathcal{H}_n, \ |L_{\mathcal{D}}(h) - L_{S}(h)| \leq \epsilon_n(m, \delta_n).
@@ -548,10 +548,10 @@ $$<p>这意味着:</p>
 $$
 L_{\mathcal{D}}(h) \leq L_{S}(h) + \epsilon_{n(h)}(m, w(n(h)) \cdot \delta)
 $$<p>这表明结构风险最小化范式搜索 $h$ 使得上述界限最小.</p>
-<div class="math-block">
-    <p class="math-block-title math-algo">算法<span class="math-subtitle">结构风险最小化 (SRM)</span></p>
-<p><strong>输入</strong>: 训练集 $S \sim \mathcal{D}^m$, 置信度 $\delta$.</p>
-<p><strong>输出</strong>: $h \in \arg\min_{h \in \mathcal{H}} [L_S(h) + \epsilon_{n(h)}(m, w(n(h))\delta)]$.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">结构风险最小化 (SRM)</span></p>
+<p><strong class="algo-input">输入 &gt; </strong> 训练集 $S \sim \mathcal{D}^m$, 置信度 $\delta$.</p>
+<p><strong class="algo-output">输出 &gt; </strong> $h \in \arg\min_{h \in \mathcal{H}} [L_S(h) + \epsilon_{n(h)}(m, w(n(h))\delta)]$.</p>
 <p>先前知识:</p>
 <ul>
 <li>$\mathcal{H} = \bigcup_{n \in \mathbb{N}} \mathcal{H}_n$, 其中每个 $\mathcal{H}_n$ 都满足一致收敛性质, 具有样本复杂度函数 $m_{\mathcal{H}_n}^{UC}$;</li>
@@ -559,11 +559,11 @@ $$<p>这表明结构风险最小化范式搜索 $h$ 使得上述界限最小.</p
 </ul>
 <p>定义:</p>
 $$\epsilon_n(m, \delta) = \min \{ \epsilon \in (0, 1) : m_{\mathcal{H}_n}^{UC}(\epsilon, \delta) \leq m \}$$$$n(h) = \min \{ n : h \in \mathcal{H}_n \}$$</div>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
+<div class="math-block math-thm">
+    <p class="math-title">定理</p>
 <p>设 $\mathcal{H}$ 是一个假设类, 满足 $\mathcal{H} = \bigcup_{n \in \mathbb{N}} \mathcal{H}_n$, 其中每个 $\mathcal{H}_n$ 都满足一致收敛性质, 具有样本复杂度函数 $m_{\mathcal{H}_n}^{UC}$. 令 $w: \mathbb{N} \to [0, 1]$ 是一个加权函数, 满足 $w(n) = \frac{6}{n^2 \pi^2}$. 则 $\mathcal{H}$ 是非一致可学习的, 使用 SRM 规则, 且速率为:</p>
 $$
-m_{\mathcal{H}}^{NUL}(\epsilon, \delta, h) \leq m_{\mathcal{H}_{n(h)}}^{UC}\left(\epsilon/2, \frac{6\delta}{(\pi n(h))^2}\right)$$<p class="math-block-title math-prf">证明</p>
+m_{\mathcal{H}}^{NUL}(\epsilon, \delta, h) \leq m_{\mathcal{H}_{n(h)}}^{UC}\left(\epsilon/2, \frac{6\delta}{(\pi n(h))^2}\right)$$<p class="math-prf">证明</p>
 <p>设 $A$ 是关于加权函数 $w$ 的 SRM 算法. 对于每个 $h \in \mathcal{H}$, $\epsilon$, 和 $\delta$, 令:
 </p>
 $$

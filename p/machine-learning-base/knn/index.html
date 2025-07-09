@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning-base/knn/'>
 
-<link rel="stylesheet" href="/scss/style.min.f991297a51bfb3ec7265f5caabcf8b61b92014e8d7b4c22fa6d4f0c6cb9ce9ce.css"><meta property='og:title' content="机器学习基础(4) —— 基于近邻的分类方法">
+<link rel="stylesheet" href="/scss/style.min.050e713ce6ba4df4f898621146cc9dece02afd8477586323296cb867d14a1d9a.css"><meta property='og:title' content="机器学习基础(4) —— 基于近邻的分类方法">
 <meta property='og:description' content="k-近邻算法 k-近邻算法的主要思想是, 对于一个给定的样本点 $x$, 找到训练集中与 $x$ 最近的 $k$ 个样本点, 然后根据这 $k$ 个样本点的类别进行多数占优的投票方式来预测 $x$ 的类别.\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning-base/knn/'>
 <meta property='og:site_name' content='LeoDreamer'>
@@ -387,25 +387,25 @@
     <h2 id="k-近邻算法">k-近邻算法
 </h2><p>k-近邻算法的主要思想是, 对于一个给定的样本点 $x$, 找到训练集中与 $x$ 最近的 $k$ 个样本点, 然后根据这 $k$ 个样本点的类别进行多数占优的投票方式来预测 $x$ 的类别.</p>
 <p>在 $n$ 维实数空间 $\mathbb{R}$ 中, 通常用 Minkowski 距离来度量两个点 $x_i, x_j$ 的相似性:</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>设 $x_i, x_j \in \mathbb{R}^n$, 则 $x_i, x_j$ 之间的 <strong>Minkowski 距离</strong> $\text{dist}_p(x_i,x_j)$ 定义为</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
+<p>设 $x_i, x_j \in \mathbb{R}^n$, 则 $x_i, x_j$ 之间的 <strong>Minkowski 距离</strong> $\mathrm{dist}_p(x_i,x_j)$ 定义为</p>
 $$
-\text{dist}_p(x_i,x_j) = \left( \sum_{l=1}^n |x_i^l - x_j^l|^p \right)^{1/p}
+\mathrm{dist}_p(x_i,x_j) = \left( \sum_{l=1}^n |x_i^l - x_j^l|^p \right)^{1/p}
 $$</div>
 <p>$p=1$ 时, 就是 Manhattan 距离; $p=2$ 时, 就是 Euclidean 距离; $p=\infty$ 时, 就是 Chebyshev 距离. 在必要时, 还可以给每个维度的特征值加权.</p>
-<div class="math-block">
-    <p class="math-block-title math-algo">算法<span class="math-subtitle">k-近邻</span></p>
-<p><strong>输入</strong>: 给定训练样本集 $D = \{(x_i, y_i)\}_{i=1}^n$, 其中 $x_i \in \mathbb{R}^n$, $y_i \in \mathcal{Y} = \{c_1, c_2, \cdots, c_k\}$, 以及距离度量 $\text{dist}$.</p>
-<p><strong>输出</strong>: 对于每个样本点 $x \in \mathbb{R}^n$, 预测其类别 $y$.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">k-近邻</span></p>
+<p><strong class="algo-input">输入 &gt; </strong> 给定训练样本集 $D = \{(x_i, y_i)\}_{i=1}^n$, 其中 $x_i \in \mathbb{R}^n$, $y_i \in \mathcal{Y} = \{c_1, c_2, \cdots, c_k\}$, 以及距离度量 $\mathrm{dist}$.</p>
+<p><strong class="algo-output">输出 &gt; </strong> 对于每个样本点 $x \in \mathbb{R}^n$, 预测其类别 $y$.</p>
 <ol>
 <li>
-<p>基于度量 $\text{dist}$, 对于给定的样本点 $x$, 找到训练集中与 $x$ 最近的 $k$ 个样本点所构成的邻域 $N_k^{\text{dist}}(x)$;</p>
+<p>基于度量 $\mathrm{dist}$, 对于给定的样本点 $x$, 找到训练集中与 $x$ 最近的 $k$ 个样本点所构成的邻域 $N_k^{\mathrm{dist}}(x)$;</p>
 </li>
 <li>
 <p>采用如下的多数投票规则来预测 $x$ 的类别:</p>
 $$
-    y = \argmax_{c_i} \sum_{x_j \in N_k^{\text{dist}}(x)} I(y_j = c_i)
+    y = \argmax_{c_i} \sum_{x_j \in N_k^{\mathrm{dist}}(x)} I(y_j = c_i)
     $$</li>
 </ol>
 </div>
@@ -417,10 +417,10 @@ $$
 $$
 (D^\ast_{i1}, D^\ast_{i2}, \cdots, D^\ast_{il}) = \argmin_{D_{i1}, D_{i2}, \cdots, D_{ik}} \sum_{j=1}^k \sum_{(x_t,y_t) \in D_{ij}} \Vert x_t-c_{ij} \Vert_2^2
 $$<p>然而很难找到最优解, 因此采用迭代的方式来近似求解:</p>
-<div class="math-block">
-    <p class="math-block-title math-algo">算法<span class="math-subtitle">K-means</span></p>
-<p><strong>输入</strong>: 给定训练样本集 $D = \{(x_i,y_i)\}_{i=1}^n$, 其中 $x_i \in \mathbb{R}^n$, $y_i \in \mathcal{Y} = \{c_1, c_2, \cdots, c_k\}$, 以及距离度量 $\text{dist}(x,y)=\Vert x-y \Vert_2$.</p>
-<p><strong>输出</strong>: 对于每个样本点 $x \in \mathbb{R}^n$, 预测其类别 $y$.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">K-means</span></p>
+<p><strong class="algo-input">输入 &gt; </strong> 给定训练样本集 $D = \{(x_i,y_i)\}_{i=1}^n$, 其中 $x_i \in \mathbb{R}^n$, $y_i \in \mathcal{Y} = \{c_1, c_2, \cdots, c_k\}$, 以及距离度量 $\mathrm{dist}(x,y)=\Vert x-y \Vert_2$.</p>
+<p><strong class="algo-output">输出 &gt; </strong> 对于每个样本点 $x \in \mathbb{R}^n$, 预测其类别 $y$.</p>
 <ol>
 <li>对每个类 $c_i$ 初始化 $k$ 个簇的中心 $c_{ij}$;</li>
 <li>对每个 $(x_t, y_t) \in D_i$ (即 $y_t=c_i$), 令
@@ -435,10 +435,10 @@ $$c_{ij} = \argmin_{m,n} \Vert x - c_{mn} \Vert_2^2$$</li>
 </ol>
 </div>
 <p>有可能会使得某些离分类边界很近的点被错误分类. 引入学习向量量化方法 (LVQ 算法). 让同类和异类的点在构建过程中都能起作用.</p>
-<div class="math-block">
-    <p class="math-block-title math-algo">算法<span class="math-subtitle">LVQ</span></p>
-<p><strong>输入</strong>: 给定训练样本集 $D = \{(x_i,y_i)\}_{i=1}^n$, 其中 $x_i \in \mathbb{R}^n$, $y_i \in \mathcal{Y} = \{c_1, c_2, \cdots, c_k\}$, 以及距离度量 $\text{dist}(x,y)=\Vert x-y \Vert_2$, 学习率 $\eta \in (0,1)$.</p>
-<p><strong>输出</strong>: 对于每个样本点 $x \in \mathbb{R}^n$, 预测其类别 $y$.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">LVQ</span></p>
+<p><strong class="algo-input">输入 &gt; </strong> 给定训练样本集 $D = \{(x_i,y_i)\}_{i=1}^n$, 其中 $x_i \in \mathbb{R}^n$, $y_i \in \mathcal{Y} = \{c_1, c_2, \cdots, c_k\}$, 以及距离度量 $\mathrm{dist}(x,y)=\Vert x-y \Vert_2$, 学习率 $\eta \in (0,1)$.</p>
+<p><strong class="algo-output">输出 &gt; </strong> 对于每个样本点 $x \in \mathbb{R}^n$, 预测其类别 $y$.</p>
 <ol>
 <li>对每个类 $c_m$ 随机选择 $k$ 个点 $I_{mi}$ 作为代表;</li>
 <li>对每个样本点 $x_t$, 找到最近的代表元 $I_{m^\ast i^\ast}$, 即

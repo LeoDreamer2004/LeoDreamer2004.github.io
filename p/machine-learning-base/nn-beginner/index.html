@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="特征的线性组合 之前的二分类问题中, 如果把 $z=w^Tx+b$ 看做是衍生的新特征, 实际上感知机的模型就是 $y=\\text{sign}(z)$. 二项逻辑斯蒂回归模型中, $P(y=1 \\mid x) = \\sigma(z)=\\frac{1}{1+e^{-z}}$. 相当于引入了一个 sigmoid 函数进行非线性变换.\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="特征的线性组合 之前的二分类问题中, 如果把 $z=w^\\topx+b$ 看做是衍生的新特征, 实际上感知机的模型就是 $y=\\mathrm{sign}(z)$. 二项逻辑斯蒂回归模型中, $P(y=1 \\mid x) = \\sigma(z)=\\frac{1}{1+e^{-z}}$. 相当于引入了一个 sigmoid 函数进行非线性变换.\n">
 <title>机器学习基础(6) —— 神经网络学习初步</title>
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning-base/nn-beginner/'>
 
-<link rel="stylesheet" href="/scss/style.min.f991297a51bfb3ec7265f5caabcf8b61b92014e8d7b4c22fa6d4f0c6cb9ce9ce.css"><meta property='og:title' content="机器学习基础(6) —— 神经网络学习初步">
-<meta property='og:description' content="特征的线性组合 之前的二分类问题中, 如果把 $z=w^Tx+b$ 看做是衍生的新特征, 实际上感知机的模型就是 $y=\\text{sign}(z)$. 二项逻辑斯蒂回归模型中, $P(y=1 \\mid x) = \\sigma(z)=\\frac{1}{1+e^{-z}}$. 相当于引入了一个 sigmoid 函数进行非线性变换.\n">
+<link rel="stylesheet" href="/scss/style.min.050e713ce6ba4df4f898621146cc9dece02afd8477586323296cb867d14a1d9a.css"><meta property='og:title' content="机器学习基础(6) —— 神经网络学习初步">
+<meta property='og:description' content="特征的线性组合 之前的二分类问题中, 如果把 $z=w^\\topx+b$ 看做是衍生的新特征, 实际上感知机的模型就是 $y=\\mathrm{sign}(z)$. 二项逻辑斯蒂回归模型中, $P(y=1 \\mid x) = \\sigma(z)=\\frac{1}{1+e^{-z}}$. 相当于引入了一个 sigmoid 函数进行非线性变换.\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning-base/nn-beginner/'>
 <meta property='og:site_name' content='LeoDreamer'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-03-25T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-25T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="机器学习基础(6) —— 神经网络学习初步">
-<meta name="twitter:description" content="特征的线性组合 之前的二分类问题中, 如果把 $z=w^Tx+b$ 看做是衍生的新特征, 实际上感知机的模型就是 $y=\\text{sign}(z)$. 二项逻辑斯蒂回归模型中, $P(y=1 \\mid x) = \\sigma(z)=\\frac{1}{1+e^{-z}}$. 相当于引入了一个 sigmoid 函数进行非线性变换.\n">
+<meta name="twitter:description" content="特征的线性组合 之前的二分类问题中, 如果把 $z=w^\\topx+b$ 看做是衍生的新特征, 实际上感知机的模型就是 $y=\\mathrm{sign}(z)$. 二项逻辑斯蒂回归模型中, $P(y=1 \\mid x) = \\sigma(z)=\\frac{1}{1+e^{-z}}$. 相当于引入了一个 sigmoid 函数进行非线性变换.\n">
     </head>
     <body class="
     article-page
@@ -391,7 +391,7 @@
     
     
     <h2 id="特征的线性组合">特征的线性组合
-</h2><p>之前的二分类问题中, 如果把 $z=w^Tx+b$ 看做是衍生的新特征, 实际上感知机的模型就是 $y=\text{sign}(z)$. 二项逻辑斯蒂回归模型中, $P(y=1 \mid x) = \sigma(z)=\frac{1}{1+e^{-z}}$. 相当于引入了一个 sigmoid 函数进行非线性变换.</p>
+</h2><p>之前的二分类问题中, 如果把 $z=w^\topx+b$ 看做是衍生的新特征, 实际上感知机的模型就是 $y=\mathrm{sign}(z)$. 二项逻辑斯蒂回归模型中, $P(y=1 \mid x) = \sigma(z)=\frac{1}{1+e^{-z}}$. 相当于引入了一个 sigmoid 函数进行非线性变换.</p>
 <p>因此, 神经网络应运而生, 主要想法:</p>
 <ol>
 <li>通过各维特征线性组合得到新特征</li>
@@ -409,8 +409,8 @@ v \cdot z - \theta = \sum_{i=1}^m v_i z^{(i)} - \theta
 $$<p>再通过非线性变换 (考虑到数学性质, 通常是 sigmoid 函数):</p>
 $$
 t = g(v \cdot z - \theta)
-$$<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+$$<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p><strong>多层前馈神经网络</strong> 是常见的神经网络模型:</p>
 <ul>
 <li>逐层排列神经元, 仅限于相邻层之间的完全连接;</li>

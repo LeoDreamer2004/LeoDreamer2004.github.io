@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="对偶理论 对于一般的约束优化问题:\n$$ \\begin{aligned} \\min \\quad & f(x) \\\\ \\text{s.t.} \\quad & c_i(x) \\leq 0, \\quad i \\in \\mathcal{I} \\\\ & c_i(x) = 0, \\quad i \\in \\mathcal{E} \\end{aligned} $$Lagrange 函数为:\n$$ L(x, \\lambda, \\nu) = f(x) + \\sum_{i \\in \\mathcal{I}} \\lambda_i c_i(x) + \\sum_{i \\in \\mathcal{E}} \\nu_i c_i(x) $$其中 $\\lambda_i \\ge 0$.\n定义\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="对偶理论 对于一般的约束优化问题:\n$$ \\begin{aligned} \\min \\quad & f(x) \\\\ \\mathrm{s.t.} \\quad & c_i(x) \\leq 0, \\quad i \\in \\mathcal{I} \\\\ & c_i(x) = 0, \\quad i \\in \\mathcal{E} \\end{aligned} $$Lagrange 函数为:\n$$ L(x, \\lambda, \\nu) = f(x) + \\sum_{i \\in \\mathcal{I}} \\lambda_i c_i(x) + \\sum_{i \\in \\mathcal{E}} \\nu_i c_i(x) $$其中 $\\lambda_i \\ge 0$.\n定义\nLagrange 对偶函数 $g: \\mathbb{R}_+^m \\times \\mathbb{R}^p \\to [-\\infty, +\\infty)$ 定义为:\n">
 <title>最优化方法(5) —— 最优性理论</title>
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/opt-method/opt-theory/'>
 
-<link rel="stylesheet" href="/scss/style.min.f991297a51bfb3ec7265f5caabcf8b61b92014e8d7b4c22fa6d4f0c6cb9ce9ce.css"><meta property='og:title' content="最优化方法(5) —— 最优性理论">
-<meta property='og:description' content="对偶理论 对于一般的约束优化问题:\n$$ \\begin{aligned} \\min \\quad & f(x) \\\\ \\text{s.t.} \\quad & c_i(x) \\leq 0, \\quad i \\in \\mathcal{I} \\\\ & c_i(x) = 0, \\quad i \\in \\mathcal{E} \\end{aligned} $$Lagrange 函数为:\n$$ L(x, \\lambda, \\nu) = f(x) + \\sum_{i \\in \\mathcal{I}} \\lambda_i c_i(x) + \\sum_{i \\in \\mathcal{E}} \\nu_i c_i(x) $$其中 $\\lambda_i \\ge 0$.\n定义\n">
+<link rel="stylesheet" href="/scss/style.min.050e713ce6ba4df4f898621146cc9dece02afd8477586323296cb867d14a1d9a.css"><meta property='og:title' content="最优化方法(5) —— 最优性理论">
+<meta property='og:description' content="对偶理论 对于一般的约束优化问题:\n$$ \\begin{aligned} \\min \\quad & f(x) \\\\ \\mathrm{s.t.} \\quad & c_i(x) \\leq 0, \\quad i \\in \\mathcal{I} \\\\ & c_i(x) = 0, \\quad i \\in \\mathcal{E} \\end{aligned} $$Lagrange 函数为:\n$$ L(x, \\lambda, \\nu) = f(x) + \\sum_{i \\in \\mathcal{I}} \\lambda_i c_i(x) + \\sum_{i \\in \\mathcal{E}} \\nu_i c_i(x) $$其中 $\\lambda_i \\ge 0$.\n定义\nLagrange 对偶函数 $g: \\mathbb{R}_+^m \\times \\mathbb{R}^p \\to [-\\infty, +\\infty)$ 定义为:\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/opt-method/opt-theory/'>
 <meta property='og:site_name' content='LeoDreamer'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-03-23T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-23T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="最优化方法(5) —— 最优性理论">
-<meta name="twitter:description" content="对偶理论 对于一般的约束优化问题:\n$$ \\begin{aligned} \\min \\quad & f(x) \\\\ \\text{s.t.} \\quad & c_i(x) \\leq 0, \\quad i \\in \\mathcal{I} \\\\ & c_i(x) = 0, \\quad i \\in \\mathcal{E} \\end{aligned} $$Lagrange 函数为:\n$$ L(x, \\lambda, \\nu) = f(x) + \\sum_{i \\in \\mathcal{I}} \\lambda_i c_i(x) + \\sum_{i \\in \\mathcal{E}} \\nu_i c_i(x) $$其中 $\\lambda_i \\ge 0$.\n定义\n">
+<meta name="twitter:description" content="对偶理论 对于一般的约束优化问题:\n$$ \\begin{aligned} \\min \\quad & f(x) \\\\ \\mathrm{s.t.} \\quad & c_i(x) \\leq 0, \\quad i \\in \\mathcal{I} \\\\ & c_i(x) = 0, \\quad i \\in \\mathcal{E} \\end{aligned} $$Lagrange 函数为:\n$$ L(x, \\lambda, \\nu) = f(x) + \\sum_{i \\in \\mathcal{I}} \\lambda_i c_i(x) + \\sum_{i \\in \\mathcal{E}} \\nu_i c_i(x) $$其中 $\\lambda_i \\ge 0$.\n定义\nLagrange 对偶函数 $g: \\mathbb{R}_+^m \\times \\mathbb{R}^p \\to [-\\infty, +\\infty)$ 定义为:\n">
     </head>
     <body class="
     article-page
@@ -396,7 +396,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 7 分钟
+                    阅读时长: 8 分钟
                 </time>
             </div>
         
@@ -418,23 +418,23 @@
 $$
 \begin{aligned}
 \min \quad & f(x) \\
-\text{s.t.} \quad & c_i(x) \leq 0, \quad i \in \mathcal{I} \\
+\mathrm{s.t.} \quad & c_i(x) \leq 0, \quad i \in \mathcal{I} \\
 & c_i(x) = 0, \quad i \in \mathcal{E}
 \end{aligned}
 $$<p>Lagrange 函数为:</p>
 $$
 L(x, \lambda, \nu) = f(x) + \sum_{i \in \mathcal{I}} \lambda_i c_i(x) + \sum_{i \in \mathcal{E}} \nu_i c_i(x)
 $$<p>其中 $\lambda_i \ge 0$.</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p><strong>Lagrange 对偶函数</strong> $g: \mathbb{R}_+^m \times \mathbb{R}^p \to [-\infty, +\infty)$ 定义为:</p>
 $$
 g(\lambda, \nu) = \inf_{x \in \mathbb{R}^n} L(x, \lambda, \nu)
 $$</div>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理<span class="math-subtitle">弱对偶原理</span></p>
+<div class="math-block math-thm">
+    <p class="math-title">定理<span class="math-subtitle">弱对偶原理</span></p>
 <p>若 $\lambda \ge 0$, 则 $g(\lambda, \nu) \le p^\ast$.</p>
-<p class="math-block-title math-prf">证明</p>
+<p class="math-prf">证明</p>
 <p>对 $x_0 \in \mathcal{X}$, 有:</p>
 $$
 g(\lambda, \nu) = \inf_{x \in \mathbb{R}^n} L(x, \lambda, \nu) \le L(x_0, \lambda, \nu) \le f(x_0)
@@ -442,8 +442,8 @@ $$<p>对 $x_0$ 取 $\inf$ 得到</p>
 $$
 g(\lambda, \nu) \le \inf_{x \in \mathcal{X}} f(x) = p^\ast
 $$</div>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p><strong>Lagrange 对偶问题</strong> 形式如下:</p>
 $$
 \max_{\lambda \ge 0, \nu} g(\lambda, \nu)= \max_{\lambda \ge 0, \nu} \inf_{x \in \mathbb{R}^n} L(x, \lambda, \nu)
@@ -452,28 +452,28 @@ $$<p>称 $\lambda, \nu$ 为对偶变量, 设最优值为 $q^\ast$. $q^\ast$ 是 
 <h3 id="示例-线性规划问题">示例: 线性规划问题
 </h3>$$
 \begin{aligned}
-\min \quad & c^T x \\
-\text{s.t.} \quad & Ax = b \\
+\min \quad & c^\top  x \\
+\mathrm{s.t.} \quad & Ax = b \\
 & x \ge 0
 \end{aligned}
 $$<p>Lagrange 函数为:</p>
 $$
 \begin{aligned}
-L(x, \lambda, \nu) &= c^T x + \lambda^T (Ax - b) - \nu^T x \\
-&= -b^T \lambda + (c + A^T \lambda - \nu)^T x
+L(x, \lambda, \nu) &= c^\top  x + \lambda^\top  (Ax - b) - \nu^\top  x \\
+&= -b^\top  \lambda + (c + A^\top  \lambda - \nu)^\top  x
 \end{aligned}
 $$<p>对偶函数:</p>
 $$
 g(\lambda, \nu) = \inf_{x \ge 0} L(x, \lambda, \nu) =
 \begin{cases}
--b^T \lambda, & c + A^T \lambda - \nu = 0 \\
+-b^\top  \lambda, & c + A^\top  \lambda - \nu = 0 \\
 -\infty, & \text{otherwise}
 \end{cases}
 $$<p>对偶问题:</p>
 $$
 \begin{aligned}
-\max \quad & -b^T \lambda \\
-\text{s.t.} \quad & c + A^T \lambda - \nu = 0 \\
+\max \quad & -b^\top  \lambda \\
+\mathrm{s.t.} \quad & c + A^\top  \lambda - \nu = 0 \\
 & \nu \ge 0
 \end{aligned}
 $$<p>可以计算证明, 线性规划问题和对偶问题互为对偶.</p>
@@ -481,52 +481,52 @@ $$<p>可以计算证明, 线性规划问题和对偶问题互为对偶.</p>
 </h3>$$
 \begin{aligned}
 \min \quad & \|x\| \\
-\text{s.t.} \quad & Ax = b
+\mathrm{s.t.} \quad & Ax = b
 \end{aligned}
 $$<p>对偶函数:</p>
 $$
-g(\nu) = \inf_x(\|X\| - \nu^T (Ax - b)) =
+g(\nu) = \inf_x(\|X\| - \nu^\top  (Ax - b)) =
 \begin{cases}
-b^T\nu, & \|A^T \nu\|_* \le 1 \\
+b^\top \nu, & \|A^\top  \nu\|_* \le 1 \\
 -\infty, & \text{otherwise}
 \end{cases}
-$$<p>其中 $\|v\|_*=\sup_{\|x\|\le 1} x^T v$ 为 $v$ 的对偶范数 (关于为什么自证). 因此对偶问题:</p>
+$$<p>其中 $\|v\|_*=\sup_{\|x\|\le 1} x^\top  v$ 为 $v$ 的对偶范数 (关于为什么自证). 因此对偶问题:</p>
 $$
 \begin{aligned}
-\max \quad & b^T \nu \\
-\text{s.t.} \quad & \|A^T \nu\|_* \le 1
+\max \quad & b^\top  \nu \\
+\mathrm{s.t.} \quad & \|A^\top  \nu\|_* \le 1
 \end{aligned}
 $$<h3 id="示例-最大割问题">示例: 最大割问题
 </h3><p>上回说到, 最大割问题可以写成:</p>
 $$
 \begin{aligned}
-\max \quad & x^T W x \\
-\text{s.t.} \quad & x_i^2 = 1
+\max \quad & x^\top  W x \\
+\mathrm{s.t.} \quad & x_i^2 = 1
 \end{aligned}
 $$<p>首先加负号变成 $\min$, Lagrange 函数为:</p>
 $$
 \begin{aligned}
-L(x, y) &= -x^T W x + \sum_{i=1}^n y_i (x_i^2 - 1) \\
-&= x^T(\text{diag}(y) - W) x - \mathbf{1}^T y
+L(x, y) &= -x^\top  W x + \sum_{i=1}^n y_i (x_i^2 - 1) \\
+&= x^\top (\mathrm{diag}(y) - W) x - \mathbf{1}^\top  y
 \end{aligned}
 $$<p>对偶函数:</p>
 $$
 g(y) = \inf_x L(x, y) =
 \begin{cases}
--\mathbf{1}^T y, & \text{diag}(y) - W \succeq 0 \\
+-\mathbf{1}^\top  y, & \mathrm{diag}(y) - W \succeq 0 \\
 -\infty, & \text{otherwise}
 \end{cases}
 $$<p>对偶问题:</p>
 $$
 \begin{aligned}
-\max \quad & -\mathbf{1}^T y \\
-\text{s.t.} \quad & \text{diag}(y) - W \succeq 0
+\max \quad & -\mathbf{1}^\top  y \\
+\mathrm{s.t.} \quad & \mathrm{diag}(y) - W \succeq 0
 \end{aligned}
 $$<p>再来考虑这个对偶问题的对偶问题.</p>
 <p>对偶函数:</p>
 $$
 \begin{aligned}
-g(X)&=\inf_y(\mathbf{1}^Ty) - \left<\text{diag}(y) - W, X\right> \\
+g(X)&=\inf_y(\mathbf{1}^\top y) - \left<\mathrm{diag}(y) - W, X\right> \\
 &= \inf \left(\sum_{i=1}^n (1-X_{ii})y_i + \left< W, X \right> \right) \\
 &= \begin{cases}
 \left< W, X \right>, & X_{ii} = 1, i = 1, \ldots, n \\
@@ -537,27 +537,27 @@ $$<p>对偶问题:</p>
 $$
 \begin{aligned}
 \max \quad & \left< W, X \right> \\
-\text{s.t.} \quad & X_{ii} = 1, i = 1, \ldots, n \\
+\mathrm{s.t.} \quad & X_{ii} = 1, i = 1, \ldots, n \\
 & X \succeq 0
 \end{aligned}
 $$<h3 id="示例-共轭函数">示例: 共轭函数
 </h3>$$
 \begin{aligned}
 \min \quad & f(x) \\
-\text{s.t.} \quad & Ax \le b \\
+\mathrm{s.t.} \quad & Ax \le b \\
 & Cx = d
 \end{aligned}
 $$<p>对偶函数:</p>
 $$
 \begin{aligned}
-g(\lambda, \nu) &= \inf_x(f(x) + \lambda^T (Ax - b) + \nu^T (Cx - d)) \\
-&=\inf_x(f(x) + (A^T \lambda + C^T \nu)^T x - b^T \lambda - d^T \nu) \\
-&=-f^\ast(-A^T \lambda - C^T \nu) - b^T \lambda - d^T \nu
+g(\lambda, \nu) &= \inf_x(f(x) + \lambda^\top  (Ax - b) + \nu^\top  (Cx - d)) \\
+&=\inf_x(f(x) + (A^\top  \lambda + C^\top  \nu)^\top  x - b^\top  \lambda - d^\top  \nu) \\
+&=-f^\ast(-A^\top  \lambda - C^\top  \nu) - b^\top  \lambda - d^\top  \nu
 \end{aligned}
-$$<p>其中 $f^\ast(v) = \sup_x(x^T v - f(x))$ 为 $f$ 的共轭函数.</p>
+$$<p>其中 $f^\ast(v) = \sup_x(x^\top  v - f(x))$ 为 $f$ 的共轭函数.</p>
 <h2 id="对偶性">对偶性
-</h2><div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+</h2><div class="math-block math-def">
+    <p class="math-title">定义</p>
 <ul>
 <li><strong>弱对偶性</strong>: $d^\ast \le p^\ast$. 对一般约束优化问题成立.</li>
 <li><strong>强对偶性</strong>: $d^\ast = p^\ast$, 且若一个线性规划问题有最优解, 则其对偶问题有最优解, 且最优值相等. 一般不成立, 但通常对凸优化问题成立.</li>
@@ -568,13 +568,13 @@ $$<p>其中 $f^\ast(v) = \sup_x(x^T v - f(x))$ 为 $f$ 的共轭函数.</p>
 $$
 \begin{aligned}  
 \min \quad & x_0-x_1 \\
-\text{s.t.} \quad & x_0 \ge \sqrt{x_1^2+1}
+\mathrm{s.t.} \quad & x_0 \ge \sqrt{x_1^2+1}
 \end{aligned}
 $$<p>显然, $x_0-x_1 > 0$, 但当 $x_0 \to \infty$ 时, $x_0-x_1 \to 0$, 因此 $p^\ast = 0$, 但是不可达. 而对偶问题是:</p>
 $$
 \begin{aligned}
 \max \quad & \lambda \\
-\text{s.t.} \quad & 1 \ge \sqrt{1 + \lambda^2}
+\mathrm{s.t.} \quad & 1 \ge \sqrt{1 + \lambda^2}
 \end{aligned}
 $$<p>
 因此 $\lambda \le 0$, $d^\ast = 0$. 虽然 $d^\ast = p^\ast$, 但原问题是没有最优解的.</p>
@@ -594,13 +594,13 @@ $$<p>直接做对偶是常数, 没有意义. 可以改写为:</p>
 $$
 \begin{aligned}
 \min \quad & f(y) \\
-\text{s.t.} \quad & y = Ax + b
+\mathrm{s.t.} \quad & y = Ax + b
 \end{aligned}
 $$<p>对偶问题:</p>
 $$
 \begin{aligned}
-\max \quad & b^T \nu-f^\ast(\nu)  \\
-\text{s.t.} \quad & A^T \nu = 0
+\max \quad & b^\top  \nu-f^\ast(\nu)  \\
+\mathrm{s.t.} \quad & A^\top  \nu = 0
 \end{aligned}
 $$<h3 id="示例-范数逼近问题">示例: 范数逼近问题
 </h3>$$
@@ -609,26 +609,26 @@ $$<p>改写成:</p>
 $$
 \begin{aligned}
 \min \quad & \|y\| \\
-\text{s.t.} \quad & y = Ax - b
+\mathrm{s.t.} \quad & y = Ax - b
 \end{aligned}
 $$<p>对偶函数:</p>
 $$
 \begin{aligned}
-g(\nu) &= \inf_{x,y}(\|y\| + \nu^Ty - \nu^TAx + \nu^Tb) \\
+g(\nu) &= \inf_{x,y}(\|y\| + \nu^\top  y - \nu^\top  Ax + \nu^\top  b) \\
 &= \begin{cases}
-\nu^T b + \inf_y(\|y\| + \nu^Ty), & A^T \nu = 0 \\
+\nu^\top  b + \inf_y(\|y\| + \nu^\top  y), & A^\top  \nu = 0 \\
 -\infty, & \text{otherwise}
 \end{cases} \\
 &= \begin{cases}
-\nu^T b, & A^T \nu = 0, \|\nu\|_* \le 1 \\
+\nu^\top  b, & A^\top  \nu = 0, \|\nu\|_* \le 1 \\
 -\infty, & \text{otherwise}
 \end{cases}
 \end{aligned}
 $$<p>对偶问题:</p>
 $$
 \begin{aligned}
-\max \quad & \nu^T b \\
-\text{s.t.} \quad & A^T \nu = 0 \\
+\max \quad & \nu^\top  b \\
+\mathrm{s.t.} \quad & A^\top  \nu = 0 \\
 & \|\nu\|_* \le 1
 \end{aligned}
 $$<h3 id="示例-l1-正则化问题">示例: L1 正则化问题
@@ -638,58 +638,58 @@ $$<p>改写成:</p>
 $$
 \begin{aligned}
 \min \quad & \frac{1}{2}\|r\|^2 + \mu \|x\|_1 \\
-\text{s.t.} \quad & r = Ax - b
+\mathrm{s.t.} \quad & r = Ax - b
 \end{aligned}
 $$<p>对偶函数:</p>
 $$
 \begin{aligned}
-g(\nu) &= \inf_{x,r}\left(\frac{1}{2}\|r\|_2^2 + \mu \|x\|_1 + \lambda^T(r-Ax+b)\right) \\
-&= \inf_{x,r}\left(\frac{1}{2}\|r\|^2 + \lambda^Tr + \mu \|x\|_1 - (A^T\lambda)^Tx + b^T\lambda\right) \\
+g(\nu) &= \inf_{x,r}\left(\frac{1}{2}\|r\|_2^2 + \mu \|x\|_1 + \lambda^\top (r-Ax+b)\right) \\
+&= \inf_{x,r}\left(\frac{1}{2}\|r\|^2 + \lambda^\top r + \mu \|x\|_1 - (A^\top \lambda)^\top x + b^\top \lambda\right) \\
 &= \begin{cases}
-b^T \lambda - \frac{1}{2} \| \lambda \|^2, & \| A^T \lambda \|_{\infty} \le \mu \\
+b^\top  \lambda - \frac{1}{2} \| \lambda \|^2, & \| A^\top  \lambda \|_{\infty} \le \mu \\
 -\infty, & \text{otherwise}
 \end{cases}
 \end{aligned}
 $$<p>对偶问题:</p>
 $$
 \begin{aligned}
-\max \quad & b^T \lambda - \frac{1}{2} \| \lambda \|^2 \\
-\text{s.t.} \quad & \| A^T \lambda \|_{\infty} \le \mu
+\max \quad & b^\top  \lambda - \frac{1}{2} \| \lambda \|^2 \\
+\mathrm{s.t.} \quad & \| A^\top  \lambda \|_{\infty} \le \mu
 \end{aligned}
 $$<p>现在考虑显式和隐式约束转化的例子.</p>
 <h3 id="示例-带边界约束的线性规划问题">示例: 带边界约束的线性规划问题
 </h3>$$
 \begin{aligned}
-\min \quad & c^T x \\
-\text{s.t.} \quad & Ax = b \\
+\min \quad & c^\top  x \\
+\mathrm{s.t.} \quad & Ax = b \\
 & -\mathbf{1} \le x \le \mathbf{1}
 \end{aligned}
 $$<p>我们把边界要求隐藏在目标函数中:</p>
 $$
 \begin{aligned}
 \min \quad & f(x) =\begin{cases}
-c^T x, & -\mathbf{1} \le x \le \mathbf{1} \\
+c^\top  x, & -\mathbf{1} \le x \le \mathbf{1} \\
 +\infty, & \text{otherwise}
 \end{cases} \\
-\text{s.t.} \quad & Ax = b
+\mathrm{s.t.} \quad & Ax = b
 \end{aligned}
 $$<p>对偶函数:</p>
 $$
 \begin{aligned}
-g(\nu) &= \inf_{-\mathbf{1} \le x \le \mathbf{1}}(c^Tx+\nu^T(Ax-b)) \\
-&= -b^T \nu - \|A^T \nu + c\|_1
+g(\nu) &= \inf_{-\mathbf{1} \le x \le \mathbf{1}}(c^\top x+\nu^\top (Ax-b)) \\
+&= -b^\top  \nu - \|A^\top  \nu + c\|_1
 \end{aligned}
 $$<p>对偶问题:</p>
 $$
 \begin{aligned}
-\max \quad & -b^T \nu - \|A^T \nu + c\|_1 \\
-\text{s.t.} \quad & \nu \ge 0
+\max \quad & -b^\top  \nu - \|A^\top  \nu + c\|_1 \\
+\mathrm{s.t.} \quad & \nu \ge 0
 \end{aligned}
 $$<h3 id="示例-广义不等式约束优化问题">示例: 广义不等式约束优化问题
 </h3>$$
 \begin{aligned}
 \min \quad & f(x) \\
-\text{s.t.} \quad & c_i(x) \preceq_{K_i} 0, \quad i \in \mathcal{I} \\
+\mathrm{s.t.} \quad & c_i(x) \preceq_{K_i} 0, \quad i \in \mathcal{I} \\
 & c_i(x) = 0, \quad i \in \mathcal{E}
 \end{aligned}
 $$<p>其中对于 $i \in \mathcal{I}$, $c_i: \mathbb{R}^n \to \mathbb{R}^{k_i}$ 是向量值函数, $K_i$ 是适当锥. 对于 $i \in \mathcal{E}$, $c_i: \mathbb{R}^n \to \mathbb{R}$ 是标量函数. 实际上这种情况下, 其 Lagrange 函数为:</p>
@@ -700,7 +700,7 @@ $$<p>这里 $K_i^\ast$ 是 $K_i$ 的对偶锥. 此时也依然满足 $L(x, \lamb
 </h3>$$
 \begin{aligned}
 \min \quad & \left< C, X \right> \\
-\text{s.t.} \quad & \left< A_i, X \right> = b_i, \quad i = 1, \ldots, m \\
+\mathrm{s.t.} \quad & \left< A_i, X \right> = b_i, \quad i = 1, \ldots, m \\
 & X \succeq 0
 \end{aligned}
 $$<p>对偶函数:</p>
@@ -708,47 +708,47 @@ $$
 \begin{aligned}
 g(\lambda, \nu) &= \inf_X \left( \left< C, X \right> + \sum_{i=1}^m \lambda_i (\left< A_i, X \right> - b_i) - \left<\nu,X\right> \right) \\
 &= \begin{cases}
-b^T\lambda, & \sum_{i=1}^m \lambda_i A_i - C +\nu \succeq 0 \\
+b^\top \lambda, & \sum_{i=1}^m \lambda_i A_i - C +\nu \succeq 0 \\
 -\infty, & \text{otherwise}
 \end{cases}
 \end{aligned}
 $$<p>对偶问题:</p>
 $$
-\max \quad b^T\lambda \\
-\text{s.t.} \quad \sum_{i=1}^m \lambda_i A_i - C +\nu \succeq 0
+\max \quad b^\top \lambda \\
+\mathrm{s.t.} \quad \sum_{i=1}^m \lambda_i A_i - C +\nu \succeq 0
 $$<p>可以证明, 半定规划问题和对偶问题互为对偶.</p>
 <h2 id="带约束凸优化问题的最优性理论">带约束凸优化问题的最优性理论
 </h2><p>综合来看, 前面的问题其实都可以写成如下的形式:</p>
 $$
 \begin{aligned}
 \min \quad & f(x) \\
-\text{s.t.} \quad & Ax = b \\
+\mathrm{s.t.} \quad & Ax = b \\
 & c_i(x) \le 0, i=1, \ldots, m
 \end{aligned}
-$$<p>其中 $f(x)$ 为适当的凸函数, $c_i(x)$ 也是凸函数且 $\text{dom} c_i = \mathbb{R}^n$.</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>给定集合 $\mathcal{D}$, 设其仿射包为 $\text{affine} \mathcal{D}$, 则其 <strong>相对内点集</strong> 定义为:</p>
+$$<p>其中 $f(x)$ 为适当的凸函数, $c_i(x)$ 也是凸函数且 $\mathrm{dom} c_i = \mathbb{R}^n$.</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
+<p>给定集合 $\mathcal{D}$, 设其仿射包为 $\mathrm{affine} \mathcal{D}$, 则其 <strong>相对内点集</strong> 定义为:</p>
 $$
-\text{relint} \mathcal{D} = \{x \in \mathcal{D} \mid \exists r > 0, B(x,r) \cap \text{affine} \mathcal{D} \subset \mathcal{D}\}
+\mathrm{relint} \mathcal{D} = \{x \in \mathcal{D} \mid \exists r > 0, B(x,r) \cap \mathrm{affine} \mathcal{D} \subset \mathcal{D}\}
 $$</div>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>若对于凸优化问题</p>
 $$
 \begin{aligned}
 \min \quad & f(x) \\
-\text{s.t.} \quad & Ax = b \\
+\mathrm{s.t.} \quad & Ax = b \\
 & c_i(x) \le 0, i=1, \ldots, m
 \end{aligned}
-$$<p>存在 $x \in \text{relint} \mathcal{D}$, 使得</p>
+$$<p>存在 $x \in \mathrm{relint} \mathcal{D}$, 使得</p>
 $$c_i(x) < 0, i=1, \ldots, m$$<p>则称对于该问题 <strong>Slater 约束品性</strong> 成立. 该品性也称为 <strong>Slater 条件</strong>.</p>
 </div>
 <p>注意: 如果某个不等式约束是仿射函数时, Slater 可以对这个不等式约束放宽到 $c_i(x) \le 0$.</p>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
+<div class="math-block math-thm">
+    <p class="math-title">定理</p>
 <p>若 Slater 约束品性成立, 则强对偶性成立.</p>
-<p class="math-block-title math-prf">证明</p>
+<p class="math-prf">证明</p>
 <p>这里假设 $\mathcal{D}$ 内部非空, $A$ 是行满秩的 (否则可以去掉冗余约束), $p^\ast$ 是有限的. 要证明当 $d^\ast > -\infty$ 时, 存在对偶可行解 $(\lambda^\ast, \nu^\ast)$ 使得 $g(\lambda^\ast, \nu^\ast) = d^\ast=p^\ast$.</p>
 <p>定义集合</p>
 $$
@@ -758,27 +758,27 @@ $$
 $$<p>若 $(0,0,t) \in \mathbb{A} \cap \mathbb{B}$, 则 $f(x) \le t< p^\ast$ 矛盾. 因而两集合不交. 由于两者都是凸集, 由超平面分离定理, 存在 $(\lambda, \nu, \mu) \ne 0$ 和 $\alpha$ 使得</p>
 $$
 \begin{aligned}
-\lambda^Tu + \nu^Tv + \mu t &\ge \alpha, \quad \forall (u,v,t) \in \mathbb{A} \\
-\lambda^Tu + \nu^Tv + \mu t &\le \alpha, \quad \forall (u,v,t) \in \mathbb{B}
+\lambda^\top u + \nu^\top v + \mu t &\ge \alpha, \quad \forall (u,v,t) \in \mathbb{A} \\
+\lambda^\top u + \nu^\top v + \mu t &\le \alpha, \quad \forall (u,v,t) \in \mathbb{B}
 \end{aligned}
 $$<p>显见, $\lambda \ge 0, \mu \ge 0$, 否则可以让 $\mu_i, t \to +\infty$ 使得集合 $\mathbb{A}$ 上不等式左侧无下界. 由 $\mathbb{B}$ 的不等式, 立得 $\mu p^\ast \le \alpha$.</p>
 <p>对于 $(u,v,t)=(c_i(x), Ax-b, f(x))$, 代入有</p>
 $$
-\sum_{i=1}^m \lambda_i c_i(x) + \nu^T(Ax-b) + \mu f(x) \ge \alpha \ge \mu p^\ast
+\sum_{i=1}^m \lambda_i c_i(x) + \nu^\top (Ax-b) + \mu f(x) \ge \alpha \ge \mu p^\ast
 $$<p>若 $\mu > 0$, 则上式恰好对应 Lagrange 函数:</p>
 $$
 L(x, \frac{\lambda}{\mu}, \frac{\nu}{\mu}) \ge p^\ast
 $$<p>故 $g(\frac{\lambda}{\mu}, \frac{\nu}{\mu}) \ge p^\ast$, 再结合弱对偶性, $g(\frac{\lambda}{\mu}, \frac{\nu}{\mu}) = p^\ast$. 则此情况下强对偶性成立, 且最优解可达.</p>
 <p>若 $\mu=0$, 可以得到对于所有 $x \in \mathcal{D}$, 有</p>
 $$
-\sum_{i=1}^m \lambda_i c_i(x) + \nu^T(Ax-b) \ge 0
+\sum_{i=1}^m \lambda_i c_i(x) + \nu^\top (Ax-b) \ge 0
 $$<p>令 $x_S$ 为满足 Slater 条件的点, $Ax_S=b, c_i(x_S) < 0$, 但 $\lambda \ge 0$ 则必须 $\lambda = 0$. 因此</p>
 $$
-\nu^T(Ax-b) \ge 0, \quad \forall x \in \mathcal{D}
-$$<p>$x_S$ 恰好是谷底的 $0$, 四周全部都 $\ge 0$ 不太可能. 更具体地, 由于 $(\lambda, \nu, \mu) \ne 0$, 则 $\nu \ne 0$. $A$ 是行满秩的, 则 $A^T \nu \ne 0$, 因为 $x_S \in \text{int}\mathcal{D}$, 则存在微扰 $e$ 使得</p>
-$$\widetilde{x} = x_S + e \in \mathcal{D}, \quad v^TAe < 0$$<p>但是</p>
+\nu^\top (Ax-b) \ge 0, \quad \forall x \in \mathcal{D}
+$$<p>$x_S$ 恰好是谷底的 $0$, 四周全部都 $\ge 0$ 不太可能. 更具体地, 由于 $(\lambda, \nu, \mu) \ne 0$, 则 $\nu \ne 0$. $A$ 是行满秩的, 则 $A^\top  \nu \ne 0$, 因为 $x_S \in \mathrm{int}\mathcal{D}$, 则存在微扰 $e$ 使得</p>
+$$\widetilde{x} = x_S + e \in \mathcal{D}, \quad V^\top Ae < 0$$<p>但是</p>
 $$
-v^TAe = v^TA(\widetilde{x}-x_S) = v^T(A\widetilde{x} - b) \ge 0$$<p>矛盾. 因此 $\mu > 0$, 强对偶性成立.</p>
+V^\top Ae = V^\top A(\widetilde{x}-x_S) = V^\top (A\widetilde{x} - b) \ge 0$$<p>矛盾. 因此 $\mu > 0$, 强对偶性成立.</p>
 </div>
 <p>现在假设 Slater 成立, $x^\ast, \lambda^\ast$ 是原问题和对偶问题的最优解. 由强对偶性,</p>
 $$
@@ -788,9 +788,9 @@ f(x^\ast) = g(\lambda^\ast) &= \inf_{x} f(x) + \sum_{i \in \mathcal{I}} \lambda_
 &\le f(x^\ast)
 \end{aligned}
 $$<p>因此等号要成立, 即 $\lambda_i c_i(x^\ast) = 0, i \in \mathcal{I}$, 这称为互补条件 (complementary slackness).</p>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理<span class="math-subtitle">凸优化问题的一阶充要条件</span></p>
-<p>对于凸优化问题, 用 $a_i$ 表示矩阵 $A^T$ 的第 $i$ 列, 如
+<div class="math-block math-thm">
+    <p class="math-title">定理<span class="math-subtitle">凸优化问题的一阶充要条件</span></p>
+<p>对于凸优化问题, 用 $a_i$ 表示矩阵 $A^\top $ 的第 $i$ 列, 如
 果 Slater 条件成立, 那么$x^\ast, \lambda^\ast$ 分别是原始, 对偶全局最优解当且仅当</p>
 <ul>
 <li>稳定性条件: $ 0 = \nabla f(x^\ast) + \sum_{i \in \mathcal{I}} \lambda_i^\ast \nabla c_i(x^\ast) + \sum_{i \in \mathcal{E}} \lambda_i^\ast a_i$</li>
@@ -798,11 +798,11 @@ $$<p>因此等号要成立, 即 $\lambda_i c_i(x^\ast) = 0, i \in \mathcal{I}$, 
 <li>对偶可行性条件: $\lambda_i^\ast \ge 0, i \in \mathcal{I}$</li>
 <li>互补松弛条件: $\lambda_i^\ast c_i(x^\ast) = 0, i \in \mathcal{I}$</li>
 </ul>
-<p class="math-block-title math-prf">证明</p>
+<p class="math-prf">证明</p>
 <p>必要性已知, 只证明充分性.</p>
 <p>考虑 Lagrange 函数</p>
 $$
-L(x, \lambda) = f(x) + \sum_{i \in \mathcal{I}} \lambda_i c_i(x) + \sum_{i \in \mathcal{E}} \lambda_i (a_i^T x - b_i)
+L(x, \lambda) = f(x) + \sum_{i \in \mathcal{I}} \lambda_i c_i(x) + \sum_{i \in \mathcal{E}} \lambda_i (a_i^\top  x - b_i)
 $$<p>固定 $\lambda = \bar{\lambda}$, 易见 $L$ 是关于 $x$ 的凸函数. 由凸函数全局最优点的一阶充要性可知, 此时 $\bar{x}$ 就是全局的极小点. 由 Lagrange 对偶函数的定义, 有</p>
 $$
 L(\bar{x}, \bar{\lambda}) = \inf_x L(x, \bar{\lambda}) = g(\bar{\lambda})
@@ -818,41 +818,41 @@ $$<p>因此等号成立, $p^\ast = d^\ast$, 强对偶性成立, $\bar{x}, \bar{\
 </h3>$$
 \begin{aligned}
 \min \quad & \|x - y\|^2 \\
-\text{s.t.} \quad & Ax = b
+\mathrm{s.t.} \quad & Ax = b
 \end{aligned}
 $$<p>Lagrange 函数为</p>
 $$
-L(x, \lambda) = \|x - y\|^2 + \lambda^T(Ax - b)
+L(x, \lambda) = \|x - y\|^2 + \lambda^\top (Ax - b)
 $$<p>Slater 条件成立, 由一阶充要条件, 有</p>
 $$
 \begin{aligned}
-x^\ast - y + A^T \lambda^\ast &= 0 \\
+x^\ast - y + A^\top  \lambda^\ast &= 0 \\
 Ax^\ast &= b
 \end{aligned}
 $$<p>解之</p>
 $$
 \begin{aligned}
-\lambda^\ast &= (AA^T)^{-1}(Ay-b) \\
-x^\ast &= y - A^T(AA^T)^{-1}(Ay-b)
+\lambda^\ast &= (AA^\top )^{-1}(Ay-b) \\
+x^\ast &= y - A^\top (AA^\top )^{-1}(Ay-b)
 \end{aligned}
 $$<p>显然, $x^\ast$ 是 $y$ 在 $Ax=b$ 上的投影.</p>
 <h3 id="例子-基追踪问题">例子: 基追踪问题
 </h3>$$
 \begin{aligned}
 \min \quad & \|x\|_1 \\
-\text{s.t.} \quad & Ax = b
+\mathrm{s.t.} \quad & Ax = b
 \end{aligned}
 $$<p>这个函数实际是不光滑的. 把 $x$ 写作 $x^+-x^-$, 再令 $y=[x^+, x^-]$, 等价于</p>
 $$
 \begin{aligned}
-\min \quad & \mathbf{1}^T y \\
-\text{s.t.} \quad & [A, -A] y = b \\
+\min \quad & \mathbf{1}^\top  y \\
+\mathrm{s.t.} \quad & [A, -A] y = b \\
 & y \ge 0
 \end{aligned}
 $$<p>按照 KKT 条件, 有</p>
 $$
 \begin{aligned}
-\mathbf{1} + [A, -A]^T \lambda^\ast - \nu^\ast &= 0 \\
+\mathbf{1} + [A, -A]^\top  \lambda^\ast - \nu^\ast &= 0 \\
 [A, -A] y^\ast &= b \\
 y^\ast &\ge 0 \\
 \nu^\ast &\ge 0 \\
@@ -861,16 +861,16 @@ y^\ast &\ge 0 \\
 $$<p>直接推导也得到相应结果, 二者实际上是等价的. (利用 $x^\ast=y_i^\ast-y_{i+n}^\ast$, 代入验证最优点处方向导数为 $0$ 即可)</p>
 <hr>
 <h2 id="最优化问题解的存在性">最优化问题解的存在性
-</h2><div class="math-block">
-    <p class="math-block-title math-thm">定理<span class="math-subtitle">推广的 Weierstrass 定理</span></p>
+</h2><div class="math-block math-thm">
+    <p class="math-title">定理<span class="math-subtitle">推广的 Weierstrass 定理</span></p>
 <p>如果函数 $f: \mathcal{X} \to (-\infty, +\infty]$ 适当且闭, 且以下条件中至少一个成立:</p>
 <ul>
-<li>$\text{dom} f = \{ x\in \mathcal{X}: f(x) < +\infty \} $ 是有界的;</li>
+<li>$\mathrm{dom} f = \{ x\in \mathcal{X}: f(x) < +\infty \} $ 是有界的;</li>
 <li>存在一个常数 $\bar{\g `2amma}$ 使得下水平集 $C_{\bar{\gamma}} = \{ x \in \mathcal{X}: f(x) \le \bar{\gamma} \}$ 是非空且有界的;</li>
 <li>$f$ 是强制的, 即对于任一满足 $\| x^k \| \to +\infty$ 的点列 $\{ x^k \} \subset \mathcal{X}$, 都有 $\lim_{k \to \infty} f(x^k) = +\infty$</li>
 </ul>
 <p>则函数 $f$ 的最小值点集 $\{x \in \mathcal{X} \mid f(x) \le f(y), \forall y \in \mathcal{X}\}$ 非空且紧.</p>
-<p class="math-block-title math-prf">证明</p>
+<p class="math-prf">证明</p>
 <p><strong>第二个</strong>: 又有</p>
 </div>
 

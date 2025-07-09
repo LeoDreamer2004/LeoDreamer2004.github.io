@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="基本线性代数知识 定义\n给定函数 $f: \\mathbb{R}^n \\mapsto \\mathbb{R}$, 且 $f$ 在 $x$ 一个邻域内有定义, 若存在 $g \\in \\mathbb{R}^n$, 使得\n$$ \\lim_{p \\to 0} \\frac{f(x+p)-f(x)-g^Tp}{\\Vert p \\Vert} = 0 $$其中 $\\Vert \\cdot \\Vert$ 是向量范数, 则称 $f$ 在 $x$ 处 可微. 此时, $g$ 称为 $f$ 在 $x$ 处的 梯度, 记为 $\\nabla f(x)$.\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="基本线性代数知识 定义\n给定函数 $f: \\mathbb{R}^n \\mapsto \\mathbb{R}$, 且 $f$ 在 $x$ 一个邻域内有定义, 若存在 $g \\in \\mathbb{R}^n$, 使得\n$$ \\lim_{p \\to 0} \\frac{f(x+p)-f(x)-g^\\top p}{\\Vert p \\Vert} = 0 $$其中 $\\Vert \\cdot \\Vert$ 是向量范数, 则称 $f$ 在 $x$ 处 可微. 此时, $g$ 称为 $f$ 在 $x$ 处的 梯度, 记为 $\\nabla f(x)$.\n">
 <title>最优化方法(3) —— 凸函数</title>
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/opt-method/convex-function/'>
 
-<link rel="stylesheet" href="/scss/style.min.f991297a51bfb3ec7265f5caabcf8b61b92014e8d7b4c22fa6d4f0c6cb9ce9ce.css"><meta property='og:title' content="最优化方法(3) —— 凸函数">
-<meta property='og:description' content="基本线性代数知识 定义\n给定函数 $f: \\mathbb{R}^n \\mapsto \\mathbb{R}$, 且 $f$ 在 $x$ 一个邻域内有定义, 若存在 $g \\in \\mathbb{R}^n$, 使得\n$$ \\lim_{p \\to 0} \\frac{f(x+p)-f(x)-g^Tp}{\\Vert p \\Vert} = 0 $$其中 $\\Vert \\cdot \\Vert$ 是向量范数, 则称 $f$ 在 $x$ 处 可微. 此时, $g$ 称为 $f$ 在 $x$ 处的 梯度, 记为 $\\nabla f(x)$.\n">
+<link rel="stylesheet" href="/scss/style.min.050e713ce6ba4df4f898621146cc9dece02afd8477586323296cb867d14a1d9a.css"><meta property='og:title' content="最优化方法(3) —— 凸函数">
+<meta property='og:description' content="基本线性代数知识 定义\n给定函数 $f: \\mathbb{R}^n \\mapsto \\mathbb{R}$, 且 $f$ 在 $x$ 一个邻域内有定义, 若存在 $g \\in \\mathbb{R}^n$, 使得\n$$ \\lim_{p \\to 0} \\frac{f(x+p)-f(x)-g^\\top p}{\\Vert p \\Vert} = 0 $$其中 $\\Vert \\cdot \\Vert$ 是向量范数, 则称 $f$ 在 $x$ 处 可微. 此时, $g$ 称为 $f$ 在 $x$ 处的 梯度, 记为 $\\nabla f(x)$.\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/opt-method/convex-function/'>
 <meta property='og:site_name' content='LeoDreamer'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-01-25T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-01-25T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="最优化方法(3) —— 凸函数">
-<meta name="twitter:description" content="基本线性代数知识 定义\n给定函数 $f: \\mathbb{R}^n \\mapsto \\mathbb{R}$, 且 $f$ 在 $x$ 一个邻域内有定义, 若存在 $g \\in \\mathbb{R}^n$, 使得\n$$ \\lim_{p \\to 0} \\frac{f(x+p)-f(x)-g^Tp}{\\Vert p \\Vert} = 0 $$其中 $\\Vert \\cdot \\Vert$ 是向量范数, 则称 $f$ 在 $x$ 处 可微. 此时, $g$ 称为 $f$ 在 $x$ 处的 梯度, 记为 $\\nabla f(x)$.\n">
+<meta name="twitter:description" content="基本线性代数知识 定义\n给定函数 $f: \\mathbb{R}^n \\mapsto \\mathbb{R}$, 且 $f$ 在 $x$ 一个邻域内有定义, 若存在 $g \\in \\mathbb{R}^n$, 使得\n$$ \\lim_{p \\to 0} \\frac{f(x+p)-f(x)-g^\\top p}{\\Vert p \\Vert} = 0 $$其中 $\\Vert \\cdot \\Vert$ 是向量范数, 则称 $f$ 在 $x$ 处 可微. 此时, $g$ 称为 $f$ 在 $x$ 处的 梯度, 记为 $\\nabla f(x)$.\n">
     </head>
     <body class="
     article-page
@@ -386,18 +386,18 @@
     
     
     <h2 id="基本线性代数知识">基本线性代数知识
-</h2><div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+</h2><div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>给定函数 $f: \mathbb{R}^n \mapsto \mathbb{R}$, 且 $f$ 在 $x$ 一个邻域内有定义, 若存在 $g \in \mathbb{R}^n$, 使得</p>
 $$
-\lim_{p \to 0} \frac{f(x+p)-f(x)-g^Tp}{\Vert p \Vert} = 0
+\lim_{p \to 0} \frac{f(x+p)-f(x)-g^\top p}{\Vert p \Vert} = 0
 $$<p>其中 $\Vert \cdot \Vert$ 是向量范数, 则称 $f$ 在 $x$ 处 <strong>可微</strong>. 此时, $g$ 称为 $f$ 在 $x$ 处的 <strong>梯度</strong>, 记为 $\nabla f(x)$.</p>
 </div>
 <p>显然, 如果梯度存在, 令 $p = \varepsilon e_i$, 易得</p>
 $$
 \nabla f(x) = \left( \frac{\partial f}{\partial x_1}, \frac{\partial f}{\partial x_2}, \ldots, \frac{\partial f}{\partial x_n} \right)
-$$<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+$$<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>如果函数 $f(x): \mathbb{R}^n \mapsto \mathbb{R}$ 在点 $x$ 处的二阶偏导数 $\dfrac{\partial^2 f}{\partial x_i \partial x_j}$ 存在, 则称 $f$ 在 $x$ 处 <strong>二次可微</strong>. 此时, $n \times n$ 矩阵</p>
 $$
 \nabla^2 f(x) = \begin{pmatrix}
@@ -410,16 +410,16 @@ $$<p>称为 $f$ 在 $x$ 处的 <strong>Hessian 矩阵</strong>. 若 $\nabla^2 f(
 </div>
 <p>可以证明, 若 $f$ 在 $D$ 上二次连续可微, 则 $\nabla^2 f(x)$ 为对称矩阵.</p>
 <p>多元函数的梯度可以推广到变量是矩阵的情形.</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>给定函数 $f: \mathbb{R}^{m \times n} \mapsto \mathbb{R}$, 且 $f$ 在 $X$ 一个邻域内有定义, 若存在 $G \in \mathbb{R}^{m \times n}$, 使得</p>
 $$
 \lim_{V \to 0} \frac{f(X+V)-f(X)-\left< G, V \right>}{\Vert V \Vert} = 0
 $$<p>其中 $\Vert \cdot \Vert$ 是矩阵范数, 则称 $f$ 在 $X$ 处 <strong>(Fréchet)可微</strong>. 此时, $G$ 称为 $f$ 在 $X$ 处的 <strong>梯度</strong>, 记为 $\nabla f(X)$.</p>
 </div>
 <p>矩阵的可微有另一种较为简单常用的定义.</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>给定函数 $f: \mathbb{R}^{m \times n} \mapsto \mathbb{R}$, 若存在矩阵 $G \in \mathbb{R}^{m \times n}$, 使得</p>
 $$
 \lim_{t \to 0} \frac{f(X+tV)-f(X)}{t} = \left< G, V \right>
@@ -428,7 +428,7 @@ $$<p>则称 $f$ 在 $X$ 处 <strong>(Gâteaux)可微</strong>.</p>
 <p>例如:</p>
 <ul>
 <li>
-<p>$f(X) = \text{tr}(AX^TB)$, 此时 $\nabla f(X) = BA$.</p>
+<p>$f(X) = \mathrm{tr}(AX^\top B)$, 此时 $\nabla f(X) = BA$.</p>
 </li>
 <li>
 <p>$f(X, Y)=\frac{1}{2} \Vert XY-A \Vert_F^2$. 此时</p>
@@ -438,135 +438,135 @@ $$
     &= \frac{1}{2} \Vert X(Y+tV)-A \Vert_F^2 - \frac{1}{2} \Vert XY-A \Vert_F^2 \\
     &= \frac{1}{2} \Vert XY - A + tVX \Vert_F^2 - \frac{1}{2} \Vert XY - A \Vert_F^2 \\
     &= \frac{1}{2} \Vert tVX \Vert_F^2 + \left< XY-A, tVX \right> \\
-    &= t \left< X^T(XY-A), V \right> + o(t)
+    &= t \left< X^\top (XY-A), V \right> + o(t)
     \end{aligned}
-    $$<p>所以 $\frac{\partial f}{\partial Y} = X^T(XY-A)$, 类似地, $\frac{\partial f}{\partial X} = (XY-A)Y^T$.</p>
+    $$<p>所以 $\frac{\partial f}{\partial Y} = X^\top (XY-A)$, 类似地, $\frac{\partial f}{\partial X} = (XY-A)Y^\top $.</p>
 </li>
 <li>
-<p>$f(X)=\ln\text{det}(X)$, $X$ 为正定矩阵. 此时</p>
+<p>$f(X)=\ln\mathrm{det}(X)$, $X$ 为正定矩阵. 此时</p>
 $$
     \begin{aligned}
     &f(X+tV)-f(X) \\
-    &= \ln\text{det}(X+tV) - \ln\text{det}(X) \\
-    &= \ln\text{det}(I+tX^{-1/2}VX^{-1/2})
+    &= \ln\mathrm{det}(X+tV) - \ln\mathrm{det}(X) \\
+    &= \ln\mathrm{det}(I+tX^{-1/2}VX^{-1/2})
     \end{aligned}
     $$<p>考虑 $X^{-1/2}VX^{-1/2}$ 的特征值 $\lambda_i$, 则由特征值之和为迹, 有</p>
 $$
     \begin{aligned}
-    &= \ln\text{det}\prod_{i=1}^n (1+t\lambda_i) \\
+    &= \ln\mathrm{det}\prod_{i=1}^n (1+t\lambda_i) \\
     &= \sum_{i=1}^n \ln(1+t\lambda_i) \\
     &= \sum_{i=1}^n t\lambda_i + o(t) \\
-    &= t\text{tr}(X^{-1/2}VX^{-1/2}) + o(t) \\
-    &= t\text{tr}(X^{-1}V) + o(t) \\
-    &= t\left< X^{-T}, V \right> + o(t)
+    &= t\mathrm{tr}(X^{-1/2}VX^{-1/2}) + o(t) \\
+    &= t\mathrm{tr}(X^{-1}V) + o(t) \\
+    &= t\left< X^{-\top}, V \right> + o(t)
     \end{aligned}
-    $$<p>所以 $\nabla f(X) = X^{-T}$.</p>
+    $$<p>所以 $\nabla f(X) = X^{-\top}$.</p>
 </li>
 </ul>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p><strong>广义实数</strong> 是一种扩充实数域的数, 记为 $\bar{\mathbb{R}} = \mathbb{R} \cup \{ \pm \infty \}$. 映射 $f: \mathbb{R}^n \mapsto \bar{\mathbb{R}}$ 称为 <strong>广义实值函数</strong>.</p>
 </div>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>给定广义实值函数 $f$ 和非空集合 $X$. 如果存在 $x \in X$ 使得 $f(x) < +\infty$, 并且对任意的 $x \in X$, 都有 $f(x) > -\infty$, 那么称函数 $f$ 关于集合 $X$ 是 <strong>适当的</strong>．</p>
 </div>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>对于广义实值函数 $f: \mathbb{R}^n \mapsto \bar{\mathbb{R}}$,</p>
 <ul>
 <li>$C_\alpha = \{x \mid f(x) \le \alpha \}$ 称为 $f$ 的 <strong>$\alpha$-下水平集</strong>.</li>
-<li>$\text{epi} f = \{ (x, t) \mid f(x) \le t \}$ 称为 $f$ 的 <strong>上方图</strong>.</li>
-<li>若 $\text{epi} f$ 为闭集, 则称 $f$ 为<strong>闭函数</strong>.</li>
+<li>$\mathrm{epi} f = \{ (x, t) \mid f(x) \le t \}$ 称为 $f$ 的 <strong>上方图</strong>.</li>
+<li>若 $\mathrm{epi} f$ 为闭集, 则称 $f$ 为<strong>闭函数</strong>.</li>
 <li>若对任意的 $x \in \mathbb{R}^n$, 有 $\liminf_{y \to x} f(y) \ge f(x)$, 则称 $f$ 为 <strong>下半连续函数</strong>.</li>
 </ul>
 </div>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
+<div class="math-block math-thm">
+    <p class="math-title">定理</p>
 <p>对于广义实值函数 $f$, 以下命题等价:</p>
 <ol>
 <li>$f(x)$ 的任意 $\alpha$-下水平集都是闭集;</li>
 <li>$f(x)$ 是下半连续的;</li>
 <li>$f(x)$ 是闭函数.</li>
 </ol>
-<p class="math-block-title math-prf">证明</p>
+<p class="math-prf">证明</p>
 <p>(1) $\Rightarrow$ (2): 反证, 假设 $x_k \to \bar{x}$ 但 $\liminf_{k \to \infty} f(x_k) < f(\bar{x})$. 取 $t$ 介于二者之间.</p>
 <p>考虑到 $\liminf_{k \to \infty} f(x_k) < t$, 则有无穷多 $x_k$ 使得 $f(x_k) \le t$, 即这些 $x_k$ 在 $C_t$ 中. 由于 $C_t$ 是闭集, 则 $\bar{x} \in C_t$, 即 $f(\bar{x}) \le t$, 矛盾.</p>
-<p>(2) $\Rightarrow$ (3): 考虑 $(x_k,y_k) \in \text{epi} f \to (\bar{x},\bar{y})$, 由于 $f$ 下半连续, 则</p>
-$$ f(\bar{x}) \le \liminf_{k \to \infty} f(x_k) = \liminf_{k \to \infty} y_k = \bar{y} $$<p>即 $(\bar{x}, \bar{y}) \in \text{epi} f$.</p>
-<p>(3) $\Rightarrow$ (1): 考虑 $x_k \in C_\alpha \to \bar{x}$, 则 $(x_k, \alpha) \in \text{epi} f \to (\bar{x}, \alpha)$, 所以 $(\bar{x}, \alpha) \in \text{epi} f$, 即 $f(\bar{x}) \le \alpha$, 所以 $\bar{x} \in C_\alpha$.</p>
+<p>(2) $\Rightarrow$ (3): 考虑 $(x_k,y_k) \in \mathrm{epi} f \to (\bar{x},\bar{y})$, 由于 $f$ 下半连续, 则</p>
+$$ f(\bar{x}) \le \liminf_{k \to \infty} f(x_k) = \liminf_{k \to \infty} y_k = \bar{y} $$<p>即 $(\bar{x}, \bar{y}) \in \mathrm{epi} f$.</p>
+<p>(3) $\Rightarrow$ (1): 考虑 $x_k \in C_\alpha \to \bar{x}$, 则 $(x_k, \alpha) \in \mathrm{epi} f \to (\bar{x}, \alpha)$, 所以 $(\bar{x}, \alpha) \in \mathrm{epi} f$, 即 $f(\bar{x}) \le \alpha$, 所以 $\bar{x} \in C_\alpha$.</p>
 </div>
 <p>适当闭函数的和, 复合, 逐点上确界仍然是闭函数.</p>
 <h2 id="凸函数">凸函数
-</h2><div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>适当函数 $f: \mathbb{R}^n \mapsto \mathbb{R}$ 称为 <strong>凸函数</strong>, 如果 $\text{dom} f$ 是凸集, 且对任意的 $x, y \in \text{dom} f$ 和 $\theta \in [0,1]$, 有</p>
+</h2><div class="math-block math-def">
+    <p class="math-title">定义</p>
+<p>适当函数 $f: \mathbb{R}^n \mapsto \mathbb{R}$ 称为 <strong>凸函数</strong>, 如果 $\mathrm{dom} f$ 是凸集, 且对任意的 $x, y \in \mathrm{dom} f$ 和 $\theta \in [0,1]$, 有</p>
 $$
 f(\theta x + (1-\theta)y) \le \theta f(x) + (1-\theta)f(y)
 $$</div>
 <p>易知仿射函数既是凸函数又是凹函数. 所有的范数都是凸函数.</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>若存在常数 $m > 0$, 使得 $g(x) = f(x) - \frac{m}{2} \Vert x \Vert^2$ 是凸函数, 则称 $f$ 是 <strong>强凸函数</strong>, $m$ 称为 <strong>强凸参数</strong>.</p>
 </div>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理<span class="math-subtitle">凸函数判定定理</span></p>
-<p>适当函数 $f: \mathbb{R}^n \mapsto \mathbb{R}$ 是凸函数的充要条件是, 对任意的 $x \in \text{dom} f$, 函数 $g: \mathbb{R} \mapsto \mathbb{R}$ 是凸函数, 其中</p>
-$$g(t) = f(x+tv), \quad \text{dom}g = \{ t \mid x + tv \in \text{dom} f \}$$</div>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理<span class="math-subtitle">一阶条件</span></p>
+<div class="math-block math-thm">
+    <p class="math-title">定理<span class="math-subtitle">凸函数判定定理</span></p>
+<p>适当函数 $f: \mathbb{R}^n \mapsto \mathbb{R}$ 是凸函数的充要条件是, 对任意的 $x \in \mathrm{dom} f$, 函数 $g: \mathbb{R} \mapsto \mathbb{R}$ 是凸函数, 其中</p>
+$$g(t) = f(x+tv), \quad \mathrm{dom}g = \{ t \mid x + tv \in \mathrm{dom} f \}$$</div>
+<div class="math-block math-thm">
+    <p class="math-title">定理<span class="math-subtitle">一阶条件</span></p>
 <p>对于定义在凸集上的可微函数 $f$, $f$ 是凸函数当且仅当</p>
 $$
-f(y) \ge f(x) + \nabla f(x)^T(y-x), \quad \forall x, y \in \text{dom} f
-$$<p class="math-block-title math-prf">证明</p>
-<p><strong>必要性</strong>: 设 $f$ 凸, 则 $\forall x, y \in \text{dom} f, t \in [0,1]$, 有</p>
+f(y) \ge f(x) + \nabla f(x)^\top (y-x), \quad \forall x, y \in \mathrm{dom} f
+$$<p class="math-prf">证明</p>
+<p><strong>必要性</strong>: 设 $f$ 凸, 则 $\forall x, y \in \mathrm{dom} f, t \in [0,1]$, 有</p>
 $$tf(y)+(1-t)f(x) \ge f(x+t(y-x))$$<p>令 $t \to 0$, 即</p>
-$$f(y)-f(x) \ge \frac{f(x+t(y-x))-f(x)}{t} \to \nabla f(x)^T(y-x)$$<p><strong>充分性</strong>: $\forall x, y \in \text{dom}f, t\in (0,1)$, 取 $z = tx+(1-t)y$, 则</p>
+$$f(y)-f(x) \ge \frac{f(x+t(y-x))-f(x)}{t} \to \nabla f(x)^\top (y-x)$$<p><strong>充分性</strong>: $\forall x, y \in \mathrm{dom}f, t\in (0,1)$, 取 $z = tx+(1-t)y$, 则</p>
 $$
 \begin{aligned}
-f(x) &\ge f(z) + \nabla f(z)^T(x-z)  \\
-f(y) &\ge f(z) + \nabla f(z)^T(y-z)
+f(x) &\ge f(z) + \nabla f(z)^\top (x-z)  \\
+f(y) &\ge f(z) + \nabla f(z)^\top (y-z)
 \end{aligned}
 $$<p>一式乘以 $t$, 二式乘以 $1-t$, 相加即得.</p>
 </div>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理<span class="math-subtitle">梯度单调性</span></p>
-<p>设 $f$ 为可微函数, 则 $f$ 为凸函数当且仅当 $\text{dom} f$ 为凸集且 $\nabla f$ 为单调映射.</p>
-$$(\nabla f(x) - \nabla f(y))^T(x-y) \ge 0$$<p class="math-block-title math-prf">证明</p>
+<div class="math-block math-thm">
+    <p class="math-title">定理<span class="math-subtitle">梯度单调性</span></p>
+<p>设 $f$ 为可微函数, 则 $f$ 为凸函数当且仅当 $\mathrm{dom} f$ 为凸集且 $\nabla f$ 为单调映射.</p>
+$$(\nabla f(x) - \nabla f(y))^\top (x-y) \ge 0$$<p class="math-prf">证明</p>
 <p><strong>必要性</strong>: 根据一阶条件, 有</p>
 $$
 \begin{aligned}
-f(y) &\ge f(x) + \nabla f(x)^T(y-x) \\
-f(x) &\ge f(y) + \nabla f(y)^T(x-y)
+f(y) &\ge f(x) + \nabla f(x)^\top (y-x) \\
+f(x) &\ge f(y) + \nabla f(y)^\top (x-y)
 \end{aligned}
 $$<p>相加即可.</p>
-<p><strong>充分性</strong>: 考虑 $g(t)=f(x+t(y-x))$, 则 $g^\prime(t)=\nabla f(x+t(y-x))^T (y-x)$, 从而 $g^\prime (t) \ge g^\prime (0)$.</p>
+<p><strong>充分性</strong>: 考虑 $g(t)=f(x+t(y-x))$, 则 $g^\prime(t)=\nabla f(x+t(y-x))^\top  (y-x)$, 从而 $g^\prime (t) \ge g^\prime (0)$.</p>
 $$
 \begin{aligned}
 f(y) &= g(1) = g(0) + \int_{0}^1 g^\prime(t) dt \\
-&\ge g(0) + \int_{0}^1 g^\prime(0) dt = g(0) + g^\prime(0) \\ &= f(x) + \nabla f(x)^T(y-x)
+&\ge g(0) + \int_{0}^1 g^\prime(0) dt = g(0) + g^\prime(0) \\ &= f(x) + \nabla f(x)^\top (y-x)
 \end{aligned}
 $$</div>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
-<p>函数 $f(x)$ 是凸函数当且仅当 $\text{epi}f$ 是凸集.</p>
+<div class="math-block math-thm">
+    <p class="math-title">定理</p>
+<p>函数 $f(x)$ 是凸函数当且仅当 $\mathrm{epi}f$ 是凸集.</p>
 </div>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理<span class="math-subtitle">二阶条件</span></p>
-<p>设 $f$ 为定义在凸集上的二阶连续可微函数, $f$ 是凸函数当且仅当 $\nabla^2 f(x) \succeq 0, \forall x \in \text{dom} f$. 若不取等, 则为严格凸函数.</p>
-<p class="math-block-title math-prf">证明</p>
-<p><strong>必要性</strong>: 反设 $f(x)$ 在 $x$ 处 $\nabla^2 f(x) \prec 0$, 则存在 $v \in \mathbb{R}^n$, 使得 $v^T \nabla^2 f(x) v < 0$, 考虑 Peano 余项</p>
+<div class="math-block math-thm">
+    <p class="math-title">定理<span class="math-subtitle">二阶条件</span></p>
+<p>设 $f$ 为定义在凸集上的二阶连续可微函数, $f$ 是凸函数当且仅当 $\nabla^2 f(x) \succeq 0, \forall x \in \mathrm{dom} f$. 若不取等, 则为严格凸函数.</p>
+<p class="math-prf">证明</p>
+<p><strong>必要性</strong>: 反设 $f(x)$ 在 $x$ 处 $\nabla^2 f(x) \prec 0$, 则存在 $v \in \mathbb{R}^n$, 使得 $V^\top  \nabla^2 f(x) v < 0$, 考虑 Peano 余项</p>
 $$
-f(x+tv)=f(x)+t\nabla f(x)^Tv+\frac{t^2}{2}v^T\nabla^2 f(x+tv)v + o(t^2)
+f(x+tv)=f(x)+t\nabla f(x)^\top v+\frac{t^2}{2}V^\top \nabla^2 f(x+tv)v + o(t^2)
 $$<p>取 $t$ 充分小,</p>
 $$
-\frac{f(x+tv)-f(x)-t\nabla f(x)^T v}{t^2}=\frac{1}{2}v^T\nabla^2 f(x+tv)v + o(1) < 0
+\frac{f(x+tv)-f(x)-t\nabla f(x)^\top  v}{t^2}=\frac{1}{2}V^\top \nabla^2 f(x+tv)v + o(1) < 0
 $$<p>这和一阶条件矛盾.</p>
-<p><strong>充分性</strong>: 对于任意的 $x, y \in \text{dom} f$, 有</p>
+<p><strong>充分性</strong>: 对于任意的 $x, y \in \mathrm{dom} f$, 有</p>
 $$
 \begin{aligned}
-f(y) &= f(x)+\nabla f(x)^T(y-x)+\frac{1}{2}(y-x)^T\nabla^2 f(z)(y-x) \\
-    &\ge f(x)+\nabla f(x)^T(y-x)
+f(y) &= f(x)+\nabla f(x)^\top (y-x)+\frac{1}{2}(y-x)^\top \nabla^2 f(z)(y-x) \\
+    &\ge f(x)+\nabla f(x)^\top (y-x)
 \end{aligned}
 $$<p>由一阶条件, $f$ 为凸函数.</p>
 </div>
@@ -577,9 +577,9 @@ $$<p>由一阶条件, $f$ 为凸函数.</p>
 <p>逐点取上界: 若对每个 $y \in A$, $f(x,y)$ 都是关于 $x$ 的凸函数, 则</p>
 $$g(x)=\sup_{y \in A} f(x,y)$$<p>也是凸函数.</p>
 <ul>
-<li>$C$ 的支撑函数 $f(x)=\sup_{y \in C} y^Tx$ 是凸函数.</li>
+<li>$C$ 的支撑函数 $f(x)=\sup_{y \in C} y^\top x$ 是凸函数.</li>
 <li>$C$ 到 $x$ 的最远距离 $f(x)=\sup_{y \in C} \Vert x-y \Vert$ 是凸函数.</li>
-<li>对称阵 $X \in \mathbb{S}^n$ 的最大特征值 $\lambda_{\max}(X)=\sup_{\Vert x \Vert=1} x^TXx$ 是凸函数.</li>
+<li>对称阵 $X \in \mathbb{S}^n$ 的最大特征值 $\lambda_{\max}(X)=\sup_{\Vert x \Vert=1} x^\top Xx$ 是凸函数.</li>
 </ul>
 </li>
 <li>
@@ -599,49 +599,49 @@ $$g(x) = \inf_{y \in C} f(x, y)$$<p>也是凸函数.</p>
 </li>
 <li>
 <p>透视函数: 若 $f: \mathbb{R}^{n} \mapsto \mathbb{R}$ 是凸函数, 则</p>
-$$g(x, t) = tf(x/t), \quad \text{dom} g = \{ (x, t) \mid x / t \in \text{dom} f, t > 0 \}$$<p>也是凸函数.</p>
+$$g(x, t) = tf(x/t), \quad \mathrm{dom} g = \{ (x, t) \mid x / t \in \mathrm{dom} f, t > 0 \}$$<p>也是凸函数.</p>
 <ul>
 <li>相对熵函数 $g(x,t)=t\log t-t\log x$ 是凸函数.</li>
-<li>若 $f$ 凸, 则 $g(x)=(c^T+d)f((Ax+b)/(c^T+d))$ 也是凸函数.</li>
+<li>若 $f$ 凸, 则 $g(x)=(c^\top +d)f((Ax+b)/(c^\top +d))$ 也是凸函数.</li>
 </ul>
 </li>
 <li>
 <p>共轭函数: 任意适当函数 $f$ 的共轭函数</p>
-$$f^\ast(y)=\sup_{x \in \text{dom} f} (\left< x, y \right> - f(x))$$<p>是凸函数.</p>
+$$f^\ast(y)=\sup_{x \in \mathrm{dom} f} (\left< x, y \right> - f(x))$$<p>是凸函数.</p>
 </li>
 </ol>
 <h2 id="凸函数的推广">凸函数的推广
-</h2><div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>$f: \mathbb{R}^n \mapsto \mathbb{R}$ 称为 <strong>拟凸的</strong>, 如果 $\text{dom} f$ 是凸集, 且对任意 $\alpha$, 下水平集 $C_\alpha$ 是凸集.</p>
+</h2><div class="math-block math-def">
+    <p class="math-title">定义</p>
+<p>$f: \mathbb{R}^n \mapsto \mathbb{R}$ 称为 <strong>拟凸的</strong>, 如果 $\mathrm{dom} f$ 是凸集, 且对任意 $\alpha$, 下水平集 $C_\alpha$ 是凸集.</p>
 <p>若 $f$ 是拟凸的, 则称 $-f$ 是 <strong>拟凹的</strong>. 若 $f$ 既是拟凸又是拟凹的, 则称 $f$ 是 <strong>拟线性的</strong>.</p>
 </div>
 <p>注意: 拟凸函数的和不一定是拟凸函数.</p>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
+<div class="math-block math-thm">
+    <p class="math-title">定理</p>
 <ul>
-<li>拟凸函数满足类 Jenson 不等式: 对拟凸函数 $f$ 和 $\forall x, y \in \text{dom} f, \theta \in [0,1]$, 有</li>
+<li>拟凸函数满足类 Jenson 不等式: 对拟凸函数 $f$ 和 $\forall x, y \in \mathrm{dom} f, \theta \in [0,1]$, 有</li>
 </ul>
 $$f(\theta x + (1-\theta)y) \le \max\left\{f(x),f(y)\right\}$$<ul>
 <li>拟凸函数满足一阶条件: 定义在凸集上的可微函数 $f$ 拟凸当且仅当</li>
 </ul>
-$$f(y) \le f(x) \Rightarrow \nabla f(x)^T(y-x) \le 0$$</div>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+$$f(y) \le f(x) \Rightarrow \nabla f(x)^\top (y-x) \le 0$$</div>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>如果正值函数 $f$ 满足 $\log f$ 是凸函数, 则 $f$ 称为 <strong>对数凸函数</strong>; 若为凹函数, 则 $f$ 称为 <strong>对数凹函数</strong>.</p>
 </div>
 <p>例如, 正态分布</p>
-$$f(x) = \frac{1}{\sqrt{(2\pi)^n \text{det} \Sigma}} \exp\left(-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu)\right)$$<p>是对数凹函数.</p>
+$$f(x) = \frac{1}{\sqrt{(2\pi)^n \mathrm{det} \Sigma}} \exp\left(-\frac{1}{2}(x-\mu)^\top \Sigma^{-1}(x-\mu)\right)$$<p>是对数凹函数.</p>
 <p>对数凹函数的乘积, 积分都是对数凹的, 但加和不一定是对数凹的.</p>
 <p>在广义不等式下, 也可以定义凸凹性.</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>$f: \mathbb{R}^n \mapsto \mathbb{R}^m$ 称为 <strong>$K$-凸函数</strong>, 如果 $\text{dom} f$ 是凸集, 且
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
+<p>$f: \mathbb{R}^n \mapsto \mathbb{R}^m$ 称为 <strong>$K$-凸函数</strong>, 如果 $\mathrm{dom} f$ 是凸集, 且
 </p>
 $$f(\theta x+(1-\theta)y \preceq_K \theta f(x)+(1-\theta)f(y))$$<p>
-对任意 $x,y \in \text{dom} f, 0 \le \theta \le 1$ 成立.</p>
+对任意 $x,y \in \mathrm{dom} f, 0 \le \theta \le 1$ 成立.</p>
 </div>
-<p>例如, $f: \mathbb{S}^m \mapsto \mathbb{S}^m$, $f(X)=X^2$ 是 $\mathbb{S}^m_+$-凸函数. 这点利用 $z^TX^2z=\Vert Xz \Vert^2$ 是关于 $X$ 的凸函数即可得知.</p>
+<p>例如, $f: \mathbb{S}^m \mapsto \mathbb{S}^m$, $f(X)=X^2$ 是 $\mathbb{S}^m_+$-凸函数. 这点利用 $z^\top X^2z=\Vert Xz \Vert^2$ 是关于 $X$ 的凸函数即可得知.</p>
 
 
     

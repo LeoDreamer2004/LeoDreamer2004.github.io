@@ -4,15 +4,16 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="到底收不收敛? 实际上要看微调水准.">
 <title>论文阅读 - Adam 的收敛性分析</title>
 
-<link rel='canonical' href='https://LeoDreamer2004.github.io/p/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-adam-%E7%9A%84%E6%94%B6%E6%95%9B%E6%80%A7%E5%88%86%E6%9E%90/'>
+<link rel='canonical' href='https://LeoDreamer2004.github.io/p/paper-reading/adam-convergence/'>
 
-<link rel="stylesheet" href="/scss/style.min.f991297a51bfb3ec7265f5caabcf8b61b92014e8d7b4c22fa6d4f0c6cb9ce9ce.css"><meta property='og:title' content="论文阅读 - Adam 的收敛性分析">
+<link rel="stylesheet" href="/scss/style.min.050e713ce6ba4df4f898621146cc9dece02afd8477586323296cb867d14a1d9a.css"><meta property='og:title' content="论文阅读 - Adam 的收敛性分析">
 <meta property='og:description' content="到底收不收敛? 实际上要看微调水准.">
-<meta property='og:url' content='https://LeoDreamer2004.github.io/p/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-adam-%E7%9A%84%E6%94%B6%E6%95%9B%E6%80%A7%E5%88%86%E6%9E%90/'>
+<meta property='og:url' content='https://LeoDreamer2004.github.io/p/paper-reading/adam-convergence/'>
 <meta property='og:site_name' content='LeoDreamer'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Optimization' /><meta property='article:tag' content='Adam' /><meta property='article:published_time' content='2025-03-30T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-30T00:00:00&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Optimization' /><meta property='article:tag' content='Adam' /><meta property='article:published_time' content='2025-03-30T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-30T00:00:00&#43;00:00'/><meta property='og:image' content='https://LeoDreamer2004.github.io/p/paper-reading/adam-convergence/banner.jpeg' />
 <meta name="twitter:title" content="论文阅读 - Adam 的收敛性分析">
-<meta name="twitter:description" content="到底收不收敛? 实际上要看微调水准.">
+<meta name="twitter:description" content="到底收不收敛? 实际上要看微调水准."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://LeoDreamer2004.github.io/p/paper-reading/adam-convergence/banner.jpeg' />
     </head>
     <body class="
     article-page
@@ -321,8 +322,20 @@
 
 
             <main class="main full-width">
-    <article class="main-article">
+    <article class="has-image main-article">
     <header class="article-header">
+        <div class="article-image">
+            <a href="/p/paper-reading/adam-convergence/">
+                <img src="/p/paper-reading/adam-convergence/banner_hu_e10a9ff49831c74b.jpeg"
+                        srcset="/p/paper-reading/adam-convergence/banner_hu_e10a9ff49831c74b.jpeg 800w, /p/paper-reading/adam-convergence/banner_hu_1c23e3d2e7bcff49.jpeg 1600w"
+                        width="800" 
+                        height="395" 
+                        loading="lazy"
+                        alt="Featured image of post 论文阅读 - Adam 的收敛性分析" />
+                
+            </a>
+        </div>
+    
 
     <div class="article-details">
     
@@ -341,7 +354,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-adam-%E7%9A%84%E6%94%B6%E6%95%9B%E6%80%A7%E5%88%86%E6%9E%90/">论文阅读 - Adam 的收敛性分析</a>
+            <a href="/p/paper-reading/adam-convergence/">论文阅读 - Adam 的收敛性分析</a>
         </h2>
     
         
@@ -435,8 +448,8 @@
 </h2><p>在论文 <a class="link cite-original">[<span class="material-index"></span>]
     <span class="material-name">Unknown-material</span> 
 </a> 中, 作者首次介绍了 Adam 优化器. 此算法一经出现立刻爆火, 现在在深度学习当中已经成为一种最常用的优化算法.</p>
-<div class="math-block">
-    <p class="math-block-title math-algo">算法<span class="math-subtitle">Adam</span></p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">Adam</span></p>
 <p>Adam 的更新公式如下:</p>
 $$
 \begin{aligned}
@@ -459,8 +472,8 @@ $$<p>其中 $\odot$ 表示逐元素相乘. 超参数通常取 $\beta_1=0.9, \bet
 </h2><p>论文 <a class="link cite-original">[<span class="material-index"></span>]
     
 </a> 中提到我们可以引入误差量来衡量收敛性:</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>称 <strong>累积误差</strong> 为</p>
 $$R(T) = \sum_{t=1}^T (f_t(\theta_t) - f_t(\theta^*))$$<p>其中 $\theta^*$ 是最优解, 即 $\theta^* = \argmin_{\theta} \sum_{t=1}^T f_t(\theta)$.</p>
 </div>
@@ -468,10 +481,10 @@ $$R(T) = \sum_{t=1}^T (f_t(\theta_t) - f_t(\theta^*))$$<p>其中 $\theta^*$ 是�
 <p>鉴于偏差修正只在初期有较大影响, 之后对于收敛性的讨论, 以下证明对其不予考虑 (原论文有), 此外忽略微小项 $\epsilon$.</p>
 <p>在原始的 Adam 中 $\beta_1, \eta$ 都是常数, 实际上此时难以证明. 因此原文中, 对参数做了随时间动态调整:</p>
 $$\eta_t = \frac{\eta}{\sqrt{t}}, \beta_{1,t}=\beta_1 \lambda^{t-1}, \lambda \in (0,1)$$<p><strong>注意: 以下定理的证明有争议!</strong></p>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
+<div class="math-block math-thm">
+    <p class="math-title">定理</p>
 <p>假设 $f_t$ 梯度有界, $\theta_t$ 之间的距离有界, 即 $\| g_t \|_{\infty} \le G, \|\theta_i-\theta_j\|_{\infty} \le D$, 且 $\beta_1^4 < \beta_2$, Adam 中超参数 $\eta, \beta_1$ 遵从如上动态调整, 则 $R(T) \le \mathcal{O}(\sqrt{T})$, 因而 Adam 收敛.</p>
-<p class="math-block-title math-prf">证明</p>
+<p class="math-prf">证明</p>
 <p>首先, 可以证明:</p>
 $$
 f_t(\theta_t) - f_t(\theta^*) \le g_t^T(\theta_t - \theta^*) = \sum_{i=1}^d g_{t,i}(\theta_{t,i} - \theta^*_i)
@@ -505,7 +518,7 @@ $$<blockquote>
 $$
 \begin{aligned}
 M_2 &=\sum_{t=1}^{T} \beta_{1,t}m_{t-1}(\theta_t - \theta^*) \le \sum_{t=1}^{T} \beta_{1,t} |m_{t-1}| D \\
-&\le GD \sum_{t=1}^{T} \beta_{1,t} = G D \beta_1 \frac{1-\lambda^T}{1-\lambda} = \mathcal{O}(1)
+&\le GD \sum_{t=1}^{T} \beta_{1,t} = G D \beta_1 \frac{1-\lambda^\top}{1-\lambda} = \mathcal{O}(1)
 \end{aligned}
 $$<p><strong>第三项</strong>: $v_t$ 未必有下界, 有点麻烦! 直接写通式:</p>
 $$
@@ -536,12 +549,12 @@ $$</div>
 $$
 f_t(x) = \begin{cases}
 Cx & t \equiv 1 \pmod {3} \\
--x & \text{Otherwise} \\
+-x & \text{otherwise} \\
 \end{cases}, \quad x \in [-1,1]
 $$<p>其中 $C>2$ 是一个常数. 从宏观尺度上, $f=\frac{1}{3}(C-2)x$, 最低点在 $x=-1$ 处. 显然 $f$ 和其他超参数满足定理条件, 然而经过 (冗长枯燥的) 计算可以得知, 由于每三次迭代中 $f$ 就会有两次向错误的方向更新, 加上移动平均导致的历史遗忘, 会导致无法正确收敛. 具体过程可以参考原文附录.</p>
 <p>为了解决这个问题, 作者提出为了确保 $\gamma$ 是单调不减的, 可以在更新时让 $v_{t+1}$ 与 $v_t$ 取一个最大值作为更新值. 由此, 引出 Amsgrad 算法:</p>
-<div class="math-block">
-    <p class="math-block-title math-algo">算法<span class="math-subtitle">Amsgrad</span></p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">Amsgrad</span></p>
 <p>Amsgrad 的更新公式如下:</p>
 $$
 \begin{aligned}
@@ -566,8 +579,8 @@ $$<p>此处省略了偏差修正.</p>
 </a>不同, 论文 <a class="link cite-converge">[<span class="material-index"></span>]
     
 </a> 更注重实际. 从训练角度上, 一般是分成若干个 Epoch, 每个 Epoch 内处理的都是相同的 $n$ 个函数. 作者对 $f$ 以及其内的 $n$ 个分函数提出了如下要求:</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>定义集合 $\mathcal{F}$ 为满足如下条件的函数 $f: \mathbb{R}^d \mapsto \mathbb{R}$ 集合:</p>
 <ul>
 <li>$f$ 有界, 即 $$f \le f^\ast$$</li>
@@ -577,12 +590,12 @@ $$<p>此处省略了偏差修正.</p>
 </div>
 <p>作者称第三个要求实际上是非常容易的, 事实上确实如此.</p>
 <p>我们记第 $k$ 个 Epoch 开始时的变量为 $x_k$, 运行到第 $0 \le i < n$ 个函数时为 $x_{k,i}$, 即 $x_k=x_{k,0}=x_{k-1,n}$. 现在, 作者称梯度的上界有保证:</p>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
+<div class="math-block math-thm">
+    <p class="math-title">定理</p>
 <p>设 $f(x) \in \mathcal{F}$, 遵守 $\mathcal{F}$ 内定义中的记号. 设 $\beta_1^2 < \beta_2 < 1$, 且 $\beta_2 \ge \gamma(n)$, 学习率衰减 $\eta_k= \frac{\eta}{\sqrt{nk}}$, 则存在某个充分大的 $K$, 对于 $T>K$ 均有:</p>
 $$
 \min_{k \in [K,T]} \mathbb{E} \left\{ \min \left[ \sqrt{\frac{2D_1d}{D_0}} \| \nabla f(x_k) \|^2, \| \nabla f(x_k) \| \right] \right\} = \mathcal{O} \left( \frac{\log T}{\sqrt{T}} + \sqrt{D_0}\right)
-$$<p class="math-block-title math-prf">证明</p>
+$$<p class="math-prf">证明</p>
 <p>我们先澄清, 由 $R(T)$ 中的证明, $m_t$ 和 $v_t$ 有上界, 且 $\frac{m_t}{\sqrt{v_t}}$ 也有上界 (证明依然类似, 把 Young 特化成 Cauchy 即可, 此时条件变为 $\beta_1^2 \le \beta_2$).</p>
 <p>从下降引理出发:</p>
 $$
@@ -662,8 +675,8 @@ $$
 <p>显然, 日常训练中的情形更符合第二种, 我们都是先定义好损失函数, 然后再选择超参数, 因此这也就解释了为什么 Adam 在绝大多数训练中表现良好, 重点在于我们选取的超参数符合定理的要求.</p>
 <h2 id="应用-另一个算法">应用: 另一个算法
 </h2><p>遇到了一个基于 Nestorov 等价形式的算法, 和 Adam 非常相似, 于是想能不能直接推广证明, 方便起见暂时叫它 C&rsquo;Adam. 更新公式如下:</p>
-<div class="math-block">
-    <p class="math-block-title math-algo">算法<span class="math-subtitle">C&#39;Adam</span></p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">C&#39;Adam</span></p>
 $$
 \begin{aligned}
 m_t &= \beta_1 m_{t-1} + (1-\beta_1)g_t \\
@@ -672,12 +685,12 @@ v_t &= \beta_2 v_{t-1} + (1-\beta_2)g_t^2 \\
 \end{aligned}
 $$</div>
 <p>忽略偏差修正, 可以看到和 Adam 只有最后一行不同. 我尝试着给出一份证收敛性证明. 以下仍然简记 $x_k = x_{k,0}$.</p>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
+<div class="math-block math-thm">
+    <p class="math-title">定理</p>
 <p>设 $f(x) = \sum_{i=0}^{n-1} f_i$ 有界, 且任意时刻 $f_t$ 满足 $L$- Lipschitz 连续, 满足增长性条件 $\sum_{i=0}^{n-1} \| \nabla f_i(x) \|^2 \le D_1 \| \nabla f(x) \| ^2 + D_0$ . 设 $\beta_1^2 < \beta_2 < 1$, 且 $\beta_2 \ge \gamma(n)$, 学习率衰减 $\eta_k= \frac{\eta}{\sqrt{nk}}$, 则存在某个充分大的 $K$, 对于 $T>K$ 均有:</p>
 $$
 \min_{k \in [K,T]} \mathbb{E} \left\{ \min \left[ \sqrt{\frac{2D_1d}{D_0}} \| \nabla f(x_k) \|^2, \| \nabla f(x_k) \| \right] \right\} = \mathcal{O} \left( \frac{\log T}{\sqrt{T}} + \sqrt{D_0}\right)
-$$<p class="math-block-title math-prf">证明</p>
+$$<p class="math-prf">证明</p>
 <p>从下降引理出发:</p>
 $$
 \mathbb{E}f(x_{k+1}) - \mathbb{E}f(x_k) \le \mathbb{E} \left< \nabla f(x_k), x_{k+1} - x_k \right> + \frac{L}{2} \mathbb{E} \|x_{k+1} - x_k\|^2
@@ -788,8 +801,27 @@ $$<p>由此移项即得证.</p>
             
                 
 <article class="">
+    <a href="/p/paper-reading/3d-neural-networks/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - 3D 神经网络</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
     <a href="/p/paper-reading/icml-2025-oral-and-spotlight/">
         
+        
+            <div class="article-image">
+                
+                    <img src="https://icml.cc/static/core/img/vancouver_convention_center.webp" loading="lazy" data-key="paper-reading/icml-2025-oral-and-spotlight" data-hash="https://icml.cc/static/core/img/vancouver_convention_center.webp"/>
+                
+            </div>
         
 
         <div class="article-details">
@@ -833,19 +865,6 @@ $$<p>由此移项即得证.</p>
 
         <div class="article-details">
             <h2 class="article-title">程序设计实习(9) —— C&#43;&#43; 特性</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/program-practice/stl/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">程序设计实习(8) —— 标准模板库</h2>
         </div>
     </a>
 </article>

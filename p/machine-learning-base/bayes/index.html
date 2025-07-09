@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning-base/bayes/'>
 
-<link rel="stylesheet" href="/scss/style.min.f991297a51bfb3ec7265f5caabcf8b61b92014e8d7b4c22fa6d4f0c6cb9ce9ce.css"><meta property='og:title' content="机器学习基础(3) —— 基于后验概率最大化准则的分类模型">
+<link rel="stylesheet" href="/scss/style.min.050e713ce6ba4df4f898621146cc9dece02afd8477586323296cb867d14a1d9a.css"><meta property='og:title' content="机器学习基础(3) —— 基于后验概率最大化准则的分类模型">
 <meta property='og:description' content="后验概率最大化准则 定义\n对训练样本集 $D=\\{(x_i,y_i)\\}_{i=1}^n$, 其中 $x_i \\in \\mathcal{X}$, $y_i \\in \\mathcal{Y} = \\{c_1, c_2, \\cdots, c_K\\}$, 将 $x$ 的类别预测为 $c_i$ 的 风险 为\n$$ R(Y=c_i | x) = \\sum_{j=1}^K \\lambda_{ij} P(Y=c_j | x) $$其中 $\\lambda_{ij}$ 是将属于 $c_j$ 的样本预测为 $c_i$ 的损失. 最优预测 $\\hat{y}$ 是使得风险最小的类别, 即\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning-base/bayes/'>
 <meta property='og:site_name' content='LeoDreamer'>
@@ -385,8 +385,8 @@
     
     
     <h2 id="后验概率最大化准则">后验概率最大化准则
-</h2><div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+</h2><div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>对训练样本集 $D=\{(x_i,y_i)\}_{i=1}^n$, 其中 $x_i \in \mathcal{X}$, $y_i \in \mathcal{Y} = \{c_1, c_2, \cdots, c_K\}$, 将 $x$ 的类别预测为 $c_i$ 的 <strong>风险</strong> 为</p>
 $$
 R(Y=c_i | x) = \sum_{j=1}^K \lambda_{ij} P(Y=c_j | x)
@@ -399,8 +399,8 @@ $$
 R(Y=c_i | x) = 1 - P(Y=c_i | x)
 $$<p>即输入 $x$ 的最优预测 $\hat{y}$ 为使得后验概率 $P(y | x)$ 最大的类别.</p>
 <h2 id="逻辑斯蒂回归模型">逻辑斯蒂回归模型
-</h2><div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+</h2><div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>设 $\mathcal{X}=\mathbb{R}^n, \mathcal{Y}=\{c_1,c_2\}$, <strong>逻辑斯蒂回归模型</strong> 是如下的后验概率分布:</p>
 $$
 \begin{aligned}
@@ -434,8 +434,8 @@ $$
 \frac{\partial \log L(\theta)}{\partial b} &= \sum_{i=1}^n (y_i - p(x_i;\theta)) = 0
 \end{aligned}
 $$<h2 id="朴素-bayes-分类器">朴素 Bayes 分类器
-</h2><div class="math-block">
-    <p class="math-block-title math-thm">定理<span class="math-subtitle">Bayes 公式</span></p>
+</h2><div class="math-block math-thm">
+    <p class="math-title">定理<span class="math-subtitle">Bayes 公式</span></p>
 $$
 \begin{aligned}
 P(Y=c_i | x) &= \frac{P(x | Y=c_i) P(Y=c_i)}{P(x)} \\

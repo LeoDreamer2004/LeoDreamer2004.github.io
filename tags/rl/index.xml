@@ -16,8 +16,8 @@
         <description>&lt;h2 id=&#34;测试时强化学习&#34;&gt;测试时强化学习
 &lt;/h2&gt;&lt;h3 id=&#34;tta&#34;&gt;TTA
 &lt;/h3&gt;&lt;p&gt;通常情况下, 深度学习模型在训练完成后就固定了参数, 在测试或部署阶段不再更新. 但在实际应用中, 测试数据可能与训练数据的分布存在差异, 导致模型性能下降. 因此后续的微调显得非常重要.&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;测试时适应 (Test-time Adaption, TTA)&lt;/strong&gt; 算法指在不使用真实标签的前提下, 利用当前测试样本或其增强版本来在线微调模型, 使其更适应当前的输入分布.&lt;/p&gt;
 &lt;p&gt;常见的测试时适应算法包括:&lt;/p&gt;
 &lt;ul&gt;
@@ -31,10 +31,10 @@
     &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
 &lt;/a&gt; 开创性地提出了 &lt;strong&gt;测试时强化学习 (Test-Time Reinforcement Learning, TTRL)&lt;/strong&gt; 算法 (后面几篇论文都是在此基础上进行改进). TTRL 通过强化学习的方式, 在测试时对模型进行微调, 使其更好地适应当前输入分布.&lt;/p&gt;
 &lt;p&gt;在 &lt;strong&gt;无监督&lt;/strong&gt; 的情况下, 怎么设置奖励函数? 论文的策略非常简单: 多数投票.&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;TTRL&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 一个模型 $f_{\theta}$, 测试样本 $x$.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 微调后的模型 $f_{\theta&#39;}$.&lt;/p&gt;
+&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;TTRL&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-input&#34;&gt;输入 &amp;gt; &lt;/strong&gt; 一个模型 $f_{\theta}$, 测试样本 $x$.&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-output&#34;&gt;输出 &amp;gt; &lt;/strong&gt; 微调后的模型 $f_{\theta&#39;}$.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;对输入 $x$ 做多次预测, 得到预测结果 $y_i$.&lt;/li&gt;
 &lt;li&gt;统计每个预测结果的出现次数, 设最常见的预测结果为 $y^*$, 称为一致动作.&lt;/li&gt;
@@ -89,7 +89,9 @@ $$
 &lt;/h2&gt;&lt;p&gt;论文 &lt;a class=&#34;link cite-RENT&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
 &lt;/a&gt; 给出基于最小化熵的强化学习算法 (Reinforcement Learning via Entropy Minimization, RENT). 基于 GRPO 框架测试, 把奖励函数设置为负熵, 认为只通过最小化输出的熵, 即可提高模型推理能力.&lt;/p&gt;
-&lt;p&gt;
+$$
+R(o) = -\mathcal{H}(p_{\pi_{\theta}}(\cdot|o)) = -\sum_{i=1}^{|V|} p_{\pi_{\theta}}(i|o) \log p_{\pi_{\theta}}(i|o)
+$$&lt;p&gt;
 
 
 
@@ -110,7 +112,7 @@ $$
     &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
 &lt;/a&gt; 给出了另一个置信度函数:&lt;/p&gt;
 $$
-S(o) = \frac{1}{|o|}\sum_{i=1}^{|o|}KL(U \| p_{\pi_{\theta}}(\cdot|o_{\lt i})) = -\frac{1}{|o| \cdot |V|} \sum_{i=1}^{|o|}\sum_{j=1}^{|V|} \log \left( |V| \cdot p_{\pi_{\theta}} (j|o_{\lt i}) \right)
+R(o) = \frac{1}{|o|}\sum_{i=1}^{|o|}KL(U \| p_{\pi_{\theta}}(\cdot|o_{\lt i})) = -\frac{1}{|o| \cdot |V|} \sum_{i=1}^{|o|}\sum_{j=1}^{|V|} \log \left( |V| \cdot p_{\pi_{\theta}} (j|o_{\lt i}) \right)
 $$&lt;p&gt;其中 $o$ 是 token 序列, $U$ 表示均匀分布.&lt;/p&gt;
 &lt;h2 id=&#34;带有-clip-反馈的强化学习&#34;&gt;带有 CLIP 反馈的强化学习
 &lt;/h2&gt;&lt;p&gt;对于一般任务, 传统的测试时适应算法要最小化熵, 但很显然这个方式容易陷入错误的模型预测中. 与监督微调模型相比, 带有反馈的学习模型有更好的泛化能力.&lt;/p&gt;
@@ -134,10 +136,10 @@ $$&lt;p&gt;其中 $o$ 是 token 序列, $U$ 表示均匀分布.&lt;/p&gt;
 &gt;&lt;/p&gt;
 &lt;p&gt;除了分类任务外, 通过特定任务的采样策略和适当的选择奖励基线, RLCF 可以很容易地扩展到不仅仅是检索这样的区分任务, 还可以扩展到图像字幕这样的泛化任务.&lt;/p&gt;
 &lt;p&gt;我们现在关心视觉语言模型 (VLM), 因此要衡量跨模态的相似性. &lt;strong&gt;对比语言-图像预训练 (Contrastive Language-Image Pre-training, CLIP)&lt;/strong&gt; 模型通过对图像和文本进行编码, 使得它们在同一个共享的向量空间中具有相似的表示.&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;CLIP&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 图像 $v$ 和文本 $t$.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 图像和文本的相似度分数 $s(v,t)$.&lt;/p&gt;
+&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;CLIP&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-input&#34;&gt;输入 &amp;gt; &lt;/strong&gt; 图像 $v$ 和文本 $t$.&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-output&#34;&gt;输出 &amp;gt; &lt;/strong&gt; 图像和文本的相似度分数 $s(v,t)$.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;CLIP 训练两个编码器: 图像编码器 $g$ 和文本编码器 $h$.&lt;/li&gt;
 &lt;li&gt;二者的输出分别为 $g(v)$ 和 $h(t)$.&lt;/li&gt;
@@ -147,25 +149,25 @@ $$s(v,t) = \frac{g(v) \cdot h(t)}{\|g(v)\| \|h(t)\|}$$&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
 &lt;h3 id=&#34;rlcf-算法&#34;&gt;RLCF 算法
-&lt;/h3&gt;&lt;p&gt;对于 VLM, 训练集 $\mathcal{D}_\text{train}$ 和测试集 $\mathcal{D}_\text{test}$ 都是图像和文本对 $(v,t)$ 的集合. 需要注意, 算法的微调是在 &lt;strong&gt;单个&lt;/strong&gt; 测试样本上进行的.&lt;/p&gt;
+&lt;/h3&gt;&lt;p&gt;对于 VLM, 训练集 $\mathcal{D}_\mathrm{train}$ 和测试集 $\mathcal{D}_\mathrm{test}$ 都是图像和文本对 $(v,t)$ 的集合. 需要注意, 算法的微调是在 &lt;strong&gt;单个&lt;/strong&gt; 测试样本上进行的.&lt;/p&gt;
 &lt;p&gt;对于奖励函数 $R$, 我们希望学习到最好的概率分布 $f_{\theta}(v) = [p(t|v,\theta)]_{t \in T}$ 使得其能最大化奖励:&lt;/p&gt;
 $$\max_{\theta} \mathbb{E}_{t \sim f_{\theta}(v)}R(t,v)$$&lt;p&gt;我们正式引入 &lt;strong&gt;带有 CLIP 反馈的强化学习 (Reinforcement Learning with CLIP Feedback, RLCF)&lt;/strong&gt; 算法.&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;RLCF (分类任务)&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 一个已经训练好的 VLM 模型 $f_{\theta}$, 测试样本 $v$.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 微调后的模型 $f_{\theta&#39;}$.&lt;/p&gt;
+&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;RLCF (分类任务)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-input&#34;&gt;输入 &amp;gt; &lt;/strong&gt; 一个已经训练好的 VLM 模型 $f_{\theta}$, 测试样本 $v$.&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-output&#34;&gt;输出 &amp;gt; &lt;/strong&gt; 微调后的模型 $f_{\theta&#39;}$.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;对测试样本 $v$ 进行数据增强, 生成多个增强样本 $\tau_i(v)$.&lt;/li&gt;
 &lt;li&gt;按照 CLIP 的编码器编码 $v$ 和 $\tau_i(v)$, 计算当前模型的预测 $P(t|v,\theta)$. 注意此时训练文本应当是类似于 prompt + label 的形式, 如 &amp;ldquo;a photo of a cat&amp;rdquo;.&lt;/li&gt;
 &lt;li&gt;做置信度筛选, 只保留预测熵足够低的样本 $\tau_i(v)$. 在这些样本中, 按照 top-K 策略选择预测结果, 得到 K 对文本和图像 $(\tau_i(v), t_j)_{j=1}^K$. 暂记为 $(v,t)$ 以进行后续计算.&lt;/li&gt;
 &lt;li&gt;按照先前的工作, 根据 CLIP 模型计算 CLIPScore:
 $$
-    \text{CLIP-S}(t,v) = w \times \max(\text{CLIP}(t,v), 0)
+    \mathrm{CLIP-S}(t,v) = w \times \max(\mathrm{CLIP}(t,v), 0)
     $$
 其中 $w=2.5$ 是一个常数.&lt;/li&gt;
 &lt;li&gt;由于 CLIPScore 永远是非负的, 加入一个奖励基线增加稳定性:
 $$
-    R(t,v) = \text{CLIP-S}(t,v) - \mathbb{E}_{t&#39; \sim f_{\theta}(v)}[\text{CLIP-S}(t&#39;,v)]
+    R(t,v) = \mathrm{CLIP-S}(t,v) - \mathbb{E}_{t&#39; \sim f_{\theta}(v)}[\mathrm{CLIP-S}(t&#39;,v)]
     $$&lt;/li&gt;
 &lt;li&gt;通过 REINFORCE 策略梯度更新模型参数 $\theta$ 为 $\theta&#39;$, 使得模型能够最大化奖励, 注意此时 &lt;strong&gt;只&lt;/strong&gt; 更新图像编码器 $g$ 的参数:
 $$
@@ -189,8 +191,8 @@ $$
 &gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;相较于监督学习, 基于反馈的强化学习更加通用, 例如可以进行图像描述的任务.&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;RLCF (图文转换)&lt;/span&gt;&lt;/p&gt;
+&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;RLCF (图文转换)&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;基本可以从上面的 RLCF 算法中直接泛化修改. 只需要注意如果是文本生成图片时, 应该固定图像编码编码器 $g$ 而微调文本编码器 $h$, 且此时不做数据增强.&lt;/p&gt;
 &lt;p&gt;
 
@@ -340,17 +342,17 @@ $$&lt;p&gt;$R$ 是验证集的性能, $\mathcal{H}$ 是策略的熵.&lt;/p&gt;
 &lt;p&gt;总结, 在策略熵减少过程中, 性能天花板不仅存在, 而且可以被预测.&lt;/p&gt;
 &lt;h3 id=&#34;熵动力学&#34;&gt;熵动力学
 &lt;/h3&gt;&lt;p&gt;我们主要关注相邻两次迭代的熵变化 $\mathcal{H}(\pi_{\theta}^{k+1}) - \mathcal{H}(\pi_{\theta}^{k})$.&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;策略梯度下的熵变化&lt;/span&gt;&lt;/p&gt;
+&lt;div class=&#34;math-block math-thm&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;策略梯度下的熵变化&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;令行为策略 $\pi_{\theta}$ 为一个 softmax 策略, 并通过标准策略梯度更新, 两个连续步骤中给定状态 $s$ 的策略熵之差满足:&lt;/p&gt;
 $$
-\mathcal{H}(\pi_{\theta}^{k+1}|s) - \mathcal{H}(\pi_{\theta}^{k}|s) \approx -\eta \text{Cov}_{a \sim \pi_{\theta}^{k}(\cdot|s)} \left( \log \pi_{\theta}^{k}(a|s), \pi_{\theta}^k(a|s) \cdot A(s,a) \right)
+\mathcal{H}(\pi_{\theta}^{k+1}|s) - \mathcal{H}(\pi_{\theta}^{k}|s) \approx -\eta \mathrm{Cov}_{a \sim \pi_{\theta}^{k}(\cdot|s)} \left( \log \pi_{\theta}^{k}(a|s), \pi_{\theta}^k(a|s) \cdot A(s,a) \right)
 $$&lt;/div&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;自然策略梯度下的熵变化&lt;/span&gt;&lt;/p&gt;
+&lt;div class=&#34;math-block math-thm&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;自然策略梯度下的熵变化&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;令行为策略 $\pi_{\theta}$ 为一个 softmax 策略, 并通过标准策略梯度更新, 两个连续步骤中给定状态 $s$ 的策略熵之差满足:&lt;/p&gt;
 $$
-\mathcal{H}(\pi_{\theta}^{k+1}|s) - \mathcal{H}(\pi_{\theta}^{k}|s) \approx -\eta \text{Cov}_{a \sim \pi_{\theta}^{k}(\cdot|s)} \left( \log \pi_{\theta}^{k}(a|s), A(s,a) \right)
+\mathcal{H}(\pi_{\theta}^{k+1}|s) - \mathcal{H}(\pi_{\theta}^{k}|s) \approx -\eta \mathrm{Cov}_{a \sim \pi_{\theta}^{k}(\cdot|s)} \left( \log \pi_{\theta}^{k}(a|s), A(s,a) \right)
 $$&lt;/div&gt;
 &lt;p&gt;揭示了当前策略下的动作概率 $P(a)$ 与相应的优势函数 $A(a)$ 之间的强正相关性. 作者做了实验验证了这个定理估计的正确性.&lt;/p&gt;
 &lt;h3 id=&#34;协方差正则化&#34;&gt;协方差正则化
@@ -358,35 +360,35 @@ $$&lt;/div&gt;
 &lt;p&gt;实验表明, 小部分 token 的协方差极高, 在触发熵崩溃中占据了主导地位. 受到 PPO 策略的启发, 论文提出两种协方差感知方法: &lt;strong&gt;Clip-Cov&lt;/strong&gt; 和 &lt;strong&gt;KL-Cov&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;对于 token $y_i$ 的协方差, 定义为:&lt;/p&gt;
 $$
-\text{Cov}(y_i) = \left( \log \pi_{\theta}(y_i) - \mathbb{E}_{i \in [N]}\left[ \log \pi_{\theta}(y_i) \right] \right) \left(A(y_i) - \mathbb{E}_{i \in [N]}\left[A(y_i)\right]\right)
-$$&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;Clip-Cov&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 策略 $\pi_{\theta}$, 协方差阈值 $\omega_l, \omega_h$ (两个都远超均值), 剔除比例 $r$.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 更新后的策略 $\pi_{\theta&#39;}$.&lt;/p&gt;
+\mathrm{Cov}(y_i) = \left( \log \pi_{\theta}(y_i) - \mathbb{E}_{i \in [N]}\left[ \log \pi_{\theta}(y_i) \right] \right) \left(A(y_i) - \mathbb{E}_{i \in [N]}\left[A(y_i)\right]\right)
+$$&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;Clip-Cov&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-input&#34;&gt;输入 &amp;gt; &lt;/strong&gt; 策略 $\pi_{\theta}$, 协方差阈值 $\omega_l, \omega_h$ (两个都远超均值), 剔除比例 $r$.&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-output&#34;&gt;输出 &amp;gt; &lt;/strong&gt; 更新后的策略 $\pi_{\theta&#39;}$.&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;计算每个 token 的协方差 $\text{Cov}(y_i)$.&lt;/li&gt;
-&lt;li&gt;从 $y_i$ 中随机选取 $r \cdot N$ 个满足 $\omega_l \le \text{Cov}(y_i) \le \omega_h $ 的 token, 设索引集为 $I_{\text{clip}}$.&lt;/li&gt;
+&lt;li&gt;计算每个 token 的协方差 $\mathrm{Cov}(y_i)$.&lt;/li&gt;
+&lt;li&gt;从 $y_i$ 中随机选取 $r \cdot N$ 个满足 $\omega_l \le \mathrm{Cov}(y_i) \le \omega_h $ 的 token, 设索引集为 $I_{\mathrm{clip}}$.&lt;/li&gt;
 &lt;li&gt;将选择的这些 token 从策略梯度中移除, 其余仍然正常更新:
 $$
-    L_{\text{clip}}(\theta) = \begin{cases}
-    \mathbb{E}\left[ \frac{\pi_{\theta&#39;}(y_i)}{\pi_{\theta}(y_i)} A(y_i) \right] &amp; \text{if } i \notin I_{\text{clip}} \\
-    0 &amp; \text{if } i \in I_{\text{clip}}
+    L_{\mathrm{clip}}(\theta) = \begin{cases}
+    \mathbb{E}\left[ \frac{\pi_{\theta&#39;}(y_i)}{\pi_{\theta}(y_i)} A(y_i) \right] &amp; \text{if } i \notin I_{\mathrm{clip}} \\
+    0 &amp; \text{if } i \in I_{\mathrm{clip}}
     \end{cases}
     $$&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;KL-Cov&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 策略 $\pi_{\theta}$, 剔除比例 $k\ll 1$.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 更新后的策略 $\pi_{\theta&#39;}$.&lt;/p&gt;
+&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;KL-Cov&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-input&#34;&gt;输入 &amp;gt; &lt;/strong&gt; 策略 $\pi_{\theta}$, 剔除比例 $k\ll 1$.&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-output&#34;&gt;输出 &amp;gt; &lt;/strong&gt; 更新后的策略 $\pi_{\theta&#39;}$.&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;计算每个 token 的协方差 $\text{Cov}(y_i)$.&lt;/li&gt;
-&lt;li&gt;从 $y_i$ 选取方差最大的 $k \cdot N$ 个 token, 设索引集为 $I_{\text{KL}}$.&lt;/li&gt;
+&lt;li&gt;计算每个 token 的协方差 $\mathrm{Cov}(y_i)$.&lt;/li&gt;
+&lt;li&gt;从 $y_i$ 选取方差最大的 $k \cdot N$ 个 token, 设索引集为 $I_{\mathrm{KL}}$.&lt;/li&gt;
 &lt;li&gt;将选择的这些 token 在策略梯度中施加 KL 惩罚:
 $$
-    L_{\text{KL}}(\theta) = \begin{cases}
-    \mathbb{E}\left[ \frac{\pi_{\theta&#39;}(y_i)}{\pi_{\theta}(y_i)} A(y_i) \right] &amp; \text{if } i \notin I_{\text{KL}} \\
-    \mathbb{E}\left[ \frac{\pi_{\theta&#39;}(y_i)}{\pi_{\theta}(y_i)} A(y_i) \right] - \beta KL(\pi_{\theta}(y_i) || \pi_{\theta&#39;}(y_i)) &amp; \text{if } i \in I_{\text{KL}}
+    L_{\mathrm{KL}}(\theta) = \begin{cases}
+    \mathbb{E}\left[ \frac{\pi_{\theta&#39;}(y_i)}{\pi_{\theta}(y_i)} A(y_i) \right] &amp; \text{if } i \notin I_{\mathrm{KL}} \\
+    \mathbb{E}\left[ \frac{\pi_{\theta&#39;}(y_i)}{\pi_{\theta}(y_i)} A(y_i) \right] - \beta KL(\pi_{\theta}(y_i) || \pi_{\theta&#39;}(y_i)) &amp; \text{if } i \in I_{\mathrm{KL}}
     \end{cases}
     $$&lt;/li&gt;
 &lt;/ol&gt;
@@ -499,20 +501,20 @@ $$
 &lt;/h2&gt;&lt;p&gt;论文 &lt;a class=&#34;link cite-SLOT&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
 &lt;/a&gt; 提出了 &lt;strong&gt;测试时样本特定语言模型优化 (Sample-specific Language Model Optimization at Test-time, SLOT)&lt;/strong&gt; 算法.&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;SLOT&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 预训练语言模型 $f_{\theta}$, 输入 token 序列 $x=(x_1, x_2, \ldots, x_n)$, 优化步数 $T$.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 拓展生成的文本 $x$.&lt;/p&gt;
+&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;SLOT&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-input&#34;&gt;输入 &amp;gt; &lt;/strong&gt; 预训练语言模型 $f_{\theta}$, 输入 token 序列 $x=(x_1, x_2, \ldots, x_n)$, 优化步数 $T$.&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-output&#34;&gt;输出 &amp;gt; &lt;/strong&gt; 拓展生成的文本 $x$.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;初始化样本特定参数 $\delta=\mathbf{0}\in \mathbb{R}^{1 \times d}$.&lt;/li&gt;
-&lt;li&gt;计算最后一层的隐藏特征 $H = f_{\text{pre}}(x) \in \mathbb{R}^{n \times d}$.&lt;/li&gt;
+&lt;li&gt;计算最后一层的隐藏特征 $H = f_{\mathrm{pre}}(x) \in \mathbb{R}^{n \times d}$.&lt;/li&gt;
 &lt;li&gt;修改 $H&#39; = H + \delta$, 这里是广播加法.&lt;/li&gt;
-&lt;li&gt;计算 logits $L = W_{\text{LM}} H&#39; \in \mathbb{R}^{n \times |V|}$ 和其对应的交叉熵损失 $\mathcal{L}$, 并根据损失 $\mathcal{L}$ 优化 $\delta$.&lt;/li&gt;
-&lt;li&gt;重复步骤 2-4, 直到达到优化步数 $T$, 最后得到 $\delta_{\text{opt}}$.&lt;/li&gt;
-&lt;li&gt;计算最后一个 token 的隐藏特征 $H_{\text{last}} = f_{\text{pre}}(x) [-1] \in \mathbb{R}^{1 \times d}$.&lt;/li&gt;
-&lt;li&gt;修改 $H_{\text{last}}&#39; = H_{\text{last}} + \delta_{\text{opt}}$.&lt;/li&gt;
-&lt;li&gt;计算下一个 token 的 logits $L_{\text{next}} = W_{\text{LM}} H_{\text{last}}&#39;$, 随后按 softmax 选择下一个 token $x_{\text{next}}$.&lt;/li&gt;
-&lt;li&gt;把 $x_{\text{next}}$ 添加到输入序列 $x$ 中, 并重复步骤 6-8, 直到生成满足条件的文本.&lt;/li&gt;
+&lt;li&gt;计算 logits $L = W_{\mathrm{LM}} H&#39; \in \mathbb{R}^{n \times |V|}$ 和其对应的交叉熵损失 $\mathcal{L}$, 并根据损失 $\mathcal{L}$ 优化 $\delta$.&lt;/li&gt;
+&lt;li&gt;重复步骤 2-4, 直到达到优化步数 $T$, 最后得到 $\delta_{\mathrm{opt}}$.&lt;/li&gt;
+&lt;li&gt;计算最后一个 token 的隐藏特征 $H_{\mathrm{last}} = f_{\mathrm{pre}}(x) [-1] \in \mathbb{R}^{1 \times d}$.&lt;/li&gt;
+&lt;li&gt;修改 $H_{\mathrm{last}}&#39; = H_{\mathrm{last}} + \delta_{\mathrm{opt}}$.&lt;/li&gt;
+&lt;li&gt;计算下一个 token 的 logits $L_{\mathrm{next}} = W_{\mathrm{LM}} H_{\mathrm{last}}&#39;$, 随后按 softmax 选择下一个 token $x_{\mathrm{next}}$.&lt;/li&gt;
+&lt;li&gt;把 $x_{\mathrm{next}}$ 添加到输入序列 $x$ 中, 并重复步骤 6-8, 直到生成满足条件的文本.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;
 
@@ -531,7 +533,7 @@ $$
 &lt;/div&gt;
 &lt;p&gt;特意把参数 $\delta$ 放在预测头之前, 是为了减小计算量. 称这个增量为 &lt;strong&gt;概率向量调制向量 (Logit Modulation Vector, LMV)&lt;/strong&gt;:&lt;/p&gt;
 $$
-\text{LMV} = W_{\text{LM}}\delta \in \mathbb{R}^{|V|}
+\mathrm{LMV} = W_{\mathrm{LM}}\delta \in \mathbb{R}^{|V|}
 $$&lt;p&gt;测试表明, 与推理过程相关的词如 &amp;ldquo;think&amp;rdquo; 和 &amp;ldquo;reasoning&amp;rdquo; 在 LMV 的作用下得到了显著增强.&lt;/p&gt;
 &lt;p&gt;
 
@@ -651,17 +653,17 @@ $$
 &lt;/h3&gt;&lt;p&gt;为解决这一局限, 论文 &lt;a class=&#34;link cite-Sherlock&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
     
 &lt;/a&gt; 引入所谓 &lt;strong&gt;Sherlock&lt;/strong&gt; 算法来教导模型自我纠正, 从而增强其推理能力.&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;Sherlock&lt;/span&gt;&lt;/p&gt;
+&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;Sherlock&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;I: &lt;strong&gt;SFT 冷启动&lt;/strong&gt;&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;从已知数据集中随机采样样本, 形成训练集 $\mathcal{D}_A$; 再次采样形成 $\mathcal{D}_B$, 这些样本包含高质量的 COT.&lt;/li&gt;
-&lt;li&gt;在 $\mathcal{D}_A$ 上使用普通监督微调 (SFT) 训练基础 VLM，得到模型 $R0_{\text{VLM}}$。&lt;/li&gt;
-&lt;li&gt;对于每个样本 $(x_{I\&amp;T}, Y^w)$ 在 $\mathcal{D}_B$ 中, 保留原本标签 $Y^w$, 同时用 $R0_{\text{VLM}}$ 生成一个推理轨迹 $Y^l$, 组合成新数据集 $\mathcal{D}_{\text{Sherlock}} = (x_{I\&amp;T}, Y^w, Y^l)$。&lt;/li&gt;
+&lt;li&gt;在 $\mathcal{D}_A$ 上使用普通监督微调 (SFT) 训练基础 VLM，得到模型 $R0_{\mathrm{VLM}}$。&lt;/li&gt;
+&lt;li&gt;对于每个样本 $(x_{I\&amp;T}, Y^w)$ 在 $\mathcal{D}_B$ 中, 保留原本标签 $Y^w$, 同时用 $R0_{\mathrm{VLM}}$ 生成一个推理轨迹 $Y^l$, 组合成新数据集 $\mathcal{D}_{\mathrm{Sherlock}} = (x_{I\&amp;T}, Y^w, Y^l)$。&lt;/li&gt;
 &lt;li&gt;使用如下公式中的损失函数, 联合 &lt;strong&gt;直接生成 (Direct Generation)&lt;/strong&gt; 和 &lt;strong&gt;自我纠正 (Self-Correction)&lt;/strong&gt; 两个任务.:&lt;/li&gt;
 &lt;/ol&gt;
 $$
-  \mathcal{L}_{\text{Sherlock-SFT}}(\pi) = -\mathbb{E}_{(x_{I\&amp;T}, Y^w, Y^l) \sim \mathcal{D}_{\text{Sherlock}}} \left[ \log \pi(Y^w | x_{I\&amp;T}) + \log \pi(Y^l | x_{I\&amp;T}, Y^l, t) \right]
+  \mathcal{L}_{\mathrm{Sherlock-SFT}}(\pi) = -\mathbb{E}_{(x_{I\&amp;T}, Y^w, Y^l) \sim \mathcal{D}_{\mathrm{Sherlock}}} \left[ \log \pi(Y^w | x_{I\&amp;T}) + \log \pi(Y^w | x_{I\&amp;T}, Y^l, t) \right]
   $$&lt;p&gt;II. &lt;strong&gt;离线偏好训练&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;现在对于初始轨迹 $Y^1 = (y_1^1, \cdots, y_n^1;a^1)$, 我们假定此时已经有一部分推理正确, 需要在生成一个更好的轨迹 $Y^2 = (y_1^2, \cdots, y_n^2;a^2)$.&lt;/p&gt;
 &lt;ol&gt;
@@ -671,28 +673,28 @@ $$
 &lt;li&gt;
 &lt;p&gt;按照如下公式:&lt;/p&gt;
 $$
-    \max_{\pi}\mathbb{E}_{Y_{\geq i}^{2}\sim\pi(\cdot|[x_{I\&amp;T},Y^{1},t;Y_{\lt i}^{2}])}\left[p(Y_{\geq i}^{2}\succ Y_{\geq i}^{1}|x_{I\&amp;T};Y_{\lt i}^{2})-\beta D_{\text{KL}}(\pi\|\pi_{\text{ref}}|[x_{I\&amp;T},Y^{1},t;Y_{\lt i}^{2}])\right]\\+\mathbb{E}_{Y_{\geq i}^{2}\sim\pi(\cdot|[x_{I\&amp;T},Y^{1},t;Y_{\lt i}^{1}])}\left[p(Y_{\geq i}^{2}\succ Y_{\geq i}^{1}|x_{I\&amp;T};Y_{\lt i}^{1})-\beta D_{\text{KL}}(\pi\|\pi_{\text{ref}}|[x_{I\&amp;T},Y^{1},t;Y_{\lt i}^{1}])\right]
-    $$&lt;p&gt;$t$ 是一个指令. 即希望 $Y_{\geq i}^{2}$ 在 $Y_{\lt i}^{2}$ 的条件下, 能够比 $Y_{\geq i}^{1}$ 更好, 且与参考模型 $\pi_{\text{ref}}$ 尽量接近. 要最大化此式, 设:&lt;/p&gt;
+    \max_{\pi}\mathbb{E}_{Y_{\geq i}^{2}\sim\pi(\cdot|[x_{I\&amp;T},Y^{1},t;Y_{\lt i}^{2}])}\left[p(Y_{\geq i}^{2}\succ Y_{\geq i}^{1}|x_{I\&amp;T};Y_{\lt i}^{2})-\beta D_{\mathrm{KL}}(\pi\|\pi_{\mathrm{ref}}|[x_{I\&amp;T},Y^{1},t;Y_{\lt i}^{2}])\right]\\+\mathbb{E}_{Y_{\geq i}^{2}\sim\pi(\cdot|[x_{I\&amp;T},Y^{1},t;Y_{\lt i}^{1}])}\left[p(Y_{\geq i}^{2}\succ Y_{\geq i}^{1}|x_{I\&amp;T};Y_{\lt i}^{1})-\beta D_{\mathrm{KL}}(\pi\|\pi_{\mathrm{ref}}|[x_{I\&amp;T},Y^{1},t;Y_{\lt i}^{1}])\right]
+    $$&lt;p&gt;$t$ 是一个指令. 即希望 $Y_{\geq i}^{2}$ 在 $Y_{\lt i}^{2}$ 的条件下, 能够比 $Y_{\geq i}^{1}$ 更好, 且与参考模型 $\pi_{\mathrm{ref}}$ 尽量接近. 要最大化此式, 设:&lt;/p&gt;
 $$
     v(x, Y^1, t; Y_{\lt i}^{1}, Y_{\lt i}^{2}; \pi_{\theta}) = \beta \log \rho(Y_{\geq i}^{2} | [x, Y^1, t; Y_{\lt i}^{2}]) - \beta \log \rho(Y_{\geq i}^{1} | [x, Y^1, t; Y_{\lt i}^{1}]) \\
     u(x, Y^1, t; Y_{\lt i}^{1}, Y_{\lt i}^{2}; \pi_{\theta}) = \beta \log \rho(Y_{\geq i}^{2} | [x, Y^1, t; Y_{\lt i}^{1}]) - \beta \log \rho(Y_{\geq i}^{1} | [x, Y^1, t; Y_{\lt i}^{2}])
-    $$&lt;p&gt;其中 $\rho$ 表示 $\pi_{\theta}$ 和 $\pi_{\text{ref}}$ 的重要性采样比, 前一项是鼓励生成更好的轨迹, 后一项是惩罚生成更差的轨迹. 论文证明采用 MSE 误差函数:&lt;/p&gt;
+    $$&lt;p&gt;其中 $\rho$ 表示 $\pi_{\theta}$ 和 $\pi_{\mathrm{ref}}$ 的重要性采样比, 前一项是鼓励生成更好的轨迹, 后一项是惩罚生成更差的轨迹. 论文证明采用 MSE 误差函数:&lt;/p&gt;
 $$
     \begin{aligned}
-    L_{\text{SC}}(\pi_{\theta}; \pi_{\text{ref}}) &amp;= \mathbb{E}_{(x, Y^w, Y^l) \sim \mathcal{D}} \left[ 1 - v(x_{I\&amp;T}, Y^l, t; Y_{\lt i}^{l}, Y_{\lt i}^{w}; \pi_{\theta}) - u(x_{I\&amp;T}, Y^l, t; Y_{\lt i}^{l}, Y_{\lt i}^{w}; \pi_{\theta}) \right]^2 \\
+    L_{\mathrm{SC}}(\pi_{\theta}; \pi_{\mathrm{ref}}) &amp;= \mathbb{E}_{(x, Y^w, Y^l) \sim \mathcal{D}} \left[ 1 - v(x_{I\&amp;T}, Y^l, t; Y_{\lt i}^{l}, Y_{\lt i}^{w}; \pi_{\theta}) - u(x_{I\&amp;T}, Y^l, t; Y_{\lt i}^{l}, Y_{\lt i}^{w}; \pi_{\theta}) \right]^2 \\
     &amp; + \mathbb{E}_{(x, Y^w, Y^l) \sim \mathcal{D}} \left[ 1 + v(x_{I\&amp;T}, Y^w, t; Y_{\lt i}^{w}, Y_{\lt i}^{l}; \pi_{\theta}) + u(x_{I\&amp;T}, Y^w, t; Y_{\lt i}^{w}, Y_{\lt i}^{l}; \pi_{\theta}) \right]^2
     \end{aligned}
     $$&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;随后再加上 DPO 的损失函数 (前面做的工作已经是偏好优化策略, 再加上这个的目的存疑):&lt;/p&gt;
 $$
-    L_{\text{Sherlock}}(\pi_{\theta}; \pi_{\text{ref}})  = L_{\text{SC}}(\pi_{\theta}; \pi_{\text{ref}}) + \alpha L_{\text{DPO}}(\pi_{\theta}; \pi_{\text{ref}})
+    L_{\mathrm{Sherlock}}(\pi_{\theta}; \pi_{\mathrm{ref}})  = L_{\mathrm{SC}}(\pi_{\theta}; \pi_{\mathrm{ref}}) + \alpha L_{\mathrm{DPO}}(\pi_{\theta}; \pi_{\mathrm{ref}})
     $$&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;在此过程中可以根究不同的 $i$ 采用不同的 $\beta$:&lt;/p&gt;
 $$
     \beta(i, n, \epsilon) = \frac{1}{4\left( 0.5 + \left( \frac{i}{n} \right)^{0.5 + \epsilon / 2} \right)}
-    $$&lt;p&gt;当截断较早, $i$ 较小, $\beta$ 较大, 使得模型更倾向于靠拢 $\pi_{\text{ref}}$, 产生更谨慎的更新, 反之亦然.&lt;/p&gt;
+    $$&lt;p&gt;当截断较早, $i$ 较小, $\beta$ 较大, 使得模型更倾向于靠拢 $\pi_{\mathrm{ref}}$, 产生更谨慎的更新, 反之亦然.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;III. &lt;strong&gt;迭代在线偏好训练&lt;/strong&gt;&lt;/p&gt;

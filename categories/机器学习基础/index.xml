@@ -23,56 +23,56 @@
         
         <guid>https://LeoDreamer2004.github.io/p/machine-learning-base/vc-nu/</guid>
         <description>&lt;h2 id=&#34;vc-维&#34;&gt;VC 维
-&lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;/h2&gt;&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;设 $\mathcal{H}$ 是从 $X$ 到 $\{0, 1\}$ 的函数类, $C = \{c_1, \ldots, c_m\} \subset X$. $\mathcal{H}$ 在 $C$ 上的 &lt;strong&gt;限制&lt;/strong&gt; 是可以从 $\mathcal{H}$ 生成的从 $C$ 到 $\{0, 1\}$ 的函数集, 即:&lt;/p&gt;
 $$\mathcal{H}_C = \{(h(c_1), \ldots, h(c_m)) : h \in \mathcal{H}\}$$&lt;p&gt;其中我们将每个从 $C$ 到 $\{0, 1\}$ 的函数表示为一个 $\{0,1\}^{|C|}$ 向量.&lt;/p&gt;
 &lt;/div&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;一个假设类 $\mathcal{H}$ &lt;strong&gt;打散&lt;/strong&gt; 一个有限集 $C \subset X$, 如果 $\mathcal{H}_C$ 是从 $C$ 到 $\{0, 1\}$ 的所有函数的集合. 即:&lt;/p&gt;
 $$|\mathcal{H}_C| = 2^{|C|}$$&lt;/div&gt;
 &lt;p&gt;我们有如下推论:&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
+&lt;div class=&#34;math-block math-thm&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定理&lt;/p&gt;
 &lt;p&gt;设 $\mathcal{H}$ 是从 $\mathcal{X}$ 到 $\{0, 1\}$ 的假设类, $m$ 是训练集大小. 如果存在一个大小为 $2m$ 的集合 $C \subset \mathcal{X}$ 被 $\mathcal{H}$ 打散, 则对于任何学习算法 $A$, 存在一个在 $\mathcal{X} \times \{0, 1\}$ 上的分布 $\mathcal{D}$, 和一个预测器 $h \in \mathcal{H}$, 使得 $L_{\mathcal{D}}(h) = 0$, 但以至少 $\frac{1}{7}$ 的概率, 在 $S \sim \mathcal{D}^m$ 上有:
 &lt;/p&gt;
 $$
 L_{\mathcal{D}}(A(S)) \geq \frac{1}{8}
 $$&lt;/div&gt;
 &lt;p&gt;我们引入 VC 维的概念:&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
-&lt;p&gt;假设类 $\mathcal{H}$ 的 &lt;strong&gt;VC 维&lt;/strong&gt;, 记为 $\text{VCdim}(\mathcal{H})$, 是 $\mathcal{H}$ 可以打散的最大集合 $C \subset \mathcal{X}$ 的大小. 如果 $\mathcal{H}$ 可以打散任意大大小的集合, 则称 $\mathcal{H}$ 的 VC 维为无穷大.&lt;/p&gt;
+&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;假设类 $\mathcal{H}$ 的 &lt;strong&gt;VC 维&lt;/strong&gt;, 记为 $\mathrm{VCdim}(\mathcal{H})$, 是 $\mathcal{H}$ 可以打散的最大集合 $C \subset \mathcal{X}$ 的大小. 如果 $\mathcal{H}$ 可以打散任意大大小的集合, 则称 $\mathcal{H}$ 的 VC 维为无穷大.&lt;/p&gt;
 &lt;/div&gt;
-&lt;p&gt;例如对于 $\mathcal{H} = \{\mathbb{I}(x \lt a): a\in \mathbb{R}\}$, 不难证明 $\text{VCdim}(\mathcal{H}) = 1$.&lt;/p&gt;
-&lt;p&gt;显然, 对于有限假设类 $\mathcal{H}$, 有 $\text{VCdim}(\mathcal{H}) \le \log_2 |\mathcal{H}|$.&lt;/p&gt;
+&lt;p&gt;例如对于 $\mathcal{H} = \{\mathbb{I}(x \lt a): a\in \mathbb{R}\}$, 不难证明 $\mathrm{VCdim}(\mathcal{H}) = 1$.&lt;/p&gt;
+&lt;p&gt;显然, 对于有限假设类 $\mathcal{H}$, 有 $\mathrm{VCdim}(\mathcal{H}) \le \log_2 |\mathcal{H}|$.&lt;/p&gt;
 &lt;p&gt;关于 VC 维和可学习的关系, 要用到统计学习基本定理, 在此之前先引入一些背景.&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;设 $\mathcal{H}$ 是从 $\mathcal{X}$ 到 $\{0, 1\}$ 的假设类. 则 $\mathcal{H}$ 的 &lt;strong&gt;增长函数&lt;/strong&gt; $\tau_{\mathcal{H}}: \mathbb{N} \to \mathbb{N}$ 定义为:&lt;/p&gt;
 $$
 \tau_{\mathcal{H}}(m) = \max_{C \subset \mathcal{X}: |C| = m} |\mathcal{H}_C|
 $$&lt;/div&gt;
-&lt;p&gt;例如当 $\text{VCdim}(\mathcal{H}) = d &lt; \infty$ 时, 则对于 $m \le d$, 有 $\tau_{\mathcal{H}}(m) = 2^m$. 对于 $m &gt; d$ 呢?&amp;hellip;&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;Sauer-Shelah-Perles&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;设 $\mathcal{H}$ 是一个假设类, 且 $\text{VCdim}(\mathcal{H}) = d &lt; \infty$. 则对于所有 $m$, 有:&lt;/p&gt;
+&lt;p&gt;例如当 $\mathrm{VCdim}(\mathcal{H}) = d &lt; \infty$ 时, 则对于 $m \le d$, 有 $\tau_{\mathcal{H}}(m) = 2^m$. 对于 $m &gt; d$ 呢?&amp;hellip;&lt;/p&gt;
+&lt;div class=&#34;math-block math-thm&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;Sauer-Shelah-Perles&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;设 $\mathcal{H}$ 是一个假设类, 且 $\mathrm{VCdim}(\mathcal{H}) = d &lt; \infty$. 则对于所有 $m$, 有:&lt;/p&gt;
 $$
 \tau_{\mathcal{H}}(m) \leq \sum_{i=0}^{d} \binom{m}{i}
 $$&lt;p&gt;特别地, 如果 $m &gt; d + 1$, 则有:&lt;/p&gt;
 $$
 \tau_{\mathcal{H}}(m) \leq \left(\frac{em}{d}\right)^d
 $$&lt;/div&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
+&lt;div class=&#34;math-block math-thm&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定理&lt;/p&gt;
 &lt;p&gt;设 $\mathcal{H}$ 是一个假设类, 且 $\tau_{\mathcal{H}}$ 是它的增长函数. 则对于每个分布 $\mathcal{D}$ 和每个 $\delta \in (0, 1)$, 在 $S \sim \mathcal{D}^m$ 的选择下, 有超过 $1 - \delta$ 的概率满足:&lt;/p&gt;
 $$
 |L_{\mathcal{D}}(h) - L_{S}(h)| \leq \frac{4 + \sqrt{\log(\tau_{\mathcal{H}}(2m))}}{\delta\sqrt{2m}}
 $$&lt;/div&gt;
 &lt;p&gt;现在引入统计学习的基本定理, 它将 VC 维与可学习性联系起来.&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;统计学习基本定理&lt;/span&gt;&lt;/p&gt;
+&lt;div class=&#34;math-block math-thm&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;统计学习基本定理&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;设 $\mathcal{H}$ 是从 $\mathcal{X}$ 到 $\{0, 1\}$ 的假设类, 且损失函数为 0-1 损失. 则以下条件等价:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;$\mathcal{H}$ 具有一致收敛性质.&lt;/li&gt;
@@ -82,7 +82,7 @@ $$&lt;/div&gt;
 &lt;li&gt;任何经验风险最小化 (ERM) 规则都是 $\mathcal{H}$ 的成功 PAC 学习器.&lt;/li&gt;
 &lt;li&gt;$\mathcal{H}$ 的 VC 维是有限的.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
+&lt;p class=&#34;math-prf&#34;&gt;证明&lt;/p&gt;
 &lt;p&gt;只要证明 VC 维有限时一致收敛性质成立即可. 根据 Sauer 引理, 对于 $m &gt; d$, 有 $\tau_{\mathcal{H}}(2m) \leq (2em/d)^d$. 结合上述定理, 得到超过 $1 - \delta$ 的概率满足:&lt;/p&gt;
 $$
 |L_{\mathcal{D}}(h) - L_{S}(h)| \leq \frac{4 + \sqrt{d \log(2em/d)}}{\delta \sqrt{2m}}
@@ -98,9 +98,9 @@ m \geq 4 \frac{2d}{(\delta \epsilon)^2} \log\left(\frac{4d}{(\delta \epsilon)^2}
 $$&lt;p&gt;此时即可满足, 因此$\mathcal{H}$ 具有一致收敛性质.&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;我们给出更具体的量化版本:&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;统计学习基本定理量化版本&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;设 $\mathcal{H}$ 是从 $\mathcal{X}$ 到 $\{0, 1\}$ 的假设类, 且损失函数为 0-1 损失. 假设 $\text{VCdim}(\mathcal{H}) = d &lt; \infty$. 则存在常数 $C_1, C_2$ 满足:&lt;/p&gt;
+&lt;div class=&#34;math-block math-thm&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;统计学习基本定理量化版本&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;设 $\mathcal{H}$ 是从 $\mathcal{X}$ 到 $\{0, 1\}$ 的假设类, 且损失函数为 0-1 损失. 假设 $\mathrm{VCdim}(\mathcal{H}) = d &lt; \infty$. 则存在常数 $C_1, C_2$ 满足:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;$\mathcal{H}$ 具有一致收敛性质, 且样本复杂度满足:
 $$
@@ -118,27 +118,27 @@ $$
 &lt;/div&gt;
 &lt;h2 id=&#34;非一致可学习&#34;&gt;非一致可学习
 &lt;/h2&gt;&lt;h3 id=&#34;非一致可学习性质&#34;&gt;非一致可学习性质
-&lt;/h3&gt;&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;/h3&gt;&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;我们称假设 $h$ 关于假设 $h&#39;$ 是 &lt;strong&gt;$(\epsilon, \delta)$ 可比的&lt;/strong&gt;, 如果有超过 $1-\delta$ 的概率满足:&lt;/p&gt;
 $$
 L_{\mathcal{D}}(h) \le L_{\mathcal{D}}(h&#39;) + \epsilon
 $$&lt;/div&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;一个假设类 $\mathcal{H}$ 是 &lt;strong&gt;非一致可学习的&lt;/strong&gt;, 如果存在一个学习算法 $A$ 和一个函数 $m_{\mathcal{H}}^{NUL} : (0, 1)^2 \times \mathcal{H} \rightarrow \mathbb{N}$, 使得对于每个 $\epsilon, \delta \in (0, 1)$ 和每个 $h \in \mathcal{H}$, 如果 $m \geq m_{\mathcal{H}}^{NUL}(\epsilon, \delta, h)$, 则对于每个分布 $\mathcal{D}$, 在 $S \sim \mathcal{D}^m$ 上有超过 $1-\delta$ 的概率满足:&lt;/p&gt;
 $$
 L_{\mathcal{D}}(A(S)) \leq L_{\mathcal{D}}(h) + \epsilon
 $$&lt;/div&gt;
 &lt;p&gt;与 PAC 不可知学习不同，非一致可学习的容量 $m$ 可以与 $h$ 相关.&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
+&lt;div class=&#34;math-block math-thm&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定理&lt;/p&gt;
 &lt;p&gt;如果一个假设类 $\mathcal{H}$ 可以被写成可数个假设类的并集 $\mathcal{H} = \bigcup_{n \in \mathbb{N}} \mathcal{H}_n$, 且每个 $\mathcal{H}_n$ 都是一致收敛的, 则 $\mathcal{H}$ 是非一致可学习的.&lt;/p&gt;
 &lt;/div&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
+&lt;div class=&#34;math-block math-thm&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定理&lt;/p&gt;
 &lt;p&gt;一个二分类假设类 $\mathcal{H}$ 是非一致可学习的，当且仅当它是可数个不可知 PAC 可学习假设类的并集.&lt;/p&gt;
-&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
+&lt;p class=&#34;math-prf&#34;&gt;证明&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;充分性&lt;/strong&gt;: 假设 $\mathcal{H} = \bigcup_{n \in \mathbb{N}} \mathcal{H}_n$, 其中每个 $\mathcal{H}_n$ 都是不可知 PAC 可学习的. 根据统计学习的基本定理, 每个 $\mathcal{H}_n$ 都具有一致收敛性质, 从而 $\mathcal{H}$ 是非一致可学习的.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;必要性&lt;/strong&gt;: 假设 $\mathcal{H}$ 是非一致可学习的, 使用某个算法 $A$. 对于每个 $n \in \mathbb{N}$, 令:&lt;/p&gt;
 $$
@@ -146,10 +146,10 @@ $$
 $$&lt;p&gt;显见 $\mathcal{H} = \bigcup_{n \in \mathbb{N}} \mathcal{H}_n$.&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;存在非一致可学习的假设类, 但不是不可知 PAC 学习的: 考虑 $\mathcal{H} = \bigcup_{n \in \mathbb{N}} \mathcal{H}_n$, 其中 $\mathcal{H}_n$ 是次数为 $n$ 的多项式分类器类.&lt;/p&gt;
-&lt;p&gt;$\text{VCdim}(\mathcal{H}_n) = n+1$, 且 $\mathcal{H}_n$ 是不可知 PAC 可学习的, 则由上述定理, $\mathcal{H}$ 是非一致可学习的. 但 $\text{VCdim}(\mathcal{H}) = \infty$, $\mathcal{H}$ 不是不可知 PAC 可学习的.&lt;/p&gt;
+&lt;p&gt;$\mathrm{VCdim}(\mathcal{H}_n) = n+1$, 且 $\mathcal{H}_n$ 是不可知 PAC 可学习的, 则由上述定理, $\mathcal{H}$ 是非一致可学习的. 但 $\mathrm{VCdim}(\mathcal{H}) = \infty$, $\mathcal{H}$ 不是不可知 PAC 可学习的.&lt;/p&gt;
 &lt;h3 id=&#34;结构风险最小化&#34;&gt;结构风险最小化
-&lt;/h3&gt;&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
+&lt;/h3&gt;&lt;div class=&#34;math-block math-thm&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定理&lt;/p&gt;
 &lt;p&gt;设 $w: \mathbb{N} \to [0, 1]$ 是一个函数, 满足 $\sum_{n=1}^\infty w(n) \leq 1$. 设假设类 $\mathcal{H}$ 可以写成 $\mathcal{H} = \bigcup_{n \in \mathbb{N}} \mathcal{H}_n$, 且每个 $\mathcal{H}_n$ 都满足一致收敛性质, 具有样本复杂度函数 $m_{\mathcal{H}_n}^{UC}$. 定义 $\epsilon_n: \mathbb{N} \times (0, 1) \to (0, 1)$ 为:&lt;/p&gt;
 $$
 \epsilon_n(m, \delta) = \min \{\epsilon \in (0, 1) : m_{\mathcal{H}_n}^{UC}(\epsilon, \delta) \leq m\}
@@ -159,7 +159,7 @@ $$
 $$&lt;p&gt;因此，对于每个 $\delta \in (0, 1)$ 和分布 $\mathcal{D}$, 在 $S \sim \mathcal{D}^m$ 上, 有超过 $1 - \delta$ 的概率满足:&lt;/p&gt;
 $$
 \forall h \in \mathcal{H}, L_{\mathcal{D}}(h) \leq L_S(h) + \min_{n: h \in \mathcal{H}_n} \epsilon_n(m, w(n) \cdot \delta)
-$$&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
+$$&lt;p class=&#34;math-prf&#34;&gt;证明&lt;/p&gt;
 &lt;p&gt;对于每个 $n$ 定义 $\delta_n = w(n) \delta$. 应用一致收敛性质的假设, 预先固定 $n$, 则对于每个 $S \sim \mathcal{D}^m$, 有超过 $1 - \delta_n$ 的概率满足:&lt;/p&gt;
 $$
 \forall h \in \mathcal{H}_n, \ |L_{\mathcal{D}}(h) - L_{S}(h)| \leq \epsilon_n(m, \delta_n).
@@ -176,10 +176,10 @@ $$&lt;p&gt;这意味着:&lt;/p&gt;
 $$
 L_{\mathcal{D}}(h) \leq L_{S}(h) + \epsilon_{n(h)}(m, w(n(h)) \cdot \delta)
 $$&lt;p&gt;这表明结构风险最小化范式搜索 $h$ 使得上述界限最小.&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;结构风险最小化 (SRM)&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 训练集 $S \sim \mathcal{D}^m$, 置信度 $\delta$.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: $h \in \arg\min_{h \in \mathcal{H}} [L_S(h) + \epsilon_{n(h)}(m, w(n(h))\delta)]$.&lt;/p&gt;
+&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;结构风险最小化 (SRM)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-input&#34;&gt;输入 &amp;gt; &lt;/strong&gt; 训练集 $S \sim \mathcal{D}^m$, 置信度 $\delta$.&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-output&#34;&gt;输出 &amp;gt; &lt;/strong&gt; $h \in \arg\min_{h \in \mathcal{H}} [L_S(h) + \epsilon_{n(h)}(m, w(n(h))\delta)]$.&lt;/p&gt;
 &lt;p&gt;先前知识:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;$\mathcal{H} = \bigcup_{n \in \mathbb{N}} \mathcal{H}_n$, 其中每个 $\mathcal{H}_n$ 都满足一致收敛性质, 具有样本复杂度函数 $m_{\mathcal{H}_n}^{UC}$;&lt;/li&gt;
@@ -187,11 +187,11 @@ $$&lt;p&gt;这表明结构风险最小化范式搜索 $h$ 使得上述界限最�
 &lt;/ul&gt;
 &lt;p&gt;定义:&lt;/p&gt;
 $$\epsilon_n(m, \delta) = \min \{ \epsilon \in (0, 1) : m_{\mathcal{H}_n}^{UC}(\epsilon, \delta) \leq m \}$$$$n(h) = \min \{ n : h \in \mathcal{H}_n \}$$&lt;/div&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
+&lt;div class=&#34;math-block math-thm&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定理&lt;/p&gt;
 &lt;p&gt;设 $\mathcal{H}$ 是一个假设类, 满足 $\mathcal{H} = \bigcup_{n \in \mathbb{N}} \mathcal{H}_n$, 其中每个 $\mathcal{H}_n$ 都满足一致收敛性质, 具有样本复杂度函数 $m_{\mathcal{H}_n}^{UC}$. 令 $w: \mathbb{N} \to [0, 1]$ 是一个加权函数, 满足 $w(n) = \frac{6}{n^2 \pi^2}$. 则 $\mathcal{H}$ 是非一致可学习的, 使用 SRM 规则, 且速率为:&lt;/p&gt;
 $$
-m_{\mathcal{H}}^{NUL}(\epsilon, \delta, h) \leq m_{\mathcal{H}_{n(h)}}^{UC}\left(\epsilon/2, \frac{6\delta}{(\pi n(h))^2}\right)$$&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
+m_{\mathcal{H}}^{NUL}(\epsilon, \delta, h) \leq m_{\mathcal{H}_{n(h)}}^{UC}\left(\epsilon/2, \frac{6\delta}{(\pi n(h))^2}\right)$$&lt;p class=&#34;math-prf&#34;&gt;证明&lt;/p&gt;
 &lt;p&gt;设 $A$ 是关于加权函数 $w$ 的 SRM 算法. 对于每个 $h \in \mathcal{H}$, $\epsilon$, 和 $\delta$, 令:
 &lt;/p&gt;
 $$
@@ -225,92 +225,92 @@ $$&lt;/div&gt;
         
         <guid>https://LeoDreamer2004.github.io/p/machine-learning-base/pca/</guid>
         <description>&lt;h2 id=&#34;奇异值分解&#34;&gt;奇异值分解
-&lt;/h2&gt;&lt;p&gt;用 $R(A)$ 表达 $\text{Im}(A)$, $N(A)$ 表达 $\text{Ker}(A)$. 则 $\text{dim} R(A) = \text{rank}(A)$, $\text{dim} R(A) + \text{dim} N(A) = n$.&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;奇异值分解&lt;/span&gt;&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;用 $R(A)$ 表达 $\mathrm{Im}(A)$, $N(A)$ 表达 $\mathrm{Ker}(A)$. 则 $\mathrm{dim} R(A) = \mathrm{rank}(A)$, $\mathrm{dim} R(A) + \mathrm{dim} N(A) = n$.&lt;/p&gt;
+&lt;div class=&#34;math-block math-thm&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;奇异值分解&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;对任意矩阵 $A$, 存在正交矩阵 $U$ 和 $V$, 以及对角矩阵 $\Sigma$ 使得:&lt;/p&gt;
 $$
-A = U \Sigma V^T
-$$&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
-&lt;p&gt;$A^TA$ 是对称的, $\text{rank}(A^TA) = r$, 则特征值 $\lambda_1 \ge \lambda_2 \ge \cdots \lambda_r &gt; 0 = \lambda_{r+1} = \lambda_{r+2} = \cdots \lambda_n$, 可正交对角化:&lt;/p&gt;
-$$A^TA = V \Lambda V^T$$&lt;p&gt;把 $V$ 分成两部分 $V=[V_1, V_2]$, 其中 $V_1 = [v_1, \cdots, v_r]$, $V_2 = [v_{r+1}, \cdots, v_n]$. 显见 $v_{r+1}, \cdots, v_n$ 恰好构成 $N(A^TA)$ 的标准正交基.&lt;/p&gt;
+A = U \Sigma V^\top
+$$&lt;p class=&#34;math-prf&#34;&gt;证明&lt;/p&gt;
+&lt;p&gt;$A^\top A$ 是对称的, $\mathrm{rank}(A^\top A) = r$, 则特征值 $\lambda_1 \ge \lambda_2 \ge \cdots \lambda_r &gt; 0 = \lambda_{r+1} = \lambda_{r+2} = \cdots \lambda_n$, 可正交对角化:&lt;/p&gt;
+$$A^\top A = V \Lambda V^\top $$&lt;p&gt;把 $V$ 分成两部分 $V=[V_1, V_2]$, 其中 $V_1 = [v_1, \cdots, v_r]$, $V_2 = [v_{r+1}, \cdots, v_n]$. 显见 $v_{r+1}, \cdots, v_n$ 恰好构成 $N(A^\top A)$ 的标准正交基.&lt;/p&gt;
 &lt;p&gt;从 $V_1 = [v_1, \cdots, v_r]$ 出发考虑 $U_1 = [u_1, \cdots, u_r]$:&lt;/p&gt;
 $$
 u_i = \frac{1}{\sqrt{\lambda_i}} A v_i
-$$&lt;p&gt;则容易验证 $u_i$ 是 $R(A)$ 的标准正交基. $R(A)$ 的正交补是 $N(A^T)$, 考虑其一组正交基 $U_2 = [u_{r+1}, \cdots, u_n]$, 则 $U = [U_1, U_2]$ 是正交矩阵. 记:&lt;/p&gt;
+$$&lt;p&gt;则容易验证 $u_i$ 是 $R(A)$ 的标准正交基. $R(A)$ 的正交补是 $N(A^\top )$, 考虑其一组正交基 $U_2 = [u_{r+1}, \cdots, u_n]$, 则 $U = [U_1, U_2]$ 是正交矩阵. 记:&lt;/p&gt;
 $$
-\Sigma_1 = \text{diag}(\sqrt{\lambda_1}, \cdots, \sqrt{\lambda_r}) \\
+\Sigma_1 = \mathrm{diag}(\sqrt{\lambda_1}, \cdots, \sqrt{\lambda_r}) \\
 \Sigma = \begin{bmatrix}
 \Sigma_1 &amp; 0 \\
 0 &amp; 0
 \end{bmatrix}
 $$&lt;p&gt;则可以得出 $U_1\Sigma_1 = AV_1$. 则:&lt;/p&gt;
 $$
-U \Sigma V^T = [U_1, U_2] \begin{bmatrix}
+U \Sigma V^\top  = [U_1, U_2] \begin{bmatrix}
 \Sigma_1 &amp; 0 \\
 0 &amp; 0
 \end{bmatrix} \begin{bmatrix}
-V_1^T \\
-V_2^T
+V_1^\top   \\
+V_2^\top  
 \end{bmatrix}
-= U_1 \Sigma_1 V_1^T = AV_1V_1^T = A
+= U_1 \Sigma_1 V_1^\top   = AV_1V_1^\top   = A
 $$&lt;/div&gt;
-&lt;p&gt;可以看出右奇异向量 $V$ 的列向量是 $A^TA$ 的特征向量, 左奇异向量 $U$ 的列向量是 $AA^T$ 的特征向量.&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;可以看出右奇异向量 $V$ 的列向量是 $A^\top A$ 的特征向量, 左奇异向量 $U$ 的列向量是 $AA^\top $ 的特征向量.&lt;/p&gt;
+&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;对一个非零的 $m \times n$ 实矩阵 $A \in \mathbb{R}^{m \times n}$, 可将其表示为满足如下特性的三个实矩阵乘积形式的因子分解运算:&lt;/p&gt;
-$$A = U \Sigma V^T$$&lt;p&gt;其中:&lt;/p&gt;
+$$A = U \Sigma V^\top $$&lt;p&gt;其中:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;$U$ 是 $m$ 阶正交矩阵, $U^T U = I$;&lt;/li&gt;
-&lt;li&gt;$V$ 是 $n$ 阶正交矩阵, $V^T V = I$;&lt;/li&gt;
+&lt;li&gt;$U$ 是 $m$ 阶正交矩阵, $U^\top   U = I$;&lt;/li&gt;
+&lt;li&gt;$V$ 是 $n$ 阶正交矩阵, $V^\top  V = I$;&lt;/li&gt;
 &lt;li&gt;$\Sigma$ 是由降序排列的非负的对角线元素组成的 $m \times n$ 矩形对角矩阵:&lt;/li&gt;
 &lt;/ul&gt;
 $$
-\Sigma = \text{diag}(\sigma_1, \cdots, \sigma_p)$$&lt;p&gt;
+\Sigma = \mathrm{diag}(\sigma_1, \cdots, \sigma_p)$$&lt;p&gt;
 这里 $\sigma_1 \geq \cdots \geq \sigma_p \geq 0$, 且 $p = \min(m, n)$.&lt;/p&gt;
-&lt;p&gt;$U \Sigma V^T$ 称为 $A$ 的 &lt;strong&gt;奇异值分解&lt;/strong&gt;, $\sigma_i$ 称为 $A$ 的 &lt;strong&gt;奇异值&lt;/strong&gt;, $U$ 和 $V$ 的列向量分别称为 $A$ 的 &lt;strong&gt;左,右奇异向量&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;特别地, 当 $\text{rank}(A)=r$ 时, $\Sigma$ 的前 $r$ 个对角线元素 $\sigma_1, \cdots, \sigma_r$ 是正的, 我们称 $U_r\Sigma_r V_r^T$ 为 $A$ 的 &lt;strong&gt;紧奇异值分解&lt;/strong&gt;; 对于任意 $0 \lt k \lt r$, $U_k\Sigma_k V_k^T$ 称为 $A$ 的 &lt;strong&gt;截断奇异值分解&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;$U \Sigma V^\top $ 称为 $A$ 的 &lt;strong&gt;奇异值分解&lt;/strong&gt;, $\sigma_i$ 称为 $A$ 的 &lt;strong&gt;奇异值&lt;/strong&gt;, $U$ 和 $V$ 的列向量分别称为 $A$ 的 &lt;strong&gt;左,右奇异向量&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;特别地, 当 $\mathrm{rank}(A)=r$ 时, $\Sigma$ 的前 $r$ 个对角线元素 $\sigma_1, \cdots, \sigma_r$ 是正的, 我们称 $U_r\Sigma_r V_r^\top  $ 为 $A$ 的 &lt;strong&gt;紧奇异值分解&lt;/strong&gt;; 对于任意 $0 \lt k \lt r$, $U_k\Sigma_k V_k^\top  $ 称为 $A$ 的 &lt;strong&gt;截断奇异值分解&lt;/strong&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;h3 id=&#34;奇异值分解与矩阵近似&#34;&gt;奇异值分解与矩阵近似
-&lt;/h3&gt;&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;/h3&gt;&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;设 $A \in \mathbb{R}^{m \times n}$ 且 $A = [a_{ij}]_{m \times n}$, $A$ 的 &lt;strong&gt;Frobenius 范数&lt;/strong&gt; $\|A\|_F$ 定义如下:&lt;/p&gt;
 $$\|A\|_F = \left[\sum_{i=1}^{m} \sum_{j=1}^{n} a_{ij}^2\right]^{\frac{1}{2}}$$&lt;/div&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
+&lt;div class=&#34;math-block math-thm&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定理&lt;/p&gt;
 &lt;p&gt;若 $Q$ 是 $m$ 阶正交矩阵, 则 $\|QA\|_F = \|A\|_F$.&lt;/p&gt;
-&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
+&lt;p class=&#34;math-prf&#34;&gt;证明&lt;/p&gt;
 &lt;p&gt;设 $A = [a_1, \cdots, a_n]$, 则:&lt;/p&gt;
 $$
 \begin{aligned}
 \|QA\|_F^2 &amp;= \| [Qa_1, \cdots, Qa_n]\|_F^2 = \sum_{i=1}^{n} \|Qa_i\|^2 \\
-&amp;= \sum_{i=1}^{n} (Qa_i)^T (Qa_i) = \sum_{i=1}^{n} a_i^T Q^T Q a_i \\
-&amp;= \sum_{i=1}^{n} a_i^T a_i = \sum_{i=1}^{n} \|a\|^2 = \|A\|_F^2
+&amp;= \sum_{i=1}^{n} (Qa_i)^\top   (Qa_i) = \sum_{i=1}^{n} a_i^\top   Q^\top   Q a_i \\
+&amp;= \sum_{i=1}^{n} a_i^\top   a_i = \sum_{i=1}^{n} \|a\|^2 = \|A\|_F^2
 \end{aligned}
 $$&lt;/div&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
-&lt;p&gt;设 $A \in \mathbb{R}^{m \times n}$, $\text{rank}(A) = r$, $A = U \Sigma V^T$ 是 $A$ 的奇异值分解, 并设 $\mathcal{M}$ 是 $\mathbb{R}^{m \times n}$ 中所有秩不超过 $k$ 的矩阵的集合, $0 \lt k \lt r$.&lt;/p&gt;
-&lt;p&gt;若 $A&#39;=U\Sigma&#39;V^T$, 其中 $\Sigma&#39;_{m \times n} = \begin{bmatrix} \Sigma_k &amp; 0 \\ 0 &amp; 0 \end{bmatrix}$, 这里 $\Sigma_k = \text{diag}(\sigma_1, \cdots, \sigma_k)$, 则:&lt;/p&gt;
+&lt;div class=&#34;math-block math-thm&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定理&lt;/p&gt;
+&lt;p&gt;设 $A \in \mathbb{R}^{m \times n}$, $\mathrm{rank}(A) = r$, $A = U \Sigma V^\top $ 是 $A$ 的奇异值分解, 并设 $\mathcal{M}$ 是 $\mathbb{R}^{m \times n}$ 中所有秩不超过 $k$ 的矩阵的集合, $0 \lt k \lt r$.&lt;/p&gt;
+&lt;p&gt;若 $A&#39;=U\Sigma&#39;V^\top $, 其中 $\Sigma&#39;_{m \times n} = \begin{bmatrix} \Sigma_k &amp; 0 \\ 0 &amp; 0 \end{bmatrix}$, 这里 $\Sigma_k = \mathrm{diag}(\sigma_1, \cdots, \sigma_k)$, 则:&lt;/p&gt;
 $$
 \|A-A&#39;\|_F = \sqrt{\sum_{l=k+1}^{n} \sigma_l^2} = \min_{S\in \mathcal{M}} \|A-S\|_F
-$$&lt;p&gt;即截断奇异值分解 $A&#39; = U\Sigma&#39;V^T$ 是 $A$ 在 $\mathcal{M}$ 中的最优近似.&lt;/p&gt;
-&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
-&lt;p&gt;一个显然的结论是, 由上一个定理, 设 $A=U\Sigma V^T$, 则:&lt;/p&gt;
+$$&lt;p&gt;即截断奇异值分解 $A&#39; = U\Sigma&#39;V^\top $ 是 $A$ 在 $\mathcal{M}$ 中的最优近似.&lt;/p&gt;
+&lt;p class=&#34;math-prf&#34;&gt;证明&lt;/p&gt;
+&lt;p&gt;一个显然的结论是, 由上一个定理, 设 $A=U\Sigma V^\top $, 则:&lt;/p&gt;
 $$
-\|A\|_F = \|U\Sigma V^T\|_F = \|\Sigma\|_F = \sqrt{\sum_{l=1}^{n} \sigma_l^2}
+\|A\|_F = \|U\Sigma V^\top \|_F = \|\Sigma\|_F = \sqrt{\sum_{l=1}^{n} \sigma_l^2}
 $$&lt;p&gt;取 $X$ 为 $A$ 的截断奇异值 $A&#39;$, 则:&lt;/p&gt;
 $$
 \|A-X\|_F = \|A-A&#39;\|_F = \sqrt{\sum_{l=k+1}^{n} \sigma_l^2}
 $$&lt;p&gt;下面只需要证明:&lt;/p&gt;
-$$\|A-X\|_F \ge \sqrt{\sum_{l=k+1}^{n} \sigma_l^2}$$&lt;p&gt;再设 $X$ 的奇异值分解为 $X = Q\Omega P^T$, 其中:&lt;/p&gt;
+$$\|A-X\|_F \ge \sqrt{\sum_{l=k+1}^{n} \sigma_l^2}$$&lt;p&gt;再设 $X$ 的奇异值分解为 $X = Q\Omega P^\top  $, 其中:&lt;/p&gt;
 $$
 \Omega = \begin{bmatrix}
 \Omega_1 &amp; 0 \\
 0 &amp; 0
 \end{bmatrix}
-$$&lt;p&gt;这里 $\Omega_1 = \text{diag}(\omega_1, \cdots, \omega_k)$.&lt;/p&gt;
-&lt;p&gt;令 $B=Q^TAP$, 则 $A=QBP^T$, 按照 $\Omega$ 的分块方法对 $B$ 进行分块:&lt;/p&gt;
+$$&lt;p&gt;这里 $\Omega_1 = \mathrm{diag}(\omega_1, \cdots, \omega_k)$.&lt;/p&gt;
+&lt;p&gt;令 $B=Q^\top  AP$, 则 $A=QBP^\top  $, 按照 $\Omega$ 的分块方法对 $B$ 进行分块:&lt;/p&gt;
 $$
 B = \begin{bmatrix}
 B_{11} &amp; B_{12} \\
@@ -319,21 +319,21 @@ B_{21} &amp; B_{22}
 $$&lt;p&gt;则:&lt;/p&gt;
 $$
 \begin{aligned}
-\|A-X\|_F^2 &amp;= \|Q(B-\Omega)P^T\|_F^2 = \|B-\Omega\|_F^2 \\
+\|A-X\|_F^2 &amp;= \|Q(B-\Omega)P^\top  \|_F^2 = \|B-\Omega\|_F^2 \\
 &amp;= \|B_{11}-\Omega_1\|_F^2 + \|B_{12}\|_F^2 + \|B_{21}\|_F^2 + \|B_{22}\|_F^2
 \end{aligned}
-$$&lt;p&gt;既然 $X$ 使得 $\|A-X\|_F^2$ 最小, 我们考虑取 $Y=Q\Omega&#39;P^T \in \mathcal{M}$, 其中 $\Omega&#39; = \begin{bmatrix} B_{11} &amp; B_{12} \\ 0 &amp; 0 \end{bmatrix}$, 则由最小性可得:&lt;/p&gt;
+$$&lt;p&gt;既然 $X$ 使得 $\|A-X\|_F^2$ 最小, 我们考虑取 $Y=Q\Omega&#39;P^\top   \in \mathcal{M}$, 其中 $\Omega&#39; = \begin{bmatrix} B_{11} &amp; B_{12} \\ 0 &amp; 0 \end{bmatrix}$, 则由最小性可得:&lt;/p&gt;
 $$
 \|A-X\|_F^2 \le \|A-Y\|_F^2 = \|B_{21}\|_F^2 + \|B_{22}\|_F^2
 $$&lt;p&gt;由此立得 $B_{12} = 0$, 且 $B_{11} = \Omega_1$, 同理 $B_{21}=0$. 从而我们得到:&lt;/p&gt;
 $$
 \|A-X\|_F = \|B_{22}\|_F
-$$&lt;p&gt;设 $B_{22}$ 的奇异值分解是 $B_{22} = U_1 \Lambda V_1^T$, 则:&lt;/p&gt;
+$$&lt;p&gt;设 $B_{22}$ 的奇异值分解是 $B_{22} = U_1 \Lambda V_1^\top  $, 则:&lt;/p&gt;
 $$
 \|A-X\|_F = \|B_{22}\|_F = \|\Lambda\|_F
 $$&lt;p&gt;注意到:&lt;/p&gt;
 $$
-Q^T A P = B = \begin{bmatrix}
+Q^\top   A P = B = \begin{bmatrix}
 \Omega_1 &amp; 0 \\
 0 &amp; B_{22}
 \end{bmatrix}
@@ -348,7 +348,7 @@ I_k &amp; 0 \\
 \end{bmatrix}
 $$&lt;p&gt;显见:&lt;/p&gt;
 $$
-U_2^T Q^T A P V_2 = U_2^T B V_2 = \begin{bmatrix}
+U_2^\top   Q^\top   A P V_2 = U_2^\top   B V_2 = \begin{bmatrix}
 \Omega_1 &amp; 0 \\
 0 &amp; \Lambda
 \end{bmatrix}
@@ -357,14 +357,14 @@ $$
 A = QU_2 \begin{bmatrix}
 \Omega_1 &amp; 0 \\
 0 &amp; \Lambda
-\end{bmatrix} \left(PV_2\right)^T
+\end{bmatrix} \left(PV_2\right)^\top  
 $$&lt;p&gt;这意味着 $\Lambda$ 的对角线元素是 $A$ 的奇异值, 故有&lt;/p&gt;
 $$
 \|A-X\|_F = \|\Lambda\|_F \ge \sqrt{\sum_{l=k+1}^n \sigma_l^2}
 $$&lt;p&gt;因此 $\|A-X\|_F = \sqrt{\sum_{l=k+1}^n \sigma_l^2} = \|A-A&#39;\|_F$.&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;实际上:&lt;/p&gt;
-$$A = U\Sigma V^T = \sum_{i=1}^n \sigma_i u_i v_i^T$$&lt;p&gt;这也称为 $A$ 的 &lt;strong&gt;外积展开式&lt;/strong&gt;, 显然截断奇异值分解 $A_k = \sum_{i=1}^k \sigma_i u_i v_i^T$.&lt;/p&gt;
+$$A = U\Sigma V^\top  = \sum_{i=1}^n \sigma_i u_i v_i^\top  $$&lt;p&gt;这也称为 $A$ 的 &lt;strong&gt;外积展开式&lt;/strong&gt;, 显然截断奇异值分解 $A_k = \sum_{i=1}^k \sigma_i u_i v_i^\top  $.&lt;/p&gt;
 &lt;h2 id=&#34;主成分分析&#34;&gt;主成分分析
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;如果数据的一些特征之间存在相关性，处理起来不太方便；&lt;/li&gt;
@@ -377,59 +377,59 @@ $$A = U\Sigma V^T = \sum_{i=1}^n \sigma_i u_i v_i^T$$&lt;p&gt;这也称为 $A$ �
 &lt;li&gt;构造出的新特征个数比原来的特征数少很多，达到降维的目的.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;总体主成分分析&#34;&gt;总体主成分分析
-&lt;/h3&gt;&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
-&lt;p&gt;设 $x = (x_1,x_2,\cdots, x_m)^T$ 是 $m$ 维随机向量, $\alpha \in \mathbb{R}^m$ 且 $\alpha^T \alpha = 1$, 则称:&lt;/p&gt;
+&lt;/h3&gt;&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;设 $x = (x_1,x_2,\cdots, x_m)^\top  $ 是 $m$ 维随机向量, $\alpha \in \mathbb{R}^m$ 且 $\alpha^\top  \alpha = 1$, 则称:&lt;/p&gt;
 $$
-y=\alpha^T x
+y=\alpha^\top  x
 $$&lt;p&gt;为 &lt;strong&gt;标准线性组合&lt;/strong&gt;.&lt;/p&gt;
 &lt;/div&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
-&lt;p&gt;设 $\mathbf{x}=(x_1,x_2,\cdots,x_m)^T$ 是均值为 $\mu$, 协方差矩阵为 $\Sigma$ 的 $m$ 维随机向量, $A$ 是半正定矩阵 $\Sigma$ 的对角化正交矩阵, 即 $A^T \Sigma A = \Lambda$. 则如下线性变换被称为 &lt;strong&gt;主成分变换&lt;/strong&gt;:&lt;/p&gt;
-$$\mathbf{y}=A^T(\mathbf{x}-\mu).$$&lt;p&gt;并称 $\mathbf{y}$ 的第 $i$ 个分量:&lt;/p&gt;
-$$y_i=\alpha_i^T(\mathbf{x}-\mu)$$&lt;p&gt;为 $\mathbf{x}$ 的第 $i$ 主成分，这里 $\alpha_i$ 为 $A$ 的第 $i$ 个列向量.&lt;/p&gt;
+&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;设 $\mathbf{x}=(x_1,x_2,\cdots,x_m)^\top  $ 是均值为 $\mu$, 协方差矩阵为 $\Sigma$ 的 $m$ 维随机向量, $A$ 是半正定矩阵 $\Sigma$ 的对角化正交矩阵, 即 $A^\top  \Sigma A = \Lambda$. 则如下线性变换被称为 &lt;strong&gt;主成分变换&lt;/strong&gt;:&lt;/p&gt;
+$$\mathbf{y}=A^\top (\mathbf{x}-\mu).$$&lt;p&gt;并称 $\mathbf{y}$ 的第 $i$ 个分量:&lt;/p&gt;
+$$y_i=\alpha_i^\top  (\mathbf{x}-\mu)$$&lt;p&gt;为 $\mathbf{x}$ 的第 $i$ 主成分，这里 $\alpha_i$ 为 $A$ 的第 $i$ 个列向量.&lt;/p&gt;
 &lt;/div&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
-&lt;p&gt;设 $\mathbf{x} \sim (\mu, \Sigma)$, 则 $\mathbf{y} = A^T (\mathbf{x} - \mu)$ 满足:&lt;/p&gt;
+&lt;div class=&#34;math-block math-thm&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定理&lt;/p&gt;
+&lt;p&gt;设 $\mathbf{x} \sim (\mu, \Sigma)$, 则 $\mathbf{y} = A^\top  (\mathbf{x} - \mu)$ 满足:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;$E[\mathbf{y}] = 0$.&lt;/li&gt;
-&lt;li&gt;$\text{Var}(y_i) = \lambda_i, i = 1, 2, \cdots, m$.&lt;/li&gt;
-&lt;li&gt;$\text{Cov}(y_i, y_j) = 0, i \neq j, i, j = 1, 2, \cdots, m$.&lt;/li&gt;
+&lt;li&gt;$\mathrm{Var}(y_i) = \lambda_i, i = 1, 2, \cdots, m$.&lt;/li&gt;
+&lt;li&gt;$\mathrm{Cov}(y_i, y_j) = 0, i \neq j, i, j = 1, 2, \cdots, m$.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;p&gt;证明略, 用协方差矩阵的性质即可.&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
-&lt;p&gt;不存在方差比 $\lambda_1$ 更大的标准线性组合 $y = \alpha^T \mathbf{x}$.&lt;/p&gt;
-&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
-&lt;p&gt;考虑标准线性组合 $y=\alpha^T\mathbf{x}$, 其中 $\alpha \in \mathbf{R}^m$ 且 $\alpha^T\alpha=1$. 由于 $\alpha_1,\alpha_2,\cdots,\alpha_m$ 正好构成了 $\mathbf{R}^m$ 的一组标准正交基, 则存在 $c_1,c_2,\cdots,c_m\in\mathbb{R}$ 使得&lt;/p&gt;
+&lt;div class=&#34;math-block math-thm&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定理&lt;/p&gt;
+&lt;p&gt;不存在方差比 $\lambda_1$ 更大的标准线性组合 $y = \alpha^\top  \mathbf{x}$.&lt;/p&gt;
+&lt;p class=&#34;math-prf&#34;&gt;证明&lt;/p&gt;
+&lt;p&gt;考虑标准线性组合 $y=\alpha^\top \mathbf{x}$, 其中 $\alpha \in \mathbf{R}^m$ 且 $\alpha^\top \alpha=1$. 由于 $\alpha_1,\alpha_2,\cdots,\alpha_m$ 正好构成了 $\mathbf{R}^m$ 的一组标准正交基, 则存在 $c_1,c_2,\cdots,c_m\in\mathbb{R}$ 使得&lt;/p&gt;
 $$\alpha=\sum_{i=1}^mc_i\alpha_i$$&lt;p&gt;对此线性组合来说，&lt;/p&gt;
 $$\begin{aligned}
-\text{Var}(y)=\alpha^T\Sigma\alpha&amp;=\left[\sum_{i=1}^mc_i\alpha_i^T\right]\Sigma\left[\sum_{i=1}^mc_i\alpha_i\right]\\
-&amp;=\sum_{i=1}^mc_i^2\lambda_i\alpha_i^T\alpha_i=\sum_{i=1}^mc_i^2\lambda_i.\end{aligned}$$&lt;p&gt;另一方面结合:&lt;/p&gt;
-$$1=\alpha^T\alpha=\sum_{i=1}^mc_i^2\alpha_i^T\alpha_i=\sum_{i=1}^mc_i^2$$&lt;p&gt;问题显然是 $c_1 = 1, c_2 = c_3 = \cdots = c_m = 0$ 时取得最大值 $\lambda_1$. 因此:&lt;/p&gt;
-$$\max_{c_1,\cdots,c_m}\text{Var}(y)=\lambda_1$$&lt;p&gt;对应的标准线性组合为:&lt;/p&gt;
-$$y=\alpha_1^T\mathbf{x}$$&lt;/div&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
-&lt;p&gt;如果标准线性组合 $y = \alpha^T \mathbf{x}$ 和 $\mathbf{x}$ 的前 $k$ 个主成分都不相关, 则 $y$ 的方差当 $y$ 是第 $k+1$ 个主成分时最大.&lt;/p&gt;
-&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
-&lt;p&gt;证明：设 $y=\alpha^T\mathbf{x}$, 其中 $\alpha^T\alpha=1$. 且 $\alpha=\sum_i^mc_i\alpha_i$, 对此线性组合来说:&lt;/p&gt;
-$$\text{Var}(y)=\sum_{i=1}^mc_i^2\lambda_i$$&lt;p&gt;对 $1\leq j \lt k$ 来说:&lt;/p&gt;
+\mathrm{Var}(y)=\alpha^\top \Sigma\alpha&amp;=\left[\sum_{i=1}^mc_i\alpha_i^\top  \right]\Sigma\left[\sum_{i=1}^mc_i\alpha_i\right]\\
+&amp;=\sum_{i=1}^mc_i^2\lambda_i\alpha_i^\top  \alpha_i=\sum_{i=1}^mc_i^2\lambda_i.\end{aligned}$$&lt;p&gt;另一方面结合:&lt;/p&gt;
+$$1=\alpha^\top \alpha=\sum_{i=1}^mc_i^2\alpha_i^\top  \alpha_i=\sum_{i=1}^mc_i^2$$&lt;p&gt;问题显然是 $c_1 = 1, c_2 = c_3 = \cdots = c_m = 0$ 时取得最大值 $\lambda_1$. 因此:&lt;/p&gt;
+$$\max_{c_1,\cdots,c_m}\mathrm{Var}(y)=\lambda_1$$&lt;p&gt;对应的标准线性组合为:&lt;/p&gt;
+$$y=\alpha_1^\top  \mathbf{x}$$&lt;/div&gt;
+&lt;div class=&#34;math-block math-thm&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定理&lt;/p&gt;
+&lt;p&gt;如果标准线性组合 $y = \alpha^\top  \mathbf{x}$ 和 $\mathbf{x}$ 的前 $k$ 个主成分都不相关, 则 $y$ 的方差当 $y$ 是第 $k+1$ 个主成分时最大.&lt;/p&gt;
+&lt;p class=&#34;math-prf&#34;&gt;证明&lt;/p&gt;
+&lt;p&gt;证明：设 $y=\alpha^\top \mathbf{x}$, 其中 $\alpha^\top \alpha=1$. 且 $\alpha=\sum_i^mc_i\alpha_i$, 对此线性组合来说:&lt;/p&gt;
+$$\mathrm{Var}(y)=\sum_{i=1}^mc_i^2\lambda_i$$&lt;p&gt;对 $1\leq j \lt k$ 来说:&lt;/p&gt;
 $$
 \begin{aligned}
-\text{Cov}(y,y_j)&amp;=\text{Cov}(\alpha^T\mathbf{x},\alpha_j^T\mathbf{x})=\left[\sum_{i=1}^mc_i\alpha_i^T\right]\Sigma\alpha_j\\
-&amp;=c_j\lambda_j\alpha_j^T\alpha_j=c_j\lambda_j=0
+\mathrm{Cov}(y,y_j)&amp;=\mathrm{Cov}(\alpha^\top \mathbf{x},\alpha_j^\top  \mathbf{x})=\left[\sum_{i=1}^mc_i\alpha_i^\top  \right]\Sigma\alpha_j\\
+&amp;=c_j\lambda_j\alpha_j^\top  \alpha_j=c_j\lambda_j=0
 \end{aligned}
 $$&lt;p&gt;这意味着对$1\leq j \lt k$ 来说, $c_j^2\lambda_j=0$. 故:&lt;/p&gt;
-$$\text{Var}(y)=\sum_{i=k+1}^mc_i^2\lambda_i$$&lt;p&gt;和前面证明类似, 我们可得:&lt;/p&gt;
-$$\max_{c_1,\cdots,c_m}\text{Var}(y)=\lambda_{k+1}$$&lt;p&gt;对应的标准线性组合:&lt;/p&gt;
-$$y=\alpha_{k+1}^T\mathbf{x}$$&lt;p&gt;正好是第 $k+1$ 主成分.&lt;/p&gt;
+$$\mathrm{Var}(y)=\sum_{i=k+1}^mc_i^2\lambda_i$$&lt;p&gt;和前面证明类似, 我们可得:&lt;/p&gt;
+$$\max_{c_1,\cdots,c_m}\mathrm{Var}(y)=\lambda_{k+1}$$&lt;p&gt;对应的标准线性组合:&lt;/p&gt;
+$$y=\alpha_{k+1}^\top  \mathbf{x}$$&lt;p&gt;正好是第 $k+1$ 主成分.&lt;/p&gt;
 &lt;/div&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;$\mathbf{x}$ 的第 $k$ 个主成分 $y_k$ 的 &lt;strong&gt;方差贡献率&lt;/strong&gt; 定义为:
 &lt;/p&gt;
 $$
@@ -440,14 +440,14 @@ $$
 \eta_{1 \to k} = \sum_{i=1}^k \lambda_i= \frac{\sum_{i=1}^k\lambda_k}{\sum_{i=1}^m \lambda_i}
 $$&lt;/div&gt;
 &lt;p&gt;累计方差贡献率体现了前 $k$ 个主成分对数据的方差贡献.&lt;/p&gt;
-&lt;p&gt;显然, $\mathbf{y}=A^T\mathbf{x}$ 的逆为 $\mathbf{x}=A\mathbf{y}$, 由此可以给出如下定义:&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;显然, $\mathbf{y}=A^\top \mathbf{x}$ 的逆为 $\mathbf{x}=A\mathbf{y}$, 由此可以给出如下定义:&lt;/p&gt;
+&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;定义 &lt;strong&gt;因子负荷量&lt;/strong&gt; 为第 $k$ 个主成分 $y_k$ 和原始变量 $x_i$ 的相关系数:&lt;/p&gt;
 $$
 \begin{aligned}
-\rho(y_k,x_i) &amp;= \frac{\text{Cov}(y_k, x_i)}{\sqrt{\text{Var}(y_k) \cdot \text{Var}(x_i)}} = \frac{\text{Cov}\left(\sum_{j=1}^m \alpha_{ij}y_j, y_k\right)}{\sqrt{\lambda_k \sigma_{ii}}} \\
-&amp;= \frac{\alpha_{ik} \text{Var}(y_k) }{\sqrt{\lambda_k \sigma_{ii}}} = \frac{\sqrt{\lambda_k} \alpha_{ik}}{\sqrt{\sigma_{ii}}}
+\rho(y_k,x_i) &amp;= \frac{\mathrm{Cov}(y_k, x_i)}{\sqrt{\mathrm{Var}(y_k) \cdot \mathrm{Var}(x_i)}} = \frac{\mathrm{Cov}\left(\sum_{j=1}^m \alpha_{ij}y_j, y_k\right)}{\sqrt{\lambda_k \sigma_{ii}}} \\
+&amp;= \frac{\alpha_{ik} \mathrm{Var}(y_k) }{\sqrt{\lambda_k \sigma_{ii}}} = \frac{\sqrt{\lambda_k} \alpha_{ik}}{\sqrt{\sigma_{ii}}}
 \end{aligned}
 $$&lt;/div&gt;
 &lt;p&gt;容易验证因子负荷量满足:&lt;/p&gt;
@@ -455,29 +455,29 @@ $$&lt;/div&gt;
 &lt;li&gt;$$ \sum_{i=1}^m \sigma_{ii} \rho^2(y_k,x_i)=\lambda_k $$&lt;/li&gt;
 &lt;li&gt;$$ \sum_{k=1}^m \rho^2(y_k,x_i)=1 $$&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;$\mathbf{x}$ 的前 $k$ 个主成分 $y_1, y_2, \cdots, y_k$ 对原有变量 $x_i$ 的 &lt;strong&gt;贡献率&lt;/strong&gt; 定义为:
 &lt;/p&gt;
 $$
 \nu_{1 \to k} = \sum_{j=1}^k \rho^2(y_j, x_i) = \sum_{j=1}^k \frac{\lambda_j \alpha_{ij}^2}{\sigma_{ii}}
 $$&lt;/div&gt;
 &lt;h3 id=&#34;样本主成分分析&#34;&gt;样本主成分分析
-&lt;/h3&gt;&lt;p&gt;设 $\mathbf{x}_1,\mathbf{x}_2,\cdots,\mathbf{x}_n$ 是对 $m$ 维随机向量 $\mathbf{x}=(x_1,x_2,\cdots,x_m)^T$ 进行 $n$ 次独立观测的样本, 其中 $\mathbf{x}_j=(x_{1j},x_{2j},\cdots,x_{mj})^T$ 表示第 $j$ 个观测样本, 则观测数据矩阵:&lt;/p&gt;
+&lt;/h3&gt;&lt;p&gt;设 $\mathbf{x}_1,\mathbf{x}_2,\cdots,\mathbf{x}_n$ 是对 $m$ 维随机向量 $\mathbf{x}=(x_1,x_2,\cdots,x_m)^\top  $ 进行 $n$ 次独立观测的样本, 其中 $\mathbf{x}_j=(x_{1j},x_{2j},\cdots,x_{mj})^\top  $ 表示第 $j$ 个观测样本, 则观测数据矩阵:&lt;/p&gt;
 $$\mathbf{X}=[\mathbf{x}_1,\mathbf{x}_2,\cdots,\mathbf{x}_n]=\left[\begin{array}{ccc}x_{11}&amp;\cdots&amp;x_{1n}\\\vdots&amp;\vdots&amp;\vdots\\x_{m1}&amp;\cdots&amp;x_{mn}\end{array}\right]$$&lt;p&gt;样本均值向量为:&lt;/p&gt;
-$$\bar{\mathbf{x}}=\frac{1}{n}\sum\limits_{j=1}^n\mathbf{x}_j=(\bar{x}_1,\cdots,\bar{x}_m)^T$$&lt;p&gt;样本协方差矩阵为 $\mathbf{S}=[s_{ij}]_{m\times m}$, 其中:&lt;/p&gt;
+$$\bar{\mathbf{x}}=\frac{1}{n}\sum\limits_{j=1}^n\mathbf{x}_j=(\bar{x}_1,\cdots,\bar{x}_m)^\top  $$&lt;p&gt;样本协方差矩阵为 $\mathbf{S}=[s_{ij}]_{m\times m}$, 其中:&lt;/p&gt;
 $$s_{ij}=\frac{1}{n-1}\sum\limits_{k=1}^n(x_{ik}-\bar{x}_i)(x_{jk}-\bar{x}_j), i,j=1,2,\cdots,m$$&lt;p&gt;样本相关矩阵为 $\mathbf{R}=[r_{ij}]_{m\times m}$, 其中:&lt;/p&gt;
-$$r_{ij}=\frac{s_{ij}}{\sqrt{s_{ii}s_{jj}}}$$&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;PCA&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 规范化后的样本数据矩阵 $\mathbf{X}_{m \times n}$&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 样本主成分矩阵 $\mathbf{Y}_{k \times n}$&lt;/p&gt;
+$$r_{ij}=\frac{s_{ij}}{\sqrt{s_{ii}s_{jj}}}$$&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;PCA&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-input&#34;&gt;输入 &amp;gt; &lt;/strong&gt; 规范化后的样本数据矩阵 $\mathbf{X}_{m \times n}$&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-output&#34;&gt;输出 &amp;gt; &lt;/strong&gt; 样本主成分矩阵 $\mathbf{Y}_{k \times n}$&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;构造:
-$$\mathbf{X}&#39; = \frac{1}{\sqrt{n-1}}\mathbf{X}^T$$&lt;/li&gt;
+$$\mathbf{X}&#39; = \frac{1}{\sqrt{n-1}}\mathbf{X}^\top  $$&lt;/li&gt;
 &lt;li&gt;求 $X&#39;$ 的 $k$ 秩截断奇异值分解:
-$$\mathbf{X}&#39; = U_k \Sigma_k V_k^T$$&lt;/li&gt;
+$$\mathbf{X}&#39; = U_k \Sigma_k V_k^\top  $$&lt;/li&gt;
 &lt;li&gt;返回样本前 $k$ 主成分矩阵:
-$$\mathbf{Y} = V^T\mathbf{X}$$&lt;/li&gt;
+$$\mathbf{Y} = V^\top \mathbf{X}$$&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
 </description>
@@ -489,8 +489,8 @@ $$\mathbf{Y} = V^T\mathbf{X}$$&lt;/li&gt;
         
         <guid>https://LeoDreamer2004.github.io/p/machine-learning-base/pac-uc/</guid>
         <description>&lt;h2 id=&#34;概率近似正确-pac&#34;&gt;概率近似正确 (PAC)
-&lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;/h2&gt;&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;我们定义 &lt;strong&gt;泛化误差&lt;/strong&gt; 为:&lt;/p&gt;
 $$
 L_{\mathcal{D},f}(h) = P_{X \sim \mathcal{\mathcal{D}}}(h(X) \neq f(X))
@@ -498,20 +498,20 @@ $$&lt;p&gt;&lt;strong&gt;训练误差&lt;/strong&gt; 为:&lt;/p&gt;
 $$
 L_S(h) = \frac{1}{m} \sum_{i=1}^m \mathbb{I}(h(X_i) \neq f(X_i))
 $$&lt;/div&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;如果存在 $h^*$ 使得对任意 $L_{\mathcal{D},f}(h^*) = 0$, 则称为 $f,\mathcal{D}$ 满足 &lt;strong&gt;可实现假设&lt;/strong&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;可实现假设意味着对 $1$ 的概率, 满足 $L_S(h^*) = 0$, 且对每个经验风险最小化的假设 $h_S$ 有 $L_S(h_S) =0$.&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
+&lt;div class=&#34;math-block math-thm&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定理&lt;/p&gt;
 &lt;p&gt;设 $\mathcal{H}$ 是有限的假设空间, $\delta \in (0,1), \epsilon&gt;0$, 设正整数 $m$ 满足:&lt;/p&gt;
 $$
 m \ge \frac{\log(|\mathcal{H}|/\delta)}{\epsilon}
 $$&lt;p&gt;对任意标签函数 $f$ 和任意分布 $\mathcal{D}$, 如果可实现性假设相对于 $\mathcal{H}, \mathcal{\mathcal{D}}, f$ 成立, 则在大小为 $m$ 的独立同分布样本 $S$ 的选择上有最低 $1-\delta$ 的概率满足: 对每个经验风险最小化的假设 $h_S$ 有:&lt;/p&gt;
 $$
 L_{\mathcal{D},f}(h_S) \leq \epsilon
-$$&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
+$$&lt;p class=&#34;math-prf&#34;&gt;证明&lt;/p&gt;
 &lt;p&gt;令 $\mathcal{H}_B$ 表示“坏”假设的集合, 即&lt;/p&gt;
 $$
 \mathcal{H}_B = \{ h \in \mathcal{H} : L_{(\mathcal{D}, f)}(h) &gt; \epsilon \}
@@ -534,8 +534,8 @@ $$
 $$&lt;p&gt;由此, 即 $1-\mathcal{D}^m(\{S|_x : L_{(\mathcal{D}, f)}(h_S) &gt; \epsilon\}) &gt; 1-\delta$, 得证.&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;我们现在可以引入 PAC 可学习性的概念.&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;称假设空间 $\mathcal{H}$ 是 &lt;strong&gt;PAC 可学习的&lt;/strong&gt;, 如果存在一个函数 $m_{\mathcal{H}} : (0, 1)^2 \to \mathbb{N}$ 和一个学习算法, 满足以下性质: 对于任意 $\delta, \epsilon \in (0, 1)$, 对于任意定义在 $\mathcal{X}$ 上的分布 $\mathcal{\mathcal{D}}$, 以及对于任意标记函数 $f : \mathcal{X} \to \{0, 1\}$, 如果可实现性假设相对于 $\mathcal{H}, \mathcal{\mathcal{D}}, f$ 成立, 那么当使用由 $\mathcal{\mathcal{D}}$ 生成的 $m \geq m_{\mathcal{H}}(\epsilon, \delta)$ 个独立同分布样本, 并用 $f$ 标记这些样本运行该算法时, 算法将返回一个假设 $h$, 使得在样本选择上以至少 $1 - \delta$ 的概率满足&lt;/p&gt;
 $$
 L_{(\mathcal{\mathcal{D}}, f)}(h) \leq \epsilon
@@ -553,8 +553,8 @@ f_{\mathcal{\mathcal{D}}}(x) = \begin{cases}
 0 &amp; \text{otherwise}
 \end{cases}
 $$&lt;p&gt;但由于 $\mathcal{\mathcal{D}}$ 是未知的, 我们不能直接使用 $f_{\mathcal{\mathcal{D}}}$ 进行预测. 我们希望找一个预测函数使得损失不比 $f_{\mathcal{\mathcal{D}}}$ 大很多.&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;称假设空间 $\mathcal{H}$ 是 &lt;strong&gt;不可知 PAC 可学习的&lt;/strong&gt;, 如果存在一个函数 $m_{\mathcal{H}} : (0, 1)^2 \to \mathbb{N}$ 和一个学习算法, 满足以下性质: 对于任意 $\delta, \epsilon \in (0, 1)$, 对于任意定义在 $\mathcal{X} \times \mathcal{Y}$ 上的分布 $\mathcal{\mathcal{D}}$, 当使用由 $\mathcal{\mathcal{D}}$ 生成的 $m \geq m_{\mathcal{H}}(\epsilon, \delta)$ 个独立同分布样本训练时, 算法将返回一个假设 $h$, 使得在样本选择上以至少 $1 - \delta$ 的概率满足:&lt;/p&gt;
 $$
 L_{\mathcal{\mathcal{D}}}(h) \le \min_{h&#39; \in \mathcal{H}} L_{\mathcal{\mathcal{D}}}(h&#39;) + \epsilon
@@ -562,48 +562,48 @@ $$&lt;p&gt;特别地, 我们称假设空间 $\mathcal{H}$ 是关于集合 $Z$ �
 &lt;/div&gt;
 &lt;p&gt;显然, 如果可实现性假设成立, 则不可知 PAC 可学习性转化为 PAC 可学习性.&lt;/p&gt;
 &lt;h2 id=&#34;一致收敛-uc&#34;&gt;一致收敛 (UC)
-&lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;/h2&gt;&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;训练集 $S$ 被称为关于域 $Z$, 假设空间 $\mathcal{H}$, 损失函数 $\ell$ 和分布 $\mathcal{\mathcal{D}}$ 是 &lt;strong&gt;$\epsilon$-典型的&lt;/strong&gt;, 如果&lt;/p&gt;
 $$
 \forall h \in \mathcal{H}, |L_S(h) - L_{\mathcal{\mathcal{D}}}(h)| \leq \epsilon
 $$&lt;/div&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
+&lt;div class=&#34;math-block math-thm&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定理&lt;/p&gt;
 &lt;p&gt;假设训练集 $S$ 是 $\epsilon/2$-典型的, 则对于任意 $ERM_\mathcal{\mathcal{H}}(S)$ 算法的输出, 即任意 $h_S \in \argmin_{h \in \mathcal{H}} L_S(h)$, 有:&lt;/p&gt;
 $$
 L_{\mathcal{\mathcal{D}}}(h_S) \leq \min_{h \in \mathcal{H}} L_D(h) + \epsilon
-$$&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
+$$&lt;p class=&#34;math-prf&#34;&gt;证明&lt;/p&gt;
 &lt;p&gt;利用定义可知&lt;/p&gt;
 $$
 L_{\mathcal{\mathcal{D}}}(h_S) \le L_S(h_S) + \epsilon/2 \le L_S(h) + \epsilon/2 \le L_{\mathcal{\mathcal{D}}}(h) + \epsilon
 $$&lt;/div&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;称假设空间 $\mathcal{H}$ 关于域 $Z$, 损失函数 $\ell$ 具有 &lt;strong&gt;一致收敛性&lt;/strong&gt;, 如果存在一个函数 $m_{\mathcal{H}}^{UC}: (0, 1)^2 \to \mathbb{N}$, 使得对于任意 $\epsilon, \delta \in (0, 1)$ 和任意 $Z$ 上的分布 $\mathcal{\mathcal{D}}$,  如果 $S$ 是从 $\mathcal{\mathcal{D}}$ 中独立同分布抽取的大小为 $m \geq m_{\mathcal{H}}^{UC}(\epsilon, \delta)$ 的样本, 则以至少 $1 - \delta$ 的概率, $S$ 是 $\epsilon$-典型的.&lt;/p&gt;
 &lt;/div&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
+&lt;div class=&#34;math-block math-thm&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定理&lt;/p&gt;
 &lt;p&gt;如果假设空间 $\mathcal{H}$ 对于 $m_{\mathcal{H}}^{UC}(\epsilon, \delta)$ 具有一致收敛性, 则 $\mathcal{H}$ 是不可知 PAC 可学习的, 且样本复杂度满足:&lt;/p&gt;
 $$
 m_{\mathcal{H}}(\epsilon, \delta) \leq m_{\mathcal{H}}^{UC}(\epsilon/2, \delta)
 $$&lt;p&gt;在这种情况下, $ERM_\mathcal{H}(S)$ 算法是 $\mathcal{H}$ 的不可知 PAC 学习算法.&lt;/p&gt;
 &lt;/div&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;Hoeffding 不等式&lt;/span&gt;&lt;/p&gt;
+&lt;div class=&#34;math-block math-thm&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;Hoeffding 不等式&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;设 $\theta_1, \cdots, \theta_m$ 是独立同分布随机变量, 且 $\mathbb{E}[\theta_i] = \mu$, $P(\theta_i \in [a, b]) = 1$. 则对于任意 $\epsilon &gt; 0$, 有:&lt;/p&gt;
 $$
 P\left(\left|\frac{1}{m} \sum_{i=1}^m \theta_i - \mu\right| &gt; \epsilon\right) \leq 2 \exp\left(-\frac{2m\epsilon^2}{(b-a)^2}\right)
 $$&lt;/div&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
+&lt;div class=&#34;math-block math-thm&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定理&lt;/p&gt;
 &lt;p&gt;设 $\mathcal{H}$ 是有限的假设空间, $Z$ 是一个域, $\ell : \mathcal{H} \times Z \to [0, 1]$ 是一个损失函数. 则 $\mathcal{H}$ 具有一致收敛性, 且样本复杂度满足:&lt;/p&gt;
 $$
 m_{\mathcal{H}}^{UC}(\epsilon, \delta) \leq \left\lceil \frac{\log(2|\mathcal{H}|/\delta)}{2\epsilon^2} \right\rceil
 $$&lt;p&gt;且此时 $\mathcal{H}$ 是不可知 PAC 可学习的, 且样本复杂度满足:&lt;/p&gt;
 $$
 m_{\mathcal{H}}(\epsilon, \delta) \leq m_{\mathcal{H}}^{UC}(\epsilon/2, \delta) \leq \left\lceil \frac{2\log(2|\mathcal{H}|/\delta)}{\epsilon^2} \right\rceil
-$$&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
+$$&lt;p class=&#34;math-prf&#34;&gt;证明&lt;/p&gt;
 &lt;p&gt;固定 $\epsilon, \delta$, 我们要找 $m$ 使得对任意 $\mathcal{\mathcal{D}}$, 至少 $1 - \delta$ 的概率, $S$ 是 $\epsilon$-典型的. 即:&lt;/p&gt;
 $$
 \mathcal{\mathcal{D}}^m(\{ S: \forall h \in \mathcal{H}, |L_S(h)-L_{\mathcal{\mathcal{D}}}(h)| \le \epsilon \}) \ge 1 - \delta
@@ -623,8 +623,8 @@ $$
 $$&lt;p&gt;从而得证.&lt;/p&gt;
 &lt;/div&gt;
 &lt;h2 id=&#34;偏差复杂性分解&#34;&gt;偏差复杂性分解
-&lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;无免费午餐&lt;/span&gt;&lt;/p&gt;
+&lt;/h2&gt;&lt;div class=&#34;math-block math-thm&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;无免费午餐&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;设 $A$ 是在域 $X$ 上的 $0-1$ 误差函数二分类学习算法, 训练集大小 $m$ 是小于 $|X|/2$ 的任意数. 则存在一个在 $X \times \{0, 1\}$ 上的分布 $\mathcal{\mathcal{D}}$ 使得:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;存在一个函数 $f : X \to \{0, 1\}$ 使得 $L_{\mathcal{\mathcal{D}}}(f) = 0$.&lt;/li&gt;
@@ -632,18 +632,18 @@ $$&lt;p&gt;从而得证.&lt;/p&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
 &lt;p&gt;以此我们可以得到如下推论:&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;/p&gt;
+&lt;div class=&#34;math-block math-thm&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定理&lt;/p&gt;
 &lt;p&gt;设 $\mathcal{X}$ 是一个无限域, $\mathcal{H}$ 是从 $\mathcal{X}$ 到 $\{0, 1\}$ 的所有函数的集合. 则 $\mathcal{H}$ 不是 PAC 可学习的.&lt;/p&gt;
-&lt;p class=&#34;math-block-title math-prf&#34;&gt;证明&lt;/p&gt;
+&lt;p class=&#34;math-prf&#34;&gt;证明&lt;/p&gt;
 &lt;p&gt;假设 $\mathcal{H}$ 是 PAC 可学习的, 选 $\epsilon &lt; 1/8, \delta &lt; 1/7$, 则存在一个算法 $A$ 和一个整数 $m=m_{\mathcal{H}}(\epsilon, \delta)$, 对任意 $\mathcal{X} \times \{0, 1\}$ 上的分布 $\mathcal{D}$, 如果对于某个函数 $f: \mathcal{X} \to \{0, 1\}$, $L_{\mathcal{\mathcal{D}}}(f) = 0$, 则当 $A$ 在 $S \sim \mathcal{\mathcal{D}}^m$ 上运行时, 有至少 $1 - \delta$ 的概率满足: $L_{\mathcal{\mathcal{D}}}(A(S)) \leq \epsilon$.&lt;/p&gt;
 &lt;p&gt;但根据无免费午餐定理, 由于 $|X|&gt;2m$, 对于算法 $A$, 存在一个分布 $\mathcal{\mathcal{D}}$ 使得有至少 $1/7&gt;\delta$ 的概率满足 $L_{\mathcal{\mathcal{D}}}(A(S)) \geq 1/8&gt;\epsilon$, 矛盾.&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;误差分解:&lt;/p&gt;
 $$
 L_{\mathcal{\mathcal{D}}}(h_S) = \min_{h \in \mathcal{H}} L_{\mathcal{\mathcal{D}}}(h) + (L_{\mathcal{\mathcal{D}}}(h_S) - \min_{h \in \mathcal{H}} L_{\mathcal{\mathcal{D}}}(h))
-$$&lt;p&gt;第一项称为 &lt;strong&gt;近似误差&lt;/strong&gt;; 第二项称为 &lt;strong&gt;估计误差&lt;/strong&gt; $\epsilon_{\text{est}}$: 最小化风险和经验风险之间的差距.&lt;/p&gt;
-&lt;p&gt;在有限假设情形下, $\epsilon_{\text{est}}$ 通常随 $|H|$ 增加, 随 $m$ 减小. 当 $\mathcal{H}$ 很小时, 估计误差很小, 但近似误差可能很大, 是欠拟合; 当 $\mathcal{H}$ 很大时, 近似误差很小, 但估计误差可能很大, 是过拟合.&lt;/p&gt;
+$$&lt;p&gt;第一项称为 &lt;strong&gt;近似误差&lt;/strong&gt;; 第二项称为 &lt;strong&gt;估计误差&lt;/strong&gt; $\epsilon_{\mathrm{est}}$: 最小化风险和经验风险之间的差距.&lt;/p&gt;
+&lt;p&gt;在有限假设情形下, $\epsilon_{\mathrm{est}}$ 通常随 $|H|$ 增加, 随 $m$ 减小. 当 $\mathcal{H}$ 很小时, 估计误差很小, 但近似误差可能很大, 是欠拟合; 当 $\mathcal{H}$ 很大时, 近似误差很小, 但估计误差可能很大, 是过拟合.&lt;/p&gt;
 </description>
         </item>
         <item>
@@ -654,8 +654,8 @@ $$&lt;p&gt;第一项称为 &lt;strong&gt;近似误差&lt;/strong&gt;; 第二项�
         <guid>https://LeoDreamer2004.github.io/p/machine-learning-base/markov/</guid>
         <description>&lt;h2 id=&#34;markov-链&#34;&gt;Markov 链
 &lt;/h2&gt;&lt;p&gt;Markov 链是刻画随机变量序列的概率分布的模型.&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;设 $\{X_t\mid t=1,2,\cdots\}$ 是随机序列, 若 $X_t$ 都在 $S$ 中取值, 则称 $S$ 是 $\{X_t\}$ 的状态空间, $S$中的元素称为 &lt;strong&gt;状态&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;如果对任何正整数 $t\geq 2$ 和 $S$ 中的状态 $s_i,s_j,s_{i_1},s_{i_2},\cdots,s_{i_{t-1}}$, 随机序列 $\{X_t\}$ 满足&lt;/p&gt;
 $$
@@ -672,10 +672,10 @@ $$a_{ij} = P(X_2 = s_j | X_1 = s_i), s_i, s_j \in S$$&lt;p&gt;为 Markov 链 $\{
 &lt;/h2&gt;&lt;p&gt;实际中, 我们往往无法直接观察到 Markov 链的状态, 而只能观察到与状态相关的观测值.&lt;/p&gt;
 &lt;p&gt;隐 Markov 模型 (HMM) 刻画了首先由一个马尔可夫链随机生成不可观测的状态随机序列 $\{X_t\}$, 再由每个状态 $X_t$ 生成一个观测 $O_t$ 而生成观测随机序列 $\{O_t\}$ 的过程.&lt;/p&gt;
 &lt;p&gt;设 &lt;strong&gt;观测概率&lt;/strong&gt; 矩阵 $B = [b_{ij}]$, 其中 $b_{ij} = P(O_t = o_j | X_t = s_i)$.&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;HMM&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 隐 Markov 模型 $M = (A, B, \pi)$, 其中 $A$ 是转移概率矩阵, $B$ 是观测概率矩阵, $\pi$ 是初始分布.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 长度为 $T$ 的观测序列.&lt;/p&gt;
+&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;HMM&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-input&#34;&gt;输入 &amp;gt; &lt;/strong&gt; 隐 Markov 模型 $M = (A, B, \pi)$, 其中 $A$ 是转移概率矩阵, $B$ 是观测概率矩阵, $\pi$ 是初始分布.&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-output&#34;&gt;输出 &amp;gt; &lt;/strong&gt; 长度为 $T$ 的观测序列.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;令 $t=1$, 随机选择初始状态 $X_1$ 使得 $P(X_1 = s_i) = \pi_i$.&lt;/li&gt;
 &lt;li&gt;根据状态 $X_t$ 和观测概率矩阵 $B$, 随机生成观测 $O_t$ 使得 $P(O_t = o_j | X_t = s_i) = b_{ij}$.&lt;/li&gt;
@@ -725,10 +725,10 @@ $$
 $$&lt;p&gt;动态规划还要记住路径, 用 $\Psi_t(s_i)$ 记录时刻 $t$ 状态为 $s_i$ 的概率最大的路径的前一个状态, 即:&lt;/p&gt;
 $$
 \Psi_t(s_i) = \argmax_{1 \le j \le N} \left( \delta_{t-1}(j) a_{ji} \right)
-$$&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;Viterbi&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: $\lambda = (A,B,\pi)$, 观测序列 $\mathbf{O} = (O_1,O_2,\cdots,O_T)$&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 最优状态序列 $X^* = (X_1^*, X_2^*, \cdots, X_T^*)$&lt;/p&gt;
+$$&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;Viterbi&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-input&#34;&gt;输入 &amp;gt; &lt;/strong&gt; $\lambda = (A,B,\pi)$, 观测序列 $\mathbf{O} = (O_1,O_2,\cdots,O_T)$&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-output&#34;&gt;输出 &amp;gt; &lt;/strong&gt; 最优状态序列 $X^* = (X_1^*, X_2^*, \cdots, X_T^*)$&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;初始化 $\delta_1(i) = \pi_i b_i(O_1)$, $\Psi_1(s_i) = 0$.&lt;/li&gt;
 &lt;li&gt;对于 $t=2,3,\cdots,T$:
@@ -809,10 +809,10 @@ $$
 \xi_t(i,j|\lambda)&amp;=p(X_t=s_i,X_{t+1}=s_j|\mathbf{O},\bar{\lambda})
 \end{aligned}
 $$&lt;p&gt;利用 Bayes 公式, 结合前向后向算法可得结果.&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;Baum-Welch&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 观测序列 $\mathbf{O} = (O_1,O_2,\cdots,O_T)$.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 隐 Markov 模型 $\lambda = (A,B,\pi)$.&lt;/p&gt;
+&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;Baum-Welch&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-input&#34;&gt;输入 &amp;gt; &lt;/strong&gt; 观测序列 $\mathbf{O} = (O_1,O_2,\cdots,O_T)$.&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-output&#34;&gt;输出 &amp;gt; &lt;/strong&gt; 隐 Markov 模型 $\lambda = (A,B,\pi)$.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;初始化 $\lambda = (A,B,\pi)$.&lt;/li&gt;
 &lt;li&gt;按概率计算方法计算前向概率 $\alpha_t(i)$ 和后向概率 $\beta_t(i)$.&lt;/li&gt;
@@ -840,12 +840,12 @@ $$
         
         <guid>https://LeoDreamer2004.github.io/p/machine-learning-base/clustering-intro/</guid>
         <description>&lt;h2 id=&#34;基于原型的聚类方法&#34;&gt;基于原型的聚类方法
-&lt;/h2&gt;&lt;p&gt;与监督学习不同, 无监督学习基于数据集 $D=\{x_i\}_{i=1}^N$, 没有标签 $y_i$. 基于原型的方法通常假设数据内在的分布结构可以通过一组原型刻画, 先对原型初始化, 然后按照相应策略和准则进行迭代更新.&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;与监督学习不同, 无监督学习基于数据集 $\mathcal{D}=\{x_i\}_{i=1}^N$, 没有标签 $y_i$. 基于原型的方法通常假设数据内在的分布结构可以通过一组原型刻画, 先对原型初始化, 然后按照相应策略和准则进行迭代更新.&lt;/p&gt;
 &lt;h3 id=&#34;k-means-聚类&#34;&gt;K-means 聚类
-&lt;/h3&gt;&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;K-means 聚类&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 数据集 $D=\{x_i\}_{i=1}^N$, 聚类簇个数 $K$.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 簇划分 $\mathcal{C}=\{C_l\}_{l=1}^K$.&lt;/p&gt;
+&lt;/h3&gt;&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;K-means 聚类&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-input&#34;&gt;输入 &amp;gt; &lt;/strong&gt; 数据集 $\mathcal{D}=\{x_i\}_{i=1}^N$, 聚类簇个数 $K$.&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-output&#34;&gt;输出 &amp;gt; &lt;/strong&gt; 簇划分 $\mathcal{C}=\{C_l\}_{l=1}^K$.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;选择 $K$ 个样本点作为初始簇心 $\mu_l$. 初始化 $C_l = \emptyset$.&lt;/li&gt;
 &lt;li&gt;对每个 $x_i$, 求 $x_i$ 的簇标记 $\lambda_i = \argmin_j \|x_i - \mu_j\|^2$, 即找到距离最近的簇心, 并将 $x_i$ 加入到 $C_{\lambda_i}$.&lt;/li&gt;
@@ -856,12 +856,12 @@ $$
 &lt;/div&gt;
 &lt;p&gt;一般会基于不同的核心多次运行 K-means. 均值运算对于噪声和离群点非常敏感.&lt;/p&gt;
 &lt;p&gt;还有一些变体, K-中心点方法通过挑选簇内相对处于最中心位置的一个实际样本点而非样本均值向量来作为簇心.&lt;/p&gt;
-&lt;p&gt;用 $O_l$ 表示簇 $C_l$ 的簇心样本点, 用 $\text{dist}(x_i, O_l)$ 表示样本点 $x_i$ 和 $O_l$ 的相异程度度量, 则 K-中心点方法相当于通过最小化绝对误差&lt;/p&gt;
-$$E = \sum_{l=1}^{K} \sum_{x \in C_l} \text{dist}(x, O_l)$$&lt;p&gt;围绕中心点的划分算法 (PAM) 是一种典型的 K-中心点方法.&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;PAM&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 数据集 $D=\{x_i\}_{i=1}^N$, 聚类簇个数 $K$.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 簇划分 $\mathcal{C}=\{C_l\}_{l=1}^K$.&lt;/p&gt;
+&lt;p&gt;用 $O_l$ 表示簇 $C_l$ 的簇心样本点, 用 $\mathrm{dist}(x_i, O_l)$ 表示样本点 $x_i$ 和 $O_l$ 的相异程度度量, 则 K-中心点方法相当于通过最小化绝对误差&lt;/p&gt;
+$$E = \sum_{l=1}^{K} \sum_{x \in C_l} \mathrm{dist}(x, O_l)$$&lt;p&gt;围绕中心点的划分算法 (PAM) 是一种典型的 K-中心点方法.&lt;/p&gt;
+&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;PAM&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-input&#34;&gt;输入 &amp;gt; &lt;/strong&gt; 数据集 $\mathcal{D}=\{x_i\}_{i=1}^N$, 聚类簇个数 $K$.&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-output&#34;&gt;输出 &amp;gt; &lt;/strong&gt; 簇划分 $\mathcal{C}=\{C_l\}_{l=1}^K$.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;首先对每个簇的中心点进行随机初始化，并将非中心点的样本划分到簇心与其最相似的簇中，形成样本集的初始划分.&lt;/li&gt;
 &lt;li&gt;然后采用贪心策略，迭代更新划分，直到没有变化为止.&lt;/li&gt;
@@ -872,17 +872,17 @@ $$E = \sum_{l=1}^{K} \sum_{x \in C_l} \text{dist}(x, O_l)$$&lt;p&gt;围绕中心
 &lt;/div&gt;
 &lt;p&gt;PAM 算法使用中心点作为簇的原型表示，可以避免均值向量作为原型时易受离群点影响的问题.&lt;/p&gt;
 &lt;h3 id=&#34;gauss-混合模型&#34;&gt;Gauss 混合模型
-&lt;/h3&gt;&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;/h3&gt;&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Gauss 混合模型&lt;/strong&gt; 是指具有如下概率分布密度函数的模型:&lt;/p&gt;
 $$p(x|\theta) = \sum_{k=1}^K \alpha_i p(x | \mu_i, \Sigma_i)$$&lt;p&gt;其中:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;$\alpha_i$ 是混合系数, 满足 $\sum_{i=1}^K \alpha_i = 1$;&lt;/li&gt;
 &lt;li&gt;$p(x | \mu_i, \Sigma_i)$ 是 Gauss 分布, 其均值为 $\mu_i$, 协方差矩阵为 $\Sigma_i$, 即
-$$p(x|\mu_i, \Sigma_i) = \frac{1}{\sqrt{(2\pi)^n |\Sigma_i|}} \exp\left(-\frac{1}{2}(x - \mu_i)^T \Sigma_i^{-1} (x - \mu_i)\right)$$&lt;/li&gt;
+$$p(x|\mu_i, \Sigma_i) = \frac{1}{\sqrt{(2\pi)^n |\Sigma_i|}} \exp\left(-\frac{1}{2}(x - \mu_i)^\top  \Sigma_i^{-1} (x - \mu_i)\right)$$&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
-&lt;p&gt;给定样本集 $D=\{x_i\}_{i=1}^N$, 基于 Gauss 混合模型的聚类算法假定样本 $x_j$ 依据 Gauss 混合分布生成, 即先以概率 $\alpha_i$ 选择一个高斯分布 $p(x | \mu_i, \Sigma_i)$, 然后从该高斯分布中生成样本 $x_j$.&lt;/p&gt;
+&lt;p&gt;给定样本集 $\mathcal{D}=\{x_i\}_{i=1}^N$, 基于 Gauss 混合模型的聚类算法假定样本 $x_j$ 依据 Gauss 混合分布生成, 即先以概率 $\alpha_i$ 选择一个高斯分布 $p(x | \mu_i, \Sigma_i)$, 然后从该高斯分布中生成样本 $x_j$.&lt;/p&gt;
 &lt;p&gt;对 $x_j$, 设 $z_j$ 表示生成 $x_j$ 的分模型, 即 $p(z_j = i) = \alpha_i$. 后验概率最大化&lt;/p&gt;
 $$
 \lambda_j = \argmax_i p(z_j = i | x_j)
@@ -894,7 +894,7 @@ $$
 \end{aligned}
 $$&lt;p&gt;考虑对数似然函数&lt;/p&gt;
 $$
-LL(\theta | D) = \sum_{j=1}^N \log p(x_j | \theta) = \sum_{j=1}^N \log \left( \sum_{i=1}^K \alpha_i p(x_j | \mu_i, \Sigma_i) \right)
+LL(\theta | \mathcal{D}) = \sum_{j=1}^N \log p(x_j | \theta) = \sum_{j=1}^N \log \left( \sum_{i=1}^K \alpha_i p(x_j | \mu_i, \Sigma_i) \right)
 $$&lt;p&gt;并不是很好求解. 我们引入隐变量 $z_{ji}$ 表示 $x_j$ 由第 $i$ 个高斯分布生成, 即&lt;/p&gt;
 $$
 z_{ji} = \begin{cases}
@@ -904,16 +904,16 @@ z_{ji} = \begin{cases}
 $$&lt;p&gt;则这样的对数似然函数可以写成&lt;/p&gt;
 $$
 \begin{aligned}
-LL(\theta D|Z)&amp;=\sum_{j=1}^N \sum_{i=1}^K z_{ji} \log \left( \alpha_i p(x_j | \mu_i, \Sigma_i) \right) \\
+LL(\theta \mathcal{D}|Z)&amp;=\sum_{j=1}^N \sum_{i=1}^K z_{ji} \log \left( \alpha_i p(x_j | \mu_i, \Sigma_i) \right) \\
 &amp;=\sum_{i=1}^K \left( \sum_{j=1}^N z_{ji} \right) \log \alpha_i + \sum_{i=1}^K \sum_{j=1}^N z_{ji} \log p(x_j | \mu_i, \Sigma_i)
 \end{aligned}
 $$&lt;p&gt;常采用 EM 算法迭代求解.&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;EM&lt;/span&gt;&lt;/p&gt;
+&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;EM&lt;/span&gt;&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;E步&lt;/strong&gt;, 求期望: 基于当前参数 $\theta^{(t)}$, 计算对数似然函数关于 $Z$ 的期望:
 $$
-    Q \left(\theta | \theta^{(t)}\right) = \mathbb{E}_{Z} \left[ LL(\theta | D, Z) | D, \theta^{(t)} \right] = \sum_Z LL(\theta | D, Z) p(Z | D, \theta^{(t)})
+    Q \left(\theta | \theta^{(t)}\right) = \mathbb{E}_{Z} \left[ LL(\theta | \mathcal{D}, Z) | \mathcal{D}, \theta^{(t)} \right] = \sum_Z LL(\theta | \mathcal{D}, Z) p(Z | \mathcal{D}, \theta^{(t)})
     $$&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;M步&lt;/strong&gt;, 最大化: 通过最大化 $Q\left(\theta | \theta^{(t)}\right)$ 来更新参数 $\theta$:
 $$
@@ -924,23 +924,23 @@ $$
 &lt;/div&gt;
 &lt;p&gt;用 EM 算法估计参数:&lt;/p&gt;
 $$
-LL(\theta|D,Z)=\sum_{i=1}^k\left\{\left(\sum_{j=1}^Nz_{ji}\right)\log\alpha_i+\sum_{j=1}^Nz_{ji}\log p(x_j|\mu_i,\sigma_i^2)\right\}
+LL(\theta|\mathcal{D},Z)=\sum_{i=1}^k\left\{\left(\sum_{j=1}^Nz_{ji}\right)\log\alpha_i+\sum_{j=1}^Nz_{ji}\log p(x_j|\mu_i,\sigma_i^2)\right\}
 $$&lt;p&gt;令 $n_i=\sum_{j=1}^Nz_{ji}$, 则&lt;/p&gt;
 $$
 \begin{aligned}
-&amp; LL(\theta|D,Z)=\sum_{i=1}^k\left\{n_i\log\alpha_i+\sum_{j=1}^Nz_{ji}\log p(x_j|\mu_i,\sigma_i^2)\right\} \\
+&amp; LL(\theta|\mathcal{D},Z)=\sum_{i=1}^k\left\{n_i\log\alpha_i+\sum_{j=1}^Nz_{ji}\log p(x_j|\mu_i,\sigma_i^2)\right\} \\
 &amp; =\sum_{i=1}^{k}\left\{n_{i}\log\alpha_{i}+\sum_{j=1}^{N}z_{ji}\left[\log\left(\frac{1}{\sqrt{2\pi}}\right)-\log\sigma_{i}-\frac{1}{2\sigma_{i}^{2}}(x_{j}-\mu_{i})^{2}\right]\right\}
 \end{aligned}
 $$&lt;p&gt;我们考虑 $z_{ji}$ 期望:&lt;/p&gt;
 $$
 \begin{aligned}
-\gamma_{ji}^{(t)} &amp;= E_{Z} \left[ z_{ji} | D, \theta^{(t)} \right] = p\left(z_{ji} = 1 | D, \theta^{(t)}\right) \\
-&amp;= p\left(z_j = i | D, \theta^{(t)}\right) = \frac{\alpha_i^{(t)} p\left(x_j | \mu_i^{(t)}, {\sigma_i^2}^{(t)}\right)}{\sum_{l=1}^k \alpha_i^{(t)} p\left(x_j | \mu_l^{(t)}, {\sigma_l^2}^{(t)}\right)}
+\gamma_{ji}^{(t)} &amp;= E_{Z} \left[ z_{ji} | \mathcal{D}, \theta^{(t)} \right] = p\left(z_{ji} = 1 | \mathcal{D}, \theta^{(t)}\right) \\
+&amp;= p\left(z_j = i | \mathcal{D}, \theta^{(t)}\right) = \frac{\alpha_i^{(t)} p\left(x_j | \mu_i^{(t)}, {\sigma_i^2}^{(t)}\right)}{\sum_{l=1}^k \alpha_i^{(t)} p\left(x_j | \mu_l^{(t)}, {\sigma_l^2}^{(t)}\right)}
 \end{aligned}
 $$&lt;p&gt;则对 $E$ 步, 有:&lt;/p&gt;
 $$
 \begin{aligned}
-Q\left(\theta |\theta^{(t)}\right) &amp;= E_Z \left[ LL(\theta | D, Z) | D, \theta^{(t)} \right] \\
+Q\left(\theta |\theta^{(t)}\right) &amp;= E_Z \left[ LL(\theta | \mathcal{D}, Z) | \mathcal{D}, \theta^{(t)} \right] \\
 &amp;= \sum_{i=1}^k \left\{ \sum_{j=1}^N \gamma_{ji}^{(t)} \log \alpha_i + \sum_{j=1}^N \gamma_{ji}^{(t)} \left[\log\left(\frac{1}{\sqrt{2\pi}}\right)-\log\sigma_{i}-\frac{1}{2\sigma_{i}^{2}}(x_{j}-\mu_{i})^{2}\right]\right\} \\
 \end{aligned}
 $$&lt;p&gt;既然要极大化 $Q\left(\theta |\theta^{(t)}\right)$, 那么我们可以对 $\mu_i$, $\sigma_i^2$ 分别求偏导数, 令其为 $0$. 分别得到:&lt;/p&gt;
@@ -961,10 +961,10 @@ N = \sum_{i=1}^k n_i^{(t)} = \beta \sum_{i=1}^k \alpha_i = \beta
 $$$$
 \alpha_i^{(t+1)} = \frac{n_i^{(t)}}{\beta} = \frac{\sum_{j=1}^N \gamma_{ji}^{(t)}}{N}
 $$&lt;p&gt;把这些综合起来, 就得到基于 Gauss 混合模型的 EM 算法 (GMM):&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;GMM&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 数据集 $D=\{x_i\}_{i=1}^N$, 聚类簇个数 $K$.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 簇划分 $\mathcal{C}=\{C_l\}_{l=1}^K$.&lt;/p&gt;
+&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;GMM&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-input&#34;&gt;输入 &amp;gt; &lt;/strong&gt; 数据集 $\mathcal{D}=\{x_i\}_{i=1}^N$, 聚类簇个数 $K$.&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-output&#34;&gt;输出 &amp;gt; &lt;/strong&gt; 簇划分 $\mathcal{C}=\{C_l\}_{l=1}^K$.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;初始化参数 $\theta =\{\alpha_i, \mu_i, \Sigma_i\}_{i=1}^K, C_l = \emptyset$.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;E步&lt;/strong&gt;: 计算后验概率:
@@ -975,7 +975,7 @@ $$
 $$
     \begin{aligned}
     \mu_i &amp;= \frac{\sum_{j=1}^N \gamma_{ji} x_j}{\sum_{j=1}^N \gamma_{ji}} \\
-    \Sigma_i &amp;= \frac{\sum_{j=1}^N \gamma_{ji} (x_j - \mu_i)(x_j - \mu_i)^T}{\sum_{j=1}^N \gamma_{ji}} \\
+    \Sigma_i &amp;= \frac{\sum_{j=1}^N \gamma_{ji} (x_j - \mu_i)(x_j - \mu_i)^\top }{\sum_{j=1}^N \gamma_{ji}} \\
     \alpha_i &amp;= \frac{\sum_{j=1}^N \gamma_{ji}}{N}
     \end{aligned}
     $$&lt;/li&gt;
@@ -1002,23 +1002,23 @@ $$M(i,j)=d(C_i,C_j),\quad i,j=1,2,\cdots,N$$&lt;p&gt;随着每次距离最近的
 &lt;h2 id=&#34;基于密度的聚类方法&#34;&gt;基于密度的聚类方法
 &lt;/h2&gt;&lt;p&gt;将簇看作是数据空间中被稀疏区域分开的稠密区域, 聚类就是发现并不断扩展稠密区域的过程. DBSCAN 算法是典型的基于密度的聚类算法.&lt;/p&gt;
 &lt;p&gt;为了刻画稠密区域, DBSCAN 算法引入了密度可达性和密度相连的概念:&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
-&lt;p&gt;对于样本点 $x_i \in D$, 在其 $\epsilon$ - 邻域&lt;/p&gt;
+&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;对于样本点 $x_i \in \mathcal{D}$, 在其 $\epsilon$ - 邻域&lt;/p&gt;
 $$
-N_\epsilon(x_i) = \{x_j \in D | \|x_i - x_j\| \leq \epsilon\}
-$$&lt;p&gt;内, 包含至少 $\text{MinPts}$ 个样本点的点称为 &lt;strong&gt;核心点&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;如果 $x_j$ 位于核心点 $x_i$ 的 $\epsilon$ - 邻域内, 则称 $x_j$ 由 $x_i$  &lt;strong&gt;直接密度可达&lt;/strong&gt;, 一般地, 如果存在一个序列 $p_1=x_i, p_2, \cdots, p_k=x_j$, 使得 $p_{l+1}$ 由 $p_l$ 直接密度可达, 则称 $x_j$ 由 $x_i$ &lt;strong&gt;密度可达&lt;/strong&gt;. 如果存在 $p \in D$ 使得 $x_i$ 和 $x_j$ 都由 $p$ 密度可达, 则称 $x_i$ 和 $x_j$ &lt;strong&gt;密度相连&lt;/strong&gt;.&lt;/p&gt;
+N_\epsilon(x_i) = \{x_j \in \mathcal{D} | \|x_i - x_j\| \leq \epsilon\}
+$$&lt;p&gt;内, 包含至少 $\mathrm{MinPts}$ 个样本点的点称为 &lt;strong&gt;核心点&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;如果 $x_j$ 位于核心点 $x_i$ 的 $\epsilon$ - 邻域内, 则称 $x_j$ 由 $x_i$  &lt;strong&gt;直接密度可达&lt;/strong&gt;, 一般地, 如果存在一个序列 $p_1=x_i, p_2, \cdots, p_k=x_j$, 使得 $p_{l+1}$ 由 $p_l$ 直接密度可达, 则称 $x_j$ 由 $x_i$ &lt;strong&gt;密度可达&lt;/strong&gt;. 如果存在 $p \in \mathcal{D}$ 使得 $x_i$ 和 $x_j$ 都由 $p$ 密度可达, 则称 $x_i$ 和 $x_j$ &lt;strong&gt;密度相连&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;此时, 我们定义 &lt;strong&gt;簇&lt;/strong&gt; 是满足如下条件的样本点集合:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;如果 $x_i,x_j \in C$, 则 $x_i,x_j$ 是密度相连的;&lt;/li&gt;
 &lt;li&gt;对任一 $x_i \in C$, 如果 $x_j$ 由 $x_i$ 密度可达, 则 $x_j \in C$;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;DBSCAN&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 数据集 $D=\{x_i\}_{i=1}^N$, $\epsilon$ - 邻域半径, 最小点数 $\text{MinPts}$.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 簇划分 $\mathcal{C}=\{C_l\}_{l=1}^K$.&lt;/p&gt;
+&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;DBSCAN&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-input&#34;&gt;输入 &amp;gt; &lt;/strong&gt; 数据集 $\mathcal{D}=\{x_i\}_{i=1}^N$, $\epsilon$ - 邻域半径, 最小点数 $\mathrm{MinPts}$.&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-output&#34;&gt;输出 &amp;gt; &lt;/strong&gt; 簇划分 $\mathcal{C}=\{C_l\}_{l=1}^K$.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;初始化簇划分 $\mathcal{C} = \emptyset$, 并将所有样本点标记为未访问.&lt;/li&gt;
 &lt;li&gt;随机选择一个未访问的样本点 $x_i$ 访问: 如果 $x_i$ 是核心点, 则找出由该样本点密度可达的所有样本点, 将它们划分到同一个簇 $C_l$ 中, 否则将 $x_i$ 标记为噪声点.&lt;/li&gt;
@@ -1035,18 +1035,18 @@ $$&lt;p&gt;内, 包含至少 $\text{MinPts}$ 个样本点的点称为 &lt;strong
         
         <guid>https://LeoDreamer2004.github.io/p/machine-learning-base/integrated-learning/</guid>
         <description>&lt;h2 id=&#34;集成学习概述&#34;&gt;集成学习概述
-&lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;/h2&gt;&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;集成学习&lt;/strong&gt; 是指通过将相对比较容易构建但泛化性能一般的多个学习器进行结合, 以获得比单一学习器更好的泛化性能的一种机器学习方法.&lt;/p&gt;
 &lt;p&gt;根据个体分类器是否由同一学习算法, 集成学习可以分为 &lt;strong&gt;同质集成&lt;/strong&gt; 和 &lt;strong&gt;异质集成&lt;/strong&gt; 两大类; 根据个体分类器的依赖关系, 可以将学习方法分为 &lt;strong&gt;序列化方法(串行集成)&lt;/strong&gt; 和 &lt;strong&gt;并行化方法(并行集成)&lt;/strong&gt; 两种.&lt;/p&gt;
 &lt;/div&gt;
 &lt;h2 id=&#34;提升方法&#34;&gt;提升方法
 &lt;/h2&gt;&lt;p&gt;PAC 框架下, 概念类强可学习和其弱可学习等价, 但弱可学习实现更容易, 提升方法就是指将弱学习算法提升为强学习算法的方法.&lt;/p&gt;
 &lt;h3 id=&#34;adaboost-算法&#34;&gt;AdaBoost 算法
-&lt;/h3&gt;&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;AdaBoost&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 给定训练数据集 $D=\{(x_i,y_i)\}_{i=1}^N$, 其中 $x_i \in \mathcal{X}, y_i \in \mathcal{Y}=\{-1,+1\}, i=1,2,\cdots,N$; 弱学习算法 $\mathcal{L}$ 以及基本分类器个数 $T$.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 最终分类器 $f(x)$.&lt;/p&gt;
+&lt;/h3&gt;&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;AdaBoost&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-input&#34;&gt;输入 &amp;gt; &lt;/strong&gt; 给定训练数据集 $D=\{(x_i,y_i)\}_{i=1}^N$, 其中 $x_i \in \mathcal{X}, y_i \in \mathcal{Y}=\{-1,+1\}, i=1,2,\cdots,N$; 弱学习算法 $\mathcal{L}$ 以及基本分类器个数 $T$.&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-output&#34;&gt;输出 &amp;gt; &lt;/strong&gt; 最终分类器 $f(x)$.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;准备一个权重向量 $W_t=(w_{i,t})_{i=1}^N$, 表示第 $t$ 轮训练数据的权重分布, 初始时 $w_{i,1}=\frac{1}{N}$;&lt;/li&gt;
 &lt;li&gt;在第 $t$ 轮学习中, 应用算法 $\mathcal{L}$ 基于训练数据集 $D$ 和权重向量 $W_t$ 学得具有最小训练误差的基本分类器 $f_t(x)$, 即
@@ -1061,7 +1061,7 @@ $$w_{i,t+1} = \frac{w_{i,t}}{Z_t} \exp(-\alpha_t y_i f_t(x_i))$$
 &lt;li&gt;经过 $T$ 轮迭代后, 得到最终分类器
 $$
     \begin{aligned}
-    f(x) &amp;= \text{sign}(G(x)) \\
+    f(x) &amp;= \mathrm{sign}(G(x)) \\
     G(x) &amp;= \sum_{t=1}^T \alpha_t f_t(x)
     \end{aligned}
     $$
@@ -1109,19 +1109,19 @@ $$&lt;p&gt;这说明 AdaBoost 的训练误差是负指数量级的. 而且不需
 $$
 G_t(\alpha, f) = \frac{1}{N} \sum_{i=1}^N \exp(-y_iG(x_i) + \alpha f(x_i))
 $$&lt;p&gt;则可以证明第 $t$ 轮迭代得到的 $(\alpha_t,f_t)$ 是最小化 $G_t(\alpha, f)$ 的解, 过程略.&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;提升树模型&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 给定训练数据集 $D=\{(x_i,y_i)\}_{i=1}^N$, 其中 $x_i \in \mathcal{X}, y_i \in \mathcal{Y}=\{-1,+1\}, i=1,2,\cdots,N$; 弱学习算法(一般是分类或回归树) $\mathcal{T}$, 损失函数 $L(y,f(x))$.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 最终分类器 $f(x)$.&lt;/p&gt;
+&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;提升树模型&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-input&#34;&gt;输入 &amp;gt; &lt;/strong&gt; 给定训练数据集 $D=\{(x_i,y_i)\}_{i=1}^N$, 其中 $x_i \in \mathcal{X}, y_i \in \mathcal{Y}=\{-1,+1\}, i=1,2,\cdots,N$; 弱学习算法(一般是分类或回归树) $\mathcal{T}$, 损失函数 $L(y,f(x))$.&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-output&#34;&gt;输出 &amp;gt; &lt;/strong&gt; 最终分类器 $f(x)$.&lt;/p&gt;
 &lt;p&gt;第 $m$ 个基学习器 $T(x; \Theta_m)$ 由经验风险最小化得到, 即&lt;/p&gt;
 $$\Theta_m = \argmin_{\Theta} \sum_{i=1}^N L(y_i, f_{m-1}(x_i)+T(x_i; \Theta))$$&lt;/div&gt;
 &lt;p&gt;如果是平方损失, 提升树算法实际上就是在拟合当前模型的残差.&lt;/p&gt;
 &lt;h2 id=&#34;bagging-方法&#34;&gt;Bagging 方法
 &lt;/h2&gt;&lt;p&gt;对训练样本进行重采样, 利用不同的样本数据来学习不同的基学习器, 通过降低方差来提高集成学习器的泛化性能. Bagging (Bootstrap Aggregating) 就是一种典型的并行集成学习方法.&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;Bagging&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 给定训练数据集 $D=\{(x_i,y_i)\}_{i=1}^N$, 其中 $x_i \in \mathcal{X}, y_i \in \mathcal{Y}, i=1,2,\cdots,N$; 弱学习算法 $\mathcal{L}$ 以及基分类器个数 $T$.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 最终分类器 $f(x)$.&lt;/p&gt;
+&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;Bagging&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-input&#34;&gt;输入 &amp;gt; &lt;/strong&gt; 给定训练数据集 $D=\{(x_i,y_i)\}_{i=1}^N$, 其中 $x_i \in \mathcal{X}, y_i \in \mathcal{Y}, i=1,2,\cdots,N$; 弱学习算法 $\mathcal{L}$ 以及基分类器个数 $T$.&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-output&#34;&gt;输出 &amp;gt; &lt;/strong&gt; 最终分类器 $f(x)$.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;对 $t=1,2,\ldots,T$, 从$D$利用自助采样法随机抽取 $N$ 个样本得到 $D_t$. 从 $D_t$ 依学习算法 $\mathcal{L}$ 学得基分类器 $f_t(x)$.&lt;/p&gt;
@@ -1132,8 +1132,8 @@ $$f(x)=\argmax_{y\in\mathcal{Y}} \sum_{t=1}^T I(f_t(x)=y)$$&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
 &lt;p&gt;对样本 $x_i$ 来说，我们采用 $x_i$ 未参与训练的基学习器在 $x_i$ 上的预测的简单投票结果作为 $x_i$ 的包外预测&lt;/p&gt;
-$$f_{\text{oob}}(x_i) = \argmax_{y \in Y} \sum_{t=1}^{T} \mathbb{I} (f_t(x_i) = y) \mathbb{I} (x_i \notin D_t)$$&lt;p&gt;相应的 Bagging 算法泛化误差的包外估计 (out-of-bag estimate) 为&lt;/p&gt;
-$$\epsilon^{\text{oob}} = \frac{1}{N} \sum_{i=1}^N \mathbb{I}(f_{\text{oob}}(x_i) \neq y_i)$$&lt;h2 id=&#34;随机森林&#34;&gt;随机森林
+$$f_{\mathrm{oob}}(x_i) = \argmax_{y \in Y} \sum_{t=1}^{T} \mathbb{I} (f_t(x_i) = y) \mathbb{I} (x_i \notin D_t)$$&lt;p&gt;相应的 Bagging 算法泛化误差的包外估计 (out-of-bag estimate) 为&lt;/p&gt;
+$$\epsilon^{\mathrm{oob}} = \frac{1}{N} \sum_{i=1}^N \mathbb{I}(f_{\mathrm{oob}}(x_i) \neq y_i)$$&lt;h2 id=&#34;随机森林&#34;&gt;随机森林
 &lt;/h2&gt;&lt;p&gt;所谓随机森林, 就是在 Bagging 方法中以决策树算法作为基学习器, 并引入随机属性选择, 即在选择划分特征时, 先从当前节点的所有 $d$ 个特征中随机选择 $k$ 个特征, 再从这 $k$ 个特征中选择最优划分特征. 随机选取的目的是为了增加基学习器之间的差异性, 使得集成学习器的泛化性能更好.&lt;/p&gt;
 &lt;p&gt;当 $k=d$ 时, 随机森林退化为 Bagging 方法, 一般取 $k=\log_2 d$.&lt;/p&gt;
 </description>
@@ -1145,7 +1145,7 @@ $$\epsilon^{\text{oob}} = \frac{1}{N} \sum_{i=1}^N \mathbb{I}(f_{\text{oob}}(x_i
         
         <guid>https://LeoDreamer2004.github.io/p/machine-learning-base/nn-beginner/</guid>
         <description>&lt;h2 id=&#34;特征的线性组合&#34;&gt;特征的线性组合
-&lt;/h2&gt;&lt;p&gt;之前的二分类问题中, 如果把 $z=w^Tx+b$ 看做是衍生的新特征, 实际上感知机的模型就是 $y=\text{sign}(z)$. 二项逻辑斯蒂回归模型中, $P(y=1 \mid x) = \sigma(z)=\frac{1}{1+e^{-z}}$. 相当于引入了一个 sigmoid 函数进行非线性变换.&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;之前的二分类问题中, 如果把 $z=w^\topx+b$ 看做是衍生的新特征, 实际上感知机的模型就是 $y=\mathrm{sign}(z)$. 二项逻辑斯蒂回归模型中, $P(y=1 \mid x) = \sigma(z)=\frac{1}{1+e^{-z}}$. 相当于引入了一个 sigmoid 函数进行非线性变换.&lt;/p&gt;
 &lt;p&gt;因此, 神经网络应运而生, 主要想法:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;通过各维特征线性组合得到新特征&lt;/li&gt;
@@ -1163,8 +1163,8 @@ v \cdot z - \theta = \sum_{i=1}^m v_i z^{(i)} - \theta
 $$&lt;p&gt;再通过非线性变换 (考虑到数学性质, 通常是 sigmoid 函数):&lt;/p&gt;
 $$
 t = g(v \cdot z - \theta)
-$$&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+$$&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;多层前馈神经网络&lt;/strong&gt; 是常见的神经网络模型:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;逐层排列神经元, 仅限于相邻层之间的完全连接;&lt;/li&gt;
@@ -1229,8 +1229,8 @@ $$&lt;p&gt;等等.&lt;/p&gt;
         
         <guid>https://LeoDreamer2004.github.io/p/machine-learning-base/decision-tree/</guid>
         <description>&lt;h2 id=&#34;特征的分类能力评估&#34;&gt;特征的分类能力评估
-&lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;/h2&gt;&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;给定数据集 $D=\{(x_i,y_i)\}_{i=1}^N$, 其中 $x_i=\left(x_i^{(1)},x_i^{(2)},\cdots,x_i^{(m)}\right) \in \mathcal{X}$ 是第 $i$ 个样本的特征向量, $y_i \in \mathcal{Y}=\{c_1,c_2,\cdots,c_K\}$ 是第 $i$ 个样本的标签. 假设数据集 $D$ 根据特征分成了 $K$ 个子集 $D_1,D_2,\cdots,D_K$, 定义 &lt;strong&gt;经验熵&lt;/strong&gt; 为&lt;/p&gt;
 $$
 H(D) = -\sum_{k=1}^K \frac{|D_k|}{|D|} \log_2 \frac{|D_k|}{|D|}
@@ -1239,15 +1239,15 @@ $$
 H(D|A) = \sum_{i=1}^m \frac{|D_i^A|}{|D|} H(D_i^A)
 $$&lt;/div&gt;
 &lt;p&gt;如果条件经验熵和经验熵之差越大, 则说明特征 $A$ 对数据集 $D$ 的分类能力越强.&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;属性 $A$ 对数据集 $D$ 的 &lt;strong&gt;信息增益&lt;/strong&gt; $g(D,A)$ 定义为&lt;/p&gt;
 $$
 g(D,A) = H(D) - H(D|A)
 $$&lt;/div&gt;
 &lt;p&gt;考虑到信息增益的计算会偏向于选择取值较多的特征, 为了避免这种情况, 引入信息增益率来评估特征的分类能力.&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;特征 $A$ 的 &lt;strong&gt;分裂信息&lt;/strong&gt; $IV(A)$ 定义为&lt;/p&gt;
 $$
 IV(A) = -\sum_{i=1}^m \frac{|D_i^A|}{|D|} \log_2 \frac{|D_i^A|}{|D|}
@@ -1257,24 +1257,24 @@ g_R(D,A) = \frac{g(D,A)}{IV(A)}
 $$&lt;/div&gt;
 &lt;p&gt;分裂信息其实就是按照 $A$ 取值作划分的经验熵.&lt;/p&gt;
 &lt;p&gt;除了信息增益和信息增益率, 还有 Gini 指数可以用来评估特征的分类能力.&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
-&lt;p&gt;数据集 $D$ 的 &lt;strong&gt;Gini 指数&lt;/strong&gt; $\text{Gini}(D)$ 定义为&lt;/p&gt;
+&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;数据集 $D$ 的 &lt;strong&gt;Gini 指数&lt;/strong&gt; $\mathrm{Gini}(D)$ 定义为&lt;/p&gt;
 $$
-\text{Gini}(D) = 1 - \sum_{k=1}^K \left(\frac{|D_k|}{|D|}\right)^2
-$$&lt;p&gt;特征 $A$ 的 &lt;strong&gt;Gini 指数&lt;/strong&gt; $\text{Gini}(D,A)$ 定义为&lt;/p&gt;
+\mathrm{Gini}(D) = 1 - \sum_{k=1}^K \left(\frac{|D_k|}{|D|}\right)^2
+$$&lt;p&gt;特征 $A$ 的 &lt;strong&gt;Gini 指数&lt;/strong&gt; $\mathrm{Gini}(D,A)$ 定义为&lt;/p&gt;
 $$
-\text{Gini}(D,A) = \sum_{i=1}^m \frac{|D_i^A|}{|D|} \text{Gini}(D_i^A)
-$$&lt;p&gt;如果按照特征 $A$ 是否取值为 $a_i$ 对数据集 $D$ 进行划分 $D=D_i^A \cup (D-D_i^A)$, 则 $A=a_i$ 的 &lt;strong&gt;Gini 指数&lt;/strong&gt; $\text{Gini}_d(D,A=a_i)$ 定义为&lt;/p&gt;
+\mathrm{Gini}(D,A) = \sum_{i=1}^m \frac{|D_i^A|}{|D|} \mathrm{Gini}(D_i^A)
+$$&lt;p&gt;如果按照特征 $A$ 是否取值为 $a_i$ 对数据集 $D$ 进行划分 $D=D_i^A \cup (D-D_i^A)$, 则 $A=a_i$ 的 &lt;strong&gt;Gini 指数&lt;/strong&gt; $\mathrm{Gini}_d(D,A=a_i)$ 定义为&lt;/p&gt;
 $$
-\text{Gini}_d(D,A=a_i) = \frac{|D_i^A|}{|D|} \text{Gini}(D_i^A) + \frac{|D-D_i^A|}{|D|} \text{Gini}(D-D_i^A)
+\mathrm{Gini}_d(D,A=a_i) = \frac{|D_i^A|}{|D|} \mathrm{Gini}(D_i^A) + \frac{|D-D_i^A|}{|D|} \mathrm{Gini}(D-D_i^A)
 $$&lt;/div&gt;
 &lt;p&gt;Gini 指数可以看作任取两个样本, 它们的标签不一致的概率. 如果 Gini 指数越小, 则说明特征 $A$ 对数据集 $D$ 的分类能力越强.&lt;/p&gt;
 &lt;h2 id=&#34;决策树模型&#34;&gt;决策树模型
-&lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;生成决策树&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 训练数据集 $D=\{(x_i,y_i)\}_{i=1}^N$, 特征集 $\mathcal{A}=\{A_1,A_2,\cdots,A_m\}$, 最优特征选择函数 $F$.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 决策树 $T$.&lt;/p&gt;
+&lt;/h2&gt;&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;生成决策树&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-input&#34;&gt;输入 &amp;gt; &lt;/strong&gt; 训练数据集 $D=\{(x_i,y_i)\}_{i=1}^N$, 特征集 $\mathcal{A}=\{A_1,A_2,\cdots,A_m\}$, 最优特征选择函数 $F$.&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-output&#34;&gt;输出 &amp;gt; &lt;/strong&gt; 决策树 $T$.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;若数据集 $D$ 中所有样本的标签都是 $c_k$, 则生成一个类标记为 $c_k$ 的叶结点, 返回 $T$;&lt;/li&gt;
 &lt;li&gt;若 $A=\emptyset$, 且 $D$ 非空, 则生成一个单节点树, 并以 $D$ 中样本数最多的类标记作为该节点的类标记, 返回 $T$;&lt;/li&gt;
@@ -1286,7 +1286,7 @@ $$&lt;/div&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
 &lt;p&gt;如果以信息增益为特征选择函数, 即 $A^\ast = \arg\max_{A \in \mathcal{A}} g(D,A)$, 则算法对应于 ID3 算法; 如果以信息增益率为特征选择函数, 即 $A^\ast = \arg\max_{A \in \mathcal{A}} g_R(D,A)$, 则算法对应于 C4.5 算法.&lt;/p&gt;
-&lt;p&gt;二路划分会采用以特征的可能取值为切分点的二分法划分当前数据集, 例如与选择 Gini 指数最小的特征和切分点对应的特征值, 即 $(A^\ast,a^\ast) = \arg\min_{A \in \mathcal{A},a \in V(A)} \text{Gini}_d(D,A=a)$, 则算法对应于 CART 算法.&lt;/p&gt;
+&lt;p&gt;二路划分会采用以特征的可能取值为切分点的二分法划分当前数据集, 例如与选择 Gini 指数最小的特征和切分点对应的特征值, 即 $(A^\ast,a^\ast) = \arg\min_{A \in \mathcal{A},a \in V(A)} \mathrm{Gini}_d(D,A=a)$, 则算法对应于 CART 算法.&lt;/p&gt;
 &lt;p&gt;为了降低过拟合风险, 可以对决策树进行剪枝. 常用的是后剪枝, 即先生成一棵完全生长的决策树, 然后根据泛化性能决定是否剪枝. 也可以采用正则化方法, 例如, 定义决策树 $T$ 的损失或代价函数:&lt;/p&gt;
 $$
 C_\alpha(T) = C(T) + \alpha |T|
@@ -1302,10 +1302,10 @@ $$
 $$&lt;p&gt;从现在来看, 决策树构造过程中划分的单元都是矩形的, 即分类边界是若干与特征坐标轴平行的边界组成. 多变量决策树模型允许用若干特征的线性组合来划分数据集, 对每个非叶结点学习一个线性分类器.&lt;/p&gt;
 &lt;h2 id=&#34;最小二乘回归树模型&#34;&gt;最小二乘回归树模型
 &lt;/h2&gt;&lt;p&gt;CART 算法用于回归问题时, 采用平方误差损失函数选择属性和切分点.&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;CART&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 训练数据集 $D=\{(x_i,y_i)\}_{i=1}^N$, 特征集 $\mathcal{A}=\{A_1,A_2,\cdots,A_m\}$.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 回归树 $T$.&lt;/p&gt;
+&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;CART&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-input&#34;&gt;输入 &amp;gt; &lt;/strong&gt; 训练数据集 $D=\{(x_i,y_i)\}_{i=1}^N$, 特征集 $\mathcal{A}=\{A_1,A_2,\cdots,A_m\}$.&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-output&#34;&gt;输出 &amp;gt; &lt;/strong&gt; 回归树 $T$.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;设回归树将输入空间划分为 $M$ 个单元 $R_1,R_2,\cdots,R_M$, 并在每个单元上有一个固定的输出值 $c_m$, 则回归树模型可以表示为&lt;/p&gt;
@@ -1347,25 +1347,25 @@ $$C(T) = \sum_{t=1}^{|T|} N_tQ_t(T) = \sum_{t=1}^{|T|} \sum_{x_i \in R_t} (y_i-\
         <description>&lt;h2 id=&#34;k-近邻算法&#34;&gt;k-近邻算法
 &lt;/h2&gt;&lt;p&gt;k-近邻算法的主要思想是, 对于一个给定的样本点 $x$, 找到训练集中与 $x$ 最近的 $k$ 个样本点, 然后根据这 $k$ 个样本点的类别进行多数占优的投票方式来预测 $x$ 的类别.&lt;/p&gt;
 &lt;p&gt;在 $n$ 维实数空间 $\mathbb{R}$ 中, 通常用 Minkowski 距离来度量两个点 $x_i, x_j$ 的相似性:&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
-&lt;p&gt;设 $x_i, x_j \in \mathbb{R}^n$, 则 $x_i, x_j$ 之间的 &lt;strong&gt;Minkowski 距离&lt;/strong&gt; $\text{dist}_p(x_i,x_j)$ 定义为&lt;/p&gt;
+&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;设 $x_i, x_j \in \mathbb{R}^n$, 则 $x_i, x_j$ 之间的 &lt;strong&gt;Minkowski 距离&lt;/strong&gt; $\mathrm{dist}_p(x_i,x_j)$ 定义为&lt;/p&gt;
 $$
-\text{dist}_p(x_i,x_j) = \left( \sum_{l=1}^n |x_i^l - x_j^l|^p \right)^{1/p}
+\mathrm{dist}_p(x_i,x_j) = \left( \sum_{l=1}^n |x_i^l - x_j^l|^p \right)^{1/p}
 $$&lt;/div&gt;
 &lt;p&gt;$p=1$ 时, 就是 Manhattan 距离; $p=2$ 时, 就是 Euclidean 距离; $p=\infty$ 时, 就是 Chebyshev 距离. 在必要时, 还可以给每个维度的特征值加权.&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;k-近邻&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 给定训练样本集 $D = \{(x_i, y_i)\}_{i=1}^n$, 其中 $x_i \in \mathbb{R}^n$, $y_i \in \mathcal{Y} = \{c_1, c_2, \cdots, c_k\}$, 以及距离度量 $\text{dist}$.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 对于每个样本点 $x \in \mathbb{R}^n$, 预测其类别 $y$.&lt;/p&gt;
+&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;k-近邻&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-input&#34;&gt;输入 &amp;gt; &lt;/strong&gt; 给定训练样本集 $D = \{(x_i, y_i)\}_{i=1}^n$, 其中 $x_i \in \mathbb{R}^n$, $y_i \in \mathcal{Y} = \{c_1, c_2, \cdots, c_k\}$, 以及距离度量 $\mathrm{dist}$.&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-output&#34;&gt;输出 &amp;gt; &lt;/strong&gt; 对于每个样本点 $x \in \mathbb{R}^n$, 预测其类别 $y$.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
-&lt;p&gt;基于度量 $\text{dist}$, 对于给定的样本点 $x$, 找到训练集中与 $x$ 最近的 $k$ 个样本点所构成的邻域 $N_k^{\text{dist}}(x)$;&lt;/p&gt;
+&lt;p&gt;基于度量 $\mathrm{dist}$, 对于给定的样本点 $x$, 找到训练集中与 $x$ 最近的 $k$ 个样本点所构成的邻域 $N_k^{\mathrm{dist}}(x)$;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;采用如下的多数投票规则来预测 $x$ 的类别:&lt;/p&gt;
 $$
-    y = \argmax_{c_i} \sum_{x_j \in N_k^{\text{dist}}(x)} I(y_j = c_i)
+    y = \argmax_{c_i} \sum_{x_j \in N_k^{\mathrm{dist}}(x)} I(y_j = c_i)
     $$&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
@@ -1377,10 +1377,10 @@ $$
 $$
 (D^\ast_{i1}, D^\ast_{i2}, \cdots, D^\ast_{il}) = \argmin_{D_{i1}, D_{i2}, \cdots, D_{ik}} \sum_{j=1}^k \sum_{(x_t,y_t) \in D_{ij}} \Vert x_t-c_{ij} \Vert_2^2
 $$&lt;p&gt;然而很难找到最优解, 因此采用迭代的方式来近似求解:&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;K-means&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 给定训练样本集 $D = \{(x_i,y_i)\}_{i=1}^n$, 其中 $x_i \in \mathbb{R}^n$, $y_i \in \mathcal{Y} = \{c_1, c_2, \cdots, c_k\}$, 以及距离度量 $\text{dist}(x,y)=\Vert x-y \Vert_2$.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 对于每个样本点 $x \in \mathbb{R}^n$, 预测其类别 $y$.&lt;/p&gt;
+&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;K-means&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-input&#34;&gt;输入 &amp;gt; &lt;/strong&gt; 给定训练样本集 $D = \{(x_i,y_i)\}_{i=1}^n$, 其中 $x_i \in \mathbb{R}^n$, $y_i \in \mathcal{Y} = \{c_1, c_2, \cdots, c_k\}$, 以及距离度量 $\mathrm{dist}(x,y)=\Vert x-y \Vert_2$.&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-output&#34;&gt;输出 &amp;gt; &lt;/strong&gt; 对于每个样本点 $x \in \mathbb{R}^n$, 预测其类别 $y$.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;对每个类 $c_i$ 初始化 $k$ 个簇的中心 $c_{ij}$;&lt;/li&gt;
 &lt;li&gt;对每个 $(x_t, y_t) \in D_i$ (即 $y_t=c_i$), 令
@@ -1395,10 +1395,10 @@ $$c_{ij} = \argmin_{m,n} \Vert x - c_{mn} \Vert_2^2$$&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
 &lt;p&gt;有可能会使得某些离分类边界很近的点被错误分类. 引入学习向量量化方法 (LVQ 算法). 让同类和异类的点在构建过程中都能起作用.&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-algo&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;LVQ&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输入&lt;/strong&gt;: 给定训练样本集 $D = \{(x_i,y_i)\}_{i=1}^n$, 其中 $x_i \in \mathbb{R}^n$, $y_i \in \mathcal{Y} = \{c_1, c_2, \cdots, c_k\}$, 以及距离度量 $\text{dist}(x,y)=\Vert x-y \Vert_2$, 学习率 $\eta \in (0,1)$.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;: 对于每个样本点 $x \in \mathbb{R}^n$, 预测其类别 $y$.&lt;/p&gt;
+&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;LVQ&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-input&#34;&gt;输入 &amp;gt; &lt;/strong&gt; 给定训练样本集 $D = \{(x_i,y_i)\}_{i=1}^n$, 其中 $x_i \in \mathbb{R}^n$, $y_i \in \mathcal{Y} = \{c_1, c_2, \cdots, c_k\}$, 以及距离度量 $\mathrm{dist}(x,y)=\Vert x-y \Vert_2$, 学习率 $\eta \in (0,1)$.&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-output&#34;&gt;输出 &amp;gt; &lt;/strong&gt; 对于每个样本点 $x \in \mathbb{R}^n$, 预测其类别 $y$.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;对每个类 $c_m$ 随机选择 $k$ 个点 $I_{mi}$ 作为代表;&lt;/li&gt;
 &lt;li&gt;对每个样本点 $x_t$, 找到最近的代表元 $I_{m^\ast i^\ast}$, 即
@@ -1423,8 +1423,8 @@ $$I_{m^\ast i^\ast} = \argmin_{m,i} \Vert x - I_{mi} \Vert_2^2$$&lt;/li&gt;
         
         <guid>https://LeoDreamer2004.github.io/p/machine-learning-base/bayes/</guid>
         <description>&lt;h2 id=&#34;后验概率最大化准则&#34;&gt;后验概率最大化准则
-&lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;/h2&gt;&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;对训练样本集 $D=\{(x_i,y_i)\}_{i=1}^n$, 其中 $x_i \in \mathcal{X}$, $y_i \in \mathcal{Y} = \{c_1, c_2, \cdots, c_K\}$, 将 $x$ 的类别预测为 $c_i$ 的 &lt;strong&gt;风险&lt;/strong&gt; 为&lt;/p&gt;
 $$
 R(Y=c_i | x) = \sum_{j=1}^K \lambda_{ij} P(Y=c_j | x)
@@ -1437,8 +1437,8 @@ $$
 R(Y=c_i | x) = 1 - P(Y=c_i | x)
 $$&lt;p&gt;即输入 $x$ 的最优预测 $\hat{y}$ 为使得后验概率 $P(y | x)$ 最大的类别.&lt;/p&gt;
 &lt;h2 id=&#34;逻辑斯蒂回归模型&#34;&gt;逻辑斯蒂回归模型
-&lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;/h2&gt;&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;设 $\mathcal{X}=\mathbb{R}^n, \mathcal{Y}=\{c_1,c_2\}$, &lt;strong&gt;逻辑斯蒂回归模型&lt;/strong&gt; 是如下的后验概率分布:&lt;/p&gt;
 $$
 \begin{aligned}
@@ -1472,8 +1472,8 @@ $$
 \frac{\partial \log L(\theta)}{\partial b} &amp;= \sum_{i=1}^n (y_i - p(x_i;\theta)) = 0
 \end{aligned}
 $$&lt;h2 id=&#34;朴素-bayes-分类器&#34;&gt;朴素 Bayes 分类器
-&lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;Bayes 公式&lt;/span&gt;&lt;/p&gt;
+&lt;/h2&gt;&lt;div class=&#34;math-block math-thm&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;Bayes 公式&lt;/span&gt;&lt;/p&gt;
 $$
 \begin{aligned}
 P(Y=c_i | x) &amp;= \frac{P(x | Y=c_i) P(Y=c_i)}{P(x)} \\
@@ -1499,20 +1499,20 @@ $$&lt;p&gt;$\lambda=1$ 时称为 Laplace 平滑.&lt;/p&gt;
         
         <guid>https://LeoDreamer2004.github.io/p/machine-learning-base/vector-machine/</guid>
         <description>&lt;h2 id=&#34;线性可分支持向量机&#34;&gt;线性可分支持向量机
-&lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
-&lt;p&gt;对于一个数据集 $D$, 如果能找到一个超平面 $H: w^Tx + b = 0$, 将数据分为两类. 即对任意 $(x_i, y_i) \in D$, 若 $y_i = 1$, 则 $w^Tx_i + b \geq 0$; 若 $y_i = -1$, 则 $w^Tx_i + b &lt; 0$. 则称 $D$ 是 &lt;strong&gt;线性可分的&lt;/strong&gt; , 超平面 $H$ 是 $D$ 的一个 &lt;strong&gt;分离超平面&lt;/strong&gt;.&lt;/p&gt;
+&lt;/h2&gt;&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;对于一个数据集 $D$, 如果能找到一个超平面 $H: w^\topx + b = 0$, 将数据分为两类. 即对任意 $(x_i, y_i) \in D$, 若 $y_i = 1$, 则 $w^\topx_i + b \geq 0$; 若 $y_i = -1$, 则 $w^\topx_i + b &lt; 0$. 则称 $D$ 是 &lt;strong&gt;线性可分的&lt;/strong&gt; , 超平面 $H$ 是 $D$ 的一个 &lt;strong&gt;分离超平面&lt;/strong&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;最优超平面不仅要能够将数据分开, 还要使得两类数据点到超平面的距离尽可能远.&lt;/p&gt;
-&lt;p&gt;考虑到 $w,b$ 任意缩放都不影响超平面的位置, 我们可以规定 $w^Tx + b = 1$ 为最近的正类数据点满足的方程. 此时距离为 $1/{\|w\|}$, 要最大化这个量, 即化归成凸二次规划问题:&lt;/p&gt;
+&lt;p&gt;考虑到 $w,b$ 任意缩放都不影响超平面的位置, 我们可以规定 $w^\topx + b = 1$ 为最近的正类数据点满足的方程. 此时距离为 $1/{\|w\|}$, 要最大化这个量, 即化归成凸二次规划问题:&lt;/p&gt;
 $$
 \begin{aligned}
 &amp; \min_{w, b} \frac{1}{2} \|w\|^2 \\
-&amp; \text{s.t.} \quad y_i(w \cdot x_i + b) \geq 1, \quad i = 1, 2, \cdots, n
+&amp; \mathrm{s.t.} \quad y_i(w \cdot x_i + b) \geq 1, \quad i = 1, 2, \cdots, n
 \end{aligned}
 $$&lt;p&gt;只要 $D$ 是线性可分的, 上述问题一定有解且唯一. 对应的分类决策函数&lt;/p&gt;
 $$
-f(x) = \text{sign}(w^Tx + b)
+f(x) = \mathrm{sign}(w^\topx + b)
 $$&lt;p&gt;称为 &lt;strong&gt;线性可分支持向量机&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;引入 Lagrange 乘子 $\alpha_i \geq 0$:&lt;/p&gt;
 $$
@@ -1528,7 +1528,7 @@ $$&lt;p&gt;代入 $L(w, b, \alpha)$, 得到对偶问题:&lt;/p&gt;
 $$
 \begin{aligned}
 &amp; \max_{\alpha} \sum_{i=1}^n \alpha_i - \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j x_i \cdot x_j \\
-&amp; \text{s.t.} \quad \alpha_i \geq 0, \quad \sum_{i=1}^n \alpha_i y_i = 0
+&amp; \mathrm{s.t.} \quad \alpha_i \geq 0, \quad \sum_{i=1}^n \alpha_i y_i = 0
 \end{aligned}
 $$&lt;/div&gt;
 &lt;p&gt;由 KKT 条件, 最优解一定满足&lt;/p&gt;
@@ -1550,8 +1550,8 @@ H_1: w \cdot x + b = 1, \quad H_2: w \cdot x + b = -1
 $$&lt;p&gt;上, 称这些点 $x_i$ 为 &lt;strong&gt;支持向量&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;支持向量机的留一误差&lt;/p&gt;
 $$
-\hat{R}_{\text{loo}} = \frac{1}{n} \sum_{i=1}^n I(f_{D-\{x_i\}}(x_i) \neq y_i)
-$$&lt;p&gt;则 $\hat{R}_{\text{loo}} \le N_{SV}/n$, 其中 $N_{SV}$ 为支持向量的个数.&lt;/p&gt;
+\hat{R}_{\mathrm{loo}} = \frac{1}{n} \sum_{i=1}^n I(f_{D-\{x_i\}}(x_i) \neq y_i)
+$$&lt;p&gt;则 $\hat{R}_{\mathrm{loo}} \le N_{SV}/n$, 其中 $N_{SV}$ 为支持向量的个数.&lt;/p&gt;
 &lt;h2 id=&#34;线性支持向量机&#34;&gt;线性支持向量机
 &lt;/h2&gt;&lt;p&gt;要求 $D$ 线性可分有点苛刻. 容忍一些误差, 引入松弛变量 $\xi_i \geq 0$, 使得约束条件变为&lt;/p&gt;
 $$
@@ -1560,13 +1560,13 @@ $$&lt;p&gt;对于被错误分类的点, $\xi_i$ 可以大于 $1$. 把 $\xi_i \ne
 $$
 \begin{aligned}
 &amp; \min_{w, b, \xi} \frac{1}{2} \|w\|^2 + C \sum_{i=1}^n I(\xi_i \ne 0) \\
-&amp; \text{s.t.} \quad y_i(w \cdot x_i + b) \geq 1 - \xi_i, \quad \xi_i \geq 0
+&amp; \mathrm{s.t.} \quad y_i(w \cdot x_i + b) \geq 1 - \xi_i, \quad \xi_i \geq 0
 \end{aligned}
 $$&lt;p&gt;直接用 $\xi_i$ 代替 $I(\xi_i \ne 0)$, 问题变为&lt;/p&gt;
 $$
 \begin{aligned}
 &amp; \min_{w, b, \xi} \frac{1}{2} \|w\|^2 + C \sum_{i=1}^n \xi_i \\
-&amp; \text{s.t.} \quad y_i(w \cdot x_i + b) \geq 1 - \xi_i, \quad \xi_i \geq 0
+&amp; \mathrm{s.t.} \quad y_i(w \cdot x_i + b) \geq 1 - \xi_i, \quad \xi_i \geq 0
 \end{aligned}
 $$&lt;p&gt;既然要 $\xi_i$ 尽可能小, 不妨取 $\xi_i = 1 - y_i(w \cdot x_i + b)$,  引入合页损失函数 $h(z) = \max(0, 1-z)$, 即&lt;/p&gt;
 $$\xi_i = h(y_i(w \cdot x_i + b))$$&lt;p&gt;则提出一个 $C$ 后, 优化目标变为&lt;/p&gt;
@@ -1588,7 +1588,7 @@ $$&lt;p&gt;代入 $L(w, b, \xi, \alpha, \beta)$, 得到对偶问题&lt;/p&gt;
 $$
 \begin{aligned}
 &amp; \max_{\alpha} \sum_{i=1}^n \alpha_i - \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j x_i \cdot x_j \\
-&amp; \text{s.t.} \quad 0 \leq \alpha_i \leq C, \quad \sum_{i=1}^n \alpha_i y_i = 0
+&amp; \mathrm{s.t.} \quad 0 \leq \alpha_i \leq C, \quad \sum_{i=1}^n \alpha_i y_i = 0
 \end{aligned}
 $$&lt;/div&gt;
 &lt;p&gt;与线性可分支持向量机类似, 只是多了一个 $\alpha_i \leq C$ 的约束. 现在考虑 KKT 条件, 有&lt;/p&gt;
@@ -1610,7 +1610,7 @@ $$
 \sum_{i=1}^n \alpha_i y_i x_i \cdot x + b = 0
 $$&lt;p&gt;和决策函数&lt;/p&gt;
 $$
-f(x) = \text{sign}\left(\sum_{i=1}^n \alpha_i y_i x_i \cdot x + b\right)
+f(x) = \mathrm{sign}\left(\sum_{i=1}^n \alpha_i y_i x_i \cdot x + b\right)
 $$&lt;p&gt;超平面法向量可以被唯一确定, 但是偏置不唯一.&lt;/p&gt;
 &lt;h2 id=&#34;smo-算法&#34;&gt;SMO 算法
 &lt;/h2&gt;&lt;p&gt;SMO 算法是一种启发式算法, 用于求解支持向量机的对偶问题. SMO 算法的基本思想是: 每次选择两个变量, 固定其他变量, 优化这两个变量. 这样不断迭代, 直到收敛.&lt;/p&gt;
@@ -1627,7 +1627,7 @@ $$&lt;p&gt;记$K_{ij} = x_i \cdot x_j$, $v_i = \sum_{j=3}^{N} \alpha_j y_j K_{ij
 $$
 \begin{aligned}
 &amp; \max_{\alpha_1, \alpha_2} \alpha_1 + \alpha_2 - \frac{1}{2} K_{11}\alpha_1^2 - \frac{1}{2} K_{22}\alpha_2^2 - sK_{12}\alpha_1\alpha_2 - y_1v_1\alpha_1 - y_2v_2\alpha_2 \\
-&amp; \text{s.t.} \quad 0 \leq \alpha_i \leq C, \quad \alpha_1 + s\alpha_2 = \gamma
+&amp; \mathrm{s.t.} \quad 0 \leq \alpha_i \leq C, \quad \alpha_1 + s\alpha_2 = \gamma
 \end{aligned}
 $$&lt;p&gt;再由 $\alpha_1 = \gamma - s\alpha_2$, 代入目标函数, 并对 $\alpha_2$ 求导为 $0$, 得到&lt;/p&gt;
 $$
@@ -1635,9 +1635,9 @@ $$
 $$&lt;p&gt;代入 $v$ 的定义, 随后化简得&lt;/p&gt;
 $$
 \alpha_2 = \alpha_2^* + y_2 \frac{(y_2 - f(x_2))- (y_1-f(x_1))}{K_{11} + K_{22} - 2K_{12}}
-$$&lt;p&gt;别忘了约束 $0 \le \alpha_1, \alpha_2 \le C$, 以及 $\alpha_1 + s\alpha_2 = \gamma$, 对 $\alpha_2$ 进行裁剪为 $\alpha_2^{\text{clip}}$. 相应地,&lt;/p&gt;
+$$&lt;p&gt;别忘了约束 $0 \le \alpha_1, \alpha_2 \le C$, 以及 $\alpha_1 + s\alpha_2 = \gamma$, 对 $\alpha_2$ 进行裁剪为 $\alpha_2^{\mathrm{clip}}$. 相应地,&lt;/p&gt;
 $$
-\alpha_1 = \alpha_1^* + s(\alpha_2^* - \alpha_2^{\text{clip}})
+\alpha_1 = \alpha_1^* + s(\alpha_2^* - \alpha_2^{\mathrm{clip}})
 $$&lt;p&gt;最后, 更新 $b$. 假设在 $\alpha_1, \alpha_2$ 中, $0 \lt \alpha_i \lt C$, 则&lt;/p&gt;
 $$
 b = y_i - \sum_{j=1}^n \alpha_j y_j K_{ij}
@@ -1652,20 +1652,20 @@ $$&lt;p&gt;关于选取 $\alpha_1, \alpha_2$, 一般有两个原则:&lt;/p&gt;
 $$
 \begin{aligned}
 &amp; \min_{w, b, \xi} \frac{1}{2} \|w\|^2 + C \sum_{i=1}^n \xi_i \\
-&amp; \text{s.t.} \quad y_i(w \cdot \phi(x_i) + b) \geq 1 - \xi_i, \quad \xi_i \geq 0
+&amp; \mathrm{s.t.} \quad y_i(w \cdot \phi(x_i) + b) \geq 1 - \xi_i, \quad \xi_i \geq 0
 \end{aligned}
 $$&lt;p&gt;对应的对偶问题为&lt;/p&gt;
 $$
 \begin{aligned}
 &amp; \max_{\alpha} \sum_{i=1}^n \alpha_i - \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j \phi(x_i) \cdot \phi(x_j) \\
-&amp; \text{s.t.} \quad 0 \leq \alpha_i \leq C, \quad \sum_{i=1}^n \alpha_i y_i = 0
+&amp; \mathrm{s.t.} \quad 0 \leq \alpha_i \leq C, \quad \sum_{i=1}^n \alpha_i y_i = 0
 \end{aligned}
 $$&lt;p&gt;相应的分类决策函数为&lt;/p&gt;
 $$
-f(x) = \text{sign}\left(\sum_{i=1}^n \alpha_i y_i \phi(x_i) \cdot \phi(x) + b\right)
+f(x) = \mathrm{sign}\left(\sum_{i=1}^n \alpha_i y_i \phi(x_i) \cdot \phi(x) + b\right)
 $$&lt;p&gt;然而, 直接计算 $\phi(x_i) \cdot \phi(x_j)$ 的复杂度很高. 为此, 引入核函数&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;设 $\mathcal{X}$ 是输入空间, $\mathcal{Z}$ 是特征空间, 如果存在一个从 $\mathcal{X}$ 到 $\mathcal{Z}$ 的映射 $\phi$, 使得对任意 $x, x&#39; \in \mathcal{X}$, 都有&lt;/p&gt;
 $$
 K(x, x&#39;) = \phi(x) \cdot \phi(x&#39;)
@@ -1676,14 +1676,14 @@ $$&lt;p&gt;则称 $K$ 为 &lt;strong&gt;核函数&lt;/strong&gt;.&lt;/p&gt;
 $$
 \begin{aligned}
 &amp; \max_{\alpha} \sum_{i=1}^n \alpha_i - \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j K(x_i, x_j) \\
-&amp; \text{s.t.} \quad 0 \leq \alpha_i \leq C, \quad \sum_{i=1}^n \alpha_i y_i = 0
+&amp; \mathrm{s.t.} \quad 0 \leq \alpha_i \leq C, \quad \sum_{i=1}^n \alpha_i y_i = 0
 \end{aligned}
 $$&lt;/div&gt;
 &lt;p&gt;此时, 分类决策函数为&lt;/p&gt;
 $$
-f(x) = \text{sign}\left(\sum_{i=1}^n \alpha_i y_i K(x_i, x) + b\right)
-$$&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+f(x) = \mathrm{sign}\left(\sum_{i=1}^n \alpha_i y_i K(x_i, x) + b\right)
+$$&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;$\mathcal{X}$ 上的函数 $K: \mathcal{X} \times \mathcal{X} \mapsto \mathbb{R}$ 称为 &lt;strong&gt;正定对称核函数&lt;/strong&gt;, 如果对任意 $x_1, x_2, \cdots, x_n \in \mathcal{X}$, 核矩阵 (Gram 矩阵) $[K_{ij}]_{m \times m}$ 是半正定的.&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;常见的核函数有:&lt;/p&gt;
@@ -1701,46 +1701,46 @@ $$&lt;div class=&#34;math-block&#34;&gt;
         
         <guid>https://LeoDreamer2004.github.io/p/machine-learning-base/intro/</guid>
         <description>&lt;h2 id=&#34;基础数学工具&#34;&gt;基础数学工具
-&lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;/h2&gt;&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;随机变量 $X$ 的 &lt;strong&gt;期望&lt;/strong&gt; $E[X]$ 定义为&lt;/p&gt;
 $$
 E[X] = \sum_{x} x \cdot P(X=x)
-$$&lt;p&gt;随机变量 $X$ 的 &lt;strong&gt;方差&lt;/strong&gt; $\text{Var}(X)$ 定义为&lt;/p&gt;
+$$&lt;p&gt;随机变量 $X$ 的 &lt;strong&gt;方差&lt;/strong&gt; $\mathrm{Var}(X)$ 定义为&lt;/p&gt;
 $$
-\text{Var}(X) = E[(X - E[X])^2]
+\mathrm{Var}(X) = E[(X - E[X])^2]
 $$&lt;p&gt;&lt;strong&gt;标准差&lt;/strong&gt; $\sigma(X)$ 定义为&lt;/p&gt;
 $$
-\sigma(X) = \sqrt{\text{Var}(X)}
+\sigma(X) = \sqrt{\mathrm{Var}(X)}
 $$&lt;/div&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;Markov 不等式&lt;/span&gt;&lt;/p&gt;
+&lt;div class=&#34;math-block math-thm&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;Markov 不等式&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;设 $X$ 是一个非负随机变量, 期望存在, 那么对于任意 $t &gt; 0$ 有&lt;/p&gt;
 $$
 P(X \geq t) \leq \frac{E[X]}{t}
 $$&lt;/div&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;Chebyshev 不等式&lt;/span&gt;&lt;/p&gt;
+&lt;div class=&#34;math-block math-thm&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;Chebyshev 不等式&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;设 $X$ 是一个随机变量, 期望和方差都存在, 那么对于任意 $t &gt; 0$ 有&lt;/p&gt;
 $$
-P(|X - E[X]| \geq t) \leq \frac{\text{Var}(X)}{t^2}
+P(|X - E[X]| \geq t) \leq \frac{\mathrm{Var}(X)}{t^2}
 $$&lt;/div&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
-&lt;p&gt;随机变量 $X$ 和 $Y$ 的 &lt;strong&gt;协方差&lt;/strong&gt; $\text{Cov}(X, Y)$ 定义为&lt;/p&gt;
+&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;随机变量 $X$ 和 $Y$ 的 &lt;strong&gt;协方差&lt;/strong&gt; $\mathrm{Cov}(X, Y)$ 定义为&lt;/p&gt;
 $$
-\text{Cov}(X, Y) = E[(X - E[X])(Y - E[Y])]
-$$&lt;p&gt;如果 $\text{Cov}(X, Y) = 0$, 则称 $X$ 和 $Y$ &lt;strong&gt;不相关&lt;/strong&gt;.&lt;/p&gt;
+\mathrm{Cov}(X, Y) = E[(X - E[X])(Y - E[Y])]
+$$&lt;p&gt;如果 $\mathrm{Cov}(X, Y) = 0$, 则称 $X$ 和 $Y$ &lt;strong&gt;不相关&lt;/strong&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;协方差具有对称性, 双线性.&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;随机向量 $X=(X_1, X_2, \ldots, X_n)$ 的 &lt;strong&gt;协方差矩阵&lt;/strong&gt; $C(X)$ 定义为&lt;/p&gt;
 $$
-C(X) = E[(X - E[X])(X - E[X])^T] = (\text{Cov}(X_i, X_j))_{ij}
+C(X) = E[(X - E[X])(X - E[X])^T] = (\mathrm{Cov}(X_i, X_j))_{ij}
 $$&lt;/div&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Gauss 分布&lt;/strong&gt; (正态分布) 的概率密度函数为&lt;/p&gt;
 $$
 f(x) = \frac{1}{\sqrt{2\pi}\sigma} \exp(-\frac{(x-\mu)^2}{2\sigma^2})
@@ -1752,7 +1752,7 @@ $$&lt;/div&gt;
 $$
 \begin{aligned}
 &amp; \min f(x) \\
-\text{s.t. } &amp; c_i(x) \leq 0, i = 1, 2, \dots, k \\
+\mathrm{s.t. } &amp; c_i(x) \leq 0, i = 1, 2, \dots, k \\
 &amp; h_j(x) = 0, j = 1, 2, \dots, l
 \end{aligned}
 $$&lt;p&gt;构造 Lagrange 函数&lt;/p&gt;
@@ -1768,8 +1768,8 @@ $$
 &amp; \alpha_i \geq 0, i = 1, 2, \dots, k
 \end{aligned}
 $$&lt;h2 id=&#34;基本概念和术语&#34;&gt;基本概念和术语
-&lt;/h2&gt;&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;/h2&gt;&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;监督学习&lt;/strong&gt;: 基于标记数据 $T=\{ (x_i,y_i) \}_{i=1}^N$, 学习一个从输入空间到输出空间的映射 $f: \mathcal{X} \mapsto \mathcal{Y}$. 利用此对未见数据进行预测. 通常分为 &lt;strong&gt;回归&lt;/strong&gt; 和 &lt;strong&gt;分类&lt;/strong&gt; 两类.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;无监督学习&lt;/strong&gt;: 基于未标记数据 $T=\{ x_i \}_{i=1}^N$, 发现其中隐含的知识模式. &lt;strong&gt;聚类&lt;/strong&gt; 是典型的无监督学习任务.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;半监督学习&lt;/strong&gt;: 既有标记数据又有未标记数据 (通常占比较大).&lt;/p&gt;
@@ -1815,11 +1815,11 @@ $$&lt;p&gt;其中 $J(h)$ 是随着模型复杂度增加而增加的函数. $\lam
 &lt;/ul&gt;
 &lt;h2 id=&#34;偏差-方差分解&#34;&gt;偏差-方差分解
 &lt;/h2&gt;&lt;p&gt;为什么泛化误差会随着模型复杂度的增加而先减小后增大?&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-def&#34;&gt;定义&lt;/p&gt;
+&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;偏差&lt;/strong&gt; (bias): 模型预测值的期望与真实值之间的差异. 体现了模型的拟合能力.&lt;/p&gt;
-$$\text{Bias}(x) = E_T[h_T(x)-c(x)] = \bar{h}(x) - c(x)$$&lt;p&gt;&lt;strong&gt;方差&lt;/strong&gt; (variance): 模型预测值的方差. 体现了模型的对数据扰动的稳定性.&lt;/p&gt;
-$$\text{Var}(x) = E[(h(x) - \bar{h}(x))^2]$$&lt;/div&gt;
+$$\mathrm{Bias}(x) = E_T[h_T(x)-c(x)] = \bar{h}(x) - c(x)$$&lt;p&gt;&lt;strong&gt;方差&lt;/strong&gt; (variance): 模型预测值的方差. 体现了模型的对数据扰动的稳定性.&lt;/p&gt;
+$$\mathrm{Var}(x) = E[(h(x) - \bar{h}(x))^2]$$&lt;/div&gt;
 &lt;p&gt;现在对泛化误差进行分解:&lt;/p&gt;
 $$
 \begin{aligned}
@@ -1828,13 +1828,13 @@ R(h) &amp;= E_T[(h_T(x) - c(x))^2] \\
 &amp;= E_T[h_T^2(x)] - 2c(x)E_T[h_T(x)] + c^2(x) \\
 &amp;= E_T[h_T^2(x)] - \bar{h}^2(x) + \bar{h}^2(x) - 2\bar{h}(x)c(x) + c^2(x) \\
 &amp;= E_T[(h_T(x) - \bar{h}(x))^2] + (\bar{h}(x) - c(x))^2 \\
-&amp;= \text{Var}(x) + \text{Bias}^2(x)
+&amp;= \mathrm{Var}(x) + \mathrm{Bias}^2(x)
 \end{aligned}
 $$&lt;p&gt;当然, 由于噪声存在, $y$ 未必一定等于 $c(x)$, 不妨设 $y=c(x)+\varepsilon$, 其中 $\varepsilon \sim \Epsilon$ 期望为 $0$. 可以证明&lt;/p&gt;
-&lt;div class=&#34;math-block&#34;&gt;
-    &lt;p class=&#34;math-block-title math-thm&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;偏差-方差分解&lt;/span&gt;&lt;/p&gt;
+&lt;div class=&#34;math-block math-thm&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;偏差-方差分解&lt;/span&gt;&lt;/p&gt;
 $$
-E_{T \sim D^{|T|}, \varepsilon \sim \Epsilon} [(h_T(x)-y)^2] = \text{Bias}^2(x) + \text{Var}(x) + E[\varepsilon^2]
+E_{T \sim D^{|T|}, \varepsilon \sim \Epsilon} [(h_T(x)-y)^2] = \mathrm{Bias}^2(x) + \mathrm{Var}(x) + E[\varepsilon^2]
 $$&lt;p&gt;即泛化误差可以分解为偏差、方差和噪声三部分.&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;起初, 模型较为简单, 偏差在泛化误差起主导作用. 随着模型复杂度的增加, 拟合能力增强, 偏差减小, 但带来过拟合风险, 算法对数据扰动敏感, 方差增大. 方差占比逐渐增大, 最终导致泛化误差增大.&lt;/p&gt;

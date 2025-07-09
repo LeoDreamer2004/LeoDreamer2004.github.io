@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/opt-method/convex-set/'>
 
-<link rel="stylesheet" href="/scss/style.min.f991297a51bfb3ec7265f5caabcf8b61b92014e8d7b4c22fa6d4f0c6cb9ce9ce.css"><meta property='og:title' content="最优化方法(2) —— 凸集">
+<link rel="stylesheet" href="/scss/style.min.050e713ce6ba4df4f898621146cc9dece02afd8477586323296cb867d14a1d9a.css"><meta property='og:title' content="最优化方法(2) —— 凸集">
 <meta property='og:description' content="范数 定义\n记号 $\\Vert \\cdot \\Vert: \\mathbb{R}^n \\mapsto \\mathbb{R}$ 称为 向量范数, 若满足:\n正定性: $\\Vert x \\Vert \\geq 0$, 且 $\\Vert x \\Vert = 0 \\Leftrightarrow x = 0$; 齐次性: $\\Vert \\alpha x \\Vert = \\vert \\alpha \\vert \\Vert x \\Vert$; 三角不等式: $\\Vert x + y \\Vert \\leq \\Vert x \\Vert + \\Vert y \\Vert$. $\\ell_p$ 范数是最常见的向量范数\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/opt-method/convex-set/'>
 <meta property='og:site_name' content='LeoDreamer'>
@@ -388,8 +388,8 @@
     
     
     <h2 id="范数">范数
-</h2><div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+</h2><div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>记号 $\Vert \cdot \Vert: \mathbb{R}^n \mapsto \mathbb{R}$ 称为 <strong>向量范数</strong>, 若满足:</p>
 <ul>
 <li>正定性: $\Vert x \Vert \geq 0$, 且 $\Vert x \Vert = 0 \Leftrightarrow x = 0$;</li>
@@ -404,29 +404,29 @@ $$<p>特别地, 当 $p = \infty$ 时, $\Vert x \Vert_\infty = \max_i \vert x_i \
 <p>向量范数可以自然地推广到矩阵范数. 常见的矩阵范数有:</p>
 <ul>
 <li><strong>和范数</strong>: $\Vert A \Vert_1 = \sum_{i,j} \vert A_{ij} \vert$;</li>
-<li><strong>Frobenius 范数</strong>: $\Vert A \Vert_F = \sqrt{\sum_{i,j} A_{ij} ^2} = \sqrt{\text{tr}(A^T A)}$;</li>
+<li><strong>Frobenius 范数</strong>: $\Vert A \Vert_F = \sqrt{\sum_{i,j} A_{ij} ^2} = \sqrt{\mathrm{tr}(A^\top  A)}$;</li>
 <li><strong>算子范数</strong>: $\Vert A \Vert_{(m,n)}=\max_{\Vert x \Vert_n = 1} \Vert Ax \Vert_m$. 特别地, 当 $m = n = p$ 时:
 <ul>
 <li>$p=1$ 时, $\Vert A \Vert_{p=1} = \max_j \sum_i \vert A_{ij} \vert$;</li>
-<li>$p=2$ 时, $\Vert A \Vert_{p=2} = \sqrt{\lambda_{\max}(A^T A)}$, 亦称为 <strong>谱范数</strong>.</li>
+<li>$p=2$ 时, $\Vert A \Vert_{p=2} = \sqrt{\lambda_{\max}(A^\top  A)}$, 亦称为 <strong>谱范数</strong>.</li>
 <li>$p=\infty$ 时, $\Vert A \Vert_{p=\infty} = \max_i \sum_j \vert A_{ij} \vert$.</li>
 </ul>
 </li>
 <li><strong>核范数</strong>: $\Vert A \Vert_\ast = \sum_i \sigma_i$, 其中 $\sigma_i$ 为 $A$ 的奇异值.</li>
 </ul>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理<span class="math-subtitle">Cauchy 不等式</span></p>
+<div class="math-block math-thm">
+    <p class="math-title">定理<span class="math-subtitle">Cauchy 不等式</span></p>
 $$\vert \left< X, Y \right> \vert \leq \Vert X \Vert \Vert Y \Vert$$<p>等号成立当且仅当 $X$ 与 $Y$ 线性相关.</p>
 </div>
 <h2 id="凸集">凸集
-</h2><div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+</h2><div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>如果对于任意 $x, y \in C$ 和 $\theta \in \mathbb{R}$, 都有 $\theta x + (1-\theta) y \in C$, 则称 $C$ 为 <strong>仿射集</strong>.</p>
 <p>如果对于任意 $x, y \in C$ 和 $\theta \in [0, 1]$, 都有 $\theta x + (1-\theta) y \in C$, 则称 $C$ 为 <strong>凸集</strong>.</p>
 </div>
 <p>换言之, 仿射集要求过任意两点的直线都在集合内, 而凸集要求过任意两点的线段都在集合内. 显然, 仿射集都是凸集. 线性方程组的解集是一个仿射集, 而线性规划问题的可行域是一个凸集. 可以证明, 仿射集均可表示为某个线性方程组的解集.</p>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
+<div class="math-block math-thm">
+    <p class="math-title">定理</p>
 <ul>
 <li>若 $S$ 是凸集, 则 $kS = \left\{ ks \mid k \in \mathbb{R}, s \in S \right\}$ 也是凸集;</li>
 <li>若 $S, T$ 是凸集, 则 $S + T = \left\{ s + t \mid s \in S, t \in T \right\}$ 也是凸集;</li>
@@ -435,15 +435,15 @@ $$\vert \left< X, Y \right> \vert \leq \Vert X \Vert \Vert Y \Vert$$<p>等号成
 </ul>
 </div>
 <p>可以证明, 任意多个凸集的交集仍为凸集.</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>形如 $x=\theta_1x_1+\theta_2x_2+\cdots+\theta_kx_k$, 其中 $\theta_i \geq 0$ 且 $\sum_i \theta_i = 1$, 的表达式称为 $x$ 的 <strong>凸组合</strong>. 集合 $S$ 的所有点的凸组合构成的集合称为 $S$ 的 <strong>凸包</strong>, 记为 $\text{conv}(S)$.</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
+<p>形如 $x=\theta_1x_1+\theta_2x_2+\cdots+\theta_kx_k$, 其中 $\theta_i \geq 0$ 且 $\sum_i \theta_i = 1$, 的表达式称为 $x$ 的 <strong>凸组合</strong>. 集合 $S$ 的所有点的凸组合构成的集合称为 $S$ 的 <strong>凸包</strong>, 记为 $\mathrm{conv}(S)$.</p>
 </div>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
-<p>若 $\text{conv} S \subseteq S$, 则 $S$ 为凸集, 反之亦然.</p>
-<p class="math-block-title math-prf">证明</p>
-<p>先证明正方向. 对任意 $x,y \in S, \theta \in [0,1]$, 有 $\theta x + (1-\theta) y \in \text{conv} S \subseteq S$, 故 $S$ 为凸集.</p>
+<div class="math-block math-thm">
+    <p class="math-title">定理</p>
+<p>若 $\mathrm{conv} S \subseteq S$, 则 $S$ 为凸集, 反之亦然.</p>
+<p class="math-prf">证明</p>
+<p>先证明正方向. 对任意 $x,y \in S, \theta \in [0,1]$, 有 $\theta x + (1-\theta) y \in \mathrm{conv} S \subseteq S$, 故 $S$ 为凸集.</p>
 <p>再证明反方向, 对凸组合的维数 $k$ 采用数学归纳法证明之.</p>
 <p>若 $k=1$, 显然成立. 假设对于 $k-1$ 成立, 则对于 $k$, 考虑</p>
 $$
@@ -451,82 +451,82 @@ $$
 x &= \theta_1 x_1 + \theta_2 x_2 + \cdots + \theta_k x_k \\
   &= (1-\theta_k)\left(\frac{\theta_1}{1-\theta_k} x_1 + \frac{\theta_2}{1-\theta_k} x_2 + \cdots + \frac{\theta_{k-1}}{1-\theta_k} x_{k-1}\right) + \theta_k x_k
 \end{aligned}
-$$<p>前面大括号内的表达式为 $k-1$ 个凸组合, 故在 $S$ 中. 于是 $x$ 又成为两个点的凸组合, 由于 $S$ 为凸集, 故 $x \in S$. 则 $\text{conv} S \subseteq S$.</p>
+$$<p>前面大括号内的表达式为 $k-1$ 个凸组合, 故在 $S$ 中. 于是 $x$ 又成为两个点的凸组合, 由于 $S$ 为凸集, 故 $x \in S$. 则 $\mathrm{conv} S \subseteq S$.</p>
 </div>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
+<div class="math-block math-thm">
+    <p class="math-title">定理</p>
 <ul>
-<li>$\text{conv}S$ 是包含 $S$ 的最小凸集;</li>
-<li>$\text{conv}S$ 是所有包含 $S$ 的凸集的交集.</li>
+<li>$\mathrm{conv}S$ 是包含 $S$ 的最小凸集;</li>
+<li>$\mathrm{conv}S$ 是所有包含 $S$ 的凸集的交集.</li>
 </ul>
-<p class="math-block-title math-prf">证明</p>
+<p class="math-prf">证明</p>
 <p>显然第一个是第二个的推论, 只证明第二个.</p>
-<p>已知凸集的交是凸集, 从而所有包含 $S$ 的凸集的交集 $X$ 是凸集. 且 $\text{conv} S$ 是包含 $S$ 的凸集, 则 $X \subseteq \text{conv} S$.</p>
-<p>另一方面, $S \subseteq X$, 则 $\text{conv} S \subseteq \text{conv}X$, 而 $X$ 是凸集, 则 $\text{conv}X = X$, 即 $\text{conv}S \subseteq X$. 综上, $\text{conv}S = X$.</p>
+<p>已知凸集的交是凸集, 从而所有包含 $S$ 的凸集的交集 $X$ 是凸集. 且 $\mathrm{conv} S$ 是包含 $S$ 的凸集, 则 $X \subseteq \mathrm{conv} S$.</p>
+<p>另一方面, $S \subseteq X$, 则 $\mathrm{conv} S \subseteq \mathrm{conv}X$, 而 $X$ 是凸集, 则 $\mathrm{conv}X = X$, 即 $\mathrm{conv}S \subseteq X$. 综上, $\mathrm{conv}S = X$.</p>
 </div>
-<p>仿照凸组合和凸包, 也可以定义仿射组合和仿射包 $\text{affine} S$, 不再赘述.</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+<p>仿照凸组合和凸包, 也可以定义仿射组合和仿射包 $\mathrm{affine} S$, 不再赘述.</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>形如 $x=\theta_1x_1+\theta_2x_2+\cdots+\theta_kx_k$, 其中 $\theta_i \geq 0$ 的表达式称为 $x$ 的 <strong>锥组合</strong>. 若集合 $S$ 中任意点的锥组合都在 $S$ 中, 则称 $S$ 为凸锥.</p>
 </div>
 <h2 id="常见凸集">常见凸集
-</h2><div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+</h2><div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>任取非零向量 $a\in \mathbb{R}^n$, 形如</p>
-$$ \left\{ x \mid a^Tx =b \right\} $$<p>的集合称为 <strong>超平面</strong>, 形如</p>
-$$ \left\{ x \mid a^Tx \le b \right\} $$<p>的集合称为 <strong>半空间</strong>.</p>
+$$ \left\{ x \mid A^\top x =b \right\} $$<p>的集合称为 <strong>超平面</strong>, 形如</p>
+$$ \left\{ x \mid A^\top x \le b \right\} $$<p>的集合称为 <strong>半空间</strong>.</p>
 </div>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>满足线性等式和不等式组的点的集合称为 <strong>多面体</strong>, 即</p>
 $$ \left\{x \mid Ax \le b, Cx = d\right\} $$<p>其中 $A \in \mathbb{R}^{m \times n}, C \in \mathbb{R}^{p \times n}$.</p>
 </div>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>对中心 $x_c$ 和半径 $r$, 形如</p>
 $$ B(x_c, r) = \left\{ x \mid \Vert x - x_c \Vert \le r \right\} = \left\{ x_c + ru \mid \Vert u \Vert \le 1 \right\} $$<p>的集合称为 <strong>球</strong>.</p>
 <p>对中心 $x_c$ 和对称正定矩阵 $P$, 非奇异矩阵 $A$, 形如</p>
-$$ \left\{ x \mid (x-x_c)^TP(x-x_c) \le 1 \right\} = \left\{ x_c + Au \mid \Vert u \Vert \le 1 \right\} $$<p>的集合称为 <strong>椭球</strong>.</p>
+$$ \left\{ x \mid (x-x_c)^\top P(x-x_c) \le 1 \right\} = \left\{ x_c + Au \mid \Vert u \Vert \le 1 \right\} $$<p>的集合称为 <strong>椭球</strong>.</p>
 </div>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>形如</p>
 $$ \left\{(x,t) \mid \Vert x \Vert \le t \right\} $$<p>的集合称为 <strong>(范数)锥</strong>.</p>
 </div>
 <h2 id="保凸运算">保凸运算
-</h2><div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
+</h2><div class="math-block math-thm">
+    <p class="math-title">定理</p>
 <p>仿射运算保凸, 即对 $f(x)=Ax+b$, 则凸集在 $f$ 下的像是凸集, 凸集在 $f$ 下的原像是凸集.</p>
 </div>
 <p>考虑双曲锥</p>
 $$
-\left\{ x \mid x^TPx \le \left( c^Tx \right)^2, c^Tx \ge 0, P \in \mathbb{S}_+^n \right\}
+\left\{ x \mid x^\top Px \le \left( c^\top x \right)^2, c^\top x \ge 0, P \in \mathbb{S}_+^n \right\}
 $$<p>$\mathbb{S}_+^n$ 表示半正定矩阵. 双曲锥可以表示为二阶锥</p>
 $$
-\left\{ x \mid \Vert Ax \Vert_2 \le c^Tx, c^Tx \ge 0, A^TA = P \right\}
+\left\{ x \mid \Vert Ax \Vert_2 \le c^\top x, c^\top x \ge 0, A^\top A = P \right\}
 $$<p>这个可以由二次范数锥得到.</p>
 <ul>
 <li>
 <p>透视变换 $P: \mathbb{R}^{n+1} \mapsto \mathbb{R}^n$:</p>
 $$
-  P(x,t) = \frac{x}{t}, \quad \text{dom} P = \left\{ (x,t) \mid t > 0 \right\}
+  P(x,t) = \frac{x}{t}, \quad \mathrm{dom} P = \left\{ (x,t) \mid t > 0 \right\}
   $$<p>保凸.</p>
 </li>
 <li>
 <p>分式线性变换 $f: \mathbb{R}^n \mapsto \mathbb{R}^m$:</p>
 $$
-  f(x) = \frac{Ax+b}{c^Tx+d}, \quad \text{dom} f = \left\{ x \mid c^Tx+d > 0 \right\}
+  f(x) = \frac{Ax+b}{c^\top x+d}, \quad \mathrm{dom} f = \left\{ x \mid c^\top x+d > 0 \right\}
   $$<p>保凸.</p>
 </li>
 </ul>
 <h2 id="广义不等式和对偶锥">广义不等式和对偶锥
-</h2><div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+</h2><div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>我们称一个凸锥 $K \subseteq \mathbb{R}^n$ 为 <strong>适当锥</strong>, 当其还满足</p>
 <ul>
 <li>$K$ 是闭集;</li>
-<li>$K$ 是实心的, 即 $\text{int} K \neq \emptyset$;</li>
-<li>$K$ 是尖的, 即内部不包含直线: 若 $x \in \text{int} K, -x \in \text{int} K$. 则一定有 $x = 0$.</li>
+<li>$K$ 是实心的, 即 $\mathrm{int} K \neq \emptyset$;</li>
+<li>$K$ 是尖的, 即内部不包含直线: 若 $x \in \mathrm{int} K, -x \in \mathrm{int} K$. 则一定有 $x = 0$.</li>
 </ul>
 </div>
 <p>例如</p>
@@ -536,14 +536,14 @@ $$
 <li>$[0,1]$ 上的有限非负多项式 $K=\left\{ x \in \mathbb{R}^n \mid x_1 + x_2t + \cdots + x_nt^{n-1} \ge 0, t \in [0,1] \right\}$ 是适当锥.</li>
 </ul>
 <p>可以在 <strong>适当锥</strong> 上定义广义不等式.</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>对于适当锥 $K$ , 定义偏序 <strong>广义不等式</strong> 为</p>
 $$x \preceq_K y \Leftrightarrow y - x \in K$$<p>严格版本:</p>
-$$x \prec_K y \Leftrightarrow y - x \in \text{int} K$$</div>
+$$x \prec_K y \Leftrightarrow y - x \in \mathrm{int} K$$</div>
 <p>广义不等式是一个偏序关系, 具有自反性, 反对称性, 传递性, 可加性, 非负缩放性, 不再赘述.</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>令锥 $K$ 为全空间 $\Omega$ 的子集, 则 $K$ 的 <strong>对偶锥</strong> 为</p>
 $$
 K^\ast = \left\{ y \mid \left< x, y \right> \ge 0, \forall x \in K \right\}
@@ -553,58 +553,58 @@ $$</div>
 <li>非负卦限是自对偶锥.</li>
 <li>半正定锥是自对偶锥.</li>
 </ul>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
+<div class="math-block math-thm">
+    <p class="math-title">定理</p>
 <p>设 $K$ 是一锥, $K^\ast$ 是其对偶锥, 则满足:</p>
 <ul>
 <li>$K^\ast$ 是锥 (即使 $K$ 不是锥);</li>
 <li>$K^\ast$ 是凸且闭的;</li>
-<li>若 $\text{int} \neq \emptyset$, 则 $K^\ast$ 是尖的.</li>
-<li>若 $K$ 是尖的, 则 $\text{int} K^\ast \neq \emptyset$.</li>
+<li>若 $\mathrm{int} \neq \emptyset$, 则 $K^\ast$ 是尖的.</li>
+<li>若 $K$ 是尖的, 则 $\mathrm{int} K^\ast \neq \emptyset$.</li>
 <li>若 $K$ 是适当锥, 则 $K^\ast$ 是适当锥.</li>
 <li>$K^{\ast\ast}$ 是 $K$ 的凸包. 特别地, 若 $K$ 是凸且闭的, 则 $K^\ast=K$.</li>
 </ul>
 </div>
 <p>适当锥的对偶锥仍是适当锥, 则适当锥 $K$ 的对偶锥 $K^\ast$ 也可以诱导广义不等式.</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>对于适当锥 $K$, 定义其对偶锥 $K^\ast$ 上的 <strong>对偶广义不等式</strong> 为:</p>
 $$x \preceq_{K^\ast} y \Leftrightarrow y - x \in K^\ast$$<p>其满足</p>
 <ul>
-<li>$x \preceq_{K} y \Leftrightarrow \lambda^Tx \le \lambda^Ty, \forall \lambda \succeq_{K^\ast} K^\ast$.</li>
-<li>$y \succeq_{K^\ast} 0 \Leftrightarrow y^Tx \ge 0, \forall x \succeq_K 0$.</li>
+<li>$x \preceq_{K} y \Leftrightarrow \lambda^\top x \le \lambda^\top y, \forall \lambda \succeq_{K^\ast} K^\ast$.</li>
+<li>$y \succeq_{K^\ast} 0 \Leftrightarrow y^\top x \ge 0, \forall x \succeq_K 0$.</li>
 </ul>
 </div>
 <h2 id="分离超平面定理">分离超平面定理
-</h2><div class="math-block">
-    <p class="math-block-title math-thm">定理<span class="math-subtitle">分离超平面定理</span></p>
+</h2><div class="math-block math-thm">
+    <p class="math-title">定理<span class="math-subtitle">分离超平面定理</span></p>
 <p>如果 $C$ 和 $D$ 是不相交的凸集, 则存在一个超平面 $H$ 将 $C$ 和 $D$ 分开, 即存在 $a \neq 0, b$ 使得</p>
 $$
 \begin{aligned}
-a^Tx &\le b, \quad \forall x \in C \\
-a^Tx &\ge b, \quad \forall x \in D
+A^\top x &\le b, \quad \forall x \in C \\
+A^\top x &\ge b, \quad \forall x \in D
 \end{aligned}
 $$</div>
 <p>简要想法是找距离最近的一对点, 以这两点的中点为中心, 以两点的连线为法向量构造超平面.</p>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理<span class="math-subtitle">严格分离定理</span></p>
+<div class="math-block math-thm">
+    <p class="math-title">定理<span class="math-subtitle">严格分离定理</span></p>
 <p>如果 $C$ 和 $D$ 是不相交的凸集, 且 $C$ 是闭集, $D$ 是紧集, 则存在一个超平面 $H$ 将 $C$ 和 $D$ 严格分开, 即存在 $a \neq 0, b$ 使得</p>
 $$
 \begin{aligned}
-a^Tx &\lt b, \quad \forall x \in C \\
-a^Tx &\gt b, \quad \forall x \in D
+A^\top x &\lt b, \quad \forall x \in C \\
+A^\top x &\gt b, \quad \forall x \in D
 \end{aligned}
 $$</div>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>给定集合 $C$ 和边界点 $x_0$, 如果 $a\ne 0$ 满足 $a^Tx \le a^T x_0, \forall x \in C$, 则称</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
+<p>给定集合 $C$ 和边界点 $x_0$, 如果 $a\ne 0$ 满足 $A^\top x \le A^\top  x_0, \forall x \in C$, 则称</p>
 $$
-\left\{ x \mid a^Tx = a^T x_0 \right\}
+\left\{ x \mid A^\top x = A^\top  x_0 \right\}
 $$<p>为 $C$ 的 <strong>支撑超平面</strong>.</p>
 </div>
 <p>由分离超平面的特殊情况 ($D$ 为单点集) 可以得到支撑超平面的存在性.</p>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理<span class="math-subtitle">支撑超平面定理</span></p>
+<div class="math-block math-thm">
+    <p class="math-title">定理<span class="math-subtitle">支撑超平面定理</span></p>
 <p>若 $C$ 是凸集, 则 $C$ 的任意边界点处存在支撑超平面.</p>
 </div>
 

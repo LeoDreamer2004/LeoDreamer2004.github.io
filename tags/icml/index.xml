@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>ICML on LeoDreamer</title>
+        <link>https://LeoDreamer2004.github.io/tags/icml/</link>
+        <description>Recent content in ICML on LeoDreamer</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>LeoDreamer</copyright>
+        <lastBuildDate>Tue, 24 Jun 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/tags/icml/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>论文阅读 - ICML2025 高光论文选读</title>
+        <link>https://LeoDreamer2004.github.io/p/paper-reading/icml-2025-oral-and-spotlight/</link>
+        <pubDate>Tue, 24 Jun 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/p/paper-reading/icml-2025-oral-and-spotlight/</guid>
+        <description>&lt;img src="https://icml.cc/static/core/img/vancouver_convention_center.webp" alt="Featured image of post 论文阅读 - ICML2025 高光论文选读" /&gt;&lt;p&gt;第 42 届 ICML 于 2025 年 7 月 13 日至 19 日在加拿大温哥华会议中心举行.&lt;/p&gt;
+&lt;h2 id=&#34;oral-基于-svd-学习伪造特征&#34;&gt;[Oral] 基于 SVD 学习伪造特征
+&lt;/h2&gt;&lt;h3 id=&#34;aigis&#34;&gt;AIGIs
+&lt;/h3&gt;&lt;p&gt;AI 生成图像 (AI-Generated Images, AIGIs) 发展很快, 但也带来了潜在的巨大风险, 因此 AIGIs 的检测显得非常重要. 传统的方式是拿视觉基础模型 (Vision Foundation Model, VFM) 用二分类器, 预测图像被判定为虚假的可能性. 检测伪造的核心难点在于泛化. 现有的工作大概有两个方向:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;伪造模式 (fake pattern)&lt;/strong&gt; 学习, 是最主流的一种, 通过某个变换函数把 $x$ 映射到 $x&#39;$, 认为 $x&#39;$ 的特征空间可以学到伪造模式. 然而, 鉴于现实世界中伪造方法的多样性不断增加, 试图详尽列举所有可能的伪造模式并 &amp;ldquo;期望&amp;rdquo; 在未见过的伪造方法上实现良好的泛化是不现实的. (原话)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;真实分布 (real distribution)&lt;/strong&gt; 学习, 典型方法如单类异常检测, 提出一种误差作为得分, 来判断图像是否为伪造. 但这需要大量真实样本, 且通常属性分布不均衡的样本相当有限, 难以学习到真实图像的鲁棒表示.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;effort&#34;&gt;Effort
+&lt;/h3&gt;&lt;p&gt;论文 &lt;a class=&#34;link cite-SVD-AIGIs&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
+    &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
+&lt;/a&gt; 认为, 发生过拟合现象的重要原因是简单训练的检测器尝试寻找到已见过的假图像模式的捷径, 导致特征空间实质降维为低秩结构, 限制了表达能力和泛化能力. 因此论文采用了 PCA 方法, 强制模型保留高秩结构.&lt;/p&gt;
+&lt;p&gt;基于此, 对于预训练权重矩阵 $W$ (一般的 VFM 权重矩阵都是方阵, 比如 ResNet), SVD 将其分解为 $W = U \Sigma V^\top$, 并采用秩-$r$ 近似 $W_r = U_r \Sigma_r V_r^\top $. 残差分量 $W - W_r = U_{n-r} \Sigma_{n-r} V_{n-r}^\top $ 是我们要学习的形式, 而 $U_r, \Sigma_r, V_r$ 则固定.&lt;/p&gt;
+&lt;p&gt;我们一方面希望 $\Delta W$ 捕捉真实与虚假之间有意义的差异, 一方面又希望优化 $\Delta W$ 是不改变 $W$ 整体的属性. 我们介绍 Effort 方法:&lt;/p&gt;
+&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;Effort&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-input&#34;&gt;输入 &amp;gt; &lt;/strong&gt; 预训练权重矩阵 $W \in \mathbb{R}^{n \times n}$, 秩 $r$, 训练集 $D = \{(x_i, y_i)\}_{i=1}^N$, 超参数 $\lambda_1, \lambda_2$.&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-output&#34;&gt;输出 &amp;gt; &lt;/strong&gt; 更新后的权重矩阵 $W$.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;做 SVD 分解 $W = U \Sigma V^\top$.&lt;/li&gt;
+&lt;li&gt;取 $r$ 个主成分, 计算 $W_r = U_r \Sigma_r V_r^\top $, 保持不变.&lt;/li&gt;
+&lt;li&gt;对残差分量做 SVD: $\Delta W = W-W_r = U_{n-r} \Sigma_{n-r} V_{n-r}^\top $. 并记:
+$$
+    \hat{U} = \begin{bmatrix} U_r &amp; U_{n-r} \end{bmatrix} \quad
+    \hat{V} = \begin{bmatrix} V_r &amp; V_{n-r} \end{bmatrix}
+    $$&lt;/li&gt;
+&lt;li&gt;利用 $W=W_r+\Delta W$ 做前向传播, 计算损失 $\mathcal{L}_{\mathrm{cls}}$.&lt;/li&gt;
+&lt;li&gt;计算正交正则化损失 &lt;em&gt;(用于保持奇异向量的正交性质)&lt;/em&gt;:
+$$
+    \mathcal{L}_{\mathrm{ortho}} = \| \hat{U}^\top  \hat{U} - I \|_F^2 + \| \hat{V}^\top  \hat{V} - I \|_F^2
+    $$&lt;/li&gt;
+&lt;li&gt;计算奇异值约束损失 &lt;em&gt;(用于控制奇异值的接近程度)&lt;/em&gt;:
+$$
+    \mathcal{L}_{\mathrm{ksv}} = \left| \| \hat{W} \|_F^2 - \|W\|_F^2 \right|
+    $$&lt;/li&gt;
+&lt;li&gt;计算总损失:
+$$
+    \mathcal{L} = \mathcal{L}_{\mathrm{cls}} + \lambda_1 \mathcal{L}_{\mathrm{ortho}} + \lambda_2 \mathcal{L}_{\mathrm{ksv}}
+    $$&lt;/li&gt;
+&lt;li&gt;反向传播, 更新 $\Delta W$.&lt;/li&gt;
+&lt;li&gt;对每个 epoch 和 batch, 重复步骤 4-8.&lt;/li&gt;
+&lt;li&gt;返回更新后的权重矩阵 $W = W_r + \Delta W$.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://arxiv.org/html/2411.15633v4/x5.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Effort&#34;
+	
+	class=&#34;gallery-image&#34; 
+&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;论文推荐 $r=n-1$, 即只用一个特征向量来捕捉虚假图像的特征. 对其他的 $r$ 也有一定鲁棒性.&lt;/p&gt;
+&lt;h3 id=&#34;实验及可视化&#34;&gt;实验及可视化
+&lt;/h3&gt;&lt;p&gt;Effort 展现了巨大的优势. 仅用了原本模型的约 0.1% ~ 1% 的训练参数量, 能带来高达 10 个点的提升.&lt;/p&gt;
+&lt;p&gt;论文还做了消融实验, 证明了正交正则化和奇异值约束对模型性能的作用. 架构默认采用 CLIP 作为 VFM, 但对其他 VFM 也有良好的适应性.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://arxiv.org/html/2411.15633v4/x4.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;语义-真实性分解&#34;
+	
+	class=&#34;gallery-image&#34; 
+&gt;&lt;/p&gt;
+&lt;p&gt;值得一提的是论文给出的语义-虚假性分解可视化方案. 一般的网络只能给出虚假性分数, 但 Effort 可以实现对语义和虚假性的正交分解学习.&lt;/p&gt;
+&lt;h2 id=&#34;oral-稀疏的-rl-网络可能更好&#34;&gt;[Oral] 稀疏的 RL 网络可能更好
+&lt;/h2&gt;&lt;h3 id=&#34;1000--10--100&#34;&gt;1000 * 10% &amp;gt; 100
+&lt;/h3&gt;&lt;p&gt;一般深度学习中较大的模型通常能获得更好的结果, 但在深度强化学习 (Deep Reinforcement Learning, DRL) 中, 这种规模扩展模式会失效，增加模型大小往往会导致性能下降.&lt;/p&gt;
+&lt;p&gt;论文 &lt;a class=&#34;link cite-Sparsity-RL&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
+    &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
+&lt;/a&gt; 实际上是一篇实验报告稿, 它指出如果在扩大参数规模的同时, 保持网络的稀疏性, 可以有效避免性能崩溃和优化问题.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://LeoDreamer2004.github.io/p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-result.png&#34;
+	width=&#34;2193&#34;
+	height=&#34;880&#34;
+	srcset=&#34;https://LeoDreamer2004.github.io/p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-result_hu_f0bdfc71a032e1ed.png 480w, https://LeoDreamer2004.github.io/p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-result_hu_6b006e621940d3fb.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;一般规模 (4.5M) 和大规模 (109M) 的稀疏网络对比&#34;
+	
+	class=&#34;gallery-image&#34; 
+&gt;&lt;/p&gt;
+&lt;p&gt;从这个图可以看出:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一般规模的网络在高稀疏化后表现不佳, 这很可能是因为稀疏化导致了网络容量的显著下降, 使得模型无法捕捉到足够的环境信息.&lt;/li&gt;
+&lt;li&gt;当网络规模增大时, 只允许学习一部分参数的高稀疏性的网络几乎总是优于原网络, 且此时比具有相同可学习参数量的稠密网络有更好的性能.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;one-shot-随机剪枝&#34;&gt;One-Shot 随机剪枝
+&lt;/h3&gt;&lt;p&gt;关于如何控制稀疏性, 论文采用了通过一次随机剪枝进行静态稀疏训练的方式. 在初始化时为每一层 $l$ 生成二进制掩码 $M^l \in \{0, 1\}^{n^l \times n^{l-1}}$,  训练过程中有效权重计算为 $W = M \odot W$, 其中 $\odot$ 表示 Hadamard 乘积. $M$ 在训练过程中保持不变.&lt;/p&gt;
+&lt;p&gt;随机剪枝的方式非常简单, 只需要确定每一层的稀疏率 $s^l$:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;均匀分布: 每一层的稀疏率 $s^l$ 都是相同的, 即 $s^l = s$.&lt;/li&gt;
+&lt;li&gt;Erdos-Renyi: 对于全连接层, 取 $s^l = 1-\frac{n^l+n^{l-1}}{n^l n^{l-1}}$; 对于有 $w^l \times h^l$ 卷积核的卷积层, 取 $s^l = 1-\frac{n^l+n^{l-1}+w^l+h^l}{n^l n^{l-1} w^l h^l}$.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;参数壁垒和稀疏化&#34;&gt;参数壁垒和稀疏化
+&lt;/h3&gt;&lt;p&gt;实验显然带来了一个疑问: 稀疏网络在参数较少的情况下, 是如何实现优于密集网络的性能的?&lt;/p&gt;
+&lt;h4 id=&#34;表达能力&#34;&gt;表达能力
+&lt;/h4&gt;&lt;p&gt;论文用 &lt;strong&gt;稳定秩 (Stable rank, Srank)&lt;/strong&gt; &lt;a class=&#34;link ref-Srank&#34;&gt;&lt;/a&gt; 来衡量网络的表达能力. 具体来说:&lt;/p&gt;
+$$
+\mathrm{Srank}(W) = \sum_{j=1}^m \mathbb{I}(\sigma_j(W) &gt; \tau)
+$$&lt;p&gt;其中 $W$ 是网络的权重矩阵, $\sigma_j(W)$ 是 $W$ 的第 $j$ 个奇异值, $\tau$ 是一个阈值.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://LeoDreamer2004.github.io/p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-srank.png&#34;
+	width=&#34;1993&#34;
+	height=&#34;851&#34;
+	srcset=&#34;https://LeoDreamer2004.github.io/p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-srank_hu_f4172cccba0083a3.png 480w, https://LeoDreamer2004.github.io/p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-srank_hu_3593c0b7786a2d0e.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;不同网络的 Srank&#34;
+	
+	class=&#34;gallery-image&#34; 
+&gt;&lt;/p&gt;
+&lt;p&gt;从这个图可以看出:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;提高网络的稀疏性会导致 Srank 的一致提升, 逐渐接近理论上限.&lt;/li&gt;
+&lt;li&gt;对于稠密网络, 扩大网络规模会导致 Srank 的显著下降, 这可能是 DRL 中的规模壁垒的原因.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;可塑性&#34;&gt;可塑性
+&lt;/h4&gt;&lt;p&gt;有研究表明 DRL 网络的病态症状 (pathological symptoms) 与网络的可塑性 (plasticity) 下降有关 &lt;a class=&#34;link ref-Plasticity-Loss&#34;&gt;&lt;/a&gt;. 论文采用两个指标来衡量网络的可塑性:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;静默比率 (Dormant Ratio)&lt;/strong&gt; &lt;a class=&#34;link ref-Dormant-Ratio&#34;&gt;&lt;/a&gt;: 衡量网络中静默神经元的比例. 层 $\ell$ 中的第 $i$ 个神经元的静默分数 $\rho_i^{\ell}$ 可以定义为:
+$$
+    \rho_i^{\ell} = \frac{\mathbb{E}_{x \sim P(\cdot; D)} | h_i^{\ell}(x)|}{\frac{1}{H^\ell} \sum_{k \in h} \mathbb{E}_{x \sim P(\cdot; D)} | h_k^{\ell}(x)|}
+    $$
+$h(x)$ 表示神经元激活, $H^{\ell}$ 表示第 $\ell$ 层神经元的数量. 如果 $\rho_i^{\ell} &lt; \tau$, 则认为该神经元是静默的.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;梯度范数 (Gradient Norm)&lt;/strong&gt; &lt;a class=&#34;link ref-Gradient-Norm&#34;&gt;&lt;/a&gt;: 衡量网络中神经元的梯度 L2 范数. 如果梯度范数很小, 很可能意味着网络失去了学习能力.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://LeoDreamer2004.github.io/p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-plasticity.png&#34;
+	width=&#34;2222&#34;
+	height=&#34;282&#34;
+	srcset=&#34;https://LeoDreamer2004.github.io/p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-plasticity_hu_d245257efa8a04a6.png 480w, https://LeoDreamer2004.github.io/p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-plasticity_hu_5fd02b980ea014e5.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;不同网络的可塑性&#34;
+	
+	class=&#34;gallery-image&#34; 
+&gt;&lt;/p&gt;
+&lt;h4 id=&#34;正则化&#34;&gt;正则化
+&lt;/h4&gt;&lt;p&gt;论文认为稀疏性网络隐含了一种正则化机制.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;参数范数 (Parameter Norm)&lt;/strong&gt; &lt;a class=&#34;link ref-Param-Norm&#34;&gt;&lt;/a&gt;: 衡量网络中参数的 L2 范数. 参数如果出现持续的无界增长通常是病态的. 实验表明, 大型稀疏网络的参数范数与具有同等可学习参数的小型密集网络相当甚至更低.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;简单性偏差 (Simplicity Bias)&lt;/strong&gt; &lt;a class=&#34;link ref-Simplicity-Bias&#34;&gt;&lt;/a&gt;: 神经网络倾向于学习简单的模式. 实验表明, 稀疏网络的简单性偏差分数更高, 促进更简单的解决方案.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;梯度干扰&#34;&gt;梯度干扰
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;梯度干扰 (Gradient Interference)&lt;/strong&gt; 指不同的数据集之间的梯度相互干扰, 使得模型难以学习. 具体来说, 对于 $k$ 个训练样本 $x_1, x_2, \ldots, x_k$, 梯度干扰矩阵 $C_k \in \mathbb{R}^{k \times k}$ 可以定义为:&lt;/p&gt;
+$$
+C_k[i, j] = \frac{\langle \nabla_{\theta} \ell(x_i, \theta), \nabla_{\theta} \ell(x_j, \theta) \rangle}{\|\nabla_{\theta} \ell(x_i, \theta)\|_2 \|\nabla_{\theta} \ell(x_j, \theta)\|_2}
+$$&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://LeoDreamer2004.github.io/p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-gradient.png&#34;
+	width=&#34;1873&#34;
+	height=&#34;556&#34;
+	srcset=&#34;https://LeoDreamer2004.github.io/p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-gradient_hu_4b4d1f1eb7076b3c.png 480w, https://LeoDreamer2004.github.io/p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-gradient_hu_c7b7cbe69b3f2dec.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;紧密与稀疏网络的梯度干扰&#34;
+	
+	class=&#34;gallery-image&#34; 
+&gt;&lt;/p&gt;
+&lt;p&gt;此热图中稀疏网路颜色更浅, 说明梯度干扰更小.&lt;/p&gt;
+&lt;h2 id=&#34;spotlight-多视图去噪&#34;&gt;[Spotlight] 多视图去噪
+&lt;/h2&gt;&lt;h3 id=&#34;mvc&#34;&gt;MVC
+&lt;/h3&gt;&lt;p&gt;现有的多视图聚类 (Multi-View Clustering, MVC) 算法在聚类性能上表现出色, 一般流程就是通过编码器提取表示, 采用特征融合策略, 最后用于下游聚类任务. 但现有的方法一般假设图像干净, 如果某些视图出现噪声, 会严重影响聚类性能, 甚至不如单视图.&lt;/p&gt;
+&lt;p&gt;论文 &lt;a class=&#34;link cite-AIRMVC&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
+    &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
+&lt;/a&gt; 提出了一个新的 &lt;strong&gt;自动识别和修正的多视图聚类 (Automatic Identification and Rectification Multi-View Clustering, AIRMVC)&lt;/strong&gt; 框架, 与先前增加噪声容忍度或者优化结构的方法不同, AIRMVC 框架可以专门用于噪声数据识别和修正.&lt;/p&gt;
+&lt;h3 id=&#34;噪声识别&#34;&gt;噪声识别
+&lt;/h3&gt;&lt;p&gt;对于多视图数据集 $\{x^v\}_{v=1}^V$, 使用一个编码网络生成表示 $E^v = F^v(x^v; \Theta^v)$, 其中 $F^v$ 是第 $v$ 个视图的编码器. 随后先过一层 MLP, 然后用高斯混合模型 (Gaussian Mixture Model, GMM) (参看 &lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/p/machine-learning-base/clustering-intro/#gauss-%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B&#34; &gt;机器学习基础&lt;/a&gt;) 建模分布.&lt;/p&gt;
+$$p(E)=\sum_{k=1}^K \pi_k \mathcal{N}(E; \mu_k, \sigma_k)$$&lt;p&gt;其中 $\sum_{k=1}^K \pi_k = 1$ 是混合系数, 可以认为是某个隐变量 $q_i=k$ 的概率. 这里我们用网络的软预测 $p(y_i=k|x_i)$ 来代替. 根据 GMM 的 EM 算法, 可以更新 GMM 参数:&lt;/p&gt;
+$$
+\begin{aligned}
+\mu_k &amp;= \mathrm{Norm} \left(\frac{\sum_{i=1}^N p(y_i=k|x_i) E_i}{\sum_{i=1}^N p(y_i=k|x_i)} \right)\\
+\sigma_k &amp;= \frac{\sum_{i=1}^N p(y_i=k|x_i) (E_i - \mu_k)(E_i - \mu_k)^\top }{\sum_{i=1}^N p(y_i=k|x_i)} \\
+\end{aligned}
+$$&lt;p&gt;其中, $\mathrm{Norm}(\cdot)$ 是 $\ell_2$ 归一化 (疑惑: 归一化后计算 $\sigma_k$ 的时候不会受到影响吗?). 因此:&lt;/p&gt;
+$$
+\begin{aligned}
+\pi_{ik} &amp;= p(q_i = k | x_i) \\
+&amp;= \frac{\exp \left(- \left(E_i - \mu_k \right)^\top \left(E_i - \mu_k \right) / 2\sigma_k \right)}{\sum_k \exp \left(- \left(E_i - \mu_k \right)^\top \left(E_i - \mu_k \right) / 2\sigma_k \right)} \\
+&amp;= \frac{\exp \left( E_i^\top \mu_k / \sigma_k \right)}{\sum_k \exp \left( E_i^\top \mu_k / \sigma_k \right)}
+\end{aligned}
+$$&lt;p&gt;$\pi_{ik}$ 就是样本分配给簇 $\mu_k$ 的软预测. 现在把噪声的识别问题转化为异常问题: 如果样本是无噪或低噪的, 其在不同视图中的软预测和簇分配应该保持一致.&lt;/p&gt;
+&lt;p&gt;引入一个二部 GMM 以自动识别给定样本的干净概率.&lt;/p&gt;
+$$
+p(y_i=q_i|x_i) = \pi_{y=q|i} = p(\pi_{y=q|i}, a=1) + p(\pi_{y=q|i}, a=0)
+$$&lt;p&gt;其中 $a=1$ 表示均值较高的干净样本簇, 而 $a=0$ 对应均值较低的样本簇 (什么意思?). 并把前者作为是干净样本的概率 $\phi_i$.&lt;/p&gt;
+&lt;h3 id=&#34;混合校正&#34;&gt;混合校正
+&lt;/h3&gt;&lt;p&gt;检测样本噪声概率后, 我们采用混合校正策略, 利用预测的软分布组合来进行噪声修正:&lt;/p&gt;
+$$
+\begin{aligned}
+y_i^v &amp;= h(E_i^v) \\
+m_i^v &amp;= \phi_i^v y_i^v + (1 - \phi_i^v) y_i^1
+\end{aligned}
+$$&lt;p&gt;这里我们基于的假设是第一个视图总是干净的. 显然, 如果图像噪声越大, 越倾向于使用第一个视图的预测.&lt;/p&gt;
+&lt;p&gt;由此给出修正损失 (rectification loss), 即直接预测的损失与修正后的损失之间的交叉熵:&lt;/p&gt;
+$$
+\mathcal{L}_{\mathrm{rs}}=\frac{1}{V-1} \sum_{v=2}^V \left( -\sum_{i=1}^N \sum_{j=1}^K m_{ij}^v \log y_{ij}^v \right)
+$$&lt;h3 id=&#34;抗噪对比&#34;&gt;抗噪对比
+&lt;/h3&gt;&lt;p&gt;使用对比学习的方法. 用 $s(E_i^m, E_j^n)$ 表示样本 $i$ 和 $j$ 在视图 $m$ 和 $n$ 中的相似度. 引入二者的鲁棒对比损失:&lt;/p&gt;
+$$
+\ell^{mn} = \mathbb{I}\{ (y_i^m)^\top (y_j^n) \ge \tau \} \left( \log (1 - s(E_i^m, E_j^n)) + \log (1-s(E_j^m, E_i^n)) \right)
+$$&lt;p&gt;$\tau$ 是通过选择相似样本来控制对比学习中样本对构建的置信阈值.&lt;/p&gt;
+&lt;p&gt;则视图的噪声鲁棒对比损失 (noise-robust contrastive loss) 损失为:&lt;/p&gt;
+$$
+\mathcal{L}_{\mathrm{con}} = \frac{1}{V(V-1)} \sum_{m=1}^V \sum_{n=1, n \ne m}^V \ell^{mn}
+$$&lt;h3 id=&#34;目标函数&#34;&gt;目标函数
+&lt;/h3&gt;&lt;p&gt;我们再加入一个重建损失 (reconstruction loss) 来让编码器更好地学习特征:&lt;/p&gt;
+$$
+\mathcal{L}_{\mathrm{rec}} = \sum_{v=1}^V \sum_{i=1}^N \| x_i^v -  G^v(F^v(x_i^v; \Theta^v); \Phi_i^v) \|_2^2
+$$&lt;p&gt;$G$ 是解码器. 最终定义损失为:&lt;/p&gt;
+$$
+\mathcal{L} = \mathcal{L}_{\mathrm{rs}} + \alpha \mathcal{L}_{\mathrm{con}} + \beta \mathcal{L}_{\mathrm{rec}}
+$$&lt;h3 id=&#34;airmvc&#34;&gt;AIRMVC
+&lt;/h3&gt;&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;AIRMVC&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-input&#34;&gt;输入 &amp;gt; &lt;/strong&gt; $N$ 个视图数据集 $\{x^v\}_{v=1}^V$.&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-output&#34;&gt;输出 &amp;gt; &lt;/strong&gt; 聚类标签 $R$.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;计算 GMM 中 $\mu_k, \sigma_k$ 和干净样本概率 $\phi_i$ (E 步).&lt;/li&gt;
+&lt;li&gt;利用编码器 $F$ 计算样本表示 $E^v = F^v(x^v; \Theta^v)$.&lt;/li&gt;
+&lt;li&gt;识别并纠正其中的噪声样本, 同时计算噪声修正损失 $\mathcal{L}_{\mathrm{rs}}$.&lt;/li&gt;
+&lt;li&gt;计算噪声鲁棒对比损失 $\mathcal{L}_{\mathrm{con}}$ 和 重建损失 $\mathcal{L}_{\mathrm{rec}}$, 得出总损失 $\mathcal{L}$.&lt;/li&gt;
+&lt;li&gt;利用 $\mathcal{L}$ 反向传播更新模型.&lt;/li&gt;
+&lt;li&gt;重复步骤 1-5 直到收敛.&lt;/li&gt;
+&lt;li&gt;最后, 对每个样本 $i$, 计算其在 GMM 中的最大概率簇分配, 得到聚类标签 $R_i = \argmax_k p(y_i=k|x_i)$.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://arxiv.org/html/2505.21387v1/x2.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;AIRMVC&#34;
+	
+	class=&#34;gallery-image&#34; 
+&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;spotlight-生成图像对齐&#34;&gt;[Spotlight] 生成图像对齐
+&lt;/h2&gt;&lt;p&gt;现在 AI 生成的图像已经高度逼真, 以至可以用来作为训练数据. 但直接将生成图像作为真实图像用于训练, 会导致由于真实域和合成域模态差异而引发的模态崩溃. 论文 &lt;a class=&#34;link cite-GMAIL&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
+    &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
+&lt;/a&gt; 提出了一个新的 &lt;strong&gt;生成图像学习模态对齐方法 (Generative Modality Alignment for generated Image Learning, GMAIL)&lt;/strong&gt;, 将生成的图像视为一种独立的模态, 并将其与同一隐藏空间中的真实图像对齐.&lt;/p&gt;
+&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;GMAIL&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-input&#34;&gt;输入 &amp;gt; &lt;/strong&gt; 真实图像数据集 $\mathcal{D}_R$, 生成图像数据集 $\mathcal{D}_G$.&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-output&#34;&gt;输出 &amp;gt; &lt;/strong&gt; 对齐后的 VLM.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+        </item>
+        <item>
+        <title>论文阅读 - 基于自适应代理的置信度估计</title>
+        <link>https://LeoDreamer2004.github.io/p/paper-reading/region-confidence-proxy-for-wild-test-time-adaption/</link>
+        <pubDate>Thu, 19 Jun 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/p/paper-reading/region-confidence-proxy-for-wild-test-time-adaption/</guid>
+        <description>&lt;h2 id=&#34;传统-tta-方法&#34;&gt;传统 TTA 方法
+&lt;/h2&gt;&lt;p&gt;野外测试时自适应 (Wild Test-Time Adaptation, WTTA) 相较于温和的 TTA, 需要在数据极其稀少时让模型适应从未见到过的领域, 通常有三个实际挑战:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;有限的数据流. 批大小通常为 $1$.&lt;/li&gt;
+&lt;li&gt;测试域是混合的分布. 通常由 $k$ 个子域组成: $D_{\mathrm{test}} = \sum_{i=1}^k \Pi_i \cdot D_i$, 其中 $\Pi_i$ 是每个子域的混合系数.&lt;/li&gt;
+&lt;li&gt;标签的不平衡性和浮动性. 测试标签分布不均, 且可能会随着时间的推移而变化.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;常见的 TTA 方法是熵最小化策略 (&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/p/paper-reading/test-time-reinforcement-learning/&#34; &gt;这篇博客&lt;/a&gt; 有提及, 如 Tent 方法), 但当 TTA 的环境从 mild 变为 wild 时, 熵最小化的效果会大打折扣, 因此一些现有的工作是做样本过滤筛选, 例如 SAR &lt;a class=&#34;link ref-SAR&#34;&gt;&lt;/a&gt; 和 DeYO &lt;a class=&#34;link ref-DeYO&#34;&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;局部不一致性&#34;&gt;局部不一致性
+&lt;/h2&gt;&lt;p&gt;为此, 论文 &lt;a class=&#34;link cite-paper&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
+    &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
+&lt;/a&gt; 提出了一个对模型输出确定性的替代方案, 即区域置信度.&lt;/p&gt;
+&lt;p&gt;熵最小化的核心思想是通过引导预测概率向主要的类别集中收敛, 其有效性很大程度上依赖于局部一致性, 也就是附近的点应该有相似的预测概率. WTTA 中, 局部不一致现象非常普遍, 此时简单的熵最小化会导致性能崩溃.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://arxiv.org/html/2505.20704v2/x2.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;局部不一致性&#34;
+	
+	class=&#34;gallery-image&#34; 
+&gt;&lt;/p&gt;
+&lt;p&gt;在此基础上, 必须解决优化方向与区域目标之间的偏差, 并减少局部区域内不一致预测概率的方差.&lt;/p&gt;
+&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;考虑样本 $x$ 和其一个局部区域 $\Omega$, $x$ 在 $\Omega$ 上的 &lt;strong&gt;区域置信度 (Region Confidence)&lt;/strong&gt; 定义为在 $\Omega$ 上熵损失的积分 (偏差项) 加上 $x$ 的预测概率与 $\Omega$  中样本预测概率的 KL 散度 (方差项):&lt;/p&gt;
+$$
+\mathcal{L}_{\mathrm{RC}}(x) = - \int_{\Omega} \sum_{i=1}^C p_{\theta}(\hat{x})_i \log p_{\theta}(\hat{x})_i d\hat{x} + \lambda \int_{\Omega} D_{KL}(p_{\theta}(\hat{x}) \| p_{\theta}(x)) d\hat{x}
+$$&lt;/div&gt;
+&lt;p&gt;这里我们采用积分, 意味着理论可以在无限样本上整合损失项.&lt;/p&gt;
+&lt;h2 id=&#34;recap&#34;&gt;ReCAP
+&lt;/h2&gt;&lt;p&gt;然而, 区域置信度的计算相当困难. 首先 $\Omega$ 的范围选择不确定, 其次两项都不能直接计算, 需要大量近似采样和前向传播的步骤. 为了降低训练复杂度, 论文引入了一种新的 &lt;strong&gt;区域置信度自适应代理 (Region Confidence Adaptation Proxy, ReCAP)&lt;/strong&gt; 框架.&lt;/p&gt;
+&lt;h3 id=&#34;概率区域&#34;&gt;概率区域
+&lt;/h3&gt;&lt;p&gt;我们先确定 $\Omega$ 的范围. 我们从主干网络的隐藏层中找区域置信度, 具体来说, 我们选定一个隐藏层, 输入 $x$ 后计算 $x$ 在经过网络中此隐藏层之后的特征 $z$, 然后对 $z$ 做一个仿射变换, 得到一个分类器的输出概率:&lt;/p&gt;
+$$
+p_{\theta}(z)_i = (\mathrm{softmax}(Az+b))_i
+$$&lt;p&gt;下标 $i$ 表示第 $i$ 个类别, $A$ 和 $b$ 是分类器线性层的参数.&lt;/p&gt;
+&lt;p&gt;关于局部区域, 我们将其建模成一个多元高斯分布, 而非静态区域:&lt;/p&gt;
+$$
+\Omega(z_t) := \mathcal{N}(z_t, \tau \cdot \Sigma)
+$$&lt;p&gt;其中, $\Omega(z_t)$ 是第 $t$ 个测试批次 $z_t$ 的局部区域, 它是以 $z_t$ 为中心的高斯区域. $\Sigma$ 是基于少量源数据得到的方差对角矩阵, $\tau$ 是一个超参数, 用于控制范围.&lt;/p&gt;
+&lt;h3 id=&#34;置信度度量&#34;&gt;置信度度量
+&lt;/h3&gt;&lt;p&gt;接下来我们给出一个估计置信度的高效度量, 在此省略论文的数学推导, 直接给出结果:&lt;/p&gt;
+&lt;div class=&#34;math-block math-thm&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;偏差项的有效度量&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;给定一个特征 $z$ 及其局部区域 $\Omega$, 该局部区域服从高斯分布 $\mathcal{N}(z, \Sigma)$. 整个分布上的熵损失期望具有上界:&lt;/p&gt;
+$$
+\begin{aligned}
+&amp;\mathbb{E}[\mathcal{L}_{\mathrm{ent}}] = -\mathbb{E}_{\hat{z} \sim \mathcal{N}(\mu, \Sigma)} \sum_{i=1}^C p_{\theta}(\hat{z})_i \log p_{\theta}(\hat{z})_i \\
+&amp;\le \sum_{j=1}^C \frac{e^{u_j}}{\sum_{k=1}^C e^{u_k}} \log \sum_{i=1}^C e^{u_i - u_j} \triangleq \mathcal{L}_{\mathrm{RE}}(z)
+\end{aligned}
+$$&lt;p&gt;其中 $u_j = a_j \cdot z + b_j + \frac{1}{2} a_j \Sigma a_j^T$.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;math-block math-thm&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定理&lt;span class=&#34;math-subtitle&#34;&gt;方差项的有效度量&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;给定一个特征 $z$ 及其局部区域 $\Omega$, 该局部区域服从高斯分布 $\mathcal{N}(z, \Sigma)$. 此分布输出概率与中心概率之间的 KL散度的期望值具有上界：&lt;/p&gt;
+$$
+\begin{aligned}
+&amp;\mathbb{E}[D_{KL}(p_{\theta}(\hat{z}) \| p_{\theta}(z))] \\
+&amp;\le \sum_{j=1}^C \frac{e^{v_j}}{\sum_{k=1}^C e^{v_k}} \log \sum_{i=1}^C \frac{e^{v_j}}{\sum_{k=1}^C e^{v_k}} e^{\frac{1}{2} (a_i-a_j) \Sigma (a_i-a_j)^T} \triangleq \mathcal{L}_{\mathrm{RI}}(z)
+\end{aligned}
+$$&lt;p&gt;其中 $v_j = a_j \cdot z + b_j$.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;因此我们只需要最小化不等式右侧的代理 $\mathcal{L}_{\mathrm{RE}}(z)$ 和 $\mathcal{L}_{\mathrm{RI}}(z)$ 就可以了, 这个计算难度非常低, 不需要额外的采样和前向传播.&lt;/p&gt;
+&lt;h3 id=&#34;recap-训练&#34;&gt;ReCAP 训练
+&lt;/h3&gt;&lt;p&gt;我们也做样本过滤, 但是我们现在使用区域熵 $\mathcal{L}_{\mathrm{RE}}$ 来识别可靠的样本, 并在适应过程中优化, 具体来说就是:&lt;/p&gt;
+$$\min_{\theta}\frac{\mathbb{I}_{\{\mathcal{L}_{\mathrm{RE}}(x)&lt;\tau_{\mathrm{RE}}\}}(\mathcal{L}_{\mathrm{RE}}(x)+\lambda\mathcal{L}_{\mathrm{RI}}(x))}{\exp(\mathcal{L}_{\mathrm{RE}}(x)-\mathcal{L}_0)}$$&lt;p&gt;分母表示加权项, $\tau_{\mathrm{RE}}$ 表示区域熵的阈值, $\mathcal{L}_0$ 是超参数.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://arxiv.org/html/2505.20704v2/x3.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;ReCAP&#34;
+	
+	class=&#34;gallery-image&#34; 
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;实验与可视化&#34;&gt;实验与可视化
+&lt;/h2&gt;&lt;p&gt;实验表明, ReCAP 能较好地应对数据稀缺和标签不平衡的情况, 而且还可以和之前基于熵最小化的方法 (如 SAR 和 DeYO) 结合, 进一步提升性能, 且算法开销很低.&lt;/p&gt;
+&lt;p&gt;两个超参数 $\tau$ 和 $\lambda$ 分别控制区域范围和方差项的权重, 论文取 $\tau = 1.2 \in [0.5, 1.5], \lambda = 0.5$, 实际上模型对两个参数也具有相对较好的鲁棒性.&lt;/p&gt;
+&lt;p&gt;由于引入了区域置信度, 分类的区域一致性确实得到了改善, 下图中的不同颜色表示此区域内分类不同的类别, 可以看到随着迭代, 分类区域的颜色变得越来越一致, 这也说明了区域置信度的有效性.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://LeoDreamer2004.github.io/p/paper-reading/region-confidence-proxy-for-wild-test-time-adaption/clarify.png&#34;
+	width=&#34;1433&#34;
+	height=&#34;843&#34;
+	srcset=&#34;https://LeoDreamer2004.github.io/p/paper-reading/region-confidence-proxy-for-wild-test-time-adaption/clarify_hu_1f6b1f9dedfd3f7.png 480w, https://LeoDreamer2004.github.io/p/paper-reading/region-confidence-proxy-for-wild-test-time-adaption/clarify_hu_5684d1f9326b593f.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;区域一致性&#34;
+	
+	class=&#34;gallery-image&#34; 
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

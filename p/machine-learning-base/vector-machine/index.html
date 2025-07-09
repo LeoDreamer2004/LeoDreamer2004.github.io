@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="线性可分支持向量机 定义\n对于一个数据集 $D$, 如果能找到一个超平面 $H: w^Tx + b = 0$, 将数据分为两类. 即对任意 $(x_i, y_i) \\in D$, 若 $y_i = 1$, 则 $w^Tx_i + b \\geq 0$; 若 $y_i = -1$, 则 $w^Tx_i + b < 0$. 则称 $D$ 是 线性可分的 , 超平面 $H$ 是 $D$ 的一个 分离超平面.\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="线性可分支持向量机 定义\n对于一个数据集 $D$, 如果能找到一个超平面 $H: w^\\topx + b = 0$, 将数据分为两类. 即对任意 $(x_i, y_i) \\in D$, 若 $y_i = 1$, 则 $w^\\topx_i + b \\geq 0$; 若 $y_i = -1$, 则 $w^\\topx_i + b < 0$. 则称 $D$ 是 线性可分的 , 超平面 $H$ 是 $D$ 的一个 分离超平面.\n">
 <title>机器学习基础(2) —— 支持向量机</title>
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning-base/vector-machine/'>
 
-<link rel="stylesheet" href="/scss/style.min.f991297a51bfb3ec7265f5caabcf8b61b92014e8d7b4c22fa6d4f0c6cb9ce9ce.css"><meta property='og:title' content="机器学习基础(2) —— 支持向量机">
-<meta property='og:description' content="线性可分支持向量机 定义\n对于一个数据集 $D$, 如果能找到一个超平面 $H: w^Tx + b = 0$, 将数据分为两类. 即对任意 $(x_i, y_i) \\in D$, 若 $y_i = 1$, 则 $w^Tx_i + b \\geq 0$; 若 $y_i = -1$, 则 $w^Tx_i + b < 0$. 则称 $D$ 是 线性可分的 , 超平面 $H$ 是 $D$ 的一个 分离超平面.\n">
+<link rel="stylesheet" href="/scss/style.min.050e713ce6ba4df4f898621146cc9dece02afd8477586323296cb867d14a1d9a.css"><meta property='og:title' content="机器学习基础(2) —— 支持向量机">
+<meta property='og:description' content="线性可分支持向量机 定义\n对于一个数据集 $D$, 如果能找到一个超平面 $H: w^\\topx + b = 0$, 将数据分为两类. 即对任意 $(x_i, y_i) \\in D$, 若 $y_i = 1$, 则 $w^\\topx_i + b \\geq 0$; 若 $y_i = -1$, 则 $w^\\topx_i + b < 0$. 则称 $D$ 是 线性可分的 , 超平面 $H$ 是 $D$ 的一个 分离超平面.\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning-base/vector-machine/'>
 <meta property='og:site_name' content='LeoDreamer'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-02-28T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-02-28T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="机器学习基础(2) —— 支持向量机">
-<meta name="twitter:description" content="线性可分支持向量机 定义\n对于一个数据集 $D$, 如果能找到一个超平面 $H: w^Tx + b = 0$, 将数据分为两类. 即对任意 $(x_i, y_i) \\in D$, 若 $y_i = 1$, 则 $w^Tx_i + b \\geq 0$; 若 $y_i = -1$, 则 $w^Tx_i + b < 0$. 则称 $D$ 是 线性可分的 , 超平面 $H$ 是 $D$ 的一个 分离超平面.\n">
+<meta name="twitter:description" content="线性可分支持向量机 定义\n对于一个数据集 $D$, 如果能找到一个超平面 $H: w^\\topx + b = 0$, 将数据分为两类. 即对任意 $(x_i, y_i) \\in D$, 若 $y_i = 1$, 则 $w^\\topx_i + b \\geq 0$; 若 $y_i = -1$, 则 $w^\\topx_i + b < 0$. 则称 $D$ 是 线性可分的 , 超平面 $H$ 是 $D$ 的一个 分离超平面.\n">
     </head>
     <body class="
     article-page
@@ -392,20 +392,20 @@
     
     
     <h2 id="线性可分支持向量机">线性可分支持向量机
-</h2><div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>对于一个数据集 $D$, 如果能找到一个超平面 $H: w^Tx + b = 0$, 将数据分为两类. 即对任意 $(x_i, y_i) \in D$, 若 $y_i = 1$, 则 $w^Tx_i + b \geq 0$; 若 $y_i = -1$, 则 $w^Tx_i + b < 0$. 则称 $D$ 是 <strong>线性可分的</strong> , 超平面 $H$ 是 $D$ 的一个 <strong>分离超平面</strong>.</p>
+</h2><div class="math-block math-def">
+    <p class="math-title">定义</p>
+<p>对于一个数据集 $D$, 如果能找到一个超平面 $H: w^\topx + b = 0$, 将数据分为两类. 即对任意 $(x_i, y_i) \in D$, 若 $y_i = 1$, 则 $w^\topx_i + b \geq 0$; 若 $y_i = -1$, 则 $w^\topx_i + b < 0$. 则称 $D$ 是 <strong>线性可分的</strong> , 超平面 $H$ 是 $D$ 的一个 <strong>分离超平面</strong>.</p>
 </div>
 <p>最优超平面不仅要能够将数据分开, 还要使得两类数据点到超平面的距离尽可能远.</p>
-<p>考虑到 $w,b$ 任意缩放都不影响超平面的位置, 我们可以规定 $w^Tx + b = 1$ 为最近的正类数据点满足的方程. 此时距离为 $1/{\|w\|}$, 要最大化这个量, 即化归成凸二次规划问题:</p>
+<p>考虑到 $w,b$ 任意缩放都不影响超平面的位置, 我们可以规定 $w^\topx + b = 1$ 为最近的正类数据点满足的方程. 此时距离为 $1/{\|w\|}$, 要最大化这个量, 即化归成凸二次规划问题:</p>
 $$
 \begin{aligned}
 & \min_{w, b} \frac{1}{2} \|w\|^2 \\
-& \text{s.t.} \quad y_i(w \cdot x_i + b) \geq 1, \quad i = 1, 2, \cdots, n
+& \mathrm{s.t.} \quad y_i(w \cdot x_i + b) \geq 1, \quad i = 1, 2, \cdots, n
 \end{aligned}
 $$<p>只要 $D$ 是线性可分的, 上述问题一定有解且唯一. 对应的分类决策函数</p>
 $$
-f(x) = \text{sign}(w^Tx + b)
+f(x) = \mathrm{sign}(w^\topx + b)
 $$<p>称为 <strong>线性可分支持向量机</strong>.</p>
 <p>引入 Lagrange 乘子 $\alpha_i \geq 0$:</p>
 $$
@@ -421,7 +421,7 @@ $$<p>代入 $L(w, b, \alpha)$, 得到对偶问题:</p>
 $$
 \begin{aligned}
 & \max_{\alpha} \sum_{i=1}^n \alpha_i - \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j x_i \cdot x_j \\
-& \text{s.t.} \quad \alpha_i \geq 0, \quad \sum_{i=1}^n \alpha_i y_i = 0
+& \mathrm{s.t.} \quad \alpha_i \geq 0, \quad \sum_{i=1}^n \alpha_i y_i = 0
 \end{aligned}
 $$</div>
 <p>由 KKT 条件, 最优解一定满足</p>
@@ -443,8 +443,8 @@ H_1: w \cdot x + b = 1, \quad H_2: w \cdot x + b = -1
 $$<p>上, 称这些点 $x_i$ 为 <strong>支持向量</strong>.</p>
 <p>支持向量机的留一误差</p>
 $$
-\hat{R}_{\text{loo}} = \frac{1}{n} \sum_{i=1}^n I(f_{D-\{x_i\}}(x_i) \neq y_i)
-$$<p>则 $\hat{R}_{\text{loo}} \le N_{SV}/n$, 其中 $N_{SV}$ 为支持向量的个数.</p>
+\hat{R}_{\mathrm{loo}} = \frac{1}{n} \sum_{i=1}^n I(f_{D-\{x_i\}}(x_i) \neq y_i)
+$$<p>则 $\hat{R}_{\mathrm{loo}} \le N_{SV}/n$, 其中 $N_{SV}$ 为支持向量的个数.</p>
 <h2 id="线性支持向量机">线性支持向量机
 </h2><p>要求 $D$ 线性可分有点苛刻. 容忍一些误差, 引入松弛变量 $\xi_i \geq 0$, 使得约束条件变为</p>
 $$
@@ -453,13 +453,13 @@ $$<p>对于被错误分类的点, $\xi_i$ 可以大于 $1$. 把 $\xi_i \ne 0$ �
 $$
 \begin{aligned}
 & \min_{w, b, \xi} \frac{1}{2} \|w\|^2 + C \sum_{i=1}^n I(\xi_i \ne 0) \\
-& \text{s.t.} \quad y_i(w \cdot x_i + b) \geq 1 - \xi_i, \quad \xi_i \geq 0
+& \mathrm{s.t.} \quad y_i(w \cdot x_i + b) \geq 1 - \xi_i, \quad \xi_i \geq 0
 \end{aligned}
 $$<p>直接用 $\xi_i$ 代替 $I(\xi_i \ne 0)$, 问题变为</p>
 $$
 \begin{aligned}
 & \min_{w, b, \xi} \frac{1}{2} \|w\|^2 + C \sum_{i=1}^n \xi_i \\
-& \text{s.t.} \quad y_i(w \cdot x_i + b) \geq 1 - \xi_i, \quad \xi_i \geq 0
+& \mathrm{s.t.} \quad y_i(w \cdot x_i + b) \geq 1 - \xi_i, \quad \xi_i \geq 0
 \end{aligned}
 $$<p>既然要 $\xi_i$ 尽可能小, 不妨取 $\xi_i = 1 - y_i(w \cdot x_i + b)$,  引入合页损失函数 $h(z) = \max(0, 1-z)$, 即</p>
 $$\xi_i = h(y_i(w \cdot x_i + b))$$<p>则提出一个 $C$ 后, 优化目标变为</p>
@@ -481,7 +481,7 @@ $$<p>代入 $L(w, b, \xi, \alpha, \beta)$, 得到对偶问题</p>
 $$
 \begin{aligned}
 & \max_{\alpha} \sum_{i=1}^n \alpha_i - \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j x_i \cdot x_j \\
-& \text{s.t.} \quad 0 \leq \alpha_i \leq C, \quad \sum_{i=1}^n \alpha_i y_i = 0
+& \mathrm{s.t.} \quad 0 \leq \alpha_i \leq C, \quad \sum_{i=1}^n \alpha_i y_i = 0
 \end{aligned}
 $$</div>
 <p>与线性可分支持向量机类似, 只是多了一个 $\alpha_i \leq C$ 的约束. 现在考虑 KKT 条件, 有</p>
@@ -503,7 +503,7 @@ $$
 \sum_{i=1}^n \alpha_i y_i x_i \cdot x + b = 0
 $$<p>和决策函数</p>
 $$
-f(x) = \text{sign}\left(\sum_{i=1}^n \alpha_i y_i x_i \cdot x + b\right)
+f(x) = \mathrm{sign}\left(\sum_{i=1}^n \alpha_i y_i x_i \cdot x + b\right)
 $$<p>超平面法向量可以被唯一确定, 但是偏置不唯一.</p>
 <h2 id="smo-算法">SMO 算法
 </h2><p>SMO 算法是一种启发式算法, 用于求解支持向量机的对偶问题. SMO 算法的基本思想是: 每次选择两个变量, 固定其他变量, 优化这两个变量. 这样不断迭代, 直到收敛.</p>
@@ -520,7 +520,7 @@ $$<p>记$K_{ij} = x_i \cdot x_j$, $v_i = \sum_{j=3}^{N} \alpha_j y_j K_{ij}$, �
 $$
 \begin{aligned}
 & \max_{\alpha_1, \alpha_2} \alpha_1 + \alpha_2 - \frac{1}{2} K_{11}\alpha_1^2 - \frac{1}{2} K_{22}\alpha_2^2 - sK_{12}\alpha_1\alpha_2 - y_1v_1\alpha_1 - y_2v_2\alpha_2 \\
-& \text{s.t.} \quad 0 \leq \alpha_i \leq C, \quad \alpha_1 + s\alpha_2 = \gamma
+& \mathrm{s.t.} \quad 0 \leq \alpha_i \leq C, \quad \alpha_1 + s\alpha_2 = \gamma
 \end{aligned}
 $$<p>再由 $\alpha_1 = \gamma - s\alpha_2$, 代入目标函数, 并对 $\alpha_2$ 求导为 $0$, 得到</p>
 $$
@@ -528,9 +528,9 @@ $$
 $$<p>代入 $v$ 的定义, 随后化简得</p>
 $$
 \alpha_2 = \alpha_2^* + y_2 \frac{(y_2 - f(x_2))- (y_1-f(x_1))}{K_{11} + K_{22} - 2K_{12}}
-$$<p>别忘了约束 $0 \le \alpha_1, \alpha_2 \le C$, 以及 $\alpha_1 + s\alpha_2 = \gamma$, 对 $\alpha_2$ 进行裁剪为 $\alpha_2^{\text{clip}}$. 相应地,</p>
+$$<p>别忘了约束 $0 \le \alpha_1, \alpha_2 \le C$, 以及 $\alpha_1 + s\alpha_2 = \gamma$, 对 $\alpha_2$ 进行裁剪为 $\alpha_2^{\mathrm{clip}}$. 相应地,</p>
 $$
-\alpha_1 = \alpha_1^* + s(\alpha_2^* - \alpha_2^{\text{clip}})
+\alpha_1 = \alpha_1^* + s(\alpha_2^* - \alpha_2^{\mathrm{clip}})
 $$<p>最后, 更新 $b$. 假设在 $\alpha_1, \alpha_2$ 中, $0 \lt \alpha_i \lt C$, 则</p>
 $$
 b = y_i - \sum_{j=1}^n \alpha_j y_j K_{ij}
@@ -545,20 +545,20 @@ $$<p>关于选取 $\alpha_1, \alpha_2$, 一般有两个原则:</p>
 $$
 \begin{aligned}
 & \min_{w, b, \xi} \frac{1}{2} \|w\|^2 + C \sum_{i=1}^n \xi_i \\
-& \text{s.t.} \quad y_i(w \cdot \phi(x_i) + b) \geq 1 - \xi_i, \quad \xi_i \geq 0
+& \mathrm{s.t.} \quad y_i(w \cdot \phi(x_i) + b) \geq 1 - \xi_i, \quad \xi_i \geq 0
 \end{aligned}
 $$<p>对应的对偶问题为</p>
 $$
 \begin{aligned}
 & \max_{\alpha} \sum_{i=1}^n \alpha_i - \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j \phi(x_i) \cdot \phi(x_j) \\
-& \text{s.t.} \quad 0 \leq \alpha_i \leq C, \quad \sum_{i=1}^n \alpha_i y_i = 0
+& \mathrm{s.t.} \quad 0 \leq \alpha_i \leq C, \quad \sum_{i=1}^n \alpha_i y_i = 0
 \end{aligned}
 $$<p>相应的分类决策函数为</p>
 $$
-f(x) = \text{sign}\left(\sum_{i=1}^n \alpha_i y_i \phi(x_i) \cdot \phi(x) + b\right)
+f(x) = \mathrm{sign}\left(\sum_{i=1}^n \alpha_i y_i \phi(x_i) \cdot \phi(x) + b\right)
 $$<p>然而, 直接计算 $\phi(x_i) \cdot \phi(x_j)$ 的复杂度很高. 为此, 引入核函数</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>设 $\mathcal{X}$ 是输入空间, $\mathcal{Z}$ 是特征空间, 如果存在一个从 $\mathcal{X}$ 到 $\mathcal{Z}$ 的映射 $\phi$, 使得对任意 $x, x' \in \mathcal{X}$, 都有</p>
 $$
 K(x, x') = \phi(x) \cdot \phi(x')
@@ -569,14 +569,14 @@ $$<p>则称 $K$ 为 <strong>核函数</strong>.</p>
 $$
 \begin{aligned}
 & \max_{\alpha} \sum_{i=1}^n \alpha_i - \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j K(x_i, x_j) \\
-& \text{s.t.} \quad 0 \leq \alpha_i \leq C, \quad \sum_{i=1}^n \alpha_i y_i = 0
+& \mathrm{s.t.} \quad 0 \leq \alpha_i \leq C, \quad \sum_{i=1}^n \alpha_i y_i = 0
 \end{aligned}
 $$</div>
 <p>此时, 分类决策函数为</p>
 $$
-f(x) = \text{sign}\left(\sum_{i=1}^n \alpha_i y_i K(x_i, x) + b\right)
-$$<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+f(x) = \mathrm{sign}\left(\sum_{i=1}^n \alpha_i y_i K(x_i, x) + b\right)
+$$<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>$\mathcal{X}$ 上的函数 $K: \mathcal{X} \times \mathcal{X} \mapsto \mathbb{R}$ 称为 <strong>正定对称核函数</strong>, 如果对任意 $x_1, x_2, \cdots, x_n \in \mathcal{X}$, 核矩阵 (Gram 矩阵) $[K_{ij}]_{m \times m}$ 是半正定的.</p>
 </div>
 <p>常见的核函数有:</p>

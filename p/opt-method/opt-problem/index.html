@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="凸优化 凸问题的可行集都是凸集.\n定理\n凸优化问题的任意局部极小点都是全局最优点.\n证明\n假设 $x$ 是局部极小, $y$ 全局最优且 $f(y) < f(x)$.\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="凸优化 凸问题的可行集都是凸集.\n定理\n凸优化问题的任意局部极小点都是全局最优点.\n证明\n假设 $x$ 是局部极小, $y$ 全局最优且 $f(y) < f(x)$.\n考虑 $z = \\theta x + (1-\\theta) y$, 则由于 $z$ 是可行点的凸组合, 也是可行点. 由于 $f$ 是凸函数, 有\n">
 <title>最优化方法(4) —— 优化问题</title>
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/opt-method/opt-problem/'>
 
-<link rel="stylesheet" href="/scss/style.min.f991297a51bfb3ec7265f5caabcf8b61b92014e8d7b4c22fa6d4f0c6cb9ce9ce.css"><meta property='og:title' content="最优化方法(4) —— 优化问题">
-<meta property='og:description' content="凸优化 凸问题的可行集都是凸集.\n定理\n凸优化问题的任意局部极小点都是全局最优点.\n证明\n假设 $x$ 是局部极小, $y$ 全局最优且 $f(y) < f(x)$.\n">
+<link rel="stylesheet" href="/scss/style.min.050e713ce6ba4df4f898621146cc9dece02afd8477586323296cb867d14a1d9a.css"><meta property='og:title' content="最优化方法(4) —— 优化问题">
+<meta property='og:description' content="凸优化 凸问题的可行集都是凸集.\n定理\n凸优化问题的任意局部极小点都是全局最优点.\n证明\n假设 $x$ 是局部极小, $y$ 全局最优且 $f(y) < f(x)$.\n考虑 $z = \\theta x + (1-\\theta) y$, 则由于 $z$ 是可行点的凸组合, 也是可行点. 由于 $f$ 是凸函数, 有\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/opt-method/opt-problem/'>
 <meta property='og:site_name' content='LeoDreamer'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-02-15T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-02-15T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="最优化方法(4) —— 优化问题">
-<meta name="twitter:description" content="凸优化 凸问题的可行集都是凸集.\n定理\n凸优化问题的任意局部极小点都是全局最优点.\n证明\n假设 $x$ 是局部极小, $y$ 全局最优且 $f(y) < f(x)$.\n">
+<meta name="twitter:description" content="凸优化 凸问题的可行集都是凸集.\n定理\n凸优化问题的任意局部极小点都是全局最优点.\n证明\n假设 $x$ 是局部极小, $y$ 全局最优且 $f(y) < f(x)$.\n考虑 $z = \\theta x + (1-\\theta) y$, 则由于 $z$ 是可行点的凸组合, 也是可行点. 由于 $f$ 是凸函数, 有\n">
     </head>
     <body class="
     article-page
@@ -404,10 +404,10 @@
     
     <h2 id="凸优化">凸优化
 </h2><p>凸问题的可行集都是凸集.</p>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
+<div class="math-block math-thm">
+    <p class="math-title">定理</p>
 <p>凸优化问题的任意局部极小点都是全局最优点.</p>
-<p class="math-block-title math-prf">证明</p>
+<p class="math-prf">证明</p>
 <p>假设 $x$ 是局部极小, $y$ 全局最优且 $f(y) < f(x)$.</p>
 <p>考虑 $z = \theta x + (1-\theta) y$, 则由于 $z$ 是可行点的凸组合, 也是可行点. 由于 $f$ 是凸函数, 有</p>
 $$
@@ -418,32 +418,32 @@ $$<p>取 $\theta \to 1$, 则 $f(z) \to f(x)$, 与局部最小性矛盾.</p>
 </h2><p>所谓 <strong>线性规划(LP)</strong> 问题是指目标函数和约束条件都是线性的优化问题. 一般形式如下:</p>
 $$
 \begin{aligned}
-\min \quad & c^T x \\
-\text{s.t.} \quad & Ax = b \\
+\min \quad & c^\top x \\
+\mathrm{s.t.} \quad & Ax = b \\
 & Gx \le e
 \end{aligned}
 $$<p>$\ell_1$ 和 $\ell_\infty$ 范数实际上也是线性的.</p>
 <h3 id="示例-最大球问题">示例: 最大球问题
 </h3><p>凸多边形</p>
-$$P = \{ x \mid a_i^Tx \le b_i \}$$<p>的 Chebyshev 中心是最大半径内切球的中心. 代入得</p>
+$$P = \{ x \mid a_i^\top x \le b_i \}$$<p>的 Chebyshev 中心是最大半径内切球的中心. 代入得</p>
 $$
-\sup \{a_i^T (x_c + u) \mid \Vert u \Vert_2 \le r \} = a_i^Tx_c + r \Vert a_i \Vert_2 \le b_i
+\sup \{a_i^\top (x_c + u) \mid \Vert u \Vert_2 \le r \} = a_i^\top x_c + r \Vert a_i \Vert_2 \le b_i
 $$<p>这也变成了一个线性规划问题.</p>
 <h2 id="二次规划">二次规划
 </h2><p>二次规划问题是指目标函数是二次的的优化问题.</p>
 <p>例如, 对于线性约束条件的问题, 一般形式如下:</p>
 $$
 \begin{aligned}
-\min \quad & \frac{1}{2} x^T P x + q^T x + r \\
-\text{s.t.} \quad & Ax = b \\
+\min \quad & \frac{1}{2} x^\top P x + q^\top x + r \\
+\mathrm{s.t.} \quad & Ax = b \\
 & Gx \le e
 \end{aligned}
 $$<p>也有 <strong>带二次约束的二次规划 (QCQP)</strong>.</p>
 <p>我们归结为 <strong>二次锥规划 (SOCP)</strong>:</p>
 $$
 \begin{aligned}
-\min \quad & f^T x \\
-\text{s.t.} \quad & \Vert A_i x + b_i \Vert_2 \le c_i^T x + d_i, \quad i = 1, \ldots, m \\
+\min \quad & f^\top x \\
+\mathrm{s.t.} \quad & \Vert A_i x + b_i \Vert_2 \le c_i^\top x + d_i, \quad i = 1, \ldots, m \\
 & Fx = g
 \end{aligned}
 $$<h3 id="示例-最小范数问题">示例: 最小范数问题
@@ -451,16 +451,16 @@ $$<h3 id="示例-最小范数问题">示例: 最小范数问题
 $$
 \begin{aligned}
 \min \quad & \sum_i v_{i0} \\
-\text{s.t.} \quad &\bar{v}_i = A_i x + b_i \\
+\mathrm{s.t.} \quad &\bar{v}_i = A_i x + b_i \\
 &(v_{i0}, \bar{v}_i) \succeq_\mathcal{Q} 0
 \end{aligned}
 $$<p>其中 $\mathcal{Q}$ 是二次锥.</p>
 <h3 id="示例-最小化最大函数和问题">示例: 最小化最大函数和问题
-</h3><p>设 $\theta(x)=(\theta_1(x), \theta_2(x), \cdots, \theta_m(x))^T$. $\theta_{[i]}$ 是 $\theta_i$ 的非递增方式的排序. 则 $\min_{x\in Q} \sum_{i=1}^m \theta_{[i]}(x)$ 等价于</p>
+</h3><p>设 $\theta(x)=(\theta_1(x), \theta_2(x), \cdots, \theta_m(x))^\top$. $\theta_{[i]}$ 是 $\theta_i$ 的非递增方式的排序. 则 $\min_{x\in Q} \sum_{i=1}^m \theta_{[i]}(x)$ 等价于</p>
 $$
 \begin{aligned}
 \min \quad & \sum_{i=1}^m u_i + kt \\
-\text{s.t.} \quad & x \in Q \\
+\mathrm{s.t.} \quad & x \in Q \\
 & \theta_i(x)\le u_i + t \\
 & u_i \ge 0
 \end{aligned}
@@ -468,46 +468,46 @@ $$<h2 id="半定优化">半定优化
 </h2><p>半定优化 (SDP) 一般形式如下:</p>
 $$
 \begin{aligned}
-\min \quad & c^Tx \\
-\text{s.t.} \quad & x_1A_1 + \cdots + x_nA_n + B \succeq 0 \\
+\min \quad & c^\top x \\
+\mathrm{s.t.} \quad & x_1A_1 + \cdots + x_nA_n + B \succeq 0 \\
 & Gx=h
 \end{aligned}
 $$<p>其实是线性规划在矩阵空间的推广. 仍然考虑标准形式:</p>
 $$
 \begin{aligned}
 \min \quad & \left< C, X \right> \\
-\text{s.t.} \quad & \left< A_i, X \right> = b_i, \quad i = 1, \ldots, m \\
+\mathrm{s.t.} \quad & \left< A_i, X \right> = b_i, \quad i = 1, \ldots, m \\
 & X \succeq 0
 \end{aligned}
 $$<p>和对偶形式:</p>
 $$
 \begin{aligned}
 \max \quad & \sum_{i=1}^m b_i y_i \\
-\text{s.t.} \quad & C - \sum_{i=1}^m y_i A_i \succeq 0
+\mathrm{s.t.} \quad & C - \sum_{i=1}^m y_i A_i \succeq 0
 \end{aligned}
 $$<h3 id="示例-二次约束二次规划问题">示例: 二次约束二次规划问题
 </h3>$$
 \begin{aligned}
-\min \quad & x^T A_0 x + 2b_0^T x + c_0 \\
-\text{s.t.} \quad & x^T A_i x + 2b_i^T x + c_i \le 0, \quad i = 1, \ldots, m
+\min \quad & x^\top A_0 x + 2b_0^\top x + c_0 \\
+\mathrm{s.t.} \quad & x^\top A_i x + 2b_i^\top x + c_i \le 0, \quad i = 1, \ldots, m
 \end{aligned}
-$$<p>其中 $A_i$ 是 $n \times n$ 的对称矩阵, 这个问题在 $A_i$ 不定时实际上是 NP-hard 的. 考虑它的半定松弛, 记 $X=x^Tx$ 注意到有</p>
+$$<p>其中 $A_i$ 是 $n \times n$ 的对称矩阵, 这个问题在 $A_i$ 不定时实际上是 NP-hard 的. 考虑它的半定松弛, 记 $X=x^\topx$ 注意到有</p>
 $$
-x^T A_i x + 2b_i^T x + c_i = \left< A_i, X \right> + 2\left< b_i, x \right> + c_i = \left<
+x^\top A_i x + 2b_i^\top x + c_i = \left< A_i, X \right> + 2\left< b_i, x \right> + c_i = \left<
 \begin{bmatrix}
 A_i & b_i \\
-b_i^T & c_i
+b_i^\top & c_i
 \end{bmatrix},
 \begin{bmatrix}
 X & x \\
-x^T & 1
+x^\top & 1
 \end{bmatrix}
 \right>
-$$<p>我们记作 $\left< \bar{A}_i, \bar{X} \right>$. 注意到, 现在唯一的非线性部分是约束 $X=xx^T$, 我们将其松弛成半正定约束 $X \succeq xx^T$. 可以证明, $\bar{X} \succeq 0$ 等价于 $X \succeq xx^T$. 这样我们就得到了一个半定优化问题:</p>
+$$<p>我们记作 $\left< \bar{A}_i, \bar{X} \right>$. 注意到, 现在唯一的非线性部分是约束 $X=xx^\top$, 我们将其松弛成半正定约束 $X \succeq xx^\top$. 可以证明, $\bar{X} \succeq 0$ 等价于 $X \succeq xx^\top$. 这样我们就得到了一个半定优化问题:</p>
 $$
 \begin{aligned}
 \min \quad & \left< A_0, X \right> \\
-\text{s.t.} \quad & \left< \bar{A}_i, \bar{X} \right> \le 0, \quad i = 1, \ldots, m \\
+\mathrm{s.t.} \quad & \left< \bar{A}_i, \bar{X} \right> \le 0, \quad i = 1, \ldots, m \\
 & \bar{X} \succeq 0 \\
 & \bar{X}_{n+1,n+1} = 1
 \end{aligned}
@@ -517,21 +517,21 @@ $$<h3 id="示例-最大割问题">示例: 最大割问题
 $$
 \begin{aligned}
 \max \quad & \sum_{(i, j) \in E} \frac{1}{2} (1-x_i x_j) w_{ij} \\
-\text{s.t.} \quad & x_i = \pm 1, \quad i = 1, \ldots, n
+\mathrm{s.t.} \quad & x_i = \pm 1, \quad i = 1, \ldots, n
 \end{aligned}
-$$<p>然而这是一个离散优化问题, 考虑对它做松弛. 令 $W=(w_{ij}) \in \mathbb{S}^n$ 为权重矩阵, $C=-\frac{1}{4}(\text{Diag}(W\mathbf{1})-W)$ 是 Laplacian 矩阵的 $-1/4$ 倍. 则</p>
+$$<p>然而这是一个离散优化问题, 考虑对它做松弛. 令 $W=(w_{ij}) \in \mathbb{S}^n$ 为权重矩阵, $C=-\frac{1}{4}(\mathrm{Diag}(W\mathbf{1})-W)$ 是 Laplacian 矩阵的 $-1/4$ 倍. 则</p>
 $$
 \begin{aligned}
-\min \quad & x^T C x \\
-\text{s.t.} \quad & x_i^2 = 1, \quad i = 1, \ldots, n
+\min \quad & x^\top C x \\
+\mathrm{s.t.} \quad & x_i^2 = 1, \quad i = 1, \ldots, n
 \end{aligned}
-$$<p>仍令 $X=x^Tx$, 则容易看出与下问题等价:</p>
+$$<p>仍令 $X=x^\topx$, 则容易看出与下问题等价:</p>
 $$
 \begin{aligned}
 \min \quad & \left< C, X \right> \\
-\text{s.t.} \quad & X_{ii} = 1, \quad i = 1, \ldots, n \\
+\mathrm{s.t.} \quad & X_{ii} = 1, \quad i = 1, \ldots, n \\
 & X \succeq 0 \\
-& \text{rank}(X) = 1
+& \mathrm{rank}(X) = 1
 \end{aligned}
 $$<h3 id="示例-极小化最大特征值问题">示例: 极小化最大特征值问题
 </h3>$$
@@ -541,23 +541,23 @@ $$\lambda_{\max}(A) \le t \Leftrightarrow A \preceq tI$$<p>于是我们有 SDP �
 $$
 \begin{aligned}
 \min \quad & z \\
-\text{s.t.} \quad & A_0 + \sum_{i=1}^m x_i A_i \preceq zI
+\mathrm{s.t.} \quad & A_0 + \sum_{i=1}^m x_i A_i \preceq zI
 \end{aligned}
 $$<h3 id="示例-极小化二范数问题">示例: 极小化二范数问题
 </h3>$$
 \min \quad \Vert A_0 + \sum_{i=1}^m x_i A_i \Vert_2
 $$<p>记 $A = A_0 + \sum_{i=1}^m x_i A_i$. 注意到:</p>
 $$
-\Vert A \Vert_2 \le t \Leftrightarrow A^TA \preceq t^2I \Leftrightarrow
+\Vert A \Vert_2 \le t \Leftrightarrow A^\top A \preceq t^2I \Leftrightarrow
 \begin{bmatrix}
 tI & A \\
-A^T & tI
+A^\top & tI
 \end{bmatrix} \succeq 0
 $$<p>于是我们有 SDP 形式:</p>
 $$
 \begin{aligned}
 \min \quad & t \\
-\text{s.t.} \quad & \begin{bmatrix}
+\mathrm{s.t.} \quad & \begin{bmatrix}
 tI & A \\
 A & tI
 \end{bmatrix} \succeq 0
@@ -569,14 +569,14 @@ $$<p>其中 $\lambda_{[i]}(A)$ 表示 $A$ 的第 $i$ 大特征值. 前面的极�
 $$
 \begin{aligned}
 \min \quad & \sum_{i=1}^n u_i + kt \\
-\text{s.t.} \quad & u_i+t \ge \lambda_i(A_0 + \sum_{j=1}^m x_j A_j), \quad i = 1, \ldots, n \\
+\mathrm{s.t.} \quad & u_i+t \ge \lambda_i(A_0 + \sum_{j=1}^m x_j A_j), \quad i = 1, \ldots, n \\
 & u_i \ge 0
 \end{aligned}
 $$<p>设 $u_i = \lambda_i(X)$, 则写成 SDP 形式:</p>
 $$
 \begin{aligned}
-\min \quad & kt + \text{Tr}(X) \\
-\text{s.t.} \quad & tI + X \succeq A_0 + \sum_{j=1}^m z_j A_j \\
+\min \quad & kt + \mathrm{Tr}(X) \\
+\mathrm{s.t.} \quad & tI + X \succeq A_0 + \sum_{j=1}^m z_j A_j \\
 & X \succeq 0
 \end{aligned}
 $$

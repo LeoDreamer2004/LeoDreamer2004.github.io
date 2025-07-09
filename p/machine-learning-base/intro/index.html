@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="基础数学工具 定义\n随机变量 $X$ 的 期望 $E[X]$ 定义为\n$$ E[X] = \\sum_{x} x \\cdot P(X=x) $$随机变量 $X$ 的 方差 $\\text{Var}(X)$ 定义为\n$$ \\text{Var}(X) = E[(X - E[X])^2] $$标准差 $\\sigma(X)$ 定义为\n$$ \\sigma(X) = \\sqrt{\\text{Var}(X)} $$ 定理Markov 不等式\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="基础数学工具 定义\n随机变量 $X$ 的 期望 $E[X]$ 定义为\n$$ E[X] = \\sum_{x} x \\cdot P(X=x) $$随机变量 $X$ 的 方差 $\\mathrm{Var}(X)$ 定义为\n$$ \\mathrm{Var}(X) = E[(X - E[X])^2] $$标准差 $\\sigma(X)$ 定义为\n$$ \\sigma(X) = \\sqrt{\\mathrm{Var}(X)} $$ 定理Markov 不等式\n设 $X$ 是一个非负随机变量, 期望存在, 那么对于任意 $t > 0$ 有\n">
 <title>机器学习基础(1) —— 概述</title>
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning-base/intro/'>
 
-<link rel="stylesheet" href="/scss/style.min.f991297a51bfb3ec7265f5caabcf8b61b92014e8d7b4c22fa6d4f0c6cb9ce9ce.css"><meta property='og:title' content="机器学习基础(1) —— 概述">
-<meta property='og:description' content="基础数学工具 定义\n随机变量 $X$ 的 期望 $E[X]$ 定义为\n$$ E[X] = \\sum_{x} x \\cdot P(X=x) $$随机变量 $X$ 的 方差 $\\text{Var}(X)$ 定义为\n$$ \\text{Var}(X) = E[(X - E[X])^2] $$标准差 $\\sigma(X)$ 定义为\n$$ \\sigma(X) = \\sqrt{\\text{Var}(X)} $$ 定理Markov 不等式\n">
+<link rel="stylesheet" href="/scss/style.min.050e713ce6ba4df4f898621146cc9dece02afd8477586323296cb867d14a1d9a.css"><meta property='og:title' content="机器学习基础(1) —— 概述">
+<meta property='og:description' content="基础数学工具 定义\n随机变量 $X$ 的 期望 $E[X]$ 定义为\n$$ E[X] = \\sum_{x} x \\cdot P(X=x) $$随机变量 $X$ 的 方差 $\\mathrm{Var}(X)$ 定义为\n$$ \\mathrm{Var}(X) = E[(X - E[X])^2] $$标准差 $\\sigma(X)$ 定义为\n$$ \\sigma(X) = \\sqrt{\\mathrm{Var}(X)} $$ 定理Markov 不等式\n设 $X$ 是一个非负随机变量, 期望存在, 那么对于任意 $t > 0$ 有\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning-base/intro/'>
 <meta property='og:site_name' content='LeoDreamer'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-02-18T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-02-18T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="机器学习基础(1) —— 概述">
-<meta name="twitter:description" content="基础数学工具 定义\n随机变量 $X$ 的 期望 $E[X]$ 定义为\n$$ E[X] = \\sum_{x} x \\cdot P(X=x) $$随机变量 $X$ 的 方差 $\\text{Var}(X)$ 定义为\n$$ \\text{Var}(X) = E[(X - E[X])^2] $$标准差 $\\sigma(X)$ 定义为\n$$ \\sigma(X) = \\sqrt{\\text{Var}(X)} $$ 定理Markov 不等式\n">
+<meta name="twitter:description" content="基础数学工具 定义\n随机变量 $X$ 的 期望 $E[X]$ 定义为\n$$ E[X] = \\sum_{x} x \\cdot P(X=x) $$随机变量 $X$ 的 方差 $\\mathrm{Var}(X)$ 定义为\n$$ \\mathrm{Var}(X) = E[(X - E[X])^2] $$标准差 $\\sigma(X)$ 定义为\n$$ \\sigma(X) = \\sqrt{\\mathrm{Var}(X)} $$ 定理Markov 不等式\n设 $X$ 是一个非负随机变量, 期望存在, 那么对于任意 $t > 0$ 有\n">
     </head>
     <body class="
     article-page
@@ -399,46 +399,46 @@
     
     
     <h2 id="基础数学工具">基础数学工具
-</h2><div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+</h2><div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>随机变量 $X$ 的 <strong>期望</strong> $E[X]$ 定义为</p>
 $$
 E[X] = \sum_{x} x \cdot P(X=x)
-$$<p>随机变量 $X$ 的 <strong>方差</strong> $\text{Var}(X)$ 定义为</p>
+$$<p>随机变量 $X$ 的 <strong>方差</strong> $\mathrm{Var}(X)$ 定义为</p>
 $$
-\text{Var}(X) = E[(X - E[X])^2]
+\mathrm{Var}(X) = E[(X - E[X])^2]
 $$<p><strong>标准差</strong> $\sigma(X)$ 定义为</p>
 $$
-\sigma(X) = \sqrt{\text{Var}(X)}
+\sigma(X) = \sqrt{\mathrm{Var}(X)}
 $$</div>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理<span class="math-subtitle">Markov 不等式</span></p>
+<div class="math-block math-thm">
+    <p class="math-title">定理<span class="math-subtitle">Markov 不等式</span></p>
 <p>设 $X$ 是一个非负随机变量, 期望存在, 那么对于任意 $t > 0$ 有</p>
 $$
 P(X \geq t) \leq \frac{E[X]}{t}
 $$</div>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理<span class="math-subtitle">Chebyshev 不等式</span></p>
+<div class="math-block math-thm">
+    <p class="math-title">定理<span class="math-subtitle">Chebyshev 不等式</span></p>
 <p>设 $X$ 是一个随机变量, 期望和方差都存在, 那么对于任意 $t > 0$ 有</p>
 $$
-P(|X - E[X]| \geq t) \leq \frac{\text{Var}(X)}{t^2}
+P(|X - E[X]| \geq t) \leq \frac{\mathrm{Var}(X)}{t^2}
 $$</div>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>随机变量 $X$ 和 $Y$ 的 <strong>协方差</strong> $\text{Cov}(X, Y)$ 定义为</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
+<p>随机变量 $X$ 和 $Y$ 的 <strong>协方差</strong> $\mathrm{Cov}(X, Y)$ 定义为</p>
 $$
-\text{Cov}(X, Y) = E[(X - E[X])(Y - E[Y])]
-$$<p>如果 $\text{Cov}(X, Y) = 0$, 则称 $X$ 和 $Y$ <strong>不相关</strong>.</p>
+\mathrm{Cov}(X, Y) = E[(X - E[X])(Y - E[Y])]
+$$<p>如果 $\mathrm{Cov}(X, Y) = 0$, 则称 $X$ 和 $Y$ <strong>不相关</strong>.</p>
 </div>
 <p>协方差具有对称性, 双线性.</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>随机向量 $X=(X_1, X_2, \ldots, X_n)$ 的 <strong>协方差矩阵</strong> $C(X)$ 定义为</p>
 $$
-C(X) = E[(X - E[X])(X - E[X])^T] = (\text{Cov}(X_i, X_j))_{ij}
+C(X) = E[(X - E[X])(X - E[X])^T] = (\mathrm{Cov}(X_i, X_j))_{ij}
 $$</div>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p><strong>Gauss 分布</strong> (正态分布) 的概率密度函数为</p>
 $$
 f(x) = \frac{1}{\sqrt{2\pi}\sigma} \exp(-\frac{(x-\mu)^2}{2\sigma^2})
@@ -450,7 +450,7 @@ $$</div>
 $$
 \begin{aligned}
 & \min f(x) \\
-\text{s.t. } & c_i(x) \leq 0, i = 1, 2, \dots, k \\
+\mathrm{s.t. } & c_i(x) \leq 0, i = 1, 2, \dots, k \\
 & h_j(x) = 0, j = 1, 2, \dots, l
 \end{aligned}
 $$<p>构造 Lagrange 函数</p>
@@ -466,8 +466,8 @@ $$
 & \alpha_i \geq 0, i = 1, 2, \dots, k
 \end{aligned}
 $$<h2 id="基本概念和术语">基本概念和术语
-</h2><div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+</h2><div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p><strong>监督学习</strong>: 基于标记数据 $T=\{ (x_i,y_i) \}_{i=1}^N$, 学习一个从输入空间到输出空间的映射 $f: \mathcal{X} \mapsto \mathcal{Y}$. 利用此对未见数据进行预测. 通常分为 <strong>回归</strong> 和 <strong>分类</strong> 两类.</p>
 <p><strong>无监督学习</strong>: 基于未标记数据 $T=\{ x_i \}_{i=1}^N$, 发现其中隐含的知识模式. <strong>聚类</strong> 是典型的无监督学习任务.</p>
 <p><strong>半监督学习</strong>: 既有标记数据又有未标记数据 (通常占比较大).</p>
@@ -513,11 +513,11 @@ $$<p>其中 $J(h)$ 是随着模型复杂度增加而增加的函数. $\lambda$ �
 </ul>
 <h2 id="偏差-方差分解">偏差-方差分解
 </h2><p>为什么泛化误差会随着模型复杂度的增加而先减小后增大?</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p><strong>偏差</strong> (bias): 模型预测值的期望与真实值之间的差异. 体现了模型的拟合能力.</p>
-$$\text{Bias}(x) = E_T[h_T(x)-c(x)] = \bar{h}(x) - c(x)$$<p><strong>方差</strong> (variance): 模型预测值的方差. 体现了模型的对数据扰动的稳定性.</p>
-$$\text{Var}(x) = E[(h(x) - \bar{h}(x))^2]$$</div>
+$$\mathrm{Bias}(x) = E_T[h_T(x)-c(x)] = \bar{h}(x) - c(x)$$<p><strong>方差</strong> (variance): 模型预测值的方差. 体现了模型的对数据扰动的稳定性.</p>
+$$\mathrm{Var}(x) = E[(h(x) - \bar{h}(x))^2]$$</div>
 <p>现在对泛化误差进行分解:</p>
 $$
 \begin{aligned}
@@ -526,13 +526,13 @@ R(h) &= E_T[(h_T(x) - c(x))^2] \\
 &= E_T[h_T^2(x)] - 2c(x)E_T[h_T(x)] + c^2(x) \\
 &= E_T[h_T^2(x)] - \bar{h}^2(x) + \bar{h}^2(x) - 2\bar{h}(x)c(x) + c^2(x) \\
 &= E_T[(h_T(x) - \bar{h}(x))^2] + (\bar{h}(x) - c(x))^2 \\
-&= \text{Var}(x) + \text{Bias}^2(x)
+&= \mathrm{Var}(x) + \mathrm{Bias}^2(x)
 \end{aligned}
 $$<p>当然, 由于噪声存在, $y$ 未必一定等于 $c(x)$, 不妨设 $y=c(x)+\varepsilon$, 其中 $\varepsilon \sim \Epsilon$ 期望为 $0$. 可以证明</p>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理<span class="math-subtitle">偏差-方差分解</span></p>
+<div class="math-block math-thm">
+    <p class="math-title">定理<span class="math-subtitle">偏差-方差分解</span></p>
 $$
-E_{T \sim D^{|T|}, \varepsilon \sim \Epsilon} [(h_T(x)-y)^2] = \text{Bias}^2(x) + \text{Var}(x) + E[\varepsilon^2]
+E_{T \sim D^{|T|}, \varepsilon \sim \Epsilon} [(h_T(x)-y)^2] = \mathrm{Bias}^2(x) + \mathrm{Var}(x) + E[\varepsilon^2]
 $$<p>即泛化误差可以分解为偏差、方差和噪声三部分.</p>
 </div>
 <p>起初, 模型较为简单, 偏差在泛化误差起主导作用. 随着模型复杂度的增加, 拟合能力增强, 偏差减小, 但带来过拟合风险, 算法对数据扰动敏感, 方差增大. 方差占比逐渐增大, 最终导致泛化误差增大.</p>

@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="基于原型的聚类方法 与监督学习不同, 无监督学习基于数据集 $D=\\{x_i\\}_{i=1}^N$, 没有标签 $y_i$. 基于原型的方法通常假设数据内在的分布结构可以通过一组原型刻画, 先对原型初始化, 然后按照相应策略和准则进行迭代更新.\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="基于原型的聚类方法 与监督学习不同, 无监督学习基于数据集 $\\mathcal{D}=\\{x_i\\}_{i=1}^N$, 没有标签 $y_i$. 基于原型的方法通常假设数据内在的分布结构可以通过一组原型刻画, 先对原型初始化, 然后按照相应策略和准则进行迭代更新.\n">
 <title>机器学习基础(8) —— 聚类简介</title>
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning-base/clustering-intro/'>
 
-<link rel="stylesheet" href="/scss/style.min.f991297a51bfb3ec7265f5caabcf8b61b92014e8d7b4c22fa6d4f0c6cb9ce9ce.css"><meta property='og:title' content="机器学习基础(8) —— 聚类简介">
-<meta property='og:description' content="基于原型的聚类方法 与监督学习不同, 无监督学习基于数据集 $D=\\{x_i\\}_{i=1}^N$, 没有标签 $y_i$. 基于原型的方法通常假设数据内在的分布结构可以通过一组原型刻画, 先对原型初始化, 然后按照相应策略和准则进行迭代更新.\n">
+<link rel="stylesheet" href="/scss/style.min.050e713ce6ba4df4f898621146cc9dece02afd8477586323296cb867d14a1d9a.css"><meta property='og:title' content="机器学习基础(8) —— 聚类简介">
+<meta property='og:description' content="基于原型的聚类方法 与监督学习不同, 无监督学习基于数据集 $\\mathcal{D}=\\{x_i\\}_{i=1}^N$, 没有标签 $y_i$. 基于原型的方法通常假设数据内在的分布结构可以通过一组原型刻画, 先对原型初始化, 然后按照相应策略和准则进行迭代更新.\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning-base/clustering-intro/'>
 <meta property='og:site_name' content='LeoDreamer'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-04-08T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-04-08T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="机器学习基础(8) —— 聚类简介">
-<meta name="twitter:description" content="基于原型的聚类方法 与监督学习不同, 无监督学习基于数据集 $D=\\{x_i\\}_{i=1}^N$, 没有标签 $y_i$. 基于原型的方法通常假设数据内在的分布结构可以通过一组原型刻画, 先对原型初始化, 然后按照相应策略和准则进行迭代更新.\n">
+<meta name="twitter:description" content="基于原型的聚类方法 与监督学习不同, 无监督学习基于数据集 $\\mathcal{D}=\\{x_i\\}_{i=1}^N$, 没有标签 $y_i$. 基于原型的方法通常假设数据内在的分布结构可以通过一组原型刻画, 先对原型初始化, 然后按照相应策略和准则进行迭代更新.\n">
     </head>
     <body class="
     article-page
@@ -396,12 +396,12 @@
     
     
     <h2 id="基于原型的聚类方法">基于原型的聚类方法
-</h2><p>与监督学习不同, 无监督学习基于数据集 $D=\{x_i\}_{i=1}^N$, 没有标签 $y_i$. 基于原型的方法通常假设数据内在的分布结构可以通过一组原型刻画, 先对原型初始化, 然后按照相应策略和准则进行迭代更新.</p>
+</h2><p>与监督学习不同, 无监督学习基于数据集 $\mathcal{D}=\{x_i\}_{i=1}^N$, 没有标签 $y_i$. 基于原型的方法通常假设数据内在的分布结构可以通过一组原型刻画, 先对原型初始化, 然后按照相应策略和准则进行迭代更新.</p>
 <h3 id="k-means-聚类">K-means 聚类
-</h3><div class="math-block">
-    <p class="math-block-title math-algo">算法<span class="math-subtitle">K-means 聚类</span></p>
-<p><strong>输入</strong>: 数据集 $D=\{x_i\}_{i=1}^N$, 聚类簇个数 $K$.</p>
-<p><strong>输出</strong>: 簇划分 $\mathcal{C}=\{C_l\}_{l=1}^K$.</p>
+</h3><div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">K-means 聚类</span></p>
+<p><strong class="algo-input">输入 &gt; </strong> 数据集 $\mathcal{D}=\{x_i\}_{i=1}^N$, 聚类簇个数 $K$.</p>
+<p><strong class="algo-output">输出 &gt; </strong> 簇划分 $\mathcal{C}=\{C_l\}_{l=1}^K$.</p>
 <ol>
 <li>选择 $K$ 个样本点作为初始簇心 $\mu_l$. 初始化 $C_l = \emptyset$.</li>
 <li>对每个 $x_i$, 求 $x_i$ 的簇标记 $\lambda_i = \argmin_j \|x_i - \mu_j\|^2$, 即找到距离最近的簇心, 并将 $x_i$ 加入到 $C_{\lambda_i}$.</li>
@@ -412,12 +412,12 @@
 </div>
 <p>一般会基于不同的核心多次运行 K-means. 均值运算对于噪声和离群点非常敏感.</p>
 <p>还有一些变体, K-中心点方法通过挑选簇内相对处于最中心位置的一个实际样本点而非样本均值向量来作为簇心.</p>
-<p>用 $O_l$ 表示簇 $C_l$ 的簇心样本点, 用 $\text{dist}(x_i, O_l)$ 表示样本点 $x_i$ 和 $O_l$ 的相异程度度量, 则 K-中心点方法相当于通过最小化绝对误差</p>
-$$E = \sum_{l=1}^{K} \sum_{x \in C_l} \text{dist}(x, O_l)$$<p>围绕中心点的划分算法 (PAM) 是一种典型的 K-中心点方法.</p>
-<div class="math-block">
-    <p class="math-block-title math-algo">算法<span class="math-subtitle">PAM</span></p>
-<p><strong>输入</strong>: 数据集 $D=\{x_i\}_{i=1}^N$, 聚类簇个数 $K$.</p>
-<p><strong>输出</strong>: 簇划分 $\mathcal{C}=\{C_l\}_{l=1}^K$.</p>
+<p>用 $O_l$ 表示簇 $C_l$ 的簇心样本点, 用 $\mathrm{dist}(x_i, O_l)$ 表示样本点 $x_i$ 和 $O_l$ 的相异程度度量, 则 K-中心点方法相当于通过最小化绝对误差</p>
+$$E = \sum_{l=1}^{K} \sum_{x \in C_l} \mathrm{dist}(x, O_l)$$<p>围绕中心点的划分算法 (PAM) 是一种典型的 K-中心点方法.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">PAM</span></p>
+<p><strong class="algo-input">输入 &gt; </strong> 数据集 $\mathcal{D}=\{x_i\}_{i=1}^N$, 聚类簇个数 $K$.</p>
+<p><strong class="algo-output">输出 &gt; </strong> 簇划分 $\mathcal{C}=\{C_l\}_{l=1}^K$.</p>
 <ol>
 <li>首先对每个簇的中心点进行随机初始化，并将非中心点的样本划分到簇心与其最相似的簇中，形成样本集的初始划分.</li>
 <li>然后采用贪心策略，迭代更新划分，直到没有变化为止.</li>
@@ -428,17 +428,17 @@ $$E = \sum_{l=1}^{K} \sum_{x \in C_l} \text{dist}(x, O_l)$$<p>围绕中心点的
 </div>
 <p>PAM 算法使用中心点作为簇的原型表示，可以避免均值向量作为原型时易受离群点影响的问题.</p>
 <h3 id="gauss-混合模型">Gauss 混合模型
-</h3><div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+</h3><div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p><strong>Gauss 混合模型</strong> 是指具有如下概率分布密度函数的模型:</p>
 $$p(x|\theta) = \sum_{k=1}^K \alpha_i p(x | \mu_i, \Sigma_i)$$<p>其中:</p>
 <ol>
 <li>$\alpha_i$ 是混合系数, 满足 $\sum_{i=1}^K \alpha_i = 1$;</li>
 <li>$p(x | \mu_i, \Sigma_i)$ 是 Gauss 分布, 其均值为 $\mu_i$, 协方差矩阵为 $\Sigma_i$, 即
-$$p(x|\mu_i, \Sigma_i) = \frac{1}{\sqrt{(2\pi)^n |\Sigma_i|}} \exp\left(-\frac{1}{2}(x - \mu_i)^T \Sigma_i^{-1} (x - \mu_i)\right)$$</li>
+$$p(x|\mu_i, \Sigma_i) = \frac{1}{\sqrt{(2\pi)^n |\Sigma_i|}} \exp\left(-\frac{1}{2}(x - \mu_i)^\top  \Sigma_i^{-1} (x - \mu_i)\right)$$</li>
 </ol>
 </div>
-<p>给定样本集 $D=\{x_i\}_{i=1}^N$, 基于 Gauss 混合模型的聚类算法假定样本 $x_j$ 依据 Gauss 混合分布生成, 即先以概率 $\alpha_i$ 选择一个高斯分布 $p(x | \mu_i, \Sigma_i)$, 然后从该高斯分布中生成样本 $x_j$.</p>
+<p>给定样本集 $\mathcal{D}=\{x_i\}_{i=1}^N$, 基于 Gauss 混合模型的聚类算法假定样本 $x_j$ 依据 Gauss 混合分布生成, 即先以概率 $\alpha_i$ 选择一个高斯分布 $p(x | \mu_i, \Sigma_i)$, 然后从该高斯分布中生成样本 $x_j$.</p>
 <p>对 $x_j$, 设 $z_j$ 表示生成 $x_j$ 的分模型, 即 $p(z_j = i) = \alpha_i$. 后验概率最大化</p>
 $$
 \lambda_j = \argmax_i p(z_j = i | x_j)
@@ -450,7 +450,7 @@ $$
 \end{aligned}
 $$<p>考虑对数似然函数</p>
 $$
-LL(\theta | D) = \sum_{j=1}^N \log p(x_j | \theta) = \sum_{j=1}^N \log \left( \sum_{i=1}^K \alpha_i p(x_j | \mu_i, \Sigma_i) \right)
+LL(\theta | \mathcal{D}) = \sum_{j=1}^N \log p(x_j | \theta) = \sum_{j=1}^N \log \left( \sum_{i=1}^K \alpha_i p(x_j | \mu_i, \Sigma_i) \right)
 $$<p>并不是很好求解. 我们引入隐变量 $z_{ji}$ 表示 $x_j$ 由第 $i$ 个高斯分布生成, 即</p>
 $$
 z_{ji} = \begin{cases}
@@ -460,16 +460,16 @@ z_{ji} = \begin{cases}
 $$<p>则这样的对数似然函数可以写成</p>
 $$
 \begin{aligned}
-LL(\theta D|Z)&=\sum_{j=1}^N \sum_{i=1}^K z_{ji} \log \left( \alpha_i p(x_j | \mu_i, \Sigma_i) \right) \\
+LL(\theta \mathcal{D}|Z)&=\sum_{j=1}^N \sum_{i=1}^K z_{ji} \log \left( \alpha_i p(x_j | \mu_i, \Sigma_i) \right) \\
 &=\sum_{i=1}^K \left( \sum_{j=1}^N z_{ji} \right) \log \alpha_i + \sum_{i=1}^K \sum_{j=1}^N z_{ji} \log p(x_j | \mu_i, \Sigma_i)
 \end{aligned}
 $$<p>常采用 EM 算法迭代求解.</p>
-<div class="math-block">
-    <p class="math-block-title math-algo">算法<span class="math-subtitle">EM</span></p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">EM</span></p>
 <ol>
 <li><strong>E步</strong>, 求期望: 基于当前参数 $\theta^{(t)}$, 计算对数似然函数关于 $Z$ 的期望:
 $$
-    Q \left(\theta | \theta^{(t)}\right) = \mathbb{E}_{Z} \left[ LL(\theta | D, Z) | D, \theta^{(t)} \right] = \sum_Z LL(\theta | D, Z) p(Z | D, \theta^{(t)})
+    Q \left(\theta | \theta^{(t)}\right) = \mathbb{E}_{Z} \left[ LL(\theta | \mathcal{D}, Z) | \mathcal{D}, \theta^{(t)} \right] = \sum_Z LL(\theta | \mathcal{D}, Z) p(Z | \mathcal{D}, \theta^{(t)})
     $$</li>
 <li><strong>M步</strong>, 最大化: 通过最大化 $Q\left(\theta | \theta^{(t)}\right)$ 来更新参数 $\theta$:
 $$
@@ -480,23 +480,23 @@ $$
 </div>
 <p>用 EM 算法估计参数:</p>
 $$
-LL(\theta|D,Z)=\sum_{i=1}^k\left\{\left(\sum_{j=1}^Nz_{ji}\right)\log\alpha_i+\sum_{j=1}^Nz_{ji}\log p(x_j|\mu_i,\sigma_i^2)\right\}
+LL(\theta|\mathcal{D},Z)=\sum_{i=1}^k\left\{\left(\sum_{j=1}^Nz_{ji}\right)\log\alpha_i+\sum_{j=1}^Nz_{ji}\log p(x_j|\mu_i,\sigma_i^2)\right\}
 $$<p>令 $n_i=\sum_{j=1}^Nz_{ji}$, 则</p>
 $$
 \begin{aligned}
-& LL(\theta|D,Z)=\sum_{i=1}^k\left\{n_i\log\alpha_i+\sum_{j=1}^Nz_{ji}\log p(x_j|\mu_i,\sigma_i^2)\right\} \\
+& LL(\theta|\mathcal{D},Z)=\sum_{i=1}^k\left\{n_i\log\alpha_i+\sum_{j=1}^Nz_{ji}\log p(x_j|\mu_i,\sigma_i^2)\right\} \\
 & =\sum_{i=1}^{k}\left\{n_{i}\log\alpha_{i}+\sum_{j=1}^{N}z_{ji}\left[\log\left(\frac{1}{\sqrt{2\pi}}\right)-\log\sigma_{i}-\frac{1}{2\sigma_{i}^{2}}(x_{j}-\mu_{i})^{2}\right]\right\}
 \end{aligned}
 $$<p>我们考虑 $z_{ji}$ 期望:</p>
 $$
 \begin{aligned}
-\gamma_{ji}^{(t)} &= E_{Z} \left[ z_{ji} | D, \theta^{(t)} \right] = p\left(z_{ji} = 1 | D, \theta^{(t)}\right) \\
-&= p\left(z_j = i | D, \theta^{(t)}\right) = \frac{\alpha_i^{(t)} p\left(x_j | \mu_i^{(t)}, {\sigma_i^2}^{(t)}\right)}{\sum_{l=1}^k \alpha_i^{(t)} p\left(x_j | \mu_l^{(t)}, {\sigma_l^2}^{(t)}\right)}
+\gamma_{ji}^{(t)} &= E_{Z} \left[ z_{ji} | \mathcal{D}, \theta^{(t)} \right] = p\left(z_{ji} = 1 | \mathcal{D}, \theta^{(t)}\right) \\
+&= p\left(z_j = i | \mathcal{D}, \theta^{(t)}\right) = \frac{\alpha_i^{(t)} p\left(x_j | \mu_i^{(t)}, {\sigma_i^2}^{(t)}\right)}{\sum_{l=1}^k \alpha_i^{(t)} p\left(x_j | \mu_l^{(t)}, {\sigma_l^2}^{(t)}\right)}
 \end{aligned}
 $$<p>则对 $E$ 步, 有:</p>
 $$
 \begin{aligned}
-Q\left(\theta |\theta^{(t)}\right) &= E_Z \left[ LL(\theta | D, Z) | D, \theta^{(t)} \right] \\
+Q\left(\theta |\theta^{(t)}\right) &= E_Z \left[ LL(\theta | \mathcal{D}, Z) | \mathcal{D}, \theta^{(t)} \right] \\
 &= \sum_{i=1}^k \left\{ \sum_{j=1}^N \gamma_{ji}^{(t)} \log \alpha_i + \sum_{j=1}^N \gamma_{ji}^{(t)} \left[\log\left(\frac{1}{\sqrt{2\pi}}\right)-\log\sigma_{i}-\frac{1}{2\sigma_{i}^{2}}(x_{j}-\mu_{i})^{2}\right]\right\} \\
 \end{aligned}
 $$<p>既然要极大化 $Q\left(\theta |\theta^{(t)}\right)$, 那么我们可以对 $\mu_i$, $\sigma_i^2$ 分别求偏导数, 令其为 $0$. 分别得到:</p>
@@ -517,10 +517,10 @@ N = \sum_{i=1}^k n_i^{(t)} = \beta \sum_{i=1}^k \alpha_i = \beta
 $$$$
 \alpha_i^{(t+1)} = \frac{n_i^{(t)}}{\beta} = \frac{\sum_{j=1}^N \gamma_{ji}^{(t)}}{N}
 $$<p>把这些综合起来, 就得到基于 Gauss 混合模型的 EM 算法 (GMM):</p>
-<div class="math-block">
-    <p class="math-block-title math-algo">算法<span class="math-subtitle">GMM</span></p>
-<p><strong>输入</strong>: 数据集 $D=\{x_i\}_{i=1}^N$, 聚类簇个数 $K$.</p>
-<p><strong>输出</strong>: 簇划分 $\mathcal{C}=\{C_l\}_{l=1}^K$.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">GMM</span></p>
+<p><strong class="algo-input">输入 &gt; </strong> 数据集 $\mathcal{D}=\{x_i\}_{i=1}^N$, 聚类簇个数 $K$.</p>
+<p><strong class="algo-output">输出 &gt; </strong> 簇划分 $\mathcal{C}=\{C_l\}_{l=1}^K$.</p>
 <ol>
 <li>初始化参数 $\theta =\{\alpha_i, \mu_i, \Sigma_i\}_{i=1}^K, C_l = \emptyset$.</li>
 <li><strong>E步</strong>: 计算后验概率:
@@ -531,7 +531,7 @@ $$
 $$
     \begin{aligned}
     \mu_i &= \frac{\sum_{j=1}^N \gamma_{ji} x_j}{\sum_{j=1}^N \gamma_{ji}} \\
-    \Sigma_i &= \frac{\sum_{j=1}^N \gamma_{ji} (x_j - \mu_i)(x_j - \mu_i)^T}{\sum_{j=1}^N \gamma_{ji}} \\
+    \Sigma_i &= \frac{\sum_{j=1}^N \gamma_{ji} (x_j - \mu_i)(x_j - \mu_i)^\top }{\sum_{j=1}^N \gamma_{ji}} \\
     \alpha_i &= \frac{\sum_{j=1}^N \gamma_{ji}}{N}
     \end{aligned}
     $$</li>
@@ -558,23 +558,23 @@ $$M(i,j)=d(C_i,C_j),\quad i,j=1,2,\cdots,N$$<p>随着每次距离最近的两个
 <h2 id="基于密度的聚类方法">基于密度的聚类方法
 </h2><p>将簇看作是数据空间中被稀疏区域分开的稠密区域, 聚类就是发现并不断扩展稠密区域的过程. DBSCAN 算法是典型的基于密度的聚类算法.</p>
 <p>为了刻画稠密区域, DBSCAN 算法引入了密度可达性和密度相连的概念:</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>对于样本点 $x_i \in D$, 在其 $\epsilon$ - 邻域</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
+<p>对于样本点 $x_i \in \mathcal{D}$, 在其 $\epsilon$ - 邻域</p>
 $$
-N_\epsilon(x_i) = \{x_j \in D | \|x_i - x_j\| \leq \epsilon\}
-$$<p>内, 包含至少 $\text{MinPts}$ 个样本点的点称为 <strong>核心点</strong>.</p>
-<p>如果 $x_j$ 位于核心点 $x_i$ 的 $\epsilon$ - 邻域内, 则称 $x_j$ 由 $x_i$  <strong>直接密度可达</strong>, 一般地, 如果存在一个序列 $p_1=x_i, p_2, \cdots, p_k=x_j$, 使得 $p_{l+1}$ 由 $p_l$ 直接密度可达, 则称 $x_j$ 由 $x_i$ <strong>密度可达</strong>. 如果存在 $p \in D$ 使得 $x_i$ 和 $x_j$ 都由 $p$ 密度可达, 则称 $x_i$ 和 $x_j$ <strong>密度相连</strong>.</p>
+N_\epsilon(x_i) = \{x_j \in \mathcal{D} | \|x_i - x_j\| \leq \epsilon\}
+$$<p>内, 包含至少 $\mathrm{MinPts}$ 个样本点的点称为 <strong>核心点</strong>.</p>
+<p>如果 $x_j$ 位于核心点 $x_i$ 的 $\epsilon$ - 邻域内, 则称 $x_j$ 由 $x_i$  <strong>直接密度可达</strong>, 一般地, 如果存在一个序列 $p_1=x_i, p_2, \cdots, p_k=x_j$, 使得 $p_{l+1}$ 由 $p_l$ 直接密度可达, 则称 $x_j$ 由 $x_i$ <strong>密度可达</strong>. 如果存在 $p \in \mathcal{D}$ 使得 $x_i$ 和 $x_j$ 都由 $p$ 密度可达, 则称 $x_i$ 和 $x_j$ <strong>密度相连</strong>.</p>
 <p>此时, 我们定义 <strong>簇</strong> 是满足如下条件的样本点集合:</p>
 <ul>
 <li>如果 $x_i,x_j \in C$, 则 $x_i,x_j$ 是密度相连的;</li>
 <li>对任一 $x_i \in C$, 如果 $x_j$ 由 $x_i$ 密度可达, 则 $x_j \in C$;</li>
 </ul>
 </div>
-<div class="math-block">
-    <p class="math-block-title math-algo">算法<span class="math-subtitle">DBSCAN</span></p>
-<p><strong>输入</strong>: 数据集 $D=\{x_i\}_{i=1}^N$, $\epsilon$ - 邻域半径, 最小点数 $\text{MinPts}$.</p>
-<p><strong>输出</strong>: 簇划分 $\mathcal{C}=\{C_l\}_{l=1}^K$.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">DBSCAN</span></p>
+<p><strong class="algo-input">输入 &gt; </strong> 数据集 $\mathcal{D}=\{x_i\}_{i=1}^N$, $\epsilon$ - 邻域半径, 最小点数 $\mathrm{MinPts}$.</p>
+<p><strong class="algo-output">输出 &gt; </strong> 簇划分 $\mathcal{C}=\{C_l\}_{l=1}^K$.</p>
 <ol>
 <li>初始化簇划分 $\mathcal{C} = \emptyset$, 并将所有样本点标记为未访问.</li>
 <li>随机选择一个未访问的样本点 $x_i$ 访问: 如果 $x_i$ 是核心点, 则找出由该样本点密度可达的所有样本点, 将它们划分到同一个簇 $C_l$ 中, 否则将 $x_i$ 标记为噪声点.</li>

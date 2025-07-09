@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="概率近似正确 (PAC) 定义\n我们定义 泛化误差 为:\n$$ L_{\\mathcal{D},f}(h) = P_{X \\sim \\mathcal{\\mathcal{D}}}(h(X) \\neq f(X)) $$训练误差 为:\n$$ L_S(h) = \\frac{1}{m} \\sum_{i=1}^m \\mathbb{I}(h(X_i) \\neq f(X_i)) $$ 定义\n如果存在 $h^*$ 使得对任意 $L_{\\mathcal{D},f}(h^*) = 0$, 则称为 $f,\\mathcal{D}$ 满足 可实现假设.\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="概率近似正确 (PAC) 定义\n我们定义 泛化误差 为:\n$$ L_{\\mathcal{D},f}(h) = P_{X \\sim \\mathcal{\\mathcal{D}}}(h(X) \\neq f(X)) $$训练误差 为:\n$$ L_S(h) = \\frac{1}{m} \\sum_{i=1}^m \\mathbb{I}(h(X_i) \\neq f(X_i)) $$ 定义\n如果存在 $h^*$ 使得对任意 $L_{\\mathcal{D},f}(h^*) = 0$, 则称为 $f,\\mathcal{D}$ 满足 可实现假设.\n可实现假设意味着对 $1$ 的概率, 满足 $L_S(h^*) = 0$, 且对每个经验风险最小化的假设 $h_S$ 有 $L_S(h_S) =0$.\n">
 <title>机器学习基础(10) —— PAC 和 UC 可学习性</title>
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning-base/pac-uc/'>
 
-<link rel="stylesheet" href="/scss/style.min.f991297a51bfb3ec7265f5caabcf8b61b92014e8d7b4c22fa6d4f0c6cb9ce9ce.css"><meta property='og:title' content="机器学习基础(10) —— PAC 和 UC 可学习性">
-<meta property='og:description' content="概率近似正确 (PAC) 定义\n我们定义 泛化误差 为:\n$$ L_{\\mathcal{D},f}(h) = P_{X \\sim \\mathcal{\\mathcal{D}}}(h(X) \\neq f(X)) $$训练误差 为:\n$$ L_S(h) = \\frac{1}{m} \\sum_{i=1}^m \\mathbb{I}(h(X_i) \\neq f(X_i)) $$ 定义\n如果存在 $h^*$ 使得对任意 $L_{\\mathcal{D},f}(h^*) = 0$, 则称为 $f,\\mathcal{D}$ 满足 可实现假设.\n">
+<link rel="stylesheet" href="/scss/style.min.050e713ce6ba4df4f898621146cc9dece02afd8477586323296cb867d14a1d9a.css"><meta property='og:title' content="机器学习基础(10) —— PAC 和 UC 可学习性">
+<meta property='og:description' content="概率近似正确 (PAC) 定义\n我们定义 泛化误差 为:\n$$ L_{\\mathcal{D},f}(h) = P_{X \\sim \\mathcal{\\mathcal{D}}}(h(X) \\neq f(X)) $$训练误差 为:\n$$ L_S(h) = \\frac{1}{m} \\sum_{i=1}^m \\mathbb{I}(h(X_i) \\neq f(X_i)) $$ 定义\n如果存在 $h^*$ 使得对任意 $L_{\\mathcal{D},f}(h^*) = 0$, 则称为 $f,\\mathcal{D}$ 满足 可实现假设.\n可实现假设意味着对 $1$ 的概率, 满足 $L_S(h^*) = 0$, 且对每个经验风险最小化的假设 $h_S$ 有 $L_S(h_S) =0$.\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning-base/pac-uc/'>
 <meta property='og:site_name' content='LeoDreamer'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-04-29T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-04-29T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="机器学习基础(10) —— PAC 和 UC 可学习性">
-<meta name="twitter:description" content="概率近似正确 (PAC) 定义\n我们定义 泛化误差 为:\n$$ L_{\\mathcal{D},f}(h) = P_{X \\sim \\mathcal{\\mathcal{D}}}(h(X) \\neq f(X)) $$训练误差 为:\n$$ L_S(h) = \\frac{1}{m} \\sum_{i=1}^m \\mathbb{I}(h(X_i) \\neq f(X_i)) $$ 定义\n如果存在 $h^*$ 使得对任意 $L_{\\mathcal{D},f}(h^*) = 0$, 则称为 $f,\\mathcal{D}$ 满足 可实现假设.\n">
+<meta name="twitter:description" content="概率近似正确 (PAC) 定义\n我们定义 泛化误差 为:\n$$ L_{\\mathcal{D},f}(h) = P_{X \\sim \\mathcal{\\mathcal{D}}}(h(X) \\neq f(X)) $$训练误差 为:\n$$ L_S(h) = \\frac{1}{m} \\sum_{i=1}^m \\mathbb{I}(h(X_i) \\neq f(X_i)) $$ 定义\n如果存在 $h^*$ 使得对任意 $L_{\\mathcal{D},f}(h^*) = 0$, 则称为 $f,\\mathcal{D}$ 满足 可实现假设.\n可实现假设意味着对 $1$ 的概率, 满足 $L_S(h^*) = 0$, 且对每个经验风险最小化的假设 $h_S$ 有 $L_S(h_S) =0$.\n">
     </head>
     <body class="
     article-page
@@ -392,8 +392,8 @@
     
     
     <h2 id="概率近似正确-pac">概率近似正确 (PAC)
-</h2><div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+</h2><div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>我们定义 <strong>泛化误差</strong> 为:</p>
 $$
 L_{\mathcal{D},f}(h) = P_{X \sim \mathcal{\mathcal{D}}}(h(X) \neq f(X))
@@ -401,20 +401,20 @@ $$<p><strong>训练误差</strong> 为:</p>
 $$
 L_S(h) = \frac{1}{m} \sum_{i=1}^m \mathbb{I}(h(X_i) \neq f(X_i))
 $$</div>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>如果存在 $h^*$ 使得对任意 $L_{\mathcal{D},f}(h^*) = 0$, 则称为 $f,\mathcal{D}$ 满足 <strong>可实现假设</strong>.</p>
 </div>
 <p>可实现假设意味着对 $1$ 的概率, 满足 $L_S(h^*) = 0$, 且对每个经验风险最小化的假设 $h_S$ 有 $L_S(h_S) =0$.</p>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
+<div class="math-block math-thm">
+    <p class="math-title">定理</p>
 <p>设 $\mathcal{H}$ 是有限的假设空间, $\delta \in (0,1), \epsilon>0$, 设正整数 $m$ 满足:</p>
 $$
 m \ge \frac{\log(|\mathcal{H}|/\delta)}{\epsilon}
 $$<p>对任意标签函数 $f$ 和任意分布 $\mathcal{D}$, 如果可实现性假设相对于 $\mathcal{H}, \mathcal{\mathcal{D}}, f$ 成立, 则在大小为 $m$ 的独立同分布样本 $S$ 的选择上有最低 $1-\delta$ 的概率满足: 对每个经验风险最小化的假设 $h_S$ 有:</p>
 $$
 L_{\mathcal{D},f}(h_S) \leq \epsilon
-$$<p class="math-block-title math-prf">证明</p>
+$$<p class="math-prf">证明</p>
 <p>令 $\mathcal{H}_B$ 表示“坏”假设的集合, 即</p>
 $$
 \mathcal{H}_B = \{ h \in \mathcal{H} : L_{(\mathcal{D}, f)}(h) > \epsilon \}
@@ -437,8 +437,8 @@ $$
 $$<p>由此, 即 $1-\mathcal{D}^m(\{S|_x : L_{(\mathcal{D}, f)}(h_S) > \epsilon\}) > 1-\delta$, 得证.</p>
 </div>
 <p>我们现在可以引入 PAC 可学习性的概念.</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>称假设空间 $\mathcal{H}$ 是 <strong>PAC 可学习的</strong>, 如果存在一个函数 $m_{\mathcal{H}} : (0, 1)^2 \to \mathbb{N}$ 和一个学习算法, 满足以下性质: 对于任意 $\delta, \epsilon \in (0, 1)$, 对于任意定义在 $\mathcal{X}$ 上的分布 $\mathcal{\mathcal{D}}$, 以及对于任意标记函数 $f : \mathcal{X} \to \{0, 1\}$, 如果可实现性假设相对于 $\mathcal{H}, \mathcal{\mathcal{D}}, f$ 成立, 那么当使用由 $\mathcal{\mathcal{D}}$ 生成的 $m \geq m_{\mathcal{H}}(\epsilon, \delta)$ 个独立同分布样本, 并用 $f$ 标记这些样本运行该算法时, 算法将返回一个假设 $h$, 使得在样本选择上以至少 $1 - \delta$ 的概率满足</p>
 $$
 L_{(\mathcal{\mathcal{D}}, f)}(h) \leq \epsilon
@@ -456,8 +456,8 @@ f_{\mathcal{\mathcal{D}}}(x) = \begin{cases}
 0 & \text{otherwise}
 \end{cases}
 $$<p>但由于 $\mathcal{\mathcal{D}}$ 是未知的, 我们不能直接使用 $f_{\mathcal{\mathcal{D}}}$ 进行预测. 我们希望找一个预测函数使得损失不比 $f_{\mathcal{\mathcal{D}}}$ 大很多.</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>称假设空间 $\mathcal{H}$ 是 <strong>不可知 PAC 可学习的</strong>, 如果存在一个函数 $m_{\mathcal{H}} : (0, 1)^2 \to \mathbb{N}$ 和一个学习算法, 满足以下性质: 对于任意 $\delta, \epsilon \in (0, 1)$, 对于任意定义在 $\mathcal{X} \times \mathcal{Y}$ 上的分布 $\mathcal{\mathcal{D}}$, 当使用由 $\mathcal{\mathcal{D}}$ 生成的 $m \geq m_{\mathcal{H}}(\epsilon, \delta)$ 个独立同分布样本训练时, 算法将返回一个假设 $h$, 使得在样本选择上以至少 $1 - \delta$ 的概率满足:</p>
 $$
 L_{\mathcal{\mathcal{D}}}(h) \le \min_{h' \in \mathcal{H}} L_{\mathcal{\mathcal{D}}}(h') + \epsilon
@@ -465,48 +465,48 @@ $$<p>特别地, 我们称假设空间 $\mathcal{H}$ 是关于集合 $Z$ 和损�
 </div>
 <p>显然, 如果可实现性假设成立, 则不可知 PAC 可学习性转化为 PAC 可学习性.</p>
 <h2 id="一致收敛-uc">一致收敛 (UC)
-</h2><div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+</h2><div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>训练集 $S$ 被称为关于域 $Z$, 假设空间 $\mathcal{H}$, 损失函数 $\ell$ 和分布 $\mathcal{\mathcal{D}}$ 是 <strong>$\epsilon$-典型的</strong>, 如果</p>
 $$
 \forall h \in \mathcal{H}, |L_S(h) - L_{\mathcal{\mathcal{D}}}(h)| \leq \epsilon
 $$</div>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
+<div class="math-block math-thm">
+    <p class="math-title">定理</p>
 <p>假设训练集 $S$ 是 $\epsilon/2$-典型的, 则对于任意 $ERM_\mathcal{\mathcal{H}}(S)$ 算法的输出, 即任意 $h_S \in \argmin_{h \in \mathcal{H}} L_S(h)$, 有:</p>
 $$
 L_{\mathcal{\mathcal{D}}}(h_S) \leq \min_{h \in \mathcal{H}} L_D(h) + \epsilon
-$$<p class="math-block-title math-prf">证明</p>
+$$<p class="math-prf">证明</p>
 <p>利用定义可知</p>
 $$
 L_{\mathcal{\mathcal{D}}}(h_S) \le L_S(h_S) + \epsilon/2 \le L_S(h) + \epsilon/2 \le L_{\mathcal{\mathcal{D}}}(h) + \epsilon
 $$</div>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>称假设空间 $\mathcal{H}$ 关于域 $Z$, 损失函数 $\ell$ 具有 <strong>一致收敛性</strong>, 如果存在一个函数 $m_{\mathcal{H}}^{UC}: (0, 1)^2 \to \mathbb{N}$, 使得对于任意 $\epsilon, \delta \in (0, 1)$ 和任意 $Z$ 上的分布 $\mathcal{\mathcal{D}}$,  如果 $S$ 是从 $\mathcal{\mathcal{D}}$ 中独立同分布抽取的大小为 $m \geq m_{\mathcal{H}}^{UC}(\epsilon, \delta)$ 的样本, 则以至少 $1 - \delta$ 的概率, $S$ 是 $\epsilon$-典型的.</p>
 </div>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
+<div class="math-block math-thm">
+    <p class="math-title">定理</p>
 <p>如果假设空间 $\mathcal{H}$ 对于 $m_{\mathcal{H}}^{UC}(\epsilon, \delta)$ 具有一致收敛性, 则 $\mathcal{H}$ 是不可知 PAC 可学习的, 且样本复杂度满足:</p>
 $$
 m_{\mathcal{H}}(\epsilon, \delta) \leq m_{\mathcal{H}}^{UC}(\epsilon/2, \delta)
 $$<p>在这种情况下, $ERM_\mathcal{H}(S)$ 算法是 $\mathcal{H}$ 的不可知 PAC 学习算法.</p>
 </div>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理<span class="math-subtitle">Hoeffding 不等式</span></p>
+<div class="math-block math-thm">
+    <p class="math-title">定理<span class="math-subtitle">Hoeffding 不等式</span></p>
 <p>设 $\theta_1, \cdots, \theta_m$ 是独立同分布随机变量, 且 $\mathbb{E}[\theta_i] = \mu$, $P(\theta_i \in [a, b]) = 1$. 则对于任意 $\epsilon > 0$, 有:</p>
 $$
 P\left(\left|\frac{1}{m} \sum_{i=1}^m \theta_i - \mu\right| > \epsilon\right) \leq 2 \exp\left(-\frac{2m\epsilon^2}{(b-a)^2}\right)
 $$</div>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
+<div class="math-block math-thm">
+    <p class="math-title">定理</p>
 <p>设 $\mathcal{H}$ 是有限的假设空间, $Z$ 是一个域, $\ell : \mathcal{H} \times Z \to [0, 1]$ 是一个损失函数. 则 $\mathcal{H}$ 具有一致收敛性, 且样本复杂度满足:</p>
 $$
 m_{\mathcal{H}}^{UC}(\epsilon, \delta) \leq \left\lceil \frac{\log(2|\mathcal{H}|/\delta)}{2\epsilon^2} \right\rceil
 $$<p>且此时 $\mathcal{H}$ 是不可知 PAC 可学习的, 且样本复杂度满足:</p>
 $$
 m_{\mathcal{H}}(\epsilon, \delta) \leq m_{\mathcal{H}}^{UC}(\epsilon/2, \delta) \leq \left\lceil \frac{2\log(2|\mathcal{H}|/\delta)}{\epsilon^2} \right\rceil
-$$<p class="math-block-title math-prf">证明</p>
+$$<p class="math-prf">证明</p>
 <p>固定 $\epsilon, \delta$, 我们要找 $m$ 使得对任意 $\mathcal{\mathcal{D}}$, 至少 $1 - \delta$ 的概率, $S$ 是 $\epsilon$-典型的. 即:</p>
 $$
 \mathcal{\mathcal{D}}^m(\{ S: \forall h \in \mathcal{H}, |L_S(h)-L_{\mathcal{\mathcal{D}}}(h)| \le \epsilon \}) \ge 1 - \delta
@@ -526,8 +526,8 @@ $$
 $$<p>从而得证.</p>
 </div>
 <h2 id="偏差复杂性分解">偏差复杂性分解
-</h2><div class="math-block">
-    <p class="math-block-title math-thm">定理<span class="math-subtitle">无免费午餐</span></p>
+</h2><div class="math-block math-thm">
+    <p class="math-title">定理<span class="math-subtitle">无免费午餐</span></p>
 <p>设 $A$ 是在域 $X$ 上的 $0-1$ 误差函数二分类学习算法, 训练集大小 $m$ 是小于 $|X|/2$ 的任意数. 则存在一个在 $X \times \{0, 1\}$ 上的分布 $\mathcal{\mathcal{D}}$ 使得:</p>
 <ol>
 <li>存在一个函数 $f : X \to \{0, 1\}$ 使得 $L_{\mathcal{\mathcal{D}}}(f) = 0$.</li>
@@ -535,18 +535,18 @@ $$<p>从而得证.</p>
 </ol>
 </div>
 <p>以此我们可以得到如下推论:</p>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
+<div class="math-block math-thm">
+    <p class="math-title">定理</p>
 <p>设 $\mathcal{X}$ 是一个无限域, $\mathcal{H}$ 是从 $\mathcal{X}$ 到 $\{0, 1\}$ 的所有函数的集合. 则 $\mathcal{H}$ 不是 PAC 可学习的.</p>
-<p class="math-block-title math-prf">证明</p>
+<p class="math-prf">证明</p>
 <p>假设 $\mathcal{H}$ 是 PAC 可学习的, 选 $\epsilon < 1/8, \delta < 1/7$, 则存在一个算法 $A$ 和一个整数 $m=m_{\mathcal{H}}(\epsilon, \delta)$, 对任意 $\mathcal{X} \times \{0, 1\}$ 上的分布 $\mathcal{D}$, 如果对于某个函数 $f: \mathcal{X} \to \{0, 1\}$, $L_{\mathcal{\mathcal{D}}}(f) = 0$, 则当 $A$ 在 $S \sim \mathcal{\mathcal{D}}^m$ 上运行时, 有至少 $1 - \delta$ 的概率满足: $L_{\mathcal{\mathcal{D}}}(A(S)) \leq \epsilon$.</p>
 <p>但根据无免费午餐定理, 由于 $|X|>2m$, 对于算法 $A$, 存在一个分布 $\mathcal{\mathcal{D}}$ 使得有至少 $1/7>\delta$ 的概率满足 $L_{\mathcal{\mathcal{D}}}(A(S)) \geq 1/8>\epsilon$, 矛盾.</p>
 </div>
 <p>误差分解:</p>
 $$
 L_{\mathcal{\mathcal{D}}}(h_S) = \min_{h \in \mathcal{H}} L_{\mathcal{\mathcal{D}}}(h) + (L_{\mathcal{\mathcal{D}}}(h_S) - \min_{h \in \mathcal{H}} L_{\mathcal{\mathcal{D}}}(h))
-$$<p>第一项称为 <strong>近似误差</strong>; 第二项称为 <strong>估计误差</strong> $\epsilon_{\text{est}}$: 最小化风险和经验风险之间的差距.</p>
-<p>在有限假设情形下, $\epsilon_{\text{est}}$ 通常随 $|H|$ 增加, 随 $m$ 减小. 当 $\mathcal{H}$ 很小时, 估计误差很小, 但近似误差可能很大, 是欠拟合; 当 $\mathcal{H}$ 很大时, 近似误差很小, 但估计误差可能很大, 是过拟合.</p>
+$$<p>第一项称为 <strong>近似误差</strong>; 第二项称为 <strong>估计误差</strong> $\epsilon_{\mathrm{est}}$: 最小化风险和经验风险之间的差距.</p>
+<p>在有限假设情形下, $\epsilon_{\mathrm{est}}$ 通常随 $|H|$ 增加, 随 $m$ 减小. 当 $\mathcal{H}$ 很小时, 估计误差很小, 但近似误差可能很大, 是欠拟合; 当 $\mathcal{H}$ 很大时, 近似误差很小, 但估计误差可能很大, 是过拟合.</p>
 
 
     

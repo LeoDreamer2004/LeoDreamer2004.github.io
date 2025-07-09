@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="奇异值分解 用 $R(A)$ 表达 $\\text{Im}(A)$, $N(A)$ 表达 $\\text{Ker}(A)$. 则 $\\text{dim} R(A) = \\text{rank}(A)$, $\\text{dim} R(A) + \\text{dim} N(A) = n$.\n定理奇异值分解\n对任意矩阵 $A$, 存在正交矩阵 $U$ 和 $V$, 以及对角矩阵 $\\Sigma$ 使得:\n$$ A = U \\Sigma V^T $$证明\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="奇异值分解 用 $R(A)$ 表达 $\\mathrm{Im}(A)$, $N(A)$ 表达 $\\mathrm{Ker}(A)$. 则 $\\mathrm{dim} R(A) = \\mathrm{rank}(A)$, $\\mathrm{dim} R(A) + \\mathrm{dim} N(A) = n$.\n定理奇异值分解\n对任意矩阵 $A$, 存在正交矩阵 $U$ 和 $V$, 以及对角矩阵 $\\Sigma$ 使得:\n$$ A = U \\Sigma V^\\top $$证明\n$A^\\top A$ 是对称的, $\\mathrm{rank}(A^\\top A) = r$, 则特征值 $\\lambda_1 \\ge \\lambda_2 \\ge \\cdots \\lambda_r > 0 = \\lambda_{r+1} = \\lambda_{r+2} = \\cdots \\lambda_n$, 可正交对角化:\n">
 <title>机器学习基础(11) —— 奇异值分解与主成分分析简介</title>
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/machine-learning-base/pca/'>
 
-<link rel="stylesheet" href="/scss/style.min.f991297a51bfb3ec7265f5caabcf8b61b92014e8d7b4c22fa6d4f0c6cb9ce9ce.css"><meta property='og:title' content="机器学习基础(11) —— 奇异值分解与主成分分析简介">
-<meta property='og:description' content="奇异值分解 用 $R(A)$ 表达 $\\text{Im}(A)$, $N(A)$ 表达 $\\text{Ker}(A)$. 则 $\\text{dim} R(A) = \\text{rank}(A)$, $\\text{dim} R(A) + \\text{dim} N(A) = n$.\n定理奇异值分解\n对任意矩阵 $A$, 存在正交矩阵 $U$ 和 $V$, 以及对角矩阵 $\\Sigma$ 使得:\n$$ A = U \\Sigma V^T $$证明\n">
+<link rel="stylesheet" href="/scss/style.min.050e713ce6ba4df4f898621146cc9dece02afd8477586323296cb867d14a1d9a.css"><meta property='og:title' content="机器学习基础(11) —— 奇异值分解与主成分分析简介">
+<meta property='og:description' content="奇异值分解 用 $R(A)$ 表达 $\\mathrm{Im}(A)$, $N(A)$ 表达 $\\mathrm{Ker}(A)$. 则 $\\mathrm{dim} R(A) = \\mathrm{rank}(A)$, $\\mathrm{dim} R(A) + \\mathrm{dim} N(A) = n$.\n定理奇异值分解\n对任意矩阵 $A$, 存在正交矩阵 $U$ 和 $V$, 以及对角矩阵 $\\Sigma$ 使得:\n$$ A = U \\Sigma V^\\top $$证明\n$A^\\top A$ 是对称的, $\\mathrm{rank}(A^\\top A) = r$, 则特征值 $\\lambda_1 \\ge \\lambda_2 \\ge \\cdots \\lambda_r > 0 = \\lambda_{r+1} = \\lambda_{r+2} = \\cdots \\lambda_n$, 可正交对角化:\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning-base/pca/'>
 <meta property='og:site_name' content='LeoDreamer'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-05-13T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-05-13T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="机器学习基础(11) —— 奇异值分解与主成分分析简介">
-<meta name="twitter:description" content="奇异值分解 用 $R(A)$ 表达 $\\text{Im}(A)$, $N(A)$ 表达 $\\text{Ker}(A)$. 则 $\\text{dim} R(A) = \\text{rank}(A)$, $\\text{dim} R(A) + \\text{dim} N(A) = n$.\n定理奇异值分解\n对任意矩阵 $A$, 存在正交矩阵 $U$ 和 $V$, 以及对角矩阵 $\\Sigma$ 使得:\n$$ A = U \\Sigma V^T $$证明\n">
+<meta name="twitter:description" content="奇异值分解 用 $R(A)$ 表达 $\\mathrm{Im}(A)$, $N(A)$ 表达 $\\mathrm{Ker}(A)$. 则 $\\mathrm{dim} R(A) = \\mathrm{rank}(A)$, $\\mathrm{dim} R(A) + \\mathrm{dim} N(A) = n$.\n定理奇异值分解\n对任意矩阵 $A$, 存在正交矩阵 $U$ 和 $V$, 以及对角矩阵 $\\Sigma$ 使得:\n$$ A = U \\Sigma V^\\top $$证明\n$A^\\top A$ 是对称的, $\\mathrm{rank}(A^\\top A) = r$, 则特征值 $\\lambda_1 \\ge \\lambda_2 \\ge \\cdots \\lambda_r > 0 = \\lambda_{r+1} = \\lambda_{r+2} = \\cdots \\lambda_n$, 可正交对角化:\n">
     </head>
     <body class="
     article-page
@@ -399,92 +399,92 @@
     
     
     <h2 id="奇异值分解">奇异值分解
-</h2><p>用 $R(A)$ 表达 $\text{Im}(A)$, $N(A)$ 表达 $\text{Ker}(A)$. 则 $\text{dim} R(A) = \text{rank}(A)$, $\text{dim} R(A) + \text{dim} N(A) = n$.</p>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理<span class="math-subtitle">奇异值分解</span></p>
+</h2><p>用 $R(A)$ 表达 $\mathrm{Im}(A)$, $N(A)$ 表达 $\mathrm{Ker}(A)$. 则 $\mathrm{dim} R(A) = \mathrm{rank}(A)$, $\mathrm{dim} R(A) + \mathrm{dim} N(A) = n$.</p>
+<div class="math-block math-thm">
+    <p class="math-title">定理<span class="math-subtitle">奇异值分解</span></p>
 <p>对任意矩阵 $A$, 存在正交矩阵 $U$ 和 $V$, 以及对角矩阵 $\Sigma$ 使得:</p>
 $$
-A = U \Sigma V^T
-$$<p class="math-block-title math-prf">证明</p>
-<p>$A^TA$ 是对称的, $\text{rank}(A^TA) = r$, 则特征值 $\lambda_1 \ge \lambda_2 \ge \cdots \lambda_r > 0 = \lambda_{r+1} = \lambda_{r+2} = \cdots \lambda_n$, 可正交对角化:</p>
-$$A^TA = V \Lambda V^T$$<p>把 $V$ 分成两部分 $V=[V_1, V_2]$, 其中 $V_1 = [v_1, \cdots, v_r]$, $V_2 = [v_{r+1}, \cdots, v_n]$. 显见 $v_{r+1}, \cdots, v_n$ 恰好构成 $N(A^TA)$ 的标准正交基.</p>
+A = U \Sigma V^\top
+$$<p class="math-prf">证明</p>
+<p>$A^\top A$ 是对称的, $\mathrm{rank}(A^\top A) = r$, 则特征值 $\lambda_1 \ge \lambda_2 \ge \cdots \lambda_r > 0 = \lambda_{r+1} = \lambda_{r+2} = \cdots \lambda_n$, 可正交对角化:</p>
+$$A^\top A = V \Lambda V^\top $$<p>把 $V$ 分成两部分 $V=[V_1, V_2]$, 其中 $V_1 = [v_1, \cdots, v_r]$, $V_2 = [v_{r+1}, \cdots, v_n]$. 显见 $v_{r+1}, \cdots, v_n$ 恰好构成 $N(A^\top A)$ 的标准正交基.</p>
 <p>从 $V_1 = [v_1, \cdots, v_r]$ 出发考虑 $U_1 = [u_1, \cdots, u_r]$:</p>
 $$
 u_i = \frac{1}{\sqrt{\lambda_i}} A v_i
-$$<p>则容易验证 $u_i$ 是 $R(A)$ 的标准正交基. $R(A)$ 的正交补是 $N(A^T)$, 考虑其一组正交基 $U_2 = [u_{r+1}, \cdots, u_n]$, 则 $U = [U_1, U_2]$ 是正交矩阵. 记:</p>
+$$<p>则容易验证 $u_i$ 是 $R(A)$ 的标准正交基. $R(A)$ 的正交补是 $N(A^\top )$, 考虑其一组正交基 $U_2 = [u_{r+1}, \cdots, u_n]$, 则 $U = [U_1, U_2]$ 是正交矩阵. 记:</p>
 $$
-\Sigma_1 = \text{diag}(\sqrt{\lambda_1}, \cdots, \sqrt{\lambda_r}) \\
+\Sigma_1 = \mathrm{diag}(\sqrt{\lambda_1}, \cdots, \sqrt{\lambda_r}) \\
 \Sigma = \begin{bmatrix}
 \Sigma_1 & 0 \\
 0 & 0
 \end{bmatrix}
 $$<p>则可以得出 $U_1\Sigma_1 = AV_1$. 则:</p>
 $$
-U \Sigma V^T = [U_1, U_2] \begin{bmatrix}
+U \Sigma V^\top  = [U_1, U_2] \begin{bmatrix}
 \Sigma_1 & 0 \\
 0 & 0
 \end{bmatrix} \begin{bmatrix}
-V_1^T \\
-V_2^T
+V_1^\top   \\
+V_2^\top  
 \end{bmatrix}
-= U_1 \Sigma_1 V_1^T = AV_1V_1^T = A
+= U_1 \Sigma_1 V_1^\top   = AV_1V_1^\top   = A
 $$</div>
-<p>可以看出右奇异向量 $V$ 的列向量是 $A^TA$ 的特征向量, 左奇异向量 $U$ 的列向量是 $AA^T$ 的特征向量.</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+<p>可以看出右奇异向量 $V$ 的列向量是 $A^\top A$ 的特征向量, 左奇异向量 $U$ 的列向量是 $AA^\top $ 的特征向量.</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>对一个非零的 $m \times n$ 实矩阵 $A \in \mathbb{R}^{m \times n}$, 可将其表示为满足如下特性的三个实矩阵乘积形式的因子分解运算:</p>
-$$A = U \Sigma V^T$$<p>其中:</p>
+$$A = U \Sigma V^\top $$<p>其中:</p>
 <ul>
-<li>$U$ 是 $m$ 阶正交矩阵, $U^T U = I$;</li>
-<li>$V$ 是 $n$ 阶正交矩阵, $V^T V = I$;</li>
+<li>$U$ 是 $m$ 阶正交矩阵, $U^\top   U = I$;</li>
+<li>$V$ 是 $n$ 阶正交矩阵, $V^\top  V = I$;</li>
 <li>$\Sigma$ 是由降序排列的非负的对角线元素组成的 $m \times n$ 矩形对角矩阵:</li>
 </ul>
 $$
-\Sigma = \text{diag}(\sigma_1, \cdots, \sigma_p)$$<p>
+\Sigma = \mathrm{diag}(\sigma_1, \cdots, \sigma_p)$$<p>
 这里 $\sigma_1 \geq \cdots \geq \sigma_p \geq 0$, 且 $p = \min(m, n)$.</p>
-<p>$U \Sigma V^T$ 称为 $A$ 的 <strong>奇异值分解</strong>, $\sigma_i$ 称为 $A$ 的 <strong>奇异值</strong>, $U$ 和 $V$ 的列向量分别称为 $A$ 的 <strong>左,右奇异向量</strong>.</p>
-<p>特别地, 当 $\text{rank}(A)=r$ 时, $\Sigma$ 的前 $r$ 个对角线元素 $\sigma_1, \cdots, \sigma_r$ 是正的, 我们称 $U_r\Sigma_r V_r^T$ 为 $A$ 的 <strong>紧奇异值分解</strong>; 对于任意 $0 \lt k \lt r$, $U_k\Sigma_k V_k^T$ 称为 $A$ 的 <strong>截断奇异值分解</strong>.</p>
+<p>$U \Sigma V^\top $ 称为 $A$ 的 <strong>奇异值分解</strong>, $\sigma_i$ 称为 $A$ 的 <strong>奇异值</strong>, $U$ 和 $V$ 的列向量分别称为 $A$ 的 <strong>左,右奇异向量</strong>.</p>
+<p>特别地, 当 $\mathrm{rank}(A)=r$ 时, $\Sigma$ 的前 $r$ 个对角线元素 $\sigma_1, \cdots, \sigma_r$ 是正的, 我们称 $U_r\Sigma_r V_r^\top  $ 为 $A$ 的 <strong>紧奇异值分解</strong>; 对于任意 $0 \lt k \lt r$, $U_k\Sigma_k V_k^\top  $ 称为 $A$ 的 <strong>截断奇异值分解</strong>.</p>
 </div>
 <h3 id="奇异值分解与矩阵近似">奇异值分解与矩阵近似
-</h3><div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+</h3><div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>设 $A \in \mathbb{R}^{m \times n}$ 且 $A = [a_{ij}]_{m \times n}$, $A$ 的 <strong>Frobenius 范数</strong> $\|A\|_F$ 定义如下:</p>
 $$\|A\|_F = \left[\sum_{i=1}^{m} \sum_{j=1}^{n} a_{ij}^2\right]^{\frac{1}{2}}$$</div>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
+<div class="math-block math-thm">
+    <p class="math-title">定理</p>
 <p>若 $Q$ 是 $m$ 阶正交矩阵, 则 $\|QA\|_F = \|A\|_F$.</p>
-<p class="math-block-title math-prf">证明</p>
+<p class="math-prf">证明</p>
 <p>设 $A = [a_1, \cdots, a_n]$, 则:</p>
 $$
 \begin{aligned}
 \|QA\|_F^2 &= \| [Qa_1, \cdots, Qa_n]\|_F^2 = \sum_{i=1}^{n} \|Qa_i\|^2 \\
-&= \sum_{i=1}^{n} (Qa_i)^T (Qa_i) = \sum_{i=1}^{n} a_i^T Q^T Q a_i \\
-&= \sum_{i=1}^{n} a_i^T a_i = \sum_{i=1}^{n} \|a\|^2 = \|A\|_F^2
+&= \sum_{i=1}^{n} (Qa_i)^\top   (Qa_i) = \sum_{i=1}^{n} a_i^\top   Q^\top   Q a_i \\
+&= \sum_{i=1}^{n} a_i^\top   a_i = \sum_{i=1}^{n} \|a\|^2 = \|A\|_F^2
 \end{aligned}
 $$</div>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
-<p>设 $A \in \mathbb{R}^{m \times n}$, $\text{rank}(A) = r$, $A = U \Sigma V^T$ 是 $A$ 的奇异值分解, 并设 $\mathcal{M}$ 是 $\mathbb{R}^{m \times n}$ 中所有秩不超过 $k$ 的矩阵的集合, $0 \lt k \lt r$.</p>
-<p>若 $A'=U\Sigma'V^T$, 其中 $\Sigma'_{m \times n} = \begin{bmatrix} \Sigma_k & 0 \\ 0 & 0 \end{bmatrix}$, 这里 $\Sigma_k = \text{diag}(\sigma_1, \cdots, \sigma_k)$, 则:</p>
+<div class="math-block math-thm">
+    <p class="math-title">定理</p>
+<p>设 $A \in \mathbb{R}^{m \times n}$, $\mathrm{rank}(A) = r$, $A = U \Sigma V^\top $ 是 $A$ 的奇异值分解, 并设 $\mathcal{M}$ 是 $\mathbb{R}^{m \times n}$ 中所有秩不超过 $k$ 的矩阵的集合, $0 \lt k \lt r$.</p>
+<p>若 $A'=U\Sigma'V^\top $, 其中 $\Sigma'_{m \times n} = \begin{bmatrix} \Sigma_k & 0 \\ 0 & 0 \end{bmatrix}$, 这里 $\Sigma_k = \mathrm{diag}(\sigma_1, \cdots, \sigma_k)$, 则:</p>
 $$
 \|A-A'\|_F = \sqrt{\sum_{l=k+1}^{n} \sigma_l^2} = \min_{S\in \mathcal{M}} \|A-S\|_F
-$$<p>即截断奇异值分解 $A' = U\Sigma'V^T$ 是 $A$ 在 $\mathcal{M}$ 中的最优近似.</p>
-<p class="math-block-title math-prf">证明</p>
-<p>一个显然的结论是, 由上一个定理, 设 $A=U\Sigma V^T$, 则:</p>
+$$<p>即截断奇异值分解 $A' = U\Sigma'V^\top $ 是 $A$ 在 $\mathcal{M}$ 中的最优近似.</p>
+<p class="math-prf">证明</p>
+<p>一个显然的结论是, 由上一个定理, 设 $A=U\Sigma V^\top $, 则:</p>
 $$
-\|A\|_F = \|U\Sigma V^T\|_F = \|\Sigma\|_F = \sqrt{\sum_{l=1}^{n} \sigma_l^2}
+\|A\|_F = \|U\Sigma V^\top \|_F = \|\Sigma\|_F = \sqrt{\sum_{l=1}^{n} \sigma_l^2}
 $$<p>取 $X$ 为 $A$ 的截断奇异值 $A'$, 则:</p>
 $$
 \|A-X\|_F = \|A-A'\|_F = \sqrt{\sum_{l=k+1}^{n} \sigma_l^2}
 $$<p>下面只需要证明:</p>
-$$\|A-X\|_F \ge \sqrt{\sum_{l=k+1}^{n} \sigma_l^2}$$<p>再设 $X$ 的奇异值分解为 $X = Q\Omega P^T$, 其中:</p>
+$$\|A-X\|_F \ge \sqrt{\sum_{l=k+1}^{n} \sigma_l^2}$$<p>再设 $X$ 的奇异值分解为 $X = Q\Omega P^\top  $, 其中:</p>
 $$
 \Omega = \begin{bmatrix}
 \Omega_1 & 0 \\
 0 & 0
 \end{bmatrix}
-$$<p>这里 $\Omega_1 = \text{diag}(\omega_1, \cdots, \omega_k)$.</p>
-<p>令 $B=Q^TAP$, 则 $A=QBP^T$, 按照 $\Omega$ 的分块方法对 $B$ 进行分块:</p>
+$$<p>这里 $\Omega_1 = \mathrm{diag}(\omega_1, \cdots, \omega_k)$.</p>
+<p>令 $B=Q^\top  AP$, 则 $A=QBP^\top  $, 按照 $\Omega$ 的分块方法对 $B$ 进行分块:</p>
 $$
 B = \begin{bmatrix}
 B_{11} & B_{12} \\
@@ -493,21 +493,21 @@ B_{21} & B_{22}
 $$<p>则:</p>
 $$
 \begin{aligned}
-\|A-X\|_F^2 &= \|Q(B-\Omega)P^T\|_F^2 = \|B-\Omega\|_F^2 \\
+\|A-X\|_F^2 &= \|Q(B-\Omega)P^\top  \|_F^2 = \|B-\Omega\|_F^2 \\
 &= \|B_{11}-\Omega_1\|_F^2 + \|B_{12}\|_F^2 + \|B_{21}\|_F^2 + \|B_{22}\|_F^2
 \end{aligned}
-$$<p>既然 $X$ 使得 $\|A-X\|_F^2$ 最小, 我们考虑取 $Y=Q\Omega'P^T \in \mathcal{M}$, 其中 $\Omega' = \begin{bmatrix} B_{11} & B_{12} \\ 0 & 0 \end{bmatrix}$, 则由最小性可得:</p>
+$$<p>既然 $X$ 使得 $\|A-X\|_F^2$ 最小, 我们考虑取 $Y=Q\Omega'P^\top   \in \mathcal{M}$, 其中 $\Omega' = \begin{bmatrix} B_{11} & B_{12} \\ 0 & 0 \end{bmatrix}$, 则由最小性可得:</p>
 $$
 \|A-X\|_F^2 \le \|A-Y\|_F^2 = \|B_{21}\|_F^2 + \|B_{22}\|_F^2
 $$<p>由此立得 $B_{12} = 0$, 且 $B_{11} = \Omega_1$, 同理 $B_{21}=0$. 从而我们得到:</p>
 $$
 \|A-X\|_F = \|B_{22}\|_F
-$$<p>设 $B_{22}$ 的奇异值分解是 $B_{22} = U_1 \Lambda V_1^T$, 则:</p>
+$$<p>设 $B_{22}$ 的奇异值分解是 $B_{22} = U_1 \Lambda V_1^\top  $, 则:</p>
 $$
 \|A-X\|_F = \|B_{22}\|_F = \|\Lambda\|_F
 $$<p>注意到:</p>
 $$
-Q^T A P = B = \begin{bmatrix}
+Q^\top   A P = B = \begin{bmatrix}
 \Omega_1 & 0 \\
 0 & B_{22}
 \end{bmatrix}
@@ -522,7 +522,7 @@ I_k & 0 \\
 \end{bmatrix}
 $$<p>显见:</p>
 $$
-U_2^T Q^T A P V_2 = U_2^T B V_2 = \begin{bmatrix}
+U_2^\top   Q^\top   A P V_2 = U_2^\top   B V_2 = \begin{bmatrix}
 \Omega_1 & 0 \\
 0 & \Lambda
 \end{bmatrix}
@@ -531,14 +531,14 @@ $$
 A = QU_2 \begin{bmatrix}
 \Omega_1 & 0 \\
 0 & \Lambda
-\end{bmatrix} \left(PV_2\right)^T
+\end{bmatrix} \left(PV_2\right)^\top  
 $$<p>这意味着 $\Lambda$ 的对角线元素是 $A$ 的奇异值, 故有</p>
 $$
 \|A-X\|_F = \|\Lambda\|_F \ge \sqrt{\sum_{l=k+1}^n \sigma_l^2}
 $$<p>因此 $\|A-X\|_F = \sqrt{\sum_{l=k+1}^n \sigma_l^2} = \|A-A'\|_F$.</p>
 </div>
 <p>实际上:</p>
-$$A = U\Sigma V^T = \sum_{i=1}^n \sigma_i u_i v_i^T$$<p>这也称为 $A$ 的 <strong>外积展开式</strong>, 显然截断奇异值分解 $A_k = \sum_{i=1}^k \sigma_i u_i v_i^T$.</p>
+$$A = U\Sigma V^\top  = \sum_{i=1}^n \sigma_i u_i v_i^\top  $$<p>这也称为 $A$ 的 <strong>外积展开式</strong>, 显然截断奇异值分解 $A_k = \sum_{i=1}^k \sigma_i u_i v_i^\top  $.</p>
 <h2 id="主成分分析">主成分分析
 </h2><ul>
 <li>如果数据的一些特征之间存在相关性，处理起来不太方便；</li>
@@ -551,59 +551,59 @@ $$A = U\Sigma V^T = \sum_{i=1}^n \sigma_i u_i v_i^T$$<p>这也称为 $A$ 的 <st
 <li>构造出的新特征个数比原来的特征数少很多，达到降维的目的.</li>
 </ul>
 <h3 id="总体主成分分析">总体主成分分析
-</h3><div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>设 $x = (x_1,x_2,\cdots, x_m)^T$ 是 $m$ 维随机向量, $\alpha \in \mathbb{R}^m$ 且 $\alpha^T \alpha = 1$, 则称:</p>
+</h3><div class="math-block math-def">
+    <p class="math-title">定义</p>
+<p>设 $x = (x_1,x_2,\cdots, x_m)^\top  $ 是 $m$ 维随机向量, $\alpha \in \mathbb{R}^m$ 且 $\alpha^\top  \alpha = 1$, 则称:</p>
 $$
-y=\alpha^T x
+y=\alpha^\top  x
 $$<p>为 <strong>标准线性组合</strong>.</p>
 </div>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
-<p>设 $\mathbf{x}=(x_1,x_2,\cdots,x_m)^T$ 是均值为 $\mu$, 协方差矩阵为 $\Sigma$ 的 $m$ 维随机向量, $A$ 是半正定矩阵 $\Sigma$ 的对角化正交矩阵, 即 $A^T \Sigma A = \Lambda$. 则如下线性变换被称为 <strong>主成分变换</strong>:</p>
-$$\mathbf{y}=A^T(\mathbf{x}-\mu).$$<p>并称 $\mathbf{y}$ 的第 $i$ 个分量:</p>
-$$y_i=\alpha_i^T(\mathbf{x}-\mu)$$<p>为 $\mathbf{x}$ 的第 $i$ 主成分，这里 $\alpha_i$ 为 $A$ 的第 $i$ 个列向量.</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
+<p>设 $\mathbf{x}=(x_1,x_2,\cdots,x_m)^\top  $ 是均值为 $\mu$, 协方差矩阵为 $\Sigma$ 的 $m$ 维随机向量, $A$ 是半正定矩阵 $\Sigma$ 的对角化正交矩阵, 即 $A^\top  \Sigma A = \Lambda$. 则如下线性变换被称为 <strong>主成分变换</strong>:</p>
+$$\mathbf{y}=A^\top (\mathbf{x}-\mu).$$<p>并称 $\mathbf{y}$ 的第 $i$ 个分量:</p>
+$$y_i=\alpha_i^\top  (\mathbf{x}-\mu)$$<p>为 $\mathbf{x}$ 的第 $i$ 主成分，这里 $\alpha_i$ 为 $A$ 的第 $i$ 个列向量.</p>
 </div>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
-<p>设 $\mathbf{x} \sim (\mu, \Sigma)$, 则 $\mathbf{y} = A^T (\mathbf{x} - \mu)$ 满足:</p>
+<div class="math-block math-thm">
+    <p class="math-title">定理</p>
+<p>设 $\mathbf{x} \sim (\mu, \Sigma)$, 则 $\mathbf{y} = A^\top  (\mathbf{x} - \mu)$ 满足:</p>
 <ul>
 <li>$E[\mathbf{y}] = 0$.</li>
-<li>$\text{Var}(y_i) = \lambda_i, i = 1, 2, \cdots, m$.</li>
-<li>$\text{Cov}(y_i, y_j) = 0, i \neq j, i, j = 1, 2, \cdots, m$.</li>
+<li>$\mathrm{Var}(y_i) = \lambda_i, i = 1, 2, \cdots, m$.</li>
+<li>$\mathrm{Cov}(y_i, y_j) = 0, i \neq j, i, j = 1, 2, \cdots, m$.</li>
 </ul>
 </div>
 <p>证明略, 用协方差矩阵的性质即可.</p>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
-<p>不存在方差比 $\lambda_1$ 更大的标准线性组合 $y = \alpha^T \mathbf{x}$.</p>
-<p class="math-block-title math-prf">证明</p>
-<p>考虑标准线性组合 $y=\alpha^T\mathbf{x}$, 其中 $\alpha \in \mathbf{R}^m$ 且 $\alpha^T\alpha=1$. 由于 $\alpha_1,\alpha_2,\cdots,\alpha_m$ 正好构成了 $\mathbf{R}^m$ 的一组标准正交基, 则存在 $c_1,c_2,\cdots,c_m\in\mathbb{R}$ 使得</p>
+<div class="math-block math-thm">
+    <p class="math-title">定理</p>
+<p>不存在方差比 $\lambda_1$ 更大的标准线性组合 $y = \alpha^\top  \mathbf{x}$.</p>
+<p class="math-prf">证明</p>
+<p>考虑标准线性组合 $y=\alpha^\top \mathbf{x}$, 其中 $\alpha \in \mathbf{R}^m$ 且 $\alpha^\top \alpha=1$. 由于 $\alpha_1,\alpha_2,\cdots,\alpha_m$ 正好构成了 $\mathbf{R}^m$ 的一组标准正交基, 则存在 $c_1,c_2,\cdots,c_m\in\mathbb{R}$ 使得</p>
 $$\alpha=\sum_{i=1}^mc_i\alpha_i$$<p>对此线性组合来说，</p>
 $$\begin{aligned}
-\text{Var}(y)=\alpha^T\Sigma\alpha&=\left[\sum_{i=1}^mc_i\alpha_i^T\right]\Sigma\left[\sum_{i=1}^mc_i\alpha_i\right]\\
-&=\sum_{i=1}^mc_i^2\lambda_i\alpha_i^T\alpha_i=\sum_{i=1}^mc_i^2\lambda_i.\end{aligned}$$<p>另一方面结合:</p>
-$$1=\alpha^T\alpha=\sum_{i=1}^mc_i^2\alpha_i^T\alpha_i=\sum_{i=1}^mc_i^2$$<p>问题显然是 $c_1 = 1, c_2 = c_3 = \cdots = c_m = 0$ 时取得最大值 $\lambda_1$. 因此:</p>
-$$\max_{c_1,\cdots,c_m}\text{Var}(y)=\lambda_1$$<p>对应的标准线性组合为:</p>
-$$y=\alpha_1^T\mathbf{x}$$</div>
-<div class="math-block">
-    <p class="math-block-title math-thm">定理</p>
-<p>如果标准线性组合 $y = \alpha^T \mathbf{x}$ 和 $\mathbf{x}$ 的前 $k$ 个主成分都不相关, 则 $y$ 的方差当 $y$ 是第 $k+1$ 个主成分时最大.</p>
-<p class="math-block-title math-prf">证明</p>
-<p>证明：设 $y=\alpha^T\mathbf{x}$, 其中 $\alpha^T\alpha=1$. 且 $\alpha=\sum_i^mc_i\alpha_i$, 对此线性组合来说:</p>
-$$\text{Var}(y)=\sum_{i=1}^mc_i^2\lambda_i$$<p>对 $1\leq j \lt k$ 来说:</p>
+\mathrm{Var}(y)=\alpha^\top \Sigma\alpha&=\left[\sum_{i=1}^mc_i\alpha_i^\top  \right]\Sigma\left[\sum_{i=1}^mc_i\alpha_i\right]\\
+&=\sum_{i=1}^mc_i^2\lambda_i\alpha_i^\top  \alpha_i=\sum_{i=1}^mc_i^2\lambda_i.\end{aligned}$$<p>另一方面结合:</p>
+$$1=\alpha^\top \alpha=\sum_{i=1}^mc_i^2\alpha_i^\top  \alpha_i=\sum_{i=1}^mc_i^2$$<p>问题显然是 $c_1 = 1, c_2 = c_3 = \cdots = c_m = 0$ 时取得最大值 $\lambda_1$. 因此:</p>
+$$\max_{c_1,\cdots,c_m}\mathrm{Var}(y)=\lambda_1$$<p>对应的标准线性组合为:</p>
+$$y=\alpha_1^\top  \mathbf{x}$$</div>
+<div class="math-block math-thm">
+    <p class="math-title">定理</p>
+<p>如果标准线性组合 $y = \alpha^\top  \mathbf{x}$ 和 $\mathbf{x}$ 的前 $k$ 个主成分都不相关, 则 $y$ 的方差当 $y$ 是第 $k+1$ 个主成分时最大.</p>
+<p class="math-prf">证明</p>
+<p>证明：设 $y=\alpha^\top \mathbf{x}$, 其中 $\alpha^\top \alpha=1$. 且 $\alpha=\sum_i^mc_i\alpha_i$, 对此线性组合来说:</p>
+$$\mathrm{Var}(y)=\sum_{i=1}^mc_i^2\lambda_i$$<p>对 $1\leq j \lt k$ 来说:</p>
 $$
 \begin{aligned}
-\text{Cov}(y,y_j)&=\text{Cov}(\alpha^T\mathbf{x},\alpha_j^T\mathbf{x})=\left[\sum_{i=1}^mc_i\alpha_i^T\right]\Sigma\alpha_j\\
-&=c_j\lambda_j\alpha_j^T\alpha_j=c_j\lambda_j=0
+\mathrm{Cov}(y,y_j)&=\mathrm{Cov}(\alpha^\top \mathbf{x},\alpha_j^\top  \mathbf{x})=\left[\sum_{i=1}^mc_i\alpha_i^\top  \right]\Sigma\alpha_j\\
+&=c_j\lambda_j\alpha_j^\top  \alpha_j=c_j\lambda_j=0
 \end{aligned}
 $$<p>这意味着对$1\leq j \lt k$ 来说, $c_j^2\lambda_j=0$. 故:</p>
-$$\text{Var}(y)=\sum_{i=k+1}^mc_i^2\lambda_i$$<p>和前面证明类似, 我们可得:</p>
-$$\max_{c_1,\cdots,c_m}\text{Var}(y)=\lambda_{k+1}$$<p>对应的标准线性组合:</p>
-$$y=\alpha_{k+1}^T\mathbf{x}$$<p>正好是第 $k+1$ 主成分.</p>
+$$\mathrm{Var}(y)=\sum_{i=k+1}^mc_i^2\lambda_i$$<p>和前面证明类似, 我们可得:</p>
+$$\max_{c_1,\cdots,c_m}\mathrm{Var}(y)=\lambda_{k+1}$$<p>对应的标准线性组合:</p>
+$$y=\alpha_{k+1}^\top  \mathbf{x}$$<p>正好是第 $k+1$ 主成分.</p>
 </div>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>$\mathbf{x}$ 的第 $k$ 个主成分 $y_k$ 的 <strong>方差贡献率</strong> 定义为:
 </p>
 $$
@@ -614,14 +614,14 @@ $$
 \eta_{1 \to k} = \sum_{i=1}^k \lambda_i= \frac{\sum_{i=1}^k\lambda_k}{\sum_{i=1}^m \lambda_i}
 $$</div>
 <p>累计方差贡献率体现了前 $k$ 个主成分对数据的方差贡献.</p>
-<p>显然, $\mathbf{y}=A^T\mathbf{x}$ 的逆为 $\mathbf{x}=A\mathbf{y}$, 由此可以给出如下定义:</p>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+<p>显然, $\mathbf{y}=A^\top \mathbf{x}$ 的逆为 $\mathbf{x}=A\mathbf{y}$, 由此可以给出如下定义:</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>定义 <strong>因子负荷量</strong> 为第 $k$ 个主成分 $y_k$ 和原始变量 $x_i$ 的相关系数:</p>
 $$
 \begin{aligned}
-\rho(y_k,x_i) &= \frac{\text{Cov}(y_k, x_i)}{\sqrt{\text{Var}(y_k) \cdot \text{Var}(x_i)}} = \frac{\text{Cov}\left(\sum_{j=1}^m \alpha_{ij}y_j, y_k\right)}{\sqrt{\lambda_k \sigma_{ii}}} \\
-&= \frac{\alpha_{ik} \text{Var}(y_k) }{\sqrt{\lambda_k \sigma_{ii}}} = \frac{\sqrt{\lambda_k} \alpha_{ik}}{\sqrt{\sigma_{ii}}}
+\rho(y_k,x_i) &= \frac{\mathrm{Cov}(y_k, x_i)}{\sqrt{\mathrm{Var}(y_k) \cdot \mathrm{Var}(x_i)}} = \frac{\mathrm{Cov}\left(\sum_{j=1}^m \alpha_{ij}y_j, y_k\right)}{\sqrt{\lambda_k \sigma_{ii}}} \\
+&= \frac{\alpha_{ik} \mathrm{Var}(y_k) }{\sqrt{\lambda_k \sigma_{ii}}} = \frac{\sqrt{\lambda_k} \alpha_{ik}}{\sqrt{\sigma_{ii}}}
 \end{aligned}
 $$</div>
 <p>容易验证因子负荷量满足:</p>
@@ -629,29 +629,29 @@ $$</div>
 <li>$$ \sum_{i=1}^m \sigma_{ii} \rho^2(y_k,x_i)=\lambda_k $$</li>
 <li>$$ \sum_{k=1}^m \rho^2(y_k,x_i)=1 $$</li>
 </ul>
-<div class="math-block">
-    <p class="math-block-title math-def">定义</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
 <p>$\mathbf{x}$ 的前 $k$ 个主成分 $y_1, y_2, \cdots, y_k$ 对原有变量 $x_i$ 的 <strong>贡献率</strong> 定义为:
 </p>
 $$
 \nu_{1 \to k} = \sum_{j=1}^k \rho^2(y_j, x_i) = \sum_{j=1}^k \frac{\lambda_j \alpha_{ij}^2}{\sigma_{ii}}
 $$</div>
 <h3 id="样本主成分分析">样本主成分分析
-</h3><p>设 $\mathbf{x}_1,\mathbf{x}_2,\cdots,\mathbf{x}_n$ 是对 $m$ 维随机向量 $\mathbf{x}=(x_1,x_2,\cdots,x_m)^T$ 进行 $n$ 次独立观测的样本, 其中 $\mathbf{x}_j=(x_{1j},x_{2j},\cdots,x_{mj})^T$ 表示第 $j$ 个观测样本, 则观测数据矩阵:</p>
+</h3><p>设 $\mathbf{x}_1,\mathbf{x}_2,\cdots,\mathbf{x}_n$ 是对 $m$ 维随机向量 $\mathbf{x}=(x_1,x_2,\cdots,x_m)^\top  $ 进行 $n$ 次独立观测的样本, 其中 $\mathbf{x}_j=(x_{1j},x_{2j},\cdots,x_{mj})^\top  $ 表示第 $j$ 个观测样本, 则观测数据矩阵:</p>
 $$\mathbf{X}=[\mathbf{x}_1,\mathbf{x}_2,\cdots,\mathbf{x}_n]=\left[\begin{array}{ccc}x_{11}&\cdots&x_{1n}\\\vdots&\vdots&\vdots\\x_{m1}&\cdots&x_{mn}\end{array}\right]$$<p>样本均值向量为:</p>
-$$\bar{\mathbf{x}}=\frac{1}{n}\sum\limits_{j=1}^n\mathbf{x}_j=(\bar{x}_1,\cdots,\bar{x}_m)^T$$<p>样本协方差矩阵为 $\mathbf{S}=[s_{ij}]_{m\times m}$, 其中:</p>
+$$\bar{\mathbf{x}}=\frac{1}{n}\sum\limits_{j=1}^n\mathbf{x}_j=(\bar{x}_1,\cdots,\bar{x}_m)^\top  $$<p>样本协方差矩阵为 $\mathbf{S}=[s_{ij}]_{m\times m}$, 其中:</p>
 $$s_{ij}=\frac{1}{n-1}\sum\limits_{k=1}^n(x_{ik}-\bar{x}_i)(x_{jk}-\bar{x}_j), i,j=1,2,\cdots,m$$<p>样本相关矩阵为 $\mathbf{R}=[r_{ij}]_{m\times m}$, 其中:</p>
-$$r_{ij}=\frac{s_{ij}}{\sqrt{s_{ii}s_{jj}}}$$<div class="math-block">
-    <p class="math-block-title math-algo">算法<span class="math-subtitle">PCA</span></p>
-<p><strong>输入</strong>: 规范化后的样本数据矩阵 $\mathbf{X}_{m \times n}$</p>
-<p><strong>输出</strong>: 样本主成分矩阵 $\mathbf{Y}_{k \times n}$</p>
+$$r_{ij}=\frac{s_{ij}}{\sqrt{s_{ii}s_{jj}}}$$<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">PCA</span></p>
+<p><strong class="algo-input">输入 &gt; </strong> 规范化后的样本数据矩阵 $\mathbf{X}_{m \times n}$</p>
+<p><strong class="algo-output">输出 &gt; </strong> 样本主成分矩阵 $\mathbf{Y}_{k \times n}$</p>
 <ol>
 <li>构造:
-$$\mathbf{X}' = \frac{1}{\sqrt{n-1}}\mathbf{X}^T$$</li>
+$$\mathbf{X}' = \frac{1}{\sqrt{n-1}}\mathbf{X}^\top  $$</li>
 <li>求 $X'$ 的 $k$ 秩截断奇异值分解:
-$$\mathbf{X}' = U_k \Sigma_k V_k^T$$</li>
+$$\mathbf{X}' = U_k \Sigma_k V_k^\top  $$</li>
 <li>返回样本前 $k$ 主成分矩阵:
-$$\mathbf{Y} = V^T\mathbf{X}$$</li>
+$$\mathbf{Y} = V^\top \mathbf{X}$$</li>
 </ol>
 </div>
 
