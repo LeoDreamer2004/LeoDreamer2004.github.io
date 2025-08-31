@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>MLLM on LeoDreamer</title>
+        <link>https://LeoDreamer2004.github.io/tags/mllm/</link>
+        <description>Recent content in MLLM on LeoDreamer</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>LeoDreamer</copyright>
+        <lastBuildDate>Wed, 09 Jul 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/tags/mllm/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>论文阅读 - 三维重建与模型空间感知</title>
+        <link>https://LeoDreamer2004.github.io/p/paper-reading/3d-reconstruction-and-spatial-perception/</link>
+        <pubDate>Wed, 09 Jul 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://LeoDreamer2004.github.io/p/paper-reading/3d-reconstruction-and-spatial-perception/</guid>
+        <description>&lt;p&gt;3D 重建主要指估计一组图像中场景的 3D 属性的问题.&lt;/p&gt;
+&lt;p&gt;通常的 &lt;strong&gt;运动结构恢复 (Structure from Motion, SfM)&lt;/strong&gt; 问题是给定一组图像, 恢复相机的姿态和场景的 3D 点云. 一般步骤如下:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;特征匹配&lt;/strong&gt;: 通过在两幅或多幅图像中找到相同的特征点 (例如, 使用 SIFT 或 ORB 算法), 确定这些特征点的匹配关系.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;相机位姿估计&lt;/strong&gt;: 使用两个或更多的图像及其对应的特征点, 估计相机的外参 (即相机位置和朝向). 这里一般有增量式 (从两幅图像开始, 逐步添加更多图像) 和全局式 (一次性处理所有图像) 两类方法.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;三角化&lt;/strong&gt;: 用于恢复三维点的位置. 基本原理是通过已知的相机视角和匹配点的位置, 利用几何约束来计算三维点的空间坐标. 常见的方法是直接线性变换 (Direct Linear Transform, DLT) 或基于光束平差法 (Bundle Adjustment, BA) 的非线性优化方法.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;三维点恢复&lt;/strong&gt;: 通过三角化得到的三维点通常会是一个稀疏点云, 代表了场景中关键特征的空间位置. 对于每个匹配的特征点, 三角化将其映射到三维空间中的位置.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;介绍几个 3D CV 概念.&lt;/p&gt;
+&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;相机的 &lt;strong&gt;投影矩阵 (Projection Matrix)&lt;/strong&gt; $P_i \in \mathbb{R}^{3 \times 4}$ 用于将 3D 点投影到 2D 图像平面, 包含 &lt;strong&gt;外参&lt;/strong&gt; $g_i \in \mathbb{SE}(3)$ 和 &lt;strong&gt;内参&lt;/strong&gt; $K_i \in \mathbb{R}^{3 \times 3}$.
+&lt;/p&gt;
+$$
+    g = \begin{bmatrix}
+    R &amp; t \\
+    0 &amp; 1
+    \end{bmatrix}, \quad
+    K = \begin{bmatrix}
+    f &amp; 0 &amp; p_x \\
+    0 &amp; f &amp; p_y \\
+    0 &amp; 0 &amp; 1
+    \end{bmatrix}
+    $$&lt;p&gt;
+其中 $R$ 是旋转阵, $t$ 是平移量, $f$ 是焦距, $(p_x, p_y)$ 是主点坐标, 一般取图像中心.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;两个相机之间的 &lt;strong&gt;本质矩阵 (Essential Matrix)&lt;/strong&gt; $E \in \mathbb{R}^{3 \times 3}$ 用于关联两幅图像中 &lt;em&gt;归一化相机坐标&lt;/em&gt; 的对应点 $x_1, x_2 \in \mathbb{R}^3$:&lt;/p&gt;
+$$
+x_2^T E x_1 = 0
+$$&lt;p&gt;其中 $x_1, x_2$ 是归一化的相机坐标, 即 $x_i = K_i^{-1} p_i$, $p_i$ 是图像平面上的点坐标.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;可以证明本质矩阵 $E = t \times R$, 其奇异值满足 $\sigma_1 = \sigma_2 \gt 0, \sigma_3 = 0$, 其自由度是 $5$, 需要注意求解本质矩阵需要事先知道两个相机的内参, 最常用的方法是八点算法 (Eight-Point Algorithm).&lt;/p&gt;
+&lt;div class=&#34;math-block math-def&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;定义&lt;/p&gt;
+&lt;p&gt;两个相机之间的 &lt;strong&gt;基础矩阵 (Fundamental Matrix)&lt;/strong&gt; $F \in \mathbb{R}^{3 \times 3}$ 用于关联两幅图像中 &lt;em&gt;像素坐标&lt;/em&gt; 的对应点 $p_1, p_2 \in \mathbb{R}^2$:&lt;/p&gt;
+$$
+p_2^T F p_1 = 0
+$$&lt;/div&gt;
+&lt;p&gt;基础矩阵隐含了内参的不确定性, 因此其自由度是 $7$. 求解基础矩阵不需要知道相机的内参, 但需要知道点的对应关系.&lt;/p&gt;
+&lt;h2 id=&#34;colmap-cvpr-2016&#34;&gt;COLMAP (CVPR 2016)
+&lt;/h2&gt;&lt;p&gt;COLMAP 是一个开源的 SfM 和多视图立体视觉 (Multi-View Stereo, MVS) 框架, 由 Johannes L. Schönberger 和 Jan-Michael Frahm 在 2016 年提出 &lt;a class=&#34;link cite-COLMAP&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
+    &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
+&lt;/a&gt;. 它提供了一个完整的 SfM 流程, 包括特征提取、匹配、相机姿态估计、三角化和稠密重建等步骤.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://LeoDreamer2004.github.io/p/paper-reading/3d-reconstruction-and-spatial-perception/img/COLMAP.png&#34;
+	width=&#34;2263&#34;
+	height=&#34;459&#34;
+	srcset=&#34;https://LeoDreamer2004.github.io/p/paper-reading/3d-reconstruction-and-spatial-perception/img/COLMAP_hu_7101b0a3d9a93392.png 480w, https://LeoDreamer2004.github.io/p/paper-reading/3d-reconstruction-and-spatial-perception/img/COLMAP_hu_65be46c73be6e27a.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;COLMAP&#34;
+	
+	class=&#34;gallery-image&#34; 
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;dust3r-cvpr-2024&#34;&gt;DUSt3R (CVPR 2024)
+&lt;/h2&gt;&lt;p&gt;论文 &lt;a class=&#34;link cite-DUSt3R&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
+    &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
+&lt;/a&gt; 提出了一个新的 &lt;strong&gt;密集无约束立体 3D 重建 (Dense and Unconstrained Stereo 3D Reconstruction, DUSt3R)&lt;/strong&gt; 模型, 该模型基于视觉几何学的原理, 通过深度学习方法简化了 3D 重建任务.&lt;/p&gt;
+&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;DUSt3R&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-input&#34;&gt;输入 &amp;gt; &lt;/strong&gt; 2 张 RGB 图像 $I^1, I^2 \in \mathbb{R}^{W \times H \times 3}$.&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-output&#34;&gt;输出 &amp;gt; &lt;/strong&gt; 对应的点图 $X^{1,1}, X^{2,1} \in \mathbb{R}^{W \times H \times 3}$ 和关联的置信度 $C^{1,1}, C^{2,1} \in \mathbb{R}^{W \times H}$. $X^{n,m}$ 表示相机 $n$ 的点图 $X^n$ 在相机 $m$ 的坐标系下的表示:&lt;/p&gt;
+$$
+X^{n,m} = P_m P_n^{-1} h(X^n)
+$$&lt;p&gt;其中 $P_n$ 是相机 $n$ 的投影矩阵, $h: (x,y,z) \to (x,y,z,1)$ 是齐次坐标变换. 也就是说二者都以相同的坐标系 $I_1$ 为参考.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;两个输入图像首先通过共享权重的 Siamese ViT 编码器 &lt;a class=&#34;link ref-Siamese&#34;&gt;&lt;/a&gt; 进行编码, 生成两个 token 表示 $F^1, F^2$.
+$$
+    F^1 = \text{Encode}(I^1), \quad F^2 = \text{Encode}(I^2)
+    $$&lt;/li&gt;
+&lt;li&gt;在解码器联合推理. 每个解码器块会依次执行自我注意力和交叉注意力, 最后过传递给 MLP:
+$$
+    G_i^1 = \text{Decode}_i^1 \left(G_{i-1}^1, G_{i-1}^2 \right), \quad G_i^2 = \text{Decode}_i^2 \left(G_{i-1}^2, G_{i-1}^1 \right)
+    $$&lt;/li&gt;
+&lt;li&gt;最后用一个单独的回归头接受所有 token 并输出预测的点图和置信度:
+$$
+    X^{1,1}, C^{1,1} = \text{Head}^1 \left(G_0^1, \dots, G_B^1 \right), \quad X^{2,1}, C^{2,1} = \text{Head}^2 \left(G_0^2, \dots, G_B^2 \right)
+    $$&lt;/li&gt;
+&lt;li&gt;对于视图 $v \in \{1,2\}$ 和像素点 $i$, 其 3D 回归损失定义为:
+$$
+    \ell_{\mathrm{regr}}(v,i) = \left\| \frac{1}{z} X_i^{v,1} - \frac{1}{\bar{z}} \bar{X}_i^{v,1} \right\|
+    $$
+$z$ 用于归一化.&lt;/li&gt;
+&lt;li&gt;置信度损失定义为 3D 回归损失的加权平均:
+$$
+    \mathcal{L}_{\mathrm{conf}} = \sum_{v=1}^2 \sum_{i=1}^N C_i^{v,1} \ell_{\mathrm{regr}}(v,i) - \alpha \log C_i^{v,1}
+    $$&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://arxiv.org/html/2312.14132v3/x2.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;DUSt3R&#34;
+	
+	class=&#34;gallery-image&#34; 
+&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;然而, 这个网络每次只能处理一对图像. 因而论文 &lt;a class=&#34;link cite-DUSt3R&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
+    
+&lt;/a&gt; 引入一种后处理优化方法, 给定一组 $\{I^n\}_{n=1}^N$ 图像, 以图像为顶点建图, 连边表示共享一些内容, 可以通过置信度来计算二者的重叠, 然后过滤掉低置信度的配对.&lt;/p&gt;
+&lt;p&gt;现在如果要恢复所有相机的点图 $\{ \mathcal{X}^n \in \mathbb{R}^{W \times H \times 3} \}_{n=1}^N$, 则可以求解如下优化问题:&lt;/p&gt;
+$$
+\chi^* = \arg\min_{\chi, P, \sigma} \sum_{e=(n,m) \in \mathcal{E}} \sum_{v \in \{n,m\}} \sum_{i=1}^{HW} C_i^{v,n} \left\| \chi_i^v - \sigma_e P_e X_i^{v,n} \right\|.
+$$&lt;p&gt;$\sigma_e \gt 0$ 是缩放, $P_e \in \mathbb{R}^{3 \times 4}$ 是姿态. 为避免 $\sigma_e=0$ 的平凡解, 要求 $\prod_{e} \sigma_e = 1$.&lt;/p&gt;
+&lt;h2 id=&#34;mast3r-eccv-2024&#34;&gt;MASt3R (ECCV 2024)
+&lt;/h2&gt;&lt;p&gt;论文 &lt;a class=&#34;link cite-MASt3R&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
+    &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
+&lt;/a&gt; 指出 DUSt3R 匹配精度较低, 因而基于其提出了一个新的 &lt;strong&gt;匹配和立体 3D 重建 (Matching And Stereo 3D Reconstruction, MASt3R)&lt;/strong&gt; 模型.&lt;/p&gt;
+&lt;p&gt;相较于 DUSt3R, MASt3R 主要更关心点匹配, 做了以下改进:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;除了预测点图和置信度, 还加上额外两个头输出密集特征:
+$$
+    D^1 = \text{Head}^1_D(G_0^1, \dots, G_B^1), \quad D^2 = \text{Head}^2_D \left(G_0^2, \dots, G_B^2 \right)
+    $$&lt;/li&gt;
+&lt;li&gt;对于真实对应的点 $\hat{\mathcal{M}}=\{(i,j) \mid \hat{X}_i^{1,1} = \hat{X}_j^{2,1}\}$, 计算匹配损失 (实质上是匹配的交叉熵损失):
+$$
+    \mathcal{L}_{\mathrm{match}} =- \sum_{(i,j) \in \hat{\mathcal{M}}} \log \frac{s_\tau(i,j)}{\sum_k s_\tau(k,j)} + \log \frac{s_\tau(i,j)}{\sum_k s_\tau(i,k)}
+    $$
+这里 $s_\tau(i,j) = \exp\left( -\tau D_i^1 \cdot D_j^2 \right)$ 是点 $i$ 和 $j$ 的相似度, $\tau$ 是温度参数. 然你与置信度损失加权结合:
+$$
+    \mathcal{L}_{\mathrm{total}} = \mathcal{L}_{\mathrm{conf}} + \beta \mathcal{L}_{\mathrm{match}}
+    $$&lt;/li&gt;
+&lt;li&gt;匹配两点的算法是让二者互为彼此的最近邻. 即:
+$$
+    \mathcal{M} = \{(i,j) \mid j = \argmin_{k} \|D_i^1 - D_k^2\|, i = \argmin_{k} \|D_j^2 - D_k^1\|\}
+    $$
+直接枚举匹配的复杂度是 $\mathcal{O}(W^2H^2)$. 论文采用了一种迭代的策略, 即对每个点每次在图中找最近邻再映射到另一个图中, 直到收敛. 这样复杂度是 $\mathcal{O}(kWH)$.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://LeoDreamer2004.github.io/p/paper-reading/3d-reconstruction-and-spatial-perception/img/MASt3R.png&#34;
+	width=&#34;2001&#34;
+	height=&#34;451&#34;
+	srcset=&#34;https://LeoDreamer2004.github.io/p/paper-reading/3d-reconstruction-and-spatial-perception/img/MASt3R_hu_a681ed3db2b4516f.png 480w, https://LeoDreamer2004.github.io/p/paper-reading/3d-reconstruction-and-spatial-perception/img/MASt3R_hu_925d54152330727e.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;MASt3R&#34;
+	
+	class=&#34;gallery-image&#34; 
+&gt;&lt;/p&gt;
+&lt;p&gt;对于更高分辨率的图像, 论文 &lt;a class=&#34;link cite-MASt3R&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
+    
+&lt;/a&gt; 采用从粗到细匹配的策略.&lt;/p&gt;
+&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;MASt3R 高分辨率&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-input&#34;&gt;输入 &amp;gt; &lt;/strong&gt; 两张高分辨率 RGB 图像 $I_1, I_2 \in \mathbb{R}^{3 \times H \times W}$.&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-output&#34;&gt;输出 &amp;gt; &lt;/strong&gt; 对应的点图 $X^{1,1}, X^{2,1} \in \mathbb{R}^{W \times H \times 3}$ 和关联的置信度 $C^{1,1}, C^{2,1} \in \mathbb{R}^{W \times H}$.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;做粗匹配, 下采样到适合匹配的分辨率 (512), 得到对应点集 $M_k^0$, $k$ 是下采样的数量.&lt;/li&gt;
+&lt;li&gt;对两个图像分别生成重叠的窗口裁剪 $W_1, W_2$, 每个窗口裁剪的最大维度固定为 512 像素, 并且相邻窗口之间有 50% 的重叠区域. 按照贪心算法枚举窗口对 $(w_1, w_2) \in W_1 \times W_2$, 使得覆盖 $M_k^0$ 的 90% 点对为止.&lt;/li&gt;
+&lt;li&gt;做细匹配, 对找出的每个窗口对用 MASt3R, 在局部图内找更精确的对应点.&lt;/li&gt;
+&lt;li&gt;把每个窗口的结果映射回原始坐标系, 并合并得到结果.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;glomap-eccv-2024&#34;&gt;GLOMAP (ECCV 2024)
+&lt;/h2&gt;&lt;p&gt;论文 &lt;a class=&#34;link cite-GLOMAP&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
+    &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
+&lt;/a&gt; 提出了一个全局的 SfM 方法, 直接进行联合全局三角化和相机位置估计. 问题建模为优化:&lt;/p&gt;
+$$
+\argmin_{X,c,d} \sum_{i,k} \rho \left( \|v_{ik} - d_{ik} (X_k-c_i) \| \right)
+$$&lt;p&gt;其中 $v_{ik}$ 是从相机 $c_i$ 观察点 $X_k$ ​的全局旋转相机射线 (?? 应该是在图像中能计算得到的, 且要做归一化), $\rho$ 是 Huber 函数用于保持鲁棒性, 优化用 LM 优化器. 论文提出这个误差有界, 因此对噪声数据不敏感.&lt;/p&gt;
+&lt;p&gt;在处理图像时, 为保证图像相关性, 先做相机聚类:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;计算每对图像可见点的数量, 构图为 $G$, 丢弃计数少于 $5$ 的图像对.&lt;/li&gt;
+&lt;li&gt;使用剩余图像对的中位数来设置内点阈值 $\tau$.&lt;/li&gt;
+&lt;li&gt;连接计数超过 $\tau$ 的图像对, 在 $G$ 中寻找连通分量来找到相机的良好约束群集.&lt;/li&gt;
+&lt;li&gt;递归地重复此过程, 每个连通分量作为单独的重建输出.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://arxiv.org/html/2407.20219v2/extracted/5871851/figure/glomap_pipeline_calib.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;GLOMAP&#34;
+	
+	class=&#34;gallery-image&#34; 
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;vggsfm-cvpr-2024&#34;&gt;VGGSfM (CVPR 2024)
+&lt;/h2&gt;&lt;p&gt;论文 &lt;a class=&#34;link cite-VGGSfM&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
+    &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
+&lt;/a&gt; 基于常用的 SfM 框架, 提出了一个新的可以进行端到端训练的 &lt;strong&gt;视觉几何基础运动恢复结构 (Visual Geometry Grounded Structure from Motion)&lt;/strong&gt; 模型.&lt;/p&gt;
+&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;VGGSfM 追踪器&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-input&#34;&gt;输入 &amp;gt; &lt;/strong&gt; 观察同一 3D 场景的 RGB 图像序列 $(I_i)_{i=1}^{N_I}, I_i \in \mathbb{R}^{3 \times H \times W}$, 给定的查询点 $y_i$.&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-output&#34;&gt;输出 &amp;gt; &lt;/strong&gt; 该点在图像 $I_j$ 的轨迹 $y_i^j$ 以及可见性 $v_i^j$.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;先做特征提取, 用 4 个不同大小的 CNN 来计算帧 $I_i$ 的特征子图 $\{F_i^k\}_{k=1}^4$, 然后用双线性插值把它们上采样到相同大小, 随后拼接再卷积得到特征图 $F_i$.&lt;/li&gt;
+&lt;li&gt;对 $F_i$ 降采样 (每次做一次池化), 得到不同尺度下的特征张量金字塔.&lt;/li&gt;
+&lt;li&gt;将查询点扩展到所有帧中, 初始坐标都设为相同. 使用双线性采样从第一帧 (参考帧) 提取查询点的特征, 所有帧的初始特征都设为这个初始特征.&lt;/li&gt;
+&lt;li&gt;对每一个金字塔层级, 构造以每个查询点为中心的局部窗口, 并使用双线性插值采样局部特征, 随后与参考特征做内积衡量相似度, 得出相关性特征.&lt;/li&gt;
+&lt;li&gt;计算每个点相对于参考帧的相对位置 (即运动), 得出相对偏移编码特征.&lt;/li&gt;
+&lt;li&gt;把跟踪特征, 相对偏移编码特征和相关性特征拼接, 作为 Transformer 的输入.&lt;/li&gt;
+&lt;li&gt;通过 Transformer 更新坐标和特征, 直至收敛.&lt;/li&gt;
+&lt;li&gt;利用得到的追踪特征 $y_i^j$ 预测点的可见性 $v_i^j$. 同时引入 aleatoric 不确定性模型 &lt;a class=&#34;link ref-aleatoric&#34;&gt;&lt;/a&gt; 来预测 $y_i^j$ 的方差 $\sigma_i^j$ (或者置信度), 我们假设 $\sigma_i^j$ 是对角的.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://arxiv.org/html/2312.04563v1/x2.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;VGGSfM 追踪器&#34;
+	
+	class=&#34;gallery-image&#34; 
+&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;VGGSfM&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-input&#34;&gt;输入 &amp;gt; &lt;/strong&gt; 观察同一 3D 场景的 RGB 图像序列 $(I_i)_{i=1}^{N_I}, I_i \in \mathbb{R}^{3 \times H \times W}$.&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-output&#34;&gt;输出 &amp;gt; &lt;/strong&gt; 模型需要输出以下几点:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;相机投影矩阵&lt;/strong&gt; $P_i \in \mathbb{R}^{3 \times 4}$.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;点云&lt;/strong&gt; $X=\{x^i\}_{i=1}^M$, 其中 $x^i \in \mathbb{R}^3$ 是场景中每个点的三维坐标. 即此时对于 3D 点 $x^j$, 其在第 $i$ 个相机的 2D 投影为:
+$$
+    y_i^j = P_i (x^j) = \lambda K_i g_i x^j
+    $$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+&lt;li&gt;利用追踪器获得轨迹 $\mathcal{T} = \{T_i\}_{i=1}^{N_I}$, 其中 $T_i = \{y_i^j\}_{j=1}^{N_T}$ 是第 $i$ 个图像中查询点的轨迹, $N_T$ 是查询点的数量.&lt;/li&gt;
+&lt;li&gt;为了初始化相机 $\hat{P}$, 采用一个深度 Transformer 网络 $\mathbf{T}_P$:
+$$
+    \hat{P} = \mathbf{T}_{P}(\{\phi(I_i) \mid I_i \in \mathcal{I}\}, \{d^P(y_i^j) \mid \forall T_i \in \mathcal{T}, \forall y_i^j \in T_i\}).
+    $$
+$\phi(I_i)$ 表示 $I_i$ 的特征, $d^P(y_i^j)$ 表示在 $y_i^j$ 处的描述符. 把全局图像特征作为 query, 把每个查询点的轨迹-描述符对作为 key-value 对, 这时每个场景有 $N_T$ 个 token. 把交叉注意力的输出拼接上估计的初始相机位置 (例如八点算法) 作为相机参数 Transformer 网络的输入.&lt;/li&gt;
+&lt;li&gt;为了初始化点云 $\hat{X}$, 在给定初始相机 $\hat{P}$ 后, 采用一个深度 Transformer 网络作为三角化器:
+$$
+    \hat{X} = \mathbf{T}_{X}(\{d^X(y_i^j) \mid \forall T_i \in \mathcal{T}, \forall y_i^j \in T_i\}).
+    $$
+$d^P(y_i^j)$ 表示在 $y_i^j$ 处的描述符和其在初始点云 $\bar{X}$ 中位置编码的拼接. $\bar{X}$ 是通过闭式多视图 DLT 三角化得到的.&lt;/li&gt;
+&lt;li&gt;在轨迹 $\mathcal{T}$, 初始化的相机 $\hat{P}$ 和点云 $\hat{X}$ 的基础上, 利用光束法平差最小化重投影误差:
+$$
+    X, P = \mathrm{BA}(\mathcal{T}, \hat{P}, \hat{X}) = \argmin_{X, P} \sum_{i=1}^{N_I} \sum_{j=1}^{N_T} v_i^j \| y_i^j - P_i x^j \|
+    $$
+为了稳定, 误差项会过滤 $v$ 低的, 置信度低的和重投影误差过大的点. 使用 Levenberg-Marquardt 优化器进行迭代优化. 然而反向传播需要此式可微, 因而论文引用 Theseus 库, 该库利用隐函数定理通过嵌套优化循环反向传播通过深度网络.&lt;/li&gt;
+&lt;li&gt;损失函数定义为:
+$$
+    \mathcal{L}(f_{\theta}(\mathcal{I}), p^\ast, \mathcal{T}^\ast, X^\ast) = \sum_{j=1}^{N_T} |x^{\ast j} - x^j| + |x^{\ast j} - \hat{x}^j| + \sum_{i=1}^{N_I} e_P (P_i^\ast, P_i) + e_P (P_i^\ast, \hat{P}_i) - \lambda \sum_{i=1}^{N_I} \sum_{j=1}^{N_T} \log \mathcal{N}(y_i^{\ast j} | y_i^j, \sigma_i^j)
+    $$
+$e_P(P, P&#39;)$ 指相机参数 $P, P&#39;$ 之间的 Huber 损失. $P$ 有 8 个自由度, 因此这里参数化为一个 8 维向量.&lt;/li&gt;
+&lt;li&gt;用 AdamW 优化器优化模型, 直至收敛.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://arxiv.org/html/2312.04563v1/x1.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;VGGSfM&#34;
+	
+	class=&#34;gallery-image&#34; 
+&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;dense-sfm-cvpr-2025&#34;&gt;Dense-SfM (CVPR 2025)
+&lt;/h2&gt;&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://arxiv.org/html/2501.14277v2/extracted/6302268/figures/overview_real_final.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Dense-SfM&#34;
+	
+	class=&#34;gallery-image&#34; 
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;vggt-cvpr-2025&#34;&gt;VGGT (CVPR 2025)
+&lt;/h2&gt;&lt;p&gt;论文 &lt;a class=&#34;link cite-VGGT&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
+    &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
+&lt;/a&gt; 提出了一个新的 &lt;strong&gt;视觉几何基础 Transformer ( Visual Geometry Grounded Transformer)&lt;/strong&gt; 模型.&lt;/p&gt;
+&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;VGGT&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-input&#34;&gt;输入 &amp;gt; &lt;/strong&gt; 观察同一 3D 场景的 RGB 图像序列 $(I_i)_{i=1}^N, I_i \in \mathbb{R}^{3 \times H \times W}$.&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-output&#34;&gt;输出 &amp;gt; &lt;/strong&gt; 模型需要输出以下几点:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;相机参数&lt;/strong&gt; $g_i = \left[q_i,t_i,f_i\right] \in \mathbb{R}^9$: 分别表示旋转四元数 $q_i \in \mathbb{R}^4$, 平移向量 $t_i \in \mathbb{R}^3$, 视场角 $f_i \in \mathbb{R}^2$.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;深度图&lt;/strong&gt; $D_i \in \mathbb{R}^{H \times W}$: 为每个像素位置关联一个从该相机视角观察到的深度值.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;点图&lt;/strong&gt; $P_i \in \mathbb{R}^{3 \times H \times W}$: 为每个像素关联其在场景中对应的三维空间点坐标. 这些 3D 点都在第一个相机的坐标系下表示, 因此是跨视图不变的.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;轨迹特征&lt;/strong&gt; $T_i \in \mathbb{R}^{C \times H \times W}$: 给定一个固定的查询点 $y_q$, 输出其在所有图像 $I_i$ 的 2D 点 $y_i \in \mathbb{R}^2$ 轨迹 $\mathcal{J}(y_q) = (y_i)_{i=1}^N$. 需要注意, 并非直接输出轨迹, 而是为每个图像生成一个 $C$ 维的密集特征网格 $T_i$, 这些特征图随后被一个独立的追踪模块, 通过 $y_q$ 和 $T_i$ 用来计算任意点的对应关系和轨迹.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+&lt;li&gt;采用 DINO &lt;a class=&#34;link ref-DINO&#34;&gt;&lt;/a&gt; 把图像 $I_k$ 划分成 $K$ 个 token 的 patches $t^I_k \in \mathbb{R}^{K \times C}$. 所有视图 patches 之并 $t^I$ 作为网络的输入.&lt;/li&gt;
+&lt;li&gt;转换成 token $t_i^I$ 后, 再拼接上一个额外的相机 token $t_i^g$ 和四个寄存器 token $t_i^R$ &lt;a class=&#34;link ref-Registers&#34;&gt;&lt;/a&gt;, 每个相机和寄存器的 token 是逐帧的, 然后把得到的结果传递给网络.&lt;/li&gt;
+&lt;li&gt;骨干网络为一个大型 Transformer 模型. 在 Transformer 中采用帧间注意力 (针对 $t_k^I$) 和全局注意力 (针对 $t^I$) 机制交替进行, 称为交替注意力机制 (Alternating-Attention, AA).&lt;/li&gt;
+&lt;li&gt;网络输出的结果舍弃寄存器 $\hat{t}_i^R$, 其余的 $\hat{t}_i^I$ 和 $\hat{t}_i^g$ 用于预测.&lt;/li&gt;
+&lt;li&gt;通过一个四个额外的自注意力层和线性层把 $\hat{t}_i^g$ 转换成 $\hat{g}_i$ 以预测相机参数.&lt;/li&gt;
+&lt;li&gt;把 $\hat{t}_i^I$ 通过 DPT 层 &lt;a class=&#34;link ref-DPT&#34;&gt;&lt;/a&gt; 转换为密集特征图 $F_i \in \mathbb{R}^{C&#39;&#39; \times H \times W}$.&lt;/li&gt;
+&lt;li&gt;每个 $F_i$ 通过一个 $3\times 3$ 卷积层映射到相应的深度图 $D_i$ 和点图 $P_i$. 并为每个深度图和点图预测 aleatoric 不确定性 $\Sigma_i^D$ 和 $\Sigma_i^P$ &lt;a class=&#34;link ref-aleatoric&#34;&gt;&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;从 $F_i$ 中提取 $T_i \in \mathbb{R}^{C \times H \times W}$, 并采用 CoTracker2 架构作为追踪轨迹模块 &lt;a class=&#34;link ref-CoTracker2&#34;&gt;&lt;/a&gt;. 该模块接收查询点 $y_q$ 和特征图 $F_i$, 输出每个图像 $I_i$ 中查询点的 2D 位置 $\hat{y}_{j,i}$, 其中 $j$ 是查询点的索引.&lt;/li&gt;
+&lt;li&gt;使用 Huber 损失得出相机损失:
+$$
+    \mathcal{L}_{\mathrm{cam}} = \sum_{i=1}^N \left\| \hat{g}_i - g_i  \right\|_{\epsilon}
+    $$&lt;/li&gt;
+&lt;li&gt;根据 aleatoric 不确定性, 加入梯度, 得出深度损失和点图损失:
+$$
+    \begin{aligned}
+    \mathcal{L}_{\mathrm{depth}} &amp;= \sum_{i=1}^N \left\| \Sigma_i^D \odot \left( \hat{D}_i - D_i \right) \right\| +  \sum_{i=1}^N \left\| \Sigma_i^D \odot \left( \nabla \hat{D}_i - \nabla D_i \right) \right\| - \alpha \log \Sigma_i^D \\
+    \mathcal{L}_{\mathrm{point}} &amp;= \sum_{i=1}^N \left\| \Sigma_i^P \odot \left( \hat{P}_i - P_i \right) \right\| +  \sum_{i=1}^N \left\| \Sigma_i^P \odot \left( \nabla \hat{P}_i - \nabla P_i \right) \right\| - \alpha \log \Sigma_i^P
+    \end{aligned}
+    $$&lt;/li&gt;
+&lt;li&gt;轨迹损失定义为:
+$$
+    \mathcal{L}_{\mathrm{track}} = \sum_{j=1}^M \sum_{i=1}^N \| y_{j,i} - \hat{y}_{j,i} \|
+    $$&lt;/li&gt;
+&lt;li&gt;最终的损失函数为:
+$$
+    \mathcal{L} = \mathcal{L}_{\mathrm{cam}} + \mathcal{L}_{\mathrm{depth}} + \mathcal{L}_{\mathrm{point}} + \lambda \mathcal{L}_{\mathrm{track}}
+    $$
+$\lambda$ 论文取 $0.05$.&lt;/li&gt;
+&lt;li&gt;用 AdamW 优化器优化模型, 直至收敛.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://arxiv.org/html/2503.11651v1/x2.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;VGGT&#34;
+	
+	class=&#34;gallery-image&#34; 
+&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;spatial-mllm&#34;&gt;Spatial-MLLM
+&lt;/h2&gt;&lt;p&gt;大多数现有的 MLLM 在其视觉编码器的预训练中主要使用图像-文本对, 遵循了 CLIP的范式. 这使得视觉编码器在捕捉高层语义内容方面表现出色, 但在仅使用 2D 视频输入时缺乏结构和空间信息. 因此, 论文 &lt;a class=&#34;link cite-Spatial-MLLM&#34;&gt;[&lt;span class=&#34;material-index&#34;&gt;&lt;/span&gt;]
+    &lt;span class=&#34;material-name&#34;&gt;Unknown-material&lt;/span&gt; 
+&lt;/a&gt; 提出了一个新的 &lt;strong&gt;空间 MLLM (Spatial-MLLM)&lt;/strong&gt; 模型, 旨在通过引入空间感知能力来增强 MLLM 的视觉理解和推理能力.&lt;/p&gt;
+&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;Spatial-MLLM&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-input&#34;&gt;输入 &amp;gt; &lt;/strong&gt; 一段视频序列 $\{f_i\}_{i=1}^{N_k}$.&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-output&#34;&gt;输出 &amp;gt; &lt;/strong&gt; 给下游 LLM 的 token 序列.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;引入 2D 编码器 $\mathcal{E}_{\mathrm{2D}}$, 采用 Qwen2.5-VL &lt;a class=&#34;link ref-Qwen2.5-VL&#34;&gt;&lt;/a&gt; 相同设计, 将输入帧编码为语义丰富的特征:
+$$
+    \mathbf{e}_{\mathrm{2D}} = \mathcal{E}_{\mathrm{2D}}\left(\{\mathbf{f}_i\}_{i=1}^{N_k}\right) \in \mathbb{R}^{N_k&#39; \times \left\lfloor \frac{H}{p_{\mathrm{2D}}} \right\rfloor \times \left\lfloor \frac{W}{p_{\mathrm{2D}}} \right\rfloor \times d_{\mathrm{2D}}}
+    $$
+其中 $p_{\mathrm{2D}}$ 是 2D 编码器的 patch 大小, $d_{\mathrm{2D}}$ 是输出特征的维度, 连续的两帧被分组作为视频输入, 因此 $N_k&#39;=N_k/2$.&lt;/li&gt;
+&lt;li&gt;引入空间编码器 $\mathcal{E}_{\mathrm{spatial}}$, 采用 VGGT 的特征骨干网络.
+$$
+    \mathbf{e}_{\mathrm{3D}}, \mathbf{e}_c, \mathbf{e}_{\text{register}} = \mathcal{E}_{\text{spatial}}\left(\{\mathbf{f}_i\}_{i=1}^{N_k}\right), \quad \mathbf{e}_{\mathrm{3D}} \in \mathbb{R}^{N_k \times \left\lfloor \frac{H}{p_{\mathrm{3D}}} \right\rfloor \times \left\lfloor \frac{W}{p_{\mathrm{3D}}} \right\rfloor \times d_{\mathrm{3D}}}
+    $$
+其中 $e_{\mathrm{3D}}$ 是空间特征, $e_c$ 是相机特征, $e_{\text{register}}$ 是寄存器 token.&lt;/li&gt;
+&lt;li&gt;在空间和时间维度上对齐 $e_{\mathrm{2D}}$ 和 $e_{\mathrm{3D}}$:
+$$
+    \mathbf{e}_{3\mathrm{D}}&#39; = \text{Rearrange}(\mathbf{e}_{3\mathrm{D}}), \quad \mathbf{e}_{3\mathrm{D}}&#39; \in \mathbb{R}^{N_k&#39; \times \left\lfloor \frac{H}{p_{2\mathrm{D}}} \right\rfloor \times \left\lfloor \frac{W}{p_{2\mathrm{D}}} \right\rfloor \times d_{3\mathrm{D}}&#39;}
+    $$&lt;/li&gt;
+&lt;li&gt;使用两个简易的 MLP 把两个信息连接成统一的 token.
+$$
+    \mathbf{e} = \text{MLP}_{2\mathrm{D}}(\mathbf{e}_{2\mathrm{D}}) + \text{MLP}_{3\mathrm{D}}(\mathbf{e}_{3\mathrm{D}}&#39;) \in \mathbb{R}^{S \times d_{\mathrm{LLM}}}
+    $$
+这里 $S = N_k&#39; \times \left\lfloor \frac{H}{p_{2\mathrm{D}}} \right\rfloor \times \left\lfloor \frac{W}{p_{2\mathrm{D}}} \right\rfloor$ 是 token 长度.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;
+
+
+
+&lt;img src=&#34;https://arxiv.org/html/2505.23747v1/x2.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Spatial-MLLM&#34;
+	
+	class=&#34;gallery-image&#34; 
+&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;由于显存限制, MLLM 只能处理场景视频序列中的一小部分帧. 关于帧采样广泛的做法是均匀帧采样, 论文设计了一个简单的空间感知帧采样策略.&lt;/p&gt;
+&lt;div class=&#34;math-block math-algo&#34;&gt;
+    &lt;p class=&#34;math-title&#34;&gt;算法&lt;span class=&#34;math-subtitle&#34;&gt;Spatial-MLLM 帧采样&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-input&#34;&gt;输入 &amp;gt; &lt;/strong&gt; 一个场景视频 $\mathcal{V} = \{f_i\}_{i=1}^{N}$.&lt;/p&gt;
+&lt;p&gt;&lt;strong class=&#34;algo-output&#34;&gt;输出 &amp;gt; &lt;/strong&gt; 选择其中的 $N_k$ 帧 $\{ f_i^k \}_{i=1}^{N_k}$ 使其尽可能多地覆盖场景.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;均匀采样 $N_m$ 帧 $\{ f_i^m \}_{i=1}^{N_m}$, 其中 $N_m \in (N_k, N)$.&lt;/li&gt;
+&lt;li&gt;利用 $\mathcal{E}_{\mathrm{3D}}$ 提取对应 3D 特征 $\mathbf{e}^m_{3\mathrm{D}}$ 和相机特征 $\mathbf{e}^m_c$.&lt;/li&gt;
+&lt;li&gt;使用 VGGT 模型预训练的相机预测头 $f_c$ 和 $f_d$ 来解码一组相机参数和深度图:
+$$
+    \{\mathbf{E}_i^m, \mathbf{K}_i^m\}_{i=1}^{N_m} = f_c(\mathbf{e}_c), \quad \text{and} \quad \{\mathbf{D}_i^m\}_{i=1}^{N_m} = f_d(\mathbf{e}_{3\mathrm{D}})
+    $$&lt;/li&gt;
+&lt;li&gt;由此的得到每个帧在场景中能覆盖的体素 $V(f_i^m)$, 因此转化为从中选取元素最大化覆盖 $\left| \cup_{i=1}^{N_k} V(f_i^k) \right|$ 问题. 特别地论文采用贪心策略加快速度.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;p&gt;显然, 在选取之后可以直接利用得到的 $\mathbf{e}_{\mathrm{3D}}$ 而无需重新计算.&lt;/p&gt;
+&lt;p&gt;在下游任务中, $\mathcal{E}_{\mathrm{2D}}$ 和 $\mathcal{E}_{\mathrm{3D}}$ 都是预训练好的, 参数冻结, 只训练 MLP 连接层和 LLM. 论文采用先 SFT 再 RL (GRPO) 的方式进行训练.&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

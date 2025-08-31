@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="升维打击! 模型能分清前后左右吗?">
+<title>论文阅读 - 三维重建与模型空间感知</title>
+
+<link rel='canonical' href='https://LeoDreamer2004.github.io/p/paper-reading/3d-reconstruction-and-spatial-perception/'>
+
+<link rel="stylesheet" href="/scss/style.min.050e713ce6ba4df4f898621146cc9dece02afd8477586323296cb867d14a1d9a.css"><meta property='og:title' content="论文阅读 - 三维重建与模型空间感知">
+<meta property='og:description' content="升维打击! 模型能分清前后左右吗?">
+<meta property='og:url' content='https://LeoDreamer2004.github.io/p/paper-reading/3d-reconstruction-and-spatial-perception/'>
+<meta property='og:site_name' content='LeoDreamer'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='3D' /><meta property='article:tag' content='MLLM' /><meta property='article:published_time' content='2025-07-09T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-07-09T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="论文阅读 - 三维重建与模型空间感知">
+<meta name="twitter:description" content="升维打击! 模型能分清前后左右吗?">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "light");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_af500e90a6e0f79a.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">💫</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">LeoDreamer</a></h1>
+            <h2 class="site-description">PKU 本科在读/新手&#43;&#43;</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/503370537'
+                        target="_blank"
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-bilibili"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6z" /><path d="M8 3l2 3" /><path d="M16 3l-2 3" /><path d="M9 13v-2" /><path d="M15 11v2" /></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/LeoDreamer2004'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>存档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>相关链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+
+    <section class="widget related-materials">
+
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">相关材料</h2>
+
+        <div class="widget--related-materials">
+             <ol>
+    
+    <li>
+        <a href="https://openaccess.thecvf.com/content_cvpr_2016/papers/Schonberger_Structure-From-Motion_Revisited_CVPR_2016_paper.pdf" id="related-material-1" name="COLMAP" target="_blank" rel="noopener noreferrer">
+            Structure-from-Motion Revisited
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://arxiv.org/abs/2312.14132" id="related-material-2" name="DUSt3R" target="_blank" rel="noopener noreferrer">
+            DUSt3R: Geometric 3D Vision Made Easy
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://arxiv.org/abs/2406.09756" id="related-material-3" name="MASt3R" target="_blank" rel="noopener noreferrer">
+            Grounding Image Matching in 3D with MASt3R
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://arxiv.org/abs/2407.20219" id="related-material-4" name="GLOMAP" target="_blank" rel="noopener noreferrer">
+            Global Structure-from-Motion Revisited
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://arxiv.org/abs/2312.04563" id="related-material-5" name="VGGSfM" target="_blank" rel="noopener noreferrer">
+            Visual Geometry Grounded Deep Structure From Motion
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://arxiv.org/abs/2501.14277" id="related-material-6" name="Dense-SfM" target="_blank" rel="noopener noreferrer">
+            Dense-SfM: Structure from Motion with Dense Consistent Matching
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://arxiv.org/abs/2503.11651" id="related-material-7" name="VGGT" target="_blank" rel="noopener noreferrer">
+            VGGT: Visual Geometry Grounded Transformer
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://arxiv.org/abs/2505.23747" id="related-material-8" name="Spatial-MLLM" target="_blank" rel="noopener noreferrer">
+            Spatial-MLLM: Boosting MLLM Capabilities in Visual-based Spatial Intelligence
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://staskaer.github.io/2025/03/28/VGGT%E5%92%8CVGGsfm%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" id="related-material-9" name="" target="_blank" rel="noopener noreferrer">
+            VGGSfM 和 VGGT 相关博客
+        </a>
+    </li>
+    
+</ol>
+        </div>
+    </section>
+
+            
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#colmap-cvpr-2016">COLMAP (CVPR 2016)</a></li>
+    <li><a href="#dust3r-cvpr-2024">DUSt3R (CVPR 2024)</a></li>
+    <li><a href="#mast3r-eccv-2024">MASt3R (ECCV 2024)</a></li>
+    <li><a href="#glomap-eccv-2024">GLOMAP (ECCV 2024)</a></li>
+    <li><a href="#vggsfm-cvpr-2024">VGGSfM (CVPR 2024)</a></li>
+    <li><a href="#dense-sfm-cvpr-2025">Dense-SfM (CVPR 2025)</a></li>
+    <li><a href="#vggt-cvpr-2025">VGGT (CVPR 2025)</a></li>
+    <li><a href="#spatial-mllm">Spatial-MLLM</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E8%AE%BA%E6%96%87/" style="background-color: #aa2b2c; color: #fff;">
+                论文
+            </a>
+        
+            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" style="background-color: #2a9d8f; color: #fff;">
+                计算机
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/paper-reading/3d-reconstruction-and-spatial-perception/">论文阅读 - 三维重建与模型空间感知</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            升维打击! 模型能分清前后左右吗?
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-07-09</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 10 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+    
+        <footer class="article-keywords">
+            <div>
+                
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tag" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11 3L20 12a1.5 1.5 0 0 1 0 2L14 20a1.5 1.5 0 0 1 -2 0L3 11v-4a4 4 0 0 1 4 -4h4" />
+  <circle cx="9" cy="9" r="2" />
+</svg>
+
+
+
+                <span class="article-keyword">
+                    3D
+                </span>
+                
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tag" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11 3L20 12a1.5 1.5 0 0 1 0 2L14 20a1.5 1.5 0 0 1 -2 0L3 11v-4a4 4 0 0 1 4 -4h4" />
+  <circle cx="9" cy="9" r="2" />
+</svg>
+
+
+
+                <span class="article-keyword">
+                    MLLM
+                </span>
+                
+            </div>
+        </footer>
+    
+    
+
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>3D 重建主要指估计一组图像中场景的 3D 属性的问题.</p>
+<p>通常的 <strong>运动结构恢复 (Structure from Motion, SfM)</strong> 问题是给定一组图像, 恢复相机的姿态和场景的 3D 点云. 一般步骤如下:</p>
+<ol>
+<li><strong>特征匹配</strong>: 通过在两幅或多幅图像中找到相同的特征点 (例如, 使用 SIFT 或 ORB 算法), 确定这些特征点的匹配关系.</li>
+<li><strong>相机位姿估计</strong>: 使用两个或更多的图像及其对应的特征点, 估计相机的外参 (即相机位置和朝向). 这里一般有增量式 (从两幅图像开始, 逐步添加更多图像) 和全局式 (一次性处理所有图像) 两类方法.</li>
+<li><strong>三角化</strong>: 用于恢复三维点的位置. 基本原理是通过已知的相机视角和匹配点的位置, 利用几何约束来计算三维点的空间坐标. 常见的方法是直接线性变换 (Direct Linear Transform, DLT) 或基于光束平差法 (Bundle Adjustment, BA) 的非线性优化方法.</li>
+<li><strong>三维点恢复</strong>: 通过三角化得到的三维点通常会是一个稀疏点云, 代表了场景中关键特征的空间位置. 对于每个匹配的特征点, 三角化将其映射到三维空间中的位置.</li>
+</ol>
+<p>介绍几个 3D CV 概念.</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
+<p>相机的 <strong>投影矩阵 (Projection Matrix)</strong> $P_i \in \mathbb{R}^{3 \times 4}$ 用于将 3D 点投影到 2D 图像平面, 包含 <strong>外参</strong> $g_i \in \mathbb{SE}(3)$ 和 <strong>内参</strong> $K_i \in \mathbb{R}^{3 \times 3}$.
+</p>
+$$
+    g = \begin{bmatrix}
+    R & t \\
+    0 & 1
+    \end{bmatrix}, \quad
+    K = \begin{bmatrix}
+    f & 0 & p_x \\
+    0 & f & p_y \\
+    0 & 0 & 1
+    \end{bmatrix}
+    $$<p>
+其中 $R$ 是旋转阵, $t$ 是平移量, $f$ 是焦距, $(p_x, p_y)$ 是主点坐标, 一般取图像中心.</p>
+</div>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
+<p>两个相机之间的 <strong>本质矩阵 (Essential Matrix)</strong> $E \in \mathbb{R}^{3 \times 3}$ 用于关联两幅图像中 <em>归一化相机坐标</em> 的对应点 $x_1, x_2 \in \mathbb{R}^3$:</p>
+$$
+x_2^T E x_1 = 0
+$$<p>其中 $x_1, x_2$ 是归一化的相机坐标, 即 $x_i = K_i^{-1} p_i$, $p_i$ 是图像平面上的点坐标.</p>
+</div>
+<p>可以证明本质矩阵 $E = t \times R$, 其奇异值满足 $\sigma_1 = \sigma_2 \gt 0, \sigma_3 = 0$, 其自由度是 $5$, 需要注意求解本质矩阵需要事先知道两个相机的内参, 最常用的方法是八点算法 (Eight-Point Algorithm).</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
+<p>两个相机之间的 <strong>基础矩阵 (Fundamental Matrix)</strong> $F \in \mathbb{R}^{3 \times 3}$ 用于关联两幅图像中 <em>像素坐标</em> 的对应点 $p_1, p_2 \in \mathbb{R}^2$:</p>
+$$
+p_2^T F p_1 = 0
+$$</div>
+<p>基础矩阵隐含了内参的不确定性, 因此其自由度是 $7$. 求解基础矩阵不需要知道相机的内参, 但需要知道点的对应关系.</p>
+<h2 id="colmap-cvpr-2016">COLMAP (CVPR 2016)
+</h2><p>COLMAP 是一个开源的 SfM 和多视图立体视觉 (Multi-View Stereo, MVS) 框架, 由 Johannes L. Schönberger 和 Jan-Michael Frahm 在 2016 年提出 <a class="link cite-COLMAP">[<span class="material-index"></span>]
+    <span class="material-name">Unknown-material</span> 
+</a>. 它提供了一个完整的 SfM 流程, 包括特征提取、匹配、相机姿态估计、三角化和稠密重建等步骤.</p>
+<p>
+
+
+
+<img src="/p/paper-reading/3d-reconstruction-and-spatial-perception/img/COLMAP.png"
+	width="2263"
+	height="459"
+	srcset="/p/paper-reading/3d-reconstruction-and-spatial-perception/img/COLMAP_hu_7101b0a3d9a93392.png 480w, /p/paper-reading/3d-reconstruction-and-spatial-perception/img/COLMAP_hu_65be46c73be6e27a.png 1024w"
+	loading="lazy"
+	
+		alt="COLMAP"
+	
+	class="gallery-image" 
+></p>
+<h2 id="dust3r-cvpr-2024">DUSt3R (CVPR 2024)
+</h2><p>论文 <a class="link cite-DUSt3R">[<span class="material-index"></span>]
+    <span class="material-name">Unknown-material</span> 
+</a> 提出了一个新的 <strong>密集无约束立体 3D 重建 (Dense and Unconstrained Stereo 3D Reconstruction, DUSt3R)</strong> 模型, 该模型基于视觉几何学的原理, 通过深度学习方法简化了 3D 重建任务.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">DUSt3R</span></p>
+<p><strong class="algo-input">输入 &gt; </strong> 2 张 RGB 图像 $I^1, I^2 \in \mathbb{R}^{W \times H \times 3}$.</p>
+<p><strong class="algo-output">输出 &gt; </strong> 对应的点图 $X^{1,1}, X^{2,1} \in \mathbb{R}^{W \times H \times 3}$ 和关联的置信度 $C^{1,1}, C^{2,1} \in \mathbb{R}^{W \times H}$. $X^{n,m}$ 表示相机 $n$ 的点图 $X^n$ 在相机 $m$ 的坐标系下的表示:</p>
+$$
+X^{n,m} = P_m P_n^{-1} h(X^n)
+$$<p>其中 $P_n$ 是相机 $n$ 的投影矩阵, $h: (x,y,z) \to (x,y,z,1)$ 是齐次坐标变换. 也就是说二者都以相同的坐标系 $I_1$ 为参考.</p>
+<ol>
+<li>两个输入图像首先通过共享权重的 Siamese ViT 编码器 <a class="link ref-Siamese"></a> 进行编码, 生成两个 token 表示 $F^1, F^2$.
+$$
+    F^1 = \text{Encode}(I^1), \quad F^2 = \text{Encode}(I^2)
+    $$</li>
+<li>在解码器联合推理. 每个解码器块会依次执行自我注意力和交叉注意力, 最后过传递给 MLP:
+$$
+    G_i^1 = \text{Decode}_i^1 \left(G_{i-1}^1, G_{i-1}^2 \right), \quad G_i^2 = \text{Decode}_i^2 \left(G_{i-1}^2, G_{i-1}^1 \right)
+    $$</li>
+<li>最后用一个单独的回归头接受所有 token 并输出预测的点图和置信度:
+$$
+    X^{1,1}, C^{1,1} = \text{Head}^1 \left(G_0^1, \dots, G_B^1 \right), \quad X^{2,1}, C^{2,1} = \text{Head}^2 \left(G_0^2, \dots, G_B^2 \right)
+    $$</li>
+<li>对于视图 $v \in \{1,2\}$ 和像素点 $i$, 其 3D 回归损失定义为:
+$$
+    \ell_{\mathrm{regr}}(v,i) = \left\| \frac{1}{z} X_i^{v,1} - \frac{1}{\bar{z}} \bar{X}_i^{v,1} \right\|
+    $$
+$z$ 用于归一化.</li>
+<li>置信度损失定义为 3D 回归损失的加权平均:
+$$
+    \mathcal{L}_{\mathrm{conf}} = \sum_{v=1}^2 \sum_{i=1}^N C_i^{v,1} \ell_{\mathrm{regr}}(v,i) - \alpha \log C_i^{v,1}
+    $$</li>
+</ol>
+<p>
+
+
+
+<img src="https://arxiv.org/html/2312.14132v3/x2.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="DUSt3R"
+	
+	class="gallery-image" 
+></p>
+</div>
+<p>然而, 这个网络每次只能处理一对图像. 因而论文 <a class="link cite-DUSt3R">[<span class="material-index"></span>]
+    
+</a> 引入一种后处理优化方法, 给定一组 $\{I^n\}_{n=1}^N$ 图像, 以图像为顶点建图, 连边表示共享一些内容, 可以通过置信度来计算二者的重叠, 然后过滤掉低置信度的配对.</p>
+<p>现在如果要恢复所有相机的点图 $\{ \mathcal{X}^n \in \mathbb{R}^{W \times H \times 3} \}_{n=1}^N$, 则可以求解如下优化问题:</p>
+$$
+\chi^* = \arg\min_{\chi, P, \sigma} \sum_{e=(n,m) \in \mathcal{E}} \sum_{v \in \{n,m\}} \sum_{i=1}^{HW} C_i^{v,n} \left\| \chi_i^v - \sigma_e P_e X_i^{v,n} \right\|.
+$$<p>$\sigma_e \gt 0$ 是缩放, $P_e \in \mathbb{R}^{3 \times 4}$ 是姿态. 为避免 $\sigma_e=0$ 的平凡解, 要求 $\prod_{e} \sigma_e = 1$.</p>
+<h2 id="mast3r-eccv-2024">MASt3R (ECCV 2024)
+</h2><p>论文 <a class="link cite-MASt3R">[<span class="material-index"></span>]
+    <span class="material-name">Unknown-material</span> 
+</a> 指出 DUSt3R 匹配精度较低, 因而基于其提出了一个新的 <strong>匹配和立体 3D 重建 (Matching And Stereo 3D Reconstruction, MASt3R)</strong> 模型.</p>
+<p>相较于 DUSt3R, MASt3R 主要更关心点匹配, 做了以下改进:</p>
+<ul>
+<li>除了预测点图和置信度, 还加上额外两个头输出密集特征:
+$$
+    D^1 = \text{Head}^1_D(G_0^1, \dots, G_B^1), \quad D^2 = \text{Head}^2_D \left(G_0^2, \dots, G_B^2 \right)
+    $$</li>
+<li>对于真实对应的点 $\hat{\mathcal{M}}=\{(i,j) \mid \hat{X}_i^{1,1} = \hat{X}_j^{2,1}\}$, 计算匹配损失 (实质上是匹配的交叉熵损失):
+$$
+    \mathcal{L}_{\mathrm{match}} =- \sum_{(i,j) \in \hat{\mathcal{M}}} \log \frac{s_\tau(i,j)}{\sum_k s_\tau(k,j)} + \log \frac{s_\tau(i,j)}{\sum_k s_\tau(i,k)}
+    $$
+这里 $s_\tau(i,j) = \exp\left( -\tau D_i^1 \cdot D_j^2 \right)$ 是点 $i$ 和 $j$ 的相似度, $\tau$ 是温度参数. 然你与置信度损失加权结合:
+$$
+    \mathcal{L}_{\mathrm{total}} = \mathcal{L}_{\mathrm{conf}} + \beta \mathcal{L}_{\mathrm{match}}
+    $$</li>
+<li>匹配两点的算法是让二者互为彼此的最近邻. 即:
+$$
+    \mathcal{M} = \{(i,j) \mid j = \argmin_{k} \|D_i^1 - D_k^2\|, i = \argmin_{k} \|D_j^2 - D_k^1\|\}
+    $$
+直接枚举匹配的复杂度是 $\mathcal{O}(W^2H^2)$. 论文采用了一种迭代的策略, 即对每个点每次在图中找最近邻再映射到另一个图中, 直到收敛. 这样复杂度是 $\mathcal{O}(kWH)$.</li>
+</ul>
+<p>
+
+
+
+<img src="/p/paper-reading/3d-reconstruction-and-spatial-perception/img/MASt3R.png"
+	width="2001"
+	height="451"
+	srcset="/p/paper-reading/3d-reconstruction-and-spatial-perception/img/MASt3R_hu_a681ed3db2b4516f.png 480w, /p/paper-reading/3d-reconstruction-and-spatial-perception/img/MASt3R_hu_925d54152330727e.png 1024w"
+	loading="lazy"
+	
+		alt="MASt3R"
+	
+	class="gallery-image" 
+></p>
+<p>对于更高分辨率的图像, 论文 <a class="link cite-MASt3R">[<span class="material-index"></span>]
+    
+</a> 采用从粗到细匹配的策略.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">MASt3R 高分辨率</span></p>
+<p><strong class="algo-input">输入 &gt; </strong> 两张高分辨率 RGB 图像 $I_1, I_2 \in \mathbb{R}^{3 \times H \times W}$.</p>
+<p><strong class="algo-output">输出 &gt; </strong> 对应的点图 $X^{1,1}, X^{2,1} \in \mathbb{R}^{W \times H \times 3}$ 和关联的置信度 $C^{1,1}, C^{2,1} \in \mathbb{R}^{W \times H}$.</p>
+<ol>
+<li>做粗匹配, 下采样到适合匹配的分辨率 (512), 得到对应点集 $M_k^0$, $k$ 是下采样的数量.</li>
+<li>对两个图像分别生成重叠的窗口裁剪 $W_1, W_2$, 每个窗口裁剪的最大维度固定为 512 像素, 并且相邻窗口之间有 50% 的重叠区域. 按照贪心算法枚举窗口对 $(w_1, w_2) \in W_1 \times W_2$, 使得覆盖 $M_k^0$ 的 90% 点对为止.</li>
+<li>做细匹配, 对找出的每个窗口对用 MASt3R, 在局部图内找更精确的对应点.</li>
+<li>把每个窗口的结果映射回原始坐标系, 并合并得到结果.</li>
+</ol>
+</div>
+<h2 id="glomap-eccv-2024">GLOMAP (ECCV 2024)
+</h2><p>论文 <a class="link cite-GLOMAP">[<span class="material-index"></span>]
+    <span class="material-name">Unknown-material</span> 
+</a> 提出了一个全局的 SfM 方法, 直接进行联合全局三角化和相机位置估计. 问题建模为优化:</p>
+$$
+\argmin_{X,c,d} \sum_{i,k} \rho \left( \|v_{ik} - d_{ik} (X_k-c_i) \| \right)
+$$<p>其中 $v_{ik}$ 是从相机 $c_i$ 观察点 $X_k$ ​的全局旋转相机射线 (?? 应该是在图像中能计算得到的, 且要做归一化), $\rho$ 是 Huber 函数用于保持鲁棒性, 优化用 LM 优化器. 论文提出这个误差有界, 因此对噪声数据不敏感.</p>
+<p>在处理图像时, 为保证图像相关性, 先做相机聚类:</p>
+<ul>
+<li>计算每对图像可见点的数量, 构图为 $G$, 丢弃计数少于 $5$ 的图像对.</li>
+<li>使用剩余图像对的中位数来设置内点阈值 $\tau$.</li>
+<li>连接计数超过 $\tau$ 的图像对, 在 $G$ 中寻找连通分量来找到相机的良好约束群集.</li>
+<li>递归地重复此过程, 每个连通分量作为单独的重建输出.</li>
+</ul>
+<p>
+
+
+
+<img src="https://arxiv.org/html/2407.20219v2/extracted/5871851/figure/glomap_pipeline_calib.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="GLOMAP"
+	
+	class="gallery-image" 
+></p>
+<h2 id="vggsfm-cvpr-2024">VGGSfM (CVPR 2024)
+</h2><p>论文 <a class="link cite-VGGSfM">[<span class="material-index"></span>]
+    <span class="material-name">Unknown-material</span> 
+</a> 基于常用的 SfM 框架, 提出了一个新的可以进行端到端训练的 <strong>视觉几何基础运动恢复结构 (Visual Geometry Grounded Structure from Motion)</strong> 模型.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">VGGSfM 追踪器</span></p>
+<p><strong class="algo-input">输入 &gt; </strong> 观察同一 3D 场景的 RGB 图像序列 $(I_i)_{i=1}^{N_I}, I_i \in \mathbb{R}^{3 \times H \times W}$, 给定的查询点 $y_i$.</p>
+<p><strong class="algo-output">输出 &gt; </strong> 该点在图像 $I_j$ 的轨迹 $y_i^j$ 以及可见性 $v_i^j$.</p>
+<ol>
+<li>先做特征提取, 用 4 个不同大小的 CNN 来计算帧 $I_i$ 的特征子图 $\{F_i^k\}_{k=1}^4$, 然后用双线性插值把它们上采样到相同大小, 随后拼接再卷积得到特征图 $F_i$.</li>
+<li>对 $F_i$ 降采样 (每次做一次池化), 得到不同尺度下的特征张量金字塔.</li>
+<li>将查询点扩展到所有帧中, 初始坐标都设为相同. 使用双线性采样从第一帧 (参考帧) 提取查询点的特征, 所有帧的初始特征都设为这个初始特征.</li>
+<li>对每一个金字塔层级, 构造以每个查询点为中心的局部窗口, 并使用双线性插值采样局部特征, 随后与参考特征做内积衡量相似度, 得出相关性特征.</li>
+<li>计算每个点相对于参考帧的相对位置 (即运动), 得出相对偏移编码特征.</li>
+<li>把跟踪特征, 相对偏移编码特征和相关性特征拼接, 作为 Transformer 的输入.</li>
+<li>通过 Transformer 更新坐标和特征, 直至收敛.</li>
+<li>利用得到的追踪特征 $y_i^j$ 预测点的可见性 $v_i^j$. 同时引入 aleatoric 不确定性模型 <a class="link ref-aleatoric"></a> 来预测 $y_i^j$ 的方差 $\sigma_i^j$ (或者置信度), 我们假设 $\sigma_i^j$ 是对角的.</li>
+</ol>
+<p>
+
+
+
+<img src="https://arxiv.org/html/2312.04563v1/x2.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="VGGSfM 追踪器"
+	
+	class="gallery-image" 
+></p>
+</div>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">VGGSfM</span></p>
+<p><strong class="algo-input">输入 &gt; </strong> 观察同一 3D 场景的 RGB 图像序列 $(I_i)_{i=1}^{N_I}, I_i \in \mathbb{R}^{3 \times H \times W}$.</p>
+<p><strong class="algo-output">输出 &gt; </strong> 模型需要输出以下几点:</p>
+<ul>
+<li><strong>相机投影矩阵</strong> $P_i \in \mathbb{R}^{3 \times 4}$.</li>
+<li><strong>点云</strong> $X=\{x^i\}_{i=1}^M$, 其中 $x^i \in \mathbb{R}^3$ 是场景中每个点的三维坐标. 即此时对于 3D 点 $x^j$, 其在第 $i$ 个相机的 2D 投影为:
+$$
+    y_i^j = P_i (x^j) = \lambda K_i g_i x^j
+    $$</li>
+</ul>
+<ol>
+<li>利用追踪器获得轨迹 $\mathcal{T} = \{T_i\}_{i=1}^{N_I}$, 其中 $T_i = \{y_i^j\}_{j=1}^{N_T}$ 是第 $i$ 个图像中查询点的轨迹, $N_T$ 是查询点的数量.</li>
+<li>为了初始化相机 $\hat{P}$, 采用一个深度 Transformer 网络 $\mathbf{T}_P$:
+$$
+    \hat{P} = \mathbf{T}_{P}(\{\phi(I_i) \mid I_i \in \mathcal{I}\}, \{d^P(y_i^j) \mid \forall T_i \in \mathcal{T}, \forall y_i^j \in T_i\}).
+    $$
+$\phi(I_i)$ 表示 $I_i$ 的特征, $d^P(y_i^j)$ 表示在 $y_i^j$ 处的描述符. 把全局图像特征作为 query, 把每个查询点的轨迹-描述符对作为 key-value 对, 这时每个场景有 $N_T$ 个 token. 把交叉注意力的输出拼接上估计的初始相机位置 (例如八点算法) 作为相机参数 Transformer 网络的输入.</li>
+<li>为了初始化点云 $\hat{X}$, 在给定初始相机 $\hat{P}$ 后, 采用一个深度 Transformer 网络作为三角化器:
+$$
+    \hat{X} = \mathbf{T}_{X}(\{d^X(y_i^j) \mid \forall T_i \in \mathcal{T}, \forall y_i^j \in T_i\}).
+    $$
+$d^P(y_i^j)$ 表示在 $y_i^j$ 处的描述符和其在初始点云 $\bar{X}$ 中位置编码的拼接. $\bar{X}$ 是通过闭式多视图 DLT 三角化得到的.</li>
+<li>在轨迹 $\mathcal{T}$, 初始化的相机 $\hat{P}$ 和点云 $\hat{X}$ 的基础上, 利用光束法平差最小化重投影误差:
+$$
+    X, P = \mathrm{BA}(\mathcal{T}, \hat{P}, \hat{X}) = \argmin_{X, P} \sum_{i=1}^{N_I} \sum_{j=1}^{N_T} v_i^j \| y_i^j - P_i x^j \|
+    $$
+为了稳定, 误差项会过滤 $v$ 低的, 置信度低的和重投影误差过大的点. 使用 Levenberg-Marquardt 优化器进行迭代优化. 然而反向传播需要此式可微, 因而论文引用 Theseus 库, 该库利用隐函数定理通过嵌套优化循环反向传播通过深度网络.</li>
+<li>损失函数定义为:
+$$
+    \mathcal{L}(f_{\theta}(\mathcal{I}), p^\ast, \mathcal{T}^\ast, X^\ast) = \sum_{j=1}^{N_T} |x^{\ast j} - x^j| + |x^{\ast j} - \hat{x}^j| + \sum_{i=1}^{N_I} e_P (P_i^\ast, P_i) + e_P (P_i^\ast, \hat{P}_i) - \lambda \sum_{i=1}^{N_I} \sum_{j=1}^{N_T} \log \mathcal{N}(y_i^{\ast j} | y_i^j, \sigma_i^j)
+    $$
+$e_P(P, P')$ 指相机参数 $P, P'$ 之间的 Huber 损失. $P$ 有 8 个自由度, 因此这里参数化为一个 8 维向量.</li>
+<li>用 AdamW 优化器优化模型, 直至收敛.</li>
+</ol>
+<p>
+
+
+
+<img src="https://arxiv.org/html/2312.04563v1/x1.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="VGGSfM"
+	
+	class="gallery-image" 
+></p>
+</div>
+<h2 id="dense-sfm-cvpr-2025">Dense-SfM (CVPR 2025)
+</h2><p>
+
+
+
+<img src="https://arxiv.org/html/2501.14277v2/extracted/6302268/figures/overview_real_final.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="Dense-SfM"
+	
+	class="gallery-image" 
+></p>
+<h2 id="vggt-cvpr-2025">VGGT (CVPR 2025)
+</h2><p>论文 <a class="link cite-VGGT">[<span class="material-index"></span>]
+    <span class="material-name">Unknown-material</span> 
+</a> 提出了一个新的 <strong>视觉几何基础 Transformer ( Visual Geometry Grounded Transformer)</strong> 模型.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">VGGT</span></p>
+<p><strong class="algo-input">输入 &gt; </strong> 观察同一 3D 场景的 RGB 图像序列 $(I_i)_{i=1}^N, I_i \in \mathbb{R}^{3 \times H \times W}$.</p>
+<p><strong class="algo-output">输出 &gt; </strong> 模型需要输出以下几点:</p>
+<ul>
+<li><strong>相机参数</strong> $g_i = \left[q_i,t_i,f_i\right] \in \mathbb{R}^9$: 分别表示旋转四元数 $q_i \in \mathbb{R}^4$, 平移向量 $t_i \in \mathbb{R}^3$, 视场角 $f_i \in \mathbb{R}^2$.</li>
+<li><strong>深度图</strong> $D_i \in \mathbb{R}^{H \times W}$: 为每个像素位置关联一个从该相机视角观察到的深度值.</li>
+<li><strong>点图</strong> $P_i \in \mathbb{R}^{3 \times H \times W}$: 为每个像素关联其在场景中对应的三维空间点坐标. 这些 3D 点都在第一个相机的坐标系下表示, 因此是跨视图不变的.</li>
+<li><strong>轨迹特征</strong> $T_i \in \mathbb{R}^{C \times H \times W}$: 给定一个固定的查询点 $y_q$, 输出其在所有图像 $I_i$ 的 2D 点 $y_i \in \mathbb{R}^2$ 轨迹 $\mathcal{J}(y_q) = (y_i)_{i=1}^N$. 需要注意, 并非直接输出轨迹, 而是为每个图像生成一个 $C$ 维的密集特征网格 $T_i$, 这些特征图随后被一个独立的追踪模块, 通过 $y_q$ 和 $T_i$ 用来计算任意点的对应关系和轨迹.</li>
+</ul>
+<ol>
+<li>采用 DINO <a class="link ref-DINO"></a> 把图像 $I_k$ 划分成 $K$ 个 token 的 patches $t^I_k \in \mathbb{R}^{K \times C}$. 所有视图 patches 之并 $t^I$ 作为网络的输入.</li>
+<li>转换成 token $t_i^I$ 后, 再拼接上一个额外的相机 token $t_i^g$ 和四个寄存器 token $t_i^R$ <a class="link ref-Registers"></a>, 每个相机和寄存器的 token 是逐帧的, 然后把得到的结果传递给网络.</li>
+<li>骨干网络为一个大型 Transformer 模型. 在 Transformer 中采用帧间注意力 (针对 $t_k^I$) 和全局注意力 (针对 $t^I$) 机制交替进行, 称为交替注意力机制 (Alternating-Attention, AA).</li>
+<li>网络输出的结果舍弃寄存器 $\hat{t}_i^R$, 其余的 $\hat{t}_i^I$ 和 $\hat{t}_i^g$ 用于预测.</li>
+<li>通过一个四个额外的自注意力层和线性层把 $\hat{t}_i^g$ 转换成 $\hat{g}_i$ 以预测相机参数.</li>
+<li>把 $\hat{t}_i^I$ 通过 DPT 层 <a class="link ref-DPT"></a> 转换为密集特征图 $F_i \in \mathbb{R}^{C'' \times H \times W}$.</li>
+<li>每个 $F_i$ 通过一个 $3\times 3$ 卷积层映射到相应的深度图 $D_i$ 和点图 $P_i$. 并为每个深度图和点图预测 aleatoric 不确定性 $\Sigma_i^D$ 和 $\Sigma_i^P$ <a class="link ref-aleatoric"></a>.</li>
+<li>从 $F_i$ 中提取 $T_i \in \mathbb{R}^{C \times H \times W}$, 并采用 CoTracker2 架构作为追踪轨迹模块 <a class="link ref-CoTracker2"></a>. 该模块接收查询点 $y_q$ 和特征图 $F_i$, 输出每个图像 $I_i$ 中查询点的 2D 位置 $\hat{y}_{j,i}$, 其中 $j$ 是查询点的索引.</li>
+<li>使用 Huber 损失得出相机损失:
+$$
+    \mathcal{L}_{\mathrm{cam}} = \sum_{i=1}^N \left\| \hat{g}_i - g_i  \right\|_{\epsilon}
+    $$</li>
+<li>根据 aleatoric 不确定性, 加入梯度, 得出深度损失和点图损失:
+$$
+    \begin{aligned}
+    \mathcal{L}_{\mathrm{depth}} &= \sum_{i=1}^N \left\| \Sigma_i^D \odot \left( \hat{D}_i - D_i \right) \right\| +  \sum_{i=1}^N \left\| \Sigma_i^D \odot \left( \nabla \hat{D}_i - \nabla D_i \right) \right\| - \alpha \log \Sigma_i^D \\
+    \mathcal{L}_{\mathrm{point}} &= \sum_{i=1}^N \left\| \Sigma_i^P \odot \left( \hat{P}_i - P_i \right) \right\| +  \sum_{i=1}^N \left\| \Sigma_i^P \odot \left( \nabla \hat{P}_i - \nabla P_i \right) \right\| - \alpha \log \Sigma_i^P
+    \end{aligned}
+    $$</li>
+<li>轨迹损失定义为:
+$$
+    \mathcal{L}_{\mathrm{track}} = \sum_{j=1}^M \sum_{i=1}^N \| y_{j,i} - \hat{y}_{j,i} \|
+    $$</li>
+<li>最终的损失函数为:
+$$
+    \mathcal{L} = \mathcal{L}_{\mathrm{cam}} + \mathcal{L}_{\mathrm{depth}} + \mathcal{L}_{\mathrm{point}} + \lambda \mathcal{L}_{\mathrm{track}}
+    $$
+$\lambda$ 论文取 $0.05$.</li>
+<li>用 AdamW 优化器优化模型, 直至收敛.</li>
+</ol>
+<p>
+
+
+
+<img src="https://arxiv.org/html/2503.11651v1/x2.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="VGGT"
+	
+	class="gallery-image" 
+></p>
+</div>
+<h2 id="spatial-mllm">Spatial-MLLM
+</h2><p>大多数现有的 MLLM 在其视觉编码器的预训练中主要使用图像-文本对, 遵循了 CLIP的范式. 这使得视觉编码器在捕捉高层语义内容方面表现出色, 但在仅使用 2D 视频输入时缺乏结构和空间信息. 因此, 论文 <a class="link cite-Spatial-MLLM">[<span class="material-index"></span>]
+    <span class="material-name">Unknown-material</span> 
+</a> 提出了一个新的 <strong>空间 MLLM (Spatial-MLLM)</strong> 模型, 旨在通过引入空间感知能力来增强 MLLM 的视觉理解和推理能力.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">Spatial-MLLM</span></p>
+<p><strong class="algo-input">输入 &gt; </strong> 一段视频序列 $\{f_i\}_{i=1}^{N_k}$.</p>
+<p><strong class="algo-output">输出 &gt; </strong> 给下游 LLM 的 token 序列.</p>
+<ol>
+<li>引入 2D 编码器 $\mathcal{E}_{\mathrm{2D}}$, 采用 Qwen2.5-VL <a class="link ref-Qwen2.5-VL"></a> 相同设计, 将输入帧编码为语义丰富的特征:
+$$
+    \mathbf{e}_{\mathrm{2D}} = \mathcal{E}_{\mathrm{2D}}\left(\{\mathbf{f}_i\}_{i=1}^{N_k}\right) \in \mathbb{R}^{N_k' \times \left\lfloor \frac{H}{p_{\mathrm{2D}}} \right\rfloor \times \left\lfloor \frac{W}{p_{\mathrm{2D}}} \right\rfloor \times d_{\mathrm{2D}}}
+    $$
+其中 $p_{\mathrm{2D}}$ 是 2D 编码器的 patch 大小, $d_{\mathrm{2D}}$ 是输出特征的维度, 连续的两帧被分组作为视频输入, 因此 $N_k'=N_k/2$.</li>
+<li>引入空间编码器 $\mathcal{E}_{\mathrm{spatial}}$, 采用 VGGT 的特征骨干网络.
+$$
+    \mathbf{e}_{\mathrm{3D}}, \mathbf{e}_c, \mathbf{e}_{\text{register}} = \mathcal{E}_{\text{spatial}}\left(\{\mathbf{f}_i\}_{i=1}^{N_k}\right), \quad \mathbf{e}_{\mathrm{3D}} \in \mathbb{R}^{N_k \times \left\lfloor \frac{H}{p_{\mathrm{3D}}} \right\rfloor \times \left\lfloor \frac{W}{p_{\mathrm{3D}}} \right\rfloor \times d_{\mathrm{3D}}}
+    $$
+其中 $e_{\mathrm{3D}}$ 是空间特征, $e_c$ 是相机特征, $e_{\text{register}}$ 是寄存器 token.</li>
+<li>在空间和时间维度上对齐 $e_{\mathrm{2D}}$ 和 $e_{\mathrm{3D}}$:
+$$
+    \mathbf{e}_{3\mathrm{D}}' = \text{Rearrange}(\mathbf{e}_{3\mathrm{D}}), \quad \mathbf{e}_{3\mathrm{D}}' \in \mathbb{R}^{N_k' \times \left\lfloor \frac{H}{p_{2\mathrm{D}}} \right\rfloor \times \left\lfloor \frac{W}{p_{2\mathrm{D}}} \right\rfloor \times d_{3\mathrm{D}}'}
+    $$</li>
+<li>使用两个简易的 MLP 把两个信息连接成统一的 token.
+$$
+    \mathbf{e} = \text{MLP}_{2\mathrm{D}}(\mathbf{e}_{2\mathrm{D}}) + \text{MLP}_{3\mathrm{D}}(\mathbf{e}_{3\mathrm{D}}') \in \mathbb{R}^{S \times d_{\mathrm{LLM}}}
+    $$
+这里 $S = N_k' \times \left\lfloor \frac{H}{p_{2\mathrm{D}}} \right\rfloor \times \left\lfloor \frac{W}{p_{2\mathrm{D}}} \right\rfloor$ 是 token 长度.</li>
+</ol>
+<p>
+
+
+
+<img src="https://arxiv.org/html/2505.23747v1/x2.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="Spatial-MLLM"
+	
+	class="gallery-image" 
+></p>
+</div>
+<p>由于显存限制, MLLM 只能处理场景视频序列中的一小部分帧. 关于帧采样广泛的做法是均匀帧采样, 论文设计了一个简单的空间感知帧采样策略.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">Spatial-MLLM 帧采样</span></p>
+<p><strong class="algo-input">输入 &gt; </strong> 一个场景视频 $\mathcal{V} = \{f_i\}_{i=1}^{N}$.</p>
+<p><strong class="algo-output">输出 &gt; </strong> 选择其中的 $N_k$ 帧 $\{ f_i^k \}_{i=1}^{N_k}$ 使其尽可能多地覆盖场景.</p>
+<ol>
+<li>均匀采样 $N_m$ 帧 $\{ f_i^m \}_{i=1}^{N_m}$, 其中 $N_m \in (N_k, N)$.</li>
+<li>利用 $\mathcal{E}_{\mathrm{3D}}$ 提取对应 3D 特征 $\mathbf{e}^m_{3\mathrm{D}}$ 和相机特征 $\mathbf{e}^m_c$.</li>
+<li>使用 VGGT 模型预训练的相机预测头 $f_c$ 和 $f_d$ 来解码一组相机参数和深度图:
+$$
+    \{\mathbf{E}_i^m, \mathbf{K}_i^m\}_{i=1}^{N_m} = f_c(\mathbf{e}_c), \quad \text{and} \quad \{\mathbf{D}_i^m\}_{i=1}^{N_m} = f_d(\mathbf{e}_{3\mathrm{D}})
+    $$</li>
+<li>由此的得到每个帧在场景中能覆盖的体素 $V(f_i^m)$, 因此转化为从中选取元素最大化覆盖 $\left| \cup_{i=1}^{N_k} V(f_i^k) \right|$ 问题. 特别地论文采用贪心策略加快速度.</li>
+</ol>
+</div>
+<p>显然, 在选取之后可以直接利用得到的 $\mathbf{e}_{\mathrm{3D}}$ 而无需重新计算.</p>
+<p>在下游任务中, $\mathcal{E}_{\mathrm{2D}}$ 和 $\mathcal{E}_{\mathrm{3D}}$ 都是预训练好的, 参数冻结, 只训练 MLP 连接层和 LLM. 论文采用先 SFT 再 RL (GRPO) 的方式进行训练.</p>
+
+
+    
+<div class="article-references">
+    <h4>参考文献</h4>
+    <ul class="reference-list">
+        
+        <li>
+            <span id="reference-1" name="Siamese" data-author="Alexey Dosovitskiy et al., 2021">
+                Alexey Dosovitskiy, Lucas Beyer, Alexander Kolesnikov, Dirk Weissenborn, Xiaohua Zhai, Thomas Unterthiner, Mostafa Dehghani, Matthias Minderer, Georg Heigold, Sylvain Gelly, Jakob Uszkoreit, and Neil Houlsby. An image is worth 16x16 words: Transformers for image recognition at scale. ICLR, 2021.
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-2" name="DINO" data-author="Maxime Oquab et al., 2024">
+                Maxime Oquab, Timothee Darcet, Theo Moutakanni, Huy V. Vo, Marc Szafraniec, Vasil Khalidov, Pierre Fernandez, Daniel HAZIZA, Francisco Massa, Alaaeldin ElNouby, Mido Assran, Nicolas Ballas, Wojciech Galuba, Russell Howes, Po-Yao Huang, Shang-Wen Li, Ishan Misra, Michael Rabbat, Vasu Sharma, Gabriel Synnaeve, Hu Xu, Herve Jegou, Julien Mairal, Patrick Labatut, Armand Joulin, and Piotr Bojanowski. DINOv2: Learning robust visual features without supervision. Transactions on Machine Learning Research, 2024. 2, 4, 11
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-3" name="Registers" data-author="Timothee Darcet et al., 2023">
+                Timothee Darcet, Maxime Oquab, Julien Mairal, and Piotr Bojanowski. Vision transformers need registers. arXiv preprint arXiv:2309.16588, 2023. 4
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-4" name="DPT" data-author="Alexey Bochkovskiy et al., 2021">
+                 Rene Ranftl, Alexey Bochkovskiy, and Vladlen Koltun. Vision transformers for dense prediction. In Proceedings of the IEEE/CVF international conference on computer vision, pages 12179–12188, 2021. 3, 5, 11
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-5" name="aleatoric" data-author="Alex Kendall and Roberto Cipolla, 2016">
+                Alex Kendall and Roberto Cipolla. Modelling uncertainty in deep learning for camera relocalization. In Proc. ICRA. IEEE, 2016. 5
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-6" name="CoTracker2" data-author="Nikita Karaev et al., 2024">
+                Nikita Karaev, Ignacio Rocco, Ben Graham, Natalia Neverova, Andrea Vedaldi, and Christian Rupprecht. CoTracker: It is better to track together. In Proceedings of the European Conference on Computer Vision (ECCV), 2024. 3, 5, 6, 9, 10
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-7" name="Qwen2.5-VL" data-author="S. Bai et al., 2025">
+                 S. Bai, K. Chen, X. Liu, J. Wang, W. Ge, S. Song, K. Dang, P. Wang, S. Wang, J. Tang, H. Zhong, Y. Zhu, M. Yang, Z. Li, J. Wan, P. Wang, W. Ding, Z. Fu, Y. Xu, J. Ye, X. Zhang, T. Xie, Z. Cheng, H. Zhang, Z. Yang, H. Xu, and J. Lin, “Qwen2.5-vl technical report,” ArXiv, vol. abs/2502.13923, 2025.
+            </span>
+        </li>
+        
+    </ul>
+</div>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>本文遵循 CC BY-NC-SA 4.0 协议</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/paper-reading/icml-2025-oral-and-spotlight/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://icml.cc/static/core/img/vancouver_convention_center.webp" loading="lazy" data-key="paper-reading/icml-2025-oral-and-spotlight" data-hash="https://icml.cc/static/core/img/vancouver_convention_center.webp"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - ICML2025 高光论文选读</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/paper-reading/region-confidence-proxy-for-wild-test-time-adaption/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - 基于自适应代理的置信度估计</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/paper-reading/test-time-reinforcement-learning/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - 测试时强化学习</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/paper-reading/adam-convergence/">
+        
+        
+            <div class="article-image">
+                <img src="/p/paper-reading/adam-convergence/banner.0604bf0d5a780bc13d5e5dbf5dbfe078_hu_4d0b1b50c69dd898.jpeg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 论文阅读 - Adam 的收敛性分析"
+                        data-key="paper-reading/adam-convergence" 
+                        data-hash="md5-BgS/DVp4C8E9Xl2/Xb/geA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - Adam 的收敛性分析</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/program-practice/cpp-feature/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">程序设计实习(9) —— C&#43;&#43; 特性</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 LeoDreamer
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.57552279ca013738c47491303c9548ea01540dd70ebc626d50929bdb46504578.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        z-index: 99;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-image: url(https://LeoDreamer2004.github.io/icons/back-top.svg);
+    }
+</style>
+
+<script>
+    function initTocHide() {
+        let toc = document.querySelector(".widget--toc");
+        if (!toc) {
+            return;
+        }
+        window.addEventListener('scroll', function () {
+            let openUl = document.querySelectorAll(".open");
+            openUl.forEach((ul) => {
+                ul.classList.remove("open")
+            })
+
+            let currentLi = document.querySelector(".active-class");
+            if (!currentLi) {
+                return
+            }
+
+            
+            if (currentLi.children.length > 1) {
+                currentLi.children[1].classList.add("open")
+            }
+            let ul = currentLi.parentElement;
+            do {
+                ul.classList.add("open");
+                ul = ul.parentElement.parentElement
+            } while (ul !== undefined && (ul.localName === 'ul' || ul.localName === 'ol'))
+        });
+    }
+
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.title = "返回顶部";
+        btn.onclick = backToTop
+        rightSideBar.appendChild(btn)
+        window.onscroll = function () {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    function backToTop() {
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initTocHide()
+    initScrollTop();
+</script>
+    </body>
+</html>
