@@ -3,30 +3,45 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://LeoDreamer2004.github.io/</loc>
-    <lastmod>2025-07-09T00:00:00+00:00</lastmod>
+    <lastmod>2025-09-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://LeoDreamer2004.github.io/tags/3d/</loc>
-    <lastmod>2025-07-09T00:00:00+00:00</lastmod>
+    <lastmod>2025-09-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://LeoDreamer2004.github.io/categories/</loc>
-    <lastmod>2025-07-09T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://LeoDreamer2004.github.io/tags/mllm/</loc>
-    <lastmod>2025-07-09T00:00:00+00:00</lastmod>
+    <lastmod>2025-09-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://LeoDreamer2004.github.io/post/</loc>
-    <lastmod>2025-07-09T00:00:00+00:00</lastmod>
+    <lastmod>2025-09-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://LeoDreamer2004.github.io/tags/segmentation/</loc>
+    <lastmod>2025-09-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://LeoDreamer2004.github.io/tags/</loc>
-    <lastmod>2025-07-09T00:00:00+00:00</lastmod>
+    <lastmod>2025-09-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://LeoDreamer2004.github.io/tags/tta/</loc>
+    <lastmod>2025-09-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://LeoDreamer2004.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/</loc>
-    <lastmod>2025-07-09T00:00:00+00:00</lastmod>
+    <lastmod>2025-09-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://LeoDreamer2004.github.io/categories/%E8%AE%BA%E6%96%87/</loc>
+    <lastmod>2025-09-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://LeoDreamer2004.github.io/p/paper-reading/test-time-adaptation-application/</loc>
+    <lastmod>2025-09-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://LeoDreamer2004.github.io/p/paper-reading/3d-perception/</loc>
+    <lastmod>2025-09-04T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://LeoDreamer2004.github.io/tags/geometry/</loc>
     <lastmod>2025-07-09T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://LeoDreamer2004.github.io/p/paper-reading/3d-reconstruction-and-spatial-perception/</loc>
+    <loc>https://LeoDreamer2004.github.io/tags/sfm/</loc>
+    <lastmod>2025-07-09T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://LeoDreamer2004.github.io/p/paper-reading/structure-from-motion/</loc>
     <lastmod>2025-07-09T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://LeoDreamer2004.github.io/tags/icml/</loc>
@@ -36,9 +51,6 @@
     <lastmod>2025-06-24T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://LeoDreamer2004.github.io/tags/confidence/</loc>
-    <lastmod>2025-06-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://LeoDreamer2004.github.io/tags/tta/</loc>
     <lastmod>2025-06-19T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://LeoDreamer2004.github.io/p/paper-reading/region-confidence-proxy-for-wild-test-time-adaption/</loc>

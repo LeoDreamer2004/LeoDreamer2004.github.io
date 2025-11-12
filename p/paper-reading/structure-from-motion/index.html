@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="升维打击! 模型能分清前后左右吗?">
-<title>论文阅读 - 三维重建与模型空间感知</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="横看成岭侧成峰，远近高低各不同">
+<title>论文阅读 - 运动结构恢复</title>
 
-<link rel='canonical' href='https://LeoDreamer2004.github.io/p/paper-reading/3d-reconstruction-and-spatial-perception/'>
+<link rel='canonical' href='https://LeoDreamer2004.github.io/p/paper-reading/structure-from-motion/'>
 
-<link rel="stylesheet" href="/scss/style.min.050e713ce6ba4df4f898621146cc9dece02afd8477586323296cb867d14a1d9a.css"><meta property='og:title' content="论文阅读 - 三维重建与模型空间感知">
-<meta property='og:description' content="升维打击! 模型能分清前后左右吗?">
-<meta property='og:url' content='https://LeoDreamer2004.github.io/p/paper-reading/3d-reconstruction-and-spatial-perception/'>
+<link rel="stylesheet" href="/scss/style.min.53a50696eee79711a2f783a326b08b38dd1f4384309e16f5b6d33ee5db8d6ba0.css"><meta property='og:title' content="论文阅读 - 运动结构恢复">
+<meta property='og:description' content="横看成岭侧成峰，远近高低各不同">
+<meta property='og:url' content='https://LeoDreamer2004.github.io/p/paper-reading/structure-from-motion/'>
 <meta property='og:site_name' content='LeoDreamer'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='3D' /><meta property='article:tag' content='MLLM' /><meta property='article:published_time' content='2025-07-09T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-07-09T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="论文阅读 - 三维重建与模型空间感知">
-<meta name="twitter:description" content="升维打击! 模型能分清前后左右吗?">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='3D' /><meta property='article:tag' content='SfM' /><meta property='article:tag' content='Geometry' /><meta property='article:published_time' content='2025-07-09T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-07-09T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="论文阅读 - 运动结构恢复">
+<meta name="twitter:description" content="横看成岭侧成峰，远近高低各不同">
     </head>
     <body class="
     article-page
@@ -339,7 +339,15 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#colmap-cvpr-2016">COLMAP (CVPR 2016)</a></li>
+    <li><a href="#colmap-cvpr-2016">COLMAP (CVPR 2016)</a>
+      <ol>
+        <li><a href="#场景图增强">场景图增强</a></li>
+        <li><a href="#下一个最佳视角选择">下一个最佳视角选择</a></li>
+        <li><a href="#鲁棒高效三角化">鲁棒高效三角化</a></li>
+        <li><a href="#光束平差">光束平差</a></li>
+        <li><a href="#冗余视角挖掘">冗余视角挖掘</a></li>
+      </ol>
+    </li>
     <li><a href="#dust3r-cvpr-2024">DUSt3R (CVPR 2024)</a></li>
     <li><a href="#mast3r-eccv-2024">MASt3R (ECCV 2024)</a></li>
     <li><a href="#glomap-eccv-2024">GLOMAP (ECCV 2024)</a></li>
@@ -379,12 +387,12 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/paper-reading/3d-reconstruction-and-spatial-perception/">论文阅读 - 三维重建与模型空间感知</a>
+            <a href="/p/paper-reading/structure-from-motion/">论文阅读 - 运动结构恢复</a>
         </h2>
     
         
         <h3 class="article-subtitle">
-            升维打击! 模型能分清前后左右吗?
+            横看成岭侧成峰，远近高低各不同
         </h3>
         
     </div>
@@ -420,7 +428,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 10 分钟
+                    阅读时长: 13 分钟
                 </time>
             </div>
         
@@ -451,7 +459,19 @@
 
 
                 <span class="article-keyword">
-                    MLLM
+                    SfM
+                </span>
+                
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tag" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11 3L20 12a1.5 1.5 0 0 1 0 2L14 20a1.5 1.5 0 0 1 -2 0L3 11v-4a4 4 0 0 1 4 -4h4" />
+  <circle cx="9" cy="9" r="2" />
+</svg>
+
+
+
+                <span class="article-keyword">
+                    Geometry
                 </span>
                 
             </div>
@@ -477,6 +497,20 @@
 <li><strong>三角化</strong>: 用于恢复三维点的位置. 基本原理是通过已知的相机视角和匹配点的位置, 利用几何约束来计算三维点的空间坐标. 常见的方法是直接线性变换 (Direct Linear Transform, DLT) 或基于光束平差法 (Bundle Adjustment, BA) 的非线性优化方法.</li>
 <li><strong>三维点恢复</strong>: 通过三角化得到的三维点通常会是一个稀疏点云, 代表了场景中关键特征的空间位置. 对于每个匹配的特征点, 三角化将其映射到三维空间中的位置.</li>
 </ol>
+<p>
+
+
+
+<img src="/p/paper-reading/structure-from-motion/img/increment-SfM.png"
+	width="2263"
+	height="459"
+	srcset="/p/paper-reading/structure-from-motion/img/increment-SfM_hu_7101b0a3d9a93392.png 480w, /p/paper-reading/structure-from-motion/img/increment-SfM_hu_65be46c73be6e27a.png 1024w"
+	loading="lazy"
+	
+		alt="增量式 SfM 的典型结构"
+	
+	class="gallery-image" 
+></p>
 <p>介绍几个 3D CV 概念.</p>
 <div class="math-block math-def">
     <p class="math-title">定义</p>
@@ -511,23 +545,59 @@ p_2^T F p_1 = 0
 $$</div>
 <p>基础矩阵隐含了内参的不确定性, 因此其自由度是 $7$. 求解基础矩阵不需要知道相机的内参, 但需要知道点的对应关系.</p>
 <h2 id="colmap-cvpr-2016">COLMAP (CVPR 2016)
-</h2><p>COLMAP 是一个开源的 SfM 和多视图立体视觉 (Multi-View Stereo, MVS) 框架, 由 Johannes L. Schönberger 和 Jan-Michael Frahm 在 2016 年提出 <a class="link cite-COLMAP">[<span class="material-index"></span>]
+</h2><p>COLMAP 是一个开山级别的开源的 SfM 框架, 由 Johannes L. Schönberger 和 Jan-Michael Frahm 在 2016 年提出 <a class="link cite-COLMAP">[<span class="material-index"></span>]
     <span class="material-name">Unknown-material</span> 
-</a>. 它提供了一个完整的 SfM 流程, 包括特征提取、匹配、相机姿态估计、三角化和稠密重建等步骤.</p>
-<p>
-
-
-
-<img src="/p/paper-reading/3d-reconstruction-and-spatial-perception/img/COLMAP.png"
-	width="2263"
-	height="459"
-	srcset="/p/paper-reading/3d-reconstruction-and-spatial-perception/img/COLMAP_hu_7101b0a3d9a93392.png 480w, /p/paper-reading/3d-reconstruction-and-spatial-perception/img/COLMAP_hu_65be46c73be6e27a.png 1024w"
-	loading="lazy"
-	
-		alt="COLMAP"
-	
-	class="gallery-image" 
-></p>
+</a>. 它提供了一个完整的增量式 SfM 流程, 包括特征提取、匹配、相机姿态估计、三角化和稠密重建等步骤.</p>
+<p>COLMAP 没有改变 SfM 的流程, 但它引入了几个大量的优化来应对 SfM 常见的挑战.</p>
+<h3 id="场景图增强">场景图增强
+</h3><p>在特征匹配时, 每次要选取一对图片, COLMAP 针对图像选取做了改进.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">COLMAP-图像选取</span></p>
+<p><strong class="algo-input">输入 &gt; </strong> 一组图像对.</p>
+<p><strong class="algo-output">输出 &gt; </strong> 筛选出的图像对.</p>
+<ol>
+<li>首先估计一对图像的 <strong>基础矩阵</strong>. 如果找到的内点数 $\ge N_F$, 就认为这对图像在几何上是验证通过的.</li>
+<li>然后估计 <strong>单应矩阵</strong>, 并统计其内点数 $N_H$. 如果比例 $N_H/N_F < \epsilon_{HF}$, 则判定为一般场景下的运动相机, 而不是退化的纯旋转或平面情况.</li>
+<li>如果相机已标定, 还会估计 <strong>本质矩阵</strong>, 并统计内点数 $N_E$. 若比例 $N_E/N_F > \epsilon_{EF}$, 说明相机内参标定是正确的.</li>
+<li>在满足如上条件时, 分解本质矩阵, 通过内点对应三角化点, 并计算三角化角度 $\alpha_m$, 以此区分是纯旋转还是平面场景.</li>
+<li>互联网照片中可能由于水印、时间戳等等导致伪匹配 (WTF), 此时通过估计相似变换并检测是否集中在图像边缘来识别. 如果边缘内点比例超过阈值, 则认为是 WTF 匹配, 将其剔除.</li>
+</ol>
+</div>
+<p>需要注意, 筛选完后在场景图中标注其模型类型, 并保留支持度最高的模型的内点 (即 $N_H/N_E/N_F$) 信息.</p>
+<h3 id="下一个最佳视角选择">下一个最佳视角选择
+</h3><p>既然是增量式的, 每次都要加一张新的图像, 选取非常重要, 因为每一次决策都会影响剩下的整个重建过程. 一种常见的策略是选择能看到最多已三角化点的图像. 不过 COLMAP 还考虑了这些点分布的均匀性.</p>
+<p>首先将图像划分为网格, 每个格子都是空的. 当某个三维点 <strong>第一次</strong> 落入一个空格子时，该格子变为满，并增加该图像的得分 $S_i$. 显然这种方法更倾向于选择分布均匀的图像.</p>
+<p>点太少时可能无法反映分布情况. 此时扩展为一个多分辨率金字塔, 在不同分辨率下重复划分并加权累积得分, 以求结果更稳健.</p>
+<h3 id="鲁棒高效三角化">鲁棒高效三角化
+</h3><p>怎么在大量外点中找到轨迹是难题之一, COLMAP 把此建模为 RANSAC 问题.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">COLMAP-三角化</span></p>
+<p><strong class="algo-input">输入 &gt; </strong> 特征轨迹 $T = \{T_n \mid n = 1, \cdots, N_T \}$, 每个观测 $T_n$ 包含归一化图像点 $\bar{x}_n \in \mathbb{R}^2$ 和相机为位姿 $P_n \in SE(3)$.</p>
+<p><strong class="algo-output">输出 &gt; </strong> 轨迹中找到一个最大的一致集, 符合两个视图三角化结果.</p>
+<ol>
+<li>随机选择两观测 $(a,b)$, 得到三角化点 $X_{ab} \sim \tau \left( \bar{x}_a, \bar{x}_b, P_a, P_b \right)$, 特别地这里用 DLT 进行两视图三角化.</li>
+<li>检查约束条件: 三角化角度必须大于 $\alpha$, 深度均为正, 且重投影误差小于 $t$.</li>
+<li>将满足条件的观测放在一致集中. 用 RANSAC 迭代最大化一致集规模.</li>
+<li>找到一个一致集后, 把它从轨迹中剔除. 随后递归, 直到再找一致集规模 &lt;3 为止.</li>
+</ol>
+</div>
+<h3 id="光束平差">光束平差
+</h3><p>传统的 BA 方法计算代价高, 且对外点敏感. 因此 COLMAP 做了如下优化:</p>
+<ol>
+<li>在每次注册新图像后, 只对与该图像共享点的相机进行局部 BA, 避免在模型过大时频繁运行全局优化. 然后在适当的时机触发一次全局 BA，以消除累积误差.</li>
+<li>在 BA 之后，重新进行三角化与外点检测. 先前因基线过小无法可靠三角化的点, 可能在新的相机加入后变得可观测, 这时就可以重新三角化. 若发现某些点重投影误差大于阈值, 就把它们从结构里移除.</li>
+</ol>
+<h3 id="冗余视角挖掘">冗余视角挖掘
+</h3><p>互联网数据集有大量冗余照片, 没有显著提升, 但是却增加了 BA 计算成本. 然而 COLMAP 不是丢弃冗余图像, 而是将它们转化为低代价的约束.</p>
+<ol>
+<li>对于给定的 $N_X$ 个点, 每张图可以用0-1可见向量 $v_i$ 表示. $a,b$ 之间的相似度可写为
+$$V_{ab} = \| v_a \wedge v_b \| / \| v_a \vee v_b \|$$</li>
+<li>在更新时, 如果图像是新添加的, 或者超过 $\epsilon_r$ 比例的观测值的重投影误差大于 $r$ 像素, 则认为它是受到影响的.</li>
+<li>对于被影响的图像独立分组, 以便进行单独优化.</li>
+<li>把未受影响的图像, 我们要划分为若干个组 $\mathcal{G}=\{ G_1, G_2, \ldots, G_k \}$, $G_i$ 中高度冗余, 把它们参数化为以一个单一的相机.</li>
+<li>为此, 首先按照 $\|v_i\|$ 降序排列成 $\bar{I}$. 移除$\bar{I}$ 中第一个图像 $I_a$, 来找 $I_b$ 使得 $V_{ab}$ 最大.</li>
+<li>如果 $V_{ab} > V$ 且 $|G_r| < S$, 则将图像 $I_b$ 从 \bar{I} 中移除并添加到组 $G_r$ 中, 否则创建一个新组, 如此往复.</li>
+</ol>
 <h2 id="dust3r-cvpr-2024">DUSt3R (CVPR 2024)
 </h2><p>论文 <a class="link cite-DUSt3R">[<span class="material-index"></span>]
     <span class="material-name">Unknown-material</span> 
@@ -612,10 +682,10 @@ $$
 
 
 
-<img src="/p/paper-reading/3d-reconstruction-and-spatial-perception/img/MASt3R.png"
+<img src="/p/paper-reading/structure-from-motion/img/MASt3R.png"
 	width="2001"
 	height="451"
-	srcset="/p/paper-reading/3d-reconstruction-and-spatial-perception/img/MASt3R_hu_a681ed3db2b4516f.png 480w, /p/paper-reading/3d-reconstruction-and-spatial-perception/img/MASt3R_hu_925d54152330727e.png 1024w"
+	srcset="/p/paper-reading/structure-from-motion/img/MASt3R_hu_a681ed3db2b4516f.png 480w, /p/paper-reading/structure-from-motion/img/MASt3R_hu_925d54152330727e.png 1024w"
 	loading="lazy"
 	
 		alt="MASt3R"
@@ -993,6 +1063,32 @@ $$
         <div class="flex article-list--tile">
             
                 
+<article class="">
+    <a href="/p/paper-reading/test-time-adaptation-application/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - 测试时自适应的应用</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/paper-reading/3d-perception/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - 3D感知与重建</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
 <article class="has-image">
     <a href="/p/paper-reading/icml-2025-oral-and-spotlight/">
         
@@ -1032,43 +1128,6 @@ $$
 
         <div class="article-details">
             <h2 class="article-title">论文阅读 - 测试时强化学习</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/p/paper-reading/adam-convergence/">
-        
-        
-            <div class="article-image">
-                <img src="/p/paper-reading/adam-convergence/banner.0604bf0d5a780bc13d5e5dbf5dbfe078_hu_4d0b1b50c69dd898.jpeg" 
-                        width="250" 
-                        height="150" 
-                        loading="lazy"
-                        alt="Featured image of post 论文阅读 - Adam 的收敛性分析"
-                        data-key="paper-reading/adam-convergence" 
-                        data-hash="md5-BgS/DVp4C8E9Xl2/Xb/geA==">
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">论文阅读 - Adam 的收敛性分析</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/program-practice/cpp-feature/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">程序设计实习(9) —— C&#43;&#43; 特性</h2>
         </div>
     </a>
 </article>

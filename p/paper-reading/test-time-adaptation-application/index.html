@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="跨域问题太多了!">
+<title>论文阅读 - 测试时自适应的应用</title>
+
+<link rel='canonical' href='https://LeoDreamer2004.github.io/p/paper-reading/test-time-adaptation-application/'>
+
+<link rel="stylesheet" href="/scss/style.min.53a50696eee79711a2f783a326b08b38dd1f4384309e16f5b6d33ee5db8d6ba0.css"><meta property='og:title' content="论文阅读 - 测试时自适应的应用">
+<meta property='og:description' content="跨域问题太多了!">
+<meta property='og:url' content='https://LeoDreamer2004.github.io/p/paper-reading/test-time-adaptation-application/'>
+<meta property='og:site_name' content='LeoDreamer'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='TTA' /><meta property='article:tag' content='3D' /><meta property='article:tag' content='Segmentation' /><meta property='article:published_time' content='2025-09-12T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-09-12T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="论文阅读 - 测试时自适应的应用">
+<meta name="twitter:description" content="跨域问题太多了!">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "light");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_af500e90a6e0f79a.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">💫</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">LeoDreamer</a></h1>
+            <h2 class="site-description">PKU 本科在读/新手&#43;&#43;</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/503370537'
+                        target="_blank"
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-bilibili"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6z" /><path d="M8 3l2 3" /><path d="M16 3l-2 3" /><path d="M9 13v-2" /><path d="M15 11v2" /></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/LeoDreamer2004'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>存档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>相关链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+
+    <section class="widget related-materials">
+
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">相关材料</h2>
+
+        <div class="widget--related-materials">
+             <ol>
+    
+    <li>
+        <a href="https://arxiv.org/abs/2412.01052" id="related-material-1" name="CRISP" target="_blank" rel="noopener noreferrer">
+            CRISP: Object Pose and Shape Estimation with Test-Time Adaptation
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://arxiv.org/abs/2508.00442" id="related-material-2" name="TopoTTA" target="_blank" rel="noopener noreferrer">
+            TopoTTA: Topology-Enhanced Test-Time Adaptation for Tubular Structure Segmentation
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://arxiv.org/abs/2508.07759" id="related-material-3" name="CAV-SAM" target="_blank" rel="noopener noreferrer">
+            Correspondence as Video: Test-Time Adaption on SAM2 for Reference Segmentation in the Wild
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://arxiv.org/abs/2509.03956" id="related-material-4" name="WorMI" target="_blank" rel="noopener noreferrer">
+            World Model Implanting for Test-time Adaptation of Embodied Agents
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://arxiv.org/abs/2505.19546" id="related-material-5" name="SMART-PC" target="_blank" rel="noopener noreferrer">
+            SMART-PC: Skeletal Model Adaptation for Robust Test-Time Training in Point Clouds
+        </a>
+    </li>
+    
+</ol>
+        </div>
+    </section>
+
+            
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#crisp">CRISP</a>
+      <ol>
+        <li><a href="#基础流程">基础流程</a></li>
+        <li><a href="#姿态与形状校正器">姿态与形状校正器</a></li>
+        <li><a href="#主动形状解码器">主动形状解码器</a></li>
+        <li><a href="#测试时自训练">测试时自训练</a></li>
+      </ol>
+    </li>
+    <li><a href="#topotta">TopoTTA</a>
+      <ol>
+        <li><a href="#拓扑结构自适应">拓扑结构自适应</a></li>
+        <li><a href="#拓扑连续性优化">拓扑连续性优化</a></li>
+      </ol>
+    </li>
+    <li><a href="#cav-sam">CAV-SAM</a>
+      <ol>
+        <li><a href="#视频生成">视频生成</a></li>
+        <li><a href="#几何对齐">几何对齐</a></li>
+      </ol>
+    </li>
+    <li><a href="#wormi">WorMI</a>
+      <ol>
+        <li><a href="#模型检索">模型检索</a></li>
+        <li><a href="#集成对齐">集成对齐</a></li>
+      </ol>
+    </li>
+    <li><a href="#smart-pc">SMART-PC</a>
+      <ol>
+        <li><a href="#点云预处理">点云预处理</a></li>
+        <li><a href="#骨架预测与点云分类">骨架预测与点云分类</a></li>
+        <li><a href="#预训练">预训练</a></li>
+        <li><a href="#测试时适应">测试时适应</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E8%AE%BA%E6%96%87/" style="background-color: #aa2b2c; color: #fff;">
+                论文
+            </a>
+        
+            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" style="background-color: #2a9d8f; color: #fff;">
+                计算机
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/paper-reading/test-time-adaptation-application/">论文阅读 - 测试时自适应的应用</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            跨域问题太多了!
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-09-12</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 11 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+    
+        <footer class="article-keywords">
+            <div>
+                
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tag" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11 3L20 12a1.5 1.5 0 0 1 0 2L14 20a1.5 1.5 0 0 1 -2 0L3 11v-4a4 4 0 0 1 4 -4h4" />
+  <circle cx="9" cy="9" r="2" />
+</svg>
+
+
+
+                <span class="article-keyword">
+                    TTA
+                </span>
+                
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tag" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11 3L20 12a1.5 1.5 0 0 1 0 2L14 20a1.5 1.5 0 0 1 -2 0L3 11v-4a4 4 0 0 1 4 -4h4" />
+  <circle cx="9" cy="9" r="2" />
+</svg>
+
+
+
+                <span class="article-keyword">
+                    3D
+                </span>
+                
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tag" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11 3L20 12a1.5 1.5 0 0 1 0 2L14 20a1.5 1.5 0 0 1 -2 0L3 11v-4a4 4 0 0 1 4 -4h4" />
+  <circle cx="9" cy="9" r="2" />
+</svg>
+
+
+
+                <span class="article-keyword">
+                    Segmentation
+                </span>
+                
+            </div>
+        </footer>
+    
+    
+
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>这里是几篇和测试时自适应 (Test-Time Adaptation, TTA) 技巧相关的论文.</p>
+<h2 id="crisp">CRISP
+</h2><p>论文 <a class="link cite-CRISP">[<span class="material-index"></span>]
+    <span class="material-name">Unknown-material</span> 
+</a> 提出了 CRISP 框架, 用于类别无关的物体6D姿态与3D形状估计.</p>
+<h3 id="基础流程">基础流程
+</h3><p>CRISP 一支用于估计形状, 一支用于估计姿态, 最终通过一个优化器将两者结合.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">CRISP-前向估计</span></p>
+<p><strong class="algo-input">输入 &gt; </strong> 分割后的物体RGB图像 $\mathcal{I}$ 及其深度点云 $\bm{X}$.</p>
+<p><strong class="algo-output">输出 &gt; </strong> 初始姿态估计 $(\bm{R}, \bm{t})$, 潜在形状编码 $\bm{h}$, 姿态归一化坐标 $\bm{Z}$.</p>
+<ol>
+<li><strong>形状估计支路</strong>: 使用一个基于 ViT (DINOv2) 的编码器从图像 $\mathcal{I}$ 中提取特征, 并回归出一个潜在形状编码 $\bm{h} = f_e(\mathcal{I})$. 一个 FiLM-conditioned 的 MLP 解码器 $f_d$ 根据 $\bm{h}$ 生成物体的 SDF.</li>
+<li><strong>姿态估计支路</strong>: 使用一个 DPT 网络 $\Phi$ 从图像 $\mathcal{I}$ 中为每个像素预测其在物体标准坐标系下的 3D 坐标, 得到姿态归一化坐标 $\bm{Z} = \Phi(\mathcal{I})$.</li>
+<li>利用 Arun 方法直接求解 $\bm{z}_i = \bm{R}\bm{x}_i + \bm{t}$, 得到初始姿态估计 $(\bm{R}, \bm{t})$.</li>
+</ol>
+</div>
+<h3 id="姿态与形状校正器">姿态与形状校正器
+</h3><p>前向网络的预测在存在领域差异时可能不准. 校正器通过一个双层优化问题, 利用观测到的深度点云 $\bm{X}$ 来微调初始估计 $(\bm{Z}, \bm{h})$, 使其满足几何一致性.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">CRISP-BCD</span></p>
+<p><strong class="algo-input">输入 &gt; </strong> 初始估计 $\bm{Z}$, $\bm{h}$, 深度点云 $\bm{X}$.</p>
+<p><strong class="algo-output">输出 &gt; </strong> 校正后的估计 $\hat{\bm{Z}}$, $\hat{\bm{h}}$.</p>
+<ol>
+<li>固定 $\bm{h}$, 优化 $\bm{Z}$: 通过梯度下降微调 $\bm{Z}$, 以最小化目标函数 $F(\bm{Z} \mid \bm{h}) = \sum_i |f_d(\hat{\bm{R}}\bm{x}_i + \hat{\bm{t}} \mid \bm{h})|^2$. 其中 $(\hat{\bm{R}}, \hat{\bm{t}})$ 是通过内部最小二乘问题 (Arun&rsquo;s method) 基于当前 $\bm{Z}$ 计算出的最优姿态.</li>
+<li>固定 $\bm{Z}$, 优化 $\bm{h}$: 使用投影梯度下降优化形状编码 $\bm{h}$ 以最小化 $F(\bm{Z} \mid \bm{h})$. 关键一步是将 $\bm{h}$ 投影到训练集所有形状编码构成的 simplex 上 $\mathbf{S}_K$, 确保解码器产生合理的形状, 避免外推.</li>
+</ol>
+</div>
+<h3 id="主动形状解码器">主动形状解码器
+</h3><p>
+
+
+
+<img src="https://arxiv.org/html/2412.01052v1/extracted/6037775/figures/ycbv/interpolate/ycbv_interp.jpg"
+	
+	
+	
+	loading="lazy"
+	
+		alt="只有两个形状时的线性插值"
+	
+	class="gallery-image" 
+></p>
+<p>BCD 算法中的第二步 (优化 $\bm{h}$) 仍然需要对神经网络 $f_d$ 进行梯度计算. 基于“形状解码器在 Simplex 内行为良好”的观察, 作者提出了<strong>主动形状解码器 (Active Shape Decoder)</strong> $f_a$, 转换成高效的线性凸优化.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">CRISP-LSQ</span></p>
+<p><strong class="algo-input">输入 &gt; </strong> 初始估计 $\bm{Z}$, $\bm{h}$, 深度点云 $\bm{X}$, 训练集形状编码 $\{\bm{h}_1, ..., \bm{h}_K\}$.</p>
+<p><strong class="algo-output">输出 &gt; </strong> 校正后的形状系数 $\hat{\bm{c}}$.</p>
+<ol>
+<li>定义一个新的解码器 $f_a$, 它是网络预测形状和训练集基形状的线性组合:
+$$f_{a}(\bm{z}\mid\bm{c})=c_0d_0f_{d}(\bm{z}\mid\bm{h})+\sum_{k=1}^{K}c_kd_kf_{d}(\bm{z}\mid\bm{h}_k), \quad \sum c_k = 1, c_k \geq 0$$
+其中 $\bm{c} = [c_0, c_1, ..., c_K]^T$ 是组合权重系数, 被约束在一个Simplex内. $d_k$ 是归一化因子 (如物体包围盒直径的倒数) , 用于平衡不同形状的SDF尺度.</li>
+<li>对于给定的 $\bm{Z}$, 计算矩阵 $\bm{F}(\bm{Z})$, 其每一行是各个基形状在点 $\bm{z}_i$ 处的SDF值. 目标函数变为关于系数 $\bm{c}$ 的线性最小二乘问题:
+$$\min_{\bm{c}} \|\bm{F}(\bm{Z})\bm{D}\bm{c}\|^2 \quad \text{s.t.} \quad \sum c_k = 1, c_k \geq 0$$</li>
+<li>使用内点法等成熟的凸优化算法快速求解这个带约束的线性最小二乘问题, 得到最优形状系数 $\hat{\bm{c}}$.</li>
+</ol>
+</div>
+<h3 id="测试时自训练">测试时自训练
+</h3><p>这里就是 TTA 的部分了.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">CRISP-ST</span></p>
+<p><strong class="algo-input">输入 &gt; </strong> 在新领域 (测试域) 上运行的 CRISP 模型及其初始预测.</p>
+<p><strong class="algo-output">输出 &gt; </strong> 适应了新领域的模型.</p>
+<ol>
+<li><strong>校正 (Correct)</strong>: 对测试数据的预测结果, 运行上述校正器, 得到更精确的估计 $(\hat{\bm{Z}}, \hat{\bm{h}})$.</li>
+<li><strong>认证 (Certify)</strong>: 定义一个可观测的正确性证书来筛选高质量的校正结果作为伪标签:
+$$
+    \circ c(\hat{\bm{Z}},\hat{\bm{h}})=\mathbb{I}\left\{\left[|f_{d}(\hat{\bm{R}}\bm{x}_{i}+\hat{\bm{t}}|\hat{\bm{h}})|\right]_{p}<\epsilon\right\}
+    $$
+该证书检查校正后的姿态和形状是否与观测深度点云在几何上一致 (即点云是否落在SDF的零水平集上) .</li>
+<li><strong>自训练 (Self-Train)</strong>: 仅使用通过认证的伪标签 $(\hat{\bm{Z}}, \hat{\bm{h}})$, 以简单的 MSE 损失 $(L_z + L_h)$ 来微调网络的编码器 (形状编码器和PNC编码器) , 此时同时冻结形状解码器 $f_d$.</li>
+</ol>
+</div>
+<p>
+
+
+
+<img src="https://arxiv.org/html/2412.01052v1/x1.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="CRISP"
+	
+	class="gallery-image" 
+></p>
+<h2 id="topotta">TopoTTA
+</h2><p>针对管状结构分割 (Tubular Structure Segmentation, TSS) 任务, 论文 <a class="link cite-TopoTTA">[<span class="material-index"></span>]
+    <span class="material-name">Unknown-material</span> 
+</a> 设计了一个可插拔 TTA 框架.</p>
+<h3 id="拓扑结构自适应">拓扑结构自适应
+</h3><p>即 TTA 过程. 受中心差分卷积 (CDC) 启发, TopoTTA 提出了<strong>拓扑元差分卷积 (Topological Meta Difference Convolutions, TopoMDCs)</strong>, 将其单点差分思想扩展为方向性的双点差分, 以更好地模拟管状结构的走向.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">TopoTTA-TopoMDC</span></p>
+<p><strong class="algo-input">输入 &gt; </strong> 输入特征图 $\bm{x}_{\text{in}}$, 预训练的 vanilla 卷积核权重 $w$.</p>
+<p><strong class="algo-output">输出 &gt; </strong> 方向性差分特征.</p>
+<ol>
+<li>计算中心差分卷积输出 $\mathcal{C}_c$:
+$$\mathcal{C}_{c} = \sum_{(\Delta r_{x},\Delta r_{y})\in \mathcal{R}_{c}} w(\Delta r_{x},\Delta r_{y})\cdot \bm{x}_{\text{in}}(r_{x}, r_{y})$$
+其中 $\mathcal{R}_c$ 是 $3\times3$ 卷积的邻域.</li>
+<li>定义 8 个方向的邻域 $\mathcal{R}_i$ 和偏移 $\mathcal{B}_i$ (如 $\mathcal{R}_1 = \{(-1,-1),(-1,0),(0,-1)\}, \mathcal{B}_1 = \{(-1,-1)\}$).</li>
+<li>对于方向 $i$, 其卷积输出 $\mathcal{C}_i$ 计算为:
+$$\begin{split}
+    \mathcal{C}_{i} = & \quad \mathcal{C}_{c} - \sum_{(\Delta r_{x},\Delta r_{y})\in \mathcal{R}_{i}} w(\Delta r_{x},\Delta r_{y})\cdot \bm{x}_{\text{in}}(r_{x}, r_{y}) \\
+    & + \sum_{(\Delta r_{x},\Delta r_{y})\in \mathcal{R}_{i}} w(\Delta r_{x},\Delta r_{y})\cdot \bm{x}_{\text{in}}(r_{x}-\Delta b_{x}, r_{y}-\Delta b_{y})
+    \end{split}$$
+$\Delta b$ 是对应的 $\mathcal{B}_i$ 中的偏移.</li>
+<li>将模型中所有 $3\times3$ 卷积替换为 TopoMDC 组合, 且不引入新参数, 直接继承原有权重 $w$.</li>
+</ol>
+</div>
+<p>为自适应不同区域的拓扑特征, 图像被划分为 $n \times n$ 个块, 每个块拥有一个独立的参数 $\bm{\delta}_j$, 用于学习加权组合 8 个方向的 TopoMDC. 在 TTA 时, 使用熵最小化损失只更新 $\bm{\delta}$, 而冻结主网络参数.</p>
+<h3 id="拓扑连续性优化">拓扑连续性优化
+</h3><p>管道预测容易因局部特征变化而导致预测断裂或者连续性差的问题. TopoHG 的核心思想是对抗学习, 也就是人为在模型预测高置信度的关键拓扑结构上制造伪断裂, 并迫使模型学会修复它, 从而增强其鲁棒性.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">TopoTTA-TopoHG</span></p>
+<p><strong class="algo-input">输入 &gt; </strong> 测试图像 $\bm{x}$, 教师模型预测的伪标签 $\hat{\bm{y}}'$.</p>
+<p><strong class="algo-output">输出 &gt; </strong> 包含局部伪断裂的困难样本 $\bm{x}'$.</p>
+<ol>
+<li>从 $\hat{\bm{y}}'$ 中选择预测置信度 &gt; $\tau$ (论文取 0.95) 的点集 $\mathcal{P}$, 并随机采样 $N_p = k \cdot |\mathcal{P}|$ 个点. $k$ 是一个较小的超参数, 这意味着置信度越高, 生成的困难样本越多.</li>
+<li>以关键点为中心, 取 $s \times s$ 的前景窗口 $\bm{x}_{p}^{\text{fg}}$.</li>
+<li>在其邻域滑动相同大小的窗口, 寻找模型预测置信度和最低的背景窗口 $\bm{x}_{p}^{\text{bg}, \ast}$.</li>
+<li>对选取的关键点进行质量检查, 若背景窗口中前景像素占比过高则丢弃该关键点.</li>
+<li>确定所有关键点后, 对前景窗口和背景窗口进行 FFT, 得到频谱 $\bm{f}_{p}^{\text{fg}}$, $\bm{f}_{p}^{\text{bg}}$.</li>
+<li>交换两者的低频成分 (使用掩码 $\bm{m}_{\text{low}}$) , 保留高频细节. 此时前景结构外观与背景接近, 但依然保留了关键的形状轮廓信息:
+$$\bm{x}_{p}^{\text{swap}} = \text{iFFT}\left(\bm{f}_{p}^{\text{fg}} \cdot (1-\bm{m}_{\text{low}}) + \bm{f}_{p}^{\text{bg}} \cdot \bm{m}_{\text{low}}\right)$$</li>
+<li>仅将原前景区域内的像素替换为 $\bm{x}_{p}^{\text{swap}}$, 生成最终的伪断裂块 $\bm{x}'_{p}$, 并拼回原图得到 $\bm{x}'$.</li>
+</ol>
+</div>
+<p>困难样本 $\bm{x}'$ 被输入学生模型, 其预测 $\hat{\bm{y}}''$ 需要与教师模型在原始图像上生成的可靠伪标签 $\hat{\bm{y}}'$ 在伪断裂区域保持高度一致. 通过一个加权交叉熵损失进行优化, 在伪断裂区域赋予更高权重 (论文中是 10 倍), 迫使模型重点学习如何修复断裂.</p>
+<p>
+
+
+
+<img src="https://arxiv.org/html/2508.00442v1/x2.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="TopoTTA"
+	
+	class="gallery-image" 
+></p>
+<h2 id="cav-sam">CAV-SAM
+</h2><p>传统的参考分割方法严重依赖元学习, 需要大量的计算和数据进行元训练. SAM 通过构造伪视频序列来激活 SAM2 的 iVOS 能力. 直接将参考图像 $I_r$ 和目标图像 $I_t$ 拼接作为“视频”输入已能取得接近 SOTA 的效果, 但很显然有两个问题:</p>
+<ul>
+<li>iVOS 跟踪同一实例, 而参考分割需识别同类不同实例</li>
+<li>图像对间可能存在剧烈的形状和姿态变异, 普通的混合过渡会影响模型性能.</li>
+</ul>
+<p>论文 <a class="link cite-CAV-SAM">[<span class="material-index"></span>]
+    <span class="material-name">Unknown-material</span> 
+</a> 正是基于此提出的新的框架.</p>
+<h3 id="视频生成">视频生成
+</h3><p>为了平滑图像对间的语义差异, <strong>基于扩散的语义过渡 (Diffusion-Based Semantic Transition, DBST)</strong> 模块利用扩散模型生成中间过渡帧, 使语义变化连续.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">SAM-DBST</span></p>
+<p><strong class="algo-input">输入 &gt; </strong> 参考图像 $I_r$, 目标图像 $I_t$, 插值比率 $\alpha$.</p>
+<p><strong class="algo-output">输出 &gt; </strong> 过渡图像序列 $I_v^1, I_v^2, \ldots, I_v^{N_v}$.</p>
+<ol>
+<li>分别用 $I_r$ 和 $I_t$ 微调扩散模型, 得到其对应的 LoRA 参数 $\Delta\theta_r$ 和 $\Delta\theta_t$. 通过线性插值得到中间参数:
+$$\Delta\theta_{\alpha} = (1-\alpha)\Delta\theta_{r} + \alpha\Delta\theta_{t}$$
+此操作在参数空间融合图像语义.</li>
+<li>通过 DDIM 反转分别得到 $I_r$ 和 $I_t$ 对应的初始潜在噪声 $\mathbf{z}_{Tr}$ 和 $\mathbf{z}_{Tt}$. 通过球面线性插值 (Slerp) 得到中间噪声 $\mathbf{z}_{T\alpha}$:
+$$\mathbf{z}_{T\alpha} = \frac{\sin((1-\alpha)\phi)}{\sin\phi}\mathbf{z}_{Tr} + \frac{\sin(\alpha\phi)}{\sin\phi}\mathbf{z}_{Tt}, \quad \phi = \arccos\left(\frac{\mathbf{z}_{Tr}^\top \mathbf{z}_{Tt}}{\|\mathbf{z}_{Tr}\|\|\mathbf{z}_{Tt}\|}\right)$$</li>
+<li>以 $\mathbf{z}_{T\alpha}$ 为起点, 使用由 $\Delta\theta_{\alpha}$ 调整过的噪声预测网络 $\epsilon_{\theta + \Delta\theta_{\alpha}}$ 执行DDIM去噪采样, 最终生成过渡图像 $I_v^{\alpha}$. 通过均匀采样多个 $\alpha$ 值即可生成平滑的序列.</li>
+</ol>
+</div>
+<p>相较于追求视觉质量的原始DiffMorpher, DBST移除了不必要的精炼模块, 虽然效果稍差, 但对于模型训练 (而非视觉效果) 已经足够.</p>
+<h3 id="几何对齐">几何对齐
+</h3><p>尽管DBST解决了语义过渡, 序列中仍可能存在不自然的几何突变. TTGA模块通过仅使用一张参考图像对SAM2图像编码器进行轻量级微调, 来使提取的原型向量对几何变化更鲁棒. 论文探索了两种一致性策略: <strong>增强循环一致性 (ACC)</strong> 和 <strong>增强双向一致性 (ABC)</strong>, 其中ACC被证明更为有效.</p>
+<p>
+
+
+
+<img src="https://arxiv.org/html/2508.07759v1/x5.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="ACC & ABC"
+	
+	class="gallery-image" 
+></p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">SAM-TTGA</span></p>
+<p><strong class="algo-input">输入 &gt; </strong> 参考图像 $I_r$ 及其掩码 $M_r$.</p>
+<p><strong class="algo-output">输出 &gt; </strong> 微调后的图像编码器, 可产生鲁棒的原型向量 $\bm{p}_r$.</p>
+<ol>
+<li>对 $I_r$ 施加一个强的几何/色彩变换 $T$, 得到增强图像 $I_r^{\text{aug}}$. 对 $M_r$ 施加相同的变换, 得到真实增强掩码 $M_r^{\text{aug}}$.</li>
+<li>从特征图 $F_r \in \mathbb{R}^{H \times W \times D}$ 和掩码 $M_r \in \mathbb{R}^{H \times W}$ 利用掩码平均池化提取原型向量 $\bm{p}_r \in \mathbb{R}^{D}$:
+$$\bm{p}_r = \text{MAP}(F_r, M_r) = \frac{\sum_{(u,v)} M_r(u,v) F_r(u,v)}{\sum_{(u,v)} M_r(u,v)}$$</li>
+<li>计算原型向量与特征图 $F_\text{aug}$ 上每一个位置的向量之间的余弦相似度:
+$$S^{\text{aug}}_r(u,v) = \frac{\bm{p}_r^\top F_r^{\text{aug}}(u,v)}{\|\bm{p}_r\|\|F_r^{\text{aug}}(u,v)\|}$$</li>
+<li>用 $\bm{p}_r$ 分割 $I_r^{\text{aug}}$ 得到预测 $\hat{M}_r^{\text{aug}}$. 计算 $\mathcal{L}_{\text{aug}} = \text{BCE}(\text{sigmoid}(S^{\text{aug}}_r), M_r^{\text{aug}})$. 此损失目的是让原型向量能适应几何变化, 或者最好有几何不变性.</li>
+<li>使用上一步预测的伪标签 $\hat{M}_r^{\text{aug}}$ (此为 ACC 策略, 在 ABC 策略中是真实标签 $M_r^{\text{aug}}$) 计算一个新的增强原型向量 $\hat{\bm{p}}^{\text{aug}}_r = \text{MAP}(F_r^{\text{aug}}, \hat{M}_r^{\text{aug}})$.</li>
+<li>用 $\hat{\bm{p}}^{\text{aug}}_r$ 分割原始图像 $I_r$, 得到预测 $\hat{M}_r$, 计算循环损失 $\mathcal{L}_{\text{cyc}} = \text{BCE}(\text{sigmoid}(S_r), M_r)$.</li>
+<li>计算总损失:
+$$\mathcal{L} = \mathcal{L}_{\text{aug}} + \mathcal{L}_{\text{cyc}}$$</li>
+<li>利用反向传播更新, 注意仅微调 SAM2 图像编码器的 FPN 层参数, ViT 主干网络被冻结, 保证了轻量性.</li>
+</ol>
+</div>
+<p>
+
+
+
+<img src="https://arxiv.org/html/2508.07759v1/x3.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="CAV-SAM"
+	
+	class="gallery-image" 
+></p>
+<h2 id="wormi">WorMI
+</h2><p>论文 <a class="link cite-WorMI">[<span class="material-index"></span>]
+    <span class="material-name">Unknown-material</span> 
+</a> 介绍了一个针对具身智能体的 <strong>世界模型植入的测试时自适应 (World Model Implanting for Test-time Adaptation, WorMI)</strong> 框架. 核心创新在于将 LLM 的通用推理能力与多个轻量级的领域特定世界模型（World Model）进行动态组合, 而无需重新训练主干模型, 即可实现更好的零样本和少样本跨领域适应能力.</p>
+<h3 id="模型检索">模型检索
+</h3><p>对于输入, 需要在知识体系找到其相关的模型. 直接用所有世界模型显然计算量过大, 这里论文选取一部分原型再做搜索.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">WorMI-原型检索</span></p>
+<p><strong class="algo-input">输入 &gt; </strong> 当前观测状态 $s_t$, 预训练的世界模型池 $\{M_1, ..., M_N\}$ 及其对应数据集 $\{\mathcal{D}_1, ..., \mathcal{D}_N\}$.</p>
+<p><strong class="algo-output">输出 &gt; </strong> 最相关的 K 个世界模型子集 $\mathbf{M}_{\text{ret}}$.</p>
+<ol>
+<li>对于每个世界模型 $M_j$ 的数据集 $\mathcal{D}_j$, 使用对象检测模型 $\Phi_{\text{D}}$ 和嵌入模型 $\Phi_{\text{E}}$ 提取所有物体级状态的嵌入, 构成嵌入集 $\mathcal{E}_j$.</li>
+<li>对每个嵌入 $\mathcal{E}_j$ 采用 k-center 聚类算法, 寻找到一组原型 $\mathbf{p}_j$, 使得其余点到这些点最短距离的最大值最小化. 这组原型代表了所有世界模型的核心知识.</li>
+<li>对于当前状态 $s_t$, 同样提取其物体级状态嵌入并聚类得到原型 $\mathbf{p}$.</li>
+<li>计算当前原型 $\mathbf{p}$ 与每个世界模型原型 $\mathbf{p}_j$ 之间的 Wasserstein 距离 $\delta(\mathbf{p}_j, \mathbf{p})$. 选择距离最小的前 K 个模型作为检索结果.
+$$
+    \mathbf{M}_{\text{ret}} = \left\{ M_j \ \middle|\ j \in \text{TopK}\left(\{-\delta(\mathbf{p}_j, \mathbf{p})\}_{j=1}^N,\ K\right) \right\}
+    $$</li>
+</ol>
+</div>
+<p>该方法在数学上被证明是有效的, 原型集之间的距离 $\delta(\mathbf{p}_i, \mathbf{p}_j)$ 是完整数据集距离 $\delta(\mathcal{E}_i, \mathcal{E}_j)$ 的一个有界近似.</p>
+<h3 id="集成对齐">集成对齐
+</h3><p>检索到模型后, 需要将其知识融合进智能体的决策策略中. WorMI 设计了一个层次化的复合注意力机制来实现深度集成与对齐.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">WorMI-复合注意力</span></p>
+<p><strong class="algo-input">输入 &gt; </strong> LLM 第 $j$ 层的输出 $l_{\pi_R}$, 检索到的 $K$ 个世界模型的中间层输出 $\{l_{M_1}, ..., l_{M_K}\}$.</p>
+<p><strong class="algo-output">输出 &gt; </strong> 一个用于增强推理模型表示的修正向量, 将被加回其下一层的输入.</p>
+<ol>
+<li>首先将每个世界模型的输出 $l_{M_j}$ 通过一个可学习的线性层 $L_{\theta}$, 将其投影到与推理模型相同的维度空间: $\hat{l}_{M_j} = L_{\theta}(l_{M_j})$.</li>
+<li>先做世界级交叉注意力 (集成). 以推理模型的表示 $l_{\pi_R}$ 作为 Query, 以所有投影后的世界模型输出 $[\hat{l}_{M_1}; ...; \hat{l}_{M_K}]$ 作为 Key 和 Value. 通过交叉注意力, 输出表示, 自动加权融合了各模型最相关的部分.</li>
+<li>再做推理级交叉注意力 (对齐). 仍以推理模型的表示 $l_{\pi_R}$ 作为 Query, 以所有世界模型输出的总和 $[\hat{l}_{M_1} + ... + \hat{l}_{M_K}]$ 作为 Key, 提供一个全局信号, 以世界级注意力的集成后的知识作为 Value. 通过交叉注意力, 最终输出即为复合注意力的结果 $C_{\theta}(\cdot)$, 包含了与当前推理步骤最相关的, 已对齐的领域知识.</li>
+</ol>
+</div>
+<p>在预训练阶段, 复合注意力模块 $C_{\theta}$ 的参数通过元学习进行训练, 使其获得一种通用的“如何集成”的能力, 从而能快速适应全新的世界模型组合.</p>
+<ol>
+<li><strong>内循环（适应）</strong>: 在每次元迭代中, 随机采样一个世界模型子集 $\mathbf{M}_j$ 及其数据 $\mathbf{D}_j$. 将元参数 $\theta$ 复制到任务参数 $\theta_j$, 并用 $\mathbf{D}_j$ 上的行为克隆损失对 $\theta_j$ 进行少量几步梯度更新, 使其学会集成当前这组特定模型.</li>
+<li><strong>外循环（元更新）</strong>: 将元参数 $\theta$ 朝着各个任务更新后的参数 $\theta_j$ 的平均方向进行更新:
+$$\theta \leftarrow \theta + \beta \cdot \frac{1}{m} \sum_{j=1}^{m} (\theta_j - \theta)$$
+这个过程迫使元参数 $\theta$ 成为一个优秀的初始化点, 能够快速适应任何新遇到的世界模型组合.</li>
+</ol>
+<p>此外, 论文还指出了框架支持动态添加新的世界模型以提升性能, 也能通过移除模型来实现“遗忘”, 应对知识更新或隐私需求.</p>
+<p>
+
+
+
+<img src="https://arxiv.org/html/2509.03956v1/x2.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="WorMI"
+	
+	class="gallery-image" 
+></p>
+<h2 id="smart-pc">SMART-PC
+</h2><p>论文 <a class="link cite-SMART-PC">[<span class="material-index"></span>]
+    <span class="material-name">Unknown-material</span> 
+</a> 提出了一个基于骨架表示的 3D 点云测试时训练 (TTT) 框架.</p>
+<h3 id="点云预处理">点云预处理
+</h3><p>原始点云通常是无序且冗余的, 需要先对点云 Token 化, 为后续特征提取奠定基础.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">SMART-PC-点云Token化</span></p>
+<p><strong class="algo-input">输入 &gt; </strong> 原始 3D 点云 $P \in \mathbb{R}^{N \times 3}$ ($N$ 为总点数) , 采样中心点数量 $M$, 邻域点数 $K$.</p>
+<p><strong class="algo-output">输出 &gt; </strong> 局部邻域张量 $P_{\text{local}} \in \mathbb{R}^{M \times K \times 3}$ (含全局结构与局部细节的 Token 化表示) .</p>
+<ol>
+<li>
+<p>从 $P$ 中均匀选取 $M$ 个中心点 $C$, 确保覆盖点云全局结构:
+</p>
+$$C = \text{FPS}(P) \in \mathbb{R}^{M \times 3}, \quad M \ll N$$<p>
+FPS 算法通过迭代选择“与已选点距离最远”的点, 保证中心点分布均匀性.</p>
+</li>
+<li>
+<p>对每个中心点 $c_i \in C$, 用 KNN 算法从 $P$ 中选取 $K$ 个邻近点, 构建该中心点的局部几何上下文, 形成局部邻域张量:
+</p>
+$$P_{\text{local}} = \text{kNN}(C, P) \in \mathbb{R}^{M \times K \times 3}$$<p>
+其中 $P_{\text{local}}[i] \in \mathbb{R}^{K \times 3}$ 对应第 $i$ 个中心点的局部邻域.</p>
+</li>
+</ol>
+</div>
+<p>这样选取点, 既减少计算冗余, 又保留后续骨架预测所需的几何信息.</p>
+<h3 id="骨架预测与点云分类">骨架预测与点云分类
+</h3><p>SMART-PC 同时实现骨架和点云分类, 让分类任务复用骨架的抗腐蚀特征.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">SMART-PC-双任务架构</span></p>
+<p><strong class="algo-input">输入 &gt; </strong> Token 化局部邻域张量 $P_{\text{local}} \in \mathbb{R}^{M \times K \times 3}$, 特征维度 $d$, 类别数 $K_{cls}$.</p>
+<p><strong class="algo-output">输出 &gt; </strong> 骨架参数 (骨架点 $c_s \in \mathbb{R}^{M \times 3}$、半径 $r \in \mathbb{R}^{M \times 1}$) , 分类概率 $p \in \mathbb{R}^{K_{cls}}$.</p>
+<ol>
+<li>
+<p>通过编码器 $E$ 处理 $P_{\text{local}}$, 提取融合全局结构与局部细节的基础特征:
+</p>
+$$F_{\text{enc}} = E(P_{\text{local}}) \in \mathbb{R}^{M \times d}$$<p>
+该特征为骨架分支与分类分支的共享输入, 确保特征一致性.</p>
+</li>
+<li>
+<p>对于骨架分支, 解码器 $D$ 对 $F_{\text{enc}}$ 进行上下文增强, 生成更适配骨架预测的特征:
+</p>
+$$F_{\text{dec}} = D(F_{\text{enc}}) \in \mathbb{R}^{M \times d}$$<p>
+随后用两个独立 MLP 分别输出骨架参数 (球心和半径), 避免原始点云噪声干扰:
+</p>
+$$c_s = \text{MLP}_s(F_{\text{dec}}) \in \mathbb{R}^{M \times 3}, \quad r = \text{MLP}_r(F_{\text{dec}}) \in \mathbb{R}^{M \times 1}$$</li>
+<li>
+<p>对于分类分支, 将编码器基础特征与解码器骨架相关特征之和作为组合特征:
+</p>
+$$F_\text{combined} = F_{\text{enc}} + F_{\text{dec}}$$<p>
+随后通过归一化和 Dropout 的 MLP 分类头, 输出类别概率:
+</p>
+$$p = Softmax(\text{MLP}_{cls}(F_\text{combined})) \in \mathbb{R}^{K_{cls}}$$</li>
+</ol>
+</div>
+<h3 id="预训练">预训练
+</h3><p>需要注意, 骨架分支是自监督的, 而分类分支是有监督的. 预训练阶段两者联合优化.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">SMART-PC-预训练</span></p>
+<p><strong class="algo-input">输入 &gt; </strong> 源数据集, 包含清洁点云 $P$, 类别标签 $y$.</p>
+<p><strong class="algo-output">输出 &gt; </strong> 预训练完成的双任务模型, 包含编码器 $E$, 解码器 $D$, MLP 分支.</p>
+<ol>
+<li>对于骨架分支, 考虑点-球损失 $\mathcal{L}_{\text{p2s}}$, 确保输入点与骨架球表面对齐, 双向约束几何一致性:
+$$\mathcal{L}_{\text{p2s}} = \sum_{p \in P} \left( \min_{s \in S} \|p - c_s\|_2 - r(c_s) \right) + \sum_{s \in S} \left( \min_{p \in P} \|c_s - p\|_2 - r(c_s) \right)$$
+其中 $S$ 为骨架球集合, $c_s$ 为骨架球中心, $r(c_s)$ 为半径.</li>
+<li>还有采样损失 $\mathcal{L}_{\text{sampling}}$, 对齐骨架球表面采样点与输入点, 过滤高频噪声:
+$$\mathcal{L}_{\text{sampling}} = \sum_{p \in P} \min_{t \in T} \|p - t\|_2 + \sum_{t \in T} \min_{p \in P} \|t - p\|_2$$
+其中 $T$ 为骨架球表面均匀采样点集.</li>
+<li>还有半径正则损失 $\mathcal{L}_{\text{radius}}$, 避免噪声导致的骨架球过小:
+$$\mathcal{L}_{\text{radius}} = -\sum_{s \in S} r(c_s)$$</li>
+<li>对于分类分支, 用交叉熵损失优化分类精度:
+$$L_{cls} = -\frac{1}{B} \sum_{i=1}^B \sum_{k=1}^{K_{cls}} y_{ik} \log(\hat{y}_{ik})$$
+其中 $B$ 为批次大小, $y_{ik}$ 为真实标签, $\hat{y}_{ik}$ 为预测概率.</li>
+<li>计算总损失: $$L_{total} = L_{skel} + L_{cls} = \mathcal{L}_{\text{p2s}} + \lambda_1 \mathcal{L}_{\text{sampling}} + \lambda_2 \mathcal{L}_{\text{radius}} + L_{cls}$$</li>
+<li>通过反向传播和优化器更新模型参数, 直至收敛.</li>
+</ol>
+</div>
+<h3 id="测试时适应">测试时适应
+</h3><p>针对不同应用场景, SMART-PC 设计了两种 TTA 模式, 兼顾实时性与精度, 在一般情形下仅需轻量式的 TTA.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">SMART-PC-TTA</span></p>
+<p><strong class="algo-input">输入 &gt; </strong> 测试集 (腐蚀点云 $P_{\text{test}}$), 预训练模型.</p>
+<p><strong class="algo-output">输出 &gt; </strong> 适应后模型, 分类结果 $p_{\text{test}}$.</p>
+<ol>
+<li>
+<p>对于实时场景, 采用在线适应的方式:</p>
+<ul>
+<li>仅在切换腐蚀类型时重置模型, 批次间保留状态, 累积适应信息.</li>
+<li>默认仅更新 BatchNorm 层的 $\mu$ 和 $\sigma$</li>
+<li>若需进一步提升精度, 可同步更新所有参数, 优化目标为预训练的 $L_{skel}$, 不过对比实验表明仅更新 BN 已足够.</li>
+</ul>
+</li>
+<li>
+<p>对于独立批次场景, 采用标准适应的方式:</p>
+<ul>
+<li>每个测试批次结束后重置模型, 批次间独立适应, 不累积信息.</li>
+<li>由于单批次统计量不足以支撑适配, 需通过 $L_{skel}$ 优化所有参数, 确保每个独立批次的分类精度.</li>
+</ul>
+</li>
+</ol>
+</div>
+<p>
+
+
+
+<img src="https://arxiv.org/html/2505.19546v1/x2.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="SMART-PC"
+	
+	class="gallery-image" 
+></p>
+
+
+    
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>本文遵循 CC BY-NC-SA 4.0 协议</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/paper-reading/3d-perception/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - 3D感知与重建</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/paper-reading/structure-from-motion/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - 运动结构恢复</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/paper-reading/region-confidence-proxy-for-wild-test-time-adaption/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - 基于自适应代理的置信度估计</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/paper-reading/test-time-reinforcement-learning/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - 测试时强化学习</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/paper-reading/icml-2025-oral-and-spotlight/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://icml.cc/static/core/img/vancouver_convention_center.webp" loading="lazy" data-key="paper-reading/icml-2025-oral-and-spotlight" data-hash="https://icml.cc/static/core/img/vancouver_convention_center.webp"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - ICML2025 高光论文选读</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 LeoDreamer
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.57552279ca013738c47491303c9548ea01540dd70ebc626d50929bdb46504578.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        z-index: 99;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-image: url(https://LeoDreamer2004.github.io/icons/back-top.svg);
+    }
+</style>
+
+<script>
+    function initTocHide() {
+        let toc = document.querySelector(".widget--toc");
+        if (!toc) {
+            return;
+        }
+        window.addEventListener('scroll', function () {
+            let openUl = document.querySelectorAll(".open");
+            openUl.forEach((ul) => {
+                ul.classList.remove("open")
+            })
+
+            let currentLi = document.querySelector(".active-class");
+            if (!currentLi) {
+                return
+            }
+
+            
+            if (currentLi.children.length > 1) {
+                currentLi.children[1].classList.add("open")
+            }
+            let ul = currentLi.parentElement;
+            do {
+                ul.classList.add("open");
+                ul = ul.parentElement.parentElement
+            } while (ul !== undefined && (ul.localName === 'ul' || ul.localName === 'ol'))
+        });
+    }
+
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.title = "返回顶部";
+        btn.onclick = backToTop
+        rightSideBar.appendChild(btn)
+        window.onscroll = function () {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    function backToTop() {
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initTocHide()
+    initScrollTop();
+</script>
+    </body>
+</html>
