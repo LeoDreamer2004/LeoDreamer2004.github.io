@@ -82,7 +82,8 @@ M_1 &amp;\le \gamma_1(\theta_1 - \theta^*)^2 +  \sum_{t=1}^{T} (\gamma_{t+1} - \
 &amp;= C + (\gamma_{t+1} - \gamma_1)D^2 = \mathcal{O}(\sqrt{T})
 \end{aligned}
 $$&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;问题就出在这个 &amp;ldquo;一般来说&amp;rdquo; 上&lt;/strong&gt;, 因为尽管引入参数衰减, 实际上 Adam 并不能保证 $\gamma_t$ 是单调不减的. 后面会提到这里的争议.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;问题就出在这个 &amp;ldquo;一般来说&amp;rdquo; 上&lt;/strong&gt;, 因为尽管引入参数衰减, 实际上 Adam 并不能保证 $\gamma_t$ 是单调不减的. 后面会提到这里的争议.&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;&lt;strong&gt;第二项&lt;/strong&gt;: 直接放缩即可:&lt;/p&gt;
 $$
 \begin{aligned}

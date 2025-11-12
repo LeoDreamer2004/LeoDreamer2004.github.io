@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://LeoDreamer2004.github.io/p/program-practice/file-io/'>
 
-<link rel="stylesheet" href="/scss/style.min.050e713ce6ba4df4f898621146cc9dece02afd8477586323296cb867d14a1d9a.css"><meta property='og:title' content="程序设计实习(5) —— 输入输出和文件操作">
+<link rel="stylesheet" href="/scss/style.min.53a50696eee79711a2f783a326b08b38dd1f4384309e16f5b6d33ee5db8d6ba0.css"><meta property='og:title' content="程序设计实习(5) —— 输入输出和文件操作">
 <meta property='og:description' content="输入输出流 istream 是用于输入的流类, ostream 是用于输出的流类. ifstream 继承 自 istream, 用于从文件中读取数据; ofstream 继承自 ostream, 用于向文件中写入数据. fstream 继承自 iostream, 既可以用于输入也可以用于输出.\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/program-practice/file-io/'>
 <meta property='og:site_name' content='LeoDreamer'>
@@ -428,7 +428,8 @@
 </div><p>从输入流中读取 <code>bufSize - 1</code> 个字符 (要给 <code>'\0'</code> 留一个) 到缓冲区buf, 或读到碰到 <code>\n</code> 或 <code>delim</code> 字符为止 (哪个先到算哪个).</p>
 <p>默认分隔符是换行符 <code>\n</code>, 也可以指定其他分隔符. 会自动在 <code>buf</code> 中读入数据的结尾添加<code>'\0'</code>, <code>'\n'</code> 或 <code>delim</code> 都不会被读入<code>buf</code>, 但会被从输入流中取走.</p>
 <blockquote>
-<p>需要注意, 如果 <code>buf</code> 不足以容纳读入的字符, 就导致读入出错, 其结果就是虽然本次读入已经完成, 但是之后的读入就都会失败了.</p></blockquote>
+<p>需要注意, 如果 <code>buf</code> 不足以容纳读入的字符, 就导致读入出错, 其结果就是虽然本次读入已经完成, 但是之后的读入就都会失败了.</p>
+</blockquote>
 <p>重定向:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">

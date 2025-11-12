@@ -1485,7 +1485,8 @@
 &lt;/div&gt;&lt;p&gt;从输入流中读取 &lt;code&gt;bufSize - 1&lt;/code&gt; 个字符 (要给 &lt;code&gt;&#39;\0&#39;&lt;/code&gt; 留一个) 到缓冲区buf, 或读到碰到 &lt;code&gt;\n&lt;/code&gt; 或 &lt;code&gt;delim&lt;/code&gt; 字符为止 (哪个先到算哪个).&lt;/p&gt;
 &lt;p&gt;默认分隔符是换行符 &lt;code&gt;\n&lt;/code&gt;, 也可以指定其他分隔符. 会自动在 &lt;code&gt;buf&lt;/code&gt; 中读入数据的结尾添加&lt;code&gt;&#39;\0&#39;&lt;/code&gt;, &lt;code&gt;&#39;\n&#39;&lt;/code&gt; 或 &lt;code&gt;delim&lt;/code&gt; 都不会被读入&lt;code&gt;buf&lt;/code&gt;, 但会被从输入流中取走.&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;需要注意, 如果 &lt;code&gt;buf&lt;/code&gt; 不足以容纳读入的字符, 就导致读入出错, 其结果就是虽然本次读入已经完成, 但是之后的读入就都会失败了.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;需要注意, 如果 &lt;code&gt;buf&lt;/code&gt; 不足以容纳读入的字符, 就导致读入出错, 其结果就是虽然本次读入已经完成, 但是之后的读入就都会失败了.&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;重定向:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
