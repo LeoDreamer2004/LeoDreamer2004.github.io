@@ -1,92 +1,75 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Tags on LeoDreamer</title>
         <link>https://LeoDreamer2004.github.io/tags/</link>
         <description>Recent content in Tags on LeoDreamer</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <copyright>LeoDreamer</copyright>
-        <lastBuildDate>Fri, 12 Sep 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>3D</title>
-        <link>https://LeoDreamer2004.github.io/tags/3d/</link>
-        <pubDate>Fri, 12 Sep 2025 00:00:00 +0000</pubDate>
-        
-        <guid>https://LeoDreamer2004.github.io/tags/3d/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Segmentation</title>
-        <link>https://LeoDreamer2004.github.io/tags/segmentation/</link>
-        <pubDate>Fri, 12 Sep 2025 00:00:00 +0000</pubDate>
-        
-        <guid>https://LeoDreamer2004.github.io/tags/segmentation/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>TTA</title>
-        <link>https://LeoDreamer2004.github.io/tags/tta/</link>
-        <pubDate>Fri, 12 Sep 2025 00:00:00 +0000</pubDate>
-        
-        <guid>https://LeoDreamer2004.github.io/tags/tta/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Geometry</title>
-        <link>https://LeoDreamer2004.github.io/tags/geometry/</link>
-        <pubDate>Wed, 09 Jul 2025 00:00:00 +0000</pubDate>
-        
-        <guid>https://LeoDreamer2004.github.io/tags/geometry/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>SfM</title>
-        <link>https://LeoDreamer2004.github.io/tags/sfm/</link>
-        <pubDate>Wed, 09 Jul 2025 00:00:00 +0000</pubDate>
-        
-        <guid>https://LeoDreamer2004.github.io/tags/sfm/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>ICML</title>
-        <link>https://LeoDreamer2004.github.io/tags/icml/</link>
-        <pubDate>Tue, 24 Jun 2025 00:00:00 +0000</pubDate>
-        
-        <guid>https://LeoDreamer2004.github.io/tags/icml/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Confidence</title>
-        <link>https://LeoDreamer2004.github.io/tags/confidence/</link>
-        <pubDate>Thu, 19 Jun 2025 00:00:00 +0000</pubDate>
-        
-        <guid>https://LeoDreamer2004.github.io/tags/confidence/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>RL</title>
-        <link>https://LeoDreamer2004.github.io/tags/rl/</link>
-        <pubDate>Thu, 29 May 2025 00:00:00 +0000</pubDate>
-        
-        <guid>https://LeoDreamer2004.github.io/tags/rl/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Adam</title>
-        <link>https://LeoDreamer2004.github.io/tags/adam/</link>
-        <pubDate>Sun, 30 Mar 2025 00:00:00 +0000</pubDate>
-        
-        <guid>https://LeoDreamer2004.github.io/tags/adam/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Optimization</title>
-        <link>https://LeoDreamer2004.github.io/tags/optimization/</link>
-        <pubDate>Sun, 30 Mar 2025 00:00:00 +0000</pubDate>
-        
-        <guid>https://LeoDreamer2004.github.io/tags/optimization/</guid>
-        <description></description>
-        </item>
-        
-    </channel>
+        <lastBuildDate>Wed, 13 May 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+            <title>LLM</title>
+            <link>https://LeoDreamer2004.github.io/tags/llm/</link>
+            <pubDate>Wed, 13 May 2026 00:00:00 +0000</pubDate>
+            <guid>https://LeoDreamer2004.github.io/tags/llm/</guid>
+            <description></description>
+        </item><item>
+            <title>RL</title>
+            <link>https://LeoDreamer2004.github.io/tags/rl/</link>
+            <pubDate>Wed, 13 May 2026 00:00:00 +0000</pubDate>
+            <guid>https://LeoDreamer2004.github.io/tags/rl/</guid>
+            <description></description>
+        </item><item>
+            <title>3D</title>
+            <link>https://LeoDreamer2004.github.io/tags/3d/</link>
+            <pubDate>Fri, 12 Sep 2025 00:00:00 +0000</pubDate>
+            <guid>https://LeoDreamer2004.github.io/tags/3d/</guid>
+            <description></description>
+        </item><item>
+            <title>Segmentation</title>
+            <link>https://LeoDreamer2004.github.io/tags/segmentation/</link>
+            <pubDate>Fri, 12 Sep 2025 00:00:00 +0000</pubDate>
+            <guid>https://LeoDreamer2004.github.io/tags/segmentation/</guid>
+            <description></description>
+        </item><item>
+            <title>TTA</title>
+            <link>https://LeoDreamer2004.github.io/tags/tta/</link>
+            <pubDate>Fri, 12 Sep 2025 00:00:00 +0000</pubDate>
+            <guid>https://LeoDreamer2004.github.io/tags/tta/</guid>
+            <description></description>
+        </item><item>
+            <title>Geometry</title>
+            <link>https://LeoDreamer2004.github.io/tags/geometry/</link>
+            <pubDate>Wed, 09 Jul 2025 00:00:00 +0000</pubDate>
+            <guid>https://LeoDreamer2004.github.io/tags/geometry/</guid>
+            <description></description>
+        </item><item>
+            <title>SfM</title>
+            <link>https://LeoDreamer2004.github.io/tags/sfm/</link>
+            <pubDate>Wed, 09 Jul 2025 00:00:00 +0000</pubDate>
+            <guid>https://LeoDreamer2004.github.io/tags/sfm/</guid>
+            <description></description>
+        </item><item>
+            <title>ICML</title>
+            <link>https://LeoDreamer2004.github.io/tags/icml/</link>
+            <pubDate>Tue, 24 Jun 2025 00:00:00 +0000</pubDate>
+            <guid>https://LeoDreamer2004.github.io/tags/icml/</guid>
+            <description></description>
+        </item><item>
+            <title>Confidence</title>
+            <link>https://LeoDreamer2004.github.io/tags/confidence/</link>
+            <pubDate>Thu, 19 Jun 2025 00:00:00 +0000</pubDate>
+            <guid>https://LeoDreamer2004.github.io/tags/confidence/</guid>
+            <description></description>
+        </item><item>
+            <title>Adam</title>
+            <link>https://LeoDreamer2004.github.io/tags/adam/</link>
+            <pubDate>Sun, 30 Mar 2025 00:00:00 +0000</pubDate>
+            <guid>https://LeoDreamer2004.github.io/tags/adam/</guid>
+            <description></description>
+        </item><item>
+            <title>Optimization</title>
+            <link>https://LeoDreamer2004.github.io/tags/optimization/</link>
+            <pubDate>Sun, 30 Mar 2025 00:00:00 +0000</pubDate>
+            <guid>https://LeoDreamer2004.github.io/tags/optimization/</guid>
+            <description></description>
+        </item></channel>
 </rss>

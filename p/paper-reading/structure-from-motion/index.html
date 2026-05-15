@@ -4,15 +4,23 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="横看成岭侧成峰，远近高低各不同">
 <title>论文阅读 - 运动结构恢复</title>
 
-<link rel='canonical' href='https://LeoDreamer2004.github.io/p/paper-reading/structure-from-motion/'>
 
-<link rel="stylesheet" href="/scss/style.min.53a50696eee79711a2f783a326b08b38dd1f4384309e16f5b6d33ee5db8d6ba0.css"><meta property='og:title' content="论文阅读 - 运动结构恢复">
+<link rel="canonical" href="https://LeoDreamer2004.github.io/p/paper-reading/structure-from-motion/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+
+
+<link rel="stylesheet" href="/scss/style.min.5a86d64e15effc523f9d9507b42393380abbdf8ec4e177fb1d78269a9d2bfc73.css"><meta property='og:title' content="论文阅读 - 运动结构恢复">
 <meta property='og:description' content="横看成岭侧成峰，远近高低各不同">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/paper-reading/structure-from-motion/'>
 <meta property='og:site_name' content='LeoDreamer'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='3D' /><meta property='article:tag' content='SfM' /><meta property='article:tag' content='Geometry' /><meta property='article:published_time' content='2025-07-09T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-07-09T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="论文阅读 - 运动结构恢复">
 <meta name="twitter:description" content="横看成岭侧成峰，远近高低各不同">
+    <link rel="shortcut icon" href="/img/avatar.png" />
+
     </head>
     <body class="
     article-page
@@ -21,7 +29,7 @@
         (function() {
             const colorSchemeKey = 'StackColorScheme';
             if(!localStorage.getItem(colorSchemeKey)){
-                localStorage.setItem(colorSchemeKey, "light");
+                localStorage.setItem(colorSchemeKey, "auto");
             }
         })();
     </script><script>
@@ -47,37 +55,31 @@
     </button>
 
     <header>
-        
-            
-            <figure class="site-avatar">
+        <figure class="site-avatar">
                 <a href="/">
-                
-                    
-                    
-                    
-                        
-                        <img src="/img/avatar_hu_af500e90a6e0f79a.png" width="300"
-                            height="300" class="site-logo" loading="lazy" alt="Avatar">
-                    
-                
+                    <img src="/img/avatar.png" 
+                        width="150"
+                        height="150"
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
                 </a>
                 
                     <span class="emoji">💫</span>
                 
             </figure>
-            
         
         
         <div class="site-meta">
             <h1 class="site-name"><a href="/">LeoDreamer</a></h1>
-            <h2 class="site-description">PKU 本科在读/新手&#43;&#43;</h2>
+            <h2 class="site-description">PKU 本科在读 / 新手&#43;&#43;</h2>
         </div>
     </header><ol class="menu-social">
             
                 <li>
                     <a 
                         href='https://space.bilibili.com/503370537'
-                        target="_blank"
+                        
                         title="Bilibili"
                         rel="me"
                     >
@@ -91,7 +93,7 @@
                 <li>
                     <a 
                         href='https://github.com/LeoDreamer2004'
-                        target="_blank"
+                        
                         title="GitHub"
                         rel="me"
                     >
@@ -115,8 +117,6 @@
         <li >
             <a href='/' >
                 
-                
-                
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <polyline points="5 12 3 12 12 3 21 12 19 12" />
@@ -135,8 +135,6 @@
         <li >
             <a href='/about/' >
                 
-                
-                
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="12" cy="7" r="4" />
@@ -153,8 +151,6 @@
         
         <li >
             <a href='/archives/' >
-                
-                
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -174,8 +170,6 @@
         <li >
             <a href='/search/' >
                 
-                
-                
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="10" cy="10" r="7" />
@@ -193,8 +187,6 @@
         <li >
             <a href='/links/' >
                 
-                
-                
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
@@ -210,6 +202,37 @@
         
         <li class="menu-bottom-section">
             <ol class="menu">
+                    <li id="i18n-switch">  
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                        <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                            
+                                
+                                
+                                    
+                                
+                                <option value="/en/" >English</option>
+                            
+                                
+                                
+                                    
+                                        
+                                    
+                                
+                                <option value="/p/paper-reading/structure-from-motion/" selected>简体中文</option>
+                            
+                        </select>
+                    </li>
+                
 
                 
                     <li id="dark-mode-toggle">
@@ -254,7 +277,7 @@
 
 
         </div>
-        <h2 class="widget-title section-title">相关材料</h2>
+        <h2 class="widget-title section-title"></h2>
 
         <div class="widget--related-materials">
              <ol>
@@ -337,7 +360,8 @@
         <h2 class="widget-title section-title">目录</h2>
         
         <div class="widget--toc">
-            <nav id="TableOfContents">
+            <nav class="toc-nav" id="TableOfContents">
+                
   <ol>
     <li><a href="#colmap-cvpr-2016">COLMAP (CVPR 2016)</a>
       <ol>
@@ -356,10 +380,10 @@
     <li><a href="#vggt-cvpr-2025">VGGT (CVPR 2025)</a></li>
     <li><a href="#spatial-mllm">Spatial-MLLM</a></li>
   </ol>
-</nav>
+
+            </nav>
         </div>
     </section>
-
 
             
         
@@ -374,10 +398,16 @@
     
     <header class="article-category">
         
+            
+            
+            
             <a href="/categories/%E8%AE%BA%E6%96%87/" style="background-color: #aa2b2c; color: #fff;">
                 论文
             </a>
         
+            
+            
+            
             <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" style="background-color: #2a9d8f; color: #fff;">
                 计算机
             </a>
@@ -401,10 +431,14 @@
     
     
     
-    <footer class="article-time">
+    
+    
+    
+    <footer class="article-meta">
         
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <div class="inline-meta">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
   <circle cx="18" cy="18" r="4" />
@@ -413,13 +447,11 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2025-07-09</time>
-            </div>
-        
+                    <time class="article-time--published" datetime='2025-07-09T00:00:00Z'>2025年7月9日星期三</time>
+                
 
-        
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="12" cy="12" r="9" />
   <polyline points="12 7 12 12 15 15" />
@@ -427,64 +459,56 @@
 
 
 
-                <time class="article-time--reading">
-                    阅读时长: 13 分钟
-                </time>
+                    <time class="article-time--reading">
+                        阅读时长: 13 分钟
+                    </time>
+                
             </div>
         
+
+        
+
+        
     </footer>
-    
-    
-        <footer class="article-keywords">
-            <div>
-                
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tag" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M11 3L20 12a1.5 1.5 0 0 1 0 2L14 20a1.5 1.5 0 0 1 -2 0L3 11v-4a4 4 0 0 1 4 -4h4" />
-  <circle cx="9" cy="9" r="2" />
-</svg>
-
-
-
-                <span class="article-keyword">
-                    3D
-                </span>
-                
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tag" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M11 3L20 12a1.5 1.5 0 0 1 0 2L14 20a1.5 1.5 0 0 1 -2 0L3 11v-4a4 4 0 0 1 4 -4h4" />
-  <circle cx="9" cy="9" r="2" />
-</svg>
-
-
-
-                <span class="article-keyword">
-                    SfM
-                </span>
-                
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tag" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M11 3L20 12a1.5 1.5 0 0 1 0 2L14 20a1.5 1.5 0 0 1 -2 0L3 11v-4a4 4 0 0 1 4 -4h4" />
-  <circle cx="9" cy="9" r="2" />
-</svg>
-
-
-
-                <span class="article-keyword">
-                    Geometry
-                </span>
-                
-            </div>
-        </footer>
-    
-    
-
-    
-
     
 </div>
 
 </header>
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span>目录</span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ol>
+    <li><a href="#colmap-cvpr-2016">COLMAP (CVPR 2016)</a>
+      <ol>
+        <li><a href="#场景图增强">场景图增强</a></li>
+        <li><a href="#下一个最佳视角选择">下一个最佳视角选择</a></li>
+        <li><a href="#鲁棒高效三角化">鲁棒高效三角化</a></li>
+        <li><a href="#光束平差">光束平差</a></li>
+        <li><a href="#冗余视角挖掘">冗余视角挖掘</a></li>
+      </ol>
+    </li>
+    <li><a href="#dust3r-cvpr-2024">DUSt3R (CVPR 2024)</a></li>
+    <li><a href="#mast3r-eccv-2024">MASt3R (ECCV 2024)</a></li>
+    <li><a href="#glomap-eccv-2024">GLOMAP (ECCV 2024)</a></li>
+    <li><a href="#vggsfm-cvpr-2024">VGGSfM (CVPR 2024)</a></li>
+    <li><a href="#dense-sfm-cvpr-2025">Dense-SfM (CVPR 2025)</a></li>
+    <li><a href="#vggt-cvpr-2025">VGGT (CVPR 2025)</a></li>
+    <li><a href="#spatial-mllm">Spatial-MLLM</a></li>
+  </ol>
+
+            </nav>
+        </details>
+    </aside>
+    
 
     <section class="article-content">
     
@@ -497,20 +521,7 @@
 <li><strong>三角化</strong>: 用于恢复三维点的位置. 基本原理是通过已知的相机视角和匹配点的位置, 利用几何约束来计算三维点的空间坐标. 常见的方法是直接线性变换 (Direct Linear Transform, DLT) 或基于光束平差法 (Bundle Adjustment, BA) 的非线性优化方法.</li>
 <li><strong>三维点恢复</strong>: 通过三角化得到的三维点通常会是一个稀疏点云, 代表了场景中关键特征的空间位置. 对于每个匹配的特征点, 三角化将其映射到三维空间中的位置.</li>
 </ol>
-<p>
-
-
-
-<img src="/p/paper-reading/structure-from-motion/img/increment-SfM.png"
-	width="2263"
-	height="459"
-	srcset="/p/paper-reading/structure-from-motion/img/increment-SfM_hu_7101b0a3d9a93392.png 480w, /p/paper-reading/structure-from-motion/img/increment-SfM_hu_65be46c73be6e27a.png 1024w"
-	loading="lazy"
-	
-		alt="增量式 SfM 的典型结构"
-	
-	class="gallery-image" 
-></p>
+<p><img alt="增量式 SfM 的典型结构" class="gallery-image" data-flex-basis="1183px" data-flex-grow="493" height="459" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/structure-from-motion/img/increment-SfM.png" srcset="/p/paper-reading/structure-from-motion/img/increment-SfM_hu_c344953fc8086013.png 800w, /p/paper-reading/structure-from-motion/img/increment-SfM_hu_214e8c233b942d06.png 1600w, /p/paper-reading/structure-from-motion/img/increment-SfM.png 2263w" width="2263"></p>
 <p>介绍几个 3D CV 概念.</p>
 <div class="math-block math-def">
     <p class="math-title">定义</p>
@@ -591,6 +602,7 @@ $$</div>
 </h3><p>互联网数据集有大量冗余照片, 没有显著提升, 但是却增加了 BA 计算成本. 然而 COLMAP 不是丢弃冗余图像, 而是将它们转化为低代价的约束.</p>
 <ol>
 <li>对于给定的 $N_X$ 个点, 每张图可以用0-1可见向量 $v_i$ 表示. $a,b$ 之间的相似度可写为
+
 $$V_{ab} = \| v_a \wedge v_b \| / \| v_a \vee v_b \|$$</li>
 <li>在更新时, 如果图像是新添加的, 或者超过 $\epsilon_r$ 比例的观测值的重投影误差大于 $r$ 像素, 则认为它是受到影响的.</li>
 <li>对于被影响的图像独立分组, 以便进行单独优化.</li>
@@ -611,41 +623,33 @@ X^{n,m} = P_m P_n^{-1} h(X^n)
 $$<p>其中 $P_n$ 是相机 $n$ 的投影矩阵, $h: (x,y,z) \to (x,y,z,1)$ 是齐次坐标变换. 也就是说二者都以相同的坐标系 $I_1$ 为参考.</p>
 <ol>
 <li>两个输入图像首先通过共享权重的 Siamese ViT 编码器 <a class="link ref-Siamese"></a> 进行编码, 生成两个 token 表示 $F^1, F^2$.
+
 $$
     F^1 = \text{Encode}(I^1), \quad F^2 = \text{Encode}(I^2)
     $$</li>
 <li>在解码器联合推理. 每个解码器块会依次执行自我注意力和交叉注意力, 最后过传递给 MLP:
+
 $$
     G_i^1 = \text{Decode}_i^1 \left(G_{i-1}^1, G_{i-1}^2 \right), \quad G_i^2 = \text{Decode}_i^2 \left(G_{i-1}^2, G_{i-1}^1 \right)
     $$</li>
 <li>最后用一个单独的回归头接受所有 token 并输出预测的点图和置信度:
+
 $$
     X^{1,1}, C^{1,1} = \text{Head}^1 \left(G_0^1, \dots, G_B^1 \right), \quad X^{2,1}, C^{2,1} = \text{Head}^2 \left(G_0^2, \dots, G_B^2 \right)
     $$</li>
 <li>对于视图 $v \in \{1,2\}$ 和像素点 $i$, 其 3D 回归损失定义为:
+
 $$
     \ell_{\mathrm{regr}}(v,i) = \left\| \frac{1}{z} X_i^{v,1} - \frac{1}{\bar{z}} \bar{X}_i^{v,1} \right\|
     $$
 $z$ 用于归一化.</li>
 <li>置信度损失定义为 3D 回归损失的加权平均:
+
 $$
     \mathcal{L}_{\mathrm{conf}} = \sum_{v=1}^2 \sum_{i=1}^N C_i^{v,1} \ell_{\mathrm{regr}}(v,i) - \alpha \log C_i^{v,1}
     $$</li>
 </ol>
-<p>
-
-
-
-<img src="https://arxiv.org/html/2312.14132v3/x2.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="DUSt3R"
-	
-	class="gallery-image" 
-></p>
+<p><img alt="DUSt3R" class="gallery-image" data-flex-basis="986px" data-flex-grow="410" height="291" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2312.14132v3/x2.png" srcset="/x2_14972439427616792104_hu_fb0589aa9738b8fd.png 800w, https://arxiv.org/html/2312.14132v3/x2.png 1196w" width="1196"></p>
 </div>
 <p>然而, 这个网络每次只能处理一对图像. 因而论文 <a class="link cite-DUSt3R">[<span class="material-index"></span>]
     
@@ -661,37 +665,28 @@ $$<p>$\sigma_e \gt 0$ 是缩放, $P_e \in \mathbb{R}^{3 \times 4}$ 是姿态. �
 <p>相较于 DUSt3R, MASt3R 主要更关心点匹配, 做了以下改进:</p>
 <ul>
 <li>除了预测点图和置信度, 还加上额外两个头输出密集特征:
+
 $$
     D^1 = \text{Head}^1_D(G_0^1, \dots, G_B^1), \quad D^2 = \text{Head}^2_D \left(G_0^2, \dots, G_B^2 \right)
     $$</li>
 <li>对于真实对应的点 $\hat{\mathcal{M}}=\{(i,j) \mid \hat{X}_i^{1,1} = \hat{X}_j^{2,1}\}$, 计算匹配损失 (实质上是匹配的交叉熵损失):
+
 $$
     \mathcal{L}_{\mathrm{match}} =- \sum_{(i,j) \in \hat{\mathcal{M}}} \log \frac{s_\tau(i,j)}{\sum_k s_\tau(k,j)} + \log \frac{s_\tau(i,j)}{\sum_k s_\tau(i,k)}
     $$
 这里 $s_\tau(i,j) = \exp\left( -\tau D_i^1 \cdot D_j^2 \right)$ 是点 $i$ 和 $j$ 的相似度, $\tau$ 是温度参数. 然你与置信度损失加权结合:
+
 $$
     \mathcal{L}_{\mathrm{total}} = \mathcal{L}_{\mathrm{conf}} + \beta \mathcal{L}_{\mathrm{match}}
     $$</li>
 <li>匹配两点的算法是让二者互为彼此的最近邻. 即:
+
 $$
     \mathcal{M} = \{(i,j) \mid j = \argmin_{k} \|D_i^1 - D_k^2\|, i = \argmin_{k} \|D_j^2 - D_k^1\|\}
     $$
 直接枚举匹配的复杂度是 $\mathcal{O}(W^2H^2)$. 论文采用了一种迭代的策略, 即对每个点每次在图中找最近邻再映射到另一个图中, 直到收敛. 这样复杂度是 $\mathcal{O}(kWH)$.</li>
 </ul>
-<p>
-
-
-
-<img src="/p/paper-reading/structure-from-motion/img/MASt3R.png"
-	width="2001"
-	height="451"
-	srcset="/p/paper-reading/structure-from-motion/img/MASt3R_hu_a681ed3db2b4516f.png 480w, /p/paper-reading/structure-from-motion/img/MASt3R_hu_925d54152330727e.png 1024w"
-	loading="lazy"
-	
-		alt="MASt3R"
-	
-	class="gallery-image" 
-></p>
+<p><img alt="MASt3R" class="gallery-image" data-flex-basis="1064px" data-flex-grow="443" height="451" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/structure-from-motion/img/MASt3R.png" srcset="/p/paper-reading/structure-from-motion/img/MASt3R_hu_b0413e5feabff1.png 800w, /p/paper-reading/structure-from-motion/img/MASt3R_hu_6199995e137db288.png 1600w, /p/paper-reading/structure-from-motion/img/MASt3R.png 2001w" width="2001"></p>
 <p>对于更高分辨率的图像, 论文 <a class="link cite-MASt3R">[<span class="material-index"></span>]
     
 </a> 采用从粗到细匹配的策略.</p>
@@ -720,20 +715,7 @@ $$<p>其中 $v_{ik}$ 是从相机 $c_i$ 观察点 $X_k$ ​的全局旋转相机
 <li>连接计数超过 $\tau$ 的图像对, 在 $G$ 中寻找连通分量来找到相机的良好约束群集.</li>
 <li>递归地重复此过程, 每个连通分量作为单独的重建输出.</li>
 </ul>
-<p>
-
-
-
-<img src="https://arxiv.org/html/2407.20219v2/extracted/5871851/figure/glomap_pipeline_calib.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="GLOMAP"
-	
-	class="gallery-image" 
-></p>
+<p><img alt="GLOMAP" class="gallery-image" data-flex-basis="1131px" data-flex-grow="471" height="666" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2407.20219v2/extracted/5871851/figure/glomap_pipeline_calib.png" srcset="/glomap_pipeline_calib_3642300392120215787_hu_35f0cea7b2075c63.png 800w, /glomap_pipeline_calib_3642300392120215787_hu_1c4b366c1baa893f.png 1600w, /glomap_pipeline_calib_3642300392120215787_hu_99f0d638a0a53df3.png 2400w, https://arxiv.org/html/2407.20219v2/extracted/5871851/figure/glomap_pipeline_calib.png 3140w" width="3140"></p>
 <h2 id="vggsfm-cvpr-2024">VGGSfM (CVPR 2024)
 </h2><p>论文 <a class="link cite-VGGSfM">[<span class="material-index"></span>]
     <span class="material-name">Unknown-material</span> 
@@ -752,20 +734,7 @@ $$<p>其中 $v_{ik}$ 是从相机 $c_i$ 观察点 $X_k$ ​的全局旋转相机
 <li>通过 Transformer 更新坐标和特征, 直至收敛.</li>
 <li>利用得到的追踪特征 $y_i^j$ 预测点的可见性 $v_i^j$. 同时引入 aleatoric 不确定性模型 <a class="link ref-aleatoric"></a> 来预测 $y_i^j$ 的方差 $\sigma_i^j$ (或者置信度), 我们假设 $\sigma_i^j$ 是对角的.</li>
 </ol>
-<p>
-
-
-
-<img src="https://arxiv.org/html/2312.04563v1/x2.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="VGGSfM 追踪器"
-	
-	class="gallery-image" 
-></p>
+<p><img alt="VGGSfM 追踪器" class="gallery-image" data-flex-basis="583px" data-flex-grow="243" height="683" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2312.04563v1/x2.png" srcset="/x2_13882479009950565953_hu_17d9b10e8c962c53.png 800w, /x2_13882479009950565953_hu_375e7f05c7d008bc.png 1600w, https://arxiv.org/html/2312.04563v1/x2.png 1661w" width="1661"></p>
 </div>
 <div class="math-block math-algo">
     <p class="math-title">算法<span class="math-subtitle">VGGSfM</span></p>
@@ -774,6 +743,7 @@ $$<p>其中 $v_{ik}$ 是从相机 $c_i$ 观察点 $X_k$ ​的全局旋转相机
 <ul>
 <li><strong>相机投影矩阵</strong> $P_i \in \mathbb{R}^{3 \times 4}$.</li>
 <li><strong>点云</strong> $X=\{x^i\}_{i=1}^M$, 其中 $x^i \in \mathbb{R}^3$ 是场景中每个点的三维坐标. 即此时对于 3D 点 $x^j$, 其在第 $i$ 个相机的 2D 投影为:
+
 $$
     y_i^j = P_i (x^j) = \lambda K_i g_i x^j
     $$</li>
@@ -781,57 +751,35 @@ $$
 <ol>
 <li>利用追踪器获得轨迹 $\mathcal{T} = \{T_i\}_{i=1}^{N_I}$, 其中 $T_i = \{y_i^j\}_{j=1}^{N_T}$ 是第 $i$ 个图像中查询点的轨迹, $N_T$ 是查询点的数量.</li>
 <li>为了初始化相机 $\hat{P}$, 采用一个深度 Transformer 网络 $\mathbf{T}_P$:
+
 $$
     \hat{P} = \mathbf{T}_{P}(\{\phi(I_i) \mid I_i \in \mathcal{I}\}, \{d^P(y_i^j) \mid \forall T_i \in \mathcal{T}, \forall y_i^j \in T_i\}).
     $$
 $\phi(I_i)$ 表示 $I_i$ 的特征, $d^P(y_i^j)$ 表示在 $y_i^j$ 处的描述符. 把全局图像特征作为 query, 把每个查询点的轨迹-描述符对作为 key-value 对, 这时每个场景有 $N_T$ 个 token. 把交叉注意力的输出拼接上估计的初始相机位置 (例如八点算法) 作为相机参数 Transformer 网络的输入.</li>
 <li>为了初始化点云 $\hat{X}$, 在给定初始相机 $\hat{P}$ 后, 采用一个深度 Transformer 网络作为三角化器:
+
 $$
     \hat{X} = \mathbf{T}_{X}(\{d^X(y_i^j) \mid \forall T_i \in \mathcal{T}, \forall y_i^j \in T_i\}).
     $$
 $d^P(y_i^j)$ 表示在 $y_i^j$ 处的描述符和其在初始点云 $\bar{X}$ 中位置编码的拼接. $\bar{X}$ 是通过闭式多视图 DLT 三角化得到的.</li>
 <li>在轨迹 $\mathcal{T}$, 初始化的相机 $\hat{P}$ 和点云 $\hat{X}$ 的基础上, 利用光束法平差最小化重投影误差:
+
 $$
     X, P = \mathrm{BA}(\mathcal{T}, \hat{P}, \hat{X}) = \argmin_{X, P} \sum_{i=1}^{N_I} \sum_{j=1}^{N_T} v_i^j \| y_i^j - P_i x^j \|
     $$
 为了稳定, 误差项会过滤 $v$ 低的, 置信度低的和重投影误差过大的点. 使用 Levenberg-Marquardt 优化器进行迭代优化. 然而反向传播需要此式可微, 因而论文引用 Theseus 库, 该库利用隐函数定理通过嵌套优化循环反向传播通过深度网络.</li>
 <li>损失函数定义为:
+
 $$
     \mathcal{L}(f_{\theta}(\mathcal{I}), p^\ast, \mathcal{T}^\ast, X^\ast) = \sum_{j=1}^{N_T} |x^{\ast j} - x^j| + |x^{\ast j} - \hat{x}^j| + \sum_{i=1}^{N_I} e_P (P_i^\ast, P_i) + e_P (P_i^\ast, \hat{P}_i) - \lambda \sum_{i=1}^{N_I} \sum_{j=1}^{N_T} \log \mathcal{N}(y_i^{\ast j} | y_i^j, \sigma_i^j)
     $$
 $e_P(P, P')$ 指相机参数 $P, P'$ 之间的 Huber 损失. $P$ 有 8 个自由度, 因此这里参数化为一个 8 维向量.</li>
 <li>用 AdamW 优化器优化模型, 直至收敛.</li>
 </ol>
-<p>
-
-
-
-<img src="https://arxiv.org/html/2312.04563v1/x1.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="VGGSfM"
-	
-	class="gallery-image" 
-></p>
+<p><img alt="VGGSfM" class="gallery-image" data-flex-basis="814px" data-flex-grow="339" height="489" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2312.04563v1/x1.png" srcset="/x1_11197739307335425570_hu_ee1e3e099a8bcdba.png 800w, /x1_11197739307335425570_hu_ae53730e06319c32.png 1600w, https://arxiv.org/html/2312.04563v1/x1.png 1660w" width="1660"></p>
 </div>
 <h2 id="dense-sfm-cvpr-2025">Dense-SfM (CVPR 2025)
-</h2><p>
-
-
-
-<img src="https://arxiv.org/html/2501.14277v2/extracted/6302268/figures/overview_real_final.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="Dense-SfM"
-	
-	class="gallery-image" 
-></p>
+</h2><p><img alt="Dense-SfM" class="gallery-image" data-flex-basis="616px" data-flex-grow="256" height="939" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2501.14277v2/extracted/6302268/figures/overview_real_final.png" srcset="/overview_real_final_14146485583613195514_hu_598f9e987ce332b.png 800w, /overview_real_final_14146485583613195514_hu_674f767190622e0e.png 1600w, /overview_real_final_14146485583613195514_hu_5260cd4e12f13870.png 2400w, https://arxiv.org/html/2501.14277v2/extracted/6302268/figures/overview_real_final.png 2413w" width="2413"></p>
 <h2 id="vggt-cvpr-2025">VGGT (CVPR 2025)
 </h2><p>论文 <a class="link cite-VGGT">[<span class="material-index"></span>]
     <span class="material-name">Unknown-material</span> 
@@ -856,10 +804,12 @@ $e_P(P, P')$ 指相机参数 $P, P'$ 之间的 Huber 损失. $P$ 有 8 个自由
 <li>每个 $F_i$ 通过一个 $3\times 3$ 卷积层映射到相应的深度图 $D_i$ 和点图 $P_i$. 并为每个深度图和点图预测 aleatoric 不确定性 $\Sigma_i^D$ 和 $\Sigma_i^P$ <a class="link ref-aleatoric"></a>.</li>
 <li>从 $F_i$ 中提取 $T_i \in \mathbb{R}^{C \times H \times W}$, 并采用 CoTracker2 架构作为追踪轨迹模块 <a class="link ref-CoTracker2"></a>. 该模块接收查询点 $y_q$ 和特征图 $F_i$, 输出每个图像 $I_i$ 中查询点的 2D 位置 $\hat{y}_{j,i}$, 其中 $j$ 是查询点的索引.</li>
 <li>使用 Huber 损失得出相机损失:
+
 $$
     \mathcal{L}_{\mathrm{cam}} = \sum_{i=1}^N \left\| \hat{g}_i - g_i  \right\|_{\epsilon}
     $$</li>
 <li>根据 aleatoric 不确定性, 加入梯度, 得出深度损失和点图损失:
+
 $$
     \begin{aligned}
     \mathcal{L}_{\mathrm{depth}} &= \sum_{i=1}^N \left\| \Sigma_i^D \odot \left( \hat{D}_i - D_i \right) \right\| +  \sum_{i=1}^N \left\| \Sigma_i^D \odot \left( \nabla \hat{D}_i - \nabla D_i \right) \right\| - \alpha \log \Sigma_i^D \\
@@ -867,30 +817,19 @@ $$
     \end{aligned}
     $$</li>
 <li>轨迹损失定义为:
+
 $$
     \mathcal{L}_{\mathrm{track}} = \sum_{j=1}^M \sum_{i=1}^N \| y_{j,i} - \hat{y}_{j,i} \|
     $$</li>
 <li>最终的损失函数为:
+
 $$
     \mathcal{L} = \mathcal{L}_{\mathrm{cam}} + \mathcal{L}_{\mathrm{depth}} + \mathcal{L}_{\mathrm{point}} + \lambda \mathcal{L}_{\mathrm{track}}
     $$
 $\lambda$ 论文取 $0.05$.</li>
 <li>用 AdamW 优化器优化模型, 直至收敛.</li>
 </ol>
-<p>
-
-
-
-<img src="https://arxiv.org/html/2503.11651v1/x2.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="VGGT"
-	
-	class="gallery-image" 
-></p>
+<p><img alt="VGGT" class="gallery-image" data-flex-basis="678px" data-flex-grow="282" height="673" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2503.11651v1/x2.png" srcset="/x2_10269125003204393200_hu_76edd67779f53790.png 800w, /x2_10269125003204393200_hu_ed27ecb47984f6f1.png 1600w, https://arxiv.org/html/2503.11651v1/x2.png 1903w" width="1903"></p>
 </div>
 <h2 id="spatial-mllm">Spatial-MLLM
 </h2><p>大多数现有的 MLLM 在其视觉编码器的预训练中主要使用图像-文本对, 遵循了 CLIP的范式. 这使得视觉编码器在捕捉高层语义内容方面表现出色, 但在仅使用 2D 视频输入时缺乏结构和空间信息. 因此, 论文 <a class="link cite-Spatial-MLLM">[<span class="material-index"></span>]
@@ -902,39 +841,30 @@ $\lambda$ 论文取 $0.05$.</li>
 <p><strong class="algo-output">输出 &gt; </strong> 给下游 LLM 的 token 序列.</p>
 <ol>
 <li>引入 2D 编码器 $\mathcal{E}_{\mathrm{2D}}$, 采用 Qwen2.5-VL <a class="link ref-Qwen2.5-VL"></a> 相同设计, 将输入帧编码为语义丰富的特征:
+
 $$
     \mathbf{e}_{\mathrm{2D}} = \mathcal{E}_{\mathrm{2D}}\left(\{\mathbf{f}_i\}_{i=1}^{N_k}\right) \in \mathbb{R}^{N_k' \times \left\lfloor \frac{H}{p_{\mathrm{2D}}} \right\rfloor \times \left\lfloor \frac{W}{p_{\mathrm{2D}}} \right\rfloor \times d_{\mathrm{2D}}}
     $$
 其中 $p_{\mathrm{2D}}$ 是 2D 编码器的 patch 大小, $d_{\mathrm{2D}}$ 是输出特征的维度, 连续的两帧被分组作为视频输入, 因此 $N_k'=N_k/2$.</li>
 <li>引入空间编码器 $\mathcal{E}_{\mathrm{spatial}}$, 采用 VGGT 的特征骨干网络.
+
 $$
     \mathbf{e}_{\mathrm{3D}}, \mathbf{e}_c, \mathbf{e}_{\text{register}} = \mathcal{E}_{\text{spatial}}\left(\{\mathbf{f}_i\}_{i=1}^{N_k}\right), \quad \mathbf{e}_{\mathrm{3D}} \in \mathbb{R}^{N_k \times \left\lfloor \frac{H}{p_{\mathrm{3D}}} \right\rfloor \times \left\lfloor \frac{W}{p_{\mathrm{3D}}} \right\rfloor \times d_{\mathrm{3D}}}
     $$
 其中 $e_{\mathrm{3D}}$ 是空间特征, $e_c$ 是相机特征, $e_{\text{register}}$ 是寄存器 token.</li>
 <li>在空间和时间维度上对齐 $e_{\mathrm{2D}}$ 和 $e_{\mathrm{3D}}$:
+
 $$
     \mathbf{e}_{3\mathrm{D}}' = \text{Rearrange}(\mathbf{e}_{3\mathrm{D}}), \quad \mathbf{e}_{3\mathrm{D}}' \in \mathbb{R}^{N_k' \times \left\lfloor \frac{H}{p_{2\mathrm{D}}} \right\rfloor \times \left\lfloor \frac{W}{p_{2\mathrm{D}}} \right\rfloor \times d_{3\mathrm{D}}'}
     $$</li>
 <li>使用两个简易的 MLP 把两个信息连接成统一的 token.
+
 $$
     \mathbf{e} = \text{MLP}_{2\mathrm{D}}(\mathbf{e}_{2\mathrm{D}}) + \text{MLP}_{3\mathrm{D}}(\mathbf{e}_{3\mathrm{D}}') \in \mathbb{R}^{S \times d_{\mathrm{LLM}}}
     $$
 这里 $S = N_k' \times \left\lfloor \frac{H}{p_{2\mathrm{D}}} \right\rfloor \times \left\lfloor \frac{W}{p_{2\mathrm{D}}} \right\rfloor$ 是 token 长度.</li>
 </ol>
-<p>
-
-
-
-<img src="https://arxiv.org/html/2505.23747v1/x2.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="Spatial-MLLM"
-	
-	class="gallery-image" 
-></p>
+<p><img alt="Spatial-MLLM" class="gallery-image" data-flex-basis="608px" data-flex-grow="253" height="655" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2505.23747v1/x2.png" srcset="/x2_8148370192817513008_hu_7319eab5f15fc0fa.png 800w, /x2_8148370192817513008_hu_e9d10e535f8de8ed.png 1600w, https://arxiv.org/html/2505.23747v1/x2.png 1661w" width="1661"></p>
 </div>
 <p>由于显存限制, MLLM 只能处理场景视频序列中的一小部分帧. 关于帧采样广泛的做法是均匀帧采样, 论文设计了一个简单的空间感知帧采样策略.</p>
 <div class="math-block math-algo">
@@ -945,6 +875,7 @@ $$
 <li>均匀采样 $N_m$ 帧 $\{ f_i^m \}_{i=1}^{N_m}$, 其中 $N_m \in (N_k, N)$.</li>
 <li>利用 $\mathcal{E}_{\mathrm{3D}}$ 提取对应 3D 特征 $\mathbf{e}^m_{3\mathrm{D}}$ 和相机特征 $\mathbf{e}^m_c$.</li>
 <li>使用 VGGT 模型预训练的相机预测头 $f_c$ 和 $f_d$ 来解码一组相机参数和深度图:
+
 $$
     \{\mathbf{E}_i^m, \mathbf{K}_i^m\}_{i=1}^{N_m} = f_c(\mathbf{e}_c), \quad \text{and} \quad \{\mathbf{D}_i^m\}_{i=1}^{N_m} = f_d(\mathbf{e}_{3\mathrm{D}})
     $$</li>
@@ -1008,9 +939,21 @@ $$
 </section>
 
 
-    <footer class="article-footer">
+    <footer class="article-meta article-footer">
     
-    <section class="article-copyright">
+    <section class="article-tags">
+        
+            <a href="/tags/3d/">3D</a>
+        
+            <a href="/tags/sfm/">SfM</a>
+        
+            <a href="/tags/geometry/">Geometry</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright inline-meta">
         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="12" cy="12" r="9" />
@@ -1038,18 +981,24 @@ $$
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-	const mainArticleElement = document.querySelector(".main-article");
-        renderMathInElement(mainArticleElement, {
-            delimiters: [
-                { left: "$$", right: "$$", display: true },
-                { left: "$", right: "$", display: false },
-                { left: "\\(", right: "\\)", display: false },
-                { left: "\\[", right: "\\]", display: true }
-            ],
-            ignoredClasses: ["gist"]
-        });})
-</script>
+        const elementsToRender = [".main-article", ".widget--toc"];
 
+        elementsToRender.forEach(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                renderMathInElement(element, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false },
+                        { left: "\\(", right: "\\)", display: false },
+                        { left: "\\[", right: "\\]", display: true }
+                    ],
+                    ignoredClasses: ["gist"]
+                });
+            }
+        });
+    });
+</script>
     
 </article>
 
@@ -1057,15 +1006,14 @@ $$
 
     
 
-<aside class="related-content--wrapper">
+<aside>
     <h2 class="section-title">相关文章</h2>
-    <div class="related-content">
-        <div class="flex article-list--tile">
+    <div class="subsection-list">
+        <div class="article-list--tile">
             
                 
 <article class="">
     <a href="/p/paper-reading/test-time-adaptation-application/">
-        
         
 
         <div class="article-details">
@@ -1073,12 +1021,10 @@ $$
         </div>
     </a>
 </article>
-
             
                 
 <article class="">
     <a href="/p/paper-reading/3d-perception/">
-        
         
 
         <div class="article-details">
@@ -1086,31 +1032,37 @@ $$
         </div>
     </a>
 </article>
+            
+                
+<article class="">
+    <a href="/p/paper-reading/agentic-rl/">
+        
 
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - 智能体强化学习</h2>
+        </div>
+    </a>
+</article>
             
                 
 <article class="has-image">
     <a href="/p/paper-reading/icml-2025-oral-and-spotlight/">
         
-        
-            <div class="article-image">
-                
-                    <img src="https://icml.cc/static/core/img/vancouver_convention_center.webp" loading="lazy" data-key="paper-reading/icml-2025-oral-and-spotlight" data-hash="https://icml.cc/static/core/img/vancouver_convention_center.webp"/>
-                
-            </div>
+        <div class="article-image">
+            <img alt="Featured image of post 论文阅读 - ICML2025 高光论文选读" height="150" loading="lazy" src="/vancouver_convention_center_6313904496693878730_hu_2e11d3b742566463.webp" srcset="/vancouver_convention_center_6313904496693878730_hu_2e11d3b742566463.webp 1x, /vancouver_convention_center_6313904496693878730_hu_e15c4e79362c18b0.webp 2x" width="250">
+
+        </div>
         
 
-        <div class="article-details">
+        <div class="article-details"style="background: linear-gradient(0deg, #19629580 0%, #2a3347C0 100%);">
             <h2 class="article-title">论文阅读 - ICML2025 高光论文选读</h2>
         </div>
     </a>
 </article>
-
             
                 
 <article class="">
     <a href="/p/paper-reading/region-confidence-proxy-for-wild-test-time-adaption/">
-        
         
 
         <div class="article-details">
@@ -1118,20 +1070,6 @@ $$
         </div>
     </a>
 </article>
-
-            
-                
-<article class="">
-    <a href="/p/paper-reading/test-time-reinforcement-learning/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">论文阅读 - 测试时强化学习</h2>
-        </div>
-    </a>
-</article>
-
             
         </div>
     </div>
@@ -1140,13 +1078,17 @@ $$
      
     
         
+
+
     
 
     <footer class="site-footer">
     <section class="copyright">
         &copy; 
         
-        2025 LeoDreamer
+            2025 - 
+        
+        2026 LeoDreamer
     </section>
     
     <section class="powerby">
@@ -1157,168 +1099,42 @@ $$
 
 
     
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
 
     
-    <div class="pswp__bg"></div>
-
-    
-    <div class="pswp__scroll-wrap">
-
-        
-        <div class="pswp__container">
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-        </div>
-
-        
-        <div class="pswp__ui pswp__ui--hidden">
-
-            <div class="pswp__top-bar">
-
-                
-
-                <div class="pswp__counter"></div>
-
-                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-
-                <button class="pswp__button pswp__button--share" title="Share"></button>
-
-                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-
-                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-
-                
-                
-                <div class="pswp__preloader">
-                    <div class="pswp__preloader__icn">
-                        <div class="pswp__preloader__cut">
-                            <div class="pswp__preloader__donut"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                <div class="pswp__share-tooltip"></div>
-            </div>
-
-            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-            </button>
-
-            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-            </button>
-
-            <div class="pswp__caption">
-                <div class="pswp__caption__center"></div>
-            </div>
-
-        </div>
-
-    </div>
-
-</div><script 
-                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
-                defer
-                >
-            </script><script 
-                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
-                defer
-                >
-            </script><link 
-                rel="stylesheet" 
-                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
-            ><link 
-                rel="stylesheet" 
-                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
-            >
 
             </main>
         </div>
-        <script 
-                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
-                
-                >
-            </script><script type="text/javascript" src="/ts/main.57552279ca013738c47491303c9548ea01540dd70ebc626d50929bdb46504578.js" defer></script>
-<script>
-    (function () {
-        const customFont = document.createElement('link');
-        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+        
+<script type="text/javascript" src="/ts/main.043d659a2679f7cfce18735147f0d7319c2b048d39d76c3116d56fb22b880be9.js" defer></script>
 
-        customFont.type = "text/css";
-        customFont.rel = "stylesheet";
 
-        document.head.appendChild(customFont);
-    }());
-</script>
-<style>
-    #backTopBtn {
-        display: none;
-        position: fixed;
-        bottom: 30px;
-        z-index: 99;
-        cursor: pointer;
-        width: 30px;
-        height: 30px;
-        background-image: url(https://LeoDreamer2004.github.io/icons/back-top.svg);
-    }
-</style>
-
-<script>
-    function initTocHide() {
-        let toc = document.querySelector(".widget--toc");
-        if (!toc) {
-            return;
-        }
-        window.addEventListener('scroll', function () {
-            let openUl = document.querySelectorAll(".open");
-            openUl.forEach((ul) => {
-                ul.classList.remove("open")
-            })
-
-            let currentLi = document.querySelector(".active-class");
-            if (!currentLi) {
-                return
-            }
-
-            
-            if (currentLi.children.length > 1) {
-                currentLi.children[1].classList.add("open")
-            }
-            let ul = currentLi.parentElement;
-            do {
-                ul.classList.add("open");
-                ul = ul.parentElement.parentElement
-            } while (ul !== undefined && (ul.localName === 'ul' || ul.localName === 'ol'))
-        });
-    }
-
-    function initScrollTop() {
-        let rightSideBar = document.querySelector(".right-sidebar");
-        if (!rightSideBar) {
-            return;
-        }
-        let btn = document.createElement("div");
-        btn.id = "backTopBtn";
-        btn.title = "返回顶部";
-        btn.onclick = backToTop
-        rightSideBar.appendChild(btn)
-        window.onscroll = function () {
-            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-                btn.style.display = "block";
-            } else {
-                btn.style.display = "none";
-            }
-        };
-    }
-
-    function backToTop() {
-        window.scrollTo({ top: 0, behavior: "smooth" })
-    }
-
-    initTocHide()
-    initScrollTop();
-</script>
     </body>
 </html>

@@ -4,9 +4,15 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="到底收不收敛? 实际上要看微调水准.">
 <title>论文阅读 - Adam 的收敛性分析</title>
 
-<link rel='canonical' href='https://LeoDreamer2004.github.io/p/paper-reading/adam-convergence/'>
 
-<link rel="stylesheet" href="/scss/style.min.53a50696eee79711a2f783a326b08b38dd1f4384309e16f5b6d33ee5db8d6ba0.css"><meta property='og:title' content="论文阅读 - Adam 的收敛性分析">
+<link rel="canonical" href="https://LeoDreamer2004.github.io/p/paper-reading/adam-convergence/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+
+
+<link rel="stylesheet" href="/scss/style.min.5a86d64e15effc523f9d9507b42393380abbdf8ec4e177fb1d78269a9d2bfc73.css"><meta property='og:title' content="论文阅读 - Adam 的收敛性分析">
 <meta property='og:description' content="到底收不收敛? 实际上要看微调水准.">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/paper-reading/adam-convergence/'>
 <meta property='og:site_name' content='LeoDreamer'>
@@ -14,6 +20,8 @@
 <meta name="twitter:title" content="论文阅读 - Adam 的收敛性分析">
 <meta name="twitter:description" content="到底收不收敛? 实际上要看微调水准."><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://LeoDreamer2004.github.io/p/paper-reading/adam-convergence/banner.jpeg' />
+    <link rel="shortcut icon" href="/img/avatar.png" />
+
     </head>
     <body class="
     article-page
@@ -22,7 +30,7 @@
         (function() {
             const colorSchemeKey = 'StackColorScheme';
             if(!localStorage.getItem(colorSchemeKey)){
-                localStorage.setItem(colorSchemeKey, "light");
+                localStorage.setItem(colorSchemeKey, "auto");
             }
         })();
     </script><script>
@@ -48,37 +56,31 @@
     </button>
 
     <header>
-        
-            
-            <figure class="site-avatar">
+        <figure class="site-avatar">
                 <a href="/">
-                
-                    
-                    
-                    
-                        
-                        <img src="/img/avatar_hu_af500e90a6e0f79a.png" width="300"
-                            height="300" class="site-logo" loading="lazy" alt="Avatar">
-                    
-                
+                    <img src="/img/avatar.png" 
+                        width="150"
+                        height="150"
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
                 </a>
                 
                     <span class="emoji">💫</span>
                 
             </figure>
-            
         
         
         <div class="site-meta">
             <h1 class="site-name"><a href="/">LeoDreamer</a></h1>
-            <h2 class="site-description">PKU 本科在读/新手&#43;&#43;</h2>
+            <h2 class="site-description">PKU 本科在读 / 新手&#43;&#43;</h2>
         </div>
     </header><ol class="menu-social">
             
                 <li>
                     <a 
                         href='https://space.bilibili.com/503370537'
-                        target="_blank"
+                        
                         title="Bilibili"
                         rel="me"
                     >
@@ -92,7 +94,7 @@
                 <li>
                     <a 
                         href='https://github.com/LeoDreamer2004'
-                        target="_blank"
+                        
                         title="GitHub"
                         rel="me"
                     >
@@ -116,8 +118,6 @@
         <li >
             <a href='/' >
                 
-                
-                
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <polyline points="5 12 3 12 12 3 21 12 19 12" />
@@ -136,8 +136,6 @@
         <li >
             <a href='/about/' >
                 
-                
-                
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="12" cy="7" r="4" />
@@ -154,8 +152,6 @@
         
         <li >
             <a href='/archives/' >
-                
-                
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -175,8 +171,6 @@
         <li >
             <a href='/search/' >
                 
-                
-                
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="10" cy="10" r="7" />
@@ -194,8 +188,6 @@
         <li >
             <a href='/links/' >
                 
-                
-                
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
@@ -211,6 +203,37 @@
         
         <li class="menu-bottom-section">
             <ol class="menu">
+                    <li id="i18n-switch">  
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                        <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                            
+                                
+                                
+                                    
+                                
+                                <option value="/en/" >English</option>
+                            
+                                
+                                
+                                    
+                                        
+                                    
+                                
+                                <option value="/p/paper-reading/adam-convergence/" selected>简体中文</option>
+                            
+                        </select>
+                    </li>
+                
 
                 
                     <li id="dark-mode-toggle">
@@ -255,7 +278,7 @@
 
 
         </div>
-        <h2 class="widget-title section-title">相关材料</h2>
+        <h2 class="widget-title section-title"></h2>
 
         <div class="widget--related-materials">
              <ol>
@@ -302,7 +325,8 @@
         <h2 class="widget-title section-title">目录</h2>
         
         <div class="widget--toc">
-            <nav id="TableOfContents">
+            <nav class="toc-nav" id="TableOfContents">
+                
   <ol>
     <li><a href="#介绍">介绍</a></li>
     <li><a href="#收敛--吗">收敛 &hellip; 吗?</a></li>
@@ -311,10 +335,10 @@
     <li><a href="#应用-另一个算法">应用: 另一个算法</a></li>
     <li><a href="#总结">总结</a></li>
   </ol>
-</nav>
+
+            </nav>
         </div>
     </section>
-
 
             
         
@@ -324,27 +348,27 @@
             <main class="main full-width">
     <article class="has-image main-article">
     <header class="article-header">
-        <div class="article-image">
-            <a href="/p/paper-reading/adam-convergence/">
-                <img src="/p/paper-reading/adam-convergence/banner_hu_e10a9ff49831c74b.jpeg"
-                        srcset="/p/paper-reading/adam-convergence/banner_hu_e10a9ff49831c74b.jpeg 800w, /p/paper-reading/adam-convergence/banner_hu_1c23e3d2e7bcff49.jpeg 1600w"
-                        width="800" 
-                        height="395" 
-                        loading="lazy"
-                        alt="Featured image of post 论文阅读 - Adam 的收敛性分析" />
-                
-            </a>
-        </div>
+    <div class="article-image">
+        <a href="/p/paper-reading/adam-convergence/">
+            <img alt="Featured image of post 论文阅读 - Adam 的收敛性分析" height="556" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/adam-convergence/banner.jpeg" srcset="/p/paper-reading/adam-convergence/banner_hu_6cd910fc12d88641.jpeg 800w, /p/paper-reading/adam-convergence/banner.jpeg 1125w" width="1125">
+        </a>
+    </div>
     
 
     <div class="article-details">
     
     <header class="article-category">
         
+            
+            
+            
             <a href="/categories/%E8%AE%BA%E6%96%87/" style="background-color: #aa2b2c; color: #fff;">
                 论文
             </a>
         
+            
+            
+            
             <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" style="background-color: #2a9d8f; color: #fff;">
                 计算机
             </a>
@@ -368,10 +392,14 @@
     
     
     
-    <footer class="article-time">
+    
+    
+    
+    <footer class="article-meta">
         
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <div class="inline-meta">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
   <circle cx="18" cy="18" r="4" />
@@ -380,13 +408,11 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2025-03-30</time>
-            </div>
-        
+                    <time class="article-time--published" datetime='2025-03-30T00:00:00Z'>2025年3月30日星期日</time>
+                
 
-        
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="12" cy="12" r="9" />
   <polyline points="12 7 12 12 15 15" />
@@ -394,52 +420,46 @@
 
 
 
-                <time class="article-time--reading">
-                    阅读时长: 9 分钟
-                </time>
+                    <time class="article-time--reading">
+                        阅读时长: 9 分钟
+                    </time>
+                
             </div>
         
+
+        
+
+        
     </footer>
-    
-    
-        <footer class="article-keywords">
-            <div>
-                
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tag" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M11 3L20 12a1.5 1.5 0 0 1 0 2L14 20a1.5 1.5 0 0 1 -2 0L3 11v-4a4 4 0 0 1 4 -4h4" />
-  <circle cx="9" cy="9" r="2" />
-</svg>
-
-
-
-                <span class="article-keyword">
-                    Optimization
-                </span>
-                
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tag" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M11 3L20 12a1.5 1.5 0 0 1 0 2L14 20a1.5 1.5 0 0 1 -2 0L3 11v-4a4 4 0 0 1 4 -4h4" />
-  <circle cx="9" cy="9" r="2" />
-</svg>
-
-
-
-                <span class="article-keyword">
-                    Adam
-                </span>
-                
-            </div>
-        </footer>
-    
-    
-
-    
-
     
 </div>
 
 </header>
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span>目录</span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ol>
+    <li><a href="#介绍">介绍</a></li>
+    <li><a href="#收敛--吗">收敛 &hellip; 吗?</a></li>
+    <li><a href="#objection">Objection!</a></li>
+    <li><a href="#辩护与和解">辩护与和解</a></li>
+    <li><a href="#应用-另一个算法">应用: 另一个算法</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ol>
+
+            </nav>
+        </details>
+    </aside>
+    
 
     <section class="article-content">
     
@@ -512,9 +532,11 @@ $$
 M_1 &\le \gamma_1(\theta_1 - \theta^*)^2 +  \sum_{t=1}^{T} (\gamma_{t+1} - \gamma_t)D^2 \\
 &= C + (\gamma_{t+1} - \gamma_1)D^2 = \mathcal{O}(\sqrt{T})
 \end{aligned}
-$$<blockquote>
-<p><strong>问题就出在这个 &ldquo;一般来说&rdquo; 上</strong>, 因为尽管引入参数衰减, 实际上 Adam 并不能保证 $\gamma_t$ 是单调不减的. 后面会提到这里的争议.</p>
-</blockquote>
+$$
+    <blockquote>
+        <p><strong>问题就出在这个 &ldquo;一般来说&rdquo; 上</strong>, 因为尽管引入参数衰减, 实际上 Adam 并不能保证 $\gamma_t$ 是单调不减的. 后面会提到这里的争议.</p>
+
+    </blockquote>
 <p><strong>第二项</strong>: 直接放缩即可:</p>
 $$
 \begin{aligned}
@@ -584,9 +606,12 @@ $$<p>此处省略了偏差修正.</p>
     <p class="math-title">定义</p>
 <p>定义集合 $\mathcal{F}$ 为满足如下条件的函数 $f: \mathbb{R}^d \mapsto \mathbb{R}$ 集合:</p>
 <ul>
-<li>$f$ 有界, 即 $$f \le f^\ast$$</li>
-<li>所有 $n$ 个时间刻的 $f_t$ 是 Lipschitz 连续的, 即 $$\|f_t(x) - f_t(y)\| \le L \|x - y\|$$</li>
-<li>所有 $n$ 个时间刻的 $f_t$ 满足 $$\sum_{i=0}^{n-1} \| \nabla f_i(x) \|^2 \le D_1 \| \nabla f(x) \|^2 + D_0 $$</li>
+<li>$f$ 有界, 即
+$$f \le f^\ast$$</li>
+<li>所有 $n$ 个时间刻的 $f_t$ 是 Lipschitz 连续的, 即
+$$\|f_t(x) - f_t(y)\| \le L \|x - y\|$$</li>
+<li>所有 $n$ 个时间刻的 $f_t$ 满足
+$$\sum_{i=0}^{n-1} \| \nabla f_i(x) \|^2 \le D_1 \| \nabla f(x) \|^2 + D_0 $$</li>
 </ul>
 </div>
 <p>作者称第三个要求实际上是非常容易的, 事实上确实如此.</p>
@@ -746,9 +771,19 @@ $$<p>由此移项即得证.</p>
 </section>
 
 
-    <footer class="article-footer">
+    <footer class="article-meta article-footer">
     
-    <section class="article-copyright">
+    <section class="article-tags">
+        
+            <a href="/tags/optimization/">Optimization</a>
+        
+            <a href="/tags/adam/">Adam</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright inline-meta">
         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="12" cy="12" r="9" />
@@ -776,18 +811,24 @@ $$<p>由此移项即得证.</p>
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-	const mainArticleElement = document.querySelector(".main-article");
-        renderMathInElement(mainArticleElement, {
-            delimiters: [
-                { left: "$$", right: "$$", display: true },
-                { left: "$", right: "$", display: false },
-                { left: "\\(", right: "\\)", display: false },
-                { left: "\\[", right: "\\]", display: true }
-            ],
-            ignoredClasses: ["gist"]
-        });})
-</script>
+        const elementsToRender = [".main-article", ".widget--toc"];
 
+        elementsToRender.forEach(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                renderMathInElement(element, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false },
+                        { left: "\\(", right: "\\)", display: false },
+                        { left: "\\[", right: "\\]", display: true }
+                    ],
+                    ignoredClasses: ["gist"]
+                });
+            }
+        });
+    });
+</script>
     
 </article>
 
@@ -795,15 +836,25 @@ $$<p>由此移项即得证.</p>
 
     
 
-<aside class="related-content--wrapper">
+<aside>
     <h2 class="section-title">相关文章</h2>
-    <div class="related-content">
-        <div class="flex article-list--tile">
+    <div class="subsection-list">
+        <div class="article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/paper-reading/agentic-rl/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - 智能体强化学习</h2>
+        </div>
+    </a>
+</article>
             
                 
 <article class="">
     <a href="/p/paper-reading/test-time-adaptation-application/">
-        
         
 
         <div class="article-details">
@@ -811,12 +862,10 @@ $$<p>由此移项即得证.</p>
         </div>
     </a>
 </article>
-
             
                 
 <article class="">
     <a href="/p/paper-reading/3d-perception/">
-        
         
 
         <div class="article-details">
@@ -824,12 +873,10 @@ $$<p>由此移项即得证.</p>
         </div>
     </a>
 </article>
-
             
                 
 <article class="">
     <a href="/p/paper-reading/structure-from-motion/">
-        
         
 
         <div class="article-details">
@@ -837,39 +884,22 @@ $$<p>由此移项即得证.</p>
         </div>
     </a>
 </article>
-
             
                 
 <article class="has-image">
     <a href="/p/paper-reading/icml-2025-oral-and-spotlight/">
         
-        
-            <div class="article-image">
-                
-                    <img src="https://icml.cc/static/core/img/vancouver_convention_center.webp" loading="lazy" data-key="paper-reading/icml-2025-oral-and-spotlight" data-hash="https://icml.cc/static/core/img/vancouver_convention_center.webp"/>
-                
-            </div>
+        <div class="article-image">
+            <img alt="Featured image of post 论文阅读 - ICML2025 高光论文选读" height="150" loading="lazy" src="/vancouver_convention_center_6313904496693878730_hu_2e11d3b742566463.webp" srcset="/vancouver_convention_center_6313904496693878730_hu_2e11d3b742566463.webp 1x, /vancouver_convention_center_6313904496693878730_hu_e15c4e79362c18b0.webp 2x" width="250">
+
+        </div>
         
 
-        <div class="article-details">
+        <div class="article-details"style="background: linear-gradient(0deg, #19629580 0%, #2a3347C0 100%);">
             <h2 class="article-title">论文阅读 - ICML2025 高光论文选读</h2>
         </div>
     </a>
 </article>
-
-            
-                
-<article class="">
-    <a href="/p/paper-reading/region-confidence-proxy-for-wild-test-time-adaption/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">论文阅读 - 基于自适应代理的置信度估计</h2>
-        </div>
-    </a>
-</article>
-
             
         </div>
     </div>
@@ -878,13 +908,17 @@ $$<p>由此移项即得证.</p>
      
     
         
+
+
     
 
     <footer class="site-footer">
     <section class="copyright">
         &copy; 
         
-        2025 LeoDreamer
+            2025 - 
+        
+        2026 LeoDreamer
     </section>
     
     <section class="powerby">
@@ -895,168 +929,42 @@ $$<p>由此移项即得证.</p>
 
 
     
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
 
     
-    <div class="pswp__bg"></div>
-
-    
-    <div class="pswp__scroll-wrap">
-
-        
-        <div class="pswp__container">
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-        </div>
-
-        
-        <div class="pswp__ui pswp__ui--hidden">
-
-            <div class="pswp__top-bar">
-
-                
-
-                <div class="pswp__counter"></div>
-
-                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-
-                <button class="pswp__button pswp__button--share" title="Share"></button>
-
-                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-
-                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-
-                
-                
-                <div class="pswp__preloader">
-                    <div class="pswp__preloader__icn">
-                        <div class="pswp__preloader__cut">
-                            <div class="pswp__preloader__donut"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                <div class="pswp__share-tooltip"></div>
-            </div>
-
-            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-            </button>
-
-            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-            </button>
-
-            <div class="pswp__caption">
-                <div class="pswp__caption__center"></div>
-            </div>
-
-        </div>
-
-    </div>
-
-</div><script 
-                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
-                defer
-                >
-            </script><script 
-                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
-                defer
-                >
-            </script><link 
-                rel="stylesheet" 
-                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
-            ><link 
-                rel="stylesheet" 
-                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
-            >
 
             </main>
         </div>
-        <script 
-                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
-                
-                >
-            </script><script type="text/javascript" src="/ts/main.57552279ca013738c47491303c9548ea01540dd70ebc626d50929bdb46504578.js" defer></script>
-<script>
-    (function () {
-        const customFont = document.createElement('link');
-        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+        
+<script type="text/javascript" src="/ts/main.043d659a2679f7cfce18735147f0d7319c2b048d39d76c3116d56fb22b880be9.js" defer></script>
 
-        customFont.type = "text/css";
-        customFont.rel = "stylesheet";
 
-        document.head.appendChild(customFont);
-    }());
-</script>
-<style>
-    #backTopBtn {
-        display: none;
-        position: fixed;
-        bottom: 30px;
-        z-index: 99;
-        cursor: pointer;
-        width: 30px;
-        height: 30px;
-        background-image: url(https://LeoDreamer2004.github.io/icons/back-top.svg);
-    }
-</style>
-
-<script>
-    function initTocHide() {
-        let toc = document.querySelector(".widget--toc");
-        if (!toc) {
-            return;
-        }
-        window.addEventListener('scroll', function () {
-            let openUl = document.querySelectorAll(".open");
-            openUl.forEach((ul) => {
-                ul.classList.remove("open")
-            })
-
-            let currentLi = document.querySelector(".active-class");
-            if (!currentLi) {
-                return
-            }
-
-            
-            if (currentLi.children.length > 1) {
-                currentLi.children[1].classList.add("open")
-            }
-            let ul = currentLi.parentElement;
-            do {
-                ul.classList.add("open");
-                ul = ul.parentElement.parentElement
-            } while (ul !== undefined && (ul.localName === 'ul' || ul.localName === 'ol'))
-        });
-    }
-
-    function initScrollTop() {
-        let rightSideBar = document.querySelector(".right-sidebar");
-        if (!rightSideBar) {
-            return;
-        }
-        let btn = document.createElement("div");
-        btn.id = "backTopBtn";
-        btn.title = "返回顶部";
-        btn.onclick = backToTop
-        rightSideBar.appendChild(btn)
-        window.onscroll = function () {
-            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-                btn.style.display = "block";
-            } else {
-                btn.style.display = "none";
-            }
-        };
-    }
-
-    function backToTop() {
-        window.scrollTo({ top: 0, behavior: "smooth" })
-    }
-
-    initTocHide()
-    initScrollTop();
-</script>
     </body>
 </html>

@@ -1,46 +1,33 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Pages on LeoDreamer</title>
         <link>https://LeoDreamer2004.github.io/page/</link>
         <description>Recent content in Pages on LeoDreamer</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <copyright>LeoDreamer</copyright>
         <lastBuildDate>Wed, 01 Jan 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/page/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>存档</title>
-        <link>https://LeoDreamer2004.github.io/archives/</link>
-        <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
-        
-        <guid>https://LeoDreamer2004.github.io/archives/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>关于</title>
-        <link>https://LeoDreamer2004.github.io/about/</link>
-        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-        
-        <guid>https://LeoDreamer2004.github.io/about/</guid>
-        <description>&lt;p&gt;这个人确实很懒，什么都没写。&lt;/p&gt;
-</description>
-        </item>
-        <item>
-        <title>搜索</title>
-        <link>https://LeoDreamer2004.github.io/search/</link>
-        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-        
-        <guid>https://LeoDreamer2004.github.io/search/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>相关链接</title>
-        <link>https://LeoDreamer2004.github.io/links/</link>
-        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-        
-        <guid>https://LeoDreamer2004.github.io/links/</guid>
-        <description>&lt;p&gt;一些大概有用的网站和工具的链接&lt;/p&gt;
-</description>
-        </item>
-        
-    </channel>
+            <title>存档</title>
+            <link>https://LeoDreamer2004.github.io/archives/</link>
+            <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+            <guid>https://LeoDreamer2004.github.io/archives/</guid>
+            <description></description>
+        </item><item>
+            <title>关于</title>
+            <link>https://LeoDreamer2004.github.io/about/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>https://LeoDreamer2004.github.io/about/</guid>
+            <description>&lt;p&gt;这个人确实很懒，什么都没写。&lt;/p&gt;&#xA;</description>
+        </item><item>
+            <title>搜索</title>
+            <link>https://LeoDreamer2004.github.io/search/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>https://LeoDreamer2004.github.io/search/</guid>
+            <description></description>
+        </item><item>
+            <title>相关链接</title>
+            <link>https://LeoDreamer2004.github.io/links/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>https://LeoDreamer2004.github.io/links/</guid>
+            <description>&lt;p&gt;一些大概有用的网站和工具的链接&lt;/p&gt;&#xA;</description>
+        </item></channel>
 </rss>
