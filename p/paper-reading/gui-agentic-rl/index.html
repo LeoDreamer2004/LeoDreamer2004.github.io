@@ -327,7 +327,7 @@
             <nav class="toc-nav" id="TableOfContents">
                 
   <ol>
-    <li><a href="#native-gui-agent">Native GUI Agent</a>
+    <li><a href="#ui-tars">UI-TARS</a>
       <ol>
         <li><a href="#核心框架">核心框架</a></li>
         <li><a href="#数据构造">数据构造</a></li>
@@ -335,6 +335,7 @@
         <li><a href="#在线轨迹-bootstrapping">在线轨迹 Bootstrapping</a></li>
       </ol>
     </li>
+    <li><a href="#digirl">DigiRL</a></li>
   </ol>
 
             </nav>
@@ -416,7 +417,7 @@
 
 
                     <time class="article-time--reading">
-                        阅读时长: 4 分钟
+                        阅读时长: 5 分钟
                     </time>
                 
             </div>
@@ -443,7 +444,7 @@
             <nav class="toc-nav">
                 
   <ol>
-    <li><a href="#native-gui-agent">Native GUI Agent</a>
+    <li><a href="#ui-tars">UI-TARS</a>
       <ol>
         <li><a href="#核心框架">核心框架</a></li>
         <li><a href="#数据构造">数据构造</a></li>
@@ -451,6 +452,7 @@
         <li><a href="#在线轨迹-bootstrapping">在线轨迹 Bootstrapping</a></li>
       </ol>
     </li>
+    <li><a href="#digirl">DigiRL</a></li>
   </ol>
 
             </nav>
@@ -464,21 +466,21 @@
     <p>我们延续着 Agentic RL 的话题, <a class="link" href="../agentic-rl" >之前的博客</a> 中我们已经介绍了 Agentic RL 的一些基本概念和方法, 以及一些相关的论文. 由于 Agentic RL 的应用领域非常广泛, 包括了很多不同的任务和环境, 这里围绕综述 <a class="link cite-GUI-Agentic-RL-Survey">[<span class="material-index"></span>]
     <span class="material-name">Unknown-material</span> 
 </a> 着重讨论一下 GUI Agent.</p>
-<h2 id="native-gui-agent">Native GUI Agent
+<h2 id="ui-tars">UI-TARS
 </h2><p>字节的 UI-TARS <a class="link cite-UI-TARS">[<span class="material-index"></span>]
     <span class="material-name">Unknown-material</span> 
 </a> 是一个专门针对 GUI 交互的智能体. 作为一个 native 的 GUI Agent, 论文明确强调 UI-TARS 不依赖 HTML、accessibility tree 或人工写的多模块流程. GUI native model 虽然更理想, 但缺少大规模高质量 GUI 数据, 尤其缺少把感知、推理、记忆、动作串起来的完整交互轨迹</p>
 <h3 id="核心框架">核心框架
 </h3><p>UI-TARS 的 pipeline 并不特别, 基本上沿用的还是正常 Agentic RL 的框架.</p>
 <div class="math-block math-algo">
-    <p class="math-title">算法<span class="math-subtitle">UI-TARS-GUI-Rollout</span></p>
+    <p class="math-title">算法<span class="math-subtitle">UI-TARS: GUI Rollout</span></p>
 <p><strong class="algo-input">输入 &gt; </strong>
 任务指令 $I$, GUI 环境 $\mathcal{E}$, UI-TARS policy $\pi_\theta$, 最大交互步数 $T$, 最近截图窗口大小 $m$, 统一动作空间 $\mathcal{A}$.</p>
 <p><strong class="algo-output">输出 &gt; </strong>
 任务完成结果 $r$, 执行轨迹 $\tau$.</p>
 <ol>
 <li>
-<p>初始化 GUI 环境, 截图和交互历史：
+<p>初始化 GUI 环境, 截图和交互历史:
 </p>
 $$
    s_0=\mathcal{E}.\mathrm{reset}(I)
@@ -492,7 +494,7 @@ $$
    H_0=\emptyset,\quad \tau=\emptyset
    $$</li>
 <li>
-<p>构造模型输入：
+<p>构造模型输入:
 </p>
 $$
    h_t=\mathrm{Serialize}
@@ -505,7 +507,7 @@ $$
 其中 $H_t$ 包含历史 <code>Thought</code>、<code>Action</code> 和必要的状态摘要.</p>
 </li>
 <li>
-<p>UI-TARS 生成下一步：
+<p>UI-TARS 生成下一步:
 </p>
 $$
    (z_t,a_t)\sim \pi_\theta(\cdot \mid h_t)
@@ -519,19 +521,19 @@ $$
 <p>如果 $a_t=\texttt{CallUser()}$, 则请求用户介入, 当前任务可记为需要人工帮助.</p>
 </li>
 <li>
-<p>否则, 将动作映射到真实 GUI 操作, 例如点击、输入、滚动、拖拽或快捷键：
+<p>否则, 将动作映射到真实 GUI 操作, 例如点击、输入、滚动、拖拽或快捷键:
 </p>
 $$
    s_{t+1}=\mathcal{E}.\mathrm{step}(s_t,a_t)
    $$</li>
 <li>
-<p>获取新截图：
+<p>获取新截图:
 </p>
 $$
     o_{t+1}=\mathcal{E}.\mathrm{screenshot}(s_{t+1})
     $$</li>
 <li>
-<p>更新历史, 记录轨迹：
+<p>更新历史, 记录轨迹:
 </p>
 $$
     H_{t+1}=H_t\oplus {z_t,a_t}
@@ -554,27 +556,27 @@ $$
 <p>UI-TARS 把不同平台的 GUI 操作统一成一套 action schema. 比如桌面的 click 和移动端的 tap, 在语义上都归为坐标点击.</p>
 <p><img alt="UI-TARS" class="gallery-image" data-flex-basis="253px" data-flex-grow="105" height="1740" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2501.12326v1/extracted/6146349/figures/model_arc.png" srcset="/model_arc_1931450895530743216_hu_83cd861f061ab511.png 800w, /model_arc_1931450895530743216_hu_e405a926fc024c33.png 1600w, https://arxiv.org/html/2501.12326v1/extracted/6146349/figures/model_arc.png 1836w" width="1836"></p>
 <h3 id="数据构造">数据构造
-</h3><p>在感知层面, 为了提升截图理解，UI-TARS 构造了大规模 GUI screenshot 数据，并通过解析工具提取元素类型、层级、bounding box、文本内容等 metadata。</p>
+</h3><p>在感知层面, 为了提升截图理解, UI-TARS 构造了大规模 GUI screenshot 数据, 并通过解析工具提取元素类型、层级、bounding box、文本内容等 metadata.</p>
 <ul>
-<li>论文选择用解析工具提取元素 metadata, 其中每个元素包含：
+<li>论文选择用解析工具提取元素 metadata, 其中每个元素包含:
 
 $$
    b_i=(\mathrm{type}_i,\mathrm{text}_i,\mathrm{bbox}_i,\mathrm{depth}_i)
    $$</li>
-<li>基于这些数据，论文设计了五类任务：元素描述 (element description)、页面描述 (dense captioning)、状态转移描述 (state transition captioning)、GUI 问答 (GUI QA)、元素标记 (Set-of-Mark)。</li>
+<li>基于这些数据, 论文设计了五类任务: 元素描述 (element description)、页面描述 (dense captioning)、状态转移描述 (state transition captioning)、GUI 问答 (GUI QA)、元素标记 (Set-of-Mark).</li>
 </ul>
-<p>在动作层面, UI-TARS 训练模型直接预测元素坐标。做法是用元素 bbox 的中心点作为点击点，并将坐标归一化到屏幕尺寸，从而适配不同分辨率。论文也整合了 SeeClick、GUIAct、MultiUI 等开源数据，并统一到自己的 action space。</p>
+<p>在动作层面, UI-TARS 训练模型直接预测元素坐标. 做法是用元素 bbox 的中心点作为点击点, 并将坐标归一化到屏幕尺寸, 从而适配不同分辨率. 论文也整合了 SeeClick、GUIAct、MultiUI 等开源数据, 并统一到自己的 action space.</p>
 <p><img alt="UI-TARS 数据示例" class="gallery-image" data-flex-basis="498px" data-flex-grow="207" height="800" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2501.12326v1/x1.png" srcset="/x1_15240836761993914470_hu_9dd17c658367e2ad.png 800w, /x1_15240836761993914470_hu_c1170b01b7243c77.png 1600w, https://arxiv.org/html/2501.12326v1/x1.png 1661w" width="1661"></p>
 <h3 id="显式推理">显式推理
-</h3><p>原始动作轨迹通常只有观察和动作，没有显式推理。UI-TARS 的做法是给轨迹补上 thought，把数据格式扩展一个 thought 字段.</p>
+</h3><p>原始动作轨迹通常只有观察和动作, 没有显式推理. UI-TARS 的做法是给轨迹补上 thought, 把数据格式扩展一个 thought 字段.</p>
 <div class="math-block math-algo">
-    <p class="math-title">算法<span class="math-subtitle">UI-TARS-Thought-Augmentation</span></p>
+    <p class="math-title">算法<span class="math-subtitle">UI-TARS: Thought Augmentation</span></p>
 <p><strong class="algo-input">输入 &gt; </strong>
-动作轨迹集合 $\mathcal{D}_{trace}$，VLM 标注器 $\mathcal{M}$，早期 UI-TARS checkpoint $\pi_{\theta_0}$.</p>
+动作轨迹集合 $\mathcal{D}_{trace}$, VLM 标注器 $\mathcal{M}$, 早期 UI-TARS checkpoint $\pi_{\theta_0}$.</p>
 <p><strong class="algo-output">输出 &gt; </strong>
 带 thought 的轨迹集合 $\mathcal{D}_{thought}$.</p>
 <ol>
-<li>对每条轨迹和对每一步 $t$，构造上下文：
+<li>对每条轨迹和对每一步 $t$, 构造上下文:
 
 $$
    \tau=(o_1,a_1,o_2,a_2,\dots,o_T,a_T)
@@ -583,26 +585,26 @@ $$
 $$
    c_t=(I,o_{\le t},a_{\lt t})
    $$</li>
-<li>使用 ActRe 方式，给定当前上下文和目标动作 $a_t$，反向生成 thought：
+<li>使用 ActRe 方式, 给定当前上下文和目标动作 $a_t$, 反向生成 thought:
 
 $$
    z_t=\mathcal{M}(c_t,a_t)
    $$</li>
-<li>约束 thought 覆盖以下 reasoning pattern：
+<li>约束 thought 覆盖以下 reasoning pattern:
 <ul>
 <li>task decomposition；</li>
 <li>long-term consistency；</li>
 <li>milestone recognition；</li>
 <li>trial and error；</li>
-<li>reflection。</li>
+<li>reflection.</li>
 </ul>
 </li>
-<li>为减少“事后合理化”问题, 不提前给定真实动作, 使用 thought bootstrapping, 采样多个候选并选择能导向正确动作的思考-动作对：
+<li>为减少“事后合理化”问题, 不提前给定真实动作, 使用 thought bootstrapping, 采样多个候选并选择能导向正确动作的思考-动作对:
 
 $$
      (z_t^j,a_t^j)\sim \pi_{\theta_0}(\cdot\mid c_t)
      $$</li>
-<li>得到增强轨迹：
+<li>得到增强轨迹:
 
 $$
    \tau^*=(o_1,z_1,a_1,\dots,o_T,z_T,a_T)
@@ -612,23 +614,120 @@ $$
 </div>
 <p><img alt="UI-TARS 思考模式示例" class="gallery-image" data-flex-basis="233px" data-flex-grow="97" height="5021" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2501.12326v1/extracted/6146349/figures/thought_pattern.png" srcset="/thought_pattern_16861972703966473245_hu_d39ec7353bf2f0ee.png 800w, /thought_pattern_16861972703966473245_hu_e5aa0a66227eee15.png 1600w, /thought_pattern_16861972703966473245_hu_effee642425043b4.png 2400w, https://arxiv.org/html/2501.12326v1/extracted/6146349/figures/thought_pattern.png 4889w" width="4889"></p>
 <h3 id="在线轨迹-bootstrapping">在线轨迹 Bootstrapping
-</h3><p>论文认为 GUI agent 的最大瓶颈是缺少真实交互过程数据，所以它让模型在大量虚拟 PC 上执行任务，自动收集 trace, 大致流程是:</p>
+</h3><p>论文认为 GUI agent 的最大瓶颈是缺少真实交互过程数据, 所以它让模型在大量虚拟 PC 上执行任务, 自动收集 trace, 大致流程是:</p>
 <ol>
-<li>构造任务目标集合：$ \mathcal{G}_i=\mathcal{G}_{human}\cup\mathcal{G}_{model}$</li>
+<li>构造任务目标集合: $ \mathcal{G}_i=\mathcal{G}_{human}\cup\mathcal{G}_{model}$</li>
 <li>在多个虚拟机中并行执行任务, 得到原始轨迹集合 $\mathcal{T}_{raw}={\tau_j}$</li>
-<li>使用 rule-based reward 过滤明显异常轨迹，例如重复点击、无效操作.</li>
+<li>使用 rule-based reward 过滤明显异常轨迹, 例如重复点击、无效操作.</li>
 <li>使用 VLM scoring 对剩余轨迹打质量分并丢弃低质量轨迹.</li>
 <li>对部分轨迹进行人工审查, 找到首次错误步骤并丢弃错误之后的部分.</li>
 </ol>
-<p>此外, 普通 offline 数据往往是“完美轨迹”，模型学不到如何从错误中恢复。UI-TARS 因此用自己生成的错误轨迹构造两类数据：</p>
+<p>此外, 普通 offline 数据往往是“完美轨迹”, 模型学不到如何从错误中恢复. UI-TARS 因此用自己生成的错误轨迹构造两类数据:</p>
 <ul>
-<li>错误纠正 (error correction): 指出某一步错了，并标注正确思考/动作;</li>
-<li>预先反应 (post-reflection): 假设错误已经发生，标注下一步如何补救.</li>
+<li>错误纠正 (error correction): 指出某一步错了, 并标注正确思考/动作;</li>
+<li>预先反应 (post-reflection): 假设错误已经发生, 标注下一步如何补救.</li>
 </ul>
 <p>论文明确提出这里采用 DPO 优化:</p>
 $$
 \mathcal{L}_{DPO}=-\log \sigma \left[ \beta \left( \log \frac{\pi_\theta(a_t^+\mid s_t)}{\pi_{\mathrm{ref}}(a_t^+\mid s_t)}- \log \frac{\pi_\theta(a_t^-\mid s_t)}{\pi_{\mathrm{ref}}(a_t^-\mid s_t)}\right)\right]
 $$<p><img alt="UI-TARS 轨迹 Bootstrapping" class="gallery-image" data-flex-basis="516px" data-flex-grow="215" height="3278" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2501.12326v1/extracted/6146349/figures/online_bootstrap.png" srcset="/online_bootstrap_12979727169351833026_hu_f136d1706b3fee9b.png 800w, /online_bootstrap_12979727169351833026_hu_3d7c5b0e40140e45.png 1600w, /online_bootstrap_12979727169351833026_hu_5f0001fe89f5b02d.png 2400w, https://arxiv.org/html/2501.12326v1/extracted/6146349/figures/online_bootstrap.png 7058w" width="7058"></p>
+<h2 id="digirl">DigiRL
+</h2><p>DigiRL 是一个基于 evaluator 和 value-based filtering 训练能持续改进的设备控制 agent, 主要面向安卓系统.</p>
+<p>DigiRL 把 Android 设备控制建模成有限时长 MDP:</p>
+$$
+\mathcal{M}=(\mathcal{S},\mathcal{A},P,R,H)
+$$<ul>
+<li>State: Android 当前界面状态, 通常由截图表示.</li>
+<li>Observation: 当前截图, 论文实现中还会用最近两张截图.</li>
+<li>Action: Tap / Swipe / Type / Back / Home / Enter 等 GUI 操作.</li>
+<li>Reward: episode 结束后由 evaluator 判断任务是否成功. 成功为 1, 失败为 0.</li>
+<li>H: 最大交互步数.</li>
+</ul>
+<p>DigiRL 分成 Offline RL initialization 和 Offline-to-Online RL 两个训练阶段.</p>
+<p><img alt="DigiRL 训练阶段" class="gallery-image" data-flex-basis="467px" data-flex-grow="194" height="767" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2406.11896v1/x1.png" srcset="/x1_1118363374903737427_hu_93abdae80bc28529.png 800w, https://arxiv.org/html/2406.11896v1/x1.png 1495w" width="1495"></p>
+<p>rollout 阶段和一般的 Agentic RL 别无二致, 在此省去.</p>
+<p>对于 Offline RL initialization, 用旧 policy 先跑出一批离线 GUI 轨迹, 用 evaluator 标成功/失败, 再主要模仿成功轨迹中的动作, 把 agent 初始化到一个能做 Android 操作控制的起点, 之后才进入真正的 offline-to-online RL. 我们这里更关注 Offline-to-Online RL 阶段.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">DigiRL: Offline-to-Online Training</span></p>
+<p><strong class="algo-input">输入 &gt; </strong>
+任务集合 $\mathcal{I}$, Android 环境 $\mathcal{E}$, 初始 VLM policy $\pi_\theta$, 离线轨迹数据 $\mathcal{D}_{off}$, 自动 evaluator $\mathrm{Eval}$, 最大步数 $H$, 训练轮数 $N$, instruction-level value $V_{\phi}^{inst}$, step-level value $V_{\psi}^{step}$.</p>
+<p><strong class="algo-output">输出 &gt; </strong>
+训练后的 device-control policy $\pi_{\theta'}$.</p>
+<ol>
+<li>初始化 replay buffer:
+
+$$
+   \mathcal{B}\leftarrow \mathcal{D}_{off}
+   $$</li>
+<li>使用离线成功轨迹初始化 actor 参数 $\theta$.</li>
+<li>对 $n=1,\dots,N$, 执行 online 训练循环。</li>
+<li>从任务集合中采样一批 instruction $I_1,\dots,I_B\sim \mathcal{I}$, 并在多个 Android 模拟器中并行 rollout:
+
+$$
+   \tau_i=\mathrm{Rollout}(\pi_\theta,\mathcal{E},I_i,H)
+   $$</li>
+<li>使用自动 evaluator 判断每条轨迹是否成功:
+
+$$
+   R_i=\mathrm{Eval}(I_i,\tau_i)
+   $$</li>
+<li>将新轨迹加入 replay buffer:
+
+$$
+   \mathcal{B}
+   \leftarrow
+   \mathcal{B}\cup{(\tau_i,R_i)}_{i=1}^B
+   $$</li>
+<li>训练 instruction-level value:
+
+$$
+   V_{\phi}^{inst}(I)\approx \mathbb{E}[R\mid I]
+   $$</li>
+<li>训练 step-level value:
+
+$$
+   V_{\psi}^{step}(s_t,I)\approx \mathbb{E}[R\mid s_t,I]
+   $$</li>
+<li>对每条轨迹计算 instruction-level 学习信号, 并只保留高学习信号的轨迹:
+
+$$
+    u(\tau,I)=R(\tau)-V_{\phi}^{inst}(I)
+    $$
+
+$$
+    \mathcal{B}_{inst} = \mathrm{TopK}_{\tau\in\mathcal{B}}
+    \left(u(\tau,I)\right)
+    $$</li>
+<li>对轨迹中的每个动作计算 step-level advantage:
+
+$$
+    A^{step}(s_t,a_t,I) = Q(s_t,a_t,I)-V_{\psi}^{step}(s_t,I)
+    $$
+这里 $Q$ 就是蒙特卡洛得到的 Q 函数.</li>
+<li>用 doubly-robust 得到更稳定的 advantage 替代 10 中的结果:
+
+$$
+    \widehat{A}^{step}(s_t,a_t,I) = \lambda^{H-t}r(s_H,a_H,I) + \\
+    (1-\lambda^{H-t}r(s_H,a_H,I))\left(V_{\psi}^{step}(s_{t+1},I)+r(s_t,a_t,I)-V_{\psi}^{step}(s_t,I)\right)
+    $$</li>
+<li>根据阈值保留 advantage 动作:
+
+$$
+    \mathcal{D}_{filter} = \{(s_t,a_t,I)\mid \widehat{A}^{step}(s_t,a_t,I) \gt 1/H\}
+    $$</li>
+<li>用过滤后的动作更新 actor:
+
+$$
+    \theta
+    \leftarrow
+    \arg\max_\theta
+    \sum_{(s_t,a_t,I)\in\mathcal{D}_{filter}}
+    \log \pi_\theta(a_t\mid s_t,I)
+    $$</li>
+<li>返回最终 policy $\pi_{\theta'}$.</li>
+</ol>
+</div>
+<p><img alt="DigiRL" class="gallery-image" data-flex-basis="524px" data-flex-grow="218" height="752" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2406.11896v1/x5.png" srcset="/x5_15378789432152095782_hu_617290be619fa4d1.png 800w, /x5_15378789432152095782_hu_5ac1d71b2b07180a.png 1600w, https://arxiv.org/html/2406.11896v1/x5.png 1644w" width="1644"></p>
 
 
     
