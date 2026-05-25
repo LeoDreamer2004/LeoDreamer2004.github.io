@@ -336,6 +336,7 @@
       </ol>
     </li>
     <li><a href="#digirl">DigiRL</a></li>
+    <li><a href="#ui-r1">UI-R1</a></li>
   </ol>
 
             </nav>
@@ -453,6 +454,7 @@
       </ol>
     </li>
     <li><a href="#digirl">DigiRL</a></li>
+    <li><a href="#ui-r1">UI-R1</a></li>
   </ol>
 
             </nav>
@@ -728,6 +730,41 @@ $$
 </ol>
 </div>
 <p><img alt="DigiRL" class="gallery-image" data-flex-basis="524px" data-flex-grow="218" height="752" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2406.11896v1/x5.png" srcset="/x5_15378789432152095782_hu_617290be619fa4d1.png 800w, /x5_15378789432152095782_hu_5ac1d71b2b07180a.png 1600w, https://arxiv.org/html/2406.11896v1/x5.png 1644w" width="1644"></p>
+<h2 id="ui-r1">UI-R1
+</h2><p>UI-R1 是首个通过 DeepSeek R1 风格的强化学习, 在 GUI 动作预测任务上提升 MLLM 推理能力的框架.</p>
+<p>UI-R1-3B 的 RL 训练方案还是 GRPO. 公式这里略去. 其奖励设计为:</p>
+$$
+R = R_T + R_C + R_F
+$$<ul>
+<li>第一个代表动作类型奖励（click,scroll 等），二元奖励[0,1]</li>
+<li>第二个代表动作坐标奖励，命中 grounding 奖励，二元奖励[0,1]</li>
+<li>第三个代表模型回复格式奖励, 论文没有提到奖励值如何计算</li>
+</ul>
+<p>后面作者又追加了个 UI-R1-E-3B, 加入了两个额外的训练阶段: DAST 和 NOTHINK.</p>
+<p>DAST 中, 考虑了模型 Token 预算限制.</p>
+$$
+R = R_T + R_C + R_F + R_L
+$$<p>这里 $R_L$ 是一个长度奖励:</p>
+$$
+R_L = \begin{cases}
+\max(-0.5 \lambda + 0.5, 0.1) & \text{if correct}  \\
+\min(0.9 \lambda - 0.1, -0.1) & \text{if incorrect}
+\end{cases}
+$$<p>其中 $\lambda$ 由期望 Token 预算 $L_{bugdet}$ 得到:</p>
+$$
+\lambda = \frac{L_{i} - L_{budget}}{L_{budget}}
+$$<p>
+</p>
+$$
+L_{budget} = p L_r + (1-p) L_{\max}, ~ p = c/N
+$$<ul>
+<li>$c$: 某个问题得到正确答案的数量</li>
+<li>$N$: 该问题的总回答数量</li>
+<li>$L_r$: 该问题正确回答的平均长度</li>
+<li>$L_{\max}$: 该问题的最大回答长度</li>
+</ul>
+<p>NOTHINK 是去除掉 think 标签，在任务回答中去除显式思考。</p>
+<p><img alt="UI-R1" class="gallery-image" data-flex-basis="299px" data-flex-grow="124" height="764" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://pic1.zhimg.com/v2-72a48a05acd5f8edefda33850445f244_1440w.jpg" srcset="/v2-72a48a05acd5f8edefda33850445f244_1440w_3524315194638689328_hu_94929bf9293c4b7d.jpg 800w, https://pic1.zhimg.com/v2-72a48a05acd5f8edefda33850445f244_1440w.jpg 953w" width="953"></p>
 
 
     
