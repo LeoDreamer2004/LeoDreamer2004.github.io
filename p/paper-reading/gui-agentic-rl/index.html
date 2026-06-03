@@ -306,6 +306,12 @@
         </a>
     </li>
     
+    <li>
+        <a href="https://arxiv.org/abs/2507.05791" id="related-material-5" name="GTA1" target="_blank" rel="noopener noreferrer">
+            GTA1: GUI Test-time Scaling Agent
+        </a>
+    </li>
+    
 </ol>
         </div>
     </section>
@@ -343,6 +349,12 @@
     </li>
     <li><a href="#digirl">DigiRL</a></li>
     <li><a href="#ui-r1">UI-R1</a></li>
+    <li><a href="#gta1">GTA1</a>
+      <ol>
+        <li><a href="#测试时-scaling">测试时 scaling</a></li>
+        <li><a href="#定位模型">定位模型</a></li>
+      </ol>
+    </li>
   </ol>
 
             </nav>
@@ -424,7 +436,7 @@
 
 
                     <time class="article-time--reading">
-                        阅读时长: 5 分钟
+                        阅读时长: 7 分钟
                     </time>
                 
             </div>
@@ -461,6 +473,12 @@
     </li>
     <li><a href="#digirl">DigiRL</a></li>
     <li><a href="#ui-r1">UI-R1</a></li>
+    <li><a href="#gta1">GTA1</a>
+      <ol>
+        <li><a href="#测试时-scaling">测试时 scaling</a></li>
+        <li><a href="#定位模型">定位模型</a></li>
+      </ol>
+    </li>
   </ol>
 
             </nav>
@@ -668,7 +686,7 @@ $$
    \mathcal{B}\leftarrow \mathcal{D}_{off}
    $$</li>
 <li>使用离线成功轨迹初始化 actor 参数 $\theta$.</li>
-<li>对 $n=1,\dots,N$, 执行 online 训练循环。</li>
+<li>对 $n=1,\dots,N$, 执行 online 训练循环.</li>
 <li>从任务集合中采样一批 instruction $I_1,\dots,I_B\sim \mathcal{I}$, 并在多个 Android 模拟器中并行 rollout:
 
 $$
@@ -742,8 +760,8 @@ $$
 $$
 R = R_T + R_C + R_F
 $$<ul>
-<li>第一个代表动作类型奖励（click,scroll 等），二元奖励[0,1]</li>
-<li>第二个代表动作坐标奖励，命中 grounding 奖励，二元奖励[0,1]</li>
+<li>第一个代表动作类型奖励（click,scroll 等）, 二元奖励[0,1]</li>
+<li>第二个代表动作坐标奖励, 命中 grounding 奖励, 二元奖励[0,1]</li>
 <li>第三个代表模型回复格式奖励, 论文没有提到奖励值如何计算</li>
 </ul>
 <p>后面作者又追加了个 UI-R1-E-3B, 加入了两个额外的训练阶段: DAST 和 NOTHINK.</p>
@@ -769,8 +787,124 @@ $$<ul>
 <li>$L_r$: 该问题正确回答的平均长度</li>
 <li>$L_{\max}$: 该问题的最大回答长度</li>
 </ul>
-<p>NOTHINK 是去除掉 think 标签，在任务回答中去除显式思考。</p>
+<p>NOTHINK 是去除掉 think 标签, 在任务回答中去除显式思考.</p>
 <p><img alt="UI-R1" class="gallery-image" data-flex-basis="299px" data-flex-grow="124" height="764" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://pic1.zhimg.com/v2-72a48a05acd5f8edefda33850445f244_1440w.jpg" srcset="/v2-72a48a05acd5f8edefda33850445f244_1440w_3524315194638689328_hu_94929bf9293c4b7d.jpg 800w, https://pic1.zhimg.com/v2-72a48a05acd5f8edefda33850445f244_1440w.jpg 953w" width="953"></p>
+<h2 id="gta1">GTA1
+</h2><p>论文 <a class="link cite-GTA1">[<span class="material-index"></span>]
+    <span class="material-name">Unknown-material</span> 
+</a> (2026 ICLR) 提出每一步用 test-time scaling 选更好的 GUI 动作规划, 再用 RL 训练出的定位模型把它落到精确坐标.</p>
+<h3 id="测试时-scaling">测试时 scaling
+</h3><div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">GTA1: Test-Time Scaling Rollout</span></p>
+<p><strong class="algo-input">输入 &gt; </strong>
+用户任务 $I$, GUI 环境 $\mathcal{E}$, planner $\pi_P$, judge $\pi_J$, grounding model $g_\theta$, 每步候选数 $K$, 最大步数 $T$.</p>
+<p><strong class="algo-output">输出 &gt; </strong>
+最终 GUI 状态 $s_T$, 执行轨迹 $\tau$, 任务成功标记 $r$.</p>
+<ol>
+<li>初始化环境 $s_0$, 初始截图 $x_0$, 轨迹 $\tau = \emptyset$.</li>
+<li>对每一步 $t=0,1,\dots,T-1$:</li>
+<li>构造 planner 上下文$h_t$, 包括用户指令 $I$、历史动作、历史观察 $\tau$ 和当前截图 $x_t$.</li>
+<li>planner 并行采样 $K$ 个候选动作:
+
+$$
+   p_t^1,\dots,p_t^K \sim \pi_P(\cdot \mid h_t)
+   $$</li>
+<li>judge 根据用户目标、当前截图和历史轨迹选择最合适候选:
+
+$$
+   j^\star = \arg\max_j \pi_J(p_t^j \mid I,\tau,x_t)
+   $$
+
+$$
+   p_t^\star = p_t^{j^\star}
+   $$</li>
+<li>如果 $p_t^\star$ 是坐标型动作, 由定位模型预测点击坐标:
+
+$$
+     c_t = g_\theta(x_t,p_t^\star)
+     $$
+之后构造真实可执行动作:
+
+$$
+     a_t = \mathrm{BindCoordinate}(p_t^\star,c_t)
+     $$
+否则直接执行.</li>
+<li>在 GUI 环境中执行动作:
+
+$$
+   s_{t+1} = \mathcal{E}.\mathrm{step}(s_t,a_t)
+   $$</li>
+<li>获取新截图:
+
+$$
+   x_{t+1} = \mathcal{E}.\mathrm{observe}(s_{t+1})
+   $$</li>
+<li>更新轨迹:
+
+$$
+    \tau \leftarrow \tau \cup {p_t^\star,a_t,x_{t+1}}
+    $$</li>
+<li>如果 planner / judge 判定为结束, 或任务达到终止条件, 停止执行.</li>
+<li>返回 $(s_T,\tau,r)$</li>
+</ol>
+</div>
+<p>算法的关键是每一步做局部多候选选择.</p>
+<h3 id="定位模型">定位模型
+</h3><p>GTA1 的定位部分和 UI-R1 很像.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">GTA1: Grounding GRPO</span></p>
+<p><strong class="algo-input">输入 &gt; </strong>
+GUI 定位数据集 $\mathcal{D}={(x_i,p_i,b_i)}$, 其中 $x_i$ 是截图, $p_i$ 是动作, $b_i=(x_{\min},y_{\min},x_{\max},y_{\max})$ 是目标 UI 元素 bbox. 定位策略 $g_\theta$, 每个样本采样数 $N$.</p>
+<p><strong class="algo-output">输出 &gt; </strong>
+训练后的定位模型 $g_{\theta'}$.</p>
+<ol>
+<li>对每个样本 $(x_i,p_i,b_i)$, 由于 HTML parser 得到的 bbox 有时会因为 UI 动画、渲染延迟等原因和真实视觉元素错位, 先用 OmniParser 检测截图中的 UI 元素框, 然后丢弃和检测框最大 IoU 低于阈值的样本.</li>
+<li>策略直接采样 $N$ 个坐标预测:
+
+$$
+   o_i^1,\dots,o_i^N \sim g_\theta(\cdot \mid h_i)
+   $$
+其中:
+
+$$
+   o_i^n=(\hat{x}_i^n,\hat{y}_i^n)
+   $$</li>
+<li>对每个预测计算 click reward:
+
+$$
+   r_i^n =
+   \mathbf{1}
+   [
+   x_{\min}\leq \hat{x}_i^n \leq x_{\max}
+   \land
+   y_{\min}\leq \hat{y}_i^n \leq y_{\max}
+   ]
+   $$</li>
+<li>对同一组采样结果, 得到 advantage:
+
+$$
+   A_i^n =
+   \frac{
+   r_i^n-\mathrm{mean}(r_i^1,\dots,r_i^N)
+   }{
+   \mathrm{std}(r_i^1,\dots,r_i^N)
+   }
+   $$</li>
+<li>用 GRPO 更新定位策略:
+
+$$
+   \theta
+   \leftarrow
+   \mathrm{GRPO}(\theta, A)
+   $$</li>
+<li>返回训练后的定位模型 $g_{\theta'}$.</li>
+</ol>
+</div>
+<p><img alt="GTA1" class="gallery-image" data-flex-basis="1099px" data-flex-grow="458" height="500" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/gui-agentic-rl/GTA1.png" srcset="/p/paper-reading/gui-agentic-rl/GTA1_hu_3b412cd66b302f55.png 800w, /p/paper-reading/gui-agentic-rl/GTA1_hu_1694e581ae0d6289.png 1600w, /p/paper-reading/gui-agentic-rl/GTA1.png 2290w" width="2290"></p>
+<p>实验表明 scale 的 $K$ 越大, 任务成功率越高.</p>
+<p><img alt="GTA1 scale 效果, 从左到右依次是 15, 50, 100 步任务" class="gallery-image" data-flex-basis="1071px" data-flex-grow="446" height="296" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/gui-agentic-rl/GTA1-Scaling.png" srcset="/p/paper-reading/gui-agentic-rl/GTA1-Scaling_hu_9a4ba7aff7661e0c.png 800w, /p/paper-reading/gui-agentic-rl/GTA1-Scaling.png 1322w" width="1322"></p>
+<p>GTA1 特意提到不提示模型先生成 CoT, 而是直接输出预测坐标. reward 则检查预测坐标是否落在标注 bbox 内, 而非使用 bbox 的 IoU, 具体这里参看消融实验:</p>
+<p><img alt="GTA1 消融实验" class="gallery-image" data-flex-basis="1407px" data-flex-grow="586" height="224" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/gui-agentic-rl/GTA1-Ablation.png" srcset="/p/paper-reading/gui-agentic-rl/GTA1-Ablation_hu_bf7e53be81bebedb.png 800w, /p/paper-reading/gui-agentic-rl/GTA1-Ablation.png 1314w" width="1314"></p>
 
 
     
