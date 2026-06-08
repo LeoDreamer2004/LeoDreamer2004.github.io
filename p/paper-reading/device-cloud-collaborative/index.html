@@ -288,6 +288,18 @@
         </a>
     </li>
     
+    <li>
+        <a href="https://arxiv.org/html/2404.14618v1" id="related-material-2" name="HybridLLM" target="_blank" rel="noopener noreferrer">
+            Hybrid LLM: Cost-Efficient and Quality-Aware Query Routing
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://arxiv.org/abs/2403.03129" id="related-material-3" name="CoGenesis" target="_blank" rel="noopener noreferrer">
+            CoGenesis: A Framework Collaborating Large and Small Language Models for Secure Context-Aware Instruction Following
+        </a>
+    </li>
+    
 </ol>
         </div>
     </section>
@@ -322,6 +334,20 @@
         <li><a href="#observation-agent">Observation Agent</a></li>
         <li><a href="#pre-understanding">Pre-Understanding</a></li>
         <li><a href="#memory-reflection">Memory Reflection</a></li>
+      </ol>
+    </li>
+    <li><a href="#hybrid-llm">Hybrid LLM</a>
+      <ol>
+        <li><a href="#确定性路由">确定性路由</a></li>
+        <li><a href="#概率性路由">概率性路由</a></li>
+        <li><a href="#实验">实验</a></li>
+      </ol>
+    </li>
+    <li><a href="#cogenesis">CoGenesis</a>
+      <ol>
+        <li><a href="#sketch-based-cogenesis">Sketch-based CoGenesis</a></li>
+        <li><a href="#logits-based-cogenesis">Logits-based CoGenesis</a></li>
+        <li><a href="#实验-1">实验</a></li>
       </ol>
     </li>
   </ol>
@@ -405,7 +431,7 @@
 
 
                     <time class="article-time--reading">
-                        阅读时长: 3 分钟
+                        阅读时长: 5 分钟
                     </time>
                 
             </div>
@@ -439,6 +465,20 @@
         <li><a href="#observation-agent">Observation Agent</a></li>
         <li><a href="#pre-understanding">Pre-Understanding</a></li>
         <li><a href="#memory-reflection">Memory Reflection</a></li>
+      </ol>
+    </li>
+    <li><a href="#hybrid-llm">Hybrid LLM</a>
+      <ol>
+        <li><a href="#确定性路由">确定性路由</a></li>
+        <li><a href="#概率性路由">概率性路由</a></li>
+        <li><a href="#实验">实验</a></li>
+      </ol>
+    </li>
+    <li><a href="#cogenesis">CoGenesis</a>
+      <ol>
+        <li><a href="#sketch-based-cogenesis">Sketch-based CoGenesis</a></li>
+        <li><a href="#logits-based-cogenesis">Logits-based CoGenesis</a></li>
+        <li><a href="#实验-1">实验</a></li>
       </ol>
     </li>
   </ol>
@@ -496,6 +536,100 @@ $$
 P_n = Reflection(Ins, P_{n-1}, Memory)
 $$<p>这一步让 EcoAgent 的端云协作从开环变成了闭环.</p>
 <p><img alt="EcoAgent" class="gallery-image" data-flex-basis="421px" data-flex-grow="175" height="2323" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2505.05440v3/figures/workflow.png" srcset="/workflow_5469554211063642440_hu_665f2ebf541f3234.png 800w, /workflow_5469554211063642440_hu_71e156af617bdfb5.png 1600w, /workflow_5469554211063642440_hu_5ece26b3f30a2faa.png 2400w, https://arxiv.org/html/2505.05440v3/figures/workflow.png 4079w" width="4079"></p>
+<h2 id="hybrid-llm">Hybrid LLM
+</h2><p>论文 <a class="link cite-HybridLLM">[<span class="material-index"></span>]
+    
+</a> (ICLR 2024) 提出一种混合推理方法，使用路由器结合端云各自的优势以节省成本并保持质量.</p>
+<p><img alt="HybridLLM 路由效果" class="gallery-image" data-flex-basis="321px" data-flex-grow="133" height="432" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2404.14618v1/extracted/2404.14618v1/Plots/llm_route.jpg" width="578"></p>
+<p>将小型模型的响应质量接近大型模型的响应质量的查询，称为“简单”查询。查询 x 的质量差定义为</p>
+$$H(x) := q(S(x))−q(L(x))$$<p>即小模型响应 $S(x)$ 和大模型响应 $L(x)$ 之间的质量差.</p>
+<h3 id="确定性路由">确定性路由
+</h3><p>最简单版本：对每个 query，从小模型和大模型各采样一个回答，然后用质量函数比较两者。如果小模型回答质量不低于大模型，就标为 easy：</p>
+$$
+y_i^{det} = \mathbf{1}\{H(x_i) \leq 0\} = \mathbf{1}\{q(S(x_i)) \leq q(L(x_i))\}
+$$<p>这里选取 BART 分数作为质量函数 $q$. 然后训练 router 做二分类, 最小化交叉熵损失:</p>
+$$
+L(w) = - \frac{1}{N} \sum_{i=1}^N \left( y_i^{det} \log p_w(x_i) + (1-y_i^{det}) \log (1-p_w(x_i)) \right)
+$$<h3 id="概率性路由">概率性路由
+</h3><p>当大模型比小模型强大得多时, $y_i^{det}$ 几乎永远都是取 $0$ 的, 所以需要做一些松弛平移, 引入新标签:</p>
+$$
+y_i^{trans}(t) =  \mathbf{1}\{H(x_i) \leq -t\} = \mathbf{1}\{q(S(x_i)) \leq q(L(x_i)) - t\}
+$$<p>现在的问题是如何选取最佳的 $t$? 论文提出最大化标签之间的平均成对差异来选择 $t$:</p>
+$$
+t^\ast = \argmax_t \frac{1}{N^2} \sum_{i, i'} \left| y_i^{trans}(t) - y_{i'}^{trans}(t) \right|
+$$<p>用网格搜索解决. 随后再用这个去做二分类.</p>
+<p><img alt="平移前" class="gallery-image" data-flex-basis="320px" data-flex-grow="133" height="300" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2404.14618v1/extracted/2404.14618v1/Figures/Sec3.3/before_transformation.jpg" width="400">
+<img alt="平移后" class="gallery-image" data-flex-basis="321px" data-flex-grow="134" height="300" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2404.14618v1/extracted/2404.14618v1/Figures/Sec3.3/after_transformation.jpg" width="402"></p>
+<h3 id="实验">实验
+</h3><p>下面三张图能很好说明路由的设计:</p>
+<p><img alt="小差距模型" class="gallery-image" data-flex-basis="321px" data-flex-grow="134" height="300" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2404.14618v1/extracted/2404.14618v1/Figures/Sec4.2/tradeoff_small_gaps.jpg" width="402">
+<img alt="中差距模型" class="gallery-image" data-flex-basis="320px" data-flex-grow="133" height="300" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2404.14618v1/extracted/2404.14618v1/Figures/Sec4.2/tradeoff_medium_gaps.jpg" width="400">
+<img alt="大差距模型" class="gallery-image" data-flex-basis="321px" data-flex-grow="134" height="300" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2404.14618v1/extracted/2404.14618v1/Figures/Sec4.2/tradeoff_large_gaps.jpg" width="402"></p>
+<h2 id="cogenesis">CoGenesis
+</h2><p>论文 <a class="link cite-CoGenesis">[<span class="material-index"></span>]
+    
+</a> (ACL 2024) 更关心隐私上下文不能上传云端时，如何让云端大模型和本地小模型协作生成高质量个性化内容</p>
+<h3 id="sketch-based-cogenesis">Sketch-based CoGenesis
+</h3><p>先让云端 LLM 在没有私人上下文的情况下，根据一般的指令生成一个草稿；然后本地 SLM 用这个草稿，加上私人上下文，生成最终内容。</p>
+<p>显然这个想法很直接.</p>
+<h3 id="logits-based-cogenesis">Logits-based CoGenesis
+</h3><p>LLM 虽然不能看私人 context，但它每一步的 logits 或者 token 分布里包含通用语言能力、结构偏好、表达质量等隐性信息。于是每个 token 生成时，同时看 LLM 和 SLM 的输出分布，再用一个轻量 CombModel 学习如何融合。</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">Logit-Based-CoGenesis</span></p>
+<p><strong class="algo-input">输入 &gt; </strong>
+通用指令 $I$，私人上下文 $C$，云端大模型 $M_L$，本地小模型 $M_S$，融合模型 $\mathrm{CombModel}_\phi$，最大生成长度 $T$.</p>
+<p><strong class="algo-output">输出 &gt; </strong>
+个性化回答 $y$.</p>
+<ol>
+<li>
+<p>初始化生成序列：
+</p>
+$$
+   y_{<1} = \emptyset
+   $$</li>
+<li>
+<p>对每个生成步 $t=1,\dots,T$：</p>
+</li>
+<li>
+<p>云端 LLM 只基于通用指令和当前前缀输出分布：
+</p>
+$$
+   p_L^t = M_L(\cdot \mid I, y_{\lt t})
+   $$</li>
+<li>
+<p>本地 SLM 基于通用指令、私人上下文和当前前缀输出分布：</p>
+$$
+   p_S^t = M_S(\cdot \mid I, C, y_{\lt t})
+   $$</li>
+<li>
+<p>取两者的 logits / top-token 信息，输入轻量融合模型：</p>
+$$
+   \alpha_t = \mathrm{CombModel}_\phi(p_L^t,p_S^t)
+   $$</li>
+<li>
+<p>融合得到最终 token 分布：</p>
+$$
+   p^t = \alpha_t p_L^t + (1-\alpha_t)p_S^t
+   $$</li>
+<li>
+<p>从融合分布中选择下一个 token：</p>
+$$
+   y_t \sim p^t
+   $$</li>
+<li>
+<p>重复直到生成结束符或达到最大长度。</p>
+</li>
+<li>
+<p>返回：</p>
+$$
+   y = (y_1,\dots,y_T)
+   $$</li>
+</ol>
+</div>
+<p>论文实现里，CombModel 是一个三层神经网络；每一步只使用 LLM 和 SLM 的 top-10 logits，训练时 LLM 和 SLM 共享同一个目标回答，并用验证集 early stopping。</p>
+<p><img alt="CoGenesis" class="gallery-image" data-flex-basis="543px" data-flex-grow="226" height="697" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2403.03129v2/x3.png" srcset="/x3_3188710651845533698_hu_47e22736cdff432d.png 800w, https://arxiv.org/html/2403.03129v2/x3.png 1577w" width="1577"></p>
+<h3 id="实验-1">实验
+</h3><p><img alt="CoGenesis 结果" class="gallery-image" data-flex-basis="302px" data-flex-grow="126" height="1080" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/device-cloud-collaborative/CoGenesisExperiment.png" srcset="/p/paper-reading/device-cloud-collaborative/CoGenesisExperiment_hu_60dd62bbc3a11d9d.png 800w, /p/paper-reading/device-cloud-collaborative/CoGenesisExperiment.png 1363w" width="1363"></p>
 
 
     
