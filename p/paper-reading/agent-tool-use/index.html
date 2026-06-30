@@ -277,7 +277,7 @@
 
 
         </div>
-        <h2 class="widget-title section-title"></h2>
+        <h2 class="widget-title section-title">相关资料</h2>
 
         <div class="widget--related-materials">
              <ol>
@@ -291,6 +291,12 @@
     <li>
         <a href="https://arxiv.org/abs/2510.00568" id="related-material-2" name="ReSeek" target="_blank" rel="noopener noreferrer">
             ReSeek: A Self-Correcting Framework for Search Agents with Instructive Rewards
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://arxiv.org/abs/2601.07779" id="related-material-3" name="OS-Symphony" target="_blank" rel="noopener noreferrer">
+            OS-Symphony: A Holistic Framework for Robust and Generalist Computer-Using Agent
         </a>
     </li>
     
@@ -337,6 +343,14 @@
         <li><a href="#结构化-prompt">结构化 Prompt</a></li>
         <li><a href="#fictionalhot">FictionalHot</a></li>
         <li><a href="#实验">实验</a></li>
+      </ol>
+    </li>
+    <li><a href="#os-symphony">OS-Symphony</a>
+      <ol>
+        <li><a href="#整体框架-1">整体框架</a></li>
+        <li><a href="#reflection-memory-agent">Reflection-Memory Agent</a></li>
+        <li><a href="#工具-agent">工具 Agent</a></li>
+        <li><a href="#实验-1">实验</a></li>
       </ol>
     </li>
   </ol>
@@ -420,7 +434,7 @@
 
 
                     <time class="article-time--reading">
-                        阅读时长: 6 分钟
+                        阅读时长: 8 分钟
                     </time>
                 
             </div>
@@ -463,6 +477,14 @@
         <li><a href="#结构化-prompt">结构化 Prompt</a></li>
         <li><a href="#fictionalhot">FictionalHot</a></li>
         <li><a href="#实验">实验</a></li>
+      </ol>
+    </li>
+    <li><a href="#os-symphony">OS-Symphony</a>
+      <ol>
+        <li><a href="#整体框架-1">整体框架</a></li>
+        <li><a href="#reflection-memory-agent">Reflection-Memory Agent</a></li>
+        <li><a href="#工具-agent">工具 Agent</a></li>
+        <li><a href="#实验-1">实验</a></li>
       </ol>
     </li>
   </ol>
@@ -680,6 +702,155 @@ $$
 <li>3B 的直接推理也是 0.001, ReSeek 是 0.059.</li>
 </ul>
 <p>这说明 FictionalHot 确实削弱了参数记忆优势, 更考验检索和过程推理.</p>
+<h2 id="os-symphony">OS-Symphony
+</h2><p>论文 <a class="link cite-OS-Symphony">[<span class="material-index"></span>]
+    <span class="material-name">Unknown-material</span> 
+</a> (ACL 2026, Zichen Ding) 讨论的是 CUA 框架, 针对的是 GUI agent 在执行未见长程任务时的鲁棒性问题. 它把当前 GUI agent 容易失败的地方拆成几个可协作模块: 一个负责决策的 Orchestrator, 一个负责运行时审计和长期记忆的 Reflection-Memory Agent (RMA), 以及 Searcher / Grounder / Coder 等工具 agent.</p>
+<h3 id="整体框架-1">整体框架
+</h3><p>OS-Symphony 的核心是 Orchestrator. 它在每一步输出 thought 和 action:</p>
+$$
+t_i,a_i=F_O(I,R_i,o_i,T,H_{\mathrm{short}})
+$$<p>其中 $I$ 是用户指令, $R_i$ 是 RMA feedback, $o_i$ 是当前截图, $T$ 是 Searcher 返回的教程, $H_{\mathrm{short}}$ 是最近 $K$ 步的滑动窗口:</p>
+$$
+H_{\mathrm{short}}=\{(o_j,t_j,a_j)\}_{j=i-K+1}^{i-1}
+$$<p>也就是说 Orchestrator 只看最近几步和 RMA 提炼后的关键信息. 完整历史的压缩和纠错责任交给 RMA.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">OS-Symphony</span></p>
+<p><strong class="algo-input">输入 &gt; </strong>
+任务指令 $I$, GUI 环境 $\mathcal{E}$, Orchestrator $F_O$, RMA $F_R$, 步骤总结器 $F_S$, 工具集合 $\mathcal{T}$.</p>
+<p><strong class="algo-output">输出 &gt; </strong>
+任务执行结果和轨迹 $\tau$.</p>
+<ol>
+<li>初始化环境, 得到初始截图 $o_1$.</li>
+<li>初始化短期历史 $H_{\mathrm{short}}$ 和长期里程碑记忆 $H_{\mathrm{long}}$.</li>
+<li>对第 $i$ 步, Orchestrator 根据当前上下文生成:
+
+$$
+   t_i,a_i=F_O(I,R_i,o_i,T,H_{\mathrm{short}})
+   $$</li>
+<li>如果 $a_i$ 是普通 GUI action, 调用 Grounder 定位并用 PyAutoGUI 执行.</li>
+<li>如果 $a_i=\mathrm{call\_search\_agent}(q)$, 在隔离浏览器环境中搜索并返回教程 $T$.</li>
+<li>如果 $a_i=\mathrm{call\_code\_agent}(g)$, 调用 Coder 通过命令行或脚本完成子任务, 再由 GUI 状态验证.</li>
+<li>执行动作后得到新截图 $o_{i+1}$.</li>
+<li>用步骤总结器比较动作前后截图:
+
+$$
+   S_i,s_i=F_S(O_{i-1},o_{i-1},o_i,\tilde{o}_{i-1})
+   $$
+其中 $S_i$ 是单步摘要, $s_i$ 表示这一步是否执行成功.</li>
+<li>RMA 基于长期记忆生成反思、里程碑标记和可复用知识:
+
+$$
+   R_i,m_i,k_i=F_R(O_{i-1},o_i,H_{\mathrm{long}})
+   $$</li>
+<li>如果 $m_i=\mathrm{true}$, 把当前摘要和截图写入 $H_{\mathrm{long}}$.</li>
+<li>如果 RMA 判断任务 Completed / Infeasible, 则结束; 否则继续下一步.</li>
+</ol>
+</div>
+<p><img alt="OS-Symphony" class="gallery-image" data-flex-basis="499px" data-flex-grow="208" height="1085" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/agent-tool-use/OS-Symphony.png" srcset="/p/paper-reading/agent-tool-use/OS-Symphony_hu_dd172efc8dda8337.png 800w, /p/paper-reading/agent-tool-use/OS-Symphony_hu_1278216f44cf1711.png 1600w, /p/paper-reading/agent-tool-use/OS-Symphony.png 2257w" width="2257"></p>
+<h3 id="reflection-memory-agent">Reflection-Memory Agent
+</h3><p>RMA 是这篇文章最关键的模块. 它的目标是选择性保留里程碑截图, 并把历史轨迹压缩成可审计的摘要.</p>
+<p>每一步执行后, 系统先做步骤级别的总结.</p>
+$$
+S_i,s_i=F_S(\mathcal{O}_{i-1},o_{i-1},o_i,\tilde{o}_{i-1})
+$$<p>$\mathcal{O}_{i-1}$ 是上一轮 Orchestrator 的输出, $o_{i-1}$ 和 $o_i$ 分别是动作前和动作后的截图, $\tilde{o}_{i-1}$ 是一个动作区域的 zoom-in crop. $S_i$ 是步骤总结, $s_i$ 是一个布尔值, 表示这一步是否执行成功.</p>
+<p>长期记忆写成:</p>
+$$
+H_{\mathrm{long}}=\{(S_j,o_j,m_j)\}_{j=1}^{i-1}
+$$<p>其中 $S_j$ 是单步摘要, $o_j$ 是保留下来的截图, $m_j$ 是里程碑标记. RMA 在每一步输出:</p>
+$$
+R_i,m_i,k_i=F_R(O_{i-1},o_i,H_{\mathrm{long}})
+$$<p>其中 $R_i$ 是给 Orchestrator 的反馈, $m_i$ 决定是否作为里程碑保存, $k_i$ 是从页面里抽取的潜在知识 (去向不明).</p>
+<p>RMA 的协议把状态分成四类:</p>
+<ul>
+<li>On-track: 当前轨迹正常, 继续执行.</li>
+<li>Completed: 任务已经完成.</li>
+<li>Infeasible: 任务不可完成.</li>
+<li>Off-track: 轨迹偏离, 需要纠正.</li>
+</ul>
+<p>Off-track 又分成四种错误:</p>
+<ul>
+<li>GUI Error: 底层 GUI 操作没有达到预期.</li>
+<li>Lack of Tutorial: agent 缺少流程知识.</li>
+<li>Code Error: Coder 执行结果和 GUI 状态不一致.</li>
+<li>Other Error: 目标漂移、幻觉、事实错误等其他问题.</li>
+</ul>
+<p>为了检测循环, 论文还写了一个 rule-based 信号. 如果最近 $N$ 步和更早的一段轨迹在截图和动作上都高度相似, 就触发循环检测, 给 RMA 一个比较强的 Lack of Tutorial 信号.</p>
+<p><img alt="RMA" class="gallery-image" data-flex-basis="673px" data-flex-grow="280" height="447" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://paper-assets.alphaxiv.org/figures/2601.07779v1/img-2.jpeg" srcset="/img-2_4999387710056812568_hu_b3775e09f499e51b.jpg 800w, https://paper-assets.alphaxiv.org/figures/2601.07779v1/img-2.jpeg 1254w" width="1254"></p>
+<h3 id="工具-agent">工具 Agent
+</h3><p>OS-Symphony 的工具 agent 包括 Searcher、Grounder 和 Coder.</p>
+<ul>
+<li>
+<p>Searcher 是论文特别强调的部分. 传统 RAG 往往只抓网页文本, 但 GUI 教程里很多信息藏在截图、按钮布局和菜单层级里. 因此论文的方法是 Orchestrator 在发现缺少流程知识时, 生成一个 &ldquo;How to&rdquo; 查询, 然后 Searcher 在一个隔离的浏览器 sandbox 里像人一样浏览网页.</p>
+<p>Searcher 的动作包含点击、输入、滚动、完成和失败, 会访问多个页面交叉确认信息. 如果没有找到高相关内容, 返回 fail; 只有在确定教程和当前问题高度相关时, 才返回结构化的逐步教程 $T$.</p>
+</li>
+<li>
+<p>Grounder 分两类, 其一是 GUI grounding 模型直接根据元素描述输出坐标. 其二是对 Word、PowerPoint 这类文本密集场景, 先 OCR 得到 <code>{text,id,bbox}</code> 表, 再让 VLM 选 ID, 最后查坐标.</p>
+</li>
+<li>
+<p>Coder 则负责适合用代码完成的子任务, 例如文件编辑、配置修改、批处理. Orchestrator 把一个自包含子任务交给 Coder, Coder 执行后返回简短摘要, 再由 Orchestrator 通过 GUI 状态验证. 如果 Coder 失败, 再退回 GUI 操作. (这种混动是否是一种 trick?)</p>
+</li>
+</ul>
+<h3 id="实验-1">实验
+</h3><p>OSWorld 和 WindowsAgentArena 上达到 SOTA. 这里强调一下消融实验:</p>
+<div class="table-wrapper"><table>
+	<thead>
+			<tr>
+					<th style="text-align: left">Setting</th>
+					<th style="text-align: right">Daily</th>
+					<th style="text-align: right">Workflow</th>
+					<th style="text-align: right">Avg.</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: left">w/o Search, Refl.</td>
+					<td style="text-align: right">49.60</td>
+					<td style="text-align: right">37.33</td>
+					<td style="text-align: right">51.90</td>
+			</tr>
+			<tr>
+					<td style="text-align: left">w/o Search</td>
+					<td style="text-align: right">50.65</td>
+					<td style="text-align: right">48.06</td>
+					<td style="text-align: right">53.78</td>
+			</tr>
+			<tr>
+					<td style="text-align: left">+ Unimodal Search</td>
+					<td style="text-align: right">56.10</td>
+					<td style="text-align: right">39.30</td>
+					<td style="text-align: right">54.81</td>
+			</tr>
+			<tr>
+					<td style="text-align: left">+ Multimodal Search</td>
+					<td style="text-align: right">61.86</td>
+					<td style="text-align: right">47.37</td>
+					<td style="text-align: right">58.05</td>
+			</tr>
+			<tr>
+					<td style="text-align: left">w/o Reflection</td>
+					<td style="text-align: right">60.20</td>
+					<td style="text-align: right">39.23</td>
+					<td style="text-align: right">54.38</td>
+			</tr>
+			<tr>
+					<td style="text-align: left">+ Reflection w/ STM</td>
+					<td style="text-align: right">56.10</td>
+					<td style="text-align: right">39.49</td>
+					<td style="text-align: right">54.01</td>
+			</tr>
+			<tr>
+					<td style="text-align: left">+ Reflection w/ LTM</td>
+					<td style="text-align: right">61.86</td>
+					<td style="text-align: right">47.37</td>
+					<td style="text-align: right">58.05</td>
+			</tr>
+	</tbody>
+</table></div>
+<ul>
+<li>Multimodal Search 比纯文本搜索更适合 GUI 任务, 尤其在 Daily domain 里收益明显. 这类任务经常需要软件使用教程或外部知识, 单纯 parse 网页文本容易丢掉按钮位置和菜单层级.</li>
+<li>反思模块不是“有就好”. Reflection w/ STM 只看短期历史, 效果甚至比 w/o Reflection 更差. 这说明 naive reflection 会带来额外上下文和错误反馈, 反而干扰决策. 真正有效的是带 milestone long-term memory 的 RMA.</li>
+</ul>
 
 
     
@@ -771,7 +942,7 @@ $$
             
                 
 <article class="">
-    <a href="/p/paper-reading/gui-agentic-rl/">
+    <a href="/p/paper-reading/gui-agents/">
         
 
         <div class="article-details">

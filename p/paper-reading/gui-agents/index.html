@@ -5,7 +5,7 @@
 <title>论文阅读 - GUI 智能体</title>
 
 
-<link rel="canonical" href="https://LeoDreamer2004.github.io/p/paper-reading/gui-agentic-rl/">
+<link rel="canonical" href="https://LeoDreamer2004.github.io/p/paper-reading/gui-agents/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
@@ -14,7 +14,7 @@
 
 <link rel="stylesheet" href="/scss/style.min.5a86d64e15effc523f9d9507b42393380abbdf8ec4e177fb1d78269a9d2bfc73.css"><meta property='og:title' content="论文阅读 - GUI 智能体">
 <meta property='og:description' content="Am I OpenClaw?">
-<meta property='og:url' content='https://LeoDreamer2004.github.io/p/paper-reading/gui-agentic-rl/'>
+<meta property='og:url' content='https://LeoDreamer2004.github.io/p/paper-reading/gui-agents/'>
 <meta property='og:site_name' content='LeoDreamer'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='RL' /><meta property='article:tag' content='MLLM' /><meta property='article:published_time' content='2026-05-13T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-05-13T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="论文阅读 - GUI 智能体">
@@ -228,7 +228,7 @@
                                         
                                     
                                 
-                                <option value="/p/paper-reading/gui-agentic-rl/" selected>简体中文</option>
+                                <option value="/p/paper-reading/gui-agents/" selected>简体中文</option>
                             
                         </select>
                     </li>
@@ -277,7 +277,7 @@
 
 
         </div>
-        <h2 class="widget-title section-title"></h2>
+        <h2 class="widget-title section-title">相关资料</h2>
 
         <div class="widget--related-materials">
              <ol>
@@ -309,6 +309,24 @@
     <li>
         <a href="https://arxiv.org/abs/2507.05791" id="related-material-5" name="GTA1" target="_blank" rel="noopener noreferrer">
             GTA1: GUI Test-time Scaling Agent
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://arxiv.org/abs/2602.14296" id="related-material-6" name="AutoWebWorld" target="_blank" rel="noopener noreferrer">
+            AutoWebWorld: Synthesizing Infinite Verifiable Web Environments via Finite State Machines
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://arxiv.org/abs/2602.06351" id="related-material-7" name="Trifuse" target="_blank" rel="noopener noreferrer">
+            Trifuse: Enhancing Attention-Based GUI Grounding via Multimodal Fusion
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://arxiv.org/abs/2603.10291" id="related-material-8" name="HyMEM" target="_blank" rel="noopener noreferrer">
+            Hybrid Self-evolving Structured Memory for GUI Agents
         </a>
     </li>
     
@@ -355,6 +373,27 @@
         <li><a href="#定位模型">定位模型</a></li>
       </ol>
     </li>
+    <li><a href="#autowebworld">AutoWebWorld</a>
+      <ol>
+        <li><a href="#状态建模">状态建模</a></li>
+        <li><a href="#生成流程">生成流程</a></li>
+        <li><a href="#训练">训练</a></li>
+      </ol>
+    </li>
+    <li><a href="#trifuse">Trifuse</a>
+      <ol>
+        <li><a href="#attention-提取">Attention 提取</a></li>
+        <li><a href="#ocr-和-caption-热力图">OCR 和 Caption 热力图</a></li>
+        <li><a href="#cs-融合">CS 融合</a></li>
+        <li><a href="#两阶段定位">两阶段定位</a></li>
+      </ol>
+    </li>
+    <li><a href="#hymem">HyMEM</a>
+      <ol>
+        <li><a href="#全局自演化">全局自演化</a></li>
+        <li><a href="#推理方法">推理方法</a></li>
+      </ol>
+    </li>
   </ol>
 
             </nav>
@@ -393,7 +432,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/paper-reading/gui-agentic-rl/">论文阅读 - GUI 智能体</a>
+            <a href="/p/paper-reading/gui-agents/">论文阅读 - GUI 智能体</a>
         </h2>
     
         
@@ -436,7 +475,7 @@
 
 
                     <time class="article-time--reading">
-                        阅读时长: 7 分钟
+                        阅读时长: 14 分钟
                     </time>
                 
             </div>
@@ -477,6 +516,27 @@
       <ol>
         <li><a href="#测试时-scaling">测试时 scaling</a></li>
         <li><a href="#定位模型">定位模型</a></li>
+      </ol>
+    </li>
+    <li><a href="#autowebworld">AutoWebWorld</a>
+      <ol>
+        <li><a href="#状态建模">状态建模</a></li>
+        <li><a href="#生成流程">生成流程</a></li>
+        <li><a href="#训练">训练</a></li>
+      </ol>
+    </li>
+    <li><a href="#trifuse">Trifuse</a>
+      <ol>
+        <li><a href="#attention-提取">Attention 提取</a></li>
+        <li><a href="#ocr-和-caption-热力图">OCR 和 Caption 热力图</a></li>
+        <li><a href="#cs-融合">CS 融合</a></li>
+        <li><a href="#两阶段定位">两阶段定位</a></li>
+      </ol>
+    </li>
+    <li><a href="#hymem">HyMEM</a>
+      <ol>
+        <li><a href="#全局自演化">全局自演化</a></li>
+        <li><a href="#推理方法">推理方法</a></li>
       </ol>
     </li>
   </ol>
@@ -900,11 +960,274 @@ $$
 <li>返回训练后的定位模型 $g_{\theta'}$.</li>
 </ol>
 </div>
-<p><img alt="GTA1" class="gallery-image" data-flex-basis="1099px" data-flex-grow="458" height="500" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/gui-agentic-rl/GTA1.png" srcset="/p/paper-reading/gui-agentic-rl/GTA1_hu_3b412cd66b302f55.png 800w, /p/paper-reading/gui-agentic-rl/GTA1_hu_1694e581ae0d6289.png 1600w, /p/paper-reading/gui-agentic-rl/GTA1.png 2290w" width="2290"></p>
+<p><img alt="GTA1" class="gallery-image" data-flex-basis="1099px" data-flex-grow="458" height="500" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/gui-agents/GTA1.png" srcset="/p/paper-reading/gui-agents/GTA1_hu_3b412cd66b302f55.png 800w, /p/paper-reading/gui-agents/GTA1_hu_1694e581ae0d6289.png 1600w, /p/paper-reading/gui-agents/GTA1.png 2290w" width="2290"></p>
 <p>实验表明 scale 的 $K$ 越大, 任务成功率越高.</p>
-<p><img alt="GTA1 scale 效果, 从左到右依次是 15, 50, 100 步任务" class="gallery-image" data-flex-basis="1071px" data-flex-grow="446" height="296" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/gui-agentic-rl/GTA1-Scaling.png" srcset="/p/paper-reading/gui-agentic-rl/GTA1-Scaling_hu_9a4ba7aff7661e0c.png 800w, /p/paper-reading/gui-agentic-rl/GTA1-Scaling.png 1322w" width="1322"></p>
+<p><img alt="GTA1 scale 效果, 从左到右依次是 15, 50, 100 步任务" class="gallery-image" data-flex-basis="1071px" data-flex-grow="446" height="296" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/gui-agents/GTA1-Scaling.png" srcset="/p/paper-reading/gui-agents/GTA1-Scaling_hu_9a4ba7aff7661e0c.png 800w, /p/paper-reading/gui-agents/GTA1-Scaling.png 1322w" width="1322"></p>
 <p>GTA1 特意提到不提示模型先生成 CoT, 而是直接输出预测坐标. reward 则检查预测坐标是否落在标注 bbox 内, 而非使用 bbox 的 IoU, 具体这里参看消融实验:</p>
-<p><img alt="GTA1 消融实验" class="gallery-image" data-flex-basis="1407px" data-flex-grow="586" height="224" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/gui-agentic-rl/GTA1-Ablation.png" srcset="/p/paper-reading/gui-agentic-rl/GTA1-Ablation_hu_bf7e53be81bebedb.png 800w, /p/paper-reading/gui-agentic-rl/GTA1-Ablation.png 1314w" width="1314"></p>
+<p><img alt="GTA1 消融实验" class="gallery-image" data-flex-basis="1407px" data-flex-grow="586" height="224" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/gui-agents/GTA1-Ablation.png" srcset="/p/paper-reading/gui-agents/GTA1-Ablation_hu_bf7e53be81bebedb.png 800w, /p/paper-reading/gui-agents/GTA1-Ablation.png 1314w" width="1314"></p>
+<h2 id="autowebworld">AutoWebWorld
+</h2><p>论文 <a class="link cite-AutoWebWorld">[<span class="material-index"></span>]
+    <span class="material-name">Unknown-material</span> 
+</a> (IMCL 2026) 讨论的是 Web GUI agent 的数据合成问题. agent 只能看到渲染后的页面截图或 DOM 片段, 看不到网站内部状态. 页面看起来可能更新了, 但是否真的达到了预期的状态, 外部观察并不总是可靠. 因此网站数据管线通常需要人工标注或 LLM judge 判断轨迹是否正确. 这就是论文说的验证瓶颈: 成本高, 判断不稳定, 而且每多生成一条轨迹都要验证成本.</p>
+<p>这篇论文反过来: 不从真实网站里猜测内部状态, 而是先显式定义网站的有限状态机 (Finite State Machine, FSM), 再让 coding agent 把 FSM 翻译成可运行的合成网站. 这样任务是否成功不再依赖外部 judge, 而是由 FSM 的状态转移和终止状态直接判定.</p>
+<p><img alt="AutoWebWorld Teaser" class="gallery-image" data-flex-basis="325px" data-flex-grow="135" height="736" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2602.14296v1/x1.png" srcset="/x1_7783371305002671093_hu_d4125bd65ac25325.png 800w, https://arxiv.org/html/2602.14296v1/x1.png 997w" width="997"></p>
+<h3 id="状态建模">状态建模
+</h3><p>论文把 Web GUI 交互建模成:</p>
+$$
+\mathcal{M}=\langle S,A,T,O\rangle
+$$<p>其中 $S$ 是环境内部语义状态, $A$ 是可执行动作空间, $T:S\times A\rightarrow S$ 是确定性状态转移, $O$ 把内部状态渲染成 agent 可见观察, 例如网页截图.</p>
+<p>关键是区分内部状态 $s_t$ 和观察 $o_t$:</p>
+$$
+o_t=O(s_t)
+$$<p>之前很多 GUI 数据只记录 $o_t$ 和动作 $a_t$, 但 AutoWebWorld 要显式维护 $s_t$. 论文定义一个状态为:</p>
+$$
+s_t=(p_t,\sigma_t)
+$$<p>$p_t$ 是当前页面 id, $\sigma_t$ 是页面签名 (page signature), 由一组结构化变量构成:</p>
+$$
+\sigma_t=\{v_1^{(p_t)},v_2^{(p_t)},\ldots,v_{K(p_t)}^{(p_t)}\}
+$$<p>这些变量只记录会影响任务成功或后续可达性的关键信息, 例如搜索词、筛选条件、排序方式、分页位置、表单输入值、购物车内容、选中的 item 等.</p>
+<p>对页内动作, 页面 id 不变, 只更新 signature; 对跨页面动作, 切换到目标页面并初始化/继承部分状态:</p>
+$$
+T(s,a)=
+\begin{cases}
+(p,\mathrm{Apply}(\sigma,\mathrm{eff}(s,a))), & \text{in-page} \\
+(p',\mathrm{Init}(p')\oplus \mathrm{Carry}(\sigma')), & \text{cross-page}
+\end{cases}
+$$<h3 id="生成流程">生成流程
+</h3><p>AutoWebWorld 的 pipeline 有四步:</p>
+<ol>
+<li>FSM 生成. 给定参考网站, 多 agent 框架生成 FSM, 包含页面集合、每页签名、动作、动作影响、终止状态.</li>
+<li>Web 环境生成. 用 coding agent 把 FSM 翻译成 Vue 前端项目, 并用参考网站作为 style anchor.</li>
+<li>轨迹搜索. 在 FSM 状态图上用 BFS 枚举到达目标状态的最短路径.</li>
+<li>轨迹过滤. 将 BFS 得到的语义动作展开为 GUI atomic operation, 用 Playwright 在生成网站中回放, 只保留能完整执行且到达目标状态的轨迹.</li>
+</ol>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">AutoWebWorld: FSM 到可验证轨迹</span></p>
+<p><strong class="algo-input">输入 &gt; </strong>
+Web 主题 $w$, 参考网站名称 $r$, FSM 生成器 $\mathcal{G}_{fsm}$, coding agent $\mathcal{G}_{code}$, 最大 BFS 深度 $L$.</p>
+<p><strong class="algo-output">输出 &gt; </strong>
+合成网站 $\mathcal{W}$, 验证轨迹集合 $\mathcal{D}$.</p>
+<ol>
+<li>根据主题生成候选 FSM:
+
+$$
+   F_0=\mathcal{G}_{fsm}(w,r)
+   $$</li>
+<li>用验证器检查 $F_i$ 的页面、动作、动作影响和终止状态.</li>
+<li>如果检查失败, improver 根据错误位置生成新 FSM:
+
+$$
+   F_{i+1}=\mathrm{Improve}(F_i,\mathrm{Issues}(F_i))
+   $$
+重复直到得到有效 FSM $F^\star$.</li>
+<li>coding agent 根据 $F^\star$ 生成可运行前端:
+
+$$
+   \mathcal{W}=\mathcal{G}_{code}(F^\star,r)
+   $$
+如果 build 或运行失败, 将错误日志返回 coding agent 自修, 直到网站可执行.</li>
+<li>从初始状态 $s_0$ 开始, 在 FSM 图上 BFS. 对每个状态 $s=(p,\sigma)$, 只扩展满足 $pre(s,a)=1$ 的动作:
+
+$$
+   s'=T(s,a)
+   $$</li>
+<li>当目标谓词 $G(s)$ 成立时, 保存语义轨迹:
+
+$$
+   (s_0,a_1,s_1,\ldots,a_T,s_T)
+   $$</li>
+<li>将每个语义动作 $a_t$ 展开成预定义 GUI procedure, 例如 click / type / hover / scroll.</li>
+<li>用 Playwright 在 $\mathcal{W}$ 中回放 GUI procedure, 通过 selector 获取元素 bbox 并执行原子操作.</li>
+<li>如果任一步无法定位元素、无法执行或最终没有到达目标状态, 丢弃该轨迹.</li>
+<li>返回所有通过执行过滤的轨迹 $\mathcal{D}$.</li>
+</ol>
+</div>
+<p>这里最关键的设计是两层轨迹:</p>
+<p>正确性的来源是 FSM, GUI procedure 只是实现方式. 这点和真实网站采样不同.</p>
+<p><img alt="AutoWebWorld" class="gallery-image" data-flex-basis="510px" data-flex-grow="212" height="469" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2602.14296v1/x2.png" srcset="/x2_18340799478048455840_hu_77b9eeb5db3f40a.png 800w, https://arxiv.org/html/2602.14296v1/x2.png 997w" width="997"></p>
+<h3 id="训练">训练
+</h3><p>论文用 AutoWebWorld 轨迹训练 Qwen2.5-VL-3B 和 Qwen2.5-VL-7B. 为了避免同一任务下大量相似轨迹造成过拟合, 作者对同一任务的平行轨迹只采样一条.</p>
+<p>GRPO reward 包含三部分:</p>
+$$
+R(y,y^\star)=R_{\mathrm{act}}(y,y^\star)+R_{\mathrm{coord}}(y,y^\star)+R_{\mathrm{fmt}}(y)
+$$<p>第一项是动作类型是否匹配. 第二项是坐标定位 reward. 对 click / hover 这类动作, 需要预测点落在目标 bbox 内. 第三项是格式 reward.</p>
+<p>和 UI-R1、GTA1 的定位奖励接近, 只是 AutoWebWorld 的 bbox 来自可执行前端中的元素 selector 和 Playwright 回放, 不需要人工标注.</p>
+<h2 id="trifuse">Trifuse
+</h2><p>论文 <a class="link cite-Trifuse">[<span class="material-index"></span>]
+    <span class="material-name">Unknown-material</span> 
+</a> 讨论的是 GUI 定位. 主流 GUI 定位方法通常是训练式的: 用大量 GUI 标注数据微调 MLLM, 让模型直接预测目标元素坐标. 这类方法效果强, 但需要昂贵标注, 对新应用、新布局、新系统也未必泛化. 另一条路线是 attention-based 定位: 不训练, 直接利用 MLLM 内部 attention map 作为定位信号. TAG 就是这类代表, 但单看注意力往往噪声大, 精度不够.</p>
+<p><img alt="两种定位路线" class="gallery-image" data-flex-basis="261px" data-flex-grow="109" height="3400" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2602.06351v1/1intro.png" srcset="/1intro_12607813831555132860_hu_afe8d8bcbe8cb52c.png 800w, /1intro_12607813831555132860_hu_87b4b2512979ac71.png 1600w, /1intro_12607813831555132860_hu_bcfb779ac052f917.png 2400w, https://arxiv.org/html/2602.06351v1/1intro.png 3710w" width="3710"></p>
+<p>Trifuse 的观点是: 注意力本身是有语义理解的, 问题在于 GUI 里缺少明确的空间锚点. 所以它把三种互补信号 attention, OCR, caption 融合起来.</p>
+<h3 id="attention-提取">Attention 提取
+</h3><p>论文 MLLM 选取 Qwen2.5-VL, 设 GUI 截图经过视觉编码器后得到 patch token:</p>
+$$
+V=[v_1,\ldots,v_{|V|}]
+$$<p>用户指令 token 为:</p>
+$$
+Q=[q_1,\ldots,q_{|Q|}]
+$$<p>在第 $l$ 层第 $h$ 个注意力头中, token $q_i$ 对视觉 patch 的注意力向量记为:</p>
+$$
+a^{l,h}_{q_i}\in\mathbb{R}^{|V|}
+$$<p>直接聚合所有 token 和所有 head 不好, 因为指令里有很多无关词, MLLM 里也有很多 head 并不负责空间定位. Trifuse 因此做两级过滤.</p>
+<p>第一步是 token filtering. 对每个文本 token $q_i$, 计算它和视觉 patch 的相关性:</p>
+$$
+S(q_i)=\sum_{v_j\in V}\mathbf{1}[\cos(q_i,v_j)>\tau_v]\cdot \cos(q_i,v_j)
+$$<p>然后保留得分最高的 top-k token. 论文实验中取 k=1.</p>
+<p>第二步是 head filtering. 对每个 head 的 attention map, 先用连通组分分析得到若干空间连通区域 $R=\{r_1,\ldots,r_{|R|}\}$, 再计算空间熵:</p>
+$$
+H(a^{l,h}_{q_i})=-\sum_{r_j\in R} R_j\log R_j
+$$<p>其中 $R_j$ 是落在第 $j$ 个连通区域上的归一化注意力质量. 熵越低, 说明这个 head 的注意力越集中, 越可能适合 grounding. Trifuse 保留空间熵最低的 top-k head, 实验中取 k=6.</p>
+<p>最后对过滤后的 token 和 head 加权聚合:</p>
+$$
+a_{\mathrm{attn}}=
+\sum_{q_i\in Q_{\mathrm{filter}}}
+\mathrm{softmax}(S(q_i))
+\sum_{(l,h)\in H_{\mathrm{filter}}(q_i)}
+\mathrm{softmax}(-H(a^{l,h}_{q_i}))a^{l,h}_{q_i}
+$$<p>得到 attention heatmap.</p>
+<h3 id="ocr-和-caption-热力图">OCR 和 Caption 热力图
+</h3><p>OCR 模态 (论文中用 PaddleOCR v4) 先用现成 OCR 引擎抽取文本实例:</p>
+$$
+T=\{t_1,\ldots,t_{|T|}\}
+$$<p>每个文本实例 $t_k=\{b_k,s_k,c_k\}$, 其中 $b_k$ 是 bbox, $s_k$ 是识别出的文本, $c_k$ 是检测置信度. 它和指令 token 的相关性定义为:</p>
+$$
+r_k^{ocr}=\cos(e(s_k),Q_{\mathrm{filter}})\cdot c_k
+$$<p>再把这个分数投影到视觉 patch 网格上:</p>
+$$
+a_j^{ocr}=\sum_{k:v_j\cap b_k\ne\emptyset} r_k^{ocr}
+$$<p>Caption 模态 (论文中用 OmniParser) 类似, 只是对象从 OCR 文本变成图标检测和图标 caption. 每个 icon 实例 $g_k=\{b_k,d_k,c_k\}$, 其中 $d_k$ 是图标语义描述:</p>
+$$
+r_k^{cap}=\cos(e(d_k),Q_{\mathrm{filter}})\cdot c_k
+$$<p>然后同样投影为 patch-level caption 热图:</p>
+$$
+a_j^{cap}=\sum_{k:v_j\cap b_k\ne\emptyset} r_k^{cap}
+$$<h3 id="cs-融合">CS 融合
+</h3><p>有了三张热力图之后, 简单平均并不好. OCR 对文本强但对图标弱; caption 对图标有帮助但质量不稳定; attention 覆盖广但定位粗. 固定权重也很难适配不同任务.</p>
+<p>Trifuse 提出 Consensus-SinglePeak (CS) fusion, 进行元素平均融合:</p>
+$$
+M_{\mathrm{final}}=M_{\mathrm{cons}}\oplus M_{\mathrm{single}}
+$$<p>其中 consensus 项强调三种模态共同支持的区域:</p>
+$$
+M_j^{cons}=a_j^{attn}\odot a_j^{ocr}\odot a_j^{cap}
+$$<p>这里 $\odot$ 指逐元素相乘. single-peak 项则保留某个模态特别强、但其他模态不一定同时强的峰值. 对每个模态 $s\in\{attn,ocr,cap\}$, 先选出超过阈值的峰:</p>
+$$
+P_s=\{j\mid a_j^s>\tau_s\}
+$$<p>再用其他模态对这个峰的支持估计置信度:</p>
+$$
+conf_{s,j}=\sigma\left(\alpha\cdot
+\frac{\sum_{s'\ne s}a_j^{s'}}{a_j^s+\epsilon}
+-\beta\right)
+$$<p>也就是说希望其他模态也有支持, 如果没有那就很有可能是噪声.</p>
+$$
+W_{s,j}=1+\lambda(2conf_{s,j}-1)
+$$<p>最后:</p>
+$$
+M_j^{single}=\sum_s \mathbf{1}(j\in P_s)W_{s,j}a_j^s
+$$<p>我的理解是, consensus 负责稳健性, single-peak 负责不要错过某个模态独有的强证据. 比如目标是文字按钮时, OCR 可能最可靠; 目标是无文字图标时, caption 或 attention 可能更可靠.</p>
+<h3 id="两阶段定位">两阶段定位
+</h3><p>由于 MLLM 输入通常会把高分辨率截图下采样, patch 粒度较粗, 直接从 fused heatmap 取最大点会损失小元素定位精度. Trifuse 因此使用两阶段 zoom-in, 细节略去.</p>
+<p>这个技巧和 GUI agent 里常见的 crop-then-ground 思路一致, 不需要额外训练.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">Trifuse</span></p>
+<p><strong class="algo-input">输入 &gt; </strong>
+GUI 截图 $V$, 用户指令 $Q$, MLLM $\mathcal{M}$, OCR 引擎 $\mathcal{O}$, 图标解析器 $\mathcal{C}$.</p>
+<p><strong class="algo-output">输出 &gt; </strong>
+目标元素坐标 $\hat{p}$.</p>
+<ol>
+<li>用 $\mathcal{M}$ 提取文本 token 到视觉 patch 的 attention.</li>
+<li>根据 token-image relevance 选择 $Q_{\mathrm{filter}}$.</li>
+<li>对每个候选 head 计算空间熵, 保留 $H_{\mathrm{filter}}$.</li>
+<li>聚合得到 attention heatmap $a_{\mathrm{attn}}$.</li>
+<li>用 $\mathcal{O}$ 检测文本 bbox 和文本内容, 计算 OCR relevance 并投影成 $a_{\mathrm{ocr}}$.</li>
+<li>用 $\mathcal{C}$ 检测图标 bbox 和 caption, 计算 caption relevance 并投影成 $a_{\mathrm{cap}}$.</li>
+<li>计算 consensus heatmap:
+
+$$
+   M_{\mathrm{cons}}=a_{\mathrm{attn}}\odot a_{\mathrm{ocr}}\odot a_{\mathrm{cap}}
+   $$</li>
+<li>对每个模态选择高响应峰值, 用其他模态支持度动态放大或削弱, 得到 $M_{\mathrm{single}}$.</li>
+<li>融合:
+
+$$
+   M_{\mathrm{final}}=M_{\mathrm{cons}}\oplus M_{\mathrm{single}}
+   $$</li>
+<li>从 $M_{\mathrm{final}}$ 中找到粗定位区域, 裁剪原图并放大.</li>
+<li>在裁剪图上重复 1-9, 输出最终坐标 $\hat{p}$.</li>
+</ol>
+</div>
+<p><img alt="Trifuse" class="gallery-image" data-flex-basis="408px" data-flex-grow="170" height="3077" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2602.06351v1/2framework.png" srcset="/2framework_9410561658312989770_hu_3d51dfb4c0fe95f4.png 800w, /2framework_9410561658312989770_hu_7e076673b23ec405.png 1600w, /2framework_9410561658312989770_hu_47467b27adfc25f.png 2400w, https://arxiv.org/html/2602.06351v1/2framework.png 5231w" width="5231"></p>
+<h2 id="hymem">HyMEM
+</h2><p>与前面主要讨论的定位方法不同, 论文 <a class="link cite-HyMEM">[<span class="material-index"></span>]
+    <span class="material-name">Unknown-material</span> 
+</a> 讨论的是 GUI agent 的外部记忆.</p>
+<p>已有 memory 方法通常比较扁平. HyMEM 的思路是把文本经验和 embeddings 合起来: 离散记忆负责高层策略, 连续记忆负责保留多模态轨迹细节, 再用图结构把相关经验连接起来:</p>
+$$
+G=(V,E)
+$$<p>每个节点 $v_i\in V$ 表示一条成功 GUI 交互轨迹, 节点内部是一个混合表示:</p>
+$$
+v_i=(c_i,A_i,m_i)
+$$<ul>
+<li>$c_i$: 高层策略摘要, 例如“先按价格从低到高筛选”.</li>
+<li>$A_i$: 中层语义标签, 例如 <code>#search</code>, <code>#filter</code>, <code>$price</code>.</li>
+<li>$m_i$: 底层连续轨迹 embedding, 用来保留截图、动作、UI 细节.</li>
+</ul>
+<p>节点编码时, 论文用 Qwen2.5-VL-7B 生成 strategy 和 attribute. 连续轨迹 embedding 则沿用 CoMEM, 把整条轨迹压成 8 个 embedding, 推理时可以拼到 GUI agent 的 embedding layer 里.</p>
+<p>图的边主要根据中层属性建立. 如果两个轨迹节点共享相同或相近的 attribute, 就建立连接.</p>
+<h3 id="全局自演化">全局自演化
+</h3><p>新成功轨迹到来时, HyMEM 先检索相似节点, 再用 VLM 判断信息增益.</p>
+<p>对新轨迹:</p>
+$$
+\tau=[q,o_1,a_1,\ldots]
+$$<p>先用 CLIP 文本编码任务 $q$, 用 CLIP 图像编码初始观察 $o_1$, 拼成检索向量:</p>
+$$
+v=[\mathrm{CLIP}_{txt}(q);\mathrm{CLIP}_{img}(o_1)]
+$$<p>然后用 FAISS 找 top-K 相似轨迹节点及其相连 strategy / attribute 节点. 接着 VLM judge 根据新轨迹和邻居节点判断三种更新操作:</p>
+<ul>
+<li>ADD: 新轨迹包含已有图里没有的策略或属性, 新建节点.</li>
+<li>MERGE: 新轨迹和已有策略相同, 但提供了补充证据, 合并进已有节点并更新属性.</li>
+<li>REPLACE: 新轨迹是同一策略下更好的执行版本, 例如步数更少、风险更低, 替换旧证据.</li>
+</ul>
+<p>这个机制解决的是 memory bank 规模失控问题.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">HyMEM</span></p>
+<p><strong class="algo-input">输入 &gt; </strong>
+当前记忆图 $G=(V,E)$, 新成功轨迹 $\tau=(q,o_1,a_1,\ldots)$, 检索器 $\mathrm{Retrieve}$, VLM judge $J$.</p>
+<p><strong class="algo-output">输出 &gt; </strong>
+更新后的记忆图 $G'$.</p>
+<ol>
+<li>构造新轨迹检索向量:
+
+$$
+   v=[\mathrm{CLIP}_{txt}(q);\mathrm{CLIP}_{img}(o_1)]
+   $$</li>
+<li>在已有轨迹节点中检索相似邻居:
+
+$$
+   \mathcal{N}=\mathrm{Retrieve}(v,G)
+   $$</li>
+<li>将新轨迹、相似轨迹、对应截图和已有 strategy / attribute 输入 VLM judge.</li>
+<li>judge 输出结构化决策:
+
+$$
+   d=J(\tau,\mathcal{N})\in\{\mathrm{ADD},\mathrm{MERGE},\mathrm{REPLACE}\}
+   $$</li>
+<li>如果 $d=\mathrm{ADD}$, 则新建 strategy / attribute / trajectory 节点并连边.</li>
+<li>如果 $d=\mathrm{MERGE}$, 则把新轨迹作为补充证据接入已有节点, 并合并新属性.</li>
+<li>如果 $d=\mathrm{REPLACE}$, 则用新轨迹替换旧轨迹证据, 更新 attribute 连接.</li>
+<li>根据新共现关系增强 strategy 和 attribute 之间的边.</li>
+<li>返回更新后的图 $G'$.</li>
+</ol>
+</div>
+<h3 id="推理方法">推理方法
+</h3><p>推理时 HyMEM 不是只在任务开始检索一次, 而是维护动态工作记忆.</p>
+<p>首先根据当前任务和初始截图构造多模态查询 embedding, 找到若干种子 nodes. 然后对每个种子 node, 收集 1-hop 邻居, 重新按相似度排序, 加入 top-k 邻居. 多轮扩展并排序后得到更丰富的节点集合.</p>
+<p>之后 HyMEM 把这些节点转成两种上下文:</p>
+<ol>
+<li>离散 Guidance Instructions: 用 VLM 把相关 strategy / attribute 消化成简短可执行建议, 注入 system prompt.</li>
+<li>连续 trajectory embeddings: 把相关轨迹 embedding 拼入 VLM 输入, 提供难以文本化的视觉和动作细节.</li>
+</ol>
+<p>此外, GUI 长程任务会发生阶段切换. 比如一开始在搜索页面, 后来进入筛选页面, 再进入 checkout 页面. 如果一直使用初始检索的记忆, 很快会过期. 因此 HyMEM 在每一步后比较 $o_t\rightarrow o_{t+1}$, 判断是否发生阶段切换. 如果发生, 就保留长期目标和仍然相关的指令, 丢弃过期部分, 再基于新状态重新检索并刷新 working memory.</p>
+<p><img alt="HyMEM" class="gallery-image" data-flex-basis="442px" data-flex-grow="184" height="1072" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2603.10291v1/figures/main_figure.png" srcset="/main_figure_14014782769492324363_hu_eb756b3ded90f0db.png 800w, /main_figure_14014782769492324363_hu_3f74fec9220064b2.png 1600w, https://arxiv.org/html/2603.10291v1/figures/main_figure.png 1976w" width="1976"></p>
 
 
     
