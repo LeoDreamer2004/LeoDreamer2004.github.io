@@ -72,7 +72,7 @@
         
         <div class="site-meta">
             <h1 class="site-name"><a href="/">LeoDreamer</a></h1>
-            <h2 class="site-description">PKU 本科在读 / 新手&#43;&#43;</h2>
+            <h2 class="site-description">PKU 不优秀本科毕业生</h2>
         </div>
     </header><ol class="menu-social">
             
@@ -202,37 +202,6 @@
         
         <li class="menu-bottom-section">
             <ol class="menu">
-                    <li id="i18n-switch">  
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M4 5h7" />
-  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
-  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
-  <path d="M12 20l4 -9l4 9" />
-  <path d="M19.1 18h-6.2" />
-</svg>
-
-
-
-                        <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
-                            
-                                
-                                
-                                    
-                                
-                                <option value="/en/" >English</option>
-                            
-                                
-                                
-                                    
-                                        
-                                    
-                                
-                                <option value="/p/paper-reading/gui-agents/" selected>简体中文</option>
-                            
-                        </select>
-                    </li>
-                
 
                 
                     <li id="dark-mode-toggle">
@@ -330,6 +299,18 @@
         </a>
     </li>
     
+    <li>
+        <a href="https://arxiv.org/abs/2512.16295" id="related-material-9" name="OS-Oracle" target="_blank" rel="noopener noreferrer">
+            OS-Oracle: A Comprehensive Framework for Cross-Platform GUI Critic Models
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://arxiv.org/abs/2601.20732" id="related-material-10" name="Continual-GUI-Agents" target="_blank" rel="noopener noreferrer">
+            Continual GUI Agents
+        </a>
+    </li>
+    
 </ol>
         </div>
     </section>
@@ -392,6 +373,26 @@
       <ol>
         <li><a href="#全局自演化">全局自演化</a></li>
         <li><a href="#推理方法">推理方法</a></li>
+      </ol>
+    </li>
+    <li><a href="#os-oracle">OS-Oracle</a>
+      <ol>
+        <li><a href="#critic-定义">Critic 定义</a></li>
+        <li><a href="#数据构造-1">数据构造</a></li>
+      </ol>
+    </li>
+  </ol>
+
+  <ol>
+    <li>
+      <ol>
+        <li><a href="#cp-grpo">CP-GRPO</a></li>
+      </ol>
+    </li>
+    <li><a href="#continual-gui-agents">Continual GUI Agents</a>
+      <ol>
+        <li><a href="#问题设定">问题设定</a></li>
+        <li><a href="#gui-aif">GUI-AiF</a></li>
       </ol>
     </li>
   </ol>
@@ -475,7 +476,7 @@
 
 
                     <time class="article-time--reading">
-                        阅读时长: 14 分钟
+                        阅读时长: 17 分钟
                     </time>
                 
             </div>
@@ -537,6 +538,26 @@
       <ol>
         <li><a href="#全局自演化">全局自演化</a></li>
         <li><a href="#推理方法">推理方法</a></li>
+      </ol>
+    </li>
+    <li><a href="#os-oracle">OS-Oracle</a>
+      <ol>
+        <li><a href="#critic-定义">Critic 定义</a></li>
+        <li><a href="#数据构造-1">数据构造</a></li>
+      </ol>
+    </li>
+  </ol>
+
+  <ol>
+    <li>
+      <ol>
+        <li><a href="#cp-grpo">CP-GRPO</a></li>
+      </ol>
+    </li>
+    <li><a href="#continual-gui-agents">Continual GUI Agents</a>
+      <ol>
+        <li><a href="#问题设定">问题设定</a></li>
+        <li><a href="#gui-aif">GUI-AiF</a></li>
       </ol>
     </li>
   </ol>
@@ -1228,6 +1249,176 @@ $$
 </ol>
 <p>此外, GUI 长程任务会发生阶段切换. 比如一开始在搜索页面, 后来进入筛选页面, 再进入 checkout 页面. 如果一直使用初始检索的记忆, 很快会过期. 因此 HyMEM 在每一步后比较 $o_t\rightarrow o_{t+1}$, 判断是否发生阶段切换. 如果发生, 就保留长期目标和仍然相关的指令, 丢弃过期部分, 再基于新状态重新检索并刷新 working memory.</p>
 <p><img alt="HyMEM" class="gallery-image" data-flex-basis="442px" data-flex-grow="184" height="1072" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2603.10291v1/figures/main_figure.png" srcset="/main_figure_14014782769492324363_hu_eb756b3ded90f0db.png 800w, /main_figure_14014782769492324363_hu_3f74fec9220064b2.png 1600w, https://arxiv.org/html/2603.10291v1/figures/main_figure.png 1976w" width="1976"></p>
+<h2 id="os-oracle">OS-Oracle
+</h2><p>论文 <a class="link cite-OS-Oracle">[<span class="material-index"></span>]
+    <span class="material-name">Unknown-material</span> 
+</a> 关注的是 GUI agent 的批评模型. 先让 agent 提出动作, 再让另一个模型判断这个动作该不该执行.</p>
+<p>论文总结了当前 CUA 常见的四类错误:</p>
+<ul>
+<li>Operation Failure (OF): 没有感知到细微状态变化, 例如输入框还没激活就开始 type, 点击后没变化却重复点, 或者已经滚到底还继续 scroll.</li>
+<li>Inefficient Error State Recovery (IESR): 进入错误 UI 状态后不会恢复, 例如应该 back 却错误操作.</li>
+<li>Mistimed Task Termination (MTT): 对完成状态判断不准, 包括过早 done 和完成后继续做多余操作.</li>
+<li>Inaccurate Element Localization (IEL): 动作类型对, 但点错元素或坐标落在可点击区域外.</li>
+</ul>
+<h3 id="critic-定义">Critic 定义
+</h3><p>OS-Oracle 采用逐点评分 (独立评估每个候选的回应), 而不是配对排序 (识别给定对候选中较好的答案). 理由是 GUI 任务里两个候选动作可能都错, 强行让模型二选一会制造错误偏好.</p>
+<p>给定任务目标 $g$, 历史记忆 $m_t$, 当前截图 $o_t$, 以及候选动作 $a_t$, 批评模型输出理由和二元判断:</p>
+$$
+r_t,j_t=M_{\mathrm{critic}}(g,m_t,o_t,a_t)
+$$<p>其中 $r_t$ 是文字理由, $j_t\in\{\mathrm{Yes},\mathrm{No}\}$ 表示这个动作是否有助于完成任务.</p>
+<p>在线使用时, OS-Oracle 可以作为 pre-critic. 基础 agent 先提出候选动作 $a_t$. 然后 OS-Oracle 判断 $a_t$ 是否正确. 如果不是就让基础 agent 重新生成动作, 最多重试 3 次. 说白了也就一个动作门控.</p>
+<h3 id="数据构造-1">数据构造
+</h3><p>训练 critic 最大的问题是负样本. 现有 GUI 轨迹数据大多正确动作多, 错误动作少. 直接从失败轨迹里找错步也很难, 因为任务失败经常是多步错误累积的结果, 很难精确归因到某一步.</p>
+<p>OS-Oracle 的做法是从已有正确轨迹中抽取正样本, 再用规则合成 hard negatives. 这些负样本对应上面的四类错误. 构造比较工程化:</p>
+<ul>
+<li>OF: 把 <code>type</code> 插到对应 <code>click</code> 之前, 重复 eligible click, 或者在滚动边界追加多余 scroll.</li>
+<li>IESR: 找相似截图的其他轨迹, 注入不属于当前状态的后续动作; 在这种错误状态下, 除 <code>back</code> 之外的动作都可视为负样本.</li>
+<li>MTT: 对成功轨迹追加多余动作, 或者截断未完成轨迹后提前终止.</li>
+<li>IEL: 用 OmniParser V2 检测可交互元素, 再采样其他 UI 元素作为错误点击目标.</li>
+</ul>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">OS-Oracle: Critic 数据与训练</span></p>
+<p><strong class="algo-input">输入 &gt; </strong>
+跨平台 GUI 轨迹数据集 $\mathcal{D}$, 错误合成规则 $\mathcal{R}$, GPT-4o 标注器, backbone VLM $\pi_\theta$.</p>
+<p><strong class="algo-output">输出 &gt; </strong>
+GUI 批评模型 $M_{\mathrm{critic}}$.</p>
+<ol>
+<li>从成功轨迹中抽取正样本:
+
+$$
+   x_t=(g,m_t,o_t,a_t),\quad j_t=\mathrm{Yes}
+   $$</li>
+<li>对正样本应用错误合成规则 $\mathcal{R}$, 构造四类负样本:
+
+$$
+   \mathrm{OF},\mathrm{IESR},\mathrm{MTT},\mathrm{IEL}
+   $$</li>
+<li>对每个负样本注入错误类型和错误原因, 交给 GPT-4o 生成 rationale $r_t$.</li>
+<li>丢弃 GPT-4o 判断和构造标签冲突的样本.</li>
+<li>
+<h1 id="mathcall_mathrmsft">用正负样本做 SFT, 同时学习 reason 和 judgment:
+$$
+\mathcal{L}_{\mathrm{SFT}}
+</h1>-\mathbb{E}<em>{(x,r,j)\sim D}
+\left[
+\log P</em>\theta(r|x)+\log P_\theta(j|x,r)
+\right]
+$$</li>
+<li>在 SFT 模型上做 CP-GRPO, 用 accuracy、format 和 consistency reward 继续优化.</li>
+<li>得到 OS-Oracle-7B.</li>
+</ol>
+</div>
+<h3 id="cp-grpo">CP-GRPO
+</h3><p>OS-Oracle 的训练分两阶段. 第一阶段是 SFT, 让 Qwen2.5-VL-7B-Instruct 学会输出 reason 和 Yes / No 判断. 第二阶段是 Consistency-Preserving GRPO (CP-GRPO).</p>
+<p>作者观察到普通 GRPO 会出现一个很危险的问题: 推理和最终判断不一致. 比如理由明明说动作正确, 最后一行却输出 No; 或者理由指出动作无效, 最后却输出 Yes. 因此 CP-GRPO 在常规准确性奖励和格式奖励之外, 加了一个一致性奖励:</p>
+$$
+R(x_i,\hat{r}_i,\hat{j}_i) =
+\alpha R_{\mathrm{acc}}
++\beta R_{\mathrm{format}}
++\gamma R_{\mathrm{consistency}}
+$$<p>论文中 $\alpha=0.9,\beta=0.05,\gamma=0.05$. 关于一致性的判断先用词典做规则分类. 正向词典包括 <code>relevant</code>, <code>valid</code>, <code>align with</code> 等, 负向词典包括 <code>incorrect</code>, <code>not aligned with</code>, <code>error</code> 等. 如果规则无法判断, 再用 Qwen3-8B 根据推理生成判断.</p>
+<h2 id="continual-gui-agents">Continual GUI Agents
+</h2><p>论文 <a class="link cite-Continual-GUI-Agents">[<span class="material-index"></span>]
+    <span class="material-name">Unknown-material</span> 
+</a> 讨论的是 GUI grounding 中的 OOD 问题.
+作者把持续 GUI grounding 分成两个场景:</p>
+<ul>
+<li>Domain-in-flux: 任务按平台顺序到来, 例如 Mobile $\rightarrow$ Desktop $\rightarrow$ Web.</li>
+<li>Resolution-in-flux: 任务按分辨率顺序到来, 例如 normal resolution $\rightarrow$ high resolution.</li>
+</ul>
+<p>这和传统 joint training 不同. 普通 GUI agent 可以把所有数据混在一起训练; Continual GUI Agent 则要求模型按顺序学习新分布, 同时尽量保留旧能力.</p>
+<h3 id="问题设定">问题设定
+</h3><p>GUI grounding 可以写成:</p>
+$$
+b^p=f_\theta(s,i)
+$$<p>其中 $s$ 是 GUI 截图, $i$ 是文本指令, $b^p=[x_1^p,y_1^p,x_2^p,y_2^p]$ 是预测 bounding box. 持续学习任务序列有两类:</p>
+$$
+T_D=\{t_1^d,t_2^d,\ldots,t_n^d\}
+$$<p>表示不同 domain 的任务序列; 以及:</p>
+$$
+T_R=\{t_1^r,t_2^r,\ldots,t_n^r\}
+$$<p>表示不同分辨率的任务序列.</p>
+<p>标准 RFT 会要求预测框和真值框匹配. 问题是这种 reward 主要优化当前任务分布, 容易让模型过拟合当前坐标和当前元素尺度.</p>
+<h3 id="gui-aif">GUI-AiF
+</h3><p>GUI-AiF 在 GRPO/RFT 的 reward 里加两个项:</p>
+<ol>
+<li>Anchoring Point Reward in Flux (APR-iF): 鼓励候选预测中心点多样化.</li>
+<li>Anchoring Region Reward in Flux (ARR-iF): 鼓励候选预测区域尺度和形状多样化.</li>
+</ol>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">GUI-AiF</span></p>
+<p><strong class="algo-input">输入 &gt; </strong>
+按顺序到来的 GUI 任务 $T=\{t_1,\ldots,t_n\}$, 策略 $\pi_\theta$, 参考策略 $\pi_{\mathrm{ref}}$, 真值 $b^{gt}$, 每条指令采样数 $N$.</p>
+<p><strong class="algo-output">输出 &gt; </strong>
+持续更新后的 GUI 定位策略 $\pi_\theta$.</p>
+<ol>
+<li>对当前任务 $t_k$ 中的每条样本 $(s,i,b^{gt})$, 从 policy 采样 $N$ 个预测框:
+
+$$
+   \{b_1^p,\ldots,b_N^p\}\sim\pi_\theta(\cdot|s,i)
+   $$</li>
+<li>根据预测框和真值框计算基础 reward, 得到 GRPO advantage $A_t$.</li>
+<li>计算每个预测框中心点:
+
+$$
+   c_i^p=
+   \left(
+   \frac{x_{1,i}^p+x_{2,i}^p}{2},
+   \frac{y_{1,i}^p+y_{2,i}^p}{2}
+   \right)
+   $$
+以及中心点均值:
+
+$$
+   \bar{c}^p=\frac{1}{N}\sum_{j=1}^N c_j^p
+   $$
+用中心点方差得到 APR-iF:
+
+$$
+   R_p=\frac{1}{N}\sum_{i=1}^{N}\|c_i^p-\bar{c}^p\|^2
+   $$</li>
+<li>
+<h1 id="d_bmathcaln_imathcaln_j">把每个预测框建模为高斯:
+$$
+   b_i^p\rightarrow \mathcal{N}_i(\mu_i,\Sigma_i)
+   $$
+其中 $\mu_i$ 是框中心, $\Sigma_i$ 与框宽高相关. 对任意两个预测区域, 计算 Bhattacharyya distance:
+$$
+D_B(\mathcal{N}_i,\mathcal{N}_j)
+</h1>\frac{1}{8}(\mu_i-\mu_j)^T\Sigma_{\mathrm{avg}}^{-1}(\mu_i-\mu_j)
++\frac{1}{2}\ln
+\frac{\det(\Sigma_{\mathrm{avg}})}
+{\sqrt{\det(\Sigma_i)\det(\Sigma_j)}}
+
+$$
+   $$
+\Sigma_{\mathrm{avg}}=\frac{\Sigma_i+\Sigma_j}{2}
+
+$$
+   对所有候选框两两取平均, 得到 ARR-iF:
+   $$
+R_r=\frac{2}{N(N-1)}
+\sum_{i=1}^{N-1}\sum_{j=i+1}^{N}
+D_B(\mathcal{N}_i,\mathcal{N}_j)
+$$</li>
+<li>合成 GUI-AiF reward:
+
+$$
+   R_{\mathrm{AiF}}=\alpha R_p+\gamma R_r
+   $$</li>
+<li>用 $A_t+R_{\mathrm{AiF}}$ 更新 policy, 同时加入 KL 约束避免遗忘:
+
+$$
+   J(\theta)=
+   \mathbb{E}_{\tau\sim\pi_\theta}
+   \left[
+   r_t(\theta)(A_t+R_{\mathrm{AiF}})
+   -\beta D_{\mathrm{KL}}(\pi_{\mathrm{ref}}(\cdot|s_t)\|\pi_\theta(\cdot|s_t))
+   \right]
+   $$</li>
+<li>训练完当前任务后, 顺序进入下一个 domain 或 resolution.</li>
+</ol>
+</div>
 
 
     
