@@ -396,12 +396,9 @@
     </li>
     <li><a href="#websynthesis">WebSynthesis</a>
       <ol>
-        <li><a href="#整体框架">整体框架</a></li>
         <li><a href="#textui-warm-up">TextUI warm-up</a></li>
         <li><a href="#webmcts">WebMCTS</a></li>
         <li><a href="#实验">实验</a></li>
-        <li><a href="#textui-warm-up-的作用">TextUI warm-up 的作用</a></li>
-        <li><a href="#局限性">局限性</a></li>
       </ol>
     </li>
   </ol>
@@ -485,7 +482,7 @@
 
 
                     <time class="article-time--reading">
-                        阅读时长: 21 分钟
+                        阅读时长: 19 分钟
                     </time>
                 
             </div>
@@ -564,12 +561,9 @@
     </li>
     <li><a href="#websynthesis">WebSynthesis</a>
       <ol>
-        <li><a href="#整体框架">整体框架</a></li>
         <li><a href="#textui-warm-up">TextUI warm-up</a></li>
         <li><a href="#webmcts">WebMCTS</a></li>
         <li><a href="#实验">实验</a></li>
-        <li><a href="#textui-warm-up-的作用">TextUI warm-up 的作用</a></li>
-        <li><a href="#局限性">局限性</a></li>
       </ol>
     </li>
   </ol>
@@ -1431,22 +1425,15 @@ $$
 <h2 id="websynthesis">WebSynthesis
 </h2><p>论文 <a class="link cite-WebSynthesis">[<span class="material-index"></span>]
     <span class="material-name">Unknown-material</span> 
-</a> 讨论 Web agent 的轨迹合成. 它和 AutoWebWorld 都在解决一个问题: 真实网页环境既贵又不稳定, 直接靠在线交互收集 trajectory 成本高, 也很难复现和调试. 区别是 AutoWebWorld 通过有限状态机合成可验证网页环境; WebSynthesis 则训练一个 world model 来模拟 WebUI 的下一步状态, 再用 Monte Carlo Tree Search (MCTS) 在这个虚拟环境里搜索轨迹.</p>
-<p>这篇文章的目标不是在线替代真实浏览器执行任务, 而是离线合成高质量训练轨迹. 这些轨迹随后用于 SFT 一个 policy agent.</p>
-<h3 id="整体框架">整体框架
-</h3><p>WebSynthesis 把 web navigation 写成 POMDP. 观察 $o_t$ 使用 accessibility tree (A11y) 表示, 动作空间包括 <code>click</code>, <code>type</code>, <code>hover</code>, <code>scroll</code>, <code>goto</code>, <code>go_back</code>, <code>stop</code>. Policy agent $\pi$ 根据用户任务 $q$ 和当前观察生成动作 $a_t$, world model $\omega$ 根据当前观察和动作预测下一步观察:</p>
+</a> 讨论 Web agent 的轨迹合成. 真实网页环境既贵又不稳定, 直接靠在线交互收集轨迹成本高, 也很难复现和调试. WebSynthesis 训练一个世界模型来模拟 WebUI 的下一步状态, 再用蒙特卡洛搜索在这个虚拟环境里搜索轨迹. 目标是离线合成高质量训练轨迹. 这些轨迹随后用于 SFT 一个策略 agent.</p>
+<p>WebSynthesis 把 web navigation 写成 POMDP. 观察 $o_t$ 使用 accessibility tree (A11y) 表示, 动作空间包括 <code>click</code>, <code>type</code>, <code>hover</code>, <code>scroll</code>, <code>goto</code>, <code>go_back</code>, <code>stop</code>. Policy agent $\pi$ 根据用户任务 $q$ 和当前观察生成动作 $a_t$, world model $\omega$ 根据当前观察和动作预测下一步观察:</p>
 $$
 o_t\sim \omega_\theta(o_t|o_{t-1},a_t)
 $$<p>过程奖励模型 $\gamma$ 根据状态、动作和用户目标评估当前部分轨迹质量. 搜索目标是找到总奖励最高的动作序列:</p>
 $$
 \arg\max_{a_0,\ldots,a_T}\sum_{t=0}^{T}\gamma_\theta(o_t,a_t)
-$$<p>训练流程分两段:</p>
-<ol>
-<li>TextUI warm-up: 先训练模型理解文本化 UI, 包括 dense captioning、element functionality、state transition prediction.</li>
-<li>UI behavior cloning: 用 WebMCTS 合成 valuable trajectories 和 rollback trajectories, 再进行 SFT.</li>
-</ol>
-<h3 id="textui-warm-up">TextUI warm-up
-</h3><p>WebSynthesis 是 headless browsing 设置, agent 主要看 A11y / DOM / HTML 这类文本化网页状态. 论文认为, 轨迹级训练之前, 模型必须先学会理解 TextUI 的结构, 否则即使给它高质量轨迹, 它也不一定知道页面状态在表达什么.</p>
+$$<h3 id="textui-warm-up">TextUI warm-up
+</h3><p>WebSynthesis agent 主要看 A11y / DOM / HTML 这类文本化网页状态. 论文认为, 轨迹级训练之前, 模型必须先学会理解 TextUI 的结构.</p>
 <p>Stage 1 构造了三类基础理解数据:</p>
 <div class="table-wrapper"><table>
 	<thead>
@@ -1484,15 +1471,14 @@ $$<p>训练流程分两段:</p>
 			</tr>
 	</tbody>
 </table></div>
-<p>我觉得这里最关键的是 state transition prediction. Web agent 真正难的不是“当前页面有什么”, 而是“我点这个之后会发生什么”. 这正好也是 world model 和后续 MCTS 能工作的前提.</p>
 <h3 id="webmcts">WebMCTS
-</h3><p>WebSynthesis 的第二阶段是 world-model-guided MCTS. 搜索树中的每个节点代表一个动作及其由 world model 预测出的下一状态, 节点保存三类信息: 预测观察 $o_{t+1}$、过程奖励 $v_C$、访问次数 $n_C$.</p>
+</h3><p>WebSynthesis 的第二阶段是 MCTS. 搜索树中的每个节点代表一个动作及其由世界模型预测出的下一状态, 节点保存三类信息: 预测观察 $o_{t+1}$、过程奖励 $v_C$、访问次数 $n_C$.</p>
 <div class="math-block math-algo">
-    <p class="math-title">算法<span class="math-subtitle">WebSynthesis: WebMCTS 轨迹合成</span></p>
+    <p class="math-title">算法<span class="math-subtitle">WebSynthesis</span></p>
 <p><strong class="algo-input">输入 &gt; </strong>
-用户任务 $q$, 初始观察 $o_0$, policy agent $\pi$, world model $\omega$, process reward model $\gamma$, 搜索预算 $B$, 每次扩展的候选动作数 $K$.</p>
+用户任务 $q$, 初始观察 $o_0$, policy agent $\pi$, 世界模型 $\omega$, process reward model $\gamma$, 搜索预算 $B$, 每次扩展的候选动作数 $K$.</p>
 <p><strong class="algo-output">输出 &gt; </strong>
-Web action tree $\mathcal{T}$, valuable trajectories $\tau_{\mathrm{val}}$, rollback trajectories $\tau_{\mathrm{roll}}$.</p>
+Web action tree $\mathcal{T}$, 高价值轨迹 $\tau_{\mathrm{val}}$, 回溯轨迹 $\tau_{\mathrm{roll}}$.</p>
 <ol>
 <li>初始化搜索树根节点 $C_0=(o_0,\emptyset)$.</li>
 <li>对第 $b=1,\ldots,B$ 次搜索迭代, 从根节点开始做 UCB 选择. 对子节点 $C$:
@@ -1507,12 +1493,12 @@ $$
 $$
    a_t^{(1)},\ldots,a_t^{(K)}\sim\pi(\cdot|o_t,q)
    $$</li>
-<li>对每个候选动作, 用 world model 预测下一步观察:
+<li>对每个候选动作, 用世界模型预测下一步观察:
 
 $$
    o_{t+1}^{(k)}\sim \omega(o_{t+1}|o_t,a_t^{(k)})
    $$
-如果不同分支到达同一 URL, 使用 URL hash table 复用已经生成的页面状态, 减少不一致和重复生成.</li>
+如果不同分支到达同一 URL, 使用 URL 哈希表复用已经生成的页面状态, 减少不一致和重复生成.</li>
 <li>用过程奖励模型评估新节点:
 
 $$
@@ -1527,18 +1513,15 @@ $$
    $$</li>
 <li>重复搜索后得到完整 web action tree $\mathcal{T}$.</li>
 <li>对 $\mathcal{T}$ 做剪枝: 用 GPT-4 删除重复或语义近似的冗余动作节点, 并把子节点合并回父节点.</li>
-<li>以节点值 $v_C$ 为标准, DFS 找到超过阈值的高价值节点, 从该节点回溯到根节点, 得到 valuable trajectory $\tau_{\mathrm{val}}$.</li>
-<li>对 valuable trajectory 中的中间节点 $C$, 找到同父节点 $P$ 下的失败兄弟节点集合 $S$. 用 GPT-4 生成反思和 <code>go_back</code> 修正, 构造 rollback trajectory:
-
-$$
-   S\rightarrow P\rightarrow C
-   $$</li>
-<li>返回 $\tau_{\mathrm{val}}$ 和 $\tau_{\mathrm{roll}}$ 作为 behavior cloning 数据.</li>
+<li>以节点值 $v_C$ 为标准, DFS 找到超过阈值的高价值节点, 从该节点回溯到根节点, 得到高价值轨迹 $\tau_{\mathrm{val}}$.</li>
+<li>对高价值的中间节点 $C$, 找到同父节点 $P$ 下的失败兄弟节点集合 $S$. 用 GPT-4 生成反思和 <code>go_back</code> 修正, 构造回溯轨迹 $S\rightarrow P\rightarrow C$.</li>
+<li>返回 $\tau_{\mathrm{val}}$ 和 $\tau_{\mathrm{roll}}$ 作为数据.</li>
 </ol>
-</div>
-<p>这个设计的优点是, 一次 MCTS 不只产出一条成功轨迹, 还会产出一棵包含多条失败分支和恢复路径的树. 因此训练数据里既有“怎么做对”, 也有“做错后怎么退回”.</p>
+</div> n
+<p>如此, 一次 MCTS 不只产出一条成功轨迹, 还会产出一棵包含多条失败分支和恢复路径的树. 因此训练数据里既有正确路径, 也有做错后怎么退回.</p>
+<p><img alt="WebSynthesis" class="gallery-image" data-flex-basis="576px" data-flex-grow="240" height="3400" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2507.04370v1/extracted/6599680/image/webMCTS_02.jpg" srcset="/webMCTS_02_18328088438371099242_hu_78fbbb4d06ba03dd.jpg 800w, /webMCTS_02_18328088438371099242_hu_8a060065fa01e0b6.jpg 1600w, /webMCTS_02_18328088438371099242_hu_f60a37381ac2c96a.jpg 2400w, https://arxiv.org/html/2507.04370v1/extracted/6599680/image/webMCTS_02.jpg 8162w" width="8162"></p>
 <h3 id="实验">实验
-</h3><p>实验使用 Qwen2.5-7B-Instruct 作为 policy agent 和 world model 的 base model, GPT-4 作为 MCTS 的 process reward model. 训练都是 LoRA fine-tuning. 评测在 WebArena-Lite 的 165 个 test cases 上进行, 输入统一使用 A11y 文本状态.</p>
+</h3><p>实验使用 Qwen2.5-7B-Instruct 作为 policy agent 和世界模型的基线模型, GPT-4 作为 MCTS 的 process reward model. 训练都是 LoRA fine-tuning. 评测在 WebArena-Lite 的 165 个 test cases 上进行, 输入统一使用 A11y 文本状态.</p>
 <p>主结果如下:</p>
 <div class="table-wrapper"><table>
 	<thead>
@@ -1588,80 +1571,6 @@ $$
 			</tr>
 	</tbody>
 </table></div>
-<p>最核心的结果是, WebSynthesis 只用大约 4k synthetic trajectories, Pass@1 达到 14.93, 超过 GPT-4 CoT 的 13.58, 也超过 OS-Genesis 的 11.19 和 AgentTrek 的 9.70. Pass@3 达到 20.15, 略高于 OS-Genesis 的 18.66.</p>
-<p>这个数字绝对值不高, 但 WebArena 本来就很难, 而且这里比较重要的是数据效率: 4k world-model-guided synthetic data 可以超过 7.4k real trajectories 和 20k tutorial-guided trajectories.</p>
-<h3 id="textui-warm-up-的作用">TextUI warm-up 的作用
-</h3><p>论文比较了有无 TextUI warm-up. 结果显示, 三种轨迹学习方法都受益:</p>
-<div class="table-wrapper"><table>
-	<thead>
-			<tr>
-					<th style="text-align: left">Model</th>
-					<th style="text-align: right">Overall w/ TextUI</th>
-					<th style="text-align: right">增量</th>
-			</tr>
-	</thead>
-	<tbody>
-			<tr>
-					<td style="text-align: left">AgentTrek-7B</td>
-					<td style="text-align: right">11.94</td>
-					<td style="text-align: right">+2.24</td>
-			</tr>
-			<tr>
-					<td style="text-align: left">OS-Genesis-7B</td>
-					<td style="text-align: right">14.93</td>
-					<td style="text-align: right">+3.74</td>
-			</tr>
-			<tr>
-					<td style="text-align: left">WebSynthesis-7B</td>
-					<td style="text-align: right">14.93</td>
-					<td style="text-align: right">+5.23</td>
-			</tr>
-	</tbody>
-</table></div>
-<p>作者特别强调, OS-Genesis 的相对提升超过 33.4%. 这说明真实环境轨迹并不是“一步到位”的解决方案. 如果模型没有先学会 TextUI 的结构和状态转移, 轨迹级 SFT 很容易变成只记动作模板.</p>
-<p>WebSynthesis 自身的消融也支持这个结论:</p>
-<div class="table-wrapper"><table>
-	<thead>
-			<tr>
-					<th style="text-align: left">Training data</th>
-					<th style="text-align: right">Overall</th>
-			</tr>
-	</thead>
-	<tbody>
-			<tr>
-					<td style="text-align: left">$\tau_{\mathrm{roll}}$ only</td>
-					<td style="text-align: right">1.49</td>
-			</tr>
-			<tr>
-					<td style="text-align: left">$\tau_{\mathrm{val}}$ only</td>
-					<td style="text-align: right">5.97</td>
-			</tr>
-			<tr>
-					<td style="text-align: left">$\tau_{\mathrm{roll}}\cup\tau_{\mathrm{val}}$</td>
-					<td style="text-align: right">9.70</td>
-			</tr>
-			<tr>
-					<td style="text-align: left">+ Dense Captioning</td>
-					<td style="text-align: right">10.45</td>
-			</tr>
-			<tr>
-					<td style="text-align: left">+ Element Functionality</td>
-					<td style="text-align: right">12.69</td>
-			</tr>
-			<tr>
-					<td style="text-align: left">+ State Transition Prediction</td>
-					<td style="text-align: right">14.93</td>
-			</tr>
-	</tbody>
-</table></div>
-<p>只用 rollback trajectories 几乎没法学会任务完成, 因为模型会过度保守, 容易提前 <code>go_back</code>. 只用 valuable trajectories 可以学到向目标推进, 但缺少错误恢复经验. 两者结合明显更好, 再加 TextUI 三阶段 warm-up 才达到最终 14.93.</p>
-<h3 id="局限性">局限性
-</h3><p>WebSynthesis 的第一个限制是 world model 的真实性. Web 页面高度多样、部分可观测、非平稳, world model 很难稳定预测所有交互后果. 如果 world model 生成的状态偏离真实网页, MCTS 搜索到的高价值轨迹可能只是“模拟器里成功”.</p>
-<p>第二, 多步 imagined rollout 会有误差累积. 即使单步 transition 看起来合理, 连续多步之后也可能产生不存在的页面状态. 这会污染 valuable trajectory, 也可能让 rollback trajectory 学到错误恢复模式.</p>
-<p>第三, MCTS 仍然依赖 GPT-4 作为 process reward model, 还用 GPT-4 做冗余节点剪枝和 rollback reflection. 因此它降低了真实环境交互成本, 但没有完全消除强模型标注和评估成本.</p>
-<p>第四, 评测规模是 WebArena-Lite 的 165 个样本, 而不是完整 812 个 WebArena 任务. 这是出于成本考虑, 但也意味着结论需要在更大规模、更复杂网站上继续验证.</p>
-<p>第五, 当前训练和评测都使用 A11y 文本状态. 对依赖视觉布局、截图细节、图标和图像内容的网页任务, 这种 TextUI world model 可能不够.</p>
-<p>总的来看, WebSynthesis 是一条很实际的数据路线: 不急着让 agent 在真实网页里昂贵地试错, 而是先学一个可控的虚拟 WebUI, 再用 MCTS 搜索高信息密度轨迹. 它和 AutoWebWorld 一样都在解决“可扩展、可验证、低成本轨迹来源”问题, 只是一个偏人工可控环境生成, 一个偏 learned world model + search.</p>
 
 
     
