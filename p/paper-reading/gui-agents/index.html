@@ -1517,7 +1517,7 @@ $$
 <li>对高价值的中间节点 $C$, 找到同父节点 $P$ 下的失败兄弟节点集合 $S$. 用 GPT-4 生成反思和 <code>go_back</code> 修正, 构造回溯轨迹 $S\rightarrow P\rightarrow C$.</li>
 <li>返回 $\tau_{\mathrm{val}}$ 和 $\tau_{\mathrm{roll}}$ 作为数据.</li>
 </ol>
-</div> n
+</div>
 <p>如此, 一次 MCTS 不只产出一条成功轨迹, 还会产出一棵包含多条失败分支和恢复路径的树. 因此训练数据里既有正确路径, 也有做错后怎么退回.</p>
 <p><img alt="WebSynthesis" class="gallery-image" data-flex-basis="576px" data-flex-grow="240" height="3400" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2507.04370v1/extracted/6599680/image/webMCTS_02.jpg" srcset="/webMCTS_02_18328088438371099242_hu_78fbbb4d06ba03dd.jpg 800w, /webMCTS_02_18328088438371099242_hu_8a060065fa01e0b6.jpg 1600w, /webMCTS_02_18328088438371099242_hu_f60a37381ac2c96a.jpg 2400w, https://arxiv.org/html/2507.04370v1/extracted/6599680/image/webMCTS_02.jpg 8162w" width="8162"></p>
 <h3 id="实验">实验
