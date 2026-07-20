@@ -317,6 +317,12 @@
         </a>
     </li>
     
+    <li>
+        <a href="https://arxiv.org/abs/2605.16883" id="related-material-12" name="SE-GA" target="_blank" rel="noopener noreferrer">
+            SE-GA: Memory-Augmented Self-Evolution for GUI Agents
+        </a>
+    </li>
+    
 </ol>
         </div>
     </section>
@@ -401,6 +407,12 @@
         <li><a href="#实验">实验</a></li>
       </ol>
     </li>
+    <li><a href="#se-ga">SE-GA</a>
+      <ol>
+        <li><a href="#ttme-测试时记忆扩展">TTME: 测试时记忆扩展</a></li>
+        <li><a href="#mase-把记忆写回-policy">MASE: 把记忆写回 policy</a></li>
+      </ol>
+    </li>
   </ol>
 
             </nav>
@@ -482,7 +494,7 @@
 
 
                     <time class="article-time--reading">
-                        阅读时长: 19 分钟
+                        阅读时长: 22 分钟
                     </time>
                 
             </div>
@@ -564,6 +576,12 @@
         <li><a href="#textui-warm-up">TextUI warm-up</a></li>
         <li><a href="#webmcts">WebMCTS</a></li>
         <li><a href="#实验">实验</a></li>
+      </ol>
+    </li>
+    <li><a href="#se-ga">SE-GA</a>
+      <ol>
+        <li><a href="#ttme-测试时记忆扩展">TTME: 测试时记忆扩展</a></li>
+        <li><a href="#mase-把记忆写回-policy">MASE: 把记忆写回 policy</a></li>
       </ol>
     </li>
   </ol>
@@ -1464,7 +1482,7 @@ $$<h3 id="textui-warm-up">TextUI warm-up
 			</tr>
 	</tbody>
 </table></div>
-<p><img alt="WebSynthesis" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2507.04370v1/extracted/6599680/image/class1.jpg"></p>
+<p><img alt="WebSynthesis" class="gallery-image" data-flex-basis="804px" data-flex-grow="335" height="2948" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2507.04370v1/extracted/6599680/image/class1.jpg" srcset="/class1_15948375496414739387_hu_ca84519d7736f128.jpg 800w, /class1_15948375496414739387_hu_983421d663e85801.jpg 1600w, /class1_15948375496414739387_hu_9a59b2740c455fb4.jpg 2400w, https://arxiv.org/html/2507.04370v1/extracted/6599680/image/class1.jpg 9886w" width="9886"></p>
 <h3 id="webmcts">WebMCTS
 </h3><p>WebSynthesis 的第二阶段是 MCTS. 搜索树中的每个节点代表一个动作及其由世界模型预测出的下一状态, 节点保存三类信息: 预测观察 $o_{t+1}$、过程奖励 $v_C$、访问次数 $n_C$.</p>
 <div class="math-block math-algo">
@@ -1565,6 +1583,118 @@ $$
 			</tr>
 	</tbody>
 </table></div>
+<h2 id="se-ga">SE-GA
+</h2><p>论文 <a class="link cite-SE-GA">[<span class="material-index"></span>]
+    <span class="material-name">Unknown-material</span> 
+</a> 讨论的是另一条 GUI agent 自进化路线, 把重点放在记忆: 测试时用层次化记忆支持长程决策, 再把测试时收集到的高质量交互经验重新训练回 policy 参数中.</p>
+<p>SE-GA 的总体设计由两部分组成:</p>
+<ol>
+<li>Test-Time Memory Extension (TTME): 测试时组织和检索层次化记忆, 为每一步动作决策提供上下文.</li>
+<li>Memory-Augmented Self-Evolution (MASE): 把 TTME 收集到的交互数据转成训练信号, 更新 policy 本身.</li>
+</ol>
+<h3 id="ttme-测试时记忆扩展">TTME: 测试时记忆扩展
+</h3><p>SE-GA 把 GUI navigation 写成 POMDP $\langle S,A,O,T,R,\gamma\rangle$. 在第 $t$ 步, agent 从 GUI 环境中得到图像观察 $o_t\in O$, 接收用户任务 $Q$, 同时读取从记忆库检索出来的结构化记忆 $M_{\mathrm{retrieved}}$. 因此 policy 的输入不是单独的当前截图, 而是:</p>
+$$
+x_t=(o_t,Q,M_{\mathrm{retrieved}})
+$$<p>然后由策略模型生成动作:</p>
+$$
+a_t\sim\pi_\theta(a_t|x_t)
+$$<p>这里的关键是 $M_{\mathrm{retrieved}}$ 怎么来. TTME 维护一个层次化记忆库:</p>
+$$
+\mathcal{M}=(M^{\mathrm{EPI}},M^{\mathrm{SEM}},M^{\mathrm{EXP}})
+$$<p><strong>Episodic memory</strong> 是当前任务内部的短期工作记忆. 它记录 agent 已经执行过的状态转移, 并用固定长度窗口 $H$ 截断:</p>
+$$
+C_t^{\mathrm{epi}}=[m_k]_{k=\epsilon}^{t-1},
+\quad
+\epsilon=\max(1,t-H)
+$$<p><strong>Semantic memory</strong> 是可迁移的抽象交互规则. 每条规则是一个文本描述 $d_i$ 加上对应的向量 key:</p>
+$$
+m_i^{\mathrm{sem}}=\langle k_i^{\mathrm{sem}},d_i\rangle,
+\quad
+k_i^{\mathrm{sem}}=\phi(Q_{\mathrm{hist}})
+$$<p>其中 $d_i$ 是规则文本, 例如“访问个人订单历史通常需要先登录”; $\phi(\cdot)$ 是文本 embedding 函数, $Q_{\mathrm{hist}}$ 是产生这条规则的历史任务或历史指令. 给定当前任务 $Q$, TTME 用余弦相似度检索相关规则:</p>
+$$
+S^{\mathrm{sem}}(Q,m_i^{\mathrm{sem}})=
+\frac{\phi(Q)\cdot k_i^{\mathrm{sem}}}
+{|\phi(Q)||k_i^{\mathrm{sem}}|}
+$$<p>然后取 Top-K 规则描述聚合成 $C^{\mathrm{sem}}$. 这类记忆解决的是“这类 GUI 任务通常遵循什么交互逻辑”.</p>
+<p><strong>Experiential memory</strong> 是历史任务的可复用执行经验. 每个 entry 包含原始轨迹、轨迹反思摘要, 以及两个检索 key:</p>
+$$
+m_i^{\mathrm{exp}}=
+\langle
+\tau_i,
+g(\tau_i),
+k_i^{\mathrm{intent}},
+k_i^{\mathrm{task}}
+\rangle
+$$<p>其中 $\tau_i$ 是历史交互轨迹, $g(\tau_i)$ 是 agent 对这条轨迹生成的反思总结, $k_i^{\mathrm{intent}}$ 表示任务意图, $k_i^{\mathrm{task}}$ 表示和 GUI 状态相关的视觉/任务特征. 检索时同时考虑当前任务文本和屏幕是否相似:</p>
+$$
+S^{\mathrm{exp}}(Q,o_t)=
+\lambda\mathrm{Sim}(\phi(Q),k_i^{\mathrm{intent}})
++(1-\lambda)\mathrm{Sim}(\psi(o_t),k_i^{\mathrm{task}})
+$$<p>其中 $\psi(\cdot)$ 是视觉编码器, $\lambda$ 是平衡系数. TTME 取 Top-K entry 的 $g(\tau_i)$ 作为 $C^{\mathrm{exp}}$, 放进当前 step 的上下文. 这类记忆解决的是“以前遇到类似任务/界面时, 哪条策略成功过”.</p>
+<p>最终, 当前 step 的记忆上下文可以理解成:</p>
+$$
+M_{\mathrm{retrieved}}=
+C_t^{\mathrm{epi}}\cup C^{\mathrm{sem}}\cup C^{\mathrm{exp}}
+$$<p>也就是说, episodic memory 负责短期连续性, semantic memory 负责抽象规则, experiential memory 负责复用成功经验. TTME 同时也是一个动态 buffer: agent 在在线环境中交互时, 会不断记录动作前截图、动作、动作后截图和对应记忆; 成功轨迹及其反思摘要会进入 experiential memory, 后续再被 MASE 用来训练 policy.</p>
+<h3 id="mase-把记忆写回-policy">MASE: 把记忆写回 policy
+</h3><p>TTME 本身是非参数记忆, 能在测试时变强, 但也会带来两个问题: 记忆库越积越大, 检索成本上升; 经验如果只存在外部 memory 里, policy 本身仍然是静态的. MASE 的目标就是把这些测试时经验编码回模型参数.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">SE-GA: Memory-Augmented Self-Evolution</span></p>
+<p><strong class="algo-input">输入 &gt; </strong>
+GUI 环境 $\mathcal{E}$, 初始 policy $\pi_\theta$, 层次记忆库 $\mathcal{M}=(M_{\mathrm{epi}},M_{\mathrm{sem}},M_{\mathrm{exp}})$, 任务集合 $\mathcal{Q}$, 每轮交互预算 $B$.</p>
+<p><strong class="algo-output">输出 &gt; </strong>
+更新后的 GUI policy $\pi_{\theta'}$ 和扩展后的记忆库 $\mathcal{M}'$.</p>
+<ol>
+<li>对每个任务 $Q\in\mathcal{Q}$, 初始化 episodic memory.</li>
+<li>在第 $t$ 步读取当前截图 $o_t$, 从三类记忆中检索上下文:
+
+$$
+   M_{\mathrm{retrieved}}=
+   C_t^{\mathrm{epi}}\cup C^{\mathrm{sem}}\cup C^{\mathrm{exp}}
+   $$</li>
+<li>Episodic memory 保留最近 $H$ 步转移:
+
+$$
+   C_t^{\mathrm{epi}}=[\langle o_k,a_k,o_{k+1}\rangle]_{k=\max(1,t-H)}^{t-1}
+   $$</li>
+<li>Semantic memory 根据任务指令做 embedding 检索:
+
+$$
+   S^{\mathrm{sem}}(Q,m_i)=
+   \frac{\phi(Q)\cdot k_i^{\mathrm{sem}}}
+   {|\phi(Q)||k_i^{\mathrm{sem}}|}
+   $$
+取 Top-K 规则描述组成 $C^{\mathrm{sem}}$.</li>
+<li>Experiential memory 同时考虑任务意图和当前截图:
+
+$$
+   S^{\mathrm{exp}}(Q,o_t)=
+   \lambda\mathrm{Sim}(\phi(Q),k_i^{\mathrm{intent}})
+   +(1-\lambda)\mathrm{Sim}(\psi(o_t),k_i^{\mathrm{task}})
+   $$
+取 Top-K 轨迹反思摘要 $g(\tau_i)$ 组成 $C^{\mathrm{exp}}$.</li>
+<li>将 $(o_t,Q,M_{\mathrm{retrieved}})$ 输入 policy, 生成动作 $a_t$, 在环境中执行并记录转移 $\langle o_t,a_t,o_{t+1}\rangle$.</li>
+<li>如果任务成功, 把完整轨迹 $\tau$ 和反思摘要 $g(\tau)$ 写入 experiential memory.</li>
+<li>如果完整任务失败, 使用 Hindsight Goal-Shifting: 若某个前缀轨迹 $\tau_{0:k}$ 实际完成了一个有效子目标 $g'$, 则把它重标为成功样本:
+
+$$
+   D_{\mathrm{GS}}=
+   \{(\tau_{0:k},g')\mid \mathrm{Verify}(\tau_{0:k},g')=1\}
+   $$</li>
+<li>构造 MASE 训练集: $D_{\mathrm{total}}=D_{\mathrm{ground}}\cup D_{\mathrm{evolve}}$.</li>
+<li>对 $D_{\mathrm{ground}}$ 做行为克隆, 让模型保持基础定位和动作格式能力:
+$$
+   \mathcal{L}_{\mathrm{SFT}}(\theta)=
+   -\mathbb{E}_{(x,y)\sim D_{\mathrm{ground}}}
+   \frac{1}{|y|}\sum_t\log\pi_\theta(y_t|o_t,Q,M,y_{\lt t}) $$</li>
+<li>对 $D_{\mathrm{evolve}}$ 做 GRPO 风格自进化训练. 奖励为:
+$$ R_{\mathrm{total}}=w_fR_{\mathrm{format}}+w_aR_{\mathrm{acc}} $$</li>
+<li>得到更新后的 policy $\pi_{\theta'}$, 并进入下一轮 TTME 交互和 MASE 训练.</li>
+</ol>
+</div>
+<p><img alt="SE-GA" class="gallery-image" data-flex-basis="459px" data-flex-grow="191" height="414" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2605.16883v1/x1.png" width="793"></p>
 
 
     
