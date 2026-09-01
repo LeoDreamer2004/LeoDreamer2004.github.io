@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
 
 
-<link rel="stylesheet" href="/scss/style.min.5a86d64e15effc523f9d9507b42393380abbdf8ec4e177fb1d78269a9d2bfc73.css"><meta property='og:title' content="论文阅读 - GUI 智能体">
+<link rel="stylesheet" href="/scss/style.min.1455f3807fb66fd219a4e664923dc77d57212024863d8fdd70f90266af6cae1e.css"><meta property='og:title' content="论文阅读 - GUI 智能体">
 <meta property='og:description' content="Am I OpenClaw?">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/paper-reading/gui-agents/'>
 <meta property='og:site_name' content='LeoDreamer'>
@@ -323,6 +323,12 @@
         </a>
     </li>
     
+    <li>
+        <a href="https://arxiv.org/abs/2608.11588" id="related-material-13" name="CoAdaptGUI" target="_blank" rel="noopener noreferrer">
+            CoAdapt-GUI: Joint Workflow Context and Policy Adaptation for Unseen GUI Applications
+        </a>
+    </li>
+    
 </ol>
         </div>
     </section>
@@ -413,6 +419,14 @@
         <li><a href="#mase-把记忆写回-policy">MASE: 把记忆写回 policy</a></li>
       </ol>
     </li>
+    <li><a href="#coadapt-gui">CoAdapt-GUI</a>
+      <ol>
+        <li><a href="#核心框架-1">核心框架</a></li>
+        <li><a href="#联合自适应">联合自适应</a></li>
+        <li><a href="#实验-1">实验</a></li>
+        <li><a href="#局限性">局限性</a></li>
+      </ol>
+    </li>
   </ol>
 
             </nav>
@@ -494,7 +508,7 @@
 
 
                     <time class="article-time--reading">
-                        阅读时长: 22 分钟
+                        阅读时长: 25 分钟
                     </time>
                 
             </div>
@@ -582,6 +596,14 @@
       <ol>
         <li><a href="#ttme-测试时记忆扩展">TTME: 测试时记忆扩展</a></li>
         <li><a href="#mase-把记忆写回-policy">MASE: 把记忆写回 policy</a></li>
+      </ol>
+    </li>
+    <li><a href="#coadapt-gui">CoAdapt-GUI</a>
+      <ol>
+        <li><a href="#核心框架-1">核心框架</a></li>
+        <li><a href="#联合自适应">联合自适应</a></li>
+        <li><a href="#实验-1">实验</a></li>
+        <li><a href="#局限性">局限性</a></li>
       </ol>
     </li>
   </ol>
@@ -1695,6 +1717,146 @@ $$ R_{\mathrm{total}}=w_fR_{\mathrm{format}}+w_aR_{\mathrm{acc}} $$</li>
 </ol>
 </div>
 <p><img alt="SE-GA" class="gallery-image" data-flex-basis="459px" data-flex-grow="191" height="414" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2605.16883v1/x1.png" width="793"></p>
+<h2 id="coadapt-gui">CoAdapt-GUI
+</h2><p>论文 <a class="link cite-CoAdaptGUI">[<span class="material-index"></span>]
+    <span class="material-name">Unknown-material</span> 
+</a> 走的是另一条路. 如果 SE-GA 重点是把历史记忆写回 policy, CoAdapt-GUI 重点是把“可迁移 workflow context”和“可更新 policy”分成两个测试时状态, 在未见过的 GUI 应用上同时做自适应. 它关注的不是 source-side 预训练能否泛化, 而是 agent 在遇到一个全新 app 之后, 能否只靠 target rollouts 和 reward 继续修正自己的流程知识和动作策略.</p>
+<p>这篇文章的关键判断是: 未见应用的失败不只来自动作没选对, 也来自 workflow 先验不对. 一个 agent 可能已经知道“搜索、提交、返回”这些动作怎么执行, 但不知道该 app 的完成条件、失败恢复方式和哪些步骤属于可迁移流程. 所以 CoAdapt-GUI 把 adaptation 拆成两条耦合但不同步的通道:</p>
+<ol>
+<li>workflow context adaptation: 维护一个结构化 workflow state, 只保留可迁移的程序、失败模式和验证条件.</li>
+<li>policy adaptation: 在 frozen VLM 上更新一个轻量 LoRA adapter, 让动作预测更贴合当前 app 和当前 context.</li>
+</ol>
+<h3 id="核心框架-1">核心框架
+</h3><p>CoAdapt-GUI 把 target-side 状态写成两部分. 一部分是不可变的 source workflow context $M_0(q)$, 另一部分是由 target rollouts 逐步构造出来的 target-grounded state $M_t^{\mathrm{tgt}}$. 当前任务 $q$ 的 workflow state 可以理解成:</p>
+$$
+M_t(q) = (M_0(q), M_t^{\mathrm{tgt}})
+$$<p>渲染后的 context 记作:</p>
+$$
+C_t(q)=\mathrm{Render}(M_t(q), q)
+$$<p>policy 在每一步不只看当前 observation $o_k$ 和 history $h_k$, 还看这个 rendered context:</p>
+$$
+u_k \sim \pi_{\theta_t}(\cdot \mid q, o_k, h_k, C_t(q))
+$$<p>workflow entry 用一个四元组表示:</p>
+$$
+w=\langle c,P,F,V\rangle
+$$<p>其中 $c$ 是适用条件, $P$ 是抽象 procedure, $F$ 记录 failure / recovery conditions, $V$ 是 completion checks. 这比普通 prompt memory 更细, 因为它把“什么时候适用”“怎么做”“错了怎么办”“怎么判定完成”拆开了.</p>
+<p>source side 先把轨迹拆成两层状态:</p>
+<ul>
+<li>app-bound screen-transition state: 记录 concrete screens、action-conditioned transitions、visible cues 和 resource-level information;</li>
+<li>transferable workflow state: 只保留 app-agnostic 的 procedure / failure / verification 信息.</li>
+</ul>
+<p>为了防止 source detail 污染 unseen app, CoAdapt-GUI 还定义了 eligibility predicate <code>Eligible_tr(w)</code>. 包含 app 名、package / resource identifier、具体 widget label、坐标、task-instance value 等内容的 entry 会被过滤掉. 通过验证的 transferable entry 才会被 consolidate 成 source library <code>L_src</code>, 再按类别检索得到 <code>M_0(q) = Retrieve(L_src, q)</code>. 如果 target 属于 source pool 里没有覆盖的 functional category, 初始化就直接是 empty prior, 不强行迁移无关知识.</p>
+<h3 id="联合自适应">联合自适应
+</h3><p>CoAdapt-GUI 的训练是 test-time adaptation, 不是离线再训练. 在每一轮, controller 选择一个 adaptation task 和若干已经 materialized 的 context variant, 然后收集 matched rollouts:</p>
+$$
+D_t=\{(\tau_j,r_j,\kappa_j,z_j)\}_{j=1}^{N_t}
+$$<p>其中 $\kappa_j$ 标识产生这条轨迹的 context variant, $z_j$ 是 reset identity. 同一批 rollout 同时喂给 context branch 和 policy branch, 但两者更新频率不同. Context branch 用 task reward 更新 TrueSkill 风格的 variant rating, 再让 frozen reflector 根据成功 / 失败 trace 提出 typed workflow revision; policy branch 只在同一 task-context group 内做 relative credit assignment.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">CoAdapt-GUI: Test-Time Context-Policy Adaptation</span></p>
+<p><strong class="algo-input">输入 &gt; </strong>
+source workflow library $L_{\mathrm{src}}$, initial policy $\theta_0$, adaptation tasks $Q_{\mathrm{adapt}}$, frozen reflector, interaction budget $B$.</p>
+<p><strong class="algo-output">输出 &gt; </strong>
+frozen workflow state $M^\star$ 和 policy parameters $\theta^\star$.</p>
+<ol>
+<li>从 $L_{\mathrm{src}}$ 检索得到 $M_0(q)$, 初始化 target-grounded state $M_t^{\mathrm{tgt}} \leftarrow \emptyset$, policy $\theta \leftarrow \theta_0$, buffer $B \leftarrow \emptyset$.</li>
+<li>进入 target adaptation loop, 选择一个任务 $q \in Q_{\mathrm{adapt}}$ 和若干已 materialized 的 context variants.</li>
+<li>在受控 reset 条件下收集 matched rollouts:
+
+$$
+   D_t=\{(\tau_j,r_j,\kappa_j,z_j)\}_{j=1}^{N_t}
+   $$</li>
+<li>对当前批次中的 context variants, 根据 rewards 更新 rating; 同时把 traces 交给 frozen reflector, 生成 typed workflow revision.</li>
+<li>如果 revision 通过 schema、provenance 和 lint checks, 将其加入候选 population, 供后续轮次继续评估.</li>
+<li>把同一批 trajectories 放入 policy buffer $B$. 仅当 $B$ 中存在非退化 task-context group 时, 才触发 LoRA update.</li>
+<li>对每个 group $G(q,\kappa)$ 计算 group-relative advantage:
+
+$$
+   A_j=\frac{r_j-\bar r_G}{s_G},\quad
+   \bar r_G=\frac{1}{|G|}\sum_{i\in G}r_i
+   $$
+其中 $s_G$ 是组内标准化因子.</li>
+<li>对 trajectory 的 action-generation units 取平均 log-probability:
+
+$$
+   \ell_j(\theta)=\frac{1}{|\tau_j|}\sum_m \log \pi_\theta(u_{j,m}\mid x_{j,m})
+   $$</li>
+<li>用 group-relative objective 更新 LoRA adapter:
+
+$$
+   \mathcal{L}_{\mathrm{policy}}=
+   -\frac{1}{|B_{\mathrm{act}}|}
+   \sum_{j\in B_{\mathrm{act}}}A_j\,\ell_j(\theta)
+   +\beta R(\theta;\pi_{\mathrm{anchor}})
+   $$</li>
+<li>清空 buffer, 继续下一轮 adaptation.</li>
+<li>交互预算耗尽后, 选择 highest-rated validated workflow state 作为 $M^\star$, 并冻结 $M^\star$ 与 $\theta^\star$.</li>
+</ol>
+</div>
+<p>我觉得这篇最值得注意的地方是, 它把“context 更新”和“policy 更新”硬拆成两个状态. 这比把 workflow 直接塞进 prompt 更稳, 因为 reward 的变化不再只被解释成 policy 变好了, 而是先看 context 是否真的更合理. 代价是系统复杂度明显更高, 还依赖 reset 条件、任务分组和 reward 质量, 所以它更像一个严格控制实验里的 TTA 框架, 而不是随时可部署的通用技巧.</p>
+<h3 id="实验-1">实验
+</h3><p>CoAdapt-GUI 在两个 unseen-app 设置上评测. 第一个是 AndroidWorld-Generalization, 关注 unseen app 中的 new task instances; 第二个是 AndroidWorld Plus, 进一步把 adaptation 和 evaluation 的 task templates 也分开, 测试对 unseen task types 的迁移.</p>
+<p>主要结果如下:</p>
+<div class="table-wrapper"><table>
+	<thead>
+			<tr>
+					<th style="text-align: left">Method</th>
+					<th style="text-align: left">Config</th>
+					<th style="text-align: right">Setting 1 SR</th>
+					<th style="text-align: right">Setting 2 Shared</th>
+					<th style="text-align: right">Setting 2 Novel</th>
+					<th style="text-align: right">Setting 2 Overall</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td style="text-align: left">Base Policy</td>
+					<td style="text-align: left">no TTA</td>
+					<td style="text-align: right">27.10</td>
+					<td style="text-align: right">47.2</td>
+					<td style="text-align: right">29.4</td>
+					<td style="text-align: right">38.6</td>
+			</tr>
+			<tr>
+					<td style="text-align: left">Static Context Transfer</td>
+					<td style="text-align: left">static context</td>
+					<td style="text-align: right">28.75</td>
+					<td style="text-align: right">56.5</td>
+					<td style="text-align: right">29.4</td>
+					<td style="text-align: right">43.3</td>
+			</tr>
+			<tr>
+					<td style="text-align: left">Policy-Only TTA</td>
+					<td style="text-align: left">policy only</td>
+					<td style="text-align: right">37.50</td>
+					<td style="text-align: right">53.7</td>
+					<td style="text-align: right">25.5</td>
+					<td style="text-align: right">40.0</td>
+			</tr>
+			<tr>
+					<td style="text-align: left">Context-Only TTA</td>
+					<td style="text-align: left">context only</td>
+					<td style="text-align: right">35.00</td>
+					<td style="text-align: right">63.9</td>
+					<td style="text-align: right">31.4</td>
+					<td style="text-align: right">48.1</td>
+			</tr>
+			<tr>
+					<td style="text-align: left">CoAdapt-GUI</td>
+					<td style="text-align: left">context + policy</td>
+					<td style="text-align: right">45.00</td>
+					<td style="text-align: right">70.4</td>
+					<td style="text-align: right">34.3</td>
+					<td style="text-align: right">52.9</td>
+			</tr>
+	</tbody>
+</table></div>
+<p>这里最重要的不是单个数字, 而是对照关系. 在 Setting 1 里, 只调 policy 能超过 static context, 但 context-only 也很强; joint adaptation 进一步把 SR 推到 45.0. 在 AndroidWorld Plus 里, Policy-Only TTA 甚至比 Base Policy 还低, 说明仅修正动作策略在没有合适 workflow prior 时并不稳. 相比之下, Context-Only TTA 已经能把 overall SR 提到 48.1, joint 之后再到 52.9.</p>
+<p>作者还给了一个很有代表性的信号: 在一条 Chrome adaptation trace 里, 前 11 轮所有 variant 的 reward 都是 0, 直到第 12 轮 evolved variant 才出现平均 reward 0.25. 这说明 workflow evolution 的价值不只是“更长的 prompt”, 而是能把原本看不见的成功信号挖出来, 进而给 policy 学习提供更有区分度的轨迹.</p>
+<h3 id="局限性">局限性
+</h3><p>CoAdapt-GUI 的第一个限制是 context / policy 的联动依赖严格的 matched rollout protocol. 如果 reset 不稳定、reward 很噪, 那么 context 的 rating 和 policy 的 advantage 都会变得很脆.</p>
+<p>第二, transferable workflow 仍然可能残留 source 偏见. 作者已经用 schema、provenance 和 lint checks 去掉 app-bound 内容, 但只要 source 经验本身不够抽象, 迁移到 unseen app 还是会有负转移.</p>
+<p>第三, 这套方法很吃实验控制. 它需要冻结 backbone、分离 adaptation / evaluation task、管理 context population、清空 buffer, 这些都让系统更像一个严谨的在线研究框架, 而不是轻量插件式方案. 论文也承认, 在更开放的部署环境里, 延迟、危险操作和持续累积更新都会是问题.</p>
+<p>总体上, CoAdapt-GUI 不是在讲“再多记一点 prompt”, 而是在讲“把 workflow knowledge 当成可以进化的状态”. 这点和 SE-GA 很像, 但它更强调在 unseen application 上, 先把 context 修对, 再让 policy 跟着 context 一起动.</p>
 
 
     
@@ -1817,11 +1979,11 @@ $$ R_{\mathrm{total}}=w_fR_{\mathrm{format}}+w_aR_{\mathrm{acc}} $$</li>
             
                 
 <article class="">
-    <a href="/p/paper-reading/test-time-adaptation-application/">
+    <a href="/p/paper-reading/prompt-engineering/">
         
 
         <div class="article-details">
-            <h2 class="article-title">论文阅读 - 测试时自适应的应用</h2>
+            <h2 class="article-title">论文阅读 - 提示词工程</h2>
         </div>
     </a>
 </article>

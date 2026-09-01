@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="我将用最不绕弯子的方式告诉你: 我稳稳接住了你">
+<title>论文阅读 - 提示词工程</title>
+
+
+<link rel="canonical" href="https://LeoDreamer2004.github.io/p/paper-reading/prompt-engineering/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+
+
+<link rel="stylesheet" href="/scss/style.min.1455f3807fb66fd219a4e664923dc77d57212024863d8fdd70f90266af6cae1e.css"><meta property='og:title' content="论文阅读 - 提示词工程">
+<meta property='og:description' content="我将用最不绕弯子的方式告诉你: 我稳稳接住了你">
+<meta property='og:url' content='https://LeoDreamer2004.github.io/p/paper-reading/prompt-engineering/'>
+<meta property='og:site_name' content='LeoDreamer'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Prompt Engineering' /><meta property='article:tag' content='Video' /><meta property='article:published_time' content='2026-08-03T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-08-03T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="论文阅读 - 提示词工程">
+<meta name="twitter:description" content="我将用最不绕弯子的方式告诉你: 我稳稳接住了你">
+    <link rel="shortcut icon" href="/img/avatar.png" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        <figure class="site-avatar">
+                <a href="/">
+                    <img src="/img/avatar.png" 
+                        width="150"
+                        height="150"
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+                    <span class="emoji">💫</span>
+                
+            </figure>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">LeoDreamer</a></h1>
+            <h2 class="site-description">PKU 不优秀本科毕业生</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/503370537'
+                        
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-bilibili"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6z" /><path d="M8 3l2 3" /><path d="M16 3l-2 3" /><path d="M9 13v-2" /><path d="M15 11v2" /></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/LeoDreamer2004'
+                        
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>存档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>相关链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+
+    <section class="widget related-materials">
+
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">相关资料</h2>
+
+        <div class="widget--related-materials">
+             <ol>
+    
+    <li>
+        <a href="https://arxiv.org/abs/2607.25537" id="related-material-1" name="VIPE" target="_blank" rel="noopener noreferrer">
+            Visual prompt engineering for video models
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://arxiv.org/abs/2509.20328" id="related-material-2" name="Video-Reasoner" target="_blank" rel="noopener noreferrer">
+            Video models are zero-shot learners and reasoners
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://arxiv.org/abs/2602.00092" id="related-material-3" name="ACE" target="_blank" rel="noopener noreferrer">
+            Interpreting and controlling model behavior via constitutions for atomic concept edits
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://arxiv.org/abs/2203.11171" id="related-material-4" name="Self-Consistency" target="_blank" rel="noopener noreferrer">
+            Self-Consistency Improves Chain of Thought Reasoning in Language Models
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://doi.org/10.1073/pnas.1905334117" id="related-material-5" name="Performance-Competence" target="_blank" rel="noopener noreferrer">
+            Performance vs. competence in human-machine comparisons
+        </a>
+    </li>
+    
+</ol>
+        </div>
+    </section>
+
+            
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav class="toc-nav" id="TableOfContents">
+                
+  <ol>
+    <li><a href="#把输入图片视为-prompt">把输入图片视为 Prompt</a></li>
+    <li><a href="#实验效果">实验效果</a></li>
+    <li><a href="#自动搜索视觉-prompt">自动搜索视觉 Prompt</a>
+      <ol>
+        <li><a href="#自由构思">自由构思</a></li>
+        <li><a href="#原子概念编辑">原子概念编辑</a></li>
+      </ol>
+    </li>
+    <li><a href="#视觉-prompt-也是-test-time-scaling">视觉 Prompt 也是 test-time scaling</a></li>
+    <li><a href="#谁更重要">谁更重要？</a></li>
+    <li><a href="#为什么写实场景更容易推理">为什么写实场景更容易推理？</a></li>
+  </ol>
+
+            </nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/%E6%8F%90%E7%A4%BA%E8%AF%8D%E5%B7%A5%E7%A8%8B/" style="background-color: hsl(330, 60%, 84%); color: hsl(330, 60%, 15%);">
+                提示词工程
+            </a>
+        
+            
+            
+            
+            <a href="/categories/%E8%AE%BA%E6%96%87/" style="background-color: #aa2b2c; color: #fff;">
+                论文
+            </a>
+        
+            
+            
+            
+            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" style="background-color: #2a9d8f; color: #fff;">
+                计算机
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/paper-reading/prompt-engineering/">论文阅读 - 提示词工程</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            我将用最不绕弯子的方式告诉你: 我稳稳接住了你
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                    <time class="article-time--published" datetime='2026-08-03T00:00:00Z'>2026年8月3日星期一</time>
+                
+
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                    <time class="article-time--reading">
+                        阅读时长: 5 分钟
+                    </time>
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+
+</header>
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span>目录</span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ol>
+    <li><a href="#把输入图片视为-prompt">把输入图片视为 Prompt</a></li>
+    <li><a href="#实验效果">实验效果</a></li>
+    <li><a href="#自动搜索视觉-prompt">自动搜索视觉 Prompt</a>
+      <ol>
+        <li><a href="#自由构思">自由构思</a></li>
+        <li><a href="#原子概念编辑">原子概念编辑</a></li>
+      </ol>
+    </li>
+    <li><a href="#视觉-prompt-也是-test-time-scaling">视觉 Prompt 也是 test-time scaling</a></li>
+    <li><a href="#谁更重要">谁更重要？</a></li>
+    <li><a href="#为什么写实场景更容易推理">为什么写实场景更容易推理？</a></li>
+  </ol>
+
+            </nav>
+        </details>
+    </aside>
+    
+
+    <section class="article-content">
+    
+    
+    <p>视频生成模型并不只接收文字。对于图生视频模型，输入图片既是首帧，也是物体、空间关系和物理约束的主要载体。既然文字 Prompt 可以优化，为什么不能直接优化视觉 Prompt？论文 <a class="link cite-VIPE">[<span class="material-index"></span>]
+    <span class="material-name">Unknown-material</span> 
+</a> 因此提出一个相当自然的问题，把这种方法称为 <strong>视觉提示词工程 (Visual Prompt Engineering, VIPE)</strong>。</p>
+<p><img alt="VIPE 整体流程" class="gallery-image" data-flex-basis="371px" data-flex-grow="154" height="939" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/prompt-engineering/vipe-overview.png" srcset="/p/paper-reading/prompt-engineering/vipe-overview_hu_608c77897c8352f2.png 800w, /p/paper-reading/prompt-engineering/vipe-overview.png 1454w" width="1454"></p>
+<h2 id="把输入图片视为-prompt">把输入图片视为 Prompt
+</h2><p>一个视频推理样本记为 $(x_i,t_i)$，其中 $x_i\in\mathcal{X}$ 是视觉 Prompt，$t_i\in\mathcal{T}$ 是文字 Prompt。视频模型以二者为条件生成视频，并通过视频中的状态变化给出任务答案。</p>
+<p>VIPE 只把原图 $x_i$ 替换为一个更适合模型推理的视觉变体 $v_i^*$。完整流程包含三个角色：</p>
+<ol>
+<li><strong>构思器 (Ideator)</strong>：提出应该如何改图；</li>
+<li><strong>编辑器 (Editor)</strong>：按照指令生成若干视觉变体；</li>
+<li><strong>筛选器 (Filter)</strong>：可选, 检查变体质量以及它是否忠实于原任务。</li>
+</ol>
+<p>构思器 $I$ 接收一组任务样本 $X=\{(x_i,t_i)\}_{i=1}^k$ 和构思要求 $t_{\mathrm{ideate}}$，生成编辑指令：</p>
+$$
+t_{\mathrm{edit}}\sim I(X,t_{\mathrm{ideate}}).
+$$<p>编辑器 $E$ 根据这条指令为每张图片采样 $m$ 个候选变体：</p>
+$$
+V_i=\{v_{i,j}\}_{j=1}^m,\qquad
+v_{i,j}\sim E(x_i,t_{\mathrm{edit}}).
+$$<p>最后，筛选器用评分函数 $S$ 同时衡量图片质量和任务一致性：</p>
+$$
+v_i^*=\arg\max_{v\in V_i}S(v,x_i).
+$$<p>这里真正困难的是在改动材质、背景和语义包装的同时，严格保持物体数量、位置、方向和任务规则不变。</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">视觉提示词工程 (VIPE)</span></p>
+<p><strong class="algo-input">输入 &gt; </strong> 原始图片 $x_i$，文字指令 $t_i$，构思要求 $t_{\mathrm{ideate}}$，候选数 $m$，视频模型 $M$。</p>
+<p><strong class="algo-output">输出 &gt; </strong> 视频模型生成的任务解答及其评分。</p>
+<ol>
+<li>构思器根据任务规则生成视觉编辑指令 $t_{\mathrm{edit}}$，并显式列出不可改变的对象和空间约束。</li>
+<li>编辑器对原图执行 $m$ 次随机编辑，得到候选集合 $V_i$。</li>
+<li>筛选器比较候选图与原图，删除物体缺失、位置变化或任务语义被破坏的样本。</li>
+<li>选择得分最高的 $v_i^*$ 作为新视觉 Prompt。</li>
+<li>将 $(v_i^*,t_i)$ 输入视频模型，生成任务演化视频。</li>
+<li>用任务专用评分器判断视频是否完成任务。</li>
+</ol>
+</div>
+<h2 id="实验效果">实验效果
+</h2><p><img alt="VPCT 上的写实化效果" class="gallery-image" data-flex-basis="619px" data-flex-grow="258" height="573" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/prompt-engineering/vpct-results.png" srcset="/p/paper-reading/prompt-engineering/vpct-results_hu_b24f7d082d1090b5.png 800w, /p/paper-reading/prompt-engineering/vpct-results.png 1479w" width="1479"></p>
+<p>有怀疑是：提升究竟来自写实，还是单纯来自把二维草图做成了有深度感的三维物体？作者又制作了一组拥有三维结构、却使用棋盘格等怪异材质的图片。多数模型在这组图片上与原始草图没有显著区别，说明只增加 3D 外观并不够，符合真实世界分布的材质与场景才是主要因素。</p>
+<h2 id="自动搜索视觉-prompt">自动搜索视觉 Prompt
+</h2><p>手动把草图改成台球场景依赖人的先验，我们不一定知道什么视觉包装更适合模型。论文比较了两种自动构造方法。</p>
+<h3 id="自由构思">自由构思
+</h3><p>最简单的方法是让 VLM 直接提出一个新的视觉语境。论文使用 Gemini 3.1 Pro 负责构思，Nano Banana 2 负责编辑，再由 Gemini 从五张图里选一张。构思器只知道任务规则，不接收下游视频得分，因此这是一个开环方法。</p>
+<h3 id="原子概念编辑">原子概念编辑
+</h3><p>另一条路线是论文 <a class="link cite-ACE">[<span class="material-index"></span>]
+    <span class="material-name">Unknown-material</span> 
+</a> 提出的 <strong>原子概念编辑 (Atomic Concept Editing, ACE)</strong>。自由构思一次改变整个场景，ACE 则每次只添加、删除或替换一个概念，例如：原图、背景改为深色、增加物体尺寸、给目标添加粗边框、把平面圆形改成磨砂黏土球。</p>
+<p>ACE 从原图开始建立搜索树，由 VLM 提议原子编辑，图片模型生成子节点，再根据视频评分器反馈继续扩展。这是一个闭环搜索过程，代价更高，但能逐步确认究竟是哪一种修改产生了提升。</p>
+<p><img alt="自动视觉提示词工程" class="gallery-image" data-flex-basis="372px" data-flex-grow="155" height="936" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/prompt-engineering/automated-vipe.png" srcset="/p/paper-reading/prompt-engineering/automated-vipe_hu_ebbc687f17470041.png 800w, /p/paper-reading/prompt-engineering/automated-vipe.png 1452w" width="1452"></p>
+<p>论文从成功节点中归纳出三个常见模式：</p>
+<ul>
+<li>真实材质：把抽象元素变成磨砂黏土、粉笔板、金属轨道等有明确物理属性的物体，改善对象恒常性；</li>
+<li>高对比目标隔离：使用深色背景、粗边框和清晰色块，引导模型关注任务对象；</li>
+<li>语义简化：减少抽象修饰，把 “same-colored” 换成 “matching”、把 “the two” 换成 “both” 等更直接的表达。</li>
+</ul>
+<p>值得注意的是，成功变体往往同时使用多种策略。这意味着 VIPE 在把图片变写实的同时，还共同调整材质先验、视觉注意力和任务语义。</p>
+<h2 id="视觉-prompt-也是-test-time-scaling">视觉 Prompt 也是 test-time scaling
+</h2><p>传统测试时扩展会对同一个 Prompt 多生成几次，再用多数投票或评分模型选答案。以 Veo 3.1 的 VPCT 实验为例，对原始草图采样 20 次并进行自一致性投票 <a class="link cite-Self-Consistency">[<span class="material-index"></span>]
+    
+</a>，准确率从 41.3% 提升到 50.0%；而只用一次人工设计的 VIPE Prompt，就能达到 59.3%。</p>
+<p>二者并不冲突。在 VIPE 图片上继续采样 20 次，最终可以达到 68.0%。</p>
+<p><img alt="VIPE 与传统测试时扩展" class="gallery-image" data-flex-basis="439px" data-flex-grow="183" height="355" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/prompt-engineering/test-time-scaling.png" width="650"></p>
+<p>成本也是论文很强调的一点。实验时生成一段 Veo 3.1 视频约需 3.20 美元，而包含五次图片编辑和筛选的一组 VIPE 变体约需 0.40 美元。也就是说，在固定预算下，与其反复对同一张图生成视频，不如先搜索更多便宜的视觉变体，再为每个变体生成少量视频。</p>
+<p>这个结论可以写成一个简单的预算分配问题。若生成 $n$ 个视觉变体、每个变体采样 $a$ 段视频，总成本近似为：</p>
+$$
+C(n,a)=n\left(c_{\mathrm{VIPE}}+a\,c_{\mathrm{video}}\right).
+$$<p>由于当前 $c_{\mathrm{VIPE}}\ll c_{\mathrm{video}}$，论文实验中的最优策略通常倾向增大 $n$ 而不是增大 $a$。这相当于把测试时计算从“重复尝试同一表示”转移到“探索不同表示”。</p>
+<h2 id="谁更重要">谁更重要？
+</h2><p>视频模型同时接收文字和图片，二者都可以被优化。作者保持一侧不变，分别让构思器提出 20 个文字变体或视觉变体，再比较最好的候选：</p>
+<div class="table-wrapper"><table>
+	<thead>
+			<tr>
+					<th>任务</th>
+					<th style="text-align: right">原始 Prompt</th>
+					<th style="text-align: right">最佳文字变体</th>
+					<th style="text-align: right">最佳视觉变体</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>VPCT 子集</td>
+					<td style="text-align: right">57%</td>
+					<td style="text-align: right">62%</td>
+					<td style="text-align: right"><strong>73%</strong></td>
+			</tr>
+			<tr>
+					<td>Conjunctive Search</td>
+					<td style="text-align: right">4%</td>
+					<td style="text-align: right">12%</td>
+					<td style="text-align: right"><strong>62%</strong></td>
+			</tr>
+			<tr>
+					<td>Sort 3 Numbers</td>
+					<td style="text-align: right">4%</td>
+					<td style="text-align: right"><strong>86%</strong></td>
+					<td style="text-align: right">76%</td>
+			</tr>
+			<tr>
+					<td>Connect the Dots</td>
+					<td style="text-align: right">3%</td>
+					<td style="text-align: right"><strong>35%</strong></td>
+					<td style="text-align: right">8%</td>
+			</tr>
+	</tbody>
+</table></div>
+<p>总结说视频模型存在两个相互作用的 Prompt 空间，任务瓶颈在哪个模态，就应该优先搜索哪个模态。</p>
+<h2 id="为什么写实场景更容易推理">为什么写实场景更容易推理？
+</h2><p>作者认为 VIPE 主要弥合了输入表示和训练分布之间的差距。视频模型大概率见过大量真实视频，却没有见过同等规模的几个圆沿虚线移动视频。在抽象场景中，物体容易随机出现、消失、变形或交换身份；一旦初始条件都无法保持，后续推理自然无从谈起。</p>
+<p>论文还让 Nano Banana 自己承担推理任务，直接生成“球落入某个桶”的结果图片。此时 VIPE 不再稳定有效：</p>
+<ul>
+<li>Nano Banana Pro 图像输出只从 45% 提升到 50%；</li>
+<li>Nano Banana 2 图像输出反而从 37% 降到 21%；</li>
+<li>Nano Banana 2 直接输出文字标签时，原始草图达到 58%，高于 VIPE 的 50%。</li>
+</ul>
+<p>同一个模型在文字输出上明显强于图片输出，说明模型可能知道答案，却无法稳定地把答案渲染成正确图片。论文把它称为 <strong>渲染瓶颈 (rendering bottleneck)</strong>。同时，这也表明写实偏好并非所有视觉模型共有的定律，更可能是特定模型训练分布与输入表示不匹配的结果。</p>
+
+
+    
+</section>
+
+
+    <footer class="article-meta article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/prompt-engineering/">Prompt Engineering</a>
+        
+            <a href="/tags/video/">Video</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright inline-meta">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>本文遵循 CC BY-NC-SA 4.0 协议</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const elementsToRender = [".main-article", ".widget--toc"];
+
+        elementsToRender.forEach(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                renderMathInElement(element, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false },
+                        { left: "\\(", right: "\\)", display: false },
+                        { left: "\\[", right: "\\]", display: true }
+                    ],
+                    ignoredClasses: ["gist"]
+                });
+            }
+        });
+    });
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside>
+    <h2 class="section-title">相关文章</h2>
+    <div class="subsection-list">
+        <div class="article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/paper-reading/agent-tool-use/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - 智能体工具调用</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/paper-reading/device-cloud-collaborative/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - 端云协同智能体</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/paper-reading/gui-agents/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - GUI 智能体</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/paper-reading/agentic-rl-overview/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - 智能体强化学习总览</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/paper-reading/test-time-adaptation-application/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - 测试时自适应的应用</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2025 - 
+        
+        2026 LeoDreamer
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+
+    
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.043d659a2679f7cfce18735147f0d7319c2b048d39d76c3116d56fb22b880be9.js" defer></script>
+
+
+    </body>
+</html>
