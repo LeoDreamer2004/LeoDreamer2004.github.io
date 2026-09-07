@@ -3,40 +3,46 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://LeoDreamer2004.github.io/</loc>
-    <lastmod>2026-08-03T00:00:00+00:00</lastmod>
+    <lastmod>2026-09-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://LeoDreamer2004.github.io/tags/agent/</loc>
+    <lastmod>2026-09-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://LeoDreamer2004.github.io/categories/</loc>
-    <lastmod>2026-08-03T00:00:00+00:00</lastmod>
+    <lastmod>2026-09-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://LeoDreamer2004.github.io/tags/inference/</loc>
+    <lastmod>2026-09-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://LeoDreamer2004.github.io/post/</loc>
-    <lastmod>2026-08-03T00:00:00+00:00</lastmod>
+    <lastmod>2026-09-07T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://LeoDreamer2004.github.io/tags/prompt-engineering/</loc>
-    <lastmod>2026-08-03T00:00:00+00:00</lastmod>
+    <loc>https://LeoDreamer2004.github.io/tags/system/</loc>
+    <lastmod>2026-09-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://LeoDreamer2004.github.io/tags/</loc>
+    <lastmod>2026-09-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://LeoDreamer2004.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/</loc>
+    <lastmod>2026-09-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://LeoDreamer2004.github.io/categories/%E8%AE%BA%E6%96%87/</loc>
+    <lastmod>2026-09-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://LeoDreamer2004.github.io/p/paper-reading/asynchronous-inference/</loc>
+    <lastmod>2026-09-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://LeoDreamer2004.github.io/tags/prompt-engineering/</loc>
     <lastmod>2026-08-03T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://LeoDreamer2004.github.io/tags/video/</loc>
     <lastmod>2026-08-03T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://LeoDreamer2004.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/</loc>
-    <lastmod>2026-08-03T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://LeoDreamer2004.github.io/categories/%E8%AE%BA%E6%96%87/</loc>
-    <lastmod>2026-08-03T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://LeoDreamer2004.github.io/p/paper-reading/prompt-engineering/</loc>
-    <lastmod>2026-08-03T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://LeoDreamer2004.github.io/categories/%E6%8F%90%E7%A4%BA%E8%AF%8D%E5%B7%A5%E7%A8%8B/</loc>
     <lastmod>2026-08-03T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://LeoDreamer2004.github.io/p/tittle-tattle/graduate/</loc>
     <lastmod>2026-07-02T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://LeoDreamer2004.github.io/tags/agent/</loc>
-    <lastmod>2026-06-16T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://LeoDreamer2004.github.io/tags/mllm/</loc>
     <lastmod>2026-06-16T00:00:00+00:00</lastmod>
@@ -217,5 +223,7 @@
     <loc>https://LeoDreamer2004.github.io/search/</loc>
   </url><url>
     <loc>https://LeoDreamer2004.github.io/links/</loc>
+  </url><url>
+    <loc>https://LeoDreamer2004.github.io/categories/%E5%BC%82%E6%AD%A5%E6%8E%A8%E7%90%86/</loc>
   </url>
 </urlset>

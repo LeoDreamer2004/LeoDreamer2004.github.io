@@ -341,13 +341,6 @@
             
             
             
-            <a href="/categories/%E6%8F%90%E7%A4%BA%E8%AF%8D%E5%B7%A5%E7%A8%8B/" style="background-color: hsl(330, 60%, 84%); color: hsl(330, 60%, 15%);">
-                提示词工程
-            </a>
-        
-            
-            
-            
             <a href="/categories/%E8%AE%BA%E6%96%87/" style="background-color: #aa2b2c; color: #fff;">
                 论文
             </a>
@@ -457,7 +450,7 @@
     
     <p>视频生成模型并不只接收文字。对于图生视频模型，输入图片既是首帧，也是物体、空间关系和物理约束的主要载体。既然文字 Prompt 可以优化，为什么不能直接优化视觉 Prompt？论文 <a class="link cite-VIPE">[<span class="material-index"></span>]
     <span class="material-name">Unknown-material</span> 
-</a> 因此提出一个相当自然的问题，把这种方法称为 <strong>视觉提示词工程 (Visual Prompt Engineering, VIPE)</strong>。</p>
+</a> (Google DeepMind, Tech Report) 因此提出一个相当自然的问题，把这种方法称为 <strong>视觉提示词工程 (Visual Prompt Engineering, VIPE)</strong>。</p>
 <p><img alt="VIPE 整体流程" class="gallery-image" data-flex-basis="371px" data-flex-grow="154" height="939" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/prompt-engineering/vipe-overview.png" srcset="/p/paper-reading/prompt-engineering/vipe-overview_hu_608c77897c8352f2.png 800w, /p/paper-reading/prompt-engineering/vipe-overview.png 1454w" width="1454"></p>
 <h2 id="把输入图片视为-prompt">把输入图片视为 Prompt
 </h2><p>一个视频推理样本记为 $(x_i,t_i)$，其中 $x_i\in\mathcal{X}$ 是视觉 Prompt，$t_i\in\mathcal{T}$ 是文字 Prompt。视频模型以二者为条件生成视频，并通过视频中的状态变化给出任务答案。</p>
@@ -648,6 +641,17 @@ $$<p>由于当前 $c_{\mathrm{VIPE}}\ll c_{\mathrm{video}}$，论文实验中的
             
                 
 <article class="">
+    <a href="/p/paper-reading/asynchronous-inference/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - 异步推理</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
     <a href="/p/paper-reading/agent-tool-use/">
         
 
@@ -686,17 +690,6 @@ $$<p>由于当前 $c_{\mathrm{VIPE}}\ll c_{\mathrm{video}}$，论文实验中的
 
         <div class="article-details">
             <h2 class="article-title">论文阅读 - 智能体强化学习总览</h2>
-        </div>
-    </a>
-</article>
-            
-                
-<article class="">
-    <a href="/p/paper-reading/test-time-adaptation-application/">
-        
-
-        <div class="article-details">
-            <h2 class="article-title">论文阅读 - 测试时自适应的应用</h2>
         </div>
     </a>
 </article>
