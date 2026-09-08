@@ -313,9 +313,7 @@
         <li><a href="#操作系统调参">操作系统调参</a></li>
       </ol>
     </li>
-    <li><a href="#分支不是越多越好">分支不是越多越好</a></li>
-    <li><a href="#objection">Objection!</a></li>
-    <li><a href="#小结">小结</a></li>
+    <li><a href="#时间与成本的均衡">时间与成本的均衡</a></li>
   </ol>
 
             </nav>
@@ -397,7 +395,7 @@
 
 
                     <time class="article-time--reading">
-                        阅读时长: 9 分钟
+                        阅读时长: 7 分钟
                     </time>
                 
             </div>
@@ -441,9 +439,7 @@
         <li><a href="#操作系统调参">操作系统调参</a></li>
       </ol>
     </li>
-    <li><a href="#分支不是越多越好">分支不是越多越好</a></li>
-    <li><a href="#objection">Objection!</a></li>
-    <li><a href="#小结">小结</a></li>
+    <li><a href="#时间与成本的均衡">时间与成本的均衡</a></li>
   </ol>
 
             </nav>
@@ -457,7 +453,7 @@
     <p>Agent 的能力未必和效率成正比. 一次浏览器任务可能包含几十次模型推理和工具调用, 每一步都要等上一步返回, 原本几百毫秒的网络延迟显然很慢.</p>
 <p>论文 <a class="link cite-Speculative-Actions">[<span class="material-index"></span>]
     <span class="material-name">Unknown-material</span> 
-</a> (ICLR 2026 Oral) 把大模型推测解码 (Speculative Decoding) 的思路从 token 生成推广到 Agent 的动作与 API 调用：让一个快模型提前猜下一步, 并在慢模型给出权威答案之前, 先把可能的后续调用异步发出去. 猜对了, 结果已经在路上；猜错了, 丢弃分支并照常执行.</p>
+</a> (ICLR 2026 Oral) 把大模型推测解码 (Speculative Decoding) 的思路从 token 生成推广到 Agent 的动作与 API 调用：让一个快模型提前猜下一步, 并在慢模型给出权威答案之前, 先把可能的后续调用异步发出去. 猜对了, 结果已经在路上; 猜错了, 丢弃分支并照常执行.</p>
 <h2 id="推测解码技术">推测解码技术
 </h2><p>在讨论 Agent 之前, 我们先回到 Speculative Decoding.</p>
 <h3 id="自回归解码为什么慢">自回归解码为什么慢？
@@ -506,7 +502,7 @@ s_{t+1}=f(s_t,a_t).
 $$<p>这里的 API 是一个很宽泛的抽象：它可以是一次 LLM 请求、搜索或 MCP 工具调用、GUI 操作, 甚至可以是等待人类回复. 共同点在于, 它们都会返回一个 <code>Future</code>, 而 Agent 通常在 <code>await</code> 完成前无事可做.</p>
 <p>论文引入两个角色：</p>
 <ul>
-<li><strong>Actor</strong>：慢但权威的执行者, 负责给出基准系统原本会产生的真实结果；</li>
+<li><strong>Actor</strong>：慢但权威的执行者, 负责给出基准系统原本会产生的真实结果;</li>
 <li><strong>Speculator</strong>：便宜而快速的预测器, 猜测 Actor 的结果以及随之而来的下一次调用.</li>
 </ul>
 <p><img alt="Speculative Actions" class="gallery-image" data-flex-basis="432px" data-flex-grow="180" height="1071" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/asynchronous-inference/speculative-actions.png" srcset="/p/paper-reading/asynchronous-inference/speculative-actions_hu_84c9561d535e6d14.png 800w, /p/paper-reading/asynchronous-inference/speculative-actions_hu_aad44134cc101525.png 1600w, /p/paper-reading/asynchronous-inference/speculative-actions.png 1929w" width="1929"></p>
@@ -517,7 +513,7 @@ $$<p>再让原策略根据每个假想状态计算可能的下一次 API 调用,
 $$
 (\hat h_{t+1}^{(i)},\hat q_{t+1}^{(i)})
 =\pi(\hat s_{t+1}^{(i)}).
-$$<p>这些尚未完成的调用被存在缓存 $C:(h,q)\mapsto\bar a$ 中. Actor 返回真实 $a_t$ 后, 系统重新计算真正的下一次调用. 如果缓存中有完全匹配的 $(h_{t+1},q_{t+1})$, 就直接复用已经启动的 Future；否则丢弃所有错误分支, 再按普通串行方式调用.</p>
+$$<p>这些尚未完成的调用被存在缓存 $C:(h,q)\mapsto\bar a$ 中. Actor 返回真实 $a_t$ 后, 系统重新计算真正的下一次调用. 如果缓存中有完全匹配的 $(h_{t+1},q_{t+1})$, 就直接复用已经启动的 Future; 否则丢弃所有错误分支, 再按普通串行方式调用.</p>
 <div class="math-block math-algo">
     <p class="math-title">算法<span class="math-subtitle">k 路并行调用</span></p>
 <p><strong class="algo-input">输入 &gt; </strong> 初始状态 $s_0$, 环境转移 $f$, 策略 $\pi$, 预测器 $\hat g$, 分支数 $k$, 缓存 $C$.</p>
@@ -532,18 +528,18 @@ $$<p>这些尚未完成的调用被存在缓存 $C:(h,q)\mapsto\bar a$ 中. Acto
 <li>对每个候选 $i$, 构造假想状态 $\hat s_{t+1}^{(i)}\leftarrow f(s_t,\hat a_t^{(i)})$.</li>
 <li>根据策略得到候选下一次调用 $(\hat h_{t+1}^{(i)},\hat q_{t+1}^{(i)})\leftarrow\pi(\hat s_{t+1}^{(i)})$.</li>
 <li><strong>Pre-launch</strong>: 异步发起 $\bar{\hat a}_{t+1}^{(i)}\leftarrow f_{\hat h_{t+1}^{(i)}}(\hat q_{t+1}^{(i)})$, 并写入缓存 $C[(\hat h_{t+1}^{(i)},\hat q_{t+1}^{(i)})]\leftarrow\bar{\hat a}_{t+1}^{(i)}$.</li>
-<li><strong>Validate</strong>: 等待 Actor 的真实结果 $a_t\leftarrow\operatorname{await}(\bar a_t)$, 更新 $s_{t+1}\leftarrow f(s_t,a_t)$；回到 1, 下一轮的第 3 步会验证真实调用是否命中某个预启动分支.</li>
+<li><strong>Validate</strong>: 等待 Actor 的真实结果 $a_t\leftarrow\operatorname{await}(\bar a_t)$, 更新 $s_{t+1}\leftarrow f(s_t,a_t)$; 回到 1, 下一轮的第 3 步会验证真实调用是否命中某个预启动分支.</li>
 </ol>
 </div>
 <p>与推测解码一样, Speculator 只影响运算开始时间, 不影响最终结果.</p>
 <h2 id="无损的条件">无损的条件
 </h2><p>token 没有外部副作用, Action 却可能真的发送邮件、删除文件或提交订单. 论文的无损性依赖两个关键假设：</p>
 <ol>
-<li><strong>推测准确性 (speculation accuracy)</strong>: Speculator 有非零概率预测出与真实轨迹相同的下一次调用；</li>
+<li><strong>推测准确性 (speculation accuracy)</strong>: Speculator 有非零概率预测出与真实轨迹相同的下一次调用;</li>
 <li><strong>并发可逆预启动 (Concurrent, reversible pre-launch)</strong>: 多个调用能够并发预启动, 而且错误调用没有外部可见副作用, 或者可以安全回滚.</li>
 </ol>
 <p>因此, 适合推测的动作通常是只读、幂等、可逆或沙箱化的, 例如预取网页、查询订单状态、在临时分支执行分析. 不可逆动作则必须停留在准备阶段, 等 Actor 验证后才能提交.</p>
-<p>这里“无损”的含义也与 Speculative Decoding 略有不同. 推测解码严格保持目标模型的输出分布；Speculative Actions 则是在上述保护成立时, 保持与串行 Agent 相同的已提交环境轨迹.</p>
+<p>这里“无损”的含义也与 Speculative Decoding 略有不同. 推测解码严格保持目标模型的输出分布; Speculative Actions 则是在上述保护成立时, 保持与串行 Agent 相同的已提交环境轨迹.</p>
 <h2 id="能快多少">能快多少？
 </h2><p>假设 Speculator 延迟服从 $\operatorname{Exp}(\alpha)$, 真实 API 延迟服从 $\operatorname{Exp}(\beta)$, 且 $\alpha>\beta$, 即 Speculator 平均更快. 论文的 Proposition 1 给出了单步、宽度优先推测的渐近运行时间比.</p>
 <div class="math-block math-thm">
@@ -559,7 +555,7 @@ $$
 1-\frac{p(k)}{1+p(k)}\frac{\alpha}{\alpha+\beta}.
 $$</div>
 <p>这个结果揭示了两个瓶颈：命中率 $p(k)$ 决定并行工作有多少能被复用, $\alpha/(\alpha+\beta)$ 则决定 Speculator 是否真的比 Actor 快. 对于只向前推测一步的宽度优先算法, 即使预测永远正确且 Speculator 瞬间完成, 延迟降低上限也只有 50%. 原因是命中缓存的下一步本身没有新的推测窗口, 系统无法无限流水化.</p>
-<p>更深的单分支推测可以突破这个上限, 但错误时会浪费整棵后继子树. 论文 <a class="link ref-Interactive-Speculative-Planning"></a> 和 <a class="link ref-Dynamic-Speculative-Planning"></a> 更偏向这种纵向规划；Speculative Actions 的主算法则研究每一步横向铺开多个候选的宽度策略.</p>
+<p>更深的单分支推测可以突破这个上限, 但错误时会浪费整棵后继子树. 论文 <a class="link ref-Interactive-Speculative-Planning"></a> 和 <a class="link ref-Dynamic-Speculative-Planning"></a> 更偏向这种纵向规划; Speculative Actions 的主算法则研究每一步横向铺开多个候选的宽度策略.</p>
 <h2 id="四个实验">四个实验
 </h2><h3 id="国际象棋">国际象棋
 </h3><p>在标准对弈中, 一方思考时另一方只能等待. 论文让等待方用低推理预算的 GPT-5 预测对手下一步, 同时用高推理预算的 GPT-5 对每个预测局面提前思考自己的应对.</p>
@@ -591,19 +587,18 @@ $$</div>
 			</tr>
 	</tbody>
 </table></div>
-<p>加速与命中率不是线性关系. 猜中一个简单局面可能只省几秒, 猜中需要深度推理的局面则会省很多；在线 API 延迟本身也有较大波动.</p>
+<p>加速与命中率不是线性关系. 猜中一个简单局面可能只省几秒, 猜中需要深度推理的局面则会省很多; 在线 API 延迟本身也有较大波动.</p>
 <h3 id="电商客服">电商客服
 </h3><p>在 $\tau$-bench 的零售环境中, Speculator 根据已有对话猜用户接下来会提出什么请求, 并提前调用订单查询、退货资格等 API. 不同单模型和模型组合能准确预测 22%～38% 的 API 调用.</p>
 <p>低预算模型通常在 2～3 秒内完成推测, 而论文假设用户平均需要约 30 秒输入下一条消息. 因此, 系统可以把本来空闲的“用户打字时间”也当作推测窗口. 不过论文在这里主要报告 API 预测准确率, 并没有直接给出完整会话的端到端加速结果.</p>
 <h3 id="多跳搜索">多跳搜索
 </h3><p>HotpotQA Agent 必须根据 Wikipedia 返回的内容决定下一次 <code>Search</code>、<code>Lookup</code> 或 <code>Finish</code>. Speculator 在真实检索返回前猜测网页内容, 再据此预计算下一次搜索调用. 采用 top-3 候选时, 严格匹配下一次 API 名称和参数的准确率最高达到 46%.</p>
-<p>一个有趣现象是, 更强的模型不一定猜得更准. 强模型会产生更加多样、具体的查询, 而严格字符串匹配把同义改写也视为失败；较弱模型反而倾向简单而可预测的调用. 这说明 Speculator 的目标不是独立解决任务, 而是<strong>模仿 Actor 的接口行为</strong>.</p>
+<p>一个有趣现象是, 更强的模型不一定猜得更准. 强模型会产生更加多样、具体的查询, 而严格字符串匹配把同义改写也视为失败; 较弱模型反而倾向简单而可预测的调用.</p>
 <h3 id="操作系统调参">操作系统调参
 </h3><p>论文还给出一个有损扩展, 用 Agent 调节 Linux CFS 的 <code>min_granularity</code>. Speculator 每秒根据最新指标立即修改参数, Actor 每 10～15 秒分析一次压缩后的历史, 并用自己的决策覆盖 Speculator.</p>
 <p><img alt="操作系统调参中的 Actor 与 Speculator" class="gallery-image" data-flex-basis="874px" data-flex-grow="364" height="280" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/asynchronous-inference/os-tuning.png" srcset="/p/paper-reading/asynchronous-inference/os-tuning_hu_aadc3b2d9e0d1e08.png 800w, /p/paper-reading/asynchronous-inference/os-tuning.png 1020w" width="1020"></p>
-<p>联合系统在约 13 秒到达最优区域, 而 Actor-only 需要约 200 秒；恢复阶段平均 p95 延迟从 Actor-only 的 54.00 ms 降到 37.93 ms. 虽然 Speculator 调用频繁, 联合系统因为更早收敛, 总成本反而从 2.18 美分降至 0.17 美分.</p>
-<p>这组实验和前三组不是同一种“无损”. Speculator 的临时参数确实会影响系统, 只是 Actor 到达后采用 last-write-wins 覆盖它. 它更接近快慢控制器协作：快控制器负责响应扰动, 慢控制器负责修正长期方向.</p>
-<h2 id="分支不是越多越好">分支不是越多越好
+<p>联合系统在约 13 秒到达最优区域, 而 Actor-only 需要约 200 秒; 恢复阶段平均 p95 延迟从 Actor-only 的 54.00 ms 降到 37.93 ms. 虽然 Speculator 调用频繁, 联合系统因为更早收敛, 总成本反而从 2.18 美分降至 0.17 美分.</p>
+<h2 id="时间与成本的均衡">时间与成本的均衡
 </h2><p>$k$ 增大时, $p(k)$ 上升, 但每个错误分支都会消耗 token、API 配额和算力. 论文将问题写成延迟收益与分支成本的权衡. 若每条候选具有置信度 $p^{(1)}\ge\cdots\ge p^{(k)}$, 启动前 $m$ 条分支的命中概率为：</p>
 $$
 q(m;\mathbf p)=1-\prod_{j=1}^{m}(1-p^{(j)}).
@@ -614,56 +609,7 @@ m_t^*(\mathbf p)\in
 \left\{q(m;\mathbf p)\Delta_t-cm\right\},
 $$<p>其中 $\Delta_t$ 是未来命中缓存的价值, $c$ 是新增一条分支的边际成本. 直观上, 系统按置信度从高到低添加分支, 直到下一条分支带来的命中率增量不再值回成本.</p>
 <p><img alt="置信度感知的分支选择" class="gallery-image" data-flex-basis="315px" data-flex-grow="131" height="350" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/asynchronous-inference/cost-latency.png" width="460"></p>
-<p>论文在国际象棋中用 50% 置信度阈值作近似, 得到的额外 token 成本最低, 同时延迟表现优于固定启动一条或两条分支. 真正值得实现的不是“永远 top-$k$”, 而是允许系统在低置信度时完全不推测.</p>
-<h2 id="objection">Objection!
-</h2><p>这篇论文提出了一个很有潜力的系统抽象, 但“通用、无损、20% 加速”三个描述都需要加上条件.</p>
-<p>首先, 端到端延迟证据并不均匀. 国际象棋直接测量了 5 次运行的节省时间；电商和 HotpotQA 主要报告下一 API 的预测准确率, 再把命中解释为潜在收益. 准确率并不自动等于加速率：API 是否已经完成、取消错误请求需要多久、并发是否触发限流, 都会改变真实收益.</p>
-<p>其次, 独立分支假设偏理想化. $p(k)=1-(1-p)^k$ 假设候选相互独立, 但同一个模型生成的 top-$k$ 动作通常高度相关. 分支越相似, 增加 $k$ 的边际收益越低；分支越多样, 又越可能偏离 Actor 的真实行为.</p>
-<p>第三, 环境调用比 token 更难验证. 两条搜索词可能语义等价却无法严格匹配；两个 API 返回值可能不同却导向同一个后续状态. 论文一方面用严格匹配低估可复用率, 另一方面又没有完整解决一般环境中的语义等价判定. 若验证本身需要再调用一个大模型, 省下的时间可能被验证器吃掉.</p>
-<p>第四, 外部副作用是这套框架真正的边界. 即使一次错误调用最终没有提交, 它仍可能产生计费、速率限制、审计日志或隐私暴露. 论文的零售环境包含写 API, 但一般系统不能把“可以补偿”直接当作“从未发生”. 付款、发信和删除等动作更适合只推测参数准备、权限检查和只读前置查询, 不能提前执行最终提交.</p>
-<p>最后, 论文比较的是同一模型的高/低推理预算或不同模型组合, 但 Speculator 自己也会竞争 API 并发、GPU 批处理和网络带宽. 在共享资源已经饱和时, 额外分支可能拖慢 Actor. 理论中的并发近乎免费, 更适合作为上界而不是部署保证.</p>
-<h2 id="小结">小结
-</h2><p>Speculative Actions 的关键贡献, 是把 Agent Runtime 中所有慢步骤统一看成可预测的 API Future, 并把 Speculative Decoding 的四个组件提升到环境层：</p>
-<div class="table-wrapper"><table>
-	<thead>
-			<tr>
-					<th>Token 推测解码</th>
-					<th>Agent 推测动作</th>
-			</tr>
-	</thead>
-	<tbody>
-			<tr>
-					<td>Draft Model</td>
-					<td>Speculator</td>
-			</tr>
-			<tr>
-					<td>Target Model</td>
-					<td>Actor</td>
-			</tr>
-			<tr>
-					<td>候选 token</td>
-					<td>候选 Action / API Response</td>
-			</tr>
-			<tr>
-					<td>并行验证一段 token</td>
-					<td>并行预启动后续 API</td>
-			</tr>
-			<tr>
-					<td>接受前缀</td>
-					<td>命中缓存并提交分支</td>
-			</tr>
-			<tr>
-					<td>拒绝后修正采样</td>
-					<td>丢弃、回滚或补偿</td>
-			</tr>
-			<tr>
-					<td>保持目标输出分布</td>
-					<td>保持串行系统的提交轨迹</td>
-			</tr>
-	</tbody>
-</table></div>
-<p>从我的理解来看, 这类方法并没有消除 Agent 的因果顺序, 而是把“逻辑上必须串行”和“物理上必须等完”分开了. 最终状态仍由 Actor 决定, 但下一步所需的工作可以提前排队. 真正决定它能否落地的也不是 Speculator 有多聪明, 而是系统能否回答三个问题：哪些动作可以安全预执行？怎样低成本判断两个动作等价？在当前负载下, 多开一条分支到底值不值？</p>
-<p>如果这三个问题能够由 Runtime 统一处理, 那么异步推理就不再只是让 Agent 同时调用几个工具, 而会变成一套类似 CPU 推测执行的完整机制：预测、调度、隔离、验证、提交和回滚. 本文只是这个专题的起点.</p>
+<p>论文在国际象棋中用 50% 置信度阈值作近似, 得到的额外 token 成本最低, 同时延迟表现优于固定启动一条或两条分支.</p>
 
 
     
