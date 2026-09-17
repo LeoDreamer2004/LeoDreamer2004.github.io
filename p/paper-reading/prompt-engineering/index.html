@@ -336,7 +336,7 @@
     <header class="article-header">
     <div class="article-image">
         <a href="/p/paper-reading/prompt-engineering/">
-            <img alt="Featured image of post 论文阅读 - 提示词工程" height="578" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/prompt-engineering/cover.png" srcset="/p/paper-reading/prompt-engineering/cover_hu_81930124b1e4e3d.png 800w, /p/paper-reading/prompt-engineering/cover_hu_d0a5ffa7166bbba.png 1600w, /p/paper-reading/prompt-engineering/cover.png 1626w" width="1626">
+            <img alt="Featured image of post 论文阅读 - 提示词工程" height="578" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/prompt-engineering/cover.png" srcset="/p/paper-reading/prompt-engineering/cover_hu_767f62eeeb03801c.png 800w, /p/paper-reading/prompt-engineering/cover_hu_f92334adc35d451a.png 1600w, /p/paper-reading/prompt-engineering/cover.png 1626w" width="1626">
         </a>
     </div>
     
@@ -458,7 +458,7 @@
     <p>视频生成模型并不只接收文字。对于图生视频模型，输入图片既是首帧，也是物体、空间关系和物理约束的主要载体。既然文字 Prompt 可以优化，为什么不能直接优化视觉 Prompt？论文 <a class="link cite-VIPE">[<span class="material-index"></span>]
     <span class="material-name">Unknown-material</span> 
 </a> (Google DeepMind, Tech Report) 因此提出一个相当自然的问题，把这种方法称为 <strong>视觉提示词工程 (Visual Prompt Engineering, VIPE)</strong>。</p>
-<p><img alt="VIPE 整体流程" class="gallery-image" data-flex-basis="371px" data-flex-grow="154" height="939" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/prompt-engineering/vipe-overview.png" srcset="/p/paper-reading/prompt-engineering/vipe-overview_hu_608c77897c8352f2.png 800w, /p/paper-reading/prompt-engineering/vipe-overview.png 1454w" width="1454"></p>
+<p><img alt="VIPE 整体流程" class="gallery-image" data-flex-basis="371px" data-flex-grow="154" height="939" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/prompt-engineering/vipe-overview.png" srcset="/p/paper-reading/prompt-engineering/vipe-overview_hu_5ff8caf034e7c754.png 800w, /p/paper-reading/prompt-engineering/vipe-overview.png 1454w" width="1454"></p>
 <h2 id="把输入图片视为-prompt">把输入图片视为 Prompt
 </h2><p>一个视频推理样本记为 $(x_i,t_i)$，其中 $x_i\in\mathcal{X}$ 是视觉 Prompt，$t_i\in\mathcal{T}$ 是文字 Prompt。视频模型以二者为条件生成视频，并通过视频中的状态变化给出任务答案。</p>
 <p>VIPE 只把原图 $x_i$ 替换为一个更适合模型推理的视觉变体 $v_i^*$。完整流程包含三个角色：</p>
@@ -492,7 +492,7 @@ $$<p>这里真正困难的是在改动材质、背景和语义包装的同时，
 </ol>
 </div>
 <h2 id="实验效果">实验效果
-</h2><p><img alt="VPCT 上的写实化效果" class="gallery-image" data-flex-basis="619px" data-flex-grow="258" height="573" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/prompt-engineering/vpct-results.png" srcset="/p/paper-reading/prompt-engineering/vpct-results_hu_b24f7d082d1090b5.png 800w, /p/paper-reading/prompt-engineering/vpct-results.png 1479w" width="1479"></p>
+</h2><p><img alt="VPCT 上的写实化效果" class="gallery-image" data-flex-basis="619px" data-flex-grow="258" height="573" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/prompt-engineering/vpct-results.png" srcset="/p/paper-reading/prompt-engineering/vpct-results_hu_a038e92aaec53180.png 800w, /p/paper-reading/prompt-engineering/vpct-results.png 1479w" width="1479"></p>
 <p>有怀疑是：提升究竟来自写实，还是单纯来自把二维草图做成了有深度感的三维物体？作者又制作了一组拥有三维结构、却使用棋盘格等怪异材质的图片。多数模型在这组图片上与原始草图没有显著区别，说明只增加 3D 外观并不够，符合真实世界分布的材质与场景才是主要因素。</p>
 <h2 id="自动搜索视觉-prompt">自动搜索视觉 Prompt
 </h2><p>手动把草图改成台球场景依赖人的先验，我们不一定知道什么视觉包装更适合模型。论文比较了两种自动构造方法。</p>
@@ -503,7 +503,7 @@ $$<p>这里真正困难的是在改动材质、背景和语义包装的同时，
     <span class="material-name">Unknown-material</span> 
 </a> 提出的 <strong>原子概念编辑 (Atomic Concept Editing, ACE)</strong>。自由构思一次改变整个场景，ACE 则每次只添加、删除或替换一个概念，例如：原图、背景改为深色、增加物体尺寸、给目标添加粗边框、把平面圆形改成磨砂黏土球。</p>
 <p>ACE 从原图开始建立搜索树，由 VLM 提议原子编辑，图片模型生成子节点，再根据视频评分器反馈继续扩展。这是一个闭环搜索过程，代价更高，但能逐步确认究竟是哪一种修改产生了提升。</p>
-<p><img alt="自动视觉提示词工程" class="gallery-image" data-flex-basis="372px" data-flex-grow="155" height="936" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/prompt-engineering/automated-vipe.png" srcset="/p/paper-reading/prompt-engineering/automated-vipe_hu_ebbc687f17470041.png 800w, /p/paper-reading/prompt-engineering/automated-vipe.png 1452w" width="1452"></p>
+<p><img alt="自动视觉提示词工程" class="gallery-image" data-flex-basis="372px" data-flex-grow="155" height="936" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/prompt-engineering/automated-vipe.png" srcset="/p/paper-reading/prompt-engineering/automated-vipe_hu_7e11b54677b270dd.png 800w, /p/paper-reading/prompt-engineering/automated-vipe.png 1452w" width="1452"></p>
 <p>论文从成功节点中归纳出三个常见模式：</p>
 <ul>
 <li>真实材质：把抽象元素变成磨砂黏土、粉笔板、金属轨道等有明确物理属性的物体，改善对象恒常性；</li>
@@ -647,11 +647,33 @@ $$<p>由于当前 $c_{\mathrm{VIPE}}\ll c_{\mathrm{video}}$，论文实验中的
         <div class="article-list--tile">
             
                 
+<article class="">
+    <a href="/p/paper-reading/recursive-self-improvement/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - 递归自我改进</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/paper-reading/ai4materials/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - AI4Materials</h2>
+        </div>
+    </a>
+</article>
+            
+                
 <article class="has-image">
     <a href="/p/paper-reading/asynchronous-inference/">
         
         <div class="article-image">
-            <img alt="Featured image of post 论文阅读 - 异步推理" height="150" loading="lazy" src="/p/paper-reading/asynchronous-inference/cover_hu_77cfa43380ae62b9.png" srcset="/p/paper-reading/asynchronous-inference/cover_hu_77cfa43380ae62b9.png 1x, /p/paper-reading/asynchronous-inference/cover_hu_3d408e690d616768.png 2x" width="250">
+            <img alt="Featured image of post 论文阅读 - 异步推理" height="150" loading="lazy" src="/p/paper-reading/asynchronous-inference/cover_hu_458503bd6fd81182.png" srcset="/p/paper-reading/asynchronous-inference/cover_hu_458503bd6fd81182.png 1x, /p/paper-reading/asynchronous-inference/cover_hu_9cefd0bfdc6eefa9.png 2x" width="250">
 
         </div>
         
@@ -667,7 +689,7 @@ $$<p>由于当前 $c_{\mathrm{VIPE}}\ll c_{\mathrm{video}}$，论文实验中的
     <a href="/p/paper-reading/agent-tool-use/">
         
         <div class="article-image">
-            <img alt="Featured image of post 论文阅读 - 智能体工具调用" height="150" loading="lazy" src="/p/paper-reading/agent-tool-use/cover_hu_f63b5815b16080bf.png" srcset="/p/paper-reading/agent-tool-use/cover_hu_f63b5815b16080bf.png 1x, /p/paper-reading/agent-tool-use/cover_hu_900fc387f5bc6c6b.png 2x" width="250">
+            <img alt="Featured image of post 论文阅读 - 智能体工具调用" height="150" loading="lazy" src="/p/paper-reading/agent-tool-use/cover_hu_ccfd67a01cbe2738.png" srcset="/p/paper-reading/agent-tool-use/cover_hu_ccfd67a01cbe2738.png 1x, /p/paper-reading/agent-tool-use/cover_hu_3baa4d1248c57a33.png 2x" width="250">
 
         </div>
         
@@ -690,33 +712,6 @@ $$<p>由于当前 $c_{\mathrm{VIPE}}\ll c_{\mathrm{video}}$，论文实验中的
 
         <div class="article-details"style="background: linear-gradient(0deg, #a5a7a680 0%, #3a3c3dC0 100%);">
             <h2 class="article-title">论文阅读 - 端云协同智能体</h2>
-        </div>
-    </a>
-</article>
-            
-                
-<article class="has-image">
-    <a href="/p/paper-reading/gui-agents/">
-        
-        <div class="article-image">
-            <img alt="Featured image of post 论文阅读 - GUI 智能体" height="150" loading="lazy" src="/p/paper-reading/gui-agents/cover_hu_515eebe602fed179.png" srcset="/p/paper-reading/gui-agents/cover_hu_515eebe602fed179.png 1x, /p/paper-reading/gui-agents/cover_hu_eecbb30067f1374e.png 2x" width="250">
-
-        </div>
-        
-
-        <div class="article-details"style="background: linear-gradient(0deg, #a8b0ca80 0%, #28282aC0 100%);">
-            <h2 class="article-title">论文阅读 - GUI 智能体</h2>
-        </div>
-    </a>
-</article>
-            
-                
-<article class="">
-    <a href="/p/paper-reading/agentic-rl-overview/">
-        
-
-        <div class="article-details">
-            <h2 class="article-title">论文阅读 - 智能体强化学习总览</h2>
         </div>
     </a>
 </article>

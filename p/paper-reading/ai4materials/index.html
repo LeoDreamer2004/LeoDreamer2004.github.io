@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="从原子结构到自动化实验室">
+<title>论文阅读 - AI4Materials</title>
+
+
+<link rel="canonical" href="https://LeoDreamer2004.github.io/p/paper-reading/ai4materials/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+
+
+<link rel="stylesheet" href="/scss/style.min.1455f3807fb66fd219a4e664923dc77d57212024863d8fdd70f90266af6cae1e.css"><meta property='og:title' content="论文阅读 - AI4Materials">
+<meta property='og:description' content="从原子结构到自动化实验室">
+<meta property='og:url' content='https://LeoDreamer2004.github.io/p/paper-reading/ai4materials/'>
+<meta property='og:site_name' content='LeoDreamer'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='AI4Science' /><meta property='article:tag' content='Materials Science' /><meta property='article:tag' content='Machine Learning' /><meta property='article:tag' content='Generative Models' /><meta property='article:published_time' content='2026-09-12T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-09-12T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="论文阅读 - AI4Materials">
+<meta name="twitter:description" content="从原子结构到自动化实验室">
+    <link rel="shortcut icon" href="/img/avatar.png" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        <figure class="site-avatar">
+                <a href="/">
+                    <img src="/img/avatar.png" 
+                        width="150"
+                        height="150"
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+                    <span class="emoji">💫</span>
+                
+            </figure>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">LeoDreamer</a></h1>
+            <h2 class="site-description">PKU 不优秀本科毕业生</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/503370537'
+                        
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-bilibili"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6z" /><path d="M8 3l2 3" /><path d="M16 3l-2 3" /><path d="M9 13v-2" /><path d="M15 11v2" /></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/LeoDreamer2004'
+                        
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>存档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>相关链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+
+    <section class="widget related-materials">
+
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">相关资料</h2>
+
+        <div class="widget--related-materials">
+             <ol>
+    
+    <li>
+        <a href="https://www.nature.com/articles/s41586-018-0337-2" id="related-material-1" name="ML-Molecular-Materials-Science" target="_blank" rel="noopener noreferrer">
+            Machine learning for molecular and materials science
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://doi.org/10.1038/s41524-017-0056-5" id="related-material-2" name="Materials-Informatics" target="_blank" rel="noopener noreferrer">
+            Machine learning in materials informatics: recent applications and prospects
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://www.nature.com/articles/s41524-025-01538-0" id="related-material-3" name="Foundation-Models-Materials-Discovery" target="_blank" rel="noopener noreferrer">
+            Foundation models for materials discovery – current state and future directions
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://www.nature.com/articles/s41570-025-00793-5" id="related-material-4" name="Foundation-Models-Atomistic-Simulation" target="_blank" rel="noopener noreferrer">
+            Foundation models for atomistic simulation of chemistry and materials
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://doi.org/10.1063/1.4812323" id="related-material-5" name="Materials-Project" target="_blank" rel="noopener noreferrer">
+            The Materials Project: A materials genome approach to accelerating materials innovation
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.98.146401" id="related-material-6" name="Behler-Parrinello" target="_blank" rel="noopener noreferrer">
+            Generalized Neural-Network Representation of High-Dimensional Potential-Energy Surfaces
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://papers.nips.cc/paper_files/paper/2017/hash/303ed4c69846ab36c2904d3ba8573050-Abstract.html" id="related-material-7" name="SchNet" target="_blank" rel="noopener noreferrer">
+            SchNet: A continuous-filter convolutional neural network for modeling quantum interactions
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.120.145301" id="related-material-8" name="CGCNN" target="_blank" rel="noopener noreferrer">
+            Crystal Graph Convolutional Neural Networks for an Accurate and Interpretable Prediction of Material Properties
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://doi.org/10.1021/acs.chemmater.9b01294" id="related-material-9" name="MEGNet" target="_blank" rel="noopener noreferrer">
+            Graph Networks as a Universal Machine Learning Framework for Molecules and Crystals
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://doi.org/10.1126/science.aat2663" id="related-material-10" name="Inverse-Molecular-Design" target="_blank" rel="noopener noreferrer">
+            Inverse molecular design using machine learning: Generative models for matter engineering
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://arxiv.org/abs/1810.11203" id="related-material-11" name="CrystalGAN" target="_blank" rel="noopener noreferrer">
+            CrystalGAN: Learning to Discover Crystallographic Structures with Generative Adversarial Networks
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://arxiv.org/abs/2504.16893" id="related-material-12" name="CHGGen" target="_blank" rel="noopener noreferrer">
+            Crystal structure prediction with host-guided inpainting generation and foundation potentials
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://www.nature.com/articles/s41467-022-29939-5" id="related-material-13" name="NequIP" target="_blank" rel="noopener noreferrer">
+            E(3)-equivariant graph neural networks for data-efficient and accurate interatomic potentials
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://www.nature.com/articles/s43588-022-00349-3" id="related-material-14" name="M3GNet" target="_blank" rel="noopener noreferrer">
+            A universal graph deep learning interatomic potential for the periodic table
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://www.nature.com/articles/s41586-023-06735-9" id="related-material-15" name="GNoME" target="_blank" rel="noopener noreferrer">
+            Scaling deep learning for materials discovery
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://www.nature.com/articles/s41586-023-06734-w" id="related-material-16" name="A-Lab" target="_blank" rel="noopener noreferrer">
+            An autonomous laboratory for the accelerated synthesis of inorganic materials
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://www.nature.com/articles/s41586-025-08628-5" id="related-material-17" name="MatterGen" target="_blank" rel="noopener noreferrer">
+            A generative model for inorganic materials design
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://ai.meta.com/research/publications/uma-a-family-of-universal-models-for-atoms/" id="related-material-18" name="UMA" target="_blank" rel="noopener noreferrer">
+            UMA: A Family of Universal Models for Atoms
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://doi.org/10.1063/5.0297006" id="related-material-19" name="MACE-MP-0" target="_blank" rel="noopener noreferrer">
+            A foundation model for atomistic materials chemistry
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://www.nature.com/articles/s43588-026-00996-w" id="related-material-20" name="OMat24" target="_blank" rel="noopener noreferrer">
+            The Open Materials 2024 (OMat24) inorganic materials dataset and models
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://www.nature.com/articles/s43588-026-01009-6" id="related-material-21" name="NEP89" target="_blank" rel="noopener noreferrer">
+            NEP89: universal neuroevolution potential for inorganic and organic materials across 89 elements
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://www.nature.com/articles/s41524-025-01929-3" id="related-material-22" name="LAMBench" target="_blank" rel="noopener noreferrer">
+            LAMBench: a benchmark for large atomistic models
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://www.nature.com/articles/s44160-026-01027-2" id="related-material-23" name="Synthesis-Gap" target="_blank" rel="noopener noreferrer">
+            Closing the synthesis gap in computational materials design
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://www.nature.com/articles/s41570-026-00847-2" id="related-material-24" name="Self-Driving-Laboratories" target="_blank" rel="noopener noreferrer">
+            The past, present and future of self-driving laboratories
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://www.nature.com/articles/s41524-026-02205-8" id="related-material-25" name="SparksMatter" target="_blank" rel="noopener noreferrer">
+            Autonomous in-silico inorganic materials discovery via multi-agent physics-aware scientific reasoning
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://www.sciencedirect.com/science/article/pii/S0927025626004994" id="related-material-26" name="Materium" target="_blank" rel="noopener noreferrer">
+            Materium: An autoregressive approach for material generation
+        </a>
+    </li>
+    
+</ol>
+        </div>
+    </section>
+
+            
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav class="toc-nav" id="TableOfContents">
+                
+  <ol>
+    <li><a href="#机器学习如何加速科学方法">机器学习如何加速科学方法</a>
+      <ol>
+        <li><a href="#四步基础流程">四步基础流程</a>
+          <ol>
+            <li><a href="#数据收集">数据收集</a></li>
+            <li><a href="#数据表征">数据表征</a></li>
+            <li><a href="#学习器选择--模型优化与评估">学习器选择 &amp; 模型优化与评估</a></li>
+          </ol>
+        </li>
+        <li><a href="#加速整个科研闭环">加速整个科研闭环</a>
+          <ol>
+            <li><a href="#指导化学合成">指导化学合成</a></li>
+            <li><a href="#辅助多模态材料表征">辅助多模态材料表征</a></li>
+            <li><a href="#用代理模型缩短计算">用代理模型缩短计算</a></li>
+            <li><a href="#定向发现新化合物">定向发现新化合物</a></li>
+            <li><a href="#从文献中回收知识">从文献中回收知识</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#chggen">CHGGen</a>
+      <ol>
+        <li><a href="#为什么需要-host">为什么需要 host？</a></li>
+        <li><a href="#晶体-inpainting">晶体 inpainting</a></li>
+        <li><a href="#两个材料域">两个材料域</a>
+          <ol>
+            <li><a href="#zn-p-s从相关硫化物骨架向新化学空间延伸">Zn-P-S：从相关硫化物骨架向新化学空间延伸</a></li>
+            <li><a href="#li-si在已知合金附近寻找新多晶型">Li-Si：在已知合金附近寻找新多晶型</a></li>
+          </ol>
+        </li>
+        <li><a href="#如何看待这篇论文">如何看待这篇论文？</a></li>
+        <li><a href="#入门综述">入门综述</a></li>
+        <li><a href="#经典文献">经典文献</a></li>
+        <li><a href="#数据与表示">数据与表示</a></li>
+        <li><a href="#原子势与模拟">原子势与模拟</a></li>
+        <li><a href="#逆向设计与发现闭环">逆向设计与发现闭环</a></li>
+        <li><a href="#20252026-新进展">2025–2026 新进展</a></li>
+        <li><a href="#生成式材料设计">生成式材料设计</a></li>
+        <li><a href="#原子基础模型与开放数据">原子基础模型与开放数据</a></li>
+        <li><a href="#合成实验与智能体">合成、实验与智能体</a></li>
+        <li><a href="#建议阅读顺序">建议阅读顺序</a></li>
+      </ol>
+    </li>
+  </ol>
+
+            </nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/%E8%AE%BA%E6%96%87/" style="background-color: #aa2b2c; color: #fff;">
+                论文
+            </a>
+        
+            
+            
+            
+            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" style="background-color: #2a9d8f; color: #fff;">
+                计算机
+            </a>
+        
+            
+            
+            
+            <a href="/categories/%E6%9D%90%E6%96%99%E5%AD%A6/" style="background-color: #496a5a; color: #fff;">
+                材料学
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/paper-reading/ai4materials/">论文阅读 - AI4Materials</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            从原子结构到自动化实验室
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                    <time class="article-time--published" datetime='2026-09-12T00:00:00Z'>2026年9月12日星期六</time>
+                
+
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                    <time class="article-time--reading">
+                        阅读时长: 10 分钟
+                    </time>
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+
+</header>
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span>目录</span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ol>
+    <li><a href="#机器学习如何加速科学方法">机器学习如何加速科学方法</a>
+      <ol>
+        <li><a href="#四步基础流程">四步基础流程</a>
+          <ol>
+            <li><a href="#数据收集">数据收集</a></li>
+            <li><a href="#数据表征">数据表征</a></li>
+            <li><a href="#学习器选择--模型优化与评估">学习器选择 &amp; 模型优化与评估</a></li>
+          </ol>
+        </li>
+        <li><a href="#加速整个科研闭环">加速整个科研闭环</a>
+          <ol>
+            <li><a href="#指导化学合成">指导化学合成</a></li>
+            <li><a href="#辅助多模态材料表征">辅助多模态材料表征</a></li>
+            <li><a href="#用代理模型缩短计算">用代理模型缩短计算</a></li>
+            <li><a href="#定向发现新化合物">定向发现新化合物</a></li>
+            <li><a href="#从文献中回收知识">从文献中回收知识</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#chggen">CHGGen</a>
+      <ol>
+        <li><a href="#为什么需要-host">为什么需要 host？</a></li>
+        <li><a href="#晶体-inpainting">晶体 inpainting</a></li>
+        <li><a href="#两个材料域">两个材料域</a>
+          <ol>
+            <li><a href="#zn-p-s从相关硫化物骨架向新化学空间延伸">Zn-P-S：从相关硫化物骨架向新化学空间延伸</a></li>
+            <li><a href="#li-si在已知合金附近寻找新多晶型">Li-Si：在已知合金附近寻找新多晶型</a></li>
+          </ol>
+        </li>
+        <li><a href="#如何看待这篇论文">如何看待这篇论文？</a></li>
+        <li><a href="#入门综述">入门综述</a></li>
+        <li><a href="#经典文献">经典文献</a></li>
+        <li><a href="#数据与表示">数据与表示</a></li>
+        <li><a href="#原子势与模拟">原子势与模拟</a></li>
+        <li><a href="#逆向设计与发现闭环">逆向设计与发现闭环</a></li>
+        <li><a href="#20252026-新进展">2025–2026 新进展</a></li>
+        <li><a href="#生成式材料设计">生成式材料设计</a></li>
+        <li><a href="#原子基础模型与开放数据">原子基础模型与开放数据</a></li>
+        <li><a href="#合成实验与智能体">合成、实验与智能体</a></li>
+        <li><a href="#建议阅读顺序">建议阅读顺序</a></li>
+      </ol>
+    </li>
+  </ol>
+
+            </nav>
+        </details>
+    </aside>
+    
+
+    <section class="article-content">
+    
+    
+    <p>AI4Materials 关注如何用机器学习加速材料的表示、性质预测、模拟、逆向设计和实验验证. 这个专题将重点放在 <strong>材料生成</strong> 上: 尤其是如何从已有材料中学习结构和化学规律, 再把它们迁移到新组分、新体系或新目标性质中.</p>
+<h2 id="机器学习如何加速科学方法">机器学习如何加速科学方法
+</h2><p><a class="link cite-ML-Molecular-Materials-Science">[<span class="material-index"></span>]
+    <span class="material-name">Unknown-material</span> 
+</a> (Nature 2018) 是一篇非常经典的领域地图式综述.</p>
+<h3 id="四步基础流程">四步基础流程
+</h3><h4 id="数据收集">数据收集
+</h4><p>机器学习学到的是现有数据中的规律, 所以数据库的错误也会被当作“规律”学进模型. 论文以 ICSD 为例: 当时其中约有 188,000 条结构记录, 虽然经过技术错误检查, 但仍可能含有人为转录误差和实验测量误差. 因此训练前需要处理缺失值、异常值、重复结构、单位不一致与数据来源不可追溯等问题.</p>
+<div class="math-block"><p class="math-title">术语补充: ICSD</p>
+<p>ICSD (Inorganic Crystal Structure Database, 无机晶体结构数据库) 收录已发表的无机晶体实验结构. 一条典型记录包含化学式、晶胞参数、空间群、原子分数坐标及文献来源. 它与 Materials Project 这类以 DFT 计算为主的数据库不同, ICSD 的核心价值是 <strong>实验上报道过的晶体结构</strong>, 但已收录不等于每个字段都无误差.</p>
+</div>
+<p>按标注情况, 数据又对应三类学习设置: 监督学习使用“结构-性质”成对标签, 无监督学习只从结构或测量中寻找聚类与潜在模式, 半监督学习则利用大量无标签材料和少量已知性质材料.</p>
+<h4 id="数据表征">数据表征
+</h4><p>原始科学数据通常不能直接喂给模型. 将它转换成适合学习的数值特征即为特征工程. 例如光谱信号可在时域采集, 但经傅里叶变换到频域后才更容易解释和学习.</p>
+<p>与一般的机器学习随便用一个模块来 encode 不同, 一个好的原子结构表示除开保留化学环境外, 还要同时 <strong>对不改变物理系统的操作保持不变</strong>: 整体平移、整体旋转和同类原子的编号置换. 晶体还要考虑周期边界; 同一晶格可以换原点、换晶胞或换基矢, 因而分数坐标本身不是唯一表示.</p>
+<div class="math-block"><p class="math-title">库仑矩阵</p>
+<p>一种表征方式是 <strong>库仑矩阵 (Coulomb matrix)</strong>, 用原子核电荷 $Z_i$ 和坐标 $\mathbf R_i$ 表示分子. 其常见定义为</p>
+$$
+C_{ij}=\begin{cases}
+\frac{1}{2}Z_i^{2.4}, & i=j,\\[4pt]
+\frac{Z_iZ_j}{\lVert\mathbf R_i-\mathbf R_j\rVert}, & i\ne j.
+\end{cases}
+$$<p>对角项是自由原子能量的经验近似, 非对角项描述原子核间的库仑排斥. 因为它只使用原子间距, 所以天然对整体平移和旋转不变; 但原始矩阵会随原子编号而置换行列, 通常还要排序行列或取特征值. 它适合有限分子, 却不会自然处理周期晶体和不定原子数.</p>
+</div>
+<p>针对晶体, 论文还举出了三类方案: 径向分布函数 (RDF) 统计原子对距离, Voronoi 剖分根据空间中离哪个原子最近来描述局部配位, property-labelled materials fragments 则把局部材料片段和元素属性绑定. 这些工作的共同目标, 是用稳定的局部环境表示代替不唯一的晶胞坐标.</p>
+<h4 id="学习器选择--模型优化与评估">学习器选择 &amp; 模型优化与评估
+</h4><p>离散输出对应分类, 例如判断材料是金属还是绝缘体; 连续输出对应回归, 例如预测极化率. 论文按当时的工具箱介绍了几类学习器, 都很古典在此略去.</p>
+<h3 id="加速整个科研闭环">加速整个科研闭环
+</h3><p>在第二部分, 作者按科学家真正在做的工作组织材料.</p>
+<h4 id="指导化学合成">指导化学合成
+</h4><p>合成规划的搜索空间非常大, 传统系统如 OCSS 和 Chematica 依赖专家手工编写的反应规则和语境约束. 论文总结了两种机器学习路线: 一种用神经网络对规则系统产生的候选反应或路线排序; 另一种把分子写成 SMILES 字符串, 将“产物 到反应物”建模为 seq-to-seq 翻译问题. 机器学习还可以预测一个分子能否结晶、推荐无机反应条件, 或用主动学习选择下一个最有信息量的实验.</p>
+<h4 id="辅助多模态材料表征">辅助多模态材料表征
+</h4><p>晶体结构通常需要联合 X 射线/中子衍射、磁共振与自旋共振、振动光谱等多种实验结果. 各模态的空间尺度和敏感性不同, 单独分析时甚至可能给出冲突的结构解释.</p>
+<h4 id="用代理模型缩短计算">用代理模型缩短计算
+</h4><p>密度泛函理论 (DFT) 可以在合理成本下预测许多材料性质, 但精度受交换-关联泛函近似限制, 对弱相互作用、强关联 $d/f$ 电子体系等问题尤为明显. 论文提到用数据构造或校准泛函, 例如 BEEF; 也可直接学习电子密度到能量/势的映射, 部分绕过 Kohn-Sham 方程.</p>
+<p>另一条重要路线是用量子力学数据学习 <strong>势能面 (potential energy surface, PES)</strong> 或原子间势, 将单次昂贵的量子计算蒸馏成可以反复调用的快速代理模型. 论文报告这在简单材料中可节省数个数量级的计算成本, 但多尺度方法串联时还必须跟踪误差如何传播.</p>
+<div class="math-block"><p class="math-title">原子间势</p>
+<p><strong>原子间势 (interatomic potential)</strong> 是一个从元素种类、原子坐标和晶格到体系势能的函数:</p>
+$$
+E=U(\mathbf Z,\mathbf R,\mathbf L).
+$$<p>对所有可能的原子构型而言, $U$ 形成的高维曲面就是 <strong>势能面 (PES)</strong>. 系统会倾向势能更低的构型; 对坐标求负梯度还可得到每个原子受到的力:</p>
+$$
+\mathbf F_i=-\frac{\partial U}{\partial \mathbf R_i}.
+$$<p>因此一个原子间势可以同时用于结构松弛、分子动力学、声子和热力学性质计算. 如果每一个动力学时间步都重新做 DFT, 计算会非常昂贵; 原子间势的作用就是用远更便宜的近似反复评估 $E$ 和 $\mathbf F$.</p>
+<p>经验原子势预先假设函数形式, 再拟合少量参数, 例如 Lennard-Jones、EAM 和 Tersoff 势. 机器学习原子间势则用 DFT 给出的能量、力和应力作为标签, 学习更灵活的 $U_\theta$. 常见的局部性假设是</p>
+$$
+U_\theta=\sum_i \varepsilon_\theta(\mathcal N_i),
+$$<p>即总能量是各原子局部环境 $\mathcal N_i$ 贡献之和. 训练范围足够广、可覆盖多元素和多种材料体系的 MLIP, 通常又称为通用或基础原子势.</p>
+<p>原子势的精度不会自动超过其参考数据. 它在未见过的成分、配位、电荷态或高能构型上可能发生严重外推误差, 所以它适合快速松弛和粗筛候选, 关键结论仍应由 DFT 或实验复核.</p>
+</div>
+<h4 id="定向发现新化合物">定向发现新化合物
+</h4><p>对晶体材料, 当时主要路线是确定一种晶体原型, 再遍历元素组合. 例如模型可预测一个组分采用 Heusler 或 half-Heusler 结构的概率.</p>
+<p>分子设计则走得更远. 经典的 QSAR (定量结构-活性关系) 从分子描述符预测生物活性; GAN 与强化学习则开始直接设计分子. 论文举出的 ORGAN 将对抗生成与奖励函数结合, 使新分子在保持多样性的同时偏向指定的化学特征或物理/生物性质.</p>
+<p>论文同时指出, 固体材料的生成当时明显落后于分子: 元素组成、周期晶格、原子坐标与无限多个等价表示必须同时处理.</p>
+<h4 id="从文献中回收知识">从文献中回收知识
+</h4><p>大量合成条件、失败实验和材料性质只存在于论文正文、表格或补充材料中. 文本挖掘的任务是从非结构化文本中抽取实体、事实和关系, 建成可搜索的专用数据库, 支持药物-靶点关联、高通量实验分析和材料数据库建设. 但附件格式不统一、元数据缺失与命名不一致, 会使自动抽取难以互操作; 所以论文将可访问、可复用和标准化的科研数据视为后续发展的基础.</p>
+<h2 id="chggen">CHGGen
+</h2><p><a class="link cite-CHGGen">[<span class="material-index"></span>]
+    <span class="material-name">Unknown-material</span> 
+</a> 保留已有晶体的 host 骨架, 只生成或重新安排其中的 guest 原子. 可以写成</p>
+$$
+p\!\left(\mathbf x_{\mathrm{guest}}\mid
+\mathbf x_{\mathrm{host}},\,\mathbf L,\,\mathbf a\right),
+$$<p>其中 $\mathbf x_{\mathrm{host}}$ 是保留的骨架原子, $\mathbf x_{\mathrm{guest}}$ 是需要补全的原子坐标, $\mathbf L$ 是晶格, $\mathbf a$ 是元素种类. 这属于结构条件生成.</p>
+<h3 id="为什么需要-host">为什么需要 host？
+</h3><p>基于 GNN 的扩散模型很擅长学习短程键长和局部配位, 但有限的消息传播范围使它不容易维持长程周期秩序. 论文在 $\mathrm{Li_{32}P_{16}S_{56}}$ 超晶胞上展示了这种 <strong>locality bias</strong>：生成结构中 Li-S 和 P-S 的局部径向分布看起来合理, 整体却变成缺乏长程晶格秩序的“局部片段马赛克”.</p>
+<p>CHGGen 的思路是不让模型重新发明整个晶体. 已有 host 提供长程对称性和周期骨架, 扩散模型只需在这个上下文中寻找 guest 的合理位置.</p>
+<h3 id="晶体-inpainting">晶体 inpainting
+</h3><p>Inpainting 来自图像补全：图片的已知区域保持不变, 模型只填充被遮挡的区域. 在晶体中, mask $\mathbf m$ 不再划分像素, 而是划分 host 和 guest 原子. 每个反向扩散步都将已知 host 加噪到当前噪声尺度, 对全部原子做一次去噪, 再用 mask 拼回：</p>
+$$
+\mathbf x_{t-1}
+=(1-\mathbf m)\odot \mathbf x^{\mathrm{host}}_{t-1}
++\mathbf m\odot \mathbf x^{\mathrm{model}}_{t-1}.
+$$<p>当 $m_i=0$ 时取 host 坐标, $m_i=1$ 时取模型生成的 guest 坐标. 论文还使用 RePaint 式 resampling：在同一噪声尺度上反复跳回并重新去噪, 让 guest 多尝试几次如何与 host 衔接.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">CHGGen</span></p>
+<p><strong class="algo-input">输入 &gt; </strong> 指定元素组成和原子数, 以及相关晶体提供或成分模型预测的原子体积先验 $V_0$.</p>
+<p><strong class="algo-output">输出 &gt; </strong> 经基础势和 DFT 筛选的新晶体候选.</p>
+<ol>
+<li>以 $N V_0$ 估计晶胞体积, 随机搜索 Bravais 晶格, 并随机初始化全部原子坐标.</li>
+<li>用基于 NequIP 的 SE(3)-等变 GNN 预测 score, 进行无条件反向扩散; 然后用 CHGNet 同时松弛晶格和原子坐标.</li>
+<li>移除局部配位很灵活的 guest 原子, 对剩余 host 用 spglib 逐步放宽容差做对称性精修.</li>
+<li>在精修后的 host 中重新随机初始化 guest, 通过 mask 和重采样执行条件扩散补全.</li>
+<li>用 CHGNet 松弛候选并估计相对 Materials Project 相图的分解能 $E_d$; 仅将低 $E_d$ 候选送入 r2SCAN-DFT 做更可信的验证.</li>
+</ol>
+</div>
+<h3 id="两个材料域">两个材料域
+</h3><h4 id="zn-p-s从相关硫化物骨架向新化学空间延伸">Zn-P-S：从相关硫化物骨架向新化学空间延伸
+</h4><p>论文在 ZnS-P$_2$S$_5$ 化学空间中搜索 ZnP$_2$S$_6$ 和 Zn$_2$P$_2$S$_7$. 多数生成结构在 CHGNet 松弛前后的中位能量变化为 $0.08\,\mathrm{eV/atom}$, 中位最大成对 RMSD 为 $0.10\,\text{Å}$, 说明它们多数已在局部能量极小值附近. 基础势预测有 6.5% 的结构处于凸包上, 但 r2SCAN-DFT 将这些候选修正为亚稳态; 最低分解能分别为 $0.015$ 和 $0.046\,\mathrm{eV/atom}$.</p>
+<p>这个“未成功”的结果很有价值：CHGNet 对高分解能有系统性低估, 误差约为 $30\,\mathrm{meV/atom}$, 所以基础势只适合粗筛, 不能代替最后的 DFT 判定. 尽管没找到新的凸包稳定相, inpainting 生成对称晶体的成功率仍显著高于无条件生成, 后者低于 5%.</p>
+<h4 id="li-si在已知合金附近寻找新多晶型">Li-Si：在已知合金附近寻找新多晶型
+</h4><p>在 Li-Si 体系中, Materials Project 当时有 13 个 DFT 结构, 其中 4 个在 $0\,\mathrm K$ 处于凸包上. CHGGen 生成的 $\mathrm{Li_5Si_2}$ $R\bar 3m$ 多晶型经 r2SCAN-DFT 得到 $E_d=-7\,\mathrm{meV/atom}$; 还找到了 $\mathrm{Li_5Si_2}$、$\mathrm{Li_2Si}$ 和 $\mathrm{Li_4Si}$ 的低能 $C2/m$ 亚稳多晶型. 不过这个 $\mathrm{Li_5Si_2}$ 稳定结构已被遗传算法和随机结构搜索报道过, 因此它验证了方法能力, 但不算首次发现的新晶体.</p>
+<h3 id="如何看待这篇论文">如何看待这篇论文？
+</h3><p>CHGGen 比 CrystalGAN 更接近现代材料生成的完整形态：对称性已经进入结构先验, 反向扩散由 SE(3)-等变网络实现, 大批候选先由基础势松弛和筛选, 最后再用 DFT 复核. 而且 inpainting 与现有生成模型是模块化的：同一个扩散模型只要在采样时改变 mask, 就能从无条件生成切换到已有骨架上的条件生成.</p>
+<p>但它仍是 proof of concept. host 的获得依赖先做无条件生成, 对称精修只是通过 spglib 放宽容差, 生成结构也多为 $C2$ 或 $Cm$ 这样的中等对称性. MatterGen 在 Li-Si 上表现更好, 各类 GNN 扩散模型在晶胞变大时都还有扩展性问题, 论文也没有进行实验合成. 因此它最重要的贡献是 <strong>一种从现有晶体骨架出发进行局部生成的方法</strong>, 而不是宣布已经解决了新材料发现.</p>
+<h3 id="入门综述">入门综述
+</h3><ul>
+<li><input checked="" disabled="" type="checkbox"> Butler et al., 2018, <a class="link cite-ML-Molecular-Materials-Science">[<span class="material-index"></span>]
+    
+</a>: 建立机器学习与材料科学的整体问题框架.</li>
+<li><input disabled="" type="checkbox"> Ramprasad et al., 2017, <a class="link cite-Materials-Informatics">[<span class="material-index"></span>]
+    
+</a>: 理解材料描述符、代理模型、小数据和不确定性.</li>
+<li><input disabled="" type="checkbox"> Pyzer-Knapp et al., 2025, <a class="link cite-Foundation-Models-Materials-Discovery">[<span class="material-index"></span>]
+    
+</a>: 连接性质预测、生成模型、合成规划与材料基础模型.</li>
+<li><input disabled="" type="checkbox"> Yuan et al., 2026, <a class="link cite-Foundation-Models-Atomistic-Simulation">[<span class="material-index"></span>]
+    
+</a>: 集中理解大型原子模型和机器学习原子势的发展路线.</li>
+</ul>
+<h3 id="经典文献">经典文献
+</h3><h3 id="数据与表示">数据与表示
+</h3><ul>
+<li><input disabled="" type="checkbox"> Jain et al., 2013, <a class="link cite-Materials-Project">[<span class="material-index"></span>]
+    
+</a>: Materials Project 与高通量材料数据库.</li>
+<li><input disabled="" type="checkbox"> Schütt et al., 2017, <a class="link cite-SchNet">[<span class="material-index"></span>]
+    
+</a>: 连续滤波器与三维原子表示.</li>
+<li><input disabled="" type="checkbox"> Xie and Grossman, 2018, <a class="link cite-CGCNN">[<span class="material-index"></span>]
+    
+</a>: 将周期性晶体表示为图并预测材料性质.</li>
+<li><input disabled="" type="checkbox"> Chen et al., 2019, <a class="link cite-MEGNet">[<span class="material-index"></span>]
+    
+</a>: 统一原子、键与全局状态的材料图网络.</li>
+</ul>
+<h3 id="原子势与模拟">原子势与模拟
+</h3><ul>
+<li><input disabled="" type="checkbox"> Behler and Parrinello, 2007, <a class="link cite-Behler-Parrinello">[<span class="material-index"></span>]
+    
+</a>: 用神经网络近似高维势能面.</li>
+<li><input disabled="" type="checkbox"> Batzner et al., 2022, <a class="link cite-NequIP">[<span class="material-index"></span>]
+    
+</a>: E(3) 等变图神经网络原子势.</li>
+<li><input disabled="" type="checkbox"> Chen and Ong, 2022, <a class="link cite-M3GNet">[<span class="material-index"></span>]
+    
+</a>: 面向周期表范围的通用图网络原子势.</li>
+</ul>
+<h3 id="逆向设计与发现闭环">逆向设计与发现闭环
+</h3><ul>
+<li><input disabled="" type="checkbox"> Sanchez-Lengeling and Aspuru-Guzik, 2018, <a class="link cite-Inverse-Molecular-Design">[<span class="material-index"></span>]
+    
+</a>: 从目标性质出发进行生成式逆向设计.</li>
+<li><input checked="" disabled="" type="checkbox"> Nouira et al., 2018, <a class="link cite-CrystalGAN">[<span class="material-index"></span>]
+    
+</a>: 从已知二元氢化物生成三元晶体的历史性尝试.</li>
+<li><input disabled="" type="checkbox"> Merchant et al., 2023, <a class="link cite-GNoME">[<span class="material-index"></span>]
+    
+</a>: 图网络、DFT 验证与主动学习组成的大规模材料发现流程.</li>
+<li><input disabled="" type="checkbox"> Szymanski et al., 2023, <a class="link cite-A-Lab">[<span class="material-index"></span>]
+    
+</a>: 把候选筛选、合成规划、机器人和实验反馈连接成闭环.</li>
+</ul>
+<h3 id="20252026-新进展">2025–2026 新进展
+</h3><h3 id="生成式材料设计">生成式材料设计
+</h3><ul>
+<li><input disabled="" type="checkbox"> Zeni et al., 2025, <a class="link cite-MatterGen">[<span class="material-index"></span>]
+    
+</a>: 联合生成元素、坐标与周期晶格, 并按目标性质进行条件生成.</li>
+<li><input checked="" disabled="" type="checkbox"> Zhong et al., 2025, <a class="link cite-CHGGen">[<span class="material-index"></span>]
+    
+</a>: 在已有 host 晶体中补全 guest 原子, 并用基础势和 DFT 验证.</li>
+<li><input disabled="" type="checkbox"> Dobberstein and Hamaekers, 2026, <a class="link cite-Materium">[<span class="material-index"></span>]
+    
+</a>: 以自回归方式逐步生成材料结构, 作为扩散模型之外的新路线.</li>
+</ul>
+<h3 id="原子基础模型与开放数据">原子基础模型与开放数据
+</h3><ul>
+<li><input disabled="" type="checkbox"> Wood et al., 2025, <a class="link cite-UMA">[<span class="material-index"></span>]
+    
+</a>: 跨材料、分子和催化体系训练的 Universal Models for Atoms.</li>
+<li><input disabled="" type="checkbox"> Batatia et al., 2025, <a class="link cite-MACE-MP-0">[<span class="material-index"></span>]
+    
+</a>: 预训练原子势的开箱使用与少样本微调.</li>
+<li><input disabled="" type="checkbox"> Barroso-Luque et al., 2026, <a class="link cite-OMat24">[<span class="material-index"></span>]
+    
+</a>: 大规模开放 DFT 数据集及预训练 EquiformerV2 模型.</li>
+<li><input disabled="" type="checkbox"> Liang et al., 2026, <a class="link cite-NEP89">[<span class="material-index"></span>]
+    
+</a>: 在元素覆盖、精度与原子模拟速度之间寻求平衡.</li>
+<li><input disabled="" type="checkbox"> Peng et al., 2026, <a class="link cite-LAMBench">[<span class="material-index"></span>]
+    
+</a>: 在统一设置下比较大型原子模型的泛化能力.</li>
+</ul>
+<h3 id="合成实验与智能体">合成、实验与智能体
+</h3><ul>
+<li><input disabled="" type="checkbox"> Park et al., 2026, <a class="link cite-Synthesis-Gap">[<span class="material-index"></span>]
+    
+</a>: 区分计算稳定性、动力学稳定性与实验可合成性.</li>
+<li><input disabled="" type="checkbox"> Canty and Abolhasani, 2026, <a class="link cite-Self-Driving-Laboratories">[<span class="material-index"></span>]
+    
+</a>: 自驱动实验室的历史、基础设施与开放问题.</li>
+<li><input disabled="" type="checkbox"> Ghafarollahi and Buehler, 2026, <a class="link cite-SparksMatter">[<span class="material-index"></span>]
+    
+</a>: 多智能体规划、物理验证和迭代改进的材料发现流程.</li>
+</ul>
+<h3 id="建议阅读顺序">建议阅读顺序
+</h3><ol>
+<li>Butler 2018 与 Ramprasad 2017: 建立领域词汇.</li>
+<li>Materials Project、CGCNN 与 SchNet: 理解数据和结构表示.</li>
+<li>Behler–Parrinello、NequIP 与 M3GNet: 理解能量、力和等变性.</li>
+<li>CHGGen: 理解“已有晶体骨架 → 新 guest 原子排布”的结构补全.</li>
+<li>GNoME、MatterGen: 进入大规模发现与按目标性质生成.</li>
+<li>A-Lab、Synthesis Gap: 理解从计算候选到真实合成之间的距离.</li>
+<li>UMA、MACE-MP-0、OMat24、LAMBench: 跟进材料基础模型与评测.</li>
+</ol>
+<p>阅读每篇论文时记录六个问题: 材料如何表示, 标签从哪里来, 模型预测什么, 使用了哪些物理对称性, 测试是否真正分布外, 以及结果经过了何种计算或实验验证.</p>
+
+
+    
+</section>
+
+
+    <footer class="article-meta article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/ai4science/">AI4Science</a>
+        
+            <a href="/tags/materials-science/">Materials Science</a>
+        
+            <a href="/tags/machine-learning/">Machine Learning</a>
+        
+            <a href="/tags/generative-models/">Generative Models</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright inline-meta">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>本文遵循 CC BY-NC-SA 4.0 协议</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const elementsToRender = [".main-article", ".widget--toc"];
+
+        elementsToRender.forEach(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                renderMathInElement(element, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false },
+                        { left: "\\(", right: "\\)", display: false },
+                        { left: "\\[", right: "\\]", display: true }
+                    ],
+                    ignoredClasses: ["gist"]
+                });
+            }
+        });
+    });
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside>
+    <h2 class="section-title">相关文章</h2>
+    <div class="subsection-list">
+        <div class="article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/paper-reading/recursive-self-improvement/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - 递归自我改进</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="has-image">
+    <a href="/p/paper-reading/asynchronous-inference/">
+        
+        <div class="article-image">
+            <img alt="Featured image of post 论文阅读 - 异步推理" height="150" loading="lazy" src="/p/paper-reading/asynchronous-inference/cover_hu_458503bd6fd81182.png" srcset="/p/paper-reading/asynchronous-inference/cover_hu_458503bd6fd81182.png 1x, /p/paper-reading/asynchronous-inference/cover_hu_9cefd0bfdc6eefa9.png 2x" width="250">
+
+        </div>
+        
+
+        <div class="article-details"style="background: linear-gradient(0deg, #45a7c480 0%, #122134C0 100%);">
+            <h2 class="article-title">论文阅读 - 异步推理</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="has-image">
+    <a href="/p/paper-reading/prompt-engineering/">
+        
+        <div class="article-image">
+            <img alt="Featured image of post 论文阅读 - 提示词工程" height="150" loading="lazy" src="/p/paper-reading/prompt-engineering/cover_hu_9dfa29818b172c14.png" srcset="/p/paper-reading/prompt-engineering/cover_hu_9dfa29818b172c14.png 1x, /p/paper-reading/prompt-engineering/cover_hu_a47d3b41e2526e94.png 2x" width="250">
+
+        </div>
+        
+
+        <div class="article-details"style="background: linear-gradient(0deg, #d8d9da80 0%, #222223C0 100%);">
+            <h2 class="article-title">论文阅读 - 提示词工程</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="has-image">
+    <a href="/p/paper-reading/agent-tool-use/">
+        
+        <div class="article-image">
+            <img alt="Featured image of post 论文阅读 - 智能体工具调用" height="150" loading="lazy" src="/p/paper-reading/agent-tool-use/cover_hu_ccfd67a01cbe2738.png" srcset="/p/paper-reading/agent-tool-use/cover_hu_ccfd67a01cbe2738.png 1x, /p/paper-reading/agent-tool-use/cover_hu_3baa4d1248c57a33.png 2x" width="250">
+
+        </div>
+        
+
+        <div class="article-details"style="background: linear-gradient(0deg, #d12e2480 0%, #0e141cC0 100%);">
+            <h2 class="article-title">论文阅读 - 智能体工具调用</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="has-image">
+    <a href="/p/paper-reading/device-cloud-collaborative/">
+        
+        <div class="article-image">
+            <img alt="Featured image of post 论文阅读 - 端云协同智能体" height="150" loading="lazy" src="/p/paper-reading/device-cloud-collaborative/cover_hu_68d0a78cb1b72df5.jpg" srcset="/p/paper-reading/device-cloud-collaborative/cover_hu_68d0a78cb1b72df5.jpg 1x, /p/paper-reading/device-cloud-collaborative/cover_hu_1f956a74243b48a7.jpg 2x" width="250">
+
+        </div>
+        
+
+        <div class="article-details"style="background: linear-gradient(0deg, #a5a7a680 0%, #3a3c3dC0 100%);">
+            <h2 class="article-title">论文阅读 - 端云协同智能体</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2025 - 
+        
+        2026 LeoDreamer
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+
+    
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.043d659a2679f7cfce18735147f0d7319c2b048d39d76c3116d56fb22b880be9.js" defer></script>
+
+
+    </body>
+</html>

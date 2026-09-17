@@ -490,7 +490,7 @@
 <li><strong>三角化</strong>: 用于恢复三维点的位置. 基本原理是通过已知的相机视角和匹配点的位置, 利用几何约束来计算三维点的空间坐标. 常见的方法是直接线性变换 (Direct Linear Transform, DLT) 或基于光束平差法 (Bundle Adjustment, BA) 的非线性优化方法.</li>
 <li><strong>三维点恢复</strong>: 通过三角化得到的三维点通常会是一个稀疏点云, 代表了场景中关键特征的空间位置. 对于每个匹配的特征点, 三角化将其映射到三维空间中的位置.</li>
 </ol>
-<p><img alt="增量式 SfM 的典型结构" class="gallery-image" data-flex-basis="1183px" data-flex-grow="493" height="459" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/structure-from-motion/img/increment-SfM.png" srcset="/p/paper-reading/structure-from-motion/img/increment-SfM_hu_c344953fc8086013.png 800w, /p/paper-reading/structure-from-motion/img/increment-SfM_hu_214e8c233b942d06.png 1600w, /p/paper-reading/structure-from-motion/img/increment-SfM.png 2263w" width="2263"></p>
+<p><img alt="增量式 SfM 的典型结构" class="gallery-image" data-flex-basis="1183px" data-flex-grow="493" height="459" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/structure-from-motion/img/increment-SfM.png" srcset="/p/paper-reading/structure-from-motion/img/increment-SfM_hu_a18eb7f03d382fdb.png 800w, /p/paper-reading/structure-from-motion/img/increment-SfM_hu_b3ed4d4089e33b99.png 1600w, /p/paper-reading/structure-from-motion/img/increment-SfM.png 2263w" width="2263"></p>
 <p>介绍几个 3D CV 概念.</p>
 <div class="math-block math-def">
     <p class="math-title">定义</p>
@@ -618,7 +618,7 @@ $$
     \mathcal{L}_{\mathrm{conf}} = \sum_{v=1}^2 \sum_{i=1}^N C_i^{v,1} \ell_{\mathrm{regr}}(v,i) - \alpha \log C_i^{v,1}
     $$</li>
 </ol>
-<p><img alt="DUSt3R" class="gallery-image" data-flex-basis="986px" data-flex-grow="410" height="291" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2312.14132v3/x2.png" srcset="/x2_14972439427616792104_hu_fb0589aa9738b8fd.png 800w, https://arxiv.org/html/2312.14132v3/x2.png 1196w" width="1196"></p>
+<p><img alt="DUSt3R" class="gallery-image" data-flex-basis="986px" data-flex-grow="410" height="291" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2312.14132v3/x2.png" srcset="/x2_14972439427616792104_hu_b7838d975f09b195.png 800w, https://arxiv.org/html/2312.14132v3/x2.png 1196w" width="1196"></p>
 </div>
 <p>然而, 这个网络每次只能处理一对图像. 因而论文 <a class="link cite-DUSt3R">[<span class="material-index"></span>]
     
@@ -655,7 +655,7 @@ $$
     $$
 直接枚举匹配的复杂度是 $\mathcal{O}(W^2H^2)$. 论文采用了一种迭代的策略, 即对每个点每次在图中找最近邻再映射到另一个图中, 直到收敛. 这样复杂度是 $\mathcal{O}(kWH)$.</li>
 </ul>
-<p><img alt="MASt3R" class="gallery-image" data-flex-basis="1064px" data-flex-grow="443" height="451" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/structure-from-motion/img/MASt3R.png" srcset="/p/paper-reading/structure-from-motion/img/MASt3R_hu_b0413e5feabff1.png 800w, /p/paper-reading/structure-from-motion/img/MASt3R_hu_6199995e137db288.png 1600w, /p/paper-reading/structure-from-motion/img/MASt3R.png 2001w" width="2001"></p>
+<p><img alt="MASt3R" class="gallery-image" data-flex-basis="1064px" data-flex-grow="443" height="451" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/structure-from-motion/img/MASt3R.png" srcset="/p/paper-reading/structure-from-motion/img/MASt3R_hu_9a5dd847888c91f1.png 800w, /p/paper-reading/structure-from-motion/img/MASt3R_hu_78537dba1fcca62d.png 1600w, /p/paper-reading/structure-from-motion/img/MASt3R.png 2001w" width="2001"></p>
 <p>对于更高分辨率的图像, 论文 <a class="link cite-MASt3R">[<span class="material-index"></span>]
     
 </a> 采用从粗到细匹配的策略.</p>
@@ -684,7 +684,7 @@ $$<p>其中 $v_{ik}$ 是从相机 $c_i$ 观察点 $X_k$ ​的全局旋转相机
 <li>连接计数超过 $\tau$ 的图像对, 在 $G$ 中寻找连通分量来找到相机的良好约束群集.</li>
 <li>递归地重复此过程, 每个连通分量作为单独的重建输出.</li>
 </ul>
-<p><img alt="GLOMAP" class="gallery-image" data-flex-basis="1131px" data-flex-grow="471" height="666" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2407.20219v2/extracted/5871851/figure/glomap_pipeline_calib.png" srcset="/glomap_pipeline_calib_3642300392120215787_hu_35f0cea7b2075c63.png 800w, /glomap_pipeline_calib_3642300392120215787_hu_1c4b366c1baa893f.png 1600w, /glomap_pipeline_calib_3642300392120215787_hu_99f0d638a0a53df3.png 2400w, https://arxiv.org/html/2407.20219v2/extracted/5871851/figure/glomap_pipeline_calib.png 3140w" width="3140"></p>
+<p><img alt="GLOMAP" class="gallery-image" data-flex-basis="1131px" data-flex-grow="471" height="666" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2407.20219v2/extracted/5871851/figure/glomap_pipeline_calib.png" srcset="/glomap_pipeline_calib_3642300392120215787_hu_c4125a5a162cd506.png 800w, /glomap_pipeline_calib_3642300392120215787_hu_1b781b1307827b4e.png 1600w, /glomap_pipeline_calib_3642300392120215787_hu_36b9bdd060d8cdd4.png 2400w, https://arxiv.org/html/2407.20219v2/extracted/5871851/figure/glomap_pipeline_calib.png 3140w" width="3140"></p>
 <h2 id="vggsfm-cvpr-2024">VGGSfM (CVPR 2024)
 </h2><p>论文 <a class="link cite-VGGSfM">[<span class="material-index"></span>]
     <span class="material-name">Unknown-material</span> 
@@ -703,7 +703,7 @@ $$<p>其中 $v_{ik}$ 是从相机 $c_i$ 观察点 $X_k$ ​的全局旋转相机
 <li>通过 Transformer 更新坐标和特征, 直至收敛.</li>
 <li>利用得到的追踪特征 $y_i^j$ 预测点的可见性 $v_i^j$. 同时引入 aleatoric 不确定性模型 <a class="link ref-aleatoric"></a> 来预测 $y_i^j$ 的方差 $\sigma_i^j$ (或者置信度), 我们假设 $\sigma_i^j$ 是对角的.</li>
 </ol>
-<p><img alt="VGGSfM 追踪器" class="gallery-image" data-flex-basis="583px" data-flex-grow="243" height="683" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2312.04563v1/x2.png" srcset="/x2_13882479009950565953_hu_17d9b10e8c962c53.png 800w, /x2_13882479009950565953_hu_375e7f05c7d008bc.png 1600w, https://arxiv.org/html/2312.04563v1/x2.png 1661w" width="1661"></p>
+<p><img alt="VGGSfM 追踪器" class="gallery-image" data-flex-basis="583px" data-flex-grow="243" height="683" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2312.04563v1/x2.png" srcset="/x2_13882479009950565953_hu_b0f761e4fcd2829f.png 800w, /x2_13882479009950565953_hu_b39b6d2b8bc9a9eb.png 1600w, https://arxiv.org/html/2312.04563v1/x2.png 1661w" width="1661"></p>
 </div>
 <div class="math-block math-algo">
     <p class="math-title">算法<span class="math-subtitle">VGGSfM</span></p>
@@ -745,10 +745,10 @@ $$
 $e_P(P, P')$ 指相机参数 $P, P'$ 之间的 Huber 损失. $P$ 有 8 个自由度, 因此这里参数化为一个 8 维向量.</li>
 <li>用 AdamW 优化器优化模型, 直至收敛.</li>
 </ol>
-<p><img alt="VGGSfM" class="gallery-image" data-flex-basis="814px" data-flex-grow="339" height="489" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2312.04563v1/x1.png" srcset="/x1_11197739307335425570_hu_ee1e3e099a8bcdba.png 800w, /x1_11197739307335425570_hu_ae53730e06319c32.png 1600w, https://arxiv.org/html/2312.04563v1/x1.png 1660w" width="1660"></p>
+<p><img alt="VGGSfM" class="gallery-image" data-flex-basis="814px" data-flex-grow="339" height="489" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2312.04563v1/x1.png" srcset="/x1_11197739307335425570_hu_43fc3343ff413a99.png 800w, /x1_11197739307335425570_hu_a247a117d14d2a5f.png 1600w, https://arxiv.org/html/2312.04563v1/x1.png 1660w" width="1660"></p>
 </div>
 <h2 id="dense-sfm-cvpr-2025">Dense-SfM (CVPR 2025)
-</h2><p><img alt="Dense-SfM" class="gallery-image" data-flex-basis="616px" data-flex-grow="256" height="939" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2501.14277v2/extracted/6302268/figures/overview_real_final.png" srcset="/overview_real_final_14146485583613195514_hu_598f9e987ce332b.png 800w, /overview_real_final_14146485583613195514_hu_674f767190622e0e.png 1600w, /overview_real_final_14146485583613195514_hu_5260cd4e12f13870.png 2400w, https://arxiv.org/html/2501.14277v2/extracted/6302268/figures/overview_real_final.png 2413w" width="2413"></p>
+</h2><p><img alt="Dense-SfM" class="gallery-image" data-flex-basis="616px" data-flex-grow="256" height="939" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2501.14277v2/extracted/6302268/figures/overview_real_final.png" srcset="/overview_real_final_14146485583613195514_hu_b4b25537d8a3f790.png 800w, /overview_real_final_14146485583613195514_hu_def86e452e87ffbc.png 1600w, /overview_real_final_14146485583613195514_hu_93261847004e6f04.png 2400w, https://arxiv.org/html/2501.14277v2/extracted/6302268/figures/overview_real_final.png 2413w" width="2413"></p>
 <h2 id="vggt-cvpr-2025">VGGT (CVPR 2025)
 </h2><p>论文 <a class="link cite-VGGT">[<span class="material-index"></span>]
     <span class="material-name">Unknown-material</span> 
@@ -798,7 +798,7 @@ $$
 $\lambda$ 论文取 $0.05$.</li>
 <li>用 AdamW 优化器优化模型, 直至收敛.</li>
 </ol>
-<p><img alt="VGGT" class="gallery-image" data-flex-basis="678px" data-flex-grow="282" height="673" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2503.11651v1/x2.png" srcset="/x2_10269125003204393200_hu_76edd67779f53790.png 800w, /x2_10269125003204393200_hu_ed27ecb47984f6f1.png 1600w, https://arxiv.org/html/2503.11651v1/x2.png 1903w" width="1903"></p>
+<p><img alt="VGGT" class="gallery-image" data-flex-basis="678px" data-flex-grow="282" height="673" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2503.11651v1/x2.png" srcset="/x2_10269125003204393200_hu_a58a9c5354c85f28.png 800w, /x2_10269125003204393200_hu_3ca5102df0f96f2f.png 1600w, https://arxiv.org/html/2503.11651v1/x2.png 1903w" width="1903"></p>
 </div>
 <h2 id="spatial-mllm">Spatial-MLLM
 </h2><p>大多数现有的 MLLM 在其视觉编码器的预训练中主要使用图像-文本对, 遵循了 CLIP的范式. 这使得视觉编码器在捕捉高层语义内容方面表现出色, 但在仅使用 2D 视频输入时缺乏结构和空间信息. 因此, 论文 <a class="link cite-Spatial-MLLM">[<span class="material-index"></span>]
@@ -833,7 +833,7 @@ $$
     $$
 这里 $S = N_k' \times \left\lfloor \frac{H}{p_{2\mathrm{D}}} \right\rfloor \times \left\lfloor \frac{W}{p_{2\mathrm{D}}} \right\rfloor$ 是 token 长度.</li>
 </ol>
-<p><img alt="Spatial-MLLM" class="gallery-image" data-flex-basis="608px" data-flex-grow="253" height="655" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2505.23747v1/x2.png" srcset="/x2_8148370192817513008_hu_7319eab5f15fc0fa.png 800w, /x2_8148370192817513008_hu_e9d10e535f8de8ed.png 1600w, https://arxiv.org/html/2505.23747v1/x2.png 1661w" width="1661"></p>
+<p><img alt="Spatial-MLLM" class="gallery-image" data-flex-basis="608px" data-flex-grow="253" height="655" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2505.23747v1/x2.png" srcset="/x2_8148370192817513008_hu_5e0726e808d1cdd4.png 800w, /x2_8148370192817513008_hu_ab3d859289365ab0.png 1600w, https://arxiv.org/html/2505.23747v1/x2.png 1661w" width="1661"></p>
 </div>
 <p>由于显存限制, MLLM 只能处理场景视频序列中的一小部分帧. 关于帧采样广泛的做法是均匀帧采样, 论文设计了一个简单的空间感知帧采样策略.</p>
 <div class="math-block math-algo">
@@ -992,11 +992,33 @@ $$
 </article>
             
                 
+<article class="">
+    <a href="/p/paper-reading/recursive-self-improvement/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - 递归自我改进</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/paper-reading/ai4materials/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - AI4Materials</h2>
+        </div>
+    </a>
+</article>
+            
+                
 <article class="has-image">
     <a href="/p/paper-reading/asynchronous-inference/">
         
         <div class="article-image">
-            <img alt="Featured image of post 论文阅读 - 异步推理" height="150" loading="lazy" src="/p/paper-reading/asynchronous-inference/cover_hu_77cfa43380ae62b9.png" srcset="/p/paper-reading/asynchronous-inference/cover_hu_77cfa43380ae62b9.png 1x, /p/paper-reading/asynchronous-inference/cover_hu_3d408e690d616768.png 2x" width="250">
+            <img alt="Featured image of post 论文阅读 - 异步推理" height="150" loading="lazy" src="/p/paper-reading/asynchronous-inference/cover_hu_458503bd6fd81182.png" srcset="/p/paper-reading/asynchronous-inference/cover_hu_458503bd6fd81182.png 1x, /p/paper-reading/asynchronous-inference/cover_hu_9cefd0bfdc6eefa9.png 2x" width="250">
 
         </div>
         
@@ -1012,45 +1034,13 @@ $$
     <a href="/p/paper-reading/prompt-engineering/">
         
         <div class="article-image">
-            <img alt="Featured image of post 论文阅读 - 提示词工程" height="150" loading="lazy" src="/p/paper-reading/prompt-engineering/cover_hu_8451078efbc69658.png" srcset="/p/paper-reading/prompt-engineering/cover_hu_8451078efbc69658.png 1x, /p/paper-reading/prompt-engineering/cover_hu_c4bec2dd83998929.png 2x" width="250">
+            <img alt="Featured image of post 论文阅读 - 提示词工程" height="150" loading="lazy" src="/p/paper-reading/prompt-engineering/cover_hu_9dfa29818b172c14.png" srcset="/p/paper-reading/prompt-engineering/cover_hu_9dfa29818b172c14.png 1x, /p/paper-reading/prompt-engineering/cover_hu_a47d3b41e2526e94.png 2x" width="250">
 
         </div>
         
 
         <div class="article-details"style="background: linear-gradient(0deg, #d8d9da80 0%, #222223C0 100%);">
             <h2 class="article-title">论文阅读 - 提示词工程</h2>
-        </div>
-    </a>
-</article>
-            
-                
-<article class="has-image">
-    <a href="/p/paper-reading/agent-tool-use/">
-        
-        <div class="article-image">
-            <img alt="Featured image of post 论文阅读 - 智能体工具调用" height="150" loading="lazy" src="/p/paper-reading/agent-tool-use/cover_hu_f63b5815b16080bf.png" srcset="/p/paper-reading/agent-tool-use/cover_hu_f63b5815b16080bf.png 1x, /p/paper-reading/agent-tool-use/cover_hu_900fc387f5bc6c6b.png 2x" width="250">
-
-        </div>
-        
-
-        <div class="article-details"style="background: linear-gradient(0deg, #d12e2480 0%, #0e141cC0 100%);">
-            <h2 class="article-title">论文阅读 - 智能体工具调用</h2>
-        </div>
-    </a>
-</article>
-            
-                
-<article class="has-image">
-    <a href="/p/paper-reading/device-cloud-collaborative/">
-        
-        <div class="article-image">
-            <img alt="Featured image of post 论文阅读 - 端云协同智能体" height="150" loading="lazy" src="/p/paper-reading/device-cloud-collaborative/cover_hu_68d0a78cb1b72df5.jpg" srcset="/p/paper-reading/device-cloud-collaborative/cover_hu_68d0a78cb1b72df5.jpg 1x, /p/paper-reading/device-cloud-collaborative/cover_hu_1f956a74243b48a7.jpg 2x" width="250">
-
-        </div>
-        
-
-        <div class="article-details"style="background: linear-gradient(0deg, #a5a7a680 0%, #3a3c3dC0 100%);">
-            <h2 class="article-title">论文阅读 - 端云协同智能体</h2>
         </div>
     </a>
 </article>

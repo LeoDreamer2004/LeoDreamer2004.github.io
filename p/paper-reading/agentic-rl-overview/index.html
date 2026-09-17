@@ -901,7 +901,7 @@ $$
 <li>价值评估: 让 LLM 直接给当前状态打分, 或者给出一个分类 (比如 sure/likely/impossible)</li>
 <li>投票表决: 让 LLM 比较几个不同的分支, 然后投票选出最有希望的一个.</li>
 </ul>
-<p><img alt="Tree of Thoughts" class="gallery-image" data-flex-basis="487px" data-flex-grow="203" height="654" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2305.10601v2/x1.png" srcset="/x1_15358978380457389168_hu_ca77436515141f8a.png 800w, https://arxiv.org/html/2305.10601v2/x1.png 1328w" width="1328"></p>
+<p><img alt="Tree of Thoughts" class="gallery-image" data-flex-basis="487px" data-flex-grow="203" height="654" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2305.10601v2/x1.png" srcset="/x1_15358978380457389168_hu_bfd5f53d9add6538.png 800w, https://arxiv.org/html/2305.10601v2/x1.png 1328w" width="1328"></p>
 <p>关于模型推理, 论文给出了 BFS 和 DFS 两种流程, 这里以 DFS 为例:</p>
 <div class="math-block math-algo">
     <p class="math-title">算法<span class="math-subtitle">Tree of Thought - DFS</span></p>
@@ -1033,7 +1033,7 @@ $$
 </li>
 </ol>
 </div>
-<p><img alt="Toolformer API" class="gallery-image" data-flex-basis="1133px" data-flex-grow="472" height="283" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://pica.zhimg.com/v2-e8eb3737348202a90187f504b1479852_1440w.jpg" srcset="/v2-e8eb3737348202a90187f504b1479852_1440w_17630936434994654747_hu_46aecb4fc907f626.png 800w, https://pica.zhimg.com/v2-e8eb3737348202a90187f504b1479852_1440w.jpg 1336w" width="1336"></p>
+<p><img alt="Toolformer API" class="gallery-image" data-flex-basis="1133px" data-flex-grow="472" height="283" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://pica.zhimg.com/v2-e8eb3737348202a90187f504b1479852_1440w.jpg" srcset="/v2-e8eb3737348202a90187f504b1479852_1440w_17630936434994654747_hu_26249d64e2fdd711.png 800w, https://pica.zhimg.com/v2-e8eb3737348202a90187f504b1479852_1440w.jpg 1336w" width="1336"></p>
 <p>Search-R1 <a class="link cite-Search-R1">[<span class="material-index"></span>]
     <span class="material-name">Unknown-material</span> 
 </a> 是一个很典型的 Agentic RL 方向, 让模型在逐步推理中通过 RL 学会多轮搜索查询, 并处理实时检索结果.</p>
@@ -1069,9 +1069,9 @@ $$
 <li>当需要回忆过去的对话细节或查询文档时, LLM调用函数从回忆存储或档案存储中检索信息, 并将其加载到主上下文中. 当工作上下文中的信息过时或不再相关, LLM可以更新或移除它们.</li>
 <li>函数执行的结果 (包括成功信息或错误信息) 会反馈给LLM, 更新其主上下文, 并可能触发后续的函数调用链 (例如分页查询) .</li>
 </ul>
-<p><img alt="MemGPT 示例: 写入/搜索/更新" class="gallery-image" data-flex-basis="1227px" data-flex-grow="511" height="400" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/agentic-rl-overview/memgpt-exp.png" srcset="/p/paper-reading/agentic-rl-overview/memgpt-exp_hu_af73aa5783ddc79f.png 800w, /p/paper-reading/agentic-rl-overview/memgpt-exp_hu_4d846365deaa4429.png 1600w, /p/paper-reading/agentic-rl-overview/memgpt-exp.png 2045w" width="2045"></p>
+<p><img alt="MemGPT 示例: 写入/搜索/更新" class="gallery-image" data-flex-basis="1227px" data-flex-grow="511" height="400" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/agentic-rl-overview/memgpt-exp.png" srcset="/p/paper-reading/agentic-rl-overview/memgpt-exp_hu_760757f12f1c3aab.png 800w, /p/paper-reading/agentic-rl-overview/memgpt-exp_hu_83f2c89082a789df.png 1600w, /p/paper-reading/agentic-rl-overview/memgpt-exp.png 2045w" width="2045"></p>
 <p>这里所有调用函数都是由 LLM 自己决定的, 包括何时调用、调用哪个函数、以及如何处理函数返回的结果. 这种设计使得 LLM 不仅是一个被动的记忆存储器, 而是一个主动的记忆管理者, 能够根据当前任务需求和系统状态动态调整其记忆策略.</p>
-<p><img alt="MemGPT" class="gallery-image" data-flex-basis="633px" data-flex-grow="264" height="530" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/agentic-rl-overview/memgpt.png" srcset="/p/paper-reading/agentic-rl-overview/memgpt_hu_791fd9d5fea7f6.png 800w, /p/paper-reading/agentic-rl-overview/memgpt.png 1400w" width="1400"></p>
+<p><img alt="MemGPT" class="gallery-image" data-flex-basis="633px" data-flex-grow="264" height="530" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/agentic-rl-overview/memgpt.png" srcset="/p/paper-reading/agentic-rl-overview/memgpt_hu_33bf094ac6975562.png 800w, /p/paper-reading/agentic-rl-overview/memgpt.png 1400w" width="1400"></p>
 <p>Reflexion <a class="link cite-Reflexion">[<span class="material-index"></span>]
     
 </a> (NIPS 2023) 不更新模型权重, 而是让 agent 根据失败反馈写下文字反馈, 存入片段性的记忆, 供下一次尝试使用. 把语言形式的经验当作一种近似的策略提升.</p>
@@ -1171,7 +1171,7 @@ $$<p>其中:</p>
 </a> 则把 web agent 推向更真实的自发主持的网站环境, 包括电商、论坛、代码协作和内容管理等网站. OSWorld <a class="link cite-OSWorld">[<span class="material-index"></span>]
     
 </a> 的 benchmark 进一步让 agent 操作真实桌面系统和应用.</p>
-<p><img alt="OS World" class="gallery-image" data-flex-basis="562px" data-flex-grow="234" height="753" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://os-world.github.io/static/images/env.png" srcset="/env_10415051489751196895_hu_b66479cb3261bfe9.png 800w, /env_10415051489751196895_hu_3463ac57e8de5ce8.png 1600w, https://os-world.github.io/static/images/env.png 1765w" width="1765"></p>
+<p><img alt="OS World" class="gallery-image" data-flex-basis="562px" data-flex-grow="234" height="753" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://os-world.github.io/static/images/env.png" srcset="/env_10415051489751196895_hu_3157a3e52de89edf.png 800w, /env_10415051489751196895_hu_1a141eb1b7633125.png 1600w, https://os-world.github.io/static/images/env.png 1765w" width="1765"></p>
 <p>由于此课题目前我们更关注, 我又检索到有关 GUI Agent 的另一篇综述 <a class="link cite-GUI-Agentic-RL-Survey">[<span class="material-index"></span>]
     
 </a>. 参考另一个更详细的 <a class="link" href="../gui-agentic-rl" >博客内容</a></p>
@@ -1424,7 +1424,7 @@ $$<p>其中:</p>
     <a href="/p/paper-reading/gui-agents/">
         
         <div class="article-image">
-            <img alt="Featured image of post 论文阅读 - GUI 智能体" height="150" loading="lazy" src="/p/paper-reading/gui-agents/cover_hu_515eebe602fed179.png" srcset="/p/paper-reading/gui-agents/cover_hu_515eebe602fed179.png 1x, /p/paper-reading/gui-agents/cover_hu_eecbb30067f1374e.png 2x" width="250">
+            <img alt="Featured image of post 论文阅读 - GUI 智能体" height="150" loading="lazy" src="/p/paper-reading/gui-agents/cover_hu_215a965fff4b0d6f.png" srcset="/p/paper-reading/gui-agents/cover_hu_215a965fff4b0d6f.png 1x, /p/paper-reading/gui-agents/cover_hu_cf1981b439777b1.png 2x" width="250">
 
         </div>
         
@@ -1447,49 +1447,39 @@ $$<p>其中:</p>
 </article>
             
                 
+<article class="">
+    <a href="/p/paper-reading/recursive-self-improvement/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - 递归自我改进</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/paper-reading/ai4materials/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - AI4Materials</h2>
+        </div>
+    </a>
+</article>
+            
+                
 <article class="has-image">
     <a href="/p/paper-reading/asynchronous-inference/">
         
         <div class="article-image">
-            <img alt="Featured image of post 论文阅读 - 异步推理" height="150" loading="lazy" src="/p/paper-reading/asynchronous-inference/cover_hu_77cfa43380ae62b9.png" srcset="/p/paper-reading/asynchronous-inference/cover_hu_77cfa43380ae62b9.png 1x, /p/paper-reading/asynchronous-inference/cover_hu_3d408e690d616768.png 2x" width="250">
+            <img alt="Featured image of post 论文阅读 - 异步推理" height="150" loading="lazy" src="/p/paper-reading/asynchronous-inference/cover_hu_458503bd6fd81182.png" srcset="/p/paper-reading/asynchronous-inference/cover_hu_458503bd6fd81182.png 1x, /p/paper-reading/asynchronous-inference/cover_hu_9cefd0bfdc6eefa9.png 2x" width="250">
 
         </div>
         
 
         <div class="article-details"style="background: linear-gradient(0deg, #45a7c480 0%, #122134C0 100%);">
             <h2 class="article-title">论文阅读 - 异步推理</h2>
-        </div>
-    </a>
-</article>
-            
-                
-<article class="has-image">
-    <a href="/p/paper-reading/prompt-engineering/">
-        
-        <div class="article-image">
-            <img alt="Featured image of post 论文阅读 - 提示词工程" height="150" loading="lazy" src="/p/paper-reading/prompt-engineering/cover_hu_8451078efbc69658.png" srcset="/p/paper-reading/prompt-engineering/cover_hu_8451078efbc69658.png 1x, /p/paper-reading/prompt-engineering/cover_hu_c4bec2dd83998929.png 2x" width="250">
-
-        </div>
-        
-
-        <div class="article-details"style="background: linear-gradient(0deg, #d8d9da80 0%, #222223C0 100%);">
-            <h2 class="article-title">论文阅读 - 提示词工程</h2>
-        </div>
-    </a>
-</article>
-            
-                
-<article class="has-image">
-    <a href="/p/paper-reading/agent-tool-use/">
-        
-        <div class="article-image">
-            <img alt="Featured image of post 论文阅读 - 智能体工具调用" height="150" loading="lazy" src="/p/paper-reading/agent-tool-use/cover_hu_f63b5815b16080bf.png" srcset="/p/paper-reading/agent-tool-use/cover_hu_f63b5815b16080bf.png 1x, /p/paper-reading/agent-tool-use/cover_hu_900fc387f5bc6c6b.png 2x" width="250">
-
-        </div>
-        
-
-        <div class="article-details"style="background: linear-gradient(0deg, #d12e2480 0%, #0e141cC0 100%);">
-            <h2 class="article-title">论文阅读 - 智能体工具调用</h2>
         </div>
     </a>
 </article>

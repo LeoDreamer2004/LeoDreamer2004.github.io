@@ -5,18 +5,30 @@
         <description>Recent content in Categories on LeoDreamer</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Mon, 07 Sep 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 14 Sep 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://LeoDreamer2004.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+            <title>AI时事</title>
+            <link>https://LeoDreamer2004.github.io/categories/ai%E6%97%B6%E4%BA%8B/</link>
+            <pubDate>Mon, 14 Sep 2026 00:00:00 +0000</pubDate>
+            <guid>https://LeoDreamer2004.github.io/categories/ai%E6%97%B6%E4%BA%8B/</guid>
+            <description></description>
+        </item><item>
             <title>计算机</title>
             <link>https://LeoDreamer2004.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/</link>
-            <pubDate>Mon, 07 Sep 2026 00:00:00 +0000</pubDate>
+            <pubDate>Mon, 14 Sep 2026 00:00:00 +0000</pubDate>
             <guid>https://LeoDreamer2004.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/</guid>
             <description>&lt;img src=&#34;https://LeoDreamer2004.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/Chino_CS.jpg&#34; alt=&#34;Featured image of post 计算机&#34; /&gt;</description>
         </item><item>
             <title>论文</title>
             <link>https://LeoDreamer2004.github.io/categories/%E8%AE%BA%E6%96%87/</link>
-            <pubDate>Mon, 07 Sep 2026 00:00:00 +0000</pubDate>
+            <pubDate>Mon, 14 Sep 2026 00:00:00 +0000</pubDate>
             <guid>https://LeoDreamer2004.github.io/categories/%E8%AE%BA%E6%96%87/</guid>
             <description>&lt;img src=&#34;https://LeoDreamer2004.github.io/categories/%E8%AE%BA%E6%96%87/Chino_Paper.jpeg&#34; alt=&#34;Featured image of post 论文&#34; /&gt;</description>
+        </item><item>
+            <title>材料学</title>
+            <link>https://LeoDreamer2004.github.io/categories/%E6%9D%90%E6%96%99%E5%AD%A6/</link>
+            <pubDate>Sat, 12 Sep 2026 00:00:00 +0000</pubDate>
+            <guid>https://LeoDreamer2004.github.io/categories/%E6%9D%90%E6%96%99%E5%AD%A6/</guid>
+            <description>&lt;p&gt;本系列关注材料数据库、性质预测、机器学习原子势、生成式逆向设计以及自动化实验室.&lt;/p&gt;&#xA;&lt;div class=&#34;math-block&#34;&gt;&lt;p class=&#34;nav-title&#34;&gt;导航&lt;/p&gt;&#xA;&lt;table&gt;&#xA;&#x9;&lt;thead&gt;&#xA;&#x9;&#x9;&#x9;&lt;tr&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;th&gt;博客页面&lt;/th&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;th&gt;内容&lt;/th&gt;&#xA;&#x9;&#x9;&#x9;&lt;/tr&gt;&#xA;&#x9;&lt;/thead&gt;&#xA;&#x9;&lt;tbody&gt;&#xA;&#x9;&#x9;&#x9;&lt;tr&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://LeoDreamer2004.github.io/p/paper-reading/ai4materials/&#34; &gt;论文阅读 - AI4Materials&lt;/a&gt;&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;入门路线、经典文献与最新论文索引&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&lt;/tr&gt;&#xA;&#x9;&lt;/tbody&gt;&#xA;&lt;/table&gt;&#xA;&lt;/div&gt;&#xA;</description>
         </item><item>
             <title>机器学习基础</title>
             <link>https://LeoDreamer2004.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/</link>

@@ -570,10 +570,10 @@ $$
     \theta' = \theta + \eta \nabla_{\theta} \mathbb{E}_{y_i \sim f_{\theta}(x)}[R(y_i)]
     $$</li>
 </ol>
-<p><img alt="TTRL" class="gallery-image" data-flex-basis="605px" data-flex-grow="252" height="762" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/test-time-reinforcement-learning/img/TTRL.png" srcset="/p/paper-reading/test-time-reinforcement-learning/img/TTRL_hu_9366b85f3712ed38.png 800w, /p/paper-reading/test-time-reinforcement-learning/img/TTRL_hu_86a08e7e67fd50cc.png 1600w, /p/paper-reading/test-time-reinforcement-learning/img/TTRL.png 1923w" width="1923"></p>
+<p><img alt="TTRL" class="gallery-image" data-flex-basis="605px" data-flex-grow="252" height="762" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/test-time-reinforcement-learning/img/TTRL.png" srcset="/p/paper-reading/test-time-reinforcement-learning/img/TTRL_hu_bdf0e3024f5cc5f3.png 800w, /p/paper-reading/test-time-reinforcement-learning/img/TTRL_hu_cac005cd8e671d78.png 1600w, /p/paper-reading/test-time-reinforcement-learning/img/TTRL.png 1923w" width="1923"></p>
 </div>
 <p>效果非常显著, 甚至可以与带有有一定数据泄漏的监督方案相媲美.</p>
-<p><img alt="TTRL 结果" class="gallery-image" data-flex-basis="724px" data-flex-grow="302" height="347" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/test-time-reinforcement-learning/img/TTRL-result.png" srcset="/p/paper-reading/test-time-reinforcement-learning/img/TTRL-result_hu_d48a6ba85b2740e5.png 800w, /p/paper-reading/test-time-reinforcement-learning/img/TTRL-result.png 1048w" width="1048"></p>
+<p><img alt="TTRL 结果" class="gallery-image" data-flex-basis="724px" data-flex-grow="302" height="347" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/test-time-reinforcement-learning/img/TTRL-result.png" srcset="/p/paper-reading/test-time-reinforcement-learning/img/TTRL-result_hu_c06407092843baf8.png 800w, /p/paper-reading/test-time-reinforcement-learning/img/TTRL-result.png 1048w" width="1048"></p>
 <p>为什么能做这么好? 论文 <a class="link cite-TTRL">[<span class="material-index"></span>]
     
 </a> 给出了三个原因:</p>
@@ -588,7 +588,7 @@ $$
 </a> 给出基于最小化熵的强化学习算法 (Reinforcement Learning via Entropy Minimization, RENT). 基于 GRPO 框架测试, 把奖励函数设置为负熵, 认为只通过最小化输出的熵, 即可提高模型推理能力.</p>
 $$
 R(o) = -\mathcal{H}(p_{\pi_{\theta}}(\cdot|o)) = -\sum_{i=1}^{|V|} p_{\pi_{\theta}}(i|o) \log p_{\pi_{\theta}}(i|o)
-$$<p><img alt="RENT" class="gallery-image" data-flex-basis="1024px" data-flex-grow="427" height="381" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2505.22660/x1.png" srcset="/x1_762585511239712166_hu_80605be47024ab2.png 800w, /x1_762585511239712166_hu_526a1a97b2b16bc3.png 1600w, https://arxiv.org/html/2505.22660/x1.png 1627w" width="1627"></p>
+$$<p><img alt="RENT" class="gallery-image" data-flex-basis="1024px" data-flex-grow="427" height="381" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2505.22660/x1.png" srcset="/x1_762585511239712166_hu_5cf805aa009d36d6.png 800w, /x1_762585511239712166_hu_6482397110fb6f76.png 1600w, https://arxiv.org/html/2505.22660/x1.png 1627w" width="1627"></p>
 <h2 id="内部反馈的强化学习">内部反馈的强化学习
 </h2><p>除了 KL 正则化等等项之外, 我们关心奖励函数的设计. 这个奖励要与任务无关, 而由模型内部的反馈来决定. 与 <a class="link cite-RENT">[<span class="material-index"></span>]
     
@@ -604,7 +604,7 @@ $$<p>其中 $o$ 是 token 序列, $U$ 表示均匀分布.</p>
 </h3><p>文章 <a class="link cite-CLIP">[<span class="material-index"></span>]
     <span class="material-name">Unknown-material</span> 
 </a> 通过引入 CLIP 反馈来解决置信度过高问题, 称为 RLCF(如下图).</p>
-<p><img alt="TPT 与 RLCF 对比" class="gallery-image" data-flex-basis="759px" data-flex-grow="316" height="525" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2305.18010/x1.png" srcset="/x1_9570233704346911246_hu_5cb2e716092754a.png 800w, /x1_9570233704346911246_hu_21f07ece4a863155.png 1600w, https://arxiv.org/html/2305.18010/x1.png 1661w" width="1661"></p>
+<p><img alt="TPT 与 RLCF 对比" class="gallery-image" data-flex-basis="759px" data-flex-grow="316" height="525" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2305.18010/x1.png" srcset="/x1_9570233704346911246_hu_19b4ee945ca6d0ab.png 800w, /x1_9570233704346911246_hu_b5e417e04dc18663.png 1600w, https://arxiv.org/html/2305.18010/x1.png 1661w" width="1661"></p>
 <p>除了分类任务外, 通过特定任务的采样策略和适当的选择奖励基线, RLCF 可以很容易地扩展到不仅仅是检索这样的区分任务, 还可以扩展到图像字幕这样的泛化任务.</p>
 <p>我们现在关心视觉语言模型 (VLM), 因此要衡量跨模态的相似性. <strong>对比语言-图像预训练 (Contrastive Language-Image Pre-training, CLIP)</strong> 模型通过对图像和文本进行编码, 使得它们在同一个共享的向量空间中具有相似的表示.</p>
 <div class="math-block math-algo">
@@ -650,13 +650,13 @@ $$
     $$</li>
 <li>返回微调后的模型 $f_{\theta'}$.</li>
 </ol>
-<p><img alt="RLCF 分类任务" class="gallery-image" data-flex-basis="659px" data-flex-grow="274" height="580" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2305.18010/x3.png" srcset="/x3_17355611599170921509_hu_75b48eb672d2d8d1.png 800w, https://arxiv.org/html/2305.18010/x3.png 1593w" width="1593"></p>
+<p><img alt="RLCF 分类任务" class="gallery-image" data-flex-basis="659px" data-flex-grow="274" height="580" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2305.18010/x3.png" srcset="/x3_17355611599170921509_hu_c5dc709fcb3aeca2.png 800w, https://arxiv.org/html/2305.18010/x3.png 1593w" width="1593"></p>
 </div>
 <p>相较于监督学习, 基于反馈的强化学习更加通用, 例如可以进行图像描述的任务.</p>
 <div class="math-block math-algo">
     <p class="math-title">算法<span class="math-subtitle">RLCF (图文转换)</span></p>
 <p>基本可以从上面的 RLCF 算法中直接泛化修改. 只需要注意如果是文本生成图片时, 应该固定图像编码编码器 $g$ 而微调文本编码器 $h$, 且此时不做数据增强.</p>
-<p><img alt="RLCF 图文转换" class="gallery-image" data-flex-basis="686px" data-flex-grow="286" height="476" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2305.18010/x4.png" srcset="/x4_11817165036539317370_hu_570f308c3c1da14.png 800w, https://arxiv.org/html/2305.18010/x4.png 1362w" width="1362"></p>
+<p><img alt="RLCF 图文转换" class="gallery-image" data-flex-basis="686px" data-flex-grow="286" height="476" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2305.18010/x4.png" srcset="/x4_11817165036539317370_hu_59ea4a4af398142a.png 800w, https://arxiv.org/html/2305.18010/x4.png 1362w" width="1362"></p>
 </div>
 <h3 id="技巧和变体">技巧和变体
 </h3><ul>
@@ -674,7 +674,7 @@ $$
 </a> 通过熵动力学来研究熵崩溃的问题, 最终的目的依然是控制熵.</p>
 <h3 id="熵崩溃">熵崩溃
 </h3><p>强化学习过程中对于高置信度的策略会愈发增强其使用概率, 导致熵变得更加降低. 以下图揭示了熵崩溃和性能饱和的关系. 当熵下降到某个阈值时, 性能会达到饱和点.</p>
-<p><img alt="熵崩溃和性能饱和" class="gallery-image" data-flex-basis="687px" data-flex-grow="286" height="580" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2505.22617/x1.png" srcset="/x1_580606934846009928_hu_b840d6d821cc8d4.png 800w, /x1_580606934846009928_hu_fd91db71957c1a3e.png 1600w, https://arxiv.org/html/2505.22617/x1.png 1661w" width="1661"></p>
+<p><img alt="熵崩溃和性能饱和" class="gallery-image" data-flex-basis="687px" data-flex-grow="286" height="580" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2505.22617/x1.png" srcset="/x1_580606934846009928_hu_7fc4352c41d85f80.png 800w, /x1_580606934846009928_hu_c4f8ae570f0c090f.png 1600w, https://arxiv.org/html/2505.22617/x1.png 1661w" width="1661"></p>
 <p>论文定量分析认为, 如果没有像熵损失或者 KL 散度这样的正则化, 下游性能完全可以通过策略熵来预测, 精确来说可以拟合成指数函数:</p>
 $$
 R = -a \exp(\mathcal{H}) + b
@@ -698,13 +698,13 @@ $$<p>$R$ 是验证集的性能, $\mathcal{H}$ 是策略的熵.</p>
 	<tbody>
 			<tr>
 					<td>数学任务</td>
-					<td><img alt="a-math" class="gallery-image" data-flex-basis="336px" data-flex-grow="140" height="1185" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2505.22617/x12.png" srcset="/x12_7003860267143425204_hu_cfe7c557191e9286.png 800w, /x12_7003860267143425204_hu_43c820a8a2563736.png 1600w, https://arxiv.org/html/2505.22617/x12.png 1661w" width="1661"></td>
-					<td><img alt="b-math" class="gallery-image" data-flex-basis="334px" data-flex-grow="139" height="1190" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2505.22617/x13.png" srcset="/x13_8623714035226707447_hu_417c8965cf0cbfbd.png 800w, /x13_8623714035226707447_hu_44e4b2d8c0c4af6b.png 1600w, https://arxiv.org/html/2505.22617/x13.png 1661w" width="1661"></td>
+					<td><img alt="a-math" class="gallery-image" data-flex-basis="336px" data-flex-grow="140" height="1185" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2505.22617/x12.png" srcset="/x12_7003860267143425204_hu_26ea9dc826cb8583.png 800w, /x12_7003860267143425204_hu_9bf87cd6c95d31a9.png 1600w, https://arxiv.org/html/2505.22617/x12.png 1661w" width="1661"></td>
+					<td><img alt="b-math" class="gallery-image" data-flex-basis="334px" data-flex-grow="139" height="1190" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2505.22617/x13.png" srcset="/x13_8623714035226707447_hu_a44ecf5b06ff7507.png 800w, /x13_8623714035226707447_hu_3f7592bcae5a3b87.png 1600w, https://arxiv.org/html/2505.22617/x13.png 1661w" width="1661"></td>
 			</tr>
 			<tr>
 					<td>代码任务</td>
-					<td><img alt="a-code" class="gallery-image" data-flex-basis="336px" data-flex-grow="140" height="1185" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2505.22617/x14.png" srcset="/x14_10929581438055254911_hu_851d0d72e5b93b81.png 800w, /x14_10929581438055254911_hu_ba74de0269733c6a.png 1600w, https://arxiv.org/html/2505.22617/x14.png 1661w" width="1661"></td>
-					<td><img alt="b-code" class="gallery-image" data-flex-basis="334px" data-flex-grow="139" height="1190" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2505.22617/x15.png" srcset="/x15_5344486370569409441_hu_31f02b9e24c3a1ab.png 800w, /x15_5344486370569409441_hu_d5f8c01feb0f9e48.png 1600w, https://arxiv.org/html/2505.22617/x15.png 1661w" width="1661"></td>
+					<td><img alt="a-code" class="gallery-image" data-flex-basis="336px" data-flex-grow="140" height="1185" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2505.22617/x14.png" srcset="/x14_10929581438055254911_hu_104a1c6191eeab76.png 800w, /x14_10929581438055254911_hu_4b1882af01668132.png 1600w, https://arxiv.org/html/2505.22617/x14.png 1661w" width="1661"></td>
+					<td><img alt="b-code" class="gallery-image" data-flex-basis="334px" data-flex-grow="139" height="1190" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2505.22617/x15.png" srcset="/x15_5344486370569409441_hu_3db433e3b8e17c3e.png 800w, /x15_5344486370569409441_hu_fbdc302ff8443542.png 1600w, https://arxiv.org/html/2505.22617/x15.png 1661w" width="1661"></td>
 			</tr>
 	</tbody>
 </table></div>
@@ -780,15 +780,15 @@ $$
 	<tbody>
 			<tr>
 					<td>Qwen-7B</td>
-					<td><img alt="7B-entropy" class="gallery-image" data-flex-basis="355px" data-flex-grow="148" height="1121" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2505.22617/x22.png" srcset="/x22_15592516693516238728_hu_cd9281dac85f293d.png 800w, /x22_15592516693516238728_hu_dee3d588e210cdeb.png 1600w, https://arxiv.org/html/2505.22617/x22.png 1661w" width="1661"></td>
-					<td><img alt="7B-response" class="gallery-image" data-flex-basis="355px" data-flex-grow="148" height="1121" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2505.22617/x23.png" srcset="/x23_3515795969010692292_hu_af5a86086b8afc72.png 800w, /x23_3515795969010692292_hu_86f66bac4c7d455b.png 1600w, https://arxiv.org/html/2505.22617/x23.png 1661w" width="1661"></td>
-					<td><img alt="7B-accuracy" class="gallery-image" data-flex-basis="355px" data-flex-grow="148" height="1121" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2505.22617/x24.png" srcset="/x24_12129542494187032115_hu_e725a0e887bad835.png 800w, /x24_12129542494187032115_hu_4acfcfb51f6d98.png 1600w, https://arxiv.org/html/2505.22617/x24.png 1661w" width="1661"></td>
+					<td><img alt="7B-entropy" class="gallery-image" data-flex-basis="355px" data-flex-grow="148" height="1121" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2505.22617/x22.png" srcset="/x22_15592516693516238728_hu_99a1af3c8037efe5.png 800w, /x22_15592516693516238728_hu_7b74be1b488781b7.png 1600w, https://arxiv.org/html/2505.22617/x22.png 1661w" width="1661"></td>
+					<td><img alt="7B-response" class="gallery-image" data-flex-basis="355px" data-flex-grow="148" height="1121" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2505.22617/x23.png" srcset="/x23_3515795969010692292_hu_192b8985de7e716e.png 800w, /x23_3515795969010692292_hu_9338b5f777f0bba5.png 1600w, https://arxiv.org/html/2505.22617/x23.png 1661w" width="1661"></td>
+					<td><img alt="7B-accuracy" class="gallery-image" data-flex-basis="355px" data-flex-grow="148" height="1121" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2505.22617/x24.png" srcset="/x24_12129542494187032115_hu_43cd474a4ae9da.png 800w, /x24_12129542494187032115_hu_a550c03a56c32a7c.png 1600w, https://arxiv.org/html/2505.22617/x24.png 1661w" width="1661"></td>
 			</tr>
 			<tr>
 					<td>Qwen-32B</td>
-					<td><img alt="32B-entropy" class="gallery-image" data-flex-basis="355px" data-flex-grow="148" height="1121" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2505.22617/x25.png" srcset="/x25_565707476354138724_hu_b49b1e6dd2454f02.png 800w, /x25_565707476354138724_hu_e3c67bb4e433795.png 1600w, https://arxiv.org/html/2505.22617/x25.png 1661w" width="1661"></td>
-					<td><img alt="32B-response" class="gallery-image" data-flex-basis="355px" data-flex-grow="148" height="1121" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2505.22617/x26.png" srcset="/x26_9226126316388455426_hu_b92a0da375d3dcb2.png 800w, /x26_9226126316388455426_hu_c780447ae5278e03.png 1600w, https://arxiv.org/html/2505.22617/x26.png 1661w" width="1661"></td>
-					<td><img alt="32B-accuracy" class="gallery-image" data-flex-basis="355px" data-flex-grow="148" height="1121" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2505.22617/x27.png" srcset="/x27_9213611007832738332_hu_7344188dab64c95.png 800w, /x27_9213611007832738332_hu_580a73071fc01170.png 1600w, https://arxiv.org/html/2505.22617/x27.png 1661w" width="1661"></td>
+					<td><img alt="32B-entropy" class="gallery-image" data-flex-basis="355px" data-flex-grow="148" height="1121" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2505.22617/x25.png" srcset="/x25_565707476354138724_hu_6284b49aa0b2c382.png 800w, /x25_565707476354138724_hu_9aa392a8bb21326b.png 1600w, https://arxiv.org/html/2505.22617/x25.png 1661w" width="1661"></td>
+					<td><img alt="32B-response" class="gallery-image" data-flex-basis="355px" data-flex-grow="148" height="1121" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2505.22617/x26.png" srcset="/x26_9226126316388455426_hu_96f191b1d326a3a5.png 800w, /x26_9226126316388455426_hu_cb1514d63dc21395.png 1600w, https://arxiv.org/html/2505.22617/x26.png 1661w" width="1661"></td>
+					<td><img alt="32B-accuracy" class="gallery-image" data-flex-basis="355px" data-flex-grow="148" height="1121" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2505.22617/x27.png" srcset="/x27_9213611007832738332_hu_29700fd2ce717527.png 800w, /x27_9213611007832738332_hu_c444eb534c3a4687.png 1600w, https://arxiv.org/html/2505.22617/x27.png 1661w" width="1661"></td>
 			</tr>
 	</tbody>
 </table></div>
@@ -811,13 +811,13 @@ $$
 <li>计算下一个 token 的 logits $L_{\mathrm{next}} = W_{\mathrm{LM}} H_{\mathrm{last}}'$, 随后按 softmax 选择下一个 token $x_{\mathrm{next}}$.</li>
 <li>把 $x_{\mathrm{next}}$ 添加到输入序列 $x$ 中, 并重复步骤 6-8, 直到生成满足条件的文本.</li>
 </ol>
-<p><img alt="SLOT" class="gallery-image" data-flex-basis="426px" data-flex-grow="177" height="935" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2505.12392/x2.png" srcset="/x2_339404874337583701_hu_3c20329380361ba6.png 800w, /x2_339404874337583701_hu_7af852e215092a56.png 1600w, https://arxiv.org/html/2505.12392/x2.png 1662w" width="1662"></p>
+<p><img alt="SLOT" class="gallery-image" data-flex-basis="426px" data-flex-grow="177" height="935" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2505.12392/x2.png" srcset="/x2_339404874337583701_hu_308faa6e2a9f46b9.png 800w, /x2_339404874337583701_hu_28c92960ec1edee7.png 1600w, https://arxiv.org/html/2505.12392/x2.png 1662w" width="1662"></p>
 </div>
 <p>特意把参数 $\delta$ 放在预测头之前, 是为了减小计算量. 称这个增量为 <strong>概率向量调制向量 (Logit Modulation Vector, LMV)</strong>:</p>
 $$
 \mathrm{LMV} = W_{\mathrm{LM}}\delta \in \mathbb{R}^{|V|}
 $$<p>测试表明, 与推理过程相关的词如 &ldquo;think&rdquo; 和 &ldquo;reasoning&rdquo; 在 LMV 的作用下得到了显著增强.</p>
-<p><img alt="LMV 调节" class="gallery-image" data-flex-basis="450px" data-flex-grow="187" height="797" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2505.12392/x3.png" srcset="/x3_18420890752665203648_hu_bd9718367cbbb60.png 800w, https://arxiv.org/html/2505.12392/x3.png 1495w" width="1495"></p>
+<p><img alt="LMV 调节" class="gallery-image" data-flex-basis="450px" data-flex-grow="187" height="797" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2505.12392/x3.png" srcset="/x3_18420890752665203648_hu_8560d0a99fb374fd.png 800w, https://arxiv.org/html/2505.12392/x3.png 1495w" width="1495"></p>
 <p>我的理解是和直接插入一层网络的区别是, 这个反向传播只更新 $\delta$ 而不更新模型参数, 且是一次性的, 只在测试时进行微调. 这只是一个测试时微调, 似乎不是强化学习.</p>
 <h2 id="虚假奖励也能训练">虚假奖励也能训练?!
 </h2><p>说了这么多, 其实都是在说如何设计奖励函数. 但是, 论文 <a class="link cite-Spurious">[<span class="material-index"></span>]
@@ -831,20 +831,20 @@ $$<p>测试表明, 与推理过程相关的词如 &ldquo;think&rdquo; 和 &ldquo
 <li>随机 (Random) 奖励: 随机生成奖励.</li>
 <li>错误 (Incorrect) 奖励: 只对错误的答案给予奖励, 正确答案不奖励.</li>
 </ul>
-<p><img alt="虚假奖励" class="gallery-image" data-flex-basis="278px" data-flex-grow="115" height="1042" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/test-time-reinforcement-learning/img/spurious-reward.png" srcset="/p/paper-reading/test-time-reinforcement-learning/img/spurious-reward_hu_610edfc0e9f7bfae.png 800w, /p/paper-reading/test-time-reinforcement-learning/img/spurious-reward.png 1208w" width="1208"></p>
+<p><img alt="虚假奖励" class="gallery-image" data-flex-basis="278px" data-flex-grow="115" height="1042" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/test-time-reinforcement-learning/img/spurious-reward.png" srcset="/p/paper-reading/test-time-reinforcement-learning/img/spurious-reward_hu_b0537622289f3d3c.png 800w, /p/paper-reading/test-time-reinforcement-learning/img/spurious-reward.png 1208w" width="1208"></p>
 <p>论文围绕了一个小问题展开: 问大模型 $(2,-6)$ 和 $(-4,3)$ 的距离是多少?</p>
 <h3 id="不同模型在推理策略上存在先存差异">不同模型在推理策略上存在先存差异
 </h3><p>有些强模型会尝试写 Python 代码来计算距离, 尽管实际上它们并没有代码运行环境. 这种行为称为代码推理 (Code Reasoning), 且实验表明代码推理与准确率呈现强正相关性. 有些弱模型不生成代码, 或者对于代码生成性能弱.</p>
 <h3 id="rlvr-在引入虚假奖励时可以增强预存的推理策略">RLVR 在引入虚假奖励时可以增强预存的推理策略
 </h3><p>在进行 RLVR 训练后, 代码推理的频率迅速增加, 与准确度提升高度相关; 随机奖励则相对缓慢, 但最终也达到了相似的水平. 此后随着模型自然语言推理准确度的提高, 这一频率逐渐下降, 这表明模型正在从高质量的真实标签奖励中学习真正的知识.</p>
-<p><img alt="代码推理" class="gallery-image" data-flex-basis="527px" data-flex-grow="219" height="832" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/test-time-reinforcement-learning/img/code-reasoning.png" srcset="/p/paper-reading/test-time-reinforcement-learning/img/code-reasoning_hu_5c89870e18624373.png 800w, /p/paper-reading/test-time-reinforcement-learning/img/code-reasoning_hu_2a11aa3c3c58a864.png 1600w, /p/paper-reading/test-time-reinforcement-learning/img/code-reasoning.png 1827w" width="1827"></p>
+<p><img alt="代码推理" class="gallery-image" data-flex-basis="527px" data-flex-grow="219" height="832" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/test-time-reinforcement-learning/img/code-reasoning.png" srcset="/p/paper-reading/test-time-reinforcement-learning/img/code-reasoning_hu_b0cdf5adc0450491.png 800w, /p/paper-reading/test-time-reinforcement-learning/img/code-reasoning_hu_14defdbc341cd1b.png 1600w, /p/paper-reading/test-time-reinforcement-learning/img/code-reasoning.png 1827w" width="1827"></p>
 <h3 id="推理策略切换对性能的细化影响">推理策略切换对性能的细化影响
-</h3><p><img alt="推理策略切换" class="gallery-image" data-flex-basis="1122px" data-flex-grow="467" height="480" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/test-time-reinforcement-learning/img/code-policy-switch.png" srcset="/p/paper-reading/test-time-reinforcement-learning/img/code-policy-switch_hu_fa5895cfe6242405.png 800w, /p/paper-reading/test-time-reinforcement-learning/img/code-policy-switch_hu_8c7eab35aee3a8b5.png 1600w, /p/paper-reading/test-time-reinforcement-learning/img/code-policy-switch.png 2244w" width="2244"></p>
+</h3><p><img alt="推理策略切换" class="gallery-image" data-flex-basis="1122px" data-flex-grow="467" height="480" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/test-time-reinforcement-learning/img/code-policy-switch.png" srcset="/p/paper-reading/test-time-reinforcement-learning/img/code-policy-switch_hu_8378b10097eeca2b.png 800w, /p/paper-reading/test-time-reinforcement-learning/img/code-policy-switch_hu_29deb2ae4dbc28d.png 1600w, /p/paper-reading/test-time-reinforcement-learning/img/code-policy-switch.png 2244w" width="2244"></p>
 <p>对于所有较弱和虚假的奖励, 模型在 RLVR 后更倾向于使用代码推理. 虚假奖励上的准确度提升主要是通过激发模型使用正确的推理策略实现的.</p>
 <h3 id="随机奖励与策略裁剪">随机奖励与策略裁剪
 </h3><p>关于随机奖励的问题, 论文证明了尽管优势期望值为零, 但由于损失函数中的 clip 机制, GRPO 损失的期望梯度并非为零.</p>
 <p>为了验证这个想法, 论文进行了一组对比, 同样使用随机奖励, 区别是是否进行 $(1-\epsilon, 1+\epsilon)$ 重要性采样比裁剪. 结果表明, 在没有裁剪的情况下, 随机奖励不能给模型带来任何提升.</p>
-<p><img alt="随机奖励与策略裁剪" class="gallery-image" data-flex-basis="571px" data-flex-grow="238" height="764" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/test-time-reinforcement-learning/img/random-reward-clip.png" srcset="/p/paper-reading/test-time-reinforcement-learning/img/random-reward-clip_hu_a3c69a0c56bbd2f5.png 800w, /p/paper-reading/test-time-reinforcement-learning/img/random-reward-clip_hu_1db820584d5ebb75.png 1600w, /p/paper-reading/test-time-reinforcement-learning/img/random-reward-clip.png 1820w" width="1820"></p>
+<p><img alt="随机奖励与策略裁剪" class="gallery-image" data-flex-basis="571px" data-flex-grow="238" height="764" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/test-time-reinforcement-learning/img/random-reward-clip.png" srcset="/p/paper-reading/test-time-reinforcement-learning/img/random-reward-clip_hu_19aea66890bac54d.png 800w, /p/paper-reading/test-time-reinforcement-learning/img/random-reward-clip_hu_bfc7923ebac84847.png 1600w, /p/paper-reading/test-time-reinforcement-learning/img/random-reward-clip.png 1820w" width="1820"></p>
 <p>因此综合来看, 论文推测, 在随机奖励训练中, 看似 &ldquo;训练信号&rdquo; 实际上是优化算法偏向利用预训练中学习到的先验知识的结果.</p>
 <h2 id="sherlock-自我纠正推理">Sherlock: 自我纠正推理
 </h2><p>论文 <a class="link cite-Sherlock">[<span class="material-index"></span>]
@@ -922,17 +922,17 @@ $$
 <li>为进一步减小模型偏好优化的噪声, 让初始的 $Y^1$ 变得更差: 维持 $Y^{l}_{\lt i} = Y^{1}_{\lt i}$, 但对于 $Y^{l}_{\ge i}$ 则在 $Y^{1}_{\ge i}$ 的基础上进行扰动.</li>
 <li>随后按照离线偏好训练的方式继续进行.</li>
 </ol>
-<p><img alt="Sherlock" class="gallery-image" data-flex-basis="599px" data-flex-grow="249" height="912" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/test-time-reinforcement-learning/img/Sherlock.png" srcset="/p/paper-reading/test-time-reinforcement-learning/img/Sherlock_hu_b51b06c8f57ae73e.png 800w, /p/paper-reading/test-time-reinforcement-learning/img/Sherlock_hu_b305bb94e47ce45f.png 1600w, /p/paper-reading/test-time-reinforcement-learning/img/Sherlock.png 2278w" width="2278"></p>
+<p><img alt="Sherlock" class="gallery-image" data-flex-basis="599px" data-flex-grow="249" height="912" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/test-time-reinforcement-learning/img/Sherlock.png" srcset="/p/paper-reading/test-time-reinforcement-learning/img/Sherlock_hu_2ae22883c4854f07.png 800w, /p/paper-reading/test-time-reinforcement-learning/img/Sherlock_hu_45470e516398afe6.png 1600w, /p/paper-reading/test-time-reinforcement-learning/img/Sherlock.png 2278w" width="2278"></p>
 </div>
 <h3 id="实验-2">实验
 </h3><p>论文指出现有的模型并不能通过自我纠正提高推理能力, 经过 Sherlock 进行训练后, 再进行自我纠正, 模型的推理能力有了显著提升.</p>
-<p><img alt="Sherlock 实验结果" class="gallery-image" data-flex-basis="436px" data-flex-grow="182" height="651" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/test-time-reinforcement-learning/img/Sherlock-result.png" srcset="/p/paper-reading/test-time-reinforcement-learning/img/Sherlock-result_hu_23065512d5b79782.png 800w, /p/paper-reading/test-time-reinforcement-learning/img/Sherlock-result.png 1185w" width="1185"></p>
+<p><img alt="Sherlock 实验结果" class="gallery-image" data-flex-basis="436px" data-flex-grow="182" height="651" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/test-time-reinforcement-learning/img/Sherlock-result.png" srcset="/p/paper-reading/test-time-reinforcement-learning/img/Sherlock-result_hu_2ad937f1ce88f322.png 800w, /p/paper-reading/test-time-reinforcement-learning/img/Sherlock-result.png 1185w" width="1185"></p>
 <p>论文进行了消融实验, 验证了 DPO 损失, SC 损失和动态 $\beta$ 的有效性.</p>
 <h2 id="objection">Objection!
 </h2><p>刚才提及的多数论文都是错的! 一篇未正式发布的文章 <a class="link cite-Objection">[<span class="material-index"></span>]
     <span class="material-name">Unknown-material</span> 
 </a> 要打假, 尤其是有关随机奖励的内容, 批驳的论文如下图:</p>
-<p><img alt="Fake news!" class="gallery-image" data-flex-basis="491px" data-flex-grow="204" height="782" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://safe-lip-9a8.notion.site/image/attachment%3Ad9cf43ed-51bc-4e52-977c-84589883eb8b%3Aimage.png?table=block&id=2022f1fb-f0ee-805a-acb7-e3701d4b482b&spaceId=50ca3720-be45-4590-b18e-7dba386545c2&width=1420&userId=&cache=v2" srcset="/image_7592434195462280713_hu_31ec185234750460.png 800w, https://safe-lip-9a8.notion.site/image/attachment%3Ad9cf43ed-51bc-4e52-977c-84589883eb8b%3Aimage.png?table=block&id=2022f1fb-f0ee-805a-acb7-e3701d4b482b&spaceId=50ca3720-be45-4590-b18e-7dba386545c2&width=1420&userId=&cache=v2 1600w" width="1600"></p>
+<p><img alt="Fake news!" class="gallery-image" data-flex-basis="491px" data-flex-grow="204" height="782" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://safe-lip-9a8.notion.site/image/attachment%3Ad9cf43ed-51bc-4e52-977c-84589883eb8b%3Aimage.png?table=block&id=2022f1fb-f0ee-805a-acb7-e3701d4b482b&spaceId=50ca3720-be45-4590-b18e-7dba386545c2&width=1420&userId=&cache=v2" srcset="/image_7592434195462280713_hu_7ac1050f45e67b68.png 800w, https://safe-lip-9a8.notion.site/image/attachment%3Ad9cf43ed-51bc-4e52-977c-84589883eb8b%3Aimage.png?table=block&id=2022f1fb-f0ee-805a-acb7-e3701d4b482b&spaceId=50ca3720-be45-4590-b18e-7dba386545c2&width=1420&userId=&cache=v2 1600w" width="1600"></p>
 <p>文章声称, 这是因为预-RL 模型的 Baseline 相比 Qwen 发布的官方数据或其它标准化评估被严重低估了, 在很多情况下，经过 RL 后的模型性能实际上比它们开始时的 (正确评估的) 预-RL Baseline 还要差!</p>
 <p>主要问题在于这些论文没有开放数据权重, 导致不能测试, 因而论文的证据不具有说服力. 作者提出了几个可能错误低估的原因:</p>
 <ol>
@@ -1049,7 +1049,7 @@ $$
     <a href="/p/paper-reading/gui-agents/">
         
         <div class="article-image">
-            <img alt="Featured image of post 论文阅读 - GUI 智能体" height="150" loading="lazy" src="/p/paper-reading/gui-agents/cover_hu_515eebe602fed179.png" srcset="/p/paper-reading/gui-agents/cover_hu_515eebe602fed179.png 1x, /p/paper-reading/gui-agents/cover_hu_eecbb30067f1374e.png 2x" width="250">
+            <img alt="Featured image of post 论文阅读 - GUI 智能体" height="150" loading="lazy" src="/p/paper-reading/gui-agents/cover_hu_215a965fff4b0d6f.png" srcset="/p/paper-reading/gui-agents/cover_hu_215a965fff4b0d6f.png 1x, /p/paper-reading/gui-agents/cover_hu_cf1981b439777b1.png 2x" width="250">
 
         </div>
         
@@ -1083,17 +1083,12 @@ $$
 </article>
             
                 
-<article class="has-image">
-    <a href="/p/paper-reading/asynchronous-inference/">
-        
-        <div class="article-image">
-            <img alt="Featured image of post 论文阅读 - 异步推理" height="150" loading="lazy" src="/p/paper-reading/asynchronous-inference/cover_hu_77cfa43380ae62b9.png" srcset="/p/paper-reading/asynchronous-inference/cover_hu_77cfa43380ae62b9.png 1x, /p/paper-reading/asynchronous-inference/cover_hu_3d408e690d616768.png 2x" width="250">
-
-        </div>
+<article class="">
+    <a href="/p/paper-reading/recursive-self-improvement/">
         
 
-        <div class="article-details"style="background: linear-gradient(0deg, #45a7c480 0%, #122134C0 100%);">
-            <h2 class="article-title">论文阅读 - 异步推理</h2>
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - 递归自我改进</h2>
         </div>
     </a>
 </article>

@@ -544,13 +544,13 @@ $$
 <li>对每个 epoch 和 batch, 重复步骤 4-8.</li>
 <li>返回更新后的权重矩阵 $W = W_r + \Delta W$.</li>
 </ol>
-<p><img alt="Effort" class="gallery-image" data-flex-basis="901px" data-flex-grow="375" height="420" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2411.15633v4/x5.png" srcset="/x5_4577939468523049198_hu_80512b47506eb18f.png 800w, https://arxiv.org/html/2411.15633v4/x5.png 1578w" width="1578"></p>
+<p><img alt="Effort" class="gallery-image" data-flex-basis="901px" data-flex-grow="375" height="420" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2411.15633v4/x5.png" srcset="/x5_4577939468523049198_hu_be50eeab5512e1d0.png 800w, https://arxiv.org/html/2411.15633v4/x5.png 1578w" width="1578"></p>
 </div>
 <p>论文推荐 $r=n-1$, 即只用一个特征向量来捕捉虚假图像的特征. 对其他的 $r$ 也有一定鲁棒性.</p>
 <h3 id="实验及可视化">实验及可视化
 </h3><p>Effort 展现了巨大的优势. 仅用了原本模型的约 0.1% ~ 1% 的训练参数量, 能带来高达 10 个点的提升.</p>
 <p>论文还做了消融实验, 证明了正交正则化和奇异值约束对模型性能的作用. 架构默认采用 CLIP 作为 VFM, 但对其他 VFM 也有良好的适应性.</p>
-<p><img alt="语义-真实性分解" class="gallery-image" data-flex-basis="371px" data-flex-grow="154" height="536" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2411.15633v4/x4.png" srcset="/x4_7521940344451901662_hu_9063e8c354db924.png 800w, https://arxiv.org/html/2411.15633v4/x4.png 830w" width="830"></p>
+<p><img alt="语义-真实性分解" class="gallery-image" data-flex-basis="371px" data-flex-grow="154" height="536" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2411.15633v4/x4.png" srcset="/x4_7521940344451901662_hu_4cb17f7d765481b8.png 800w, https://arxiv.org/html/2411.15633v4/x4.png 830w" width="830"></p>
 <p>值得一提的是论文给出的语义-虚假性分解可视化方案. 一般的网络只能给出虚假性分数, 但 Effort 可以实现对语义和虚假性的正交分解学习.</p>
 <h2 id="oral-稀疏的-rl-网络可能更好">[Oral] 稀疏的 RL 网络可能更好
 </h2><h3 id="1000--10--100">1000 * 10% &gt; 100
@@ -558,7 +558,7 @@ $$
 <p>论文 <a class="link cite-Sparsity-RL">[<span class="material-index"></span>]
     <span class="material-name">Unknown-material</span> 
 </a> 实际上是一篇实验报告稿, 它指出如果在扩大参数规模的同时, 保持网络的稀疏性, 可以有效避免性能崩溃和优化问题.</p>
-<p><img alt="一般规模 (4.5M) 和大规模 (109M) 的稀疏网络对比" class="gallery-image" data-flex-basis="598px" data-flex-grow="249" height="880" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-result.png" srcset="/p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-result_hu_ba9f3fbc4abdf002.png 800w, /p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-result_hu_1f2991b0e1fcaca8.png 1600w, /p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-result.png 2193w" width="2193"></p>
+<p><img alt="一般规模 (4.5M) 和大规模 (109M) 的稀疏网络对比" class="gallery-image" data-flex-basis="598px" data-flex-grow="249" height="880" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-result.png" srcset="/p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-result_hu_bcb701804c6d9915.png 800w, /p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-result_hu_8823190cb38bc57.png 1600w, /p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-result.png 2193w" width="2193"></p>
 <p>从这个图可以看出:</p>
 <ul>
 <li>一般规模的网络在高稀疏化后表现不佳, 这很可能是因为稀疏化导致了网络容量的显著下降, 使得模型无法捕捉到足够的环境信息.</li>
@@ -578,7 +578,7 @@ $$
 $$
 \mathrm{Srank}(W) = \sum_{j=1}^m \mathbb{I}(\sigma_j(W) > \tau)
 $$<p>其中 $W$ 是网络的权重矩阵, $\sigma_j(W)$ 是 $W$ 的第 $j$ 个奇异值, $\tau$ 是一个阈值.</p>
-<p><img alt="不同网络的 Srank" class="gallery-image" data-flex-basis="562px" data-flex-grow="234" height="851" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-srank.png" srcset="/p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-srank_hu_8a730bfc7461b4aa.png 800w, /p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-srank_hu_611388e7283267d8.png 1600w, /p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-srank.png 1993w" width="1993"></p>
+<p><img alt="不同网络的 Srank" class="gallery-image" data-flex-basis="562px" data-flex-grow="234" height="851" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-srank.png" srcset="/p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-srank_hu_b04227292a4735e4.png 800w, /p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-srank_hu_6b7bbea8425c155b.png 1600w, /p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-srank.png 1993w" width="1993"></p>
 <p>从这个图可以看出:</p>
 <ul>
 <li>提高网络的稀疏性会导致 Srank 的一致提升, 逐渐接近理论上限.</li>
@@ -595,7 +595,7 @@ $$
 $h(x)$ 表示神经元激活, $H^{\ell}$ 表示第 $\ell$ 层神经元的数量. 如果 $\rho_i^{\ell} < \tau$, 则认为该神经元是静默的.</li>
 <li><strong>梯度范数 (Gradient Norm)</strong> <a class="link ref-Gradient-Norm"></a>: 衡量网络中神经元的梯度 L2 范数. 如果梯度范数很小, 很可能意味着网络失去了学习能力.</li>
 </ul>
-<p><img alt="不同网络的可塑性" class="gallery-image" data-flex-basis="1891px" data-flex-grow="787" height="282" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-plasticity.png" srcset="/p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-plasticity_hu_e0f478e5d1ce5489.png 800w, /p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-plasticity_hu_ebe239ca56b4f138.png 1600w, /p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-plasticity.png 2222w" width="2222"></p>
+<p><img alt="不同网络的可塑性" class="gallery-image" data-flex-basis="1891px" data-flex-grow="787" height="282" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-plasticity.png" srcset="/p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-plasticity_hu_1adba1bd8d3cb4dd.png 800w, /p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-plasticity_hu_6c7bca636b0e4ab9.png 1600w, /p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-plasticity.png 2222w" width="2222"></p>
 <h4 id="正则化">正则化
 </h4><p>论文认为稀疏性网络隐含了一种正则化机制.</p>
 <ul>
@@ -606,7 +606,7 @@ $h(x)$ 表示神经元激活, $H^{\ell}$ 表示第 $\ell$ 层神经元的数量.
 </h4><p><strong>梯度干扰 (Gradient Interference)</strong> 指不同的数据集之间的梯度相互干扰, 使得模型难以学习. 具体来说, 对于 $k$ 个训练样本 $x_1, x_2, \ldots, x_k$, 梯度干扰矩阵 $C_k \in \mathbb{R}^{k \times k}$ 可以定义为:</p>
 $$
 C_k[i, j] = \frac{\langle \nabla_{\theta} \ell(x_i, \theta), \nabla_{\theta} \ell(x_j, \theta) \rangle}{\|\nabla_{\theta} \ell(x_i, \theta)\|_2 \|\nabla_{\theta} \ell(x_j, \theta)\|_2}
-$$<p><img alt="紧密与稀疏网络的梯度干扰" class="gallery-image" data-flex-basis="808px" data-flex-grow="336" height="556" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-gradient.png" srcset="/p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-gradient_hu_1ad3cb1a6ae56f5b.png 800w, /p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-gradient_hu_72f1e71101bd7d97.png 1600w, /p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-gradient.png 1873w" width="1873"></p>
+$$<p><img alt="紧密与稀疏网络的梯度干扰" class="gallery-image" data-flex-basis="808px" data-flex-grow="336" height="556" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-gradient.png" srcset="/p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-gradient_hu_652890b34343616b.png 800w, /p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-gradient_hu_4164b6e4d4d0190.png 1600w, /p/paper-reading/icml-2025-oral-and-spotlight/img/sparse-gradient.png 1873w" width="1873"></p>
 <p>此热图中稀疏网路颜色更浅, 说明梯度干扰更小.</p>
 <h2 id="spotlight-多视图去噪">[Spotlight] 多视图去噪
 </h2><h3 id="mvc">MVC
@@ -674,7 +674,7 @@ $$<h3 id="airmvc">AIRMVC
 <li>重复步骤 1-5 直到收敛.</li>
 <li>最后, 对每个样本 $i$, 计算其在 GMM 中的最大概率簇分配, 得到聚类标签 $R_i = \argmax_k p(y_i=k|x_i)$.</li>
 </ol>
-<p><img alt="AIRMVC" class="gallery-image" data-flex-basis="399px" data-flex-grow="166" height="1271" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2505.21387v1/x2.png" srcset="/x2_16587740261837258365_hu_19c0d6ac159caa5b.png 800w, /x2_16587740261837258365_hu_5f41c0f84909219d.png 1600w, https://arxiv.org/html/2505.21387v1/x2.png 2114w" width="2114"></p>
+<p><img alt="AIRMVC" class="gallery-image" data-flex-basis="399px" data-flex-grow="166" height="1271" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2505.21387v1/x2.png" srcset="/x2_16587740261837258365_hu_1b70168f4e6f6d4f.png 800w, /x2_16587740261837258365_hu_d54a39dadf7e475e.png 1600w, https://arxiv.org/html/2505.21387v1/x2.png 2114w" width="2114"></p>
 </div>
 <h2 id="spotlight-生成图像对齐">[Spotlight] 生成图像对齐
 </h2><p>现在 AI 生成的图像已经高度逼真, 以至可以用来作为训练数据. 但直接将生成图像作为真实图像用于训练, 会导致由于真实域和合成域模态差异而引发的模态崩溃. 论文 <a class="link cite-GMAIL">[<span class="material-index"></span>]
@@ -814,11 +814,33 @@ $$<h3 id="airmvc">AIRMVC
 </article>
             
                 
+<article class="">
+    <a href="/p/paper-reading/recursive-self-improvement/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - 递归自我改进</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/paper-reading/ai4materials/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - AI4Materials</h2>
+        </div>
+    </a>
+</article>
+            
+                
 <article class="has-image">
     <a href="/p/paper-reading/asynchronous-inference/">
         
         <div class="article-image">
-            <img alt="Featured image of post 论文阅读 - 异步推理" height="150" loading="lazy" src="/p/paper-reading/asynchronous-inference/cover_hu_77cfa43380ae62b9.png" srcset="/p/paper-reading/asynchronous-inference/cover_hu_77cfa43380ae62b9.png 1x, /p/paper-reading/asynchronous-inference/cover_hu_3d408e690d616768.png 2x" width="250">
+            <img alt="Featured image of post 论文阅读 - 异步推理" height="150" loading="lazy" src="/p/paper-reading/asynchronous-inference/cover_hu_458503bd6fd81182.png" srcset="/p/paper-reading/asynchronous-inference/cover_hu_458503bd6fd81182.png 1x, /p/paper-reading/asynchronous-inference/cover_hu_9cefd0bfdc6eefa9.png 2x" width="250">
 
         </div>
         
@@ -834,45 +856,13 @@ $$<h3 id="airmvc">AIRMVC
     <a href="/p/paper-reading/prompt-engineering/">
         
         <div class="article-image">
-            <img alt="Featured image of post 论文阅读 - 提示词工程" height="150" loading="lazy" src="/p/paper-reading/prompt-engineering/cover_hu_8451078efbc69658.png" srcset="/p/paper-reading/prompt-engineering/cover_hu_8451078efbc69658.png 1x, /p/paper-reading/prompt-engineering/cover_hu_c4bec2dd83998929.png 2x" width="250">
+            <img alt="Featured image of post 论文阅读 - 提示词工程" height="150" loading="lazy" src="/p/paper-reading/prompt-engineering/cover_hu_9dfa29818b172c14.png" srcset="/p/paper-reading/prompt-engineering/cover_hu_9dfa29818b172c14.png 1x, /p/paper-reading/prompt-engineering/cover_hu_a47d3b41e2526e94.png 2x" width="250">
 
         </div>
         
 
         <div class="article-details"style="background: linear-gradient(0deg, #d8d9da80 0%, #222223C0 100%);">
             <h2 class="article-title">论文阅读 - 提示词工程</h2>
-        </div>
-    </a>
-</article>
-            
-                
-<article class="has-image">
-    <a href="/p/paper-reading/agent-tool-use/">
-        
-        <div class="article-image">
-            <img alt="Featured image of post 论文阅读 - 智能体工具调用" height="150" loading="lazy" src="/p/paper-reading/agent-tool-use/cover_hu_f63b5815b16080bf.png" srcset="/p/paper-reading/agent-tool-use/cover_hu_f63b5815b16080bf.png 1x, /p/paper-reading/agent-tool-use/cover_hu_900fc387f5bc6c6b.png 2x" width="250">
-
-        </div>
-        
-
-        <div class="article-details"style="background: linear-gradient(0deg, #d12e2480 0%, #0e141cC0 100%);">
-            <h2 class="article-title">论文阅读 - 智能体工具调用</h2>
-        </div>
-    </a>
-</article>
-            
-                
-<article class="has-image">
-    <a href="/p/paper-reading/device-cloud-collaborative/">
-        
-        <div class="article-image">
-            <img alt="Featured image of post 论文阅读 - 端云协同智能体" height="150" loading="lazy" src="/p/paper-reading/device-cloud-collaborative/cover_hu_68d0a78cb1b72df5.jpg" srcset="/p/paper-reading/device-cloud-collaborative/cover_hu_68d0a78cb1b72df5.jpg 1x, /p/paper-reading/device-cloud-collaborative/cover_hu_1f956a74243b48a7.jpg 2x" width="250">
-
-        </div>
-        
-
-        <div class="article-details"style="background: linear-gradient(0deg, #a5a7a680 0%, #3a3c3dC0 100%);">
-            <h2 class="article-title">论文阅读 - 端云协同智能体</h2>
         </div>
     </a>
 </article>

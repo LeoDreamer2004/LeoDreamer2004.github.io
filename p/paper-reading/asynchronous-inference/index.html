@@ -331,7 +331,7 @@
     <header class="article-header">
     <div class="article-image">
         <a href="/p/paper-reading/asynchronous-inference/">
-            <img alt="Featured image of post 论文阅读 - 异步推理" height="941" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/asynchronous-inference/cover.png" srcset="/p/paper-reading/asynchronous-inference/cover_hu_de8a90f43ce190f.png 800w, /p/paper-reading/asynchronous-inference/cover_hu_2b1c1df06beddc5b.png 1600w, /p/paper-reading/asynchronous-inference/cover.png 1672w" width="1672">
+            <img alt="Featured image of post 论文阅读 - 异步推理" height="941" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/asynchronous-inference/cover.png" srcset="/p/paper-reading/asynchronous-inference/cover_hu_d58ab51ae9d7a80a.png 800w, /p/paper-reading/asynchronous-inference/cover_hu_1cd6af7d50bd4f4f.png 1600w, /p/paper-reading/asynchronous-inference/cover.png 1672w" width="1672">
         </a>
     </div>
     
@@ -512,7 +512,7 @@ $$<p>这里的 API 是一个很宽泛的抽象：它可以是一次 LLM 请求�
 <li><strong>Actor</strong>：慢但权威的执行者, 负责给出基准系统原本会产生的真实结果;</li>
 <li><strong>Speculator</strong>：便宜而快速的预测器, 猜测 Actor 的结果以及随之而来的下一次调用.</li>
 </ul>
-<p><img alt="Speculative Actions" class="gallery-image" data-flex-basis="432px" data-flex-grow="180" height="1071" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/asynchronous-inference/speculative-actions.png" srcset="/p/paper-reading/asynchronous-inference/speculative-actions_hu_84c9561d535e6d14.png 800w, /p/paper-reading/asynchronous-inference/speculative-actions_hu_aad44134cc101525.png 1600w, /p/paper-reading/asynchronous-inference/speculative-actions.png 1929w" width="1929"></p>
+<p><img alt="Speculative Actions" class="gallery-image" data-flex-basis="432px" data-flex-grow="180" height="1071" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/asynchronous-inference/speculative-actions.png" srcset="/p/paper-reading/asynchronous-inference/speculative-actions_hu_3fb5d7a5b14a1690.png 800w, /p/paper-reading/asynchronous-inference/speculative-actions_hu_61a67fead7f8403c.png 1600w, /p/paper-reading/asynchronous-inference/speculative-actions.png 1929w" width="1929"></p>
 <p>在 Actor 处理当前请求时, Speculator 同时预测 $k$ 个可能结果 $\hat a_t^{(1)},\ldots,\hat a_t^{(k)}$. 系统分别构造假想状态：</p>
 $$
 \hat s_{t+1}^{(i)}=f(s_t,\hat a_t^{(i)}),
@@ -603,7 +603,7 @@ $$</div>
 <p>一个有趣现象是, 更强的模型不一定猜得更准. 强模型会产生更加多样、具体的查询, 而严格字符串匹配把同义改写也视为失败; 较弱模型反而倾向简单而可预测的调用.</p>
 <h3 id="操作系统调参">操作系统调参
 </h3><p>论文还给出一个有损扩展, 用 Agent 调节 Linux CFS 的 <code>min_granularity</code>. Speculator 每秒根据最新指标立即修改参数, Actor 每 10～15 秒分析一次压缩后的历史, 并用自己的决策覆盖 Speculator.</p>
-<p><img alt="操作系统调参中的 Actor 与 Speculator" class="gallery-image" data-flex-basis="874px" data-flex-grow="364" height="280" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/asynchronous-inference/os-tuning.png" srcset="/p/paper-reading/asynchronous-inference/os-tuning_hu_aadc3b2d9e0d1e08.png 800w, /p/paper-reading/asynchronous-inference/os-tuning.png 1020w" width="1020"></p>
+<p><img alt="操作系统调参中的 Actor 与 Speculator" class="gallery-image" data-flex-basis="874px" data-flex-grow="364" height="280" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/asynchronous-inference/os-tuning.png" srcset="/p/paper-reading/asynchronous-inference/os-tuning_hu_580f87c09e47d647.png 800w, /p/paper-reading/asynchronous-inference/os-tuning.png 1020w" width="1020"></p>
 <p>联合系统在约 13 秒到达最优区域, 而 Actor-only 需要约 200 秒; 恢复阶段平均 p95 延迟从 Actor-only 的 54.00 ms 降到 37.93 ms. 虽然 Speculator 调用频繁, 联合系统因为更早收敛, 总成本反而从 2.18 美分降至 0.17 美分.</p>
 <h2 id="时间与成本的均衡">时间与成本的均衡
 </h2><p>$k$ 增大时, $p(k)$ 上升, 但每个错误分支都会消耗 token、API 配额和算力. 论文将问题写成延迟收益与分支成本的权衡. 若每条候选具有置信度 $p^{(1)}\ge\cdots\ge p^{(k)}$, 启动前 $m$ 条分支的命中概率为：</p>
@@ -715,11 +715,22 @@ $$<p>其中 $\Delta_t$ 是未来命中缓存的价值, $c$ 是新增一条分支
         <div class="article-list--tile">
             
                 
+<article class="">
+    <a href="/p/paper-reading/recursive-self-improvement/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - 递归自我改进</h2>
+        </div>
+    </a>
+</article>
+            
+                
 <article class="has-image">
     <a href="/p/paper-reading/agent-tool-use/">
         
         <div class="article-image">
-            <img alt="Featured image of post 论文阅读 - 智能体工具调用" height="150" loading="lazy" src="/p/paper-reading/agent-tool-use/cover_hu_f63b5815b16080bf.png" srcset="/p/paper-reading/agent-tool-use/cover_hu_f63b5815b16080bf.png 1x, /p/paper-reading/agent-tool-use/cover_hu_900fc387f5bc6c6b.png 2x" width="250">
+            <img alt="Featured image of post 论文阅读 - 智能体工具调用" height="150" loading="lazy" src="/p/paper-reading/agent-tool-use/cover_hu_ccfd67a01cbe2738.png" srcset="/p/paper-reading/agent-tool-use/cover_hu_ccfd67a01cbe2738.png 1x, /p/paper-reading/agent-tool-use/cover_hu_3baa4d1248c57a33.png 2x" width="250">
 
         </div>
         
@@ -731,11 +742,22 @@ $$<p>其中 $\Delta_t$ 是未来命中缓存的价值, $c$ 是新增一条分支
 </article>
             
                 
+<article class="">
+    <a href="/p/paper-reading/ai4materials/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - AI4Materials</h2>
+        </div>
+    </a>
+</article>
+            
+                
 <article class="has-image">
     <a href="/p/paper-reading/prompt-engineering/">
         
         <div class="article-image">
-            <img alt="Featured image of post 论文阅读 - 提示词工程" height="150" loading="lazy" src="/p/paper-reading/prompt-engineering/cover_hu_8451078efbc69658.png" srcset="/p/paper-reading/prompt-engineering/cover_hu_8451078efbc69658.png 1x, /p/paper-reading/prompt-engineering/cover_hu_c4bec2dd83998929.png 2x" width="250">
+            <img alt="Featured image of post 论文阅读 - 提示词工程" height="150" loading="lazy" src="/p/paper-reading/prompt-engineering/cover_hu_9dfa29818b172c14.png" srcset="/p/paper-reading/prompt-engineering/cover_hu_9dfa29818b172c14.png 1x, /p/paper-reading/prompt-engineering/cover_hu_a47d3b41e2526e94.png 2x" width="250">
 
         </div>
         
@@ -758,33 +780,6 @@ $$<p>其中 $\Delta_t$ 是未来命中缓存的价值, $c$ 是新增一条分支
 
         <div class="article-details"style="background: linear-gradient(0deg, #a5a7a680 0%, #3a3c3dC0 100%);">
             <h2 class="article-title">论文阅读 - 端云协同智能体</h2>
-        </div>
-    </a>
-</article>
-            
-                
-<article class="has-image">
-    <a href="/p/paper-reading/gui-agents/">
-        
-        <div class="article-image">
-            <img alt="Featured image of post 论文阅读 - GUI 智能体" height="150" loading="lazy" src="/p/paper-reading/gui-agents/cover_hu_515eebe602fed179.png" srcset="/p/paper-reading/gui-agents/cover_hu_515eebe602fed179.png 1x, /p/paper-reading/gui-agents/cover_hu_eecbb30067f1374e.png 2x" width="250">
-
-        </div>
-        
-
-        <div class="article-details"style="background: linear-gradient(0deg, #a8b0ca80 0%, #28282aC0 100%);">
-            <h2 class="article-title">论文阅读 - GUI 智能体</h2>
-        </div>
-    </a>
-</article>
-            
-                
-<article class="">
-    <a href="/p/paper-reading/agentic-rl-overview/">
-        
-
-        <div class="article-details">
-            <h2 class="article-title">论文阅读 - 智能体强化学习总览</h2>
         </div>
     </a>
 </article>

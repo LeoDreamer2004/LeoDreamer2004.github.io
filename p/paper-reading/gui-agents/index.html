@@ -444,7 +444,7 @@
     <header class="article-header">
     <div class="article-image">
         <a href="/p/paper-reading/gui-agents/">
-            <img alt="Featured image of post 论文阅读 - GUI 智能体" height="941" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/gui-agents/cover.png" srcset="/p/paper-reading/gui-agents/cover_hu_5a5e8e512dd43568.png 800w, /p/paper-reading/gui-agents/cover_hu_993d6e3562844a31.png 1600w, /p/paper-reading/gui-agents/cover.png 1672w" width="1672">
+            <img alt="Featured image of post 论文阅读 - GUI 智能体" height="941" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/gui-agents/cover.png" srcset="/p/paper-reading/gui-agents/cover_hu_327bed6cb0118fbd.png 800w, /p/paper-reading/gui-agents/cover_hu_1a2e6d7de5cde315.png 1600w, /p/paper-reading/gui-agents/cover.png 1672w" width="1672">
         </a>
     </div>
     
@@ -515,7 +515,7 @@
 
 
                     <time class="article-time--reading">
-                        阅读时长: 25 分钟
+                        阅读时长: 26 分钟
                     </time>
                 
             </div>
@@ -714,7 +714,7 @@ $$
 </ol>
 </div>
 <p>UI-TARS 把不同平台的 GUI 操作统一成一套 action schema. 比如桌面的 click 和移动端的 tap, 在语义上都归为坐标点击.</p>
-<p><img alt="UI-TARS" class="gallery-image" data-flex-basis="253px" data-flex-grow="105" height="1740" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2501.12326v1/extracted/6146349/figures/model_arc.png" srcset="/model_arc_1931450895530743216_hu_83cd861f061ab511.png 800w, /model_arc_1931450895530743216_hu_e405a926fc024c33.png 1600w, https://arxiv.org/html/2501.12326v1/extracted/6146349/figures/model_arc.png 1836w" width="1836"></p>
+<p><img alt="UI-TARS" class="gallery-image" data-flex-basis="253px" data-flex-grow="105" height="1740" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2501.12326v1/extracted/6146349/figures/model_arc.png" srcset="/model_arc_1931450895530743216_hu_1a157422f705f42a.png 800w, /model_arc_1931450895530743216_hu_101d851bf3384334.png 1600w, https://arxiv.org/html/2501.12326v1/extracted/6146349/figures/model_arc.png 1836w" width="1836"></p>
 <h3 id="数据构造">数据构造
 </h3><p>在感知层面, 为了提升截图理解, UI-TARS 构造了大规模 GUI screenshot 数据, 并通过解析工具提取元素类型、层级、bounding box、文本内容等 metadata.</p>
 <ul>
@@ -726,7 +726,7 @@ $$
 <li>基于这些数据, 论文设计了五类任务: 元素描述 (element description)、页面描述 (dense captioning)、状态转移描述 (state transition captioning)、GUI 问答 (GUI QA)、元素标记 (Set-of-Mark).</li>
 </ul>
 <p>在动作层面, UI-TARS 训练模型直接预测元素坐标. 做法是用元素 bbox 的中心点作为点击点, 并将坐标归一化到屏幕尺寸, 从而适配不同分辨率. 论文也整合了 SeeClick、GUIAct、MultiUI 等开源数据, 并统一到自己的 action space.</p>
-<p><img alt="UI-TARS 数据示例" class="gallery-image" data-flex-basis="498px" data-flex-grow="207" height="800" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2501.12326v1/x1.png" srcset="/x1_15240836761993914470_hu_9dd17c658367e2ad.png 800w, /x1_15240836761993914470_hu_c1170b01b7243c77.png 1600w, https://arxiv.org/html/2501.12326v1/x1.png 1661w" width="1661"></p>
+<p><img alt="UI-TARS 数据示例" class="gallery-image" data-flex-basis="498px" data-flex-grow="207" height="800" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2501.12326v1/x1.png" srcset="/x1_15240836761993914470_hu_c74f30e1124a7fa.png 800w, /x1_15240836761993914470_hu_8fe06cdc57d0662d.png 1600w, https://arxiv.org/html/2501.12326v1/x1.png 1661w" width="1661"></p>
 <h3 id="显式推理">显式推理
 </h3><p>原始动作轨迹通常只有观察和动作, 没有显式推理. UI-TARS 的做法是给轨迹补上 thought, 把数据格式扩展一个 thought 字段.</p>
 <div class="math-block math-algo">
@@ -772,7 +772,7 @@ $$
 <li>返回 $\mathcal{D}_{thought}$</li>
 </ol>
 </div>
-<p><img alt="UI-TARS 思考模式示例" class="gallery-image" data-flex-basis="233px" data-flex-grow="97" height="5021" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2501.12326v1/extracted/6146349/figures/thought_pattern.png" srcset="/thought_pattern_16861972703966473245_hu_d39ec7353bf2f0ee.png 800w, /thought_pattern_16861972703966473245_hu_e5aa0a66227eee15.png 1600w, /thought_pattern_16861972703966473245_hu_effee642425043b4.png 2400w, https://arxiv.org/html/2501.12326v1/extracted/6146349/figures/thought_pattern.png 4889w" width="4889"></p>
+<p><img alt="UI-TARS 思考模式示例" class="gallery-image" data-flex-basis="233px" data-flex-grow="97" height="5021" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2501.12326v1/extracted/6146349/figures/thought_pattern.png" srcset="/thought_pattern_16861972703966473245_hu_acdac5322098fdef.png 800w, /thought_pattern_16861972703966473245_hu_d6e03da9ed29fba6.png 1600w, /thought_pattern_16861972703966473245_hu_c03a18f8cc7afaa7.png 2400w, https://arxiv.org/html/2501.12326v1/extracted/6146349/figures/thought_pattern.png 4889w" width="4889"></p>
 <h3 id="在线轨迹-bootstrapping">在线轨迹 Bootstrapping
 </h3><p>论文认为 GUI agent 的最大瓶颈是缺少真实交互过程数据, 所以它让模型在大量虚拟 PC 上执行任务, 自动收集 trace, 大致流程是:</p>
 <ol>
@@ -790,7 +790,7 @@ $$
 <p>论文明确提出这里采用 DPO 优化:</p>
 $$
 \mathcal{L}_{DPO}=-\log \sigma \left[ \beta \left( \log \frac{\pi_\theta(a_t^+\mid s_t)}{\pi_{\mathrm{ref}}(a_t^+\mid s_t)}- \log \frac{\pi_\theta(a_t^-\mid s_t)}{\pi_{\mathrm{ref}}(a_t^-\mid s_t)}\right)\right]
-$$<p><img alt="UI-TARS 轨迹 Bootstrapping" class="gallery-image" data-flex-basis="516px" data-flex-grow="215" height="3278" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2501.12326v1/extracted/6146349/figures/online_bootstrap.png" srcset="/online_bootstrap_12979727169351833026_hu_f136d1706b3fee9b.png 800w, /online_bootstrap_12979727169351833026_hu_3d7c5b0e40140e45.png 1600w, /online_bootstrap_12979727169351833026_hu_5f0001fe89f5b02d.png 2400w, https://arxiv.org/html/2501.12326v1/extracted/6146349/figures/online_bootstrap.png 7058w" width="7058"></p>
+$$<p><img alt="UI-TARS 轨迹 Bootstrapping" class="gallery-image" data-flex-basis="516px" data-flex-grow="215" height="3278" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2501.12326v1/extracted/6146349/figures/online_bootstrap.png" srcset="/online_bootstrap_12979727169351833026_hu_b97526a8b57c36d1.png 800w, /online_bootstrap_12979727169351833026_hu_46519413680f45bf.png 1600w, /online_bootstrap_12979727169351833026_hu_7ab0e7cbe116c60f.png 2400w, https://arxiv.org/html/2501.12326v1/extracted/6146349/figures/online_bootstrap.png 7058w" width="7058"></p>
 <h2 id="digirl">DigiRL
 </h2><p>DigiRL 是一个基于 evaluator 和 value-based filtering 训练能持续改进的设备控制 agent, 主要面向安卓系统.</p>
 <p>DigiRL 把 Android 设备控制建模成有限时长 MDP:</p>
@@ -804,7 +804,7 @@ $$<ul>
 <li>H: 最大交互步数.</li>
 </ul>
 <p>DigiRL 分成 Offline RL initialization 和 Offline-to-Online RL 两个训练阶段.</p>
-<p><img alt="DigiRL 训练阶段" class="gallery-image" data-flex-basis="467px" data-flex-grow="194" height="767" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2406.11896v1/x1.png" srcset="/x1_1118363374903737427_hu_93abdae80bc28529.png 800w, https://arxiv.org/html/2406.11896v1/x1.png 1495w" width="1495"></p>
+<p><img alt="DigiRL 训练阶段" class="gallery-image" data-flex-basis="467px" data-flex-grow="194" height="767" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2406.11896v1/x1.png" srcset="/x1_1118363374903737427_hu_6d719ef873adf199.png 800w, https://arxiv.org/html/2406.11896v1/x1.png 1495w" width="1495"></p>
 <p>rollout 阶段和一般的 Agentic RL 别无二致, 在此省去.</p>
 <p>对于 Offline RL initialization, 用旧 policy 先跑出一批离线 GUI 轨迹, 用 evaluator 标成功/失败, 再主要模仿成功轨迹中的动作, 把 agent 初始化到一个能做 Android 操作控制的起点, 之后才进入真正的 offline-to-online RL. 我们这里更关注 Offline-to-Online RL 阶段.</p>
 <div class="math-block math-algo">
@@ -887,7 +887,7 @@ $$
 <li>返回最终 policy $\pi_{\theta'}$.</li>
 </ol>
 </div>
-<p><img alt="DigiRL" class="gallery-image" data-flex-basis="524px" data-flex-grow="218" height="752" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2406.11896v1/x5.png" srcset="/x5_15378789432152095782_hu_617290be619fa4d1.png 800w, /x5_15378789432152095782_hu_5ac1d71b2b07180a.png 1600w, https://arxiv.org/html/2406.11896v1/x5.png 1644w" width="1644"></p>
+<p><img alt="DigiRL" class="gallery-image" data-flex-basis="524px" data-flex-grow="218" height="752" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2406.11896v1/x5.png" srcset="/x5_15378789432152095782_hu_7fa52d36527f805a.png 800w, /x5_15378789432152095782_hu_2b61b2f4895de93a.png 1600w, https://arxiv.org/html/2406.11896v1/x5.png 1644w" width="1644"></p>
 <h2 id="ui-r1">UI-R1
 </h2><p>UI-R1 是首个通过 DeepSeek R1 风格的强化学习, 在 GUI 动作预测任务上提升 MLLM 推理能力的框架.</p>
 <p>UI-R1-3B 的 RL 训练方案还是 GRPO. 公式这里略去. 其奖励设计为:</p>
@@ -1034,17 +1034,17 @@ $$
 <li>返回训练后的定位模型 $g_{\theta'}$.</li>
 </ol>
 </div>
-<p><img alt="GTA1" class="gallery-image" data-flex-basis="1099px" data-flex-grow="458" height="500" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/gui-agents/GTA1.png" srcset="/p/paper-reading/gui-agents/GTA1_hu_3b412cd66b302f55.png 800w, /p/paper-reading/gui-agents/GTA1_hu_1694e581ae0d6289.png 1600w, /p/paper-reading/gui-agents/GTA1.png 2290w" width="2290"></p>
+<p><img alt="GTA1" class="gallery-image" data-flex-basis="1099px" data-flex-grow="458" height="500" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/gui-agents/GTA1.png" srcset="/p/paper-reading/gui-agents/GTA1_hu_f67326b06a9e3e0d.png 800w, /p/paper-reading/gui-agents/GTA1_hu_bc4bf5b5ff9e1165.png 1600w, /p/paper-reading/gui-agents/GTA1.png 2290w" width="2290"></p>
 <p>实验表明 scale 的 $K$ 越大, 任务成功率越高.</p>
-<p><img alt="GTA1 scale 效果, 从左到右依次是 15, 50, 100 步任务" class="gallery-image" data-flex-basis="1071px" data-flex-grow="446" height="296" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/gui-agents/GTA1-Scaling.png" srcset="/p/paper-reading/gui-agents/GTA1-Scaling_hu_9a4ba7aff7661e0c.png 800w, /p/paper-reading/gui-agents/GTA1-Scaling.png 1322w" width="1322"></p>
+<p><img alt="GTA1 scale 效果, 从左到右依次是 15, 50, 100 步任务" class="gallery-image" data-flex-basis="1071px" data-flex-grow="446" height="296" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/gui-agents/GTA1-Scaling.png" srcset="/p/paper-reading/gui-agents/GTA1-Scaling_hu_ee0188f202277fe8.png 800w, /p/paper-reading/gui-agents/GTA1-Scaling.png 1322w" width="1322"></p>
 <p>GTA1 特意提到不提示模型先生成 CoT, 而是直接输出预测坐标. reward 则检查预测坐标是否落在标注 bbox 内, 而非使用 bbox 的 IoU, 具体这里参看消融实验:</p>
-<p><img alt="GTA1 消融实验" class="gallery-image" data-flex-basis="1407px" data-flex-grow="586" height="224" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/gui-agents/GTA1-Ablation.png" srcset="/p/paper-reading/gui-agents/GTA1-Ablation_hu_bf7e53be81bebedb.png 800w, /p/paper-reading/gui-agents/GTA1-Ablation.png 1314w" width="1314"></p>
+<p><img alt="GTA1 消融实验" class="gallery-image" data-flex-basis="1407px" data-flex-grow="586" height="224" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/gui-agents/GTA1-Ablation.png" srcset="/p/paper-reading/gui-agents/GTA1-Ablation_hu_2f19c451dd3cab8f.png 800w, /p/paper-reading/gui-agents/GTA1-Ablation.png 1314w" width="1314"></p>
 <h2 id="autowebworld">AutoWebWorld
 </h2><p>论文 <a class="link cite-AutoWebWorld">[<span class="material-index"></span>]
     <span class="material-name">Unknown-material</span> 
 </a> (IMCL 2026) 讨论的是 Web GUI agent 的数据合成问题. agent 只能看到渲染后的页面截图或 DOM 片段, 看不到网站内部状态. 页面看起来可能更新了, 但是否真的达到了预期的状态, 外部观察并不总是可靠. 因此网站数据管线通常需要人工标注或 LLM judge 判断轨迹是否正确. 这就是论文说的验证瓶颈: 成本高, 判断不稳定, 而且每多生成一条轨迹都要验证成本.</p>
 <p>这篇论文反过来: 不从真实网站里猜测内部状态, 而是先显式定义网站的有限状态机 (Finite State Machine, FSM), 再让 coding agent 把 FSM 翻译成可运行的合成网站. 这样任务是否成功不再依赖外部 judge, 而是由 FSM 的状态转移和终止状态直接判定.</p>
-<p><img alt="AutoWebWorld Teaser" class="gallery-image" data-flex-basis="325px" data-flex-grow="135" height="736" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2602.14296v1/x1.png" srcset="/x1_7783371305002671093_hu_d4125bd65ac25325.png 800w, https://arxiv.org/html/2602.14296v1/x1.png 997w" width="997"></p>
+<p><img alt="AutoWebWorld Teaser" class="gallery-image" data-flex-basis="325px" data-flex-grow="135" height="736" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2602.14296v1/x1.png" srcset="/x1_7783371305002671093_hu_da2b1146c6604ccd.png 800w, https://arxiv.org/html/2602.14296v1/x1.png 997w" width="997"></p>
 <h3 id="状态建模">状态建模
 </h3><p>论文把 Web GUI 交互建模成:</p>
 $$
@@ -1118,7 +1118,7 @@ $$
 </div>
 <p>这里最关键的设计是两层轨迹:</p>
 <p>正确性的来源是 FSM, GUI procedure 只是实现方式. 这点和真实网站采样不同.</p>
-<p><img alt="AutoWebWorld" class="gallery-image" data-flex-basis="510px" data-flex-grow="212" height="469" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2602.14296v1/x2.png" srcset="/x2_18340799478048455840_hu_77b9eeb5db3f40a.png 800w, https://arxiv.org/html/2602.14296v1/x2.png 997w" width="997"></p>
+<p><img alt="AutoWebWorld" class="gallery-image" data-flex-basis="510px" data-flex-grow="212" height="469" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2602.14296v1/x2.png" srcset="/x2_18340799478048455840_hu_11e9346938933e7f.png 800w, https://arxiv.org/html/2602.14296v1/x2.png 997w" width="997"></p>
 <h3 id="训练">训练
 </h3><p>论文用 AutoWebWorld 轨迹训练 Qwen2.5-VL-3B 和 Qwen2.5-VL-7B. 为了避免同一任务下大量相似轨迹造成过拟合, 作者对同一任务的平行轨迹只采样一条.</p>
 <p>GRPO reward 包含三部分:</p>
@@ -1130,7 +1130,7 @@ $$<p>第一项是动作类型是否匹配. 第二项是坐标定位 reward. 对 
 </h2><p>论文 <a class="link cite-Trifuse">[<span class="material-index"></span>]
     <span class="material-name">Unknown-material</span> 
 </a> 讨论的是 GUI 定位. 主流 GUI 定位方法通常是训练式的: 用大量 GUI 标注数据微调 MLLM, 让模型直接预测目标元素坐标. 这类方法效果强, 但需要昂贵标注, 对新应用、新布局、新系统也未必泛化. 另一条路线是 attention-based 定位: 不训练, 直接利用 MLLM 内部 attention map 作为定位信号. TAG 就是这类代表, 但单看注意力往往噪声大, 精度不够.</p>
-<p><img alt="两种定位路线" class="gallery-image" data-flex-basis="261px" data-flex-grow="109" height="3400" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2602.06351v1/1intro.png" srcset="/1intro_12607813831555132860_hu_afe8d8bcbe8cb52c.png 800w, /1intro_12607813831555132860_hu_87b4b2512979ac71.png 1600w, /1intro_12607813831555132860_hu_bcfb779ac052f917.png 2400w, https://arxiv.org/html/2602.06351v1/1intro.png 3710w" width="3710"></p>
+<p><img alt="两种定位路线" class="gallery-image" data-flex-basis="261px" data-flex-grow="109" height="3400" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2602.06351v1/1intro.png" srcset="/1intro_12607813831555132860_hu_5cc1cd0e571e847b.png 800w, /1intro_12607813831555132860_hu_f834eb31cbbc1048.png 1600w, /1intro_12607813831555132860_hu_ddcba2e127e9e0be.png 2400w, https://arxiv.org/html/2602.06351v1/1intro.png 3710w" width="3710"></p>
 <p>Trifuse 的观点是: 注意力本身是有语义理解的, 问题在于 GUI 里缺少明确的空间锚点. 所以它把三种互补信号 attention, OCR, caption 融合起来.</p>
 <h3 id="attention-提取">Attention 提取
 </h3><p>论文 MLLM 选取 Qwen2.5-VL, 设 GUI 截图经过视觉编码器后得到 patch token:</p>
@@ -1229,7 +1229,7 @@ $$
 <li>在裁剪图上重复 1-9, 输出最终坐标 $\hat{p}$.</li>
 </ol>
 </div>
-<p><img alt="Trifuse" class="gallery-image" data-flex-basis="408px" data-flex-grow="170" height="3077" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2602.06351v1/2framework.png" srcset="/2framework_9410561658312989770_hu_3d51dfb4c0fe95f4.png 800w, /2framework_9410561658312989770_hu_7e076673b23ec405.png 1600w, /2framework_9410561658312989770_hu_47467b27adfc25f.png 2400w, https://arxiv.org/html/2602.06351v1/2framework.png 5231w" width="5231"></p>
+<p><img alt="Trifuse" class="gallery-image" data-flex-basis="408px" data-flex-grow="170" height="3077" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2602.06351v1/2framework.png" srcset="/2framework_9410561658312989770_hu_f1cd70be4718ec02.png 800w, /2framework_9410561658312989770_hu_ca2e08ef1dcbe176.png 1600w, /2framework_9410561658312989770_hu_c1a60fb5dfc27b12.png 2400w, https://arxiv.org/html/2602.06351v1/2framework.png 5231w" width="5231"></p>
 <h2 id="hymem">HyMEM
 </h2><p>与前面主要讨论的定位方法不同, 论文 <a class="link cite-HyMEM">[<span class="material-index"></span>]
     <span class="material-name">Unknown-material</span> 
@@ -1301,7 +1301,7 @@ $$
 <li>连续 trajectory embeddings: 把相关轨迹 embedding 拼入 VLM 输入, 提供难以文本化的视觉和动作细节.</li>
 </ol>
 <p>此外, GUI 长程任务会发生阶段切换. 比如一开始在搜索页面, 后来进入筛选页面, 再进入 checkout 页面. 如果一直使用初始检索的记忆, 很快会过期. 因此 HyMEM 在每一步后比较 $o_t\rightarrow o_{t+1}$, 判断是否发生阶段切换. 如果发生, 就保留长期目标和仍然相关的指令, 丢弃过期部分, 再基于新状态重新检索并刷新 working memory.</p>
-<p><img alt="HyMEM" class="gallery-image" data-flex-basis="442px" data-flex-grow="184" height="1072" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2603.10291v1/figures/main_figure.png" srcset="/main_figure_14014782769492324363_hu_eb756b3ded90f0db.png 800w, /main_figure_14014782769492324363_hu_3f74fec9220064b2.png 1600w, https://arxiv.org/html/2603.10291v1/figures/main_figure.png 1976w" width="1976"></p>
+<p><img alt="HyMEM" class="gallery-image" data-flex-basis="442px" data-flex-grow="184" height="1072" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2603.10291v1/figures/main_figure.png" srcset="/main_figure_14014782769492324363_hu_52d43a7d66fafdaf.png 800w, /main_figure_14014782769492324363_hu_6d30377630412d61.png 1600w, https://arxiv.org/html/2603.10291v1/figures/main_figure.png 1976w" width="1976"></p>
 <h2 id="os-oracle">OS-Oracle
 </h2><p>论文 <a class="link cite-OS-Oracle">[<span class="material-index"></span>]
     <span class="material-name">Unknown-material</span> 
@@ -1370,7 +1370,7 @@ R(x_i,\hat{r}_i,\hat{j}_i) =
 +\beta R_{\mathrm{format}}
 +\gamma R_{\mathrm{consistency}}
 $$<p>论文中 $\alpha=0.9,\beta=0.05,\gamma=0.05$. 关于一致性的判断先用词典做规则分类. 正向词典包括 <code>relevant</code>, <code>valid</code>, <code>align with</code> 等, 负向词典包括 <code>incorrect</code>, <code>not aligned with</code>, <code>error</code> 等. 如果规则无法判断, 再用 Qwen3-8B 根据推理生成判断.</p>
-<p><img alt="OS-Oracle" class="gallery-image" data-flex-basis="363px" data-flex-grow="151" height="593" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2512.16295v1/x2.png" srcset="/x2_8656587531308187549_hu_aeee75659c5ea06b.png 800w, https://arxiv.org/html/2512.16295v1/x2.png 897w" width="897"></p>
+<p><img alt="OS-Oracle" class="gallery-image" data-flex-basis="363px" data-flex-grow="151" height="593" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2512.16295v1/x2.png" srcset="/x2_8656587531308187549_hu_245d1e5ce2cf122f.png 800w, https://arxiv.org/html/2512.16295v1/x2.png 897w" width="897"></p>
 <h2 id="continual-gui-agents">Continual GUI Agents
 </h2><p>论文 <a class="link cite-Continual-GUI-Agents">[<span class="material-index"></span>]
     <span class="material-name">Unknown-material</span> 
@@ -1468,7 +1468,7 @@ $$
 <li>训练完当前任务后, 顺序进入下一个 domain 或 resolution.</li>
 </ol>
 </div>
-<p><img alt="GUI-AiF" class="gallery-image" data-flex-basis="700px" data-flex-grow="292" height="341" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2601.20732v4/x2.png" srcset="/x2_14259752905328105718_hu_d1966946cc259188.png 800w, https://arxiv.org/html/2601.20732v4/x2.png 996w" width="996"></p>
+<p><img alt="GUI-AiF" class="gallery-image" data-flex-basis="700px" data-flex-grow="292" height="341" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2601.20732v4/x2.png" srcset="/x2_14259752905328105718_hu_8491421bf76b632f.png 800w, https://arxiv.org/html/2601.20732v4/x2.png 996w" width="996"></p>
 <h2 id="websynthesis">WebSynthesis
 </h2><p>论文 <a class="link cite-WebSynthesis">[<span class="material-index"></span>]
     <span class="material-name">Unknown-material</span> 
@@ -1945,7 +1945,7 @@ $$
     <a href="/p/paper-reading/agent-tool-use/">
         
         <div class="article-image">
-            <img alt="Featured image of post 论文阅读 - 智能体工具调用" height="150" loading="lazy" src="/p/paper-reading/agent-tool-use/cover_hu_f63b5815b16080bf.png" srcset="/p/paper-reading/agent-tool-use/cover_hu_f63b5815b16080bf.png 1x, /p/paper-reading/agent-tool-use/cover_hu_900fc387f5bc6c6b.png 2x" width="250">
+            <img alt="Featured image of post 论文阅读 - 智能体工具调用" height="150" loading="lazy" src="/p/paper-reading/agent-tool-use/cover_hu_ccfd67a01cbe2738.png" srcset="/p/paper-reading/agent-tool-use/cover_hu_ccfd67a01cbe2738.png 1x, /p/paper-reading/agent-tool-use/cover_hu_3baa4d1248c57a33.png 2x" width="250">
 
         </div>
         
@@ -1995,17 +1995,12 @@ $$
 </article>
             
                 
-<article class="has-image">
-    <a href="/p/paper-reading/asynchronous-inference/">
-        
-        <div class="article-image">
-            <img alt="Featured image of post 论文阅读 - 异步推理" height="150" loading="lazy" src="/p/paper-reading/asynchronous-inference/cover_hu_77cfa43380ae62b9.png" srcset="/p/paper-reading/asynchronous-inference/cover_hu_77cfa43380ae62b9.png 1x, /p/paper-reading/asynchronous-inference/cover_hu_3d408e690d616768.png 2x" width="250">
-
-        </div>
+<article class="">
+    <a href="/p/paper-reading/recursive-self-improvement/">
         
 
-        <div class="article-details"style="background: linear-gradient(0deg, #45a7c480 0%, #122134C0 100%);">
-            <h2 class="article-title">论文阅读 - 异步推理</h2>
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - 递归自我改进</h2>
         </div>
     </a>
 </article>
