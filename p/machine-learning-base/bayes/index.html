@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="后验概率最大化准则 定义\n对训练样本集 $D=\\{(x_i,y_i)\\}_{i=1}^n$, 其中 $x_i \\in \\mathcal{X}$, $y_i \\in \\mathcal{Y} = \\{c_1, c_2, \\cdots, c_K\\}$, 将 $x$ 的类别预测为 $c_i$ 的 风险 为\n$$ R(Y=c_i | x) = \\sum_{j=1}^K \\lambda_{ij} P(Y=c_j | x) $$其中 $\\lambda_{ij}$ 是将属于 $c_j$ 的样本预测为 $c_i$ 的损失. 最优预测 $\\hat{y}$ 是使得风险最小的类别, 即\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="后验概率最大化准则 定义\n对训练样本集 $D=\\{(x_i,y_i)\\}_{i=1}^n$, 其中 $x_i \\in \\mathcal{X}$, $y_i \\in \\mathcal{Y} = \\{c_1, c_2, \\cdots, c_K\\}$, 将 $x$ 的类别预测为 $c_i$ 的 风险 为\n$$ R(Y=c_i | x) = \\sum_{j=1}^K \\lambda_{ij} P(Y=c_j | x) $$其中 $\\lambda_{ij}$ 是将属于 $c_j$ 的样本预测为 $c_i$ 的损失. 最优预测 $\\hat{y}$ 是使得风险最小的类别, 即\n$$ \\hat{y} = \\argmin_{c_i} R(Y=c_i | x) $$">
 <title>机器学习基础(3) —— 基于后验概率最大化准则的分类模型</title>
 
 
@@ -12,13 +12,13 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
 
 
-<link rel="stylesheet" href="/scss/style.min.1455f3807fb66fd219a4e664923dc77d57212024863d8fdd70f90266af6cae1e.css"><meta property='og:title' content="机器学习基础(3) —— 基于后验概率最大化准则的分类模型">
-<meta property='og:description' content="后验概率最大化准则 定义\n对训练样本集 $D=\\{(x_i,y_i)\\}_{i=1}^n$, 其中 $x_i \\in \\mathcal{X}$, $y_i \\in \\mathcal{Y} = \\{c_1, c_2, \\cdots, c_K\\}$, 将 $x$ 的类别预测为 $c_i$ 的 风险 为\n$$ R(Y=c_i | x) = \\sum_{j=1}^K \\lambda_{ij} P(Y=c_j | x) $$其中 $\\lambda_{ij}$ 是将属于 $c_j$ 的样本预测为 $c_i$ 的损失. 最优预测 $\\hat{y}$ 是使得风险最小的类别, 即\n">
+<link rel="stylesheet" href="/scss/style.min.4b1f1f6ca533a4691c44805212e67d1deb57fb9085315e05e24b141e60ef4e15.css"><meta property='og:title' content="机器学习基础(3) —— 基于后验概率最大化准则的分类模型">
+<meta property='og:description' content="后验概率最大化准则 定义\n对训练样本集 $D=\\{(x_i,y_i)\\}_{i=1}^n$, 其中 $x_i \\in \\mathcal{X}$, $y_i \\in \\mathcal{Y} = \\{c_1, c_2, \\cdots, c_K\\}$, 将 $x$ 的类别预测为 $c_i$ 的 风险 为\n$$ R(Y=c_i | x) = \\sum_{j=1}^K \\lambda_{ij} P(Y=c_j | x) $$其中 $\\lambda_{ij}$ 是将属于 $c_j$ 的样本预测为 $c_i$ 的损失. 最优预测 $\\hat{y}$ 是使得风险最小的类别, 即\n$$ \\hat{y} = \\argmin_{c_i} R(Y=c_i | x) $$">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning-base/bayes/'>
 <meta property='og:site_name' content='LeoDreamer'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-03-11T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-11T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="机器学习基础(3) —— 基于后验概率最大化准则的分类模型">
-<meta name="twitter:description" content="后验概率最大化准则 定义\n对训练样本集 $D=\\{(x_i,y_i)\\}_{i=1}^n$, 其中 $x_i \\in \\mathcal{X}$, $y_i \\in \\mathcal{Y} = \\{c_1, c_2, \\cdots, c_K\\}$, 将 $x$ 的类别预测为 $c_i$ 的 风险 为\n$$ R(Y=c_i | x) = \\sum_{j=1}^K \\lambda_{ij} P(Y=c_j | x) $$其中 $\\lambda_{ij}$ 是将属于 $c_j$ 的样本预测为 $c_i$ 的损失. 最优预测 $\\hat{y}$ 是使得风险最小的类别, 即\n">
+<meta name="twitter:description" content="后验概率最大化准则 定义\n对训练样本集 $D=\\{(x_i,y_i)\\}_{i=1}^n$, 其中 $x_i \\in \\mathcal{X}$, $y_i \\in \\mathcal{Y} = \\{c_1, c_2, \\cdots, c_K\\}$, 将 $x$ 的类别预测为 $c_i$ 的 风险 为\n$$ R(Y=c_i | x) = \\sum_{j=1}^K \\lambda_{ij} P(Y=c_j | x) $$其中 $\\lambda_{ij}$ 是将属于 $c_j$ 的样本预测为 $c_i$ 的损失. 最优预测 $\\hat{y}$ 是使得风险最小的类别, 即\n$$ \\hat{y} = \\argmin_{c_i} R(Y=c_i | x) $$">
     <link rel="shortcut icon" href="/img/avatar.png" />
 
     </head>

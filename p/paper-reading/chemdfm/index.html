@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="LLM 向化学的避难所">
+<title>论文阅读 - ChemDFM</title>
+
+
+<link rel="canonical" href="https://LeoDreamer2004.github.io/p/paper-reading/chemdfm/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+
+
+<link rel="stylesheet" href="/scss/style.min.4b1f1f6ca533a4691c44805212e67d1deb57fb9085315e05e24b141e60ef4e15.css"><meta property='og:title' content="论文阅读 - ChemDFM">
+<meta property='og:description' content="LLM 向化学的避难所">
+<meta property='og:url' content='https://LeoDreamer2004.github.io/p/paper-reading/chemdfm/'>
+<meta property='og:site_name' content='LeoDreamer'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='AI4Science' /><meta property='article:tag' content='Chemistry' /><meta property='article:tag' content='LLM' /><meta property='article:published_time' content='2026-10-08T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-10-08T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="论文阅读 - ChemDFM">
+<meta name="twitter:description" content="LLM 向化学的避难所">
+    <link rel="shortcut icon" href="/img/avatar.png" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        <figure class="site-avatar">
+                <a href="/">
+                    <img src="/img/avatar.png" 
+                        width="150"
+                        height="150"
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+                    <span class="emoji">💫</span>
+                
+            </figure>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">LeoDreamer</a></h1>
+            <h2 class="site-description">PKU 不优秀本科毕业生</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/503370537'
+                        
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-bilibili"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6z" /><path d="M8 3l2 3" /><path d="M16 3l-2 3" /><path d="M9 13v-2" /><path d="M15 11v2" /></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/LeoDreamer2004'
+                        
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>存档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>相关链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+
+    <section class="widget related-materials">
+
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">相关资料</h2>
+
+        <div class="widget--related-materials">
+             <ol>
+    
+    <li>
+        <a href="https://doi.org/10.1016/j.xcrp.2025.102523" id="related-material-1" name="ChemDFM" target="_blank" rel="noopener noreferrer">
+            Developing ChemDFM as a large language foundation model for chemistry
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://doi.org/10.1007/s11432-024-4243-0" id="related-material-2" name="ChemDFM-X" target="_blank" rel="noopener noreferrer">
+            ChemDFM-X: Towards Large Multimodal Model for Chemistry
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://arxiv.org/abs/2507.21990v4" id="related-material-3" name="ChemDFM-R" target="_blank" rel="noopener noreferrer">
+            ChemDFM-R: A Chemical Reasoning LLM Enhanced with Atomized Chemical Knowledge
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/OpenDFM/ChemDFM" id="related-material-4" name="ChemDFM-Code" target="_blank" rel="noopener noreferrer">
+            ChemDFM 官方代码与模型入口
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/OpenDFM/ChemDFM-X" id="related-material-5" name="ChemDFM-X-Code" target="_blank" rel="noopener noreferrer">
+            ChemDFM-X 官方代码
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://github.com/OpenDFM/ChemFG-Tool" id="related-material-6" name="ChemFG-Tool" target="_blank" rel="noopener noreferrer">
+            ChemFG-Tool: 官能团识别与定位工具
+        </a>
+    </li>
+    
+</ol>
+        </div>
+    </section>
+
+            
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav class="toc-nav" id="TableOfContents">
+                
+  <ol>
+    <li><a href="#chemdfm">ChemDFM</a>
+      <ol>
+        <li><a href="#两阶段训练">两阶段训练</a></li>
+        <li><a href="#实验说明了什么">实验说明了什么</a></li>
+      </ol>
+    </li>
+    <li><a href="#chemdfm-x">ChemDFM-X</a>
+      <ol>
+        <li><a href="#结构信息与表征信息">结构信息与表征信息</a></li>
+        <li><a href="#多个编码头联合">多个编码头联合</a></li>
+        <li><a href="#数据构造">数据构造</a></li>
+        <li><a href="#实验结果">实验结果</a></li>
+      </ol>
+    </li>
+    <li><a href="#chemdfm-r">ChemDFM-R</a>
+      <ol>
+        <li><a href="#chemfg-训练集">ChemFG 训练集</a></li>
+        <li><a href="#四阶段训练">四阶段训练</a></li>
+      </ol>
+    </li>
+  </ol>
+
+            </nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/%E8%AE%BA%E6%96%87/" style="background-color: #aa2b2c; color: #fff;">
+                论文
+            </a>
+        
+            
+            
+            
+            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" style="background-color: #2a9d8f; color: #fff;">
+                计算机
+            </a>
+        
+            
+            
+            
+            <a href="/categories/%E6%9D%90%E6%96%99%E5%AD%A6/" style="background-color: #496a5a; color: #fff;">
+                材料学
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/paper-reading/chemdfm/">论文阅读 - ChemDFM</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            LLM 向化学的避难所
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                    <time class="article-time--published" datetime='2026-10-08T00:00:00Z'>2026年10月8日星期四</time>
+                
+
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                    <time class="article-time--reading">
+                        阅读时长: 6 分钟
+                    </time>
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+
+</header>
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span>目录</span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ol>
+    <li><a href="#chemdfm">ChemDFM</a>
+      <ol>
+        <li><a href="#两阶段训练">两阶段训练</a></li>
+        <li><a href="#实验说明了什么">实验说明了什么</a></li>
+      </ol>
+    </li>
+    <li><a href="#chemdfm-x">ChemDFM-X</a>
+      <ol>
+        <li><a href="#结构信息与表征信息">结构信息与表征信息</a></li>
+        <li><a href="#多个编码头联合">多个编码头联合</a></li>
+        <li><a href="#数据构造">数据构造</a></li>
+        <li><a href="#实验结果">实验结果</a></li>
+      </ol>
+    </li>
+    <li><a href="#chemdfm-r">ChemDFM-R</a>
+      <ol>
+        <li><a href="#chemfg-训练集">ChemFG 训练集</a></li>
+        <li><a href="#四阶段训练">四阶段训练</a></li>
+      </ol>
+    </li>
+  </ol>
+
+            </nav>
+        </details>
+    </aside>
+    
+
+    <section class="article-content">
+    
+    
+    <p>ChemDFM 系列来自上海交通大学与苏州实验室等团队, 目标是让同一个模型理解化学知识、处理多种任务, 并通过对话参与科研.</p>
+<div class="table-wrapper"><table>
+	<thead>
+			<tr>
+					<th>工作</th>
+					<th>主要问题</th>
+					<th>模型基础</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>ChemDFM</td>
+					<td>通用 LLM 认识化学名词, 却不熟悉分子表示与化学任务</td>
+					<td>LLaMA-13B</td>
+			</tr>
+			<tr>
+					<td>ChemDFM-X</td>
+					<td>实验信息还存在于图、三维结构、图片和光谱中</td>
+					<td>冻结的 ChemDFM-13B</td>
+			</tr>
+			<tr>
+					<td>ChemDFM-R</td>
+					<td>会输出化学答案, 仍可能缺少有依据的中间推理</td>
+					<td>Qwen2.5-14B</td>
+			</tr>
+	</tbody>
+</table></div>
+<p>这里的 X 和 R 是两条能力扩展路线. X 直接接在 ChemDFM 上; R 则更换为 Qwen2.5-14B 基座, 并没有在 X 的多模态架构上继续训练.</p>
+<h2 id="chemdfm">ChemDFM
+</h2><p><a class="link cite-ChemDFM">[<span class="material-index"></span>]
+    <span class="material-name">Unknown-material</span> 
+</a> 关注一个很实际的问题: 单任务模型通常需要固定输入和专门训练, 化学研究者却会不断切换任务, 追问解释, 修改条件. 作者希望保留通用语言模型的对话能力, 同时补上它对化学知识和分子表示的理解.</p>
+<h3 id="两阶段训练">两阶段训练
+</h3><p>对 LLM 而言, 化学必须把一段字符串对应到具体分子的结构, 再联系到性质和反应. ChemDFM 选择 SMILES 作为主要分子表示, 因为它既能编码结构, 又可以直接进入文本模型.</p>
+<p><img alt="ChemDFM" class="gallery-image" data-flex-basis="624px" data-flex-grow="260" height="395" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/chemdfm/chemdfm-training.png" srcset="/p/paper-reading/chemdfm/chemdfm-training_hu_d8efcf07dce8bd8c.png 800w, /p/paper-reading/chemdfm/chemdfm-training.png 1027w" width="1027"></p>
+<p><strong>第一阶段是领域预训练.</strong> 以 LLaMA-13B 为起点, 继续学习约 34B token 的化学文献以及约 1,400 本教材. 正文 §2.1 给出的文献规模约为 390 万篇, 时间截止到 2022 年 1 月前; 教材提供基础原则, 论文提供更细的研究知识. 训练还混入百科、代码等通用语料, 保留语言能力.</p>
+<p><strong>第二阶段是指令微调.</strong> 作者将约 270 万条领域相关指令整理成统一对话格式, 让模型学会按要求调用知识. 原论文 Table 1 的主要组成如下:</p>
+<div class="table-wrapper"><table>
+	<thead>
+			<tr>
+					<th>指令类型</th>
+					<th style="text-align: right">样本量</th>
+					<th>希望学到什么</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>数据集问答与考试问答</td>
+					<td style="text-align: right">131K + 915K</td>
+					<td>理解问题, 回答科学知识与化学题目</td>
+			</tr>
+			<tr>
+					<td>Molecule Description</td>
+					<td style="text-align: right">576K</td>
+					<td>从 SMILES 生成分子描述</td>
+			</tr>
+			<tr>
+					<td>Text-Based Molecule Design</td>
+					<td style="text-align: right">576K</td>
+					<td>从文字描述生成相应分子的 SMILES</td>
+			</tr>
+			<tr>
+					<td>Molecular Property Prediction</td>
+					<td style="text-align: right">102K</td>
+					<td>将结构与性质标签联系起来</td>
+			</tr>
+			<tr>
+					<td>Reaction Completion</td>
+					<td style="text-align: right">300K</td>
+					<td>补全被遮住的反应物、试剂或产物</td>
+			</tr>
+			<tr>
+					<td>Molecular Notation Alignment</td>
+					<td style="text-align: right">120K</td>
+					<td>在 SMILES、IUPAC 名称和分子式间转换</td>
+			</tr>
+	</tbody>
+</table></div>
+<p>分子描述及其反向任务主要来自 PubChem, 性质预测来自 MoleculeNet, 反应补全来自 USPTO 专利反应数据库. 每个任务的指令又被改写成 20–200 种表达, 避免模型只认识固定模板. 此外, 化学数据与通用指令按约 $1:2$ 混合进行全参数微调; 表中的约 270 万条不能直接当作混合后全部训练样本数.</p>
+<p>这套方法最有启发性的地方是 <strong>双向连接自然语言与分子表示</strong>: 一边做“分子 → 描述”, 一边做“描述 → 分子”, 再加入性质和反应任务. 模型需要在这些任务之间共享化学知识.</p>
+<h3 id="实验说明了什么">实验说明了什么
+</h3><p>主要评测来自 ChemLLMBench <a class="link ref-ChemLLMBench"></a>, 涵盖分子识别、文字条件分子设计、性质预测和反应分析. 论文的标准设置对不少任务抽取 100 个测试样本, 部分任务另有完整测试集评估, 读数字时需要区分.</p>
+<p>对于我关心的 <strong>文字条件分子生成</strong>, 更值得看附录 Table 7 的完整 ChEBI-20 测试集:</p>
+<div class="table-wrapper"><table>
+	<thead>
+			<tr>
+					<th>模型</th>
+					<th style="text-align: right">Exact Match (%)</th>
+					<th style="text-align: right">SMILES 有效率 (%)</th>
+					<th style="text-align: right">Morgan 指纹相似度</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>MolXPT <a class="link ref-MolXPT"></a></td>
+					<td style="text-align: right">21.5</td>
+					<td style="text-align: right">98.3</td>
+					<td style="text-align: right">0.667</td>
+			</tr>
+			<tr>
+					<td>Text+Chem T5 <a class="link ref-Text-Chem-T5"></a></td>
+					<td style="text-align: right">32.2</td>
+					<td style="text-align: right">94.3</td>
+					<td style="text-align: right">0.757</td>
+			</tr>
+			<tr>
+					<td>ChemDFM-13B</td>
+					<td style="text-align: right">43.2</td>
+					<td style="text-align: right">97.6</td>
+					<td style="text-align: right">0.759</td>
+			</tr>
+	</tbody>
+</table></div>
+<p>这说明模型学到了较好的“描述—结构”对应关系. 但该任务要求恢复与文字描述对应的参考分子, 没有直接验证新分子的合成可行性、目标性质改善或跨化学空间迁移.</p>
+<p>优势也不均匀: 五个性质分类任务的平均 AUC-ROC 为 77.7, 高于当时比较的通用 LLM, 仍低于 Uni-Mol 的 82.2 和 MolXPT 的 83.8; 逆合成与命名转换同样保留了明显提升空间. 因而这篇的主要价值是把多种化学任务和自由对话整合进同一个模型.</p>
+<h2 id="chemdfm-x">ChemDFM-X
+</h2><p><a class="link cite-ChemDFM-X">[<span class="material-index"></span>]
+    <span class="material-name">Unknown-material</span> 
+</a> 考虑的是已经能读 SMILES 的模型, 能否进一步直接读取研究者手里的结构图和实验表征, 也就是说其引入了几个新模态.</p>
+<h3 id="结构信息与表征信息">结构信息与表征信息
+</h3><p>论文在文本、SMILES 之外新增五类输入: <strong>二维分子图、三维构象、分子/反应图片、串联质谱 MS2、红外光谱 IR</strong>.</p>
+<div class="math-block"><p class="math-title">几个模态的含义</p>
+<ul>
+<li><strong>二维分子图</strong>用节点表示原子、边表示化学键.</li>
+<li><strong>三维构象</strong>进一步给出原子空间坐标, 同一连接结构可以有不同构象.</li>
+<li><strong>MS2 (MS/MS, 串联质谱)</strong> 通常选取前体离子, 使其碎裂, 再测量碎片离子的质荷比 $m/z$ 与相对强度. 峰的位置和组合提供分子组成、片段与连接方式的线索.</li>
+<li><strong>IR (红外光谱)</strong> 反映分子振动对红外光的吸收, 常以波数 $\mathrm{cm^{-1}}$ 为横轴. 不同化学键和官能团有不同吸收特征, 但单条谱线通常不能唯一确定完整结构.</li>
+</ul>
+</div>
+<h3 id="多个编码头联合">多个编码头联合
+</h3><p><img alt="ChemDFM-X" class="gallery-image" data-flex-basis="432px" data-flex-grow="180" height="564" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/chemdfm/chemdfm-x-architecture.png" srcset="/p/paper-reading/chemdfm/chemdfm-x-architecture_hu_4d80b3f4fb21b239.png 800w, /p/paper-reading/chemdfm/chemdfm-x-architecture.png 1016w" width="1016"></p>
+<p>每种模态先经专用编码器提取特征, 再投影到 ChemDFM 的输入嵌入空间. 可以将这一接口写成</p>
+$$
+\mathbf Z_m=P_m(E_m(x_m)),\qquad
+p(y\mid q,\{x_m\})=\prod_t p_\theta(y_t\mid q,\{\mathbf Z_m\},y_{\lt t}).
+$$<p>其中 $m$ 表示模态, $E_m$ 为编码器, $P_m$ 为投影模块, $q$ 为文字指令. 输出仍由语言模型生成, 包括文字和 SMILES.</p>
+<div class="table-wrapper"><table>
+	<thead>
+			<tr>
+					<th>模态</th>
+					<th>编码器与连接方式</th>
+					<th>设计要点</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>二维图</td>
+					<td>Mole-BERT <a class="link ref-Mole-BERT"></a> + 两层 MLP</td>
+					<td>保留逐原子的节点特征, token 数随原子数变化</td>
+			</tr>
+			<tr>
+					<td>三维构象</td>
+					<td>Uni-Mol <a class="link ref-Uni-Mol"></a> + 两层 MLP</td>
+					<td>编码元素与空间结构, 支持同一输入中的多个分子</td>
+			</tr>
+			<tr>
+					<td>图片</td>
+					<td>CLIP <a class="link ref-CLIP"></a> 图像编码器 + H-Reducer <a class="link ref-H-Reducer"></a></td>
+					<td>高分辨率图片切块, 再将视觉序列压缩 8 倍</td>
+			</tr>
+			<tr>
+					<td>MS2</td>
+					<td>专门训练的 Sequence Transformer + 两层 MLP</td>
+					<td>将稀疏谱峰序列编码, token 数随峰数变化</td>
+			</tr>
+			<tr>
+					<td>IR</td>
+					<td>专门训练的 Sequence Transformer + 两层 MLP</td>
+					<td>将稠密吸收强度序列重排编码, 输出 50 个模态 token</td>
+			</tr>
+	</tbody>
+</table></div>
+<p>训练时 <strong>冻结 ChemDFM, 更新模态编码器与投影模块</strong>. 这样可以保留已有的语言和 SMILES 能力, 让新增模块学习如何把信息送进这个接口. 图片分支另设 H-Reducer, 因为直接缩小复杂反应图会丢失键、原子标签等细节.</p>
+<h3 id="数据构造">数据构造
+</h3><p>化学多模态数据的困难在于配对成本, 尤其是像 MS2 和 IR 这类光谱数据获取成本较高. 作者以种子 SMILES 为出发点, 构造跨模态指令数据:</p>
+<ol>
+<li><strong>二维图</strong>由 SMILES 解析得到.</li>
+<li><strong>三维构象</strong>先用 RDKit 生成, 再用 MMFF 分子力场 <a class="link ref-MMFF"></a> 优化, 得到近似构象.</li>
+<li><strong>图片</strong>由 RDKit、Indigo 和伪手写图生成流程产生, 并加入颜色等增强.</li>
+<li><strong>MS2</strong>通过 CFM-ID 4.0 <a class="link ref-CFM-ID"></a> 预测; 约 70 万条模拟谱用于相关谱编码器训练数据构造.</li>
+<li><strong>IR</strong>通过 Chemprop-IR <a class="link ref-Chemprop-IR"></a> 预测; 相应光谱规模约为 100 万条.</li>
+</ol>
+<h3 id="实验结果">实验结果
+</h3><p>论文的结构任务显示, 多一个模态未必显著提高性质预测. 不过值得一提的是 <strong>反应上下文与光谱的互补</strong>. 原论文 Table 11 中, 单靠 MS2 或 IR 识别分子的 Top-1 准确率分别只有 0% 和 1%; 给出反应的已知部分后, 再加入未知物质的 IR 谱, 两项任务分别达到 64% 和 60%.</p>
+<h2 id="chemdfm-r">ChemDFM-R
+</h2><p><a class="link cite-ChemDFM-R">[<span class="material-index"></span>]
+    <span class="material-name">Unknown-material</span> 
+</a> 认为, 从结构直接预测性质或反应结果, 缺少了化学家经常使用的一层中间知识, 即分子中的官能团, 以及由此带来的可能反应位置和反应前后局部结构变化.</p>
+<h3 id="chemfg-训练集">ChemFG 训练集
+</h3><p><img alt="ChemFG 数据构造与 ChemDFM-R 四阶段训练" class="gallery-image" data-flex-basis="516px" data-flex-grow="215" height="555" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/chemdfm/chemdfm-r-overview.png" srcset="/p/paper-reading/chemdfm/chemdfm-r-overview_hu_e0e2964e950829b0.png 800w, /p/paper-reading/chemdfm/chemdfm-r-overview.png 1195w" width="1195"></p>
+<p>作者在 thermo 的子结构匹配工具上构建 <strong>ChemFG-Tool</strong>, 将可识别官能团从 83 类扩展到 241 类, 并处理重叠和复合官能团. 对分子, 工具输出官能团类别及其位置; 对反应, 先利用 atom mapping 对齐反应前后的原子, 找出发生键变化的反应中心, 再标注与中心相关的官能团变化. 环的形成、断裂及官能团之外的键变化也单独记录.最终 <strong>ChemFG</strong> 包含约 <strong>101B token</strong>, 来源包括约 1,200 万篇文献、3,000 万个分子和 700 万条反应记录.</p>
+<h3 id="四阶段训练">四阶段训练
+</h3><ul>
+<li><strong>领域预训练.</strong> 从 Qwen2.5-14B 出发, 在 ChemFG 上做 next-token prediction, 同时混入通用语料. 让模型先学会分子、官能团、性质和反应之间的对应关系.</li>
+<li><strong>指令微调.</strong> 整合命名转换、文献问答、性质排序、反应补全等 16 类任务, 并丰富指令表达. 得到中间模型 <strong>ChemDFM-I</strong>.</li>
+<li><strong>混合来源蒸馏.</strong> 直接向通用推理模型索要化学 CoT 并不可靠, 因为教师也可能错误识别官能团, 再围绕错误结构写出流畅解释. 作者将化学部分的训练数据分为原指令微调数据、伪推理数据和教师推理链三组. 构造教师推理链时, 教师接收到问题、标准答案和官能团信息, 然后据此再生成解释. 这让教师将精力放在串联已知化学事实, 降低从错误结构出发推理的概率.</li>
+<li><strong>强化学习.</strong> 从可验证答案的任务中构造训练样本, 使用 DAPO <a class="link ref-DAPO"></a> 优化模型. 奖励由格式和答案正确性组成.</li>
+</ul>
+
+
+    
+<div class="article-references">
+    <h4>参考文献</h4>
+    <ul class="reference-list">
+        
+        <li>
+            <span id="reference-1" name="Mole-BERT" data-author="Xia et al., 2023">
+                Xia, J., Zhao, C., Hu, B., Gao, Z., Tan, C., Liu, Y., Li, S., and Li, S. Z. Mole-BERT: Rethinking Pre-Training Graph Neural Networks for Molecules. International Conference on Learning Representations, 2023.
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-2" name="Uni-Mol" data-author="Zhou et al., 2023">
+                Zhou, G., Gao, Z., Ding, Q., Zheng, H., Xu, H., Wei, Z., Zhang, L., and Ke, G. Uni-Mol: A Universal 3D Molecular Representation Learning Framework. International Conference on Learning Representations, 2023.
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-3" name="CFM-ID" data-author="Wang et al., 2021">
+                Wang, F., Liigand, J., Tian, S., Arndt, D., Greiner, R., and Wishart, D. S. CFM-ID 4.0: More Accurate ESI-MS/MS Spectral Prediction and Compound Identification. Analytical Chemistry, 93(34):11692–11700, 2021.
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-4" name="Chemprop-IR" data-author="McGill et al., 2021">
+                McGill, C., Forsuelo, M., Guan, Y., and Green, W. H. Predicting Infrared Spectra with Message Passing Neural Networks. Journal of Chemical Information and Modeling, 61(6):2594–2609, 2021.
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-5" name="H-Reducer" data-author="Hu et al., 2024">
+                Hu, A., Xu, H., Ye, J., Yan, M., Zhang, L., Zhang, B., Li, C., Zhang, J., Jin, Q., Huang, F., et al. mPLUG-DocOwl 1.5: Unified Structure Learning for OCR-free Document Understanding. arXiv:2403.12895, 2024.
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-6" name="ChemLLMBench" data-author="Guo et al., 2023">
+                Guo, T., Guo, K., Nan, B., Liang, Z., Guo, Z., Chawla, N. V., Wiest, O., and Zhang, X. What Can Large Language Models Do in Chemistry? A Comprehensive Benchmark on Eight Tasks. Advances in Neural Information Processing Systems, Datasets and Benchmarks Track, 2023.
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-7" name="DAPO" data-author="Yu et al., 2025">
+                Yu, Q., Zhang, Z., Zhu, R., Yuan, Y., Zuo, X., Yue, Y., Dai, W., Fan, T., Liu, G., Liu, L., et al. DAPO: An Open-Source LLM Reinforcement Learning System at Scale. arXiv:2503.14476, 2025.
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-8" name="SciKnowEval" data-author="Feng et al., 2024">
+                Feng, K., Ding, K., Wang, W., Zhuang, X., Wang, Z., Qin, M., Zhao, Y., Yao, J., Zhang, Q., and Chen, H. SciKnowEval: Evaluating Multi-Level Scientific Knowledge of Large Language Models. arXiv:2406.09098, 2024.
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-9" name="ChemEval" data-author="Huang et al., 2024">
+                Huang, Y., Zhang, R., He, X., Zhi, X., Wang, H., Li, X., Xu, F., Liu, D., Liang, H., Li, Y., et al. ChemEval: A Comprehensive Multi-Level Chemical Evaluation for Large Language Models. arXiv:2409.13989, 2024.
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-10" name="MolXPT" data-author="Liu et al., 2023">
+                Liu, Z., Zhang, W., Xia, Y., Wu, L., Xie, S., Qin, T., Zhang, M., and Liu, T.-Y. MolXPT: Wrapping Molecules with Text for Generative Pre-training. Proceedings of ACL, Volume 2: Short Papers, pp. 1606–1616, 2023.
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-11" name="Text-Chem-T5" data-author="Christofidellis et al., 2023">
+                Christofidellis, D., Giannone, G., Born, J., Winther, O., Laino, T., and Manica, M. Unifying Molecular and Textual Representations via Multi-task Language Modelling. International Conference on Machine Learning, 2023.
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-12" name="CLIP" data-author="Radford et al., 2021">
+                Radford, A., Kim, J. W., Hallacy, C., Ramesh, A., Goh, G., Agarwal, S., Sastry, G., Askell, A., Mishkin, P., Clark, J., Krueger, G., and Sutskever, I. Learning Transferable Visual Models From Natural Language Supervision. International Conference on Machine Learning, 2021.
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-13" name="MMFF" data-author="Halgren, 1996">
+                Halgren, T. A. Merck Molecular Force Field. I. Basis, Form, Scope, Parameterization, and Performance of MMFF94. Journal of Computational Chemistry, 17(5–6):490–519, 1996.
+            </span>
+        </li>
+        
+    </ul>
+</div>
+
+</section>
+
+
+    <footer class="article-meta article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/ai4science/">AI4Science</a>
+        
+            <a href="/tags/chemistry/">Chemistry</a>
+        
+            <a href="/tags/llm/">LLM</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright inline-meta">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>本文遵循 CC BY-NC-SA 4.0 协议</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const elementsToRender = [".main-article", ".widget--toc"];
+
+        elementsToRender.forEach(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                renderMathInElement(element, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false },
+                        { left: "\\(", right: "\\)", display: false },
+                        { left: "\\[", right: "\\]", display: true }
+                    ],
+                    ignoredClasses: ["gist"]
+                });
+            }
+        });
+    });
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside>
+    <h2 class="section-title">相关文章</h2>
+    <div class="subsection-list">
+        <div class="article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/paper-reading/ai4materials/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - AI4Materials</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/paper-reading/agentic-rl-overview/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - 智能体强化学习总览</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="has-image">
+    <a href="/p/paper-reading/recursive-self-improvement/">
+        
+        <div class="article-image">
+            <img alt="Featured image of post 论文阅读 - 递归自我改进" height="150" loading="lazy" src="/p/paper-reading/recursive-self-improvement/cover_hu_236adb064cc6f1a.png" srcset="/p/paper-reading/recursive-self-improvement/cover_hu_236adb064cc6f1a.png 1x, /p/paper-reading/recursive-self-improvement/cover_hu_d17d85c03ff42734.png 2x" width="250">
+
+        </div>
+        
+
+        <div class="article-details"style="background: linear-gradient(0deg, #cda88d80 0%, #2e231fC0 100%);">
+            <h2 class="article-title">论文阅读 - 递归自我改进</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="has-image">
+    <a href="/p/paper-reading/asynchronous-inference/">
+        
+        <div class="article-image">
+            <img alt="Featured image of post 论文阅读 - 异步推理" height="150" loading="lazy" src="/p/paper-reading/asynchronous-inference/cover_hu_5ca67a6db97374dc.png" srcset="/p/paper-reading/asynchronous-inference/cover_hu_5ca67a6db97374dc.png 1x, /p/paper-reading/asynchronous-inference/cover_hu_5d275a99b209ab24.png 2x" width="250">
+
+        </div>
+        
+
+        <div class="article-details"style="background: linear-gradient(0deg, #45a7c480 0%, #122134C0 100%);">
+            <h2 class="article-title">论文阅读 - 异步推理</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="has-image">
+    <a href="/p/paper-reading/prompt-engineering/">
+        
+        <div class="article-image">
+            <img alt="Featured image of post 论文阅读 - 提示词工程" height="150" loading="lazy" src="/p/paper-reading/prompt-engineering/cover_hu_48d4bf8cc1236e22.png" srcset="/p/paper-reading/prompt-engineering/cover_hu_48d4bf8cc1236e22.png 1x, /p/paper-reading/prompt-engineering/cover_hu_53b2d014240d05d1.png 2x" width="250">
+
+        </div>
+        
+
+        <div class="article-details"style="background: linear-gradient(0deg, #d8d9da80 0%, #222223C0 100%);">
+            <h2 class="article-title">论文阅读 - 提示词工程</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2025 - 
+        
+        2026 LeoDreamer
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+
+    
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.043d659a2679f7cfce18735147f0d7319c2b048d39d76c3116d56fb22b880be9.js" defer></script>
+
+
+    </body>
+</html>
