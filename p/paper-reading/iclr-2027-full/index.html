@@ -1,0 +1,1622 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="论文满分只是在本次 ICLR 的结果, 不能代表其获得 Oral, 也不能证明其内容含金量">
+<title>论文阅读 - ICLR2027 满分论文</title>
+
+
+<link rel="canonical" href="https://LeoDreamer2004.github.io/p/paper-reading/iclr-2027-full/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+
+
+<link rel="stylesheet" href="/scss/style.min.4b1f1f6ca533a4691c44805212e67d1deb57fb9085315e05e24b141e60ef4e15.css"><meta property='og:title' content="论文阅读 - ICLR2027 满分论文">
+<meta property='og:description' content="论文满分只是在本次 ICLR 的结果, 不能代表其获得 Oral, 也不能证明其内容含金量">
+<meta property='og:url' content='https://LeoDreamer2004.github.io/p/paper-reading/iclr-2027-full/'>
+<meta property='og:site_name' content='LeoDreamer'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='ICLR' /><meta property='article:published_time' content='2026-11-21T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-11-21T00:00:00&#43;00:00'/><meta property='og:image' content='https://media.iclr.cc/Conferences/ICLR2027/iclr-2027-hero-image.jpg' />
+<meta name="twitter:title" content="论文阅读 - ICLR2027 满分论文">
+<meta name="twitter:description" content="论文满分只是在本次 ICLR 的结果, 不能代表其获得 Oral, 也不能证明其内容含金量"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://media.iclr.cc/Conferences/ICLR2027/iclr-2027-hero-image.jpg' />
+    <link rel="shortcut icon" href="/img/avatar.png" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        <figure class="site-avatar">
+                <a href="/">
+                    <img src="/img/avatar.png" 
+                        width="150"
+                        height="150"
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+                    <span class="emoji">💫</span>
+                
+            </figure>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">LeoDreamer</a></h1>
+            <h2 class="site-description">PKU 不优秀博士生</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/503370537'
+                        
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-bilibili"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6z" /><path d="M8 3l2 3" /><path d="M16 3l-2 3" /><path d="M9 13v-2" /><path d="M15 11v2" /></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/LeoDreamer2004'
+                        
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>存档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>相关链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+
+    <section class="widget related-materials">
+
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">相关资料</h2>
+
+        <div class="widget--related-materials">
+             <ol>
+    
+    <li>
+        <a href="https://arxiv.org/abs/2609.37725v1" id="related-material-1" name="CLM" target="_blank" rel="noopener noreferrer">
+            Context Language Models
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://arxiv.org/abs/2607.26004v1" id="related-material-2" name="PDD" target="_blank" rel="noopener noreferrer">
+            Parallel Decoding Distillation for Fast Image and Video Generation
+        </a>
+    </li>
+    
+    <li>
+        <a href="https://arxiv.org/abs/2607.28609v2" id="related-material-3" name="OSReward" target="_blank" rel="noopener noreferrer">
+            OSReward: Instituting Standardized Evaluation for Cross-Platform Computer-Use Reward Models
+        </a>
+    </li>
+    
+</ol>
+        </div>
+    </section>
+
+            
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav class="toc-nav" id="TableOfContents">
+                
+  <ol>
+    <li><a href="#context-language-models">Context Language Models</a>
+      <ol>
+        <li><a href="#历史管理">历史管理</a></li>
+        <li><a href="#contextbench">ContextBench</a></li>
+        <li><a href="#可编辑上下文">可编辑上下文</a></li>
+        <li><a href="#上下文量化">上下文量化</a></li>
+        <li><a href="#training-free-管理策略">training-free 管理策略</a></li>
+        <li><a href="#强化学习管理">强化学习管理</a></li>
+        <li><a href="#suffix-cache-reuse">Suffix Cache Reuse</a></li>
+        <li><a href="#实验">实验</a></li>
+      </ol>
+    </li>
+    <li><a href="#parallel-decoding-distillation">Parallel Decoding Distillation</a>
+      <ol>
+        <li><a href="#为什么要蒸馏轨迹">为什么要蒸馏轨迹</a></li>
+        <li><a href="#从瞬时速度到区间平均速度">从瞬时速度到区间平均速度</a></li>
+        <li><a href="#一次前向如何预测多个步骤">一次前向如何预测多个步骤</a></li>
+        <li><a href="#在学生状态上构造训练目标">在学生状态上构造训练目标</a></li>
+        <li><a href="#零损失为什么对应教师轨迹">零损失为什么对应教师轨迹</a></li>
+        <li><a href="#无数据训练与可变步数">无数据训练与可变步数</a></li>
+        <li><a href="#多头结构为何不增加推理主干开销">多头结构为何不增加推理主干开销</a></li>
+        <li><a href="#与-flow-mappi-flow-的关系">与 Flow Map、Pi-Flow 的关系</a></li>
+        <li><a href="#实验-1">实验</a></li>
+        <li><a href="#核心理解">核心理解</a></li>
+      </ol>
+    </li>
+    <li><a href="#osreward">OSReward</a>
+      <ol>
+        <li><a href="#gui-执行评估">GUI 执行评估</a></li>
+        <li><a href="#构建人工-gold-label">构建人工 gold label</a></li>
+        <li><a href="#hard--multi-子集">Hard &amp; Multi 子集</a></li>
+        <li><a href="#评估协议">评估协议</a></li>
+        <li><a href="#os-shepherd-100k">OS-Shepherd-100K</a></li>
+        <li><a href="#模型微调">模型微调</a></li>
+        <li><a href="#训练结果与跨基准泛化">训练结果与跨基准泛化</a></li>
+      </ol>
+    </li>
+  </ol>
+
+            </nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+    <div class="article-image">
+        <a href="/p/paper-reading/iclr-2027-full/">
+            <img alt="Featured image of post 论文阅读 - ICLR2027 满分论文" height="386" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://media.iclr.cc/Conferences/ICLR2027/iclr-2027-hero-image.jpg" srcset="/iclr-2027-hero-image_17150541479410201285_hu_9be9aa702bb2a73c.jpg 800w, https://media.iclr.cc/Conferences/ICLR2027/iclr-2027-hero-image.jpg 1000w" width="1000">
+        </a>
+    </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/%E8%AE%BA%E6%96%87/" style="background-color: #aa2b2c; color: #fff;">
+                论文
+            </a>
+        
+            
+            
+            
+            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" style="background-color: #2a9d8f; color: #fff;">
+                计算机
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/paper-reading/iclr-2027-full/">论文阅读 - ICLR2027 满分论文</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            论文满分只是在本次 ICLR 的结果, 不能代表其获得 Oral, 也不能证明其内容含金量
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                    <time class="article-time--published" datetime='2026-11-21T00:00:00Z'>2026年11月21日星期六</time>
+                
+
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                    <time class="article-time--reading">
+                        阅读时长: 18 分钟
+                    </time>
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+
+</header>
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span>目录</span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ol>
+    <li><a href="#context-language-models">Context Language Models</a>
+      <ol>
+        <li><a href="#历史管理">历史管理</a></li>
+        <li><a href="#contextbench">ContextBench</a></li>
+        <li><a href="#可编辑上下文">可编辑上下文</a></li>
+        <li><a href="#上下文量化">上下文量化</a></li>
+        <li><a href="#training-free-管理策略">training-free 管理策略</a></li>
+        <li><a href="#强化学习管理">强化学习管理</a></li>
+        <li><a href="#suffix-cache-reuse">Suffix Cache Reuse</a></li>
+        <li><a href="#实验">实验</a></li>
+      </ol>
+    </li>
+    <li><a href="#parallel-decoding-distillation">Parallel Decoding Distillation</a>
+      <ol>
+        <li><a href="#为什么要蒸馏轨迹">为什么要蒸馏轨迹</a></li>
+        <li><a href="#从瞬时速度到区间平均速度">从瞬时速度到区间平均速度</a></li>
+        <li><a href="#一次前向如何预测多个步骤">一次前向如何预测多个步骤</a></li>
+        <li><a href="#在学生状态上构造训练目标">在学生状态上构造训练目标</a></li>
+        <li><a href="#零损失为什么对应教师轨迹">零损失为什么对应教师轨迹</a></li>
+        <li><a href="#无数据训练与可变步数">无数据训练与可变步数</a></li>
+        <li><a href="#多头结构为何不增加推理主干开销">多头结构为何不增加推理主干开销</a></li>
+        <li><a href="#与-flow-mappi-flow-的关系">与 Flow Map、Pi-Flow 的关系</a></li>
+        <li><a href="#实验-1">实验</a></li>
+        <li><a href="#核心理解">核心理解</a></li>
+      </ol>
+    </li>
+    <li><a href="#osreward">OSReward</a>
+      <ol>
+        <li><a href="#gui-执行评估">GUI 执行评估</a></li>
+        <li><a href="#构建人工-gold-label">构建人工 gold label</a></li>
+        <li><a href="#hard--multi-子集">Hard &amp; Multi 子集</a></li>
+        <li><a href="#评估协议">评估协议</a></li>
+        <li><a href="#os-shepherd-100k">OS-Shepherd-100K</a></li>
+        <li><a href="#模型微调">模型微调</a></li>
+        <li><a href="#训练结果与跨基准泛化">训练结果与跨基准泛化</a></li>
+      </ol>
+    </li>
+  </ol>
+
+            </nav>
+        </details>
+    </aside>
+    
+
+    <section class="article-content">
+    
+    
+    <p>第 15 届 ICLR 于 2027 年 4 月 26 日至 30 日在美国旧金山莫斯孔中心举行.</p>
+<h2 id="context-language-models">Context Language Models
+</h2><p><a class="link cite-CLM">[<span class="material-index"></span>]
+    <span class="material-name">Unknown-material</span> 
+</a> 将上下文管理从外部 harness 的固定流程, 变成模型可以主动学习的行为. <strong>把当前上下文镜像为一个文件, 允许模型编辑, 再将修改后的内容同步为下一轮真正输入模型的上下文.</strong> 这改变了智能体的状态更新方式. 作者进一步把这一接口与技能演化、强化学习、推理缓存优化结合起来.</p>
+<h3 id="历史管理">历史管理
+</h3><p>长任务中的上下文不只是问题与回答, 还包括搜索结果、终端输出、失败尝试、当前计划和其他智能体的进展. 它们的重要性会随任务推进而变化: 原始日志可能已经过时, 某个标识符却必须逐字保留, 一个进度表则应该不断更新而不是反复追加.</p>
+<p>既有方法大致可以看成逐步放宽控制权:</p>
+<div class="table-wrapper"><table>
+	<thead>
+			<tr>
+					<th>方式</th>
+					<th>模型可以决定什么</th>
+					<th>仍由框架规定什么</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>阈值触发的摘要</td>
+					<td>摘要具体写什么</td>
+					<td>何时压缩、压缩范围及替换流程</td>
+			</tr>
+			<tr>
+					<td>Self-Compact <a class="link ref-Self-Compact"></a></td>
+					<td>何时调用压缩</td>
+					<td>压缩动作的定义与实现</td>
+			</tr>
+			<tr>
+					<td>ACM <a class="link ref-ACM"></a></td>
+					<td>何时卸载、检索等</td>
+					<td>可选上下文操作及其语义</td>
+			</tr>
+			<tr>
+					<td>CLM</td>
+					<td>何时编辑、编辑哪里、怎样组织, 乃至自己定义可复用编辑函数</td>
+					<td>文件同步、工具执行与模型服务等运行机制</td>
+			</tr>
+	</tbody>
+</table></div>
+<p><img alt="Teaser" class="gallery-image" data-flex-basis="550px" data-flex-grow="229" height="2180" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2609.37725v1/figures/CLM_Teaser_v8.png" srcset="/CLM_Teaser_v8_10980899165266787421_hu_155200b7ebe193e.png 800w, /CLM_Teaser_v8_10980899165266787421_hu_3bc6d8c6c4a1b401.png 1600w, /CLM_Teaser_v8_10980899165266787421_hu_837f5e9405cb78b3.png 2400w, https://arxiv.org/html/2609.37725v1/figures/CLM_Teaser_v8.png 5000w" width="5000"></p>
+<h3 id="contextbench">ContextBench
+</h3><p>如果只在复杂搜索或编码任务上测试, 很难区分失败来自推理能力还是信息丢失. 作者先构造 ContextBench, 尽量减少知识和推理难度, 单独测试保留、更新、卸载与检索.</p>
+<div class="table-wrapper"><table>
+	<thead>
+			<tr>
+					<th>任务</th>
+					<th>输入与操作</th>
+					<th>要考察的能力</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>Needle Retention</td>
+					<td>持续输入含关键行与大量填充文本的片段</td>
+					<td>选择性逐字保留, 不把精确信息改写丢失</td>
+			</tr>
+			<tr>
+					<td>Sudoku Sketchpad</td>
+					<td>用户逐步更新一个 $16\times16$ 棋盘</td>
+					<td>原位更新当前状态, 不保留全部历史版本</td>
+			</tr>
+			<tr>
+					<td>KV Store</td>
+					<td>批量 SET, 随后执行 24 次 GET 查询</td>
+					<td>卸载大量精确值, 按需取回</td>
+			</tr>
+			<tr>
+					<td>Log Triage</td>
+					<td>持续输入日志, 随后进行查找与计数</td>
+					<td>保存可检索日志, 将相关结果带回工作上下文</td>
+			</tr>
+	</tbody>
+</table></div>
+<p>这里的 Sudoku 是指的状态维护, 不是让模型解数独. 输入通过连续用户消息进入上下文, 框架不能在模型看到之前就替它卸载或截断. 模型处理完一次操作后, 再请求下一次输入.</p>
+<p>作者定义上下文压力为</p>
+$$
+\rho=\frac{\text{整个任务累计输入的 token 数}}{\text{上下文窗口大小}}.
+$$<p>因此 $\rho$ 可以大于 1. 在 32K 窗口下, $\rho=24$ 表示累计输入约为窗口的 24 倍.</p>
+<p><img alt="ContextBench 的四类任务及不同上下文压力下的表现, 原论文 Figure 2" class="gallery-image" data-flex-basis="447px" data-flex-grow="186" height="520" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/iclr-2027-full/clm-contextbench.png" srcset="/p/paper-reading/iclr-2027-full/clm-contextbench_hu_f1d201b1abd310f3.png 800w, /p/paper-reading/iclr-2027-full/clm-contextbench.png 970w" width="970"></p>
+<p>Figure 2 使用 GPT-5.4 与 32K 上下文限制. 摘要会丢失需要逐字保留的内容, 缺乏原位编辑的框架必须反复生成棋盘, 而能写外部文件也不等于能把已经进入上下文的冗余内容及时移除. 图中 CLM 在各压力水平上保持很高的准确率.</p>
+<h3 id="可编辑上下文">可编辑上下文
+</h3><div class="math-block math-def">
+    <p class="math-title">定义</p>
+<p>令 $c_t$ 为第 $t$ 轮上下文, $\oplus$ 表示拼接. 论文用以下递推概括普通 LM 的 append-only 更新:</p>
+$$
+c_{t+1}=c_t\oplus f_\theta^{\mathrm{LM}}(c_t).
+$$<p>CLM 将它推广为模型控制的状态转换:</p>
+$$
+c_{t+1}=f_\theta^{\mathrm{CLM}}(c_t).
+$$<p>其中 $f_\theta^{\mathrm{CLM}}$ 不仅能追加, 也能删除、替换、重排和重构上下文.</p>
+</div>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">CLM 的上下文更新流程</span></p>
+<ol>
+<li>将当前 live context 镜像为文件, 在系统提示中告诉模型其路径与使用方式.</li>
+<li>模型读取当前上下文, 决定继续执行任务还是管理上下文.</li>
+<li>若选择编辑, 通过 Bash 等通用工具修改文件, 例如删除已无关的搜索结果、原位更新进度表、将细节存档后保留索引.</li>
+<li>框架将文件修改同步到下一轮模型输入. 若没有编辑, 默认继续追加新生成内容.</li>
+<li>重复执行, 直到任务结束.</li>
+</ol>
+</div>
+<p>普通摘要器将上下文替换为一段概述, CLM 则可以保留精确数据, 单独压缩噪声, 维护结构化状态, 或者写一个函数反复执行同类编辑.</p>
+<p>在多智能体扩展中, 每个智能体对应一个同步的上下文文件. 框架将多个文件与各自的模型调用关联起来, 并可将子智能体的创建、终止映射到文件生命周期. 文件是统一的状态接口, 真正的执行调度仍由运行时完成.</p>
+<h3 id="上下文量化">上下文量化
+</h3><p>编辑上下文可能破坏 KV cache 的前缀复用. 若旧上下文为 $[A,B,C]$, 修改后为 $[A,B',C]$, 标准前缀缓存通常只能复用 $A$, 即使 $C$ 的文字没变, 也需要重新 prefill.</p>
+<p>论文使用 <strong>prefix-reuse FLOPs</strong> 统计整条轨迹的预填充、重新预填充与解码成本. 设第 $t$ 轮输入长度为 $P_t$, 可复用前缀长度为 $R_t$, 生成长度为 $G_t$, 则重新处理的输入长度为 $U_t=P_t-R_t$. 近似为</p>
+$$
+\begin{aligned}
+F_t={}&C_{\mathrm{token}}(U_t+G_t)\\
+&+C_{\mathrm{attn}}\left[
+\frac12(P_t^2-R_t^2)+G_tP_t+\frac12G_t^2
+\right].
+\end{aligned}
+$$<p>$C_{\mathrm{token}}$ 汇总每个被处理 token 的 MLP 与投影等线性运算, $C_{\mathrm{attn}}$ 表示全注意力层中一对 query-key 的相关计算成本. 前填充的注意力项来自</p>
+$$
+\sum_{j=R_t+1}^{P_t}j
+=\frac{P_t(P_t+1)-R_t(R_t+1)}2
+\approx\frac12(P_t^2-R_t^2).
+$$<p>同理, 生成阶段每个新 token 都关注既有输入和已经生成的 token, 从而得到 $G_tP_t+G_t^2/2$. 对各轮 $F_t$ 求和便得到轨迹成本. 这里忽略边界低阶项.</p>
+<p>这一口径让管理策略面临真正的取舍: <strong>编辑早期内容会立即增加重算, 但可能通过减少后续多轮输入获得更大的累计收益.</strong></p>
+<h3 id="training-free-管理策略">training-free 管理策略
+</h3><p>CLM 可以直接接受自然语言策略 $s$:</p>
+$$
+c_{t+1}=f_\theta^{\mathrm{CLM}}(c_t;s).
+$$<p>例如“达到指定长度时压缩”“在语义子问题结束时压缩”“压缩前先备份”.</p>
+<p>进一步, 作者使用提示演化循环, 沿用 GEPA <a class="link ref-GEPA"></a> 一类通过轨迹反馈改进文本策略的思路:</p>
+$$
+s^*=\arg\max_s\mathbb E_{x\sim\mathcal D}
+\left[R\bigl(\tau(x;s)\bigr)\right].
+$$<p>其中 $\tau(x;s)$ 是任务 $x$ 在策略 $s$ 下产生的完整轨迹. 每轮在训练样本上运行当前技能, proposer 阅读成功与失败轨迹后产生候选, 在开发集比较准确率与成本, 最后冻结所选技能并在测试集评估. proposer 可以是更强的外部模型, 也可以是执行任务的模型自身.</p>
+<h3 id="强化学习管理">强化学习管理
+</h3><p>如果希望模型不依赖每次额外给出的技能文档, 就可以把策略学进权重. 上下文会被反复改写, 一条轨迹不能简单视为同一个输入前缀下不断追加的单一序列.</p>
+<p>作者采用 stepwise GRPO <a class="link ref-GRPO"></a>: 对同一个任务采样一组完整轨迹, 根据最终结果计算轨迹优势, 然后把它分配到各个模型调用的生成片段. 每段使用当时实际生效的上下文作为条件. 梯度作用于模型生成动作的概率, 这样不再使用 Bash 编辑操作.</p>
+<p>由于成功轨迹仍可能有很多无效编辑, 仅用成功与否监督太弱, 但直接奖励编辑次数或删除量又可能鼓励模型删掉重要信息. 作者因此引入 <strong>success-gated efficiency advantage</strong>, 只在成功轨迹之间比较成本.</p>
+<p>设组 $g$ 中成功轨迹的集合为 $\mathcal G_g^+$, 第 $i$ 条轨迹的 prefix-reuse FLOPs 为 $C_i$. 当至少有两条成功轨迹时, 定义</p>
+$$
+\overline C_g=\frac1{|\mathcal G_g^+|}\sum_{k\in\mathcal G_g^+}C_k,
+$$$$
+A_i^{\mathrm{eff}}=
+\begin{cases}
+\operatorname{clip}\left(\dfrac{\overline C_g-C_i}{\overline C_g},-1,1\right),
+&i\in\mathcal G_g^+,\\
+0,&i\notin\mathcal G_g^+.
+\end{cases}
+$$<p>若成功轨迹不足两条, 全组的效率优势均置为 0. 最终优势为</p>
+$$
+A_i=A_i^{\mathrm{out}}+w_{\mathrm{eff}}A_i^{\mathrm{eff}}.
+$$<p>总之鼓励减少上下文开销.</p>
+<h3 id="suffix-cache-reuse">Suffix Cache Reuse
+</h3><p>CLM 在标准缓存机制下已经可以减少累计计算, 但中间编辑后仍要重算保留的后缀. 作者在 SGLang <a class="link ref-SGLang"></a> 上实现 <strong>Suffix Cache Reuse (SCR)</strong>, 进一步复用这些旧状态.</p>
+<p><img alt="SCR" class="gallery-image" data-flex-basis="1494px" data-flex-grow="622" height="819" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2609.37725v1/figures/suffix-cache-reuse.png" srcset="/suffix-cache-reuse_18187625186065589907_hu_2b9b210a163ed3b.png 800w, /suffix-cache-reuse_18187625186065589907_hu_1e1933762575cc2a.png 1600w, /suffix-cache-reuse_18187625186065589907_hu_bdf2dcf6ef54a0dd.png 2400w, https://arxiv.org/html/2609.37725v1/figures/suffix-cache-reuse.png 5100w" width="5100"></p>
+<p>仍以 $[A,B,C]\to[A,B',C]$ 为例:</p>
+<div class="table-wrapper"><table>
+	<thead>
+			<tr>
+					<th>机制</th>
+					<th>复用</th>
+					<th>重新计算</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>标准前缀缓存</td>
+					<td>$A$</td>
+					<td>$B'$ 和 $C$</td>
+			</tr>
+			<tr>
+					<td>SCR</td>
+					<td>$A$ 以及被保留的 $C$ 的旧 KV 状态</td>
+					<td>新插入的 $B'$ 和新增 token</td>
+			</tr>
+	</tbody>
+</table></div>
+<p>具体做法是对比前后两次 prompt, 找到编辑后仍然保留的片段, 优先搬移最长的若干段缓存. 全注意力层中, 需要调整 key 的旋转位置编码, 并将搬移后的缓存放在会话私有区域, 避免污染共享前缀树. 主实验每次最多搬移 $K=6$ 段, 空间不足时退回标准重算.</p>
+<p>用 RoPE 作一个简化说明: 如果旧 key 是 $k_p=\mathcal R(p)\tilde k$, 搬到新位置 $p'$ 后, 可将其修正为</p>
+$$
+k_{p'}=\mathcal R(p')\mathcal R(p)^{-1}k_p.
+$$<p>这修正了位置, <strong>却没有重新计算 $\tilde k$ 所依赖的历史内容</strong>. 后缀 $C$ 的缓存是在看过 $B$ 的情况下生成的, 并不等于它看过 $B'$ 后的缓存, 因而 SCR 是近似复用.</p>
+<h3 id="实验">实验
+</h3><p>零样本比较先不训练模型, 将不同管理机制放到共享的基础框架中. 主要对照包括摘要、RLM、Self-Compact、ACM、Context Folding <a class="link ref-Context-Folding"></a> 和 MEM1 <a class="link ref-MEM1"></a>, 不同实验使用的对照集合有所区别.</p>
+<div class="table-wrapper"><table>
+	<thead>
+			<tr>
+					<th>实验</th>
+					<th>主要设置</th>
+					<th>CLM 与对照</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>BrowseComp-Plus</td>
+					<td>Qwen3.6-27B, 32K, 100 轮上限</td>
+					<td>CLM 准确率相对最强摘要基线提高 11.4%, prefix-reuse FLOPs 减少 21.5%</td>
+			</tr>
+			<tr>
+					<td>TerminalBench 2.1</td>
+					<td>同一模型与预算</td>
+					<td>准确率与摘要基线相当, 计算量约为其 70%</td>
+			</tr>
+			<tr>
+					<td>TBLite</td>
+					<td>同一模型与预算</td>
+					<td>73.7% 对 67.0%, 计算量约为其 91%</td>
+			</tr>
+			<tr>
+					<td>EdgeBench-10</td>
+					<td>Qwen3.6-27B, 每任务 12 小时</td>
+					<td>44.6 分 / 179 PFLOPs 对摘要的 42.3 分 / 437 PFLOPs</td>
+			</tr>
+			<tr>
+					<td>Software World</td>
+					<td>六仓库、多智能体、约 24 小时</td>
+					<td>下游测试几何平均加速比 1.044 对 1.026, 约为相同计算预算</td>
+			</tr>
+	</tbody>
+</table></div>
+<p>强化学习结果:</p>
+<div class="table-wrapper"><table>
+	<thead>
+			<tr>
+					<th>Qwen3.5-9B</th>
+					<th style="text-align: right">训练前准确率</th>
+					<th style="text-align: right">训练后准确率</th>
+					<th>PFLOPs / 问题</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>Summary</td>
+					<td style="text-align: right">34.7%</td>
+					<td style="text-align: right">42.1%</td>
+					<td>$4.01\to2.19$</td>
+			</tr>
+			<tr>
+					<td>CLM</td>
+					<td style="text-align: right">28.8%</td>
+					<td style="text-align: right">42.5%</td>
+					<td>$1.52\to1.34$</td>
+			</tr>
+	</tbody>
+</table></div>
+<p>小模型在未经训练时, CLM 的准确率反而落后于摘要框架. 训练后提高 13.7 个百分点, 同时计算量下降约 12%. 这说明提供自由编辑接口不等于已经具备良好的编辑策略, 参数学习仍然重要.</p>
+<h2 id="parallel-decoding-distillation">Parallel Decoding Distillation
+</h2><p><a class="link cite-PDD">[<span class="material-index"></span>]
+    <span class="material-name">Unknown-material</span> 
+</a> 由 Neta Shaul、Chao Liu、Arash Vahdat 和 Julius Berner 提出. <strong>一次网络前向预测连续多个去噪区间的平均速度, 用这些速度的加权和直接跨过整块区间.</strong> 训练时分别监督各个区间, 推理时又能把多个输出头融合成一个线性层. 以下依据所给 PDF 对应的 2026 年 7 月 arXiv v1.</p>
+<h3 id="为什么要蒸馏轨迹">为什么要蒸馏轨迹
+</h3><p>扩散模型和流匹配模型生成图像、视频时, 通常需要多次调用大型网络, 从噪声逐步走向样本. 视频的潜变量还包含帧维度, 每次调用的开销尤其高. 少步蒸馏希望将几十乃至上百次网络求值压缩到几次.</p>
+<p>论文将已有蒸馏思路分为两类:</p>
+<div class="table-wrapper"><table>
+	<thead>
+			<tr>
+					<th>路线</th>
+					<th>对学生的要求</th>
+					<th>主要取舍</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>轨迹蒸馏</td>
+					<td>学习教师从初始噪声到样本的演化过程</td>
+					<td>监督较直接, 但大跨度映射难学, 一些方法还需要导数计算</td>
+			</tr>
+			<tr>
+					<td>分布蒸馏</td>
+					<td>让学生生成的分布接近教师分布, 不要求相同噪声对应相同轨迹</td>
+					<td>约束更宽松, 但常引入分布得分估计、交替优化或对抗训练</td>
+			</tr>
+	</tbody>
+</table></div>
+<p>DMD2 <a class="link ref-DMD2"></a> 等分布蒸馏方法已经能生成高质量视频, 但作者观察到少步模型可能牺牲多样性与运动幅度: 不同噪声种子得到相似内容, 或生成较静态的视频. PDD 尝试仅用轨迹回归获得高质量的少步生成, 不再额外加入 VSD 或 GAN 损失.</p>
+<div class="math-block"><p class="math-title">NFE 与模式坍缩</p>
+<p><strong>NFE (Number of Function Evaluations)</strong> 是网络求值次数. 它与数值积分步数未必相等: Midpoint 每步需要两次速度场求值, 常规 classifier-free guidance 也可能在每一步分别计算有条件与无条件输出.</p>
+<p><strong>模式坍缩 (mode collapse)</strong> 指生成分布只覆盖目标分布的较少部分. 同一提示词下, 不同随机种子生成高度相似的图像或视频, 是其一种表现. 运动减少与跨样本多样性下降有关, 但二者不是同一个指标; 高质量评分也不自动意味着多样性得到保留.</p>
+</div>
+<h3 id="从瞬时速度到区间平均速度">从瞬时速度到区间平均速度
+</h3><p>论文将确定性扩散采样和流匹配统一写成 ODE:</p>
+$$
+\frac{\mathrm dX_t}{\mathrm dt}=v_t(X_t),\qquad X_0\sim p_0,\qquad t\in[0,1].
+$$<p>这里采用从噪声 $t=0$ 走向数据 $t=1$ 的约定. $X_t$ 是整张图像或整段视频的状态, 实验中通常是 VAE 潜变量, 不是某一个像素. 给定离散网格</p>
+$$
+0=t_0<t_1<\cdots<t_N=1,\qquad h_k=t_{k+1}-t_k,
+$$<p>记 $X_k:=X_{t_k}$, 定义沿 ODE 轨迹的区间平均速度</p>
+$$
+u_k(X_k)=\frac1{h_k}\int_{t_k}^{t_{k+1}}v_t(X_t)\,\mathrm dt.
+$$<p>于是精确更新可以写为</p>
+$$
+X_{k+1}=X_k+h_ku_k(X_k).
+$$<p>这与 Euler 更新的形式相似, 但 $u_k$ 是<strong>沿运动轨迹积分后的平均速度</strong>, 而不是区间起点的瞬时速度 $v_{t_k}(X_k)$. 只要平均速度准确, 这个表达式本身不产生离散误差; 实际误差来自如何近似它.</p>
+<p>论文使用两种教师目标:</p>
+$$
+\widehat u_k^{\mathrm{Euler}}(x)=v_{t_k}(x),
+$$$$
+\begin{aligned}
+x_{\mathrm{mid}}&=x+\frac{h_k}{2}v_{t_k}(x),\\
+\widehat u_k^{\mathrm{Midpoint}}(x)
+&=v_{t_k+h_k/2}(x_{\mathrm{mid}}).
+\end{aligned}
+$$<p>Midpoint 先估计区间中点状态, 再用中点速度近似区间平均速度. 它需要两次教师速度场求值, 但提供了更准确的局部监督. <strong>这里的 Euler/Midpoint 指训练时如何构造教师目标, 并不意味着学生推理还要调用教师.</strong></p>
+<h3 id="一次前向如何预测多个步骤">一次前向如何预测多个步骤
+</h3><p>给定块起点 $X_n$, 考虑后面 $L$ 个区间 $k=n,\ldots,n+L-1$. 在 ODE 解唯一的条件下, 整段轨迹已经由起点确定. 因而可以训练一个并行解码器, 直接预测这段轨迹各区间的平均速度:</p>
+$$
+\bar u_n^\theta(k\mid X_n)\approx u_k(X_k).
+$$<p>左侧所有输出都只以块起点 $X_n$ 为输入, 不需要先将 $X_k$ 送入网络再预测下一步. 这正是并行发生的位置.</p>
+<div class="math-block math-def">
+    <p class="math-title">定义</p>
+<p>令 $\bar X_n=X_n$, 学生预测诱导的块内状态为</p>
+$$
+\bar X_{k+1}=\bar X_k+h_k\bar u_n^\theta(k\mid X_n).
+$$<p>展开递推可得</p>
+$$
+\bar X_k=X_n+\sum_{j=n}^{k-1}h_j\bar u_n^\theta(j\mid X_n),
+$$<p>特别地, 整块更新为</p>
+$$
+\boxed{\bar X_{n+L}=X_n+\sum_{k=n}^{n+L-1}h_k\bar u_n^\theta(k\mid X_n).}
+$$</div>
+<p>虽然第一行看起来仍然是递推, 但右侧各速度已经由一次前向同时给出, 剩下只需加权求和或前缀和运算. 不同块之间仍然串行: 必须获得当前块终点, 才能开始下一次网络调用.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">并行解码采样, 对应原文 Algorithm 1</span></p>
+<ol>
+<li>从标准高斯采样初始状态 $x_0$, 计算各区间长度 $h_k$.</li>
+<li>对块起点 $n=0,L,2L,\ldots,N-L$:
+<ul>
+<li>调用一次 <code>student(x_n, t[n])</code>, 得到并行速度预测 <code>u</code>.</li>
+<li>取当前块的 <code>u[n:n+L]</code> 与 <code>h[n:n+L]</code>.</li>
+<li>按 $x_{n+L}=x_n+\sum_{k=n}^{n+L-1}h_ku[k]$ 更新状态, 对应伪代码中的 <code>einsum</code>.</li>
+</ul>
+</li>
+<li>返回最终状态 $x_N$.</li>
+</ol>
+</div>
+<p>当 $L$ 整除 $N$ 时, 学生需要 $N/L$ 次网络求值. 例如 $N=128,L=32$, 只需 4 次调用. 这不是同时生成 32 帧视频, 而是同时预测<strong>去噪时间轴上的 32 个区间</strong>; 每个速度本身都具有整段视频潜变量的形状.</p>
+<h3 id="在学生状态上构造训练目标">在学生状态上构造训练目标
+</h3><p>若要求每次训练都先生成完整教师轨迹, 成本仍然很高. PDD 的办法是先让学生给出块内预测, 再随机挑一个学生状态, 查询教师在那里应该怎样走.</p>
+<p><img alt="PDD 的并行速度预测与学生状态上的教师监督, 原论文 Figure 3" class="gallery-image" data-flex-basis="792px" data-flex-grow="330" height="300" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/iclr-2027-full/pdd-training.png" srcset="/p/paper-reading/iclr-2027-full/pdd-training_hu_f461b513e1f41130.png 800w, /p/paper-reading/iclr-2027-full/pdd-training.png 990w" width="990"></p>
+<p>固定块长时, 随机选起点 $n$ 和块内索引 $k$, 损失为原文式 (11):</p>
+$$
+\mathcal L_{\mathrm{PD}}(\theta)
+=\mathbb E\left[
+\left\|\bar u_n^\theta(k\mid X_n)
+-u_k\bigl(\operatorname{sg}(\bar X_k)\bigr)\right\|^2
+\right].
+$$<p>实现中将 $u_k$ 替换为前面的 Euler 或 Midpoint 近似 $\widehat u_k$. $\operatorname{sg}$ 表示停止梯度: 教师目标整体 <code>detach</code>, 不通过教师网络和 $\bar X_k$ 反向传播. 学生仍通过被抽中的速度预测及共享 backbone 接受梯度.</p>
+<p>这里的 <strong>on-policy</strong> 是指教师在学生实际预测出来的 $\bar X_k$ 上提供监督, 而非只在预先缓存的教师状态 $X_k$ 上监督. 不过, 有数据版本的块起点仍来自数据插值, 所以应区分“块内采用学生轨迹”与“整段轨迹都由学生产生”.</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">并行解码损失, 对应原文 Algorithm 2</span></p>
+<ol>
+<li>选择 $n\in\{0,L_{\min},2L_{\min},\ldots\}$, 从数据样本 $x$ 与高斯噪声 $\epsilon$ 构造 $x_n=(1-t_n)\epsilon+t_nx$.</li>
+<li>一次调用学生, 得到各输出头的预测 $u$.</li>
+<li>随机选择 $k\in\{n,\ldots,\min(n+L_{\max},N)-1\}$.</li>
+<li>用当前学生预测算出 $\bar x_k=x_n+\sum_{j=n}^{k-1}h_ju[j]$; 若 $k=n$, 此和为空, 状态就是块起点.</li>
+<li>通过 <code>runge_kutta(teacher, x_k, t[k], h[k])</code> 求教师目标 $\widehat u_k(\bar x_k)$.</li>
+<li>最小化 <code>mse_loss(u[k], u_k.detach())</code>.</li>
+</ol>
+</div>
+<p>一次损失估计只需要一次学生前向, 以及一次 Euler 或一次 Midpoint 教师步骤, 不必顺序查询块内全部 $L$ 个教师状态. 注意, 若教师速度场使用 CFG, 一次速度场求值内部还可能包含多次网络调用.</p>
+<div class="math-block"><p class="math-title">插值状态与 ODE 轨迹</p>
+<p>流匹配训练中可以用 $(1-t)X_0+tX_1$ 高效采样相应时刻的边缘分布. 这不意味着给定一对噪声和数据后, 教师 ODE 的每条真实轨迹都是连接二者的直线. PDD 的插值仅负责提供块起点; 该起点之后的教师轨迹由速度场决定, 学生也可以在块内学习弯曲的轨迹.</p>
+</div>
+<h3 id="零损失为什么对应教师轨迹">零损失为什么对应教师轨迹
+</h3><div class="math-block math-thm">
+    <p class="math-title">定理<span class="math-subtitle">PD 损失的轨迹一致性, 原文 Proposition 1</span></p>
+<p>在目标可实现、PD 损失达到零的理想条件下, 若监督使用精确区间平均速度 $u_k$, 则从相同块起点出发, 学生的块内状态与教师轨迹一致. 相应结论在训练采样分布下几乎处处成立.</p>
+<p class="math-prf">证明</p>
+<p>平方误差非负, 且每个块内索引都以正概率被采样. 零期望损失意味着</p>
+$$
+\bar u_n^{\theta^*}(k\mid X_n)=u_k(\bar X_k).
+$$<p>将其代入学生更新:</p>
+$$
+\bar X_{k+1}=\bar X_k+h_ku_k(\bar X_k).
+$$<p>起点满足 $\bar X_n=X_n$. 若归纳假设 $\bar X_k=X_k$ 成立, 则</p>
+$$
+\bar X_{k+1}=X_k+h_ku_k(X_k)=X_{k+1}.
+$$<p>因此块内状态逐一一致, 学生预测也就等于教师轨迹上的区间平均速度.</p>
+</div>
+<p>这个证明解释了为什么可以在学生状态上监督: <strong>局部更新完全正确时, 学生状态也会归纳地变成教师状态.</strong> 若实际监督是 Euler/Midpoint 近似, 零损失对应的是该数值求解器的离散轨迹, 与连续教师 ODE 之间仍有积分误差. 有限容量、非零训练损失下的误差积累, 并没有被这个命题消除.</p>
+<h3 id="无数据训练与可变步数">无数据训练与可变步数
+</h3><p>Qwen-Image、Wan2.1 和 LTX-2.3 使用无数据版本, 不再依赖真实图像或视频构造块起点. 附录 Algorithm 3 将采样与训练交替进行:</p>
+<div class="math-block math-algo">
+    <p class="math-title">算法<span class="math-subtitle">无数据训练, 对应原文 Algorithm 3</span></p>
+<ol>
+<li>保留上一轮的状态 $x_n$ 和时间索引 $n$; 走到 $N$ 后, 重置为高斯噪声和 $n=0$.</li>
+<li>与 Algorithm 2 相同, 预测块内速度、抽取 $k$, 构造学生状态并计算 PD 损失.</li>
+<li>复用本次预测推进 $L_{\min}$ 个区间:
+
+$$
+   x_{n+L_{\min}}=x_n+\sum_{j=n}^{n+L_{\min}-1}h_ju[j].
+   $$</li>
+<li>返回损失、停止梯度后的新状态及新索引, 供外层优化与下一轮调用使用.</li>
+</ol>
+</div>
+<p>这样不需要跨整条采样轨迹反向传播, 也不需要离线生成一套完整教师样本. 但 <strong>data-free 不等于没有任何数据输入</strong>: 条件生成仍使用文本提示集, 也需要预训练教师和对应 VAE. 例如 Wan 使用 ViMix-14M 的提示词, LTX 还使用包含音频描述的提示词.</p>
+<p>可变步数通过 $L_{\min}$ 与 $L_{\max}$ 控制. 训练覆盖多个起点和不同跨度内的速度输出, 推理时可以选择不同块长, 从而改变 $N/L$. 文生图和 Wan 实验支持 2、4、8 NFE, LTX 支持 4、8 NFE. 这是在固定时间网格与训练覆盖范围内切换预算, 并不是任意连续终点的无条件泛化保证.</p>
+<h3 id="多头结构为何不增加推理主干开销">多头结构为何不增加推理主干开销
+</h3><p>设教师由 backbone 与最终线性层构成:</p>
+$$
+v_t(x)=WH_t(x).
+$$<p>PDD 保留相同的 backbone 结构, 将最终线性层复制为 $N$ 个可学习输出头, 并用教师权重初始化:</p>
+$$
+\bar u_n^\theta(k\mid x_n)=W_k^\theta H_{t_n}^\theta(x_n).
+$$<p>不是复制 $N$ 个完整模型. 各头共享一次 backbone 计算, 每个头对应全局网格上的一个区间索引; backbone 与输出头都可以更新. 使用 $N$ 而非固定 $L$ 个头, 也使同一个模型能够选取不同长度的块, 不必额外输入一个终点时间.</p>
+<p><img alt="教师、训练时并行输出头与推理时融合输出头, 原论文 Figure 4" class="gallery-image" data-flex-basis="892px" data-flex-grow="372" height="250" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/iclr-2027-full/pdd-architecture.png" srcset="/p/paper-reading/iclr-2027-full/pdd-architecture_hu_abe44ce4a365d6bd.png 800w, /p/paper-reading/iclr-2027-full/pdd-architecture.png 930w" width="930"></p>
+<p>生成时只需要整块位移, 无需保留每个中间状态. 利用线性性:</p>
+$$
+\begin{aligned}
+\bar X_{n+L}
+&=X_n+\sum_{k=n}^{n+L-1}h_kW_k^\theta H_{t_n}^\theta(X_n)\\
+&=X_n+(t_{n+L}-t_n)W_{n:n+L}^\theta H_{t_n}^\theta(X_n),\\
+W_{n:n+L}^\theta
+&=\sum_{k=n}^{n+L-1}\frac{h_k}{t_{n+L}-t_n}W_k^\theta.
+\end{aligned}
+$$<p>因此可以预先按区间长度加权融合各输出头. 等距网格时是简单平均, 非等距网格则必须保留权重. 若线性层包含 bias, bias 也作同样的加权组合.</p>
+<p><strong>训练时保留多个头以监督局部速度, 推理时每块只执行一个融合头.</strong> 融合相对于已训练的多头加权和是代数上等价的; 蒸馏模型相对于教师则仍然是近似. 推理不再承担扩大输出层的计算, 但模型仍需保存对应块的融合权重, 不能将其理解为所有额外参数都消失.</p>
+<h3 id="与-flow-mappi-flow-的关系">与 Flow Map、Pi-Flow 的关系
+</h3><p>Flow map 描述的是从时刻 $t$ 的状态到时刻 $s$ 的映射. 写成平均速度形式:</p>
+$$
+\Phi_{t,s}(x)=x+(s-t)u_{t,s}(x),\qquad
+u_{t,s}(x)=\frac1{s-t}\int_t^s v_r(X_r)\,\mathrm dr.
+$$<p>MeanFlow <a class="link ref-MeanFlow"></a> 等方法直接学习区间平均速度. 附录 C 进一步将 PDD 与 Lagrangian flow map <a class="link ref-Lagrangian-Flow-Maps"></a> 联系起来: 沿正确轨迹, 位移对终点时间的导数应该等于该终点处的瞬时速度,</p>
+$$
+\frac{\partial}{\partial s}\left[(s-t)u_{t,s}(x)\right]
+=v_s\left(x+(s-t)u_{t,s}(x)\right).
+$$<p>Lagrangian 目标回归这类<strong>位移导数</strong>; PDD 则将区间拆开, 回归各小区间的<strong>积分平均速度</strong>, 再借共享 backbone 与线性头融合表示整个区间. 这绕开了显式求导或有限差分近似所需的额外计算. 将导数关系积分可以看出两者的联系, 但不能因此认为二者的平方损失或优化过程完全相同.</p>
+<div class="math-block"><p class="math-title">JVP 是什么</p>
+<p>JVP 是 Jacobian-vector product, 即 $J_f(x)v$. 它计算函数沿方向 $v$ 的变化率, 无需显式构造完整 Jacobian. 对依赖时间与状态的网络, 沿轨迹求导常产生 $\partial_t f+J_xf\,v_t$ 这样的项. JVP 虽然比完整 Jacobian 便宜, 但在大型视频网络中仍会增加计算和实现负担. PDD 只回归数值积分给出的教师目标, 不需要这类导数监督.</p>
+</div>
+<p>Pi-Flow <a class="link ref-Pi-Flow"></a> 同样利用“轨迹由起点确定”, 但通过额外的小型策略头执行区间内积分. PDD 则用多个线性头并行预测离散区间的平均速度.</p>
+<div class="table-wrapper"><table>
+	<thead>
+			<tr>
+					<th>比较项</th>
+					<th>论文讨论的连续 Flow Map 方法</th>
+					<th>Pi-Flow</th>
+					<th>PDD</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>推理步数</td>
+					<td>可变</td>
+					<td>固定</td>
+					<td>网格与训练范围内可变</td>
+			</tr>
+			<tr>
+					<td>训练中的 JVP / 有限差分</td>
+					<td>需要</td>
+					<td>不需要</td>
+					<td>不需要</td>
+			</tr>
+			<tr>
+					<td>输出结构</td>
+					<td>平均速度映射的线性输出头</td>
+					<td>Gaussian mixture 策略头</td>
+					<td>多线性头, 推理时融合</td>
+			</tr>
+			<tr>
+					<td>PDD 强调的区别</td>
+					<td>直接学习连续时间区间映射</td>
+					<td>蒸馏瞬时速度与策略积分</td>
+					<td>蒸馏数值近似的区间平均速度</td>
+			</tr>
+	</tbody>
+</table></div>
+<h3 id="实验-1">实验
+</h3><p>ImageNet 使用真实数据训练; Qwen-Image、Wan 和 LTX 使用无数据训练. 图像与视频任务通常取 Euler 网格 $N=256$、Midpoint 网格 $N=128$, 并使用非均匀时间变换. 为匹配教师求值预算, Euler 版本通常在每块抽取两个区间累积损失, 与 Midpoint 单区间的两次速度场求值比较; LTX 因成本更高, 只使用单区间 Euler 目标.</p>
+<p><strong>Qwen-Image.</strong> 下表取原文 Tables 3、4 的 4 NFE 结果, 教师作为多步参照:</p>
+<div class="table-wrapper"><table>
+	<thead>
+			<tr>
+					<th>方法</th>
+					<th style="text-align: right">NFE</th>
+					<th style="text-align: right">OneIG-EN ↑</th>
+					<th style="text-align: right">DPG-Bench ↑</th>
+					<th style="text-align: right">GenEval ↑</th>
+					<th style="text-align: right">OneIG diversity ↑</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>教师 Euler</td>
+					<td style="text-align: right">$50\times2$</td>
+					<td style="text-align: right">0.537</td>
+					<td style="text-align: right">88.30</td>
+					<td style="text-align: right">0.86</td>
+					<td style="text-align: right">0.200</td>
+			</tr>
+			<tr>
+					<td>DMD2 / Lightning-step4-v2</td>
+					<td style="text-align: right">4</td>
+					<td style="text-align: right">0.524</td>
+					<td style="text-align: right">88.25</td>
+					<td style="text-align: right">0.85</td>
+					<td style="text-align: right">0.095</td>
+			</tr>
+			<tr>
+					<td>Pi-Flow</td>
+					<td style="text-align: right">4</td>
+					<td style="text-align: right">0.533</td>
+					<td style="text-align: right">88.11</td>
+					<td style="text-align: right">0.85</td>
+					<td style="text-align: right">0.182</td>
+			</tr>
+			<tr>
+					<td>PDD-Euler</td>
+					<td style="text-align: right">4</td>
+					<td style="text-align: right">0.535</td>
+					<td style="text-align: right">88.45</td>
+					<td style="text-align: right">0.86</td>
+					<td style="text-align: right">0.192</td>
+			</tr>
+			<tr>
+					<td>PDD-Midpoint</td>
+					<td style="text-align: right">4</td>
+					<td style="text-align: right">0.538</td>
+					<td style="text-align: right">88.66</td>
+					<td style="text-align: right">0.86</td>
+					<td style="text-align: right">0.174</td>
+			</tr>
+	</tbody>
+</table></div>
+<p>Midpoint 的综合质量指标较好, 但多样性不如 PDD-Euler, 也没有完全恢复教师水平. DMD2 在 HPSv2 与 PickScore 人类偏好代理指标上仍领先 PDD. 因而更准确的结论是 PDD 改善了质量与多样性的取舍, 而不是每一项指标都最好.</p>
+<p><strong>Wan2.1.</strong> 所有下列学生均为 4 NFE. 多样性用每个提示词生成 5 个视频后的平均两两特征距离衡量; 这里只摘录 V-JEPA 2 的 cosine distance, 原文 Table 5 还报告 L2 与 VideoMAE V2 指标.</p>
+<div class="table-wrapper"><table>
+	<thead>
+			<tr>
+					<th>模型</th>
+					<th>方法</th>
+					<th style="text-align: right">VBench overall ↑</th>
+					<th style="text-align: right">Quality ↑</th>
+					<th style="text-align: right">Semantic ↑</th>
+					<th style="text-align: right">多样性 ↑</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>1.3B</td>
+					<td>DMD2</td>
+					<td style="text-align: right">84.69</td>
+					<td style="text-align: right">86.14</td>
+					<td style="text-align: right">78.87</td>
+					<td style="text-align: right">0.0833</td>
+			</tr>
+			<tr>
+					<td>1.3B</td>
+					<td>PDD-Midpoint</td>
+					<td style="text-align: right">84.94</td>
+					<td style="text-align: right">86.45</td>
+					<td style="text-align: right">78.91</td>
+					<td style="text-align: right">0.1032</td>
+			</tr>
+			<tr>
+					<td>14B</td>
+					<td>AnyFlow <a class="link ref-AnyFlow"></a></td>
+					<td style="text-align: right">84.95</td>
+					<td style="text-align: right">85.70</td>
+					<td style="text-align: right">81.92</td>
+					<td style="text-align: right">0.0786</td>
+			</tr>
+			<tr>
+					<td>14B</td>
+					<td>DMD2</td>
+					<td style="text-align: right">84.40</td>
+					<td style="text-align: right">85.16</td>
+					<td style="text-align: right">81.34</td>
+					<td style="text-align: right">0.0568</td>
+			</tr>
+			<tr>
+					<td>14B</td>
+					<td>PDD-short</td>
+					<td style="text-align: right">84.92</td>
+					<td style="text-align: right">85.71</td>
+					<td style="text-align: right">81.77</td>
+					<td style="text-align: right">0.0791</td>
+			</tr>
+			<tr>
+					<td>14B</td>
+					<td>PDD-long</td>
+					<td style="text-align: right">84.69</td>
+					<td style="text-align: right">85.69</td>
+					<td style="text-align: right">80.71</td>
+					<td style="text-align: right">0.0846</td>
+			</tr>
+	</tbody>
+</table></div>
+<p>1.3B 上 PDD 的总体质量和多样性较好; 14B 上 short checkpoint 的 VBench 总分略低于 AnyFlow. short 与 long 分别选择训练约 200 与 3,000 次迭代的 checkpoint: 后者多样性和运动幅度增加, 总分却下降. 这也说明单个综合分数未必充分反映生成视频的运动表现.</p>
+<p><strong>LTX-2.3.</strong> 作者将方法扩展到 22B 音视频模型, 分别对音频和视频潜变量计算 PD 损失再平均. 约 250 次训练迭代后, 用 8 NFE 生成约 720p、10 秒且带音频的视频; 教师参照使用 $4\times30$ NFE, 其中包含多种 guidance 的调用. 这部分主要给出与教师及官方 8 步蒸馏模型的定性对比, 不能把它当成具有完整量化评测的全面胜出结论.</p>
+<p><strong>单步极限.</strong> ImageNet-256 上, PDD-Midpoint 的 1 NFE FID 为 2.69, 好于 Pi-Flow 的 2.85, 但明显不及 FreeFlow <a class="link ref-FreeFlow"></a> 的 1.45. PDD 的优势更集中在统一支持多个 NFE 预算、训练目标简洁, 以及大规模视频上的少步质量与多样性, 而不是单步生成的所有指标.</p>
+<h3 id="核心理解">核心理解
+</h3><p>PDD 最有意思的地方是<strong>训练参数化与推理参数化可以不同</strong>: 训练时将一个大跨度平均速度拆成多个局部速度输出, 获得廉价而具体的教师监督; 推理时利用共享特征和线性性, 又将这些输出合并成一次大跨度更新.</p>
+<p>它仍然是一种近似蒸馏, 没有推理时的教师验证或接受-拒绝步骤, 因而不同于保证目标分布不变的 speculative decoding. 论文提到的自适应块长、验证器选择跨度、向离散自回归模型推广, 都是后续方向, 不是已经实现的算法组成部分. 同样, NFE 从 100 降到 4 说明网络调用预算减少, 不应直接写成端到端延迟精确加速 25 倍.</p>
+<h2 id="osreward">OSReward
+</h2><p><a class="link cite-OSReward">[<span class="material-index"></span>]
+    <span class="material-name">Unknown-material</span> 
+</a> 讨论 GUI Agent. 不过其不是研究 Agent 本身, 而是<strong>判断智能体是否完成任务的裁判</strong>. 作者先构建人工 gold 基准 OSReward, 系统比较 VLM 裁判的可靠性, 再根据暴露出的偏差构造训练数据, 得到开放奖励模型 OS-Shepherd.</p>
+<h3 id="gui-执行评估">GUI 执行评估
+</h3><p>Computer-Using Agent (CUA) 的执行轨迹包含界面截图、动作和推理记录. 评估、轨迹筛选和强化学习都需要知道这次执行是否成功. 常见的验证方式各有约束:</p>
+<div class="table-wrapper"><table>
+	<thead>
+			<tr>
+					<th>验证方式</th>
+					<th>优点</th>
+					<th>难以扩展的地方</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>人工编写 verifier</td>
+					<td>可以直接检查文件、数据库或应用状态</td>
+					<td>通常逐任务编写; 对开放式目标和无法重放的历史轨迹不适用</td>
+			</tr>
+			<tr>
+					<td>人工审阅</td>
+					<td>可以综合任务意图与完整执行过程</td>
+					<td>长轨迹昂贵, 标注者也会分歧</td>
+			</tr>
+			<tr>
+					<td>VLM-as-a-Judge</td>
+					<td>用统一输入判断不同平台和任务</td>
+					<td>可能相信智能体的成功声明, 没有核实环境证据</td>
+			</tr>
+	</tbody>
+</table></div>
+<h3 id="构建人工-gold-label">构建人工 gold label
+</h3><p>OSReward 自建 Web、Windows、Ubuntu 与 Android 环境. 桌面与移动端预置真实文件、应用数据库、账号状态及干扰内容; Web 主要使用实时网站, 另有用于登录任务的本地镜像. 执行模式同时覆盖纯 GUI 与 GUI+CLI, 最长轨迹可达 100 步.</p>
+<p><img alt="OSReward 标注" class="gallery-image" data-flex-basis="736px" data-flex-grow="306" height="662" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2607.28609v2/review-process.png" srcset="/review-process_4067486891246617734_hu_f88d12cba5b8eb17.png 800w, /review-process_4067486891246617734_hu_6d5c9376ea7288af.png 1600w, https://arxiv.org/html/2607.28609v2/review-process.png 2031w" width="2031"></p>
+<p>后续经过预过滤执行故障、三人独立标注、资深复审、困难集再验证四个步骤完成. 全流程约消耗 800 人时.</p>
+<h3 id="hard--multi-子集">Hard &amp; Multi 子集
+</h3><div class="table-wrapper"><table>
+	<thead>
+			<tr>
+					<th>集合</th>
+					<th>规模与构成</th>
+					<th>主要用途</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>OSReward</td>
+					<td>1,019 条, 440 成功 / 579 失败</td>
+					<td>跨平台的总体判断能力</td>
+			</tr>
+			<tr>
+					<td>OSReward-Hard</td>
+					<td>284 条, 约 30% 成功 / 70% 失败</td>
+					<td>诊断“看起来完成了, 实际没完成”等难例</td>
+			</tr>
+			<tr>
+					<td>OSReward-Multi</td>
+					<td>440 条成功轨迹上的附加评分</td>
+					<td>在完成任务之后, 判断意图一致性与效率</td>
+			</tr>
+	</tbody>
+</table></div>
+<p>Hard 和 Multi 都是全集的子集. Hard 主要来自人工曾有分歧并再次确认的轨迹, 还刻意提高失败比例, 因而是诊断性压力测试.</p>
+<p>失败轨迹还带有多标签错误类型:</p>
+<div class="table-wrapper"><table>
+	<thead>
+			<tr>
+					<th>错误类型</th>
+					<th>含义</th>
+					<th style="text-align: right">在失败轨迹中的占比</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>规划与推理</td>
+					<td>任务分解错误、知识缺失、提前结束、重复循环</td>
+					<td style="text-align: right">86%</td>
+			</tr>
+			<tr>
+					<td>动作</td>
+					<td>意图和目标正确, 但坐标、按键或指令执行错误</td>
+					<td style="text-align: right">34%</td>
+			</tr>
+			<tr>
+					<td>记忆</td>
+					<td>遗忘、误用或未更新先前获得的信息</td>
+					<td style="text-align: right">25%</td>
+			</tr>
+			<tr>
+					<td>感知</td>
+					<td>误读文本、漏看报错、虚构界面元素等</td>
+					<td style="text-align: right">20%</td>
+			</tr>
+	</tbody>
+</table></div>
+<h3 id="评估协议">评估协议
+</h3><p>主实验比较 27 个通用 VLM 裁判. 令真实标签 $y=1$ 表示成功, $y=0$ 表示失败, 裁判输出 $\hat y$. 称 FN 为过度拒绝, FP 为过度接受, 即 false success. 如下给出成功召回率和失败召回率:</p>
+$$
+\mathrm{sRec}=\frac{\mathrm{TP}}{\mathrm{TP}+\mathrm{FN}},\qquad
+\mathrm{fRec}=\frac{\mathrm{TN}}{\mathrm{TN}+\mathrm{FP}},
+$$<p>若每个样本都得到有效判定, 记成功比例为 $\pi$, 则</p>
+$$
+\mathrm{Acc}=\pi\,\mathrm{sRec}+(1-\pi)\,\mathrm{fRec}.
+$$<p><img alt="各个模型的召回率" class="gallery-image" data-flex-basis="398px" data-flex-grow="165" height="1092" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://arxiv.org/html/2607.28609v2/S0_combined_judge_bias_zeta.png" srcset="/S0_combined_judge_bias_zeta_10856502688504115982_hu_9e252224474d5834.png 800w, /S0_combined_judge_bias_zeta_10856502688504115982_hu_50539fb35cb9e954.png 1600w, https://arxiv.org/html/2607.28609v2/S0_combined_judge_bias_zeta.png 1812w" width="1812"></p>
+<p>经过实验, 裁判通常过于宽松. 很多模型有相似的<strong>宽松偏差 (leniency bias)</strong>: 成功样本几乎全收, 失败样本也经常放过. 例如 Qwen3-VL-30B 在 Hard 上的失败召回率只有 1.5%, 已接近“全部判成功”. GPT-5.2 则是抓住更多失败, 代价是拒绝很多真实成功.</p>
+<p>汇总误判后, 过度接受约为过度拒绝的三倍. 原文还将裁判错误细分为六类:</p>
+<h3 id="os-shepherd-100k">OS-Shepherd-100K
+</h3><p>OSReward 是人工标注的测试集, 而 OS-Shepherd-100K 是另行构建、由模型标注的训练集.</p>
+<p>训练轨迹来自自采集环境与 OpenCUA <a class="link ref-OpenCUA"></a>、OpenMobile <a class="link ref-OpenMobile"></a>、ScaleCUA <a class="link ref-ScaleCUA"></a> 等开放来源, 并使用 OS-Genesis <a class="link ref-OS-Genesis"></a> 的逆向任务合成扩展部分指令. 与基准不同, 训练时也纳入 GPT 家族执行轨迹, 以及来自 OpenCUA 的 macOS 数据; <strong>OSReward 测试集本身不覆盖 macOS</strong>.</p>
+<h3 id="模型微调">模型微调
+</h3><p>OS-Shepherd 基于 Qwen3.5-9B 与 Qwen3.5-35B-A3B, 使用相同数据和两阶段流程.</p>
+<ol>
+<li>用多个强裁判标注训练轨迹, 保留高一致性标签及与标签一致的理由.</li>
+<li>在约 96.6K 条轨迹-回答配对上做 SFT, 建立基本判断能力.</li>
+<li>重采样 SFT 裁判, 挖掘可纠正的误判, 重点覆盖被误判成功的失败轨迹.</li>
+<li>将约 3.1K 条样本分为 2.9K 训练与 0.2K 验证; 每个输入采样 8 条裁判回答, 用 GRPO 更新.</li>
+<li>根据验证表现选择最终 checkpoint, 在独立人工金标与外部基准上评价.</li>
+</ol>
+<p>奖励是将当前裁判输出与已经筛选好的共识标签比较. 记输出为 $o$, 标签为 $y^*$, 将附录的规则写成</p>
+$$
+r(o,y^*)=
+\begin{cases}
+1.0,&\text{格式正确且判决与 }y^*\text{ 一致},\\
+0.1,&\text{格式正确但判决错误},\\
+0.0,&\text{格式不符合要求}.
+\end{cases}
+$$<p><img alt="从基础模型到 SFT、SFT+RL 的严格程度变化" class="gallery-image" data-flex-basis="644px" data-flex-grow="268" height="380" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="/p/paper-reading/iclr-2027-full/osreward-debiasing.png" srcset="/p/paper-reading/iclr-2027-full/osreward-debiasing_hu_d9a7999271565ec6.png 800w, /p/paper-reading/iclr-2027-full/osreward-debiasing.png 1020w" width="1020"></p>
+<p>Figure 14 的横轴是失败召回率, 纵轴是成功召回率. 基础模型处在左上角, 倾向几乎全部接受; 训练后向右下方、接近对角线移动. 纠偏并非两类 recall 同时提高, 而是愿意拒绝更多失败, 同时付出少量或明显的成功召回损失.</p>
+<h3 id="训练结果与跨基准泛化">训练结果与跨基准泛化
+</h3><p>35B 在 Hard 上略强, 全集却没有超过 9B. 这里主要看一下其与商业模型对比:</p>
+<div class="table-wrapper"><table>
+	<thead>
+			<tr>
+					<th>裁判</th>
+					<th style="text-align: right">估算费用 / 美元</th>
+					<th style="text-align: right">全集 Acc</th>
+					<th style="text-align: right">Hard Acc</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>Claude-Opus-4-8</td>
+					<td style="text-align: right">86.04</td>
+					<td style="text-align: right">89.7%</td>
+					<td style="text-align: right">69.7%</td>
+			</tr>
+			<tr>
+					<td>GPT-5.5</td>
+					<td style="text-align: right">45.44</td>
+					<td style="text-align: right">89.5%</td>
+					<td style="text-align: right">67.3%</td>
+			</tr>
+			<tr>
+					<td>GPT-5-mini</td>
+					<td style="text-align: right">2.17</td>
+					<td style="text-align: right">86.1%</td>
+					<td style="text-align: right">56.3%</td>
+			</tr>
+			<tr>
+					<td>OS-Shepherd-9B</td>
+					<td style="text-align: right">1.36</td>
+					<td style="text-align: right">86.1%</td>
+					<td style="text-align: right">60.2%</td>
+			</tr>
+	</tbody>
+</table></div>
+<p>作者进一步在 OSWorld <a class="link ref-OSWorld"></a>、WebArena <a class="link ref-WebArena"></a> 与 AndroidWorld <a class="link ref-AndroidWorld"></a> 的匹配子集上比较裁判. 这些任务和轨迹未进入 OS-Shepherd 训练, 也不属于 OSReward 测试集. 训练后的模型在三个基准上都明显改善. OS-Shepherd-9B 的失败召回率都明显高于原模型, 表明捕捉失败的能力可以迁移.</p>
+
+
+    
+<div class="article-references">
+    <h4>参考文献</h4>
+    <ul class="reference-list">
+        
+        <li>
+            <span id="reference-1" name="RLM" data-author="Zhang et al., 2025">
+                Zhang, A. L., Kraska, T., and Khattab, O. Recursive Language Models. arXiv:2512.24601, 2025.
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-2" name="Self-Compact" data-author="Li et al., 2026">
+                Li, T., Zhang, J., Jurayj, W., Wang, X., Jin, C., Farajtabar, M., Nalisnick, E., and Khashabi, D. Self-Compacting Language Model Agents. arXiv:2606.23525, 2026.
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-3" name="ACM" data-author="Li et al., 2026">
+                Li, X., Ming, R., Chu, M., Shao, S., Jin, R., and Xiong, C. ACM: Agentic Context Management for Long Horizon Tasks. arXiv:2607.23809, 2026.
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-4" name="Context-Folding" data-author="Sun et al., 2025">
+                Sun, W., Lu, M., Ling, Z., Liu, K., Yao, X., Yang, Y., and Chen, J. Scaling Long-Horizon LLM Agent via Context-Folding. arXiv:2510.11967, 2025.
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-5" name="MEM1" data-author="Zhou et al., 2026">
+                Zhou, Z., Qu, A., Wu, Z., Kim, S., Prakash, A., Rus, D., Zhao, J., Low, B. K. H., and Liang, P. P. MEM1: Learning to Synergize Memory and Reasoning for Efficient Long-Horizon Agents. International Conference on Learning Representations, 2026.
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-6" name="GEPA" data-author="Agrawal et al., 2026">
+                Agrawal, L. A., Tan, S., Soylu, D., Ziems, N., Khare, R., Opsahl-Ong, K., Singhvi, A., Shandilya, H., Ryan, M. J., Jiang, M., et al. GEPA: Reflective Prompt Evolution Can Outperform Reinforcement Learning. International Conference on Learning Representations, 2026.
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-7" name="GRPO" data-author="Shao et al., 2024">
+                Shao, Z., Wang, P., Zhu, Q., Xu, R., Song, J., Bi, X., Zhang, H., Zhang, M., Li, Y. K., Wu, Y., et al. DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models. arXiv:2402.03300, 2024.
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-8" name="SGLang" data-author="Zheng et al., 2024">
+                Zheng, L., Yin, L., Xie, Z., Sun, C., Huang, J., Yu, C. H., Cao, S., Kozyrakis, C., Stoica, I., Gonzalez, J. E., et al. SGLang: Efficient Execution of Structured Language Model Programs. Advances in Neural Information Processing Systems, 37:62557–62583, 2024.
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-9" name="OpenEvolve" data-author="Sharma, 2025">
+                Sharma, A. OpenEvolve: An Open-Source Evolutionary Coding Agent. https://github.com/algorithmicsuperintelligence/openevolve, 2025.
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-10" name="Pi-Flow" data-author="Chen et al., 2025">
+                Chen, H., Zhang, K., Tan, H., Guibas, L., Wetzstein, G., and Bi, S. Pi-Flow: Policy-Based Few-Step Generation via Imitation Distillation. arXiv:2510.14974, 2025.
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-11" name="MeanFlow" data-author="Geng et al., 2025">
+                Geng, Z., Deng, M., Bai, X., Kolter, J. Z., and He, K. Mean Flows for One-Step Generative Modeling. arXiv:2505.13447, 2025.
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-12" name="Lagrangian-Flow-Maps" data-author="Boffi et al., 2025">
+                Boffi, N. M., Albergo, M. S., and Vanden-Eijnden, E. How to Build a Consistency Model: Learning Flow Maps via Self-Distillation. arXiv:2505.18825, 2025.
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-13" name="DMD2" data-author="Yin et al., 2024">
+                Yin, T., Gharbi, M., Park, T., Zhang, R., Shechtman, E., Durand, F., and Freeman, W. T. Improved Distribution Matching Distillation for Fast Image Synthesis. arXiv:2405.14867, 2024.
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-14" name="AnyFlow" data-author="Gu et al., 2026">
+                Gu, Y., Fang, G., Jiang, Y., Mao, W., Han, S., Cai, H., and Shou, M. Z. AnyFlow: Any-Step Video Diffusion Model with On-Policy Flow Map Distillation. arXiv:2605.13724, 2026.
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-15" name="FreeFlow" data-author="Tong et al., 2025">
+                Tong, S., Ma, N., Xie, S., and Jaakkola, T. Flow Map Distillation without Data. arXiv:2511.19428, 2025.
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-16" name="CUARewardBench" data-author="Lin et al., 2025">
+                Lin, H., Tan, X., Qin, Y., Xu, Z., Shi, Y., Li, Z., Li, G., Cai, S., Cai, S., Fu, C., Li, K., and Sun, X. CUARewardBench: A Benchmark for Evaluating Reward Models on Computer-Using Agent. arXiv:2510.18596, 2025.
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-17" name="AgentRewardBench" data-author="Lù et al., 2025">
+                Lù, X. H., Kazemnejad, A., Meade, N., Patel, A., Shin, D., Zambrano, A., Stańczak, K., Shaw, P., Pal, C. J., and Reddy, S. AgentRewardBench: Evaluating Automatic Evaluations of Web Agent Trajectories. arXiv:2504.08942, 2025.
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-18" name="OpenCUA" data-author="Wang et al., 2025">
+                Wang, X., Wang, B., Lu, D., Yang, J., Xie, T., Wang, J., Deng, J., Guo, X., Xu, Y., Wu, C. H., et al. OpenCUA: Open Foundations for Computer-Use Agents. Advances in Neural Information Processing Systems, 2025.
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-19" name="OpenMobile" data-author="Cheng et al., 2026">
+                Cheng, K., Li, Z., Ma, Z., Chen, N., Cao, J., Sun, Q., Ding, Z., Xu, F., Yan, H., Chen, J., et al. OpenMobile: Building Open Mobile Agents with Task and Trajectory Synthesis. arXiv:2604.15093, 2026.
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-20" name="ScaleCUA" data-author="Liu et al., 2026">
+                Liu, Z., Xie, J., Ding, Z., Li, Z., Yang, B., Wu, Z., Wang, X., Sun, Q., Liu, S., Wang, W., et al. ScaleCUA: Scaling Open-Source Computer Use Agents with Cross-Platform Data. International Conference on Learning Representations, 2026.
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-21" name="OS-Genesis" data-author="Sun et al., 2025">
+                Sun, Q., Cheng, K., Ding, Z., Jin, C., Wang, Y., Xu, F., Wu, Z., Jia, C., Chen, L., Liu, Z., et al. OS-Genesis: Automating GUI Agent Trajectory Construction via Reverse Task Synthesis. Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers), pp. 5555–5579, 2025.
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-22" name="OSWorld" data-author="Xie et al., 2024">
+                Xie, T., Zhang, D., Chen, J., Li, X., Zhao, S., Cao, R., Hua, T. J., Cheng, Z., Shin, D., Lei, F., Liu, Y., Xu, Y., Zhou, S., Savarese, S., Xiong, C., Zhong, V., and Yu, T. OSWorld: Benchmarking Multimodal Agents for Open-Ended Tasks in Real Computer Environments. Advances in Neural Information Processing Systems, Datasets and Benchmarks Track, 2024.
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-23" name="WebArena" data-author="Zhou et al., 2024">
+                Zhou, S., Xu, F. F., Zhu, H., Zhou, X., Lo, R., Sridhar, A., Cheng, X., Ou, T., Bisk, Y., Fried, D., Alon, U., and Neubig, G. WebArena: A Realistic Web Environment for Building Autonomous Agents. International Conference on Learning Representations, 2024.
+            </span>
+        </li>
+        
+        <li>
+            <span id="reference-24" name="AndroidWorld" data-author="Rawles et al., 2025">
+                Rawles, C., Clinckemaillie, S., Chang, Y., Waltz, J., Lau, G., Fair, M., Li, A., Bishop, W. E., Li, W., Campbell-Ajala, F., et al. AndroidWorld: A Dynamic Benchmarking Environment for Autonomous Agents. International Conference on Learning Representations, 2025.
+            </span>
+        </li>
+        
+    </ul>
+</div>
+
+</section>
+
+
+    <footer class="article-meta article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/iclr/">ICLR</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright inline-meta">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>本文遵循 CC BY-NC-SA 4.0 协议</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const elementsToRender = [".main-article", ".widget--toc"];
+
+        elementsToRender.forEach(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                renderMathInElement(element, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false },
+                        { left: "\\(", right: "\\)", display: false },
+                        { left: "\\[", right: "\\]", display: true }
+                    ],
+                    ignoredClasses: ["gist"]
+                });
+            }
+        });
+    });
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside>
+    <h2 class="section-title">相关文章</h2>
+    <div class="subsection-list">
+        <div class="article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/paper-reading/equiformer/">
+        
+        <div class="article-image">
+            <img alt="Featured image of post 论文阅读 - Equiformer" height="150" loading="lazy" src="/p/paper-reading/equiformer/cover_hu_9c5bfdb0c0291d4f.png" srcset="/p/paper-reading/equiformer/cover_hu_9c5bfdb0c0291d4f.png 1x, /p/paper-reading/equiformer/cover_hu_f8e0bf142e78c438.png 2x" width="250">
+
+        </div>
+        
+
+        <div class="article-details"style="background: linear-gradient(0deg, #bdbabf80 0%, #122234C0 100%);">
+            <h2 class="article-title">论文阅读 - Equiformer</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="has-image">
+    <a href="/p/paper-reading/chemdfm/">
+        
+        <div class="article-image">
+            <img alt="Featured image of post 论文阅读 - ChemDFM" height="150" loading="lazy" src="/p/paper-reading/chemdfm/cover_hu_c6a00d181e6df5e3.png" srcset="/p/paper-reading/chemdfm/cover_hu_c6a00d181e6df5e3.png 1x, /p/paper-reading/chemdfm/cover_hu_658e6f533c238efe.png 2x" width="250">
+
+        </div>
+        
+
+        <div class="article-details"style="background: linear-gradient(0deg, #1f2c3a80 0%, #c2cbd9C0 100%);">
+            <h2 class="article-title">论文阅读 - ChemDFM</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="has-image">
+    <a href="/p/paper-reading/recursive-self-improvement/">
+        
+        <div class="article-image">
+            <img alt="Featured image of post 论文阅读 - 递归自我改进" height="150" loading="lazy" src="/p/paper-reading/recursive-self-improvement/cover_hu_236adb064cc6f1a.png" srcset="/p/paper-reading/recursive-self-improvement/cover_hu_236adb064cc6f1a.png 1x, /p/paper-reading/recursive-self-improvement/cover_hu_d17d85c03ff42734.png 2x" width="250">
+
+        </div>
+        
+
+        <div class="article-details"style="background: linear-gradient(0deg, #cda88d80 0%, #2e231fC0 100%);">
+            <h2 class="article-title">论文阅读 - 递归自我改进</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/paper-reading/ai4materials/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">论文阅读 - AI4Materials</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="has-image">
+    <a href="/p/paper-reading/asynchronous-inference/">
+        
+        <div class="article-image">
+            <img alt="Featured image of post 论文阅读 - 异步推理" height="150" loading="lazy" src="/p/paper-reading/asynchronous-inference/cover_hu_5ca67a6db97374dc.png" srcset="/p/paper-reading/asynchronous-inference/cover_hu_5ca67a6db97374dc.png 1x, /p/paper-reading/asynchronous-inference/cover_hu_5d275a99b209ab24.png 2x" width="250">
+
+        </div>
+        
+
+        <div class="article-details"style="background: linear-gradient(0deg, #45a7c480 0%, #122134C0 100%);">
+            <h2 class="article-title">论文阅读 - 异步推理</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2025 - 
+        
+        2026 LeoDreamer
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+
+    
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.043d659a2679f7cfce18735147f0d7319c2b048d39d76c3116d56fb22b880be9.js" defer></script>
+
+
+    </body>
+</html>

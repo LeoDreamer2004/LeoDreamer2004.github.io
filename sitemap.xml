@@ -3,33 +3,51 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://LeoDreamer2004.github.io/</loc>
-    <lastmod>2026-10-08T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://LeoDreamer2004.github.io/tags/ai4science/</loc>
-    <lastmod>2026-10-08T00:00:00+00:00</lastmod>
+    <lastmod>2026-11-21T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://LeoDreamer2004.github.io/categories/</loc>
-    <lastmod>2026-10-08T00:00:00+00:00</lastmod>
+    <lastmod>2026-11-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://LeoDreamer2004.github.io/tags/iclr/</loc>
+    <lastmod>2026-11-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://LeoDreamer2004.github.io/post/</loc>
+    <lastmod>2026-11-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://LeoDreamer2004.github.io/tags/</loc>
+    <lastmod>2026-11-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://LeoDreamer2004.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/</loc>
+    <lastmod>2026-11-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://LeoDreamer2004.github.io/categories/%E8%AE%BA%E6%96%87/</loc>
+    <lastmod>2026-11-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://LeoDreamer2004.github.io/p/paper-reading/iclr-2027-full/</loc>
+    <lastmod>2026-11-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://LeoDreamer2004.github.io/tags/ai4science/</loc>
+    <lastmod>2026-10-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://LeoDreamer2004.github.io/tags/gnn/</loc>
+    <lastmod>2026-10-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://LeoDreamer2004.github.io/tags/transformer/</loc>
+    <lastmod>2026-10-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://LeoDreamer2004.github.io/categories/%E6%9D%90%E6%96%99%E5%AD%A6/</loc>
+    <lastmod>2026-10-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://LeoDreamer2004.github.io/p/paper-reading/equiformer/</loc>
+    <lastmod>2026-10-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://LeoDreamer2004.github.io/categories/%E6%95%B0%E5%AD%A6/</loc>
+    <lastmod>2026-10-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://LeoDreamer2004.github.io/tags/chemistry/</loc>
     <lastmod>2026-10-08T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://LeoDreamer2004.github.io/tags/llm/</loc>
-    <lastmod>2026-10-08T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://LeoDreamer2004.github.io/post/</loc>
-    <lastmod>2026-10-08T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://LeoDreamer2004.github.io/tags/</loc>
-    <lastmod>2026-10-08T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://LeoDreamer2004.github.io/categories/%E6%9D%90%E6%96%99%E5%AD%A6/</loc>
-    <lastmod>2026-10-08T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://LeoDreamer2004.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/</loc>
-    <lastmod>2026-10-08T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://LeoDreamer2004.github.io/categories/%E8%AE%BA%E6%96%87/</loc>
     <lastmod>2026-10-08T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://LeoDreamer2004.github.io/p/paper-reading/chemdfm/</loc>
@@ -150,9 +168,6 @@
     <lastmod>2025-05-29T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://LeoDreamer2004.github.io/p/paper-reading/test-time-reinforcement-learning/</loc>
-    <lastmod>2025-05-29T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://LeoDreamer2004.github.io/categories/%E6%95%B0%E5%AD%A6/</loc>
     <lastmod>2025-05-29T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://LeoDreamer2004.github.io/p/machine-learning-base/vc-nu/</loc>

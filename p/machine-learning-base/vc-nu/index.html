@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="VC 维 定义\n设 $\\mathcal{H}$ 是从 $X$ 到 $\\{0, 1\\}$ 的函数类, $C = \\{c_1, \\ldots, c_m\\} \\subset X$. $\\mathcal{H}$ 在 $C$ 上的 限制 是可以从 $\\mathcal{H}$ 生成的从 $C$ 到 $\\{0, 1\\}$ 的函数集, 即:\n$$\\mathcal{H}_C = \\{(h(c_1), \\ldots, h(c_m)) : h \\in \\mathcal{H}\\}$$其中我们将每个从 $C$ 到 $\\{0, 1\\}$ 的函数表示为一个 $\\{0,1\\}^{|C|}$ 向量.\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="VC 维 定义\n设 $\\mathcal{H}$ 是从 $X$ 到 $\\{0, 1\\}$ 的函数类, $C = \\{c_1, \\ldots, c_m\\} \\subset X$. $\\mathcal{H}$ 在 $C$ 上的 限制 是可以从 $\\mathcal{H}$ 生成的从 $C$ 到 $\\{0, 1\\}$ 的函数集, 即:\n$$\\mathcal{H}_C = \\{(h(c_1), \\ldots, h(c_m)) : h \\in \\mathcal{H}\\}$$ 其中我们将每个从 $C$ 到 $\\{0, 1\\}$ 的函数表示为一个 $\\{0,1\\}^{|C|}$ 向量.\n">
 <title>机器学习基础(12) —— VC 维与非一致可学习</title>
 
 
@@ -13,12 +13,12 @@
 
 
 <link rel="stylesheet" href="/scss/style.min.4b1f1f6ca533a4691c44805212e67d1deb57fb9085315e05e24b141e60ef4e15.css"><meta property='og:title' content="机器学习基础(12) —— VC 维与非一致可学习">
-<meta property='og:description' content="VC 维 定义\n设 $\\mathcal{H}$ 是从 $X$ 到 $\\{0, 1\\}$ 的函数类, $C = \\{c_1, \\ldots, c_m\\} \\subset X$. $\\mathcal{H}$ 在 $C$ 上的 限制 是可以从 $\\mathcal{H}$ 生成的从 $C$ 到 $\\{0, 1\\}$ 的函数集, 即:\n$$\\mathcal{H}_C = \\{(h(c_1), \\ldots, h(c_m)) : h \\in \\mathcal{H}\\}$$其中我们将每个从 $C$ 到 $\\{0, 1\\}$ 的函数表示为一个 $\\{0,1\\}^{|C|}$ 向量.\n">
+<meta property='og:description' content="VC 维 定义\n设 $\\mathcal{H}$ 是从 $X$ 到 $\\{0, 1\\}$ 的函数类, $C = \\{c_1, \\ldots, c_m\\} \\subset X$. $\\mathcal{H}$ 在 $C$ 上的 限制 是可以从 $\\mathcal{H}$ 生成的从 $C$ 到 $\\{0, 1\\}$ 的函数集, 即:\n$$\\mathcal{H}_C = \\{(h(c_1), \\ldots, h(c_m)) : h \\in \\mathcal{H}\\}$$ 其中我们将每个从 $C$ 到 $\\{0, 1\\}$ 的函数表示为一个 $\\{0,1\\}^{|C|}$ 向量.\n">
 <meta property='og:url' content='https://LeoDreamer2004.github.io/p/machine-learning-base/vc-nu/'>
 <meta property='og:site_name' content='LeoDreamer'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-05-23T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-05-23T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="机器学习基础(12) —— VC 维与非一致可学习">
-<meta name="twitter:description" content="VC 维 定义\n设 $\\mathcal{H}$ 是从 $X$ 到 $\\{0, 1\\}$ 的函数类, $C = \\{c_1, \\ldots, c_m\\} \\subset X$. $\\mathcal{H}$ 在 $C$ 上的 限制 是可以从 $\\mathcal{H}$ 生成的从 $C$ 到 $\\{0, 1\\}$ 的函数集, 即:\n$$\\mathcal{H}_C = \\{(h(c_1), \\ldots, h(c_m)) : h \\in \\mathcal{H}\\}$$其中我们将每个从 $C$ 到 $\\{0, 1\\}$ 的函数表示为一个 $\\{0,1\\}^{|C|}$ 向量.\n">
+<meta name="twitter:description" content="VC 维 定义\n设 $\\mathcal{H}$ 是从 $X$ 到 $\\{0, 1\\}$ 的函数类, $C = \\{c_1, \\ldots, c_m\\} \\subset X$. $\\mathcal{H}$ 在 $C$ 上的 限制 是可以从 $\\mathcal{H}$ 生成的从 $C$ 到 $\\{0, 1\\}$ 的函数集, 即:\n$$\\mathcal{H}_C = \\{(h(c_1), \\ldots, h(c_m)) : h \\in \\mathcal{H}\\}$$ 其中我们将每个从 $C$ 到 $\\{0, 1\\}$ 的函数表示为一个 $\\{0,1\\}^{|C|}$ 向量.\n">
     <link rel="shortcut icon" href="/img/avatar.png" />
 
     </head>
@@ -72,7 +72,7 @@
         
         <div class="site-meta">
             <h1 class="site-name"><a href="/">LeoDreamer</a></h1>
-            <h2 class="site-description">PKU 不优秀本科毕业生</h2>
+            <h2 class="site-description">PKU 不优秀博士生</h2>
         </div>
     </header><ol class="menu-social">
             
